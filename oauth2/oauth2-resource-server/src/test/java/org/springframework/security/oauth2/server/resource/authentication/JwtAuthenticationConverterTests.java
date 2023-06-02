@@ -48,21 +48,21 @@ public class JwtAuthenticationConverterTests {
 		AbstractAuthenticationToken authentication = this.jwtAuthenticationConverter.convert(jwt);
 		Collection<GrantedAuthority> authorities = authentication.getAuthorities();
 		assertThat(authorities).containsExactly(new SimpleGrantedAuthority("SCOPE_message:read"),
-				new SimpleGrantedAuthority("SCOPE_message:write"));
+	new SimpleGrantedAuthority("SCOPE_message:write"));
 	}
 
 	@Test
 	public void whenSettingNullGrantedAuthoritiesConverter() {
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> this.jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(null))
-				.withMessage("jwtGrantedAuthoritiesConverter cannot be null");
+	.isThrownBy(() -> this.jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(null))
+	.withMessage("jwtGrantedAuthoritiesConverter cannot be null");
 	}
 
 	@Test
 	public void convertWithOverriddenGrantedAuthoritiesConverter() {
 		Jwt jwt = TestJwts.jwt().claim("scope", "message:read message:write").build();
 		Converter<Jwt, Collection<GrantedAuthority>> grantedAuthoritiesConverter = (token) -> Arrays
-				.asList(new SimpleGrantedAuthority("blah"));
+	.asList(new SimpleGrantedAuthority("blah"));
 		this.jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(grantedAuthoritiesConverter);
 		AbstractAuthenticationToken authentication = this.jwtAuthenticationConverter.convert(jwt);
 		Collection<GrantedAuthority> authorities = authentication.getAuthorities();
@@ -73,8 +73,8 @@ public class JwtAuthenticationConverterTests {
 	public void whenSettingNullPrincipalClaimName() {
 		// @formatter:off
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> this.jwtAuthenticationConverter.setPrincipalClaimName(null))
-				.withMessage("principalClaimName cannot be empty");
+	.isThrownBy(() -> this.jwtAuthenticationConverter.setPrincipalClaimName(null))
+	.withMessage("principalClaimName cannot be empty");
 		// @formatter:on
 	}
 
@@ -82,8 +82,8 @@ public class JwtAuthenticationConverterTests {
 	public void whenSettingEmptyPrincipalClaimName() {
 		// @formatter:off
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> this.jwtAuthenticationConverter.setPrincipalClaimName(""))
-				.withMessage("principalClaimName cannot be empty");
+	.isThrownBy(() -> this.jwtAuthenticationConverter.setPrincipalClaimName(""))
+	.withMessage("principalClaimName cannot be empty");
 		// @formatter:on
 	}
 
@@ -91,8 +91,8 @@ public class JwtAuthenticationConverterTests {
 	public void whenSettingBlankPrincipalClaimName() {
 		// @formatter:off
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> this.jwtAuthenticationConverter.setPrincipalClaimName(" "))
-				.withMessage("principalClaimName cannot be empty");
+	.isThrownBy(() -> this.jwtAuthenticationConverter.setPrincipalClaimName(" "))
+	.withMessage("principalClaimName cannot be empty");
 		// @formatter:on
 	}
 

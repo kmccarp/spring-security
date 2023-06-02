@@ -41,6 +41,6 @@ public interface RoleHierarchy {
 	 * @return List of all reachable authorities given the assigned authorities.
 	 */
 	Collection<? extends GrantedAuthority> getReachableGrantedAuthorities(
-			Collection<? extends GrantedAuthority> authorities);
+Collection<? extends GrantedAuthority> authorities);
 
 }

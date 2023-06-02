@@ -43,7 +43,7 @@ final class OAuth2ClientConfigurerUtils {
 
 	static <B extends HttpSecurityBuilder<B>> ClientRegistrationRepository getClientRegistrationRepository(B builder) {
 		ClientRegistrationRepository clientRegistrationRepository = builder
-				.getSharedObject(ClientRegistrationRepository.class);
+	.getSharedObject(ClientRegistrationRepository.class);
 		if (clientRegistrationRepository == null) {
 			clientRegistrationRepository = getClientRegistrationRepositoryBean(builder);
 			builder.setSharedObject(ClientRegistrationRepository.class, clientRegistrationRepository);
@@ -52,19 +52,19 @@ final class OAuth2ClientConfigurerUtils {
 	}
 
 	private static <B extends HttpSecurityBuilder<B>> ClientRegistrationRepository getClientRegistrationRepositoryBean(
-			B builder) {
+B builder) {
 		return builder.getSharedObject(ApplicationContext.class).getBean(ClientRegistrationRepository.class);
 	}
 
 	static <B extends HttpSecurityBuilder<B>> OAuth2AuthorizedClientRepository getAuthorizedClientRepository(
-			B builder) {
+B builder) {
 		OAuth2AuthorizedClientRepository authorizedClientRepository = builder
-				.getSharedObject(OAuth2AuthorizedClientRepository.class);
+	.getSharedObject(OAuth2AuthorizedClientRepository.class);
 		if (authorizedClientRepository == null) {
 			authorizedClientRepository = getAuthorizedClientRepositoryBean(builder);
 			if (authorizedClientRepository == null) {
 				authorizedClientRepository = new AuthenticatedPrincipalOAuth2AuthorizedClientRepository(
-						getAuthorizedClientService((builder)));
+			getAuthorizedClientService((builder)));
 			}
 			builder.setSharedObject(OAuth2AuthorizedClientRepository.class, authorizedClientRepository);
 		}
@@ -72,42 +72,42 @@ final class OAuth2ClientConfigurerUtils {
 	}
 
 	private static <B extends HttpSecurityBuilder<B>> OAuth2AuthorizedClientRepository getAuthorizedClientRepositoryBean(
-			B builder) {
+B builder) {
 		Map<String, OAuth2AuthorizedClientRepository> authorizedClientRepositoryMap = BeanFactoryUtils
-				.beansOfTypeIncludingAncestors(builder.getSharedObject(ApplicationContext.class),
-						OAuth2AuthorizedClientRepository.class);
+	.beansOfTypeIncludingAncestors(builder.getSharedObject(ApplicationContext.class),
+OAuth2AuthorizedClientRepository.class);
 		if (authorizedClientRepositoryMap.size() > 1) {
 			throw new NoUniqueBeanDefinitionException(OAuth2AuthorizedClientRepository.class,
-					authorizedClientRepositoryMap.size(),
-					"Expected single matching bean of type '" + OAuth2AuthorizedClientRepository.class.getName()
-							+ "' but found " + authorizedClientRepositoryMap.size() + ": "
-							+ StringUtils.collectionToCommaDelimitedString(authorizedClientRepositoryMap.keySet()));
+		authorizedClientRepositoryMap.size(),
+		"Expected single matching bean of type '" + OAuth2AuthorizedClientRepository.class.getName()
+	+ "' but found " + authorizedClientRepositoryMap.size() + ": "
+	+ StringUtils.collectionToCommaDelimitedString(authorizedClientRepositoryMap.keySet()));
 		}
 		return (!authorizedClientRepositoryMap.isEmpty() ? authorizedClientRepositoryMap.values().iterator().next()
-				: null);
+	: null);
 	}
 
 	private static <B extends HttpSecurityBuilder<B>> OAuth2AuthorizedClientService getAuthorizedClientService(
-			B builder) {
+B builder) {
 		OAuth2AuthorizedClientService authorizedClientService = getAuthorizedClientServiceBean(builder);
 		if (authorizedClientService == null) {
 			authorizedClientService = new InMemoryOAuth2AuthorizedClientService(
-					getClientRegistrationRepository(builder));
+		getClientRegistrationRepository(builder));
 		}
 		return authorizedClientService;
 	}
 
 	private static <B extends HttpSecurityBuilder<B>> OAuth2AuthorizedClientService getAuthorizedClientServiceBean(
-			B builder) {
+B builder) {
 		Map<String, OAuth2AuthorizedClientService> authorizedClientServiceMap = BeanFactoryUtils
-				.beansOfTypeIncludingAncestors(builder.getSharedObject(ApplicationContext.class),
-						OAuth2AuthorizedClientService.class);
+	.beansOfTypeIncludingAncestors(builder.getSharedObject(ApplicationContext.class),
+OAuth2AuthorizedClientService.class);
 		if (authorizedClientServiceMap.size() > 1) {
 			throw new NoUniqueBeanDefinitionException(OAuth2AuthorizedClientService.class,
-					authorizedClientServiceMap.size(),
-					"Expected single matching bean of type '" + OAuth2AuthorizedClientService.class.getName()
-							+ "' but found " + authorizedClientServiceMap.size() + ": "
-							+ StringUtils.collectionToCommaDelimitedString(authorizedClientServiceMap.keySet()));
+		authorizedClientServiceMap.size(),
+		"Expected single matching bean of type '" + OAuth2AuthorizedClientService.class.getName()
+	+ "' but found " + authorizedClientServiceMap.size() + ": "
+	+ StringUtils.collectionToCommaDelimitedString(authorizedClientServiceMap.keySet()));
 		}
 		return (!authorizedClientServiceMap.isEmpty() ? authorizedClientServiceMap.values().iterator().next() : null);
 	}

@@ -42,7 +42,7 @@ public class AuthenticationEntryPointFailureHandlerTests {
 		AuthenticationEntryPoint entryPoint = mock(AuthenticationEntryPoint.class);
 		AuthenticationEntryPointFailureHandler handler = new AuthenticationEntryPointFailureHandler(entryPoint);
 		assertThatExceptionOfType(AuthenticationServiceException.class).isThrownBy(
-				() -> handler.onAuthenticationFailure(null, null, new AuthenticationServiceException("fail")));
+	() -> handler.onAuthenticationFailure(null, null, new AuthenticationServiceException("fail")));
 	}
 
 }

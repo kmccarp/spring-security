@@ -47,11 +47,11 @@ public class LdapAuthenticationProviderConfigurerTests {
 
 	@Test
 	public void authenticationManagerSupportMultipleDefaultLdapContextsWithPortsDynamicallyAllocated()
-			throws Exception {
+throws Exception {
 		this.spring.register(MultiLdapAuthenticationProvidersConfig.class).autowire();
 
 		this.mockMvc.perform(formLogin().user("bob").password("bobspassword"))
-				.andExpect(authenticated().withUsername("bob"));
+	.andExpect(authenticated().withUsername("bob"));
 	}
 
 	@Test
@@ -60,11 +60,11 @@ public class LdapAuthenticationProviderConfigurerTests {
 
 		// @formatter:off
 		SecurityMockMvcRequestBuilders.FormLoginRequestBuilder request = formLogin()
-				.user("bob")
-				.password("bobspassword");
+	.user("bob")
+	.password("bobspassword");
 		SecurityMockMvcResultMatchers.AuthenticatedMatcher expectedUser = authenticated()
-				.withUsername("bob")
-				.withAuthorities(Collections.singleton(new SimpleGrantedAuthority("ROLE_DEVELOPERS")));
+	.withUsername("bob")
+	.withAuthorities(Collections.singleton(new SimpleGrantedAuthority("ROLE_DEVELOPERS")));
 		// @formatter:on
 		this.mockMvc.perform(request).andExpect(expectedUser);
 	}
@@ -75,11 +75,11 @@ public class LdapAuthenticationProviderConfigurerTests {
 
 		// @formatter:off
 		SecurityMockMvcRequestBuilders.FormLoginRequestBuilder request = formLogin()
-				.user("bob")
-				.password("bobspassword");
+	.user("bob")
+	.password("bobspassword");
 		SecurityMockMvcResultMatchers.AuthenticatedMatcher expectedUser = authenticated()
-				.withUsername("bob")
-				.withAuthorities(Collections.singleton(new SimpleGrantedAuthority("ROL_DEVELOPERS")));
+	.withUsername("bob")
+	.withAuthorities(Collections.singleton(new SimpleGrantedAuthority("ROL_DEVELOPERS")));
 		// @formatter:on
 		this.mockMvc.perform(request).andExpect(expectedUser);
 	}
@@ -90,10 +90,10 @@ public class LdapAuthenticationProviderConfigurerTests {
 
 		// @formatter:off
 		SecurityMockMvcRequestBuilders.FormLoginRequestBuilder request = formLogin()
-				.user("bob")
-				.password("bobspassword");
+	.user("bob")
+	.password("bobspassword");
 		SecurityMockMvcResultMatchers.AuthenticatedMatcher expectedUser = authenticated()
-				.withUsername("bob");
+	.withUsername("bob");
 		// @formatter:on
 		this.mockMvc.perform(request).andExpect(expectedUser);
 	}
@@ -104,12 +104,12 @@ public class LdapAuthenticationProviderConfigurerTests {
 
 		// @formatter:off
 		SecurityMockMvcRequestBuilders.FormLoginRequestBuilder request = formLogin()
-				.user("otherben")
-				.password("otherbenspassword");
+	.user("otherben")
+	.password("otherbenspassword");
 		SecurityMockMvcResultMatchers.AuthenticatedMatcher expectedUser = authenticated()
-				.withUsername("otherben")
-				.withAuthorities(
-						AuthorityUtils.createAuthorityList("ROLE_SUBMANAGERS", "ROLE_MANAGERS", "ROLE_DEVELOPERS"));
+	.withUsername("otherben")
+	.withAuthorities(
+AuthorityUtils.createAuthorityList("ROLE_SUBMANAGERS", "ROLE_MANAGERS", "ROLE_DEVELOPERS"));
 		// @formatter:on
 		this.mockMvc.perform(request).andExpect(expectedUser);
 	}
@@ -122,15 +122,15 @@ public class LdapAuthenticationProviderConfigurerTests {
 		void configure(AuthenticationManagerBuilder auth) throws Exception {
 			// @formatter:off
 			auth
-				.ldapAuthentication()
-					.groupSearchBase("ou=groups")
-					.groupSearchFilter("(member={0})")
-					.userDnPatterns("uid={0},ou=people")
-					.and()
-				.ldapAuthentication()
-					.groupSearchBase("ou=groups")
-					.groupSearchFilter("(member={0})")
-					.userDnPatterns("uid={0},ou=people");
+		.ldapAuthentication()
+		.groupSearchBase("ou=groups")
+		.groupSearchFilter("(member={0})")
+		.userDnPatterns("uid={0},ou=people")
+		.and()
+		.ldapAuthentication()
+		.groupSearchBase("ou=groups")
+		.groupSearchFilter("(member={0})")
+		.userDnPatterns("uid={0},ou=people");
 			// @formatter:on
 		}
 
@@ -144,17 +144,17 @@ public class LdapAuthenticationProviderConfigurerTests {
 		void configure(AuthenticationManagerBuilder auth) throws Exception {
 			// @formatter:off
 			auth
-				.ldapAuthentication()
-					.groupSearchBase("ou=groups")
-					.groupSearchFilter("(member={0})")
-					.userDnPatterns("uid={0},ou=people")
-					.rolePrefix("ROL_")
-					.and()
-				.ldapAuthentication()
-					.groupSearchBase("ou=groups")
-					.groupSearchFilter("(member={0})")
-					.userDnPatterns("uid={0},ou=people")
-					.rolePrefix("RUOLO_");
+		.ldapAuthentication()
+		.groupSearchBase("ou=groups")
+		.groupSearchFilter("(member={0})")
+		.userDnPatterns("uid={0},ou=people")
+		.rolePrefix("ROL_")
+		.and()
+		.ldapAuthentication()
+		.groupSearchBase("ou=groups")
+		.groupSearchFilter("(member={0})")
+		.userDnPatterns("uid={0},ou=people")
+		.rolePrefix("RUOLO_");
 			// @formatter:on
 		}
 
@@ -168,12 +168,12 @@ public class LdapAuthenticationProviderConfigurerTests {
 		void configure(AuthenticationManagerBuilder auth) throws Exception {
 			// @formatter:off
 			auth
-				.ldapAuthentication()
-					.groupSearchBase("ou=groups")
-					.groupSearchFilter("(member={0})")
-					.userDnPatterns("uid={0},ou=people")
-					.contextSource()
-					.port(0);
+		.ldapAuthentication()
+		.groupSearchBase("ou=groups")
+		.groupSearchFilter("(member={0})")
+		.userDnPatterns("uid={0},ou=people")
+		.contextSource()
+		.port(0);
 			// @formatter:on
 		}
 
@@ -187,11 +187,11 @@ public class LdapAuthenticationProviderConfigurerTests {
 		void configure(AuthenticationManagerBuilder auth) throws Exception {
 			// @formatter:off
 			auth
-				.ldapAuthentication()
-					.groupSearchBase("ou=groups")
-					.groupSearchFilter("(member={0})")
-					.groupSearchSubtree(true)
-					.userDnPatterns("uid={0},ou=people");
+		.ldapAuthentication()
+		.groupSearchBase("ou=groups")
+		.groupSearchFilter("(member={0})")
+		.groupSearchSubtree(true)
+		.userDnPatterns("uid={0},ou=people");
 			// @formatter:on
 		}
 

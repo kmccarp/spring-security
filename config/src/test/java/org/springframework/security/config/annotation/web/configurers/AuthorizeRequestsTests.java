@@ -153,9 +153,9 @@ public class AuthorizeRequestsTests {
 		loadConfig(RoleHiearchyConfig.class);
 		SecurityContext securityContext = new SecurityContextImpl();
 		securityContext.setAuthentication(UsernamePasswordAuthenticationToken.authenticated("test", "notused",
-				AuthorityUtils.createAuthorityList("ROLE_USER")));
+	AuthorityUtils.createAuthorityList("ROLE_USER")));
 		this.request.getSession().setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY,
-				securityContext);
+	securityContext);
 		this.springSecurityFilterChain.doFilter(this.request, this.response, this.chain);
 		assertThat(this.response.getStatus()).isEqualTo(HttpServletResponse.SC_OK);
 	}
@@ -290,8 +290,8 @@ public class AuthorizeRequestsTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests()
-					.requestMatchers(new AntPathRequestMatcher("/**", HttpMethod.POST.name())).denyAll();
+		.authorizeRequests()
+		.requestMatchers(new AntPathRequestMatcher("/**", HttpMethod.POST.name())).denyAll();
 			// @formatter:on
 			return http.build();
 		}
@@ -311,10 +311,10 @@ public class AuthorizeRequestsTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests((authorizeRequests) ->
-					authorizeRequests
-						.requestMatchers(new AntPathRequestMatcher("/**", HttpMethod.POST.name())).denyAll()
-				);
+		.authorizeRequests((authorizeRequests) ->
+	authorizeRequests
+.requestMatchers(new AntPathRequestMatcher("/**", HttpMethod.POST.name())).denyAll()
+		);
 			// @formatter:on
 			return http.build();
 		}
@@ -334,9 +334,9 @@ public class AuthorizeRequestsTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests()
-				.requestMatchers(new AntPathRequestMatcher("/user/{user}", null, false)).access("#user == 'user'")
-				.anyRequest().denyAll();
+		.authorizeRequests()
+		.requestMatchers(new AntPathRequestMatcher("/user/{user}", null, false)).access("#user == 'user'")
+		.anyRequest().denyAll();
 			// @formatter:on
 			return http.build();
 		}
@@ -356,9 +356,9 @@ public class AuthorizeRequestsTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests()
-				.requestMatchers(new AntPathRequestMatcher("/user/{userName}", null, false)).access("#userName == 'user'")
-				.anyRequest().denyAll();
+		.authorizeRequests()
+		.requestMatchers(new AntPathRequestMatcher("/user/{userName}", null, false)).access("#userName == 'user'")
+		.anyRequest().denyAll();
 			// @formatter:on
 			return http.build();
 		}
@@ -378,8 +378,8 @@ public class AuthorizeRequestsTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests()
-					.anyRequest().hasRole("ADMIN");
+		.authorizeRequests()
+		.anyRequest().hasRole("ADMIN");
 			// @formatter:on
 			return http.build();
 		}
@@ -407,9 +407,9 @@ public class AuthorizeRequestsTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.httpBasic().and()
-				.authorizeRequests()
-					.requestMatchers("/path").denyAll();
+		.httpBasic().and()
+		.authorizeRequests()
+		.requestMatchers("/path").denyAll();
 			// @formatter:on
 			return http.build();
 		}
@@ -440,11 +440,11 @@ public class AuthorizeRequestsTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.httpBasic(withDefaults())
-				.authorizeRequests((authorizeRequests) ->
-					authorizeRequests
-						.requestMatchers("/path").denyAll()
-				);
+		.httpBasic(withDefaults())
+		.authorizeRequests((authorizeRequests) ->
+	authorizeRequests
+.requestMatchers("/path").denyAll()
+		);
 			// @formatter:on
 			return http.build();
 		}
@@ -474,12 +474,12 @@ public class AuthorizeRequestsTests {
 		@Bean
 		SecurityFilterChain filterChain(HttpSecurity http, HandlerMappingIntrospector introspector) throws Exception {
 			MvcRequestMatcher.Builder mvcMatcherBuilder = new MvcRequestMatcher.Builder(introspector)
-					.servletPath("/spring");
+		.servletPath("/spring");
 			// @formatter:off
 			http
-				.httpBasic().and()
-				.authorizeRequests()
-					.requestMatchers(mvcMatcherBuilder.pattern("/path")).denyAll();
+		.httpBasic().and()
+		.authorizeRequests()
+		.requestMatchers(mvcMatcherBuilder.pattern("/path")).denyAll();
 			// @formatter:on
 			return http.build();
 		}
@@ -509,14 +509,14 @@ public class AuthorizeRequestsTests {
 		@Bean
 		SecurityFilterChain filterChain(HttpSecurity http, HandlerMappingIntrospector introspector) throws Exception {
 			MvcRequestMatcher.Builder mvcMatcherBuilder = new MvcRequestMatcher.Builder(introspector)
-					.servletPath("/spring");
+		.servletPath("/spring");
 			// @formatter:off
 			http
-				.httpBasic(withDefaults())
-				.authorizeRequests((authorizeRequests) ->
-					authorizeRequests
-						.requestMatchers(mvcMatcherBuilder.pattern("/path")).denyAll()
-				);
+		.httpBasic(withDefaults())
+		.authorizeRequests((authorizeRequests) ->
+	authorizeRequests
+.requestMatchers(mvcMatcherBuilder.pattern("/path")).denyAll()
+		);
 			// @formatter:on
 			return http.build();
 		}
@@ -547,9 +547,9 @@ public class AuthorizeRequestsTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.httpBasic().and()
-				.authorizeRequests()
-					.requestMatchers("/user/{userName}").access("#userName == 'user'");
+		.httpBasic().and()
+		.authorizeRequests()
+		.requestMatchers("/user/{userName}").access("#userName == 'user'");
 			// @formatter:on
 			return http.build();
 		}
@@ -580,11 +580,11 @@ public class AuthorizeRequestsTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.httpBasic(withDefaults())
-				.authorizeRequests((authorizeRequests) ->
-					authorizeRequests
-						.requestMatchers("/user/{userName}").access("#userName == 'user'")
-				);
+		.httpBasic(withDefaults())
+		.authorizeRequests((authorizeRequests) ->
+	authorizeRequests
+.requestMatchers("/user/{userName}").access("#userName == 'user'")
+		);
 			// @formatter:on
 			return http.build();
 		}
@@ -615,9 +615,9 @@ public class AuthorizeRequestsTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.httpBasic().and()
-				.authorizeRequests()
-					.requestMatchers("/user").denyAll();
+		.httpBasic().and()
+		.authorizeRequests()
+		.requestMatchers("/user").denyAll();
 			// @formatter:on
 			return http.build();
 		}

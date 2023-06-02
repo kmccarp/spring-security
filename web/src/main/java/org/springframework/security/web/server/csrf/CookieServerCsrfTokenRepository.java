@@ -99,12 +99,12 @@ public final class CookieServerCsrfTokenRepository implements ServerCsrfTokenRep
 			String tokenValue = (token != null) ? token.getToken() : "";
 			// @formatter:off
 			ResponseCookie.ResponseCookieBuilder cookieBuilder = ResponseCookie
-					.from(this.cookieName, tokenValue)
-					.domain(this.cookieDomain)
-					.httpOnly(this.cookieHttpOnly)
-					.maxAge(!tokenValue.isEmpty() ? this.cookieMaxAge : 0)
-					.path((this.cookiePath != null) ? this.cookiePath : getRequestContext(exchange.getRequest()))
-					.secure((this.secure != null) ? this.secure : (exchange.getRequest().getSslInfo() != null));
+		.from(this.cookieName, tokenValue)
+		.domain(this.cookieDomain)
+		.httpOnly(this.cookieHttpOnly)
+		.maxAge(!tokenValue.isEmpty() ? this.cookieMaxAge : 0)
+		.path((this.cookiePath != null) ? this.cookiePath : getRequestContext(exchange.getRequest()))
+		.secure((this.secure != null) ? this.secure : (exchange.getRequest().getSslInfo() != null));
 
 			this.cookieCustomizer.accept(cookieBuilder);
 

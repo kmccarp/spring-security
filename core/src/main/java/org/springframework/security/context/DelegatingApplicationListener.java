@@ -43,7 +43,7 @@ public final class DelegatingApplicationListener implements ApplicationListener<
 		for (SmartApplicationListener listener : this.listeners) {
 			Object source = event.getSource();
 			if (source != null && listener.supportsEventType(event.getClass())
-					&& listener.supportsSourceType(source.getClass())) {
+		&& listener.supportsSourceType(source.getClass())) {
 				listener.onApplicationEvent(event);
 			}
 		}

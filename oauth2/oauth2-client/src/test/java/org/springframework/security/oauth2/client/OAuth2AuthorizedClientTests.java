@@ -50,25 +50,25 @@ public class OAuth2AuthorizedClientTests {
 	@Test
 	public void constructorWhenClientRegistrationIsNullThenThrowIllegalArgumentException() {
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new OAuth2AuthorizedClient(null, this.principalName, this.accessToken));
+	.isThrownBy(() -> new OAuth2AuthorizedClient(null, this.principalName, this.accessToken));
 	}
 
 	@Test
 	public void constructorWhenPrincipalNameIsNullThenThrowIllegalArgumentException() {
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new OAuth2AuthorizedClient(this.clientRegistration, null, this.accessToken));
+	.isThrownBy(() -> new OAuth2AuthorizedClient(this.clientRegistration, null, this.accessToken));
 	}
 
 	@Test
 	public void constructorWhenAccessTokenIsNullThenThrowIllegalArgumentException() {
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new OAuth2AuthorizedClient(this.clientRegistration, this.principalName, null));
+	.isThrownBy(() -> new OAuth2AuthorizedClient(this.clientRegistration, this.principalName, null));
 	}
 
 	@Test
 	public void constructorWhenAllParametersProvidedAndValidThenCreated() {
 		OAuth2AuthorizedClient authorizedClient = new OAuth2AuthorizedClient(this.clientRegistration,
-				this.principalName, this.accessToken);
+	this.principalName, this.accessToken);
 		assertThat(authorizedClient.getClientRegistration()).isEqualTo(this.clientRegistration);
 		assertThat(authorizedClient.getPrincipalName()).isEqualTo(this.principalName);
 		assertThat(authorizedClient.getAccessToken()).isEqualTo(this.accessToken);

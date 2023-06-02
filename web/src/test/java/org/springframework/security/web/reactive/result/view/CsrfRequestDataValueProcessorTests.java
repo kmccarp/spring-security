@@ -57,9 +57,9 @@ public class CsrfRequestDataValueProcessorTests {
 		Method[] expectedMethods = ReflectionUtils.getAllDeclaredMethods(CsrfRequestDataValueProcessor.class);
 		for (Method expected : expectedMethods) {
 			assertThat(ReflectionUtils.findMethod(CsrfRequestDataValueProcessor.class, expected.getName(),
-					expected.getParameterTypes()))
-							.as("Expected to find " + expected + " defined on " + CsrfRequestDataValueProcessor.class)
-							.isNotNull();
+		expected.getParameterTypes()))
+		.as("Expected to find " + expected + " defined on " + CsrfRequestDataValueProcessor.class)
+		.isNotNull();
 		}
 	}
 

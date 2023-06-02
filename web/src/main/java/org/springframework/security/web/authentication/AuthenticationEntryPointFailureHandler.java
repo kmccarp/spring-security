@@ -46,7 +46,7 @@ public class AuthenticationEntryPointFailureHandler implements AuthenticationFai
 
 	@Override
 	public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
-			AuthenticationException exception) throws IOException, ServletException {
+AuthenticationException exception) throws IOException, ServletException {
 		if (!this.rethrowAuthenticationServiceException) {
 			this.authenticationEntryPoint.commence(request, response, exception);
 			return;

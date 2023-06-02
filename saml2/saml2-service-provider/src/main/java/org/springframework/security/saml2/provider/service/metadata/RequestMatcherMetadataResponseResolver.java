@@ -50,9 +50,9 @@ public final class RequestMatcherMetadataResponseResolver implements Saml2Metada
 	private static final String DEFAULT_METADATA_FILENAME = "saml-{registrationId}-metadata.xml";
 
 	private RequestMatcher matcher = new OrRequestMatcher(
-			new AntPathRequestMatcher("/saml2/service-provider-metadata/{registrationId}"),
-			new AntPathRequestMatcher("/saml2/metadata/{registrationId}"),
-			new AntPathRequestMatcher("/saml2/metadata"));
+new AntPathRequestMatcher("/saml2/service-provider-metadata/{registrationId}"),
+new AntPathRequestMatcher("/saml2/metadata/{registrationId}"),
+new AntPathRequestMatcher("/saml2/metadata"));
 
 	private String filename = DEFAULT_METADATA_FILENAME;
 
@@ -67,7 +67,7 @@ public final class RequestMatcherMetadataResponseResolver implements Saml2Metada
 	 * metadata
 	 */
 	public RequestMatcherMetadataResponseResolver(RelyingPartyRegistrationRepository registrations,
-			Saml2MetadataResolver metadata) {
+Saml2MetadataResolver metadata) {
 		Assert.notNull(registrations, "relyingPartyRegistrationRepository cannot be null");
 		Assert.notNull(metadata, "saml2MetadataResolver cannot be null");
 		this.registrations = registrations;
@@ -123,7 +123,7 @@ public final class RequestMatcherMetadataResponseResolver implements Saml2Metada
 	}
 
 	private Saml2MetadataResponse responseByIterable(HttpServletRequest request,
-			Iterable<RelyingPartyRegistration> registrations) {
+Iterable<RelyingPartyRegistration> registrations) {
 		Map<String, RelyingPartyRegistration> results = new LinkedHashMap<>();
 		for (RelyingPartyRegistration registration : registrations) {
 			results.put(registration.getEntityId(), registration);
@@ -136,12 +136,12 @@ public final class RequestMatcherMetadataResponseResolver implements Saml2Metada
 			String sloLocation = uriResolver.resolve(registration.getSingleLogoutServiceLocation());
 			String sloResponseLocation = uriResolver.resolve(registration.getSingleLogoutServiceResponseLocation());
 			resolved.add(registration.mutate().entityId(entityId).assertionConsumerServiceLocation(ssoLocation)
-					.singleLogoutServiceLocation(sloLocation).singleLogoutServiceResponseLocation(sloResponseLocation)
-					.build());
+		.singleLogoutServiceLocation(sloLocation).singleLogoutServiceResponseLocation(sloResponseLocation)
+		.build());
 		}
 		String metadata = this.metadata.resolve(resolved);
 		String value = (resolved.size() == 1) ? resolved.iterator().next().getRegistrationId()
-				: UUID.randomUUID().toString();
+	: UUID.randomUUID().toString();
 		String fileName = this.filename.replace("{registrationId}", value);
 		try {
 			String encodedFileName = URLEncoder.encode(fileName, StandardCharsets.UTF_8.name());

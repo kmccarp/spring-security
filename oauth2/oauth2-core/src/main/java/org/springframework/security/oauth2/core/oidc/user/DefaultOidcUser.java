@@ -63,7 +63,7 @@ public class DefaultOidcUser extends DefaultOAuth2User implements OidcUser {
 	 * {@link #getAttributes()}
 	 */
 	public DefaultOidcUser(Collection<? extends GrantedAuthority> authorities, OidcIdToken idToken,
-			String nameAttributeKey) {
+String nameAttributeKey) {
 		this(authorities, idToken, null, nameAttributeKey);
 	}
 
@@ -75,7 +75,7 @@ public class DefaultOidcUser extends DefaultOAuth2User implements OidcUser {
 	 * may be {@code null}
 	 */
 	public DefaultOidcUser(Collection<? extends GrantedAuthority> authorities, OidcIdToken idToken,
-			OidcUserInfo userInfo) {
+OidcUserInfo userInfo) {
 		this(authorities, idToken, userInfo, IdTokenClaimNames.SUB);
 	}
 
@@ -89,7 +89,7 @@ public class DefaultOidcUser extends DefaultOAuth2User implements OidcUser {
 	 * {@link #getAttributes()}
 	 */
 	public DefaultOidcUser(Collection<? extends GrantedAuthority> authorities, OidcIdToken idToken,
-			OidcUserInfo userInfo, String nameAttributeKey) {
+OidcUserInfo userInfo, String nameAttributeKey) {
 		super(authorities, OidcUserAuthority.collectClaims(idToken, userInfo), nameAttributeKey);
 		this.idToken = idToken;
 		this.userInfo = userInfo;

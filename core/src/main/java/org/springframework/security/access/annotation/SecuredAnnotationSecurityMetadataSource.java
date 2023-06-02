@@ -42,7 +42,7 @@ import org.springframework.util.Assert;
  * {@link org.springframework.security.authorization.method.AuthorizationManagerBeforeMethodInterceptor#secured}
  */
 @Deprecated
-@SuppressWarnings({ "unchecked" })
+@SuppressWarnings({"unchecked"})
 public class SecuredAnnotationSecurityMetadataSource extends AbstractFallbackMethodSecurityMetadataSource {
 
 	private AnnotationMetadataExtractor annotationExtractor;
@@ -57,9 +57,9 @@ public class SecuredAnnotationSecurityMetadataSource extends AbstractFallbackMet
 		Assert.notNull(annotationMetadataExtractor, "annotationMetadataExtractor cannot be null");
 		this.annotationExtractor = annotationMetadataExtractor;
 		this.annotationType = (Class<? extends Annotation>) GenericTypeResolver
-				.resolveTypeArgument(this.annotationExtractor.getClass(), AnnotationMetadataExtractor.class);
+	.resolveTypeArgument(this.annotationExtractor.getClass(), AnnotationMetadataExtractor.class);
 		Assert.notNull(this.annotationType, () -> this.annotationExtractor.getClass().getName()
-				+ " must supply a generic parameter for AnnotationMetadataExtractor");
+	+ " must supply a generic parameter for AnnotationMetadataExtractor");
 	}
 
 	@Override

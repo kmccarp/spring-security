@@ -36,8 +36,7 @@ import org.springframework.util.Assert;
  * @see ClientRegistrationRepository
  * @see ClientRegistration
  */
-public final class InMemoryClientRegistrationRepository
-		implements ClientRegistrationRepository, Iterable<ClientRegistration> {
+public final class InMemoryClientRegistrationRepositoryimplements ClientRegistrationRepository, Iterable<ClientRegistration> {
 
 	private final Map<String, ClientRegistration> registrations;
 
@@ -68,7 +67,7 @@ public final class InMemoryClientRegistrationRepository
 		ConcurrentHashMap<String, ClientRegistration> result = new ConcurrentHashMap<>();
 		for (ClientRegistration registration : registrations) {
 			Assert.state(!result.containsKey(registration.getRegistrationId()),
-					() -> String.format("Duplicate key %s", registration.getRegistrationId()));
+		() -> String.format("Duplicate key %s", registration.getRegistrationId()));
 			result.put(registration.getRegistrationId(), registration);
 		}
 		return Collections.unmodifiableMap(result);

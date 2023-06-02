@@ -89,7 +89,7 @@ import org.springframework.util.ReflectionUtils;
 public class AnnotationParameterNameDiscoverer implements ParameterNameDiscoverer {
 
 	private static final ParameterNameFactory<Constructor<?>> CONSTRUCTOR_METHODPARAM_FACTORY = (
-			constructor) -> constructor.getParameterAnnotations();
+constructor) -> constructor.getParameterAnnotations();
 
 	private static final ParameterNameFactory<Method> METHOD_METHODPARAM_FACTORY = Method::getParameterAnnotations;
 
@@ -135,7 +135,7 @@ public class AnnotationParameterNameDiscoverer implements ParameterNameDiscovere
 	 * @return the parameter names or null
 	 */
 	private <T extends AccessibleObject> String[] lookupParameterNames(ParameterNameFactory<T> parameterNameFactory,
-			T t) {
+T t) {
 		Annotation[][] parameterAnnotations = parameterNameFactory.findParameterAnnotations(t);
 		int parameterCount = parameterAnnotations.length;
 		String[] paramNames = new String[parameterCount];

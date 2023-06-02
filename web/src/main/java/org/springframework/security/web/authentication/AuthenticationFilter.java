@@ -69,7 +69,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 public class AuthenticationFilter extends OncePerRequestFilter {
 
 	private SecurityContextHolderStrategy securityContextHolderStrategy = SecurityContextHolder
-			.getContextHolderStrategy();
+.getContextHolderStrategy();
 
 	private RequestMatcher requestMatcher = AnyRequestMatcher.INSTANCE;
 
@@ -78,19 +78,19 @@ public class AuthenticationFilter extends OncePerRequestFilter {
 	private AuthenticationSuccessHandler successHandler = new SavedRequestAwareAuthenticationSuccessHandler();
 
 	private AuthenticationFailureHandler failureHandler = new AuthenticationEntryPointFailureHandler(
-			new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED));
+new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED));
 
 	private SecurityContextRepository securityContextRepository = new RequestAttributeSecurityContextRepository();
 
 	private AuthenticationManagerResolver<HttpServletRequest> authenticationManagerResolver;
 
 	public AuthenticationFilter(AuthenticationManager authenticationManager,
-			AuthenticationConverter authenticationConverter) {
+AuthenticationConverter authenticationConverter) {
 		this((AuthenticationManagerResolver<HttpServletRequest>) (r) -> authenticationManager, authenticationConverter);
 	}
 
 	public AuthenticationFilter(AuthenticationManagerResolver<HttpServletRequest> authenticationManagerResolver,
-			AuthenticationConverter authenticationConverter) {
+AuthenticationConverter authenticationConverter) {
 		Assert.notNull(authenticationManagerResolver, "authenticationManagerResolver cannot be null");
 		Assert.notNull(authenticationConverter, "authenticationConverter cannot be null");
 		this.authenticationManagerResolver = authenticationManagerResolver;
@@ -138,7 +138,7 @@ public class AuthenticationFilter extends OncePerRequestFilter {
 	}
 
 	public void setAuthenticationManagerResolver(
-			AuthenticationManagerResolver<HttpServletRequest> authenticationManagerResolver) {
+AuthenticationManagerResolver<HttpServletRequest> authenticationManagerResolver) {
 		Assert.notNull(authenticationManagerResolver, "authenticationManagerResolver cannot be null");
 		this.authenticationManagerResolver = authenticationManagerResolver;
 	}
@@ -168,7 +168,7 @@ public class AuthenticationFilter extends OncePerRequestFilter {
 
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
-			throws ServletException, IOException {
+throws ServletException, IOException {
 		if (!this.requestMatcher.matches(request)) {
 			if (logger.isTraceEnabled()) {
 				logger.trace("Did not match request to " + this.requestMatcher);
@@ -194,13 +194,13 @@ public class AuthenticationFilter extends OncePerRequestFilter {
 	}
 
 	private void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response,
-			AuthenticationException failed) throws IOException, ServletException {
+AuthenticationException failed) throws IOException, ServletException {
 		this.securityContextHolderStrategy.clearContext();
 		this.failureHandler.onAuthenticationFailure(request, response, failed);
 	}
 
 	private void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain,
-			Authentication authentication) throws IOException, ServletException {
+Authentication authentication) throws IOException, ServletException {
 		SecurityContext context = this.securityContextHolderStrategy.createEmptyContext();
 		context.setAuthentication(authentication);
 		this.securityContextHolderStrategy.setContext(context);
@@ -209,7 +209,7 @@ public class AuthenticationFilter extends OncePerRequestFilter {
 	}
 
 	private Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
-			throws AuthenticationException, ServletException {
+throws AuthenticationException, ServletException {
 		Authentication authentication = this.authenticationConverter.convert(request);
 		if (authentication == null) {
 			return null;

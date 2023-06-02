@@ -35,11 +35,10 @@ import org.springframework.util.Assert;
  * @see AuthorizationRequestRepository
  * @see OAuth2AuthorizationRequest
  */
-public final class HttpSessionOAuth2AuthorizationRequestRepository
-		implements AuthorizationRequestRepository<OAuth2AuthorizationRequest> {
+public final class HttpSessionOAuth2AuthorizationRequestRepositoryimplements AuthorizationRequestRepository<OAuth2AuthorizationRequest> {
 
 	private static final String DEFAULT_AUTHORIZATION_REQUEST_ATTR_NAME = HttpSessionOAuth2AuthorizationRequestRepository.class
-			.getName() + ".AUTHORIZATION_REQUEST";
+.getName() + ".AUTHORIZATION_REQUEST";
 
 	private final String sessionAttributeName = DEFAULT_AUTHORIZATION_REQUEST_ATTR_NAME;
 
@@ -52,12 +51,12 @@ public final class HttpSessionOAuth2AuthorizationRequestRepository
 		}
 		OAuth2AuthorizationRequest authorizationRequest = getAuthorizationRequest(request);
 		return (authorizationRequest != null && stateParameter.equals(authorizationRequest.getState()))
-				? authorizationRequest : null;
+	? authorizationRequest : null;
 	}
 
 	@Override
 	public void saveAuthorizationRequest(OAuth2AuthorizationRequest authorizationRequest, HttpServletRequest request,
-			HttpServletResponse response) {
+HttpServletResponse response) {
 		Assert.notNull(request, "request cannot be null");
 		Assert.notNull(response, "response cannot be null");
 		if (authorizationRequest == null) {
@@ -71,7 +70,7 @@ public final class HttpSessionOAuth2AuthorizationRequestRepository
 
 	@Override
 	public OAuth2AuthorizationRequest removeAuthorizationRequest(HttpServletRequest request,
-			HttpServletResponse response) {
+HttpServletResponse response) {
 		Assert.notNull(response, "response cannot be null");
 		OAuth2AuthorizationRequest authorizationRequest = loadAuthorizationRequest(request);
 		if (authorizationRequest != null) {

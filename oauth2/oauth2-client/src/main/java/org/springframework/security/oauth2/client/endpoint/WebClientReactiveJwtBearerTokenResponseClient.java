@@ -41,8 +41,7 @@ import org.springframework.web.reactive.function.client.WebClient;
  * @see <a target="_blank" href="https://tools.ietf.org/html/rfc7521#section-4.1">Section
  * 4.1 Using Assertions as Authorization Grants</a>
  */
-public final class WebClientReactiveJwtBearerTokenResponseClient
-		extends AbstractWebClientReactiveOAuth2AccessTokenResponseClient<JwtBearerGrantRequest> {
+public final class WebClientReactiveJwtBearerTokenResponseClientextends AbstractWebClientReactiveOAuth2AccessTokenResponseClient<JwtBearerGrantRequest> {
 
 	@Override
 	ClientRegistration clientRegistration(JwtBearerGrantRequest grantRequest) {
@@ -56,9 +55,9 @@ public final class WebClientReactiveJwtBearerTokenResponseClient
 
 	@Override
 	BodyInserters.FormInserter<String> populateTokenRequestBody(JwtBearerGrantRequest grantRequest,
-			BodyInserters.FormInserter<String> body) {
+BodyInserters.FormInserter<String> body) {
 		return super.populateTokenRequestBody(grantRequest, body).with(OAuth2ParameterNames.ASSERTION,
-				grantRequest.getJwt().getTokenValue());
+	grantRequest.getJwt().getTokenValue());
 	}
 
 }

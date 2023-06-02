@@ -34,11 +34,11 @@ public final class OpenSamlRelyingPartyRegistration extends RelyingPartyRegistra
 
 	OpenSamlRelyingPartyRegistration(RelyingPartyRegistration registration) {
 		super(registration.getRegistrationId(), registration.getEntityId(),
-				registration.getAssertionConsumerServiceLocation(), registration.getAssertionConsumerServiceBinding(),
-				registration.getSingleLogoutServiceLocation(), registration.getSingleLogoutServiceResponseLocation(),
-				registration.getSingleLogoutServiceBindings(), registration.getAssertingPartyDetails(),
-				registration.getNameIdFormat(), registration.isAuthnRequestsSigned(),
-				registration.getDecryptionX509Credentials(), registration.getSigningX509Credentials());
+	registration.getAssertionConsumerServiceLocation(), registration.getAssertionConsumerServiceBinding(),
+	registration.getSingleLogoutServiceLocation(), registration.getSingleLogoutServiceResponseLocation(),
+	registration.getSingleLogoutServiceBindings(), registration.getAssertingPartyDetails(),
+	registration.getNameIdFormat(), registration.isAuthnRequestsSigned(),
+	registration.getDecryptionX509Credentials(), registration.getSigningX509Credentials());
 	}
 
 	/**
@@ -48,24 +48,24 @@ public final class OpenSamlRelyingPartyRegistration extends RelyingPartyRegistra
 	public OpenSamlRelyingPartyRegistration.Builder mutate() {
 		OpenSamlAssertingPartyDetails party = getAssertingPartyDetails();
 		return withAssertingPartyEntityDescriptor(party.getEntityDescriptor()).registrationId(getRegistrationId())
-				.entityId(getEntityId()).signingX509Credentials((c) -> c.addAll(getSigningX509Credentials()))
-				.decryptionX509Credentials((c) -> c.addAll(getDecryptionX509Credentials()))
-				.assertionConsumerServiceLocation(getAssertionConsumerServiceLocation())
-				.assertionConsumerServiceBinding(getAssertionConsumerServiceBinding())
-				.singleLogoutServiceLocation(getSingleLogoutServiceLocation())
-				.singleLogoutServiceResponseLocation(getSingleLogoutServiceResponseLocation())
-				.singleLogoutServiceBindings((c) -> c.addAll(getSingleLogoutServiceBindings()))
-				.nameIdFormat(getNameIdFormat()).authnRequestsSigned(isAuthnRequestsSigned())
-				.assertingPartyDetails((assertingParty) -> ((OpenSamlAssertingPartyDetails.Builder) assertingParty)
-						.entityId(party.getEntityId()).wantAuthnRequestsSigned(party.getWantAuthnRequestsSigned())
-						.signingAlgorithms((algorithms) -> algorithms.addAll(party.getSigningAlgorithms()))
-						.verificationX509Credentials((c) -> c.addAll(party.getVerificationX509Credentials()))
-						.encryptionX509Credentials((c) -> c.addAll(party.getEncryptionX509Credentials()))
-						.singleSignOnServiceLocation(party.getSingleSignOnServiceLocation())
-						.singleSignOnServiceBinding(party.getSingleSignOnServiceBinding())
-						.singleLogoutServiceLocation(party.getSingleLogoutServiceLocation())
-						.singleLogoutServiceResponseLocation(party.getSingleLogoutServiceResponseLocation())
-						.singleLogoutServiceBinding(party.getSingleLogoutServiceBinding()));
+	.entityId(getEntityId()).signingX509Credentials((c) -> c.addAll(getSigningX509Credentials()))
+	.decryptionX509Credentials((c) -> c.addAll(getDecryptionX509Credentials()))
+	.assertionConsumerServiceLocation(getAssertionConsumerServiceLocation())
+	.assertionConsumerServiceBinding(getAssertionConsumerServiceBinding())
+	.singleLogoutServiceLocation(getSingleLogoutServiceLocation())
+	.singleLogoutServiceResponseLocation(getSingleLogoutServiceResponseLocation())
+	.singleLogoutServiceBindings((c) -> c.addAll(getSingleLogoutServiceBindings()))
+	.nameIdFormat(getNameIdFormat()).authnRequestsSigned(isAuthnRequestsSigned())
+	.assertingPartyDetails((assertingParty) -> ((OpenSamlAssertingPartyDetails.Builder) assertingParty)
+.entityId(party.getEntityId()).wantAuthnRequestsSigned(party.getWantAuthnRequestsSigned())
+.signingAlgorithms((algorithms) -> algorithms.addAll(party.getSigningAlgorithms()))
+.verificationX509Credentials((c) -> c.addAll(party.getVerificationX509Credentials()))
+.encryptionX509Credentials((c) -> c.addAll(party.getEncryptionX509Credentials()))
+.singleSignOnServiceLocation(party.getSingleSignOnServiceLocation())
+.singleSignOnServiceBinding(party.getSingleSignOnServiceBinding())
+.singleLogoutServiceLocation(party.getSingleLogoutServiceLocation())
+.singleLogoutServiceResponseLocation(party.getSingleLogoutServiceResponseLocation())
+.singleLogoutServiceBinding(party.getSingleLogoutServiceBinding()));
 	}
 
 	/**
@@ -82,7 +82,7 @@ public final class OpenSamlRelyingPartyRegistration extends RelyingPartyRegistra
 	 * @return an {@link Builder}
 	 */
 	public static OpenSamlRelyingPartyRegistration.Builder withAssertingPartyEntityDescriptor(
-			EntityDescriptor entityDescriptor) {
+EntityDescriptor entityDescriptor) {
 		return new Builder(entityDescriptor);
 	}
 

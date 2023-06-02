@@ -95,9 +95,9 @@ public class ExpressionUrlAuthorizationConfigurerTests {
 	@Test
 	public void configureWhenHasRoleStartingWithStringRoleThenException() {
 		assertThatExceptionOfType(BeanCreationException.class)
-				.isThrownBy(() -> this.spring.register(HasRoleStartingWithRoleConfig.class).autowire())
-				.withRootCauseInstanceOf(IllegalArgumentException.class).withMessageContaining(
-						"role should not start with 'ROLE_' since it is automatically inserted. Got 'ROLE_USER'");
+	.isThrownBy(() -> this.spring.register(HasRoleStartingWithRoleConfig.class).autowire())
+	.withRootCauseInstanceOf(IllegalArgumentException.class).withMessageContaining(
+	"role should not start with 'ROLE_' since it is automatically inserted. Got 'ROLE_USER'");
 	}
 
 	@Test
@@ -109,15 +109,15 @@ public class ExpressionUrlAuthorizationConfigurerTests {
 	@Test
 	public void configureWhenAuthorizedRequestsAndNoRequestsThenException() {
 		assertThatExceptionOfType(BeanCreationException.class)
-				.isThrownBy(() -> this.spring.register(NoRequestsConfig.class).autowire()).withMessageContaining(
-						"At least one mapping is required (i.e. authorizeRequests().anyRequest().authenticated())");
+	.isThrownBy(() -> this.spring.register(NoRequestsConfig.class).autowire()).withMessageContaining(
+	"At least one mapping is required (i.e. authorizeRequests().anyRequest().authenticated())");
 	}
 
 	@Test
 	public void configureWhenAnyRequestIncompleteMappingThenException() {
 		assertThatExceptionOfType(BeanCreationException.class)
-				.isThrownBy(() -> this.spring.register(IncompleteMappingConfig.class).autowire())
-				.withMessageContaining("An incomplete mapping was found for ");
+	.isThrownBy(() -> this.spring.register(IncompleteMappingConfig.class).autowire())
+	.withMessageContaining("An incomplete mapping was found for ");
 	}
 
 	@Test
@@ -125,20 +125,20 @@ public class ExpressionUrlAuthorizationConfigurerTests {
 		this.spring.register(RoleUserAnyAuthorityConfig.class, BasicController.class).autowire();
 		// @formatter:off
 		MockHttpServletRequestBuilder requestWithUser = get("/")
-				.with(user("user")
-				.authorities(new SimpleGrantedAuthority("ROLE_USER")));
+	.with(user("user")
+.authorities(new SimpleGrantedAuthority("ROLE_USER")));
 		// @formatter:on
 		this.mvc.perform(requestWithUser).andExpect(status().isOk());
 	}
 
 	@Test
 	public void getWhenHasAnyAuthorityRoleUserConfiguredAndAuthorityIsRoleAdminThenRespondsWithForbidden()
-			throws Exception {
+throws Exception {
 		this.spring.register(RoleUserAnyAuthorityConfig.class, BasicController.class).autowire();
 		// @formatter:off
 		MockHttpServletRequestBuilder requestWithAdmin = get("/")
-				.with(user("user")
-				.authorities(new SimpleGrantedAuthority("ROLE_ADMIN")));
+	.with(user("user")
+.authorities(new SimpleGrantedAuthority("ROLE_ADMIN")));
 		// @formatter:on
 		this.mvc.perform(requestWithAdmin).andExpect(status().isForbidden());
 	}
@@ -154,20 +154,20 @@ public class ExpressionUrlAuthorizationConfigurerTests {
 		this.spring.register(RoleUserAuthorityConfig.class, BasicController.class).autowire();
 		// @formatter:off
 		MockHttpServletRequestBuilder requestWithUser = get("/")
-				.with(user("user")
-				.authorities(new SimpleGrantedAuthority("ROLE_USER")));
+	.with(user("user")
+.authorities(new SimpleGrantedAuthority("ROLE_USER")));
 		// @formatter:on
 		this.mvc.perform(requestWithUser).andExpect(status().isOk());
 	}
 
 	@Test
 	public void getWhenHasAuthorityRoleUserConfiguredAndAuthorityIsRoleAdminThenRespondsWithForbidden()
-			throws Exception {
+throws Exception {
 		this.spring.register(RoleUserAuthorityConfig.class, BasicController.class).autowire();
 		// @formatter:off
 		MockHttpServletRequestBuilder requestWithAdmin = get("/")
-				.with(user("user")
-				.authorities(new SimpleGrantedAuthority("ROLE_ADMIN")));
+	.with(user("user")
+.authorities(new SimpleGrantedAuthority("ROLE_ADMIN")));
 		// @formatter:on
 		this.mvc.perform(requestWithAdmin).andExpect(status().isForbidden());
 	}
@@ -183,8 +183,8 @@ public class ExpressionUrlAuthorizationConfigurerTests {
 		this.spring.register(RoleUserOrRoleAdminAuthorityConfig.class, BasicController.class).autowire();
 		// @formatter:off
 		MockHttpServletRequestBuilder requestWithUser = get("/")
-				.with(user("user")
-				.authorities(new SimpleGrantedAuthority("ROLE_USER")));
+	.with(user("user")
+.authorities(new SimpleGrantedAuthority("ROLE_USER")));
 		// @formatter:on
 		this.mvc.perform(requestWithUser).andExpect(status().isOk());
 	}
@@ -194,20 +194,20 @@ public class ExpressionUrlAuthorizationConfigurerTests {
 		this.spring.register(RoleUserOrRoleAdminAuthorityConfig.class, BasicController.class).autowire();
 		// @formatter:off
 		MockHttpServletRequestBuilder requestWithUser = get("/")
-				.with(user("user")
-				.authorities(new SimpleGrantedAuthority("ROLE_ADMIN")));
+	.with(user("user")
+.authorities(new SimpleGrantedAuthority("ROLE_ADMIN")));
 		// @formatter:on
 		this.mvc.perform(requestWithUser).andExpect(status().isOk());
 	}
 
 	@Test
 	public void getWhenAuthorityRoleUserOrAdminRequiredAndAuthorityIsRoleOtherThenRespondsWithForbidden()
-			throws Exception {
+throws Exception {
 		this.spring.register(RoleUserOrRoleAdminAuthorityConfig.class, BasicController.class).autowire();
 		// @formatter:off
 		MockHttpServletRequestBuilder requestWithUser = get("/")
-				.with(user("user")
-				.authorities(new SimpleGrantedAuthority("ROLE_OTHER")));
+	.with(user("user")
+.authorities(new SimpleGrantedAuthority("ROLE_OTHER")));
 		// @formatter:on
 		this.mvc.perform(requestWithUser).andExpect(status().isForbidden());
 	}
@@ -223,8 +223,8 @@ public class ExpressionUrlAuthorizationConfigurerTests {
 		this.spring.register(RoleUserConfig.class, BasicController.class).autowire();
 		// @formatter:off
 		MockHttpServletRequestBuilder requestWithUser = get("/")
-				.with(user("user")
-				.roles("USER"));
+	.with(user("user")
+.roles("USER"));
 		// @formatter:on
 		this.mvc.perform(requestWithUser).andExpect(status().isOk());
 	}
@@ -234,8 +234,8 @@ public class ExpressionUrlAuthorizationConfigurerTests {
 		this.spring.register(RoleUserConfig.class, BasicController.class).autowire();
 		// @formatter:off
 		MockHttpServletRequestBuilder requestWithAdmin = get("/")
-				.with(user("user")
-				.roles("ADMIN"));
+	.with(user("user")
+.roles("ADMIN"));
 		// @formatter:on
 		this.mvc.perform(requestWithAdmin).andExpect(status().isForbidden());
 	}
@@ -245,8 +245,8 @@ public class ExpressionUrlAuthorizationConfigurerTests {
 		this.spring.register(RoleUserWithTestRolePrefixConfig.class, BasicController.class).autowire();
 		// @formatter:off
 		MockHttpServletRequestBuilder requestWithUser = get("/")
-				.with(user("user")
-				.authorities(new SimpleGrantedAuthority("TEST_USER")));
+	.with(user("user")
+.authorities(new SimpleGrantedAuthority("TEST_USER")));
 		// @formatter:on
 		this.mvc.perform(requestWithUser).andExpect(status().isOk());
 	}
@@ -256,8 +256,8 @@ public class ExpressionUrlAuthorizationConfigurerTests {
 		this.spring.register(RoleUserWithEmptyRolePrefixConfig.class, BasicController.class).autowire();
 		// @formatter:off
 		MockHttpServletRequestBuilder requestWithUser = get("/")
-				.with(user("user")
-				.authorities(new SimpleGrantedAuthority("USER")));
+	.with(user("user")
+.authorities(new SimpleGrantedAuthority("USER")));
 		// @formatter:on
 		this.mvc.perform(requestWithUser).andExpect(status().isOk());
 	}
@@ -267,8 +267,8 @@ public class ExpressionUrlAuthorizationConfigurerTests {
 		this.spring.register(RoleUserOrAdminConfig.class, BasicController.class).autowire();
 		// @formatter:off
 		MockHttpServletRequestBuilder requestWithUser = get("/")
-			.with(user("user")
-			.roles("USER"));
+	.with(user("user")
+.roles("USER"));
 		// @formatter:on
 		this.mvc.perform(requestWithUser).andExpect(status().isOk());
 	}
@@ -278,8 +278,8 @@ public class ExpressionUrlAuthorizationConfigurerTests {
 		this.spring.register(RoleUserOrAdminConfig.class, BasicController.class).autowire();
 		// @formatter:off
 		MockHttpServletRequestBuilder requestWithAdmin = get("/")
-			.with(user("user")
-			.roles("ADMIN"));
+	.with(user("user")
+.roles("ADMIN"));
 		// @formatter:on
 		this.mvc.perform(requestWithAdmin).andExpect(status().isOk());
 	}
@@ -298,8 +298,8 @@ public class ExpressionUrlAuthorizationConfigurerTests {
 		this.spring.register(RoleUserOrAdminWithTestRolePrefixConfig.class, BasicController.class).autowire();
 		// @formatter:off
 		MockHttpServletRequestBuilder requestWithUser = get("/")
-			.with(user("user")
-			.authorities(new SimpleGrantedAuthority("TEST_USER")));
+	.with(user("user")
+.authorities(new SimpleGrantedAuthority("TEST_USER")));
 		// @formatter:on
 		this.mvc.perform(requestWithUser).andExpect(status().isOk());
 	}
@@ -309,8 +309,8 @@ public class ExpressionUrlAuthorizationConfigurerTests {
 		this.spring.register(RoleUserOrAdminWithEmptyRolePrefixConfig.class, BasicController.class).autowire();
 		// @formatter:off
 		MockHttpServletRequestBuilder requestWithUser = get("/")
-			.with(user("user")
-			.authorities(new SimpleGrantedAuthority("USER")));
+	.with(user("user")
+.authorities(new SimpleGrantedAuthority("USER")));
 		// @formatter:on
 		this.mvc.perform(requestWithUser).andExpect(status().isOk());
 	}
@@ -356,7 +356,7 @@ public class ExpressionUrlAuthorizationConfigurerTests {
 	public void getWhenRememberMeConfiguredAndRememberMeTokenThenRespondsWithOk() throws Exception {
 		this.spring.register(RememberMeConfig.class, BasicController.class).autowire();
 		RememberMeAuthenticationToken rememberme = new RememberMeAuthenticationToken("key", "user",
-				AuthorityUtils.createAuthorityList("ROLE_USER"));
+	AuthorityUtils.createAuthorityList("ROLE_USER"));
 		MockHttpServletRequestBuilder requestWithRememberme = get("/").with(authentication(rememberme));
 		this.mvc.perform(requestWithRememberme).andExpect(status().isOk());
 	}
@@ -384,7 +384,7 @@ public class ExpressionUrlAuthorizationConfigurerTests {
 	public void getWhenNotDenyAllConfiguredAndRememberMeTokenThenRespondsWithOk() throws Exception {
 		this.spring.register(NotDenyAllConfig.class, BasicController.class).autowire();
 		RememberMeAuthenticationToken rememberme = new RememberMeAuthenticationToken("key", "user",
-				AuthorityUtils.createAuthorityList("ROLE_USER"));
+	AuthorityUtils.createAuthorityList("ROLE_USER"));
 		MockHttpServletRequestBuilder requestWithRememberme = get("/").with(authentication(rememberme));
 		this.mvc.perform(requestWithRememberme).andExpect(status().isOk());
 	}
@@ -393,7 +393,7 @@ public class ExpressionUrlAuthorizationConfigurerTests {
 	public void getWhenFullyAuthenticatedConfiguredAndRememberMeTokenThenRespondsWithUnauthorized() throws Exception {
 		this.spring.register(FullyAuthenticatedConfig.class, BasicController.class).autowire();
 		RememberMeAuthenticationToken rememberme = new RememberMeAuthenticationToken("key", "user",
-				AuthorityUtils.createAuthorityList("ROLE_USER"));
+	AuthorityUtils.createAuthorityList("ROLE_USER"));
 		MockHttpServletRequestBuilder requestWithRememberme = get("/").with(authentication(rememberme));
 		this.mvc.perform(requestWithRememberme).andExpect(status().isUnauthorized());
 	}
@@ -416,8 +416,8 @@ public class ExpressionUrlAuthorizationConfigurerTests {
 		this.spring.register(AccessConfig.class, BasicController.class).autowire();
 		// @formatter:off
 		MockHttpServletRequestBuilder requestWithUser = post("/")
-				.with(csrf())
-				.with(user("user").roles("USER"));
+	.with(csrf())
+	.with(user("user").roles("USER"));
 		// @formatter:on
 		this.mvc.perform(requestWithUser).andExpect(status().isOk());
 	}
@@ -443,7 +443,7 @@ public class ExpressionUrlAuthorizationConfigurerTests {
 
 	@Test
 	public void configureWhenRegisteringObjectPostProcessorThenApplicationListenerInvokedOnAuthorizedEvent()
-			throws Exception {
+throws Exception {
 		AuthorizedEventApplicationListener.clearEvents();
 		this.spring.register(AuthorizedRequestsWithPostProcessorConfig.class).autowire();
 		this.mvc.perform(get("/"));
@@ -501,7 +501,7 @@ public class ExpressionUrlAuthorizationConfigurerTests {
 
 	@Test
 	public void getWhenCustomExpressionHandlerAndAuthenticationNameDoesNotMatchThenRespondsWithForbidden()
-			throws Exception {
+throws Exception {
 		this.spring.register(CustomExpressionRootConfig.class, WildcardController.class).autowire();
 		MockHttpServletRequestBuilder requestWithUser = get("/deny").with(user("user").roles("USER"));
 		this.mvc.perform(requestWithUser).andExpect(status().isForbidden());
@@ -516,28 +516,28 @@ public class ExpressionUrlAuthorizationConfigurerTests {
 
 	@Test
 	public void getWhenRegisteringPermissionEvaluatorAndPermissionWithIdAndTypeMatchesThenRespondsWithOk()
-			throws Exception {
+throws Exception {
 		this.spring.register(PermissionEvaluatorConfig.class, WildcardController.class).autowire();
 		this.mvc.perform(get("/allow")).andExpect(status().isOk());
 	}
 
 	@Test
 	public void getWhenRegisteringPermissionEvaluatorAndPermissionWithIdAndTypeDoesNotMatchThenRespondsWithForbidden()
-			throws Exception {
+throws Exception {
 		this.spring.register(PermissionEvaluatorConfig.class, WildcardController.class).autowire();
 		this.mvc.perform(get("/deny")).andExpect(status().isForbidden());
 	}
 
 	@Test
 	public void getWhenRegisteringPermissionEvaluatorAndPermissionWithObjectMatchesThenRespondsWithOk()
-			throws Exception {
+throws Exception {
 		this.spring.register(PermissionEvaluatorConfig.class, WildcardController.class).autowire();
 		this.mvc.perform(get("/allowObject")).andExpect(status().isOk());
 	}
 
 	@Test
 	public void getWhenRegisteringPermissionEvaluatorAndPermissionWithObjectDoesNotMatchThenRespondsWithForbidden()
-			throws Exception {
+throws Exception {
 		this.spring.register(PermissionEvaluatorConfig.class, WildcardController.class).autowire();
 		this.mvc.perform(get("/denyObject")).andExpect(status().isForbidden());
 	}
@@ -564,8 +564,8 @@ public class ExpressionUrlAuthorizationConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests()
-					.anyRequest().hasRole("ROLE_USER");
+		.authorizeRequests()
+		.anyRequest().hasRole("ROLE_USER");
 			return http.build();
 			// @formatter:on
 		}
@@ -582,8 +582,8 @@ public class ExpressionUrlAuthorizationConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests()
-					.anyRequest().hasRole("USER");
+		.authorizeRequests()
+		.anyRequest().hasRole("USER");
 			return http.build();
 			// @formatter:on
 		}
@@ -603,7 +603,7 @@ public class ExpressionUrlAuthorizationConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests();
+		.authorizeRequests();
 			return http.build();
 			// @formatter:on
 		}
@@ -619,9 +619,9 @@ public class ExpressionUrlAuthorizationConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests()
-					.requestMatchers("/a").authenticated()
-					.anyRequest();
+		.authorizeRequests()
+		.requestMatchers("/a").authenticated()
+		.anyRequest();
 			return http.build();
 			// @formatter:on
 		}
@@ -636,10 +636,10 @@ public class ExpressionUrlAuthorizationConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.httpBasic()
-					.and()
-				.authorizeRequests()
-					.anyRequest().hasAnyAuthority("ROLE_USER");
+		.httpBasic()
+		.and()
+		.authorizeRequests()
+		.anyRequest().hasAnyAuthority("ROLE_USER");
 			return http.build();
 			// @formatter:on
 		}
@@ -654,10 +654,10 @@ public class ExpressionUrlAuthorizationConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.httpBasic()
-					.and()
-				.authorizeRequests()
-					.anyRequest().hasAuthority("ROLE_USER");
+		.httpBasic()
+		.and()
+		.authorizeRequests()
+		.anyRequest().hasAuthority("ROLE_USER");
 			return http.build();
 			// @formatter:on
 		}
@@ -672,10 +672,10 @@ public class ExpressionUrlAuthorizationConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.httpBasic()
-					.and()
-				.authorizeRequests()
-					.anyRequest().hasAnyAuthority("ROLE_USER", "ROLE_ADMIN");
+		.httpBasic()
+		.and()
+		.authorizeRequests()
+		.anyRequest().hasAnyAuthority("ROLE_USER", "ROLE_ADMIN");
 			return http.build();
 			// @formatter:on
 		}
@@ -690,8 +690,8 @@ public class ExpressionUrlAuthorizationConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests()
-					.anyRequest().hasAnyRole("USER");
+		.authorizeRequests()
+		.anyRequest().hasAnyRole("USER");
 			return http.build();
 			// @formatter:on
 		}
@@ -706,8 +706,8 @@ public class ExpressionUrlAuthorizationConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests()
-					.anyRequest().hasAnyRole("USER");
+		.authorizeRequests()
+		.anyRequest().hasAnyRole("USER");
 			return http.build();
 			// @formatter:on
 		}
@@ -727,8 +727,8 @@ public class ExpressionUrlAuthorizationConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests()
-					.anyRequest().hasAnyRole("USER");
+		.authorizeRequests()
+		.anyRequest().hasAnyRole("USER");
 			return http.build();
 			// @formatter:on
 		}
@@ -748,8 +748,8 @@ public class ExpressionUrlAuthorizationConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests()
-					.anyRequest().hasAnyRole("USER", "ADMIN");
+		.authorizeRequests()
+		.anyRequest().hasAnyRole("USER", "ADMIN");
 			return http.build();
 			// @formatter:on
 		}
@@ -764,8 +764,8 @@ public class ExpressionUrlAuthorizationConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests()
-					.anyRequest().hasAnyRole("USER", "ADMIN");
+		.authorizeRequests()
+		.anyRequest().hasAnyRole("USER", "ADMIN");
 			return http.build();
 			// @formatter:on
 		}
@@ -785,8 +785,8 @@ public class ExpressionUrlAuthorizationConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests()
-					.anyRequest().hasAnyRole("USER", "ADMIN");
+		.authorizeRequests()
+		.anyRequest().hasAnyRole("USER", "ADMIN");
 			return http.build();
 			// @formatter:on
 		}
@@ -806,10 +806,10 @@ public class ExpressionUrlAuthorizationConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.httpBasic()
-					.and()
-				.authorizeRequests()
-					.anyRequest().hasIpAddress("192.168.1.0");
+		.httpBasic()
+		.and()
+		.authorizeRequests()
+		.anyRequest().hasIpAddress("192.168.1.0");
 			return http.build();
 			// @formatter:on
 		}
@@ -824,10 +824,10 @@ public class ExpressionUrlAuthorizationConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.httpBasic()
-					.and()
-				.authorizeRequests()
-					.anyRequest().anonymous();
+		.httpBasic()
+		.and()
+		.authorizeRequests()
+		.anyRequest().anonymous();
 			return http.build();
 			// @formatter:on
 		}
@@ -842,12 +842,12 @@ public class ExpressionUrlAuthorizationConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.rememberMe()
-					.and()
-				.httpBasic()
-					.and()
-				.authorizeRequests()
-					.anyRequest().rememberMe();
+		.rememberMe()
+		.and()
+		.httpBasic()
+		.and()
+		.authorizeRequests()
+		.anyRequest().rememberMe();
 			// @formatter:on
 			return http.build();
 		}
@@ -867,10 +867,10 @@ public class ExpressionUrlAuthorizationConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.httpBasic()
-					.and()
-				.authorizeRequests()
-					.anyRequest().denyAll();
+		.httpBasic()
+		.and()
+		.authorizeRequests()
+		.anyRequest().denyAll();
 			return http.build();
 			// @formatter:on
 		}
@@ -885,10 +885,10 @@ public class ExpressionUrlAuthorizationConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.httpBasic()
-					.and()
-				.authorizeRequests()
-					.anyRequest().not().denyAll();
+		.httpBasic()
+		.and()
+		.authorizeRequests()
+		.anyRequest().not().denyAll();
 			return http.build();
 			// @formatter:on
 		}
@@ -903,12 +903,12 @@ public class ExpressionUrlAuthorizationConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.rememberMe()
-					.and()
-				.httpBasic()
-					.and()
-				.authorizeRequests()
-					.anyRequest().fullyAuthenticated();
+		.rememberMe()
+		.and()
+		.httpBasic()
+		.and()
+		.authorizeRequests()
+		.anyRequest().fullyAuthenticated();
 			return http.build();
 			// @formatter:on
 		}
@@ -928,12 +928,12 @@ public class ExpressionUrlAuthorizationConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.rememberMe()
-					.and()
-				.httpBasic()
-					.and()
-				.authorizeRequests()
-					.anyRequest().access("hasRole('ROLE_USER') or request.method == 'GET'");
+		.rememberMe()
+		.and()
+		.httpBasic()
+		.and()
+		.authorizeRequests()
+		.anyRequest().access("hasRole('ROLE_USER') or request.method == 'GET'");
 			return http.build();
 			// @formatter:on
 		}
@@ -953,12 +953,12 @@ public class ExpressionUrlAuthorizationConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.httpBasic()
-					.and()
-				.authorizeRequests()
-					.anyRequest().authenticated()
-					.and()
-				.authorizeRequests();
+		.httpBasic()
+		.and()
+		.authorizeRequests()
+		.anyRequest().authenticated()
+		.and()
+		.authorizeRequests();
 			return http.build();
 			// @formatter:on
 		}
@@ -977,14 +977,14 @@ public class ExpressionUrlAuthorizationConfigurerTests {
 			AffirmativeBased adm = new AffirmativeBased(Collections.singletonList(expressionVoter));
 			// @formatter:off
 			http
-				.authorizeRequests()
-					.expressionHandler(handler)
-					.accessDecisionManager(adm)
-					.filterSecurityInterceptorOncePerRequest(true)
-					.requestMatchers("/a", "/b").hasRole("ADMIN")
-					.anyRequest().permitAll()
-					.and()
-				.formLogin();
+		.authorizeRequests()
+		.expressionHandler(handler)
+		.accessDecisionManager(adm)
+		.filterSecurityInterceptorOncePerRequest(true)
+		.requestMatchers("/a", "/b").hasRole("ADMIN")
+		.anyRequest().permitAll()
+		.and()
+		.formLogin();
 			return http.build();
 			// @formatter:on
 		}
@@ -999,16 +999,16 @@ public class ExpressionUrlAuthorizationConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests()
-					.anyRequest().permitAll()
-					.withObjectPostProcessor(new ObjectPostProcessor<FilterSecurityInterceptor>() {
-						@Override
-						public <O extends FilterSecurityInterceptor> O postProcess(
-								O fsi) {
-							fsi.setPublishAuthorizationSuccess(true);
-							return fsi;
-						}
-					});
+		.authorizeRequests()
+		.anyRequest().permitAll()
+		.withObjectPostProcessor(new ObjectPostProcessor<FilterSecurityInterceptor>() {
+			@Override
+			public <O extends FilterSecurityInterceptor> O postProcess(
+		O fsi) {
+				fsi.setPublishAuthorizationSuccess(true);
+				return fsi;
+			}
+		});
 			return http.build();
 			// @formatter:on
 		}
@@ -1044,11 +1044,11 @@ public class ExpressionUrlAuthorizationConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests()
-					.requestMatchers("/admin").hasRole("ADMIN")
-					.requestMatchers("/user").hasRole("USER")
-					.requestMatchers("/allow").access("@permission.check(authentication,'user')")
-					.anyRequest().access("@permission.check(authentication,'admin')");
+		.authorizeRequests()
+		.requestMatchers("/admin").hasRole("ADMIN")
+		.requestMatchers("/user").hasRole("USER")
+		.requestMatchers("/allow").access("@permission.check(authentication,'user')")
+		.anyRequest().access("@permission.check(authentication,'admin')");
 			return http.build();
 			// @formatter:on
 		}
@@ -1077,12 +1077,12 @@ public class ExpressionUrlAuthorizationConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests()
-					.expressionHandler(expressionHandler())
-					.requestMatchers("/admin").hasRole("ADMIN")
-					.requestMatchers("/user").hasRole("USER")
-					.requestMatchers("/allow").access("check('user')")
-					.anyRequest().access("check('admin')");
+		.authorizeRequests()
+		.expressionHandler(expressionHandler())
+		.requestMatchers("/admin").hasRole("ADMIN")
+		.requestMatchers("/user").hasRole("USER")
+		.requestMatchers("/allow").access("check('user')")
+		.anyRequest().access("check('admin')");
 			return http.build();
 			// @formatter:on
 		}
@@ -1096,7 +1096,7 @@ public class ExpressionUrlAuthorizationConfigurerTests {
 
 			@Override
 			protected SecurityExpressionOperations createSecurityExpressionRoot(Authentication authentication,
-					FilterInvocation fi) {
+		FilterInvocation fi) {
 				WebSecurityExpressionRoot root = new CustomExpressionRoot(authentication, fi);
 				root.setPermissionEvaluator(getPermissionEvaluator());
 				root.setTrustResolver(new AuthenticationTrustResolverImpl());
@@ -1131,8 +1131,8 @@ public class ExpressionUrlAuthorizationConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 				http
-				.authorizeRequests()
-					.anyRequest().authenticated();
+		.authorizeRequests()
+		.anyRequest().authenticated();
 			// @formatter:on
 			return http.build();
 		}
@@ -1158,12 +1158,12 @@ public class ExpressionUrlAuthorizationConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests()
-					.requestMatchers("/allow").access("hasPermission('ID', 'TYPE', 'PERMISSION')")
-					.requestMatchers("/allowObject").access("hasPermission('TESTOBJ', 'PERMISSION')")
-					.requestMatchers("/deny").access("hasPermission('ID', 'TYPE', 'NO PERMISSION')")
-					.requestMatchers("/denyObject").access("hasPermission('TESTOBJ', 'NO PERMISSION')")
-					.anyRequest().permitAll();
+		.authorizeRequests()
+		.requestMatchers("/allow").access("hasPermission('ID', 'TYPE', 'PERMISSION')")
+		.requestMatchers("/allowObject").access("hasPermission('TESTOBJ', 'PERMISSION')")
+		.requestMatchers("/deny").access("hasPermission('ID', 'TYPE', 'NO PERMISSION')")
+		.requestMatchers("/denyObject").access("hasPermission('TESTOBJ', 'NO PERMISSION')")
+		.anyRequest().permitAll();
 			return http.build();
 			// @formatter:on
 		}
@@ -1173,13 +1173,13 @@ public class ExpressionUrlAuthorizationConfigurerTests {
 			return new PermissionEvaluator() {
 				@Override
 				public boolean hasPermission(Authentication authentication, Object targetDomainObject,
-						Object permission) {
+			Object permission) {
 					return "TESTOBJ".equals(targetDomainObject) && "PERMISSION".equals(permission);
 				}
 
 				@Override
 				public boolean hasPermission(Authentication authentication, Serializable targetId, String targetType,
-						Object permission) {
+			Object permission) {
 					return "ID".equals(targetId) && "TYPE".equals(targetType) && "PERMISSION".equals(permission);
 				}
 			};
@@ -1196,10 +1196,10 @@ public class ExpressionUrlAuthorizationConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests()
-					.requestMatchers("/allow").access("hasRole('MEMBER')")
-					.requestMatchers("/deny").access("hasRole('ADMIN')")
-					.anyRequest().permitAll();
+		.authorizeRequests()
+		.requestMatchers("/allow").access("hasRole('MEMBER')")
+		.requestMatchers("/deny").access("hasRole('ADMIN')")
+		.anyRequest().permitAll();
 			return http.build();
 			// @formatter:on
 		}

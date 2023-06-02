@@ -28,7 +28,7 @@ import org.springframework.security.core.AuthenticationException;
 public class AuthenticationFailureCredentialsExpiredEvent extends AbstractAuthenticationFailureEvent {
 
 	public AuthenticationFailureCredentialsExpiredEvent(Authentication authentication,
-			AuthenticationException exception) {
+AuthenticationException exception) {
 		super(authentication, exception);
 	}
 

@@ -39,11 +39,13 @@ import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException
 public class HpkpHeaderWriterTests {
 
 	private static final Map<String, String> DEFAULT_PINS;
+
 	static {
 		Map<String, String> defaultPins = new LinkedHashMap<>();
 		defaultPins.put("d6qzRu9zOECb90Uez27xWltNsj0e1Md7GkYYkVoZWmM=", "sha256");
 		DEFAULT_PINS = Collections.unmodifiableMap(defaultPins);
 	}
+
 	private MockHttpServletRequest request;
 
 	private MockHttpServletResponse response;
@@ -70,7 +72,7 @@ public class HpkpHeaderWriterTests {
 		this.writer.writeHeaders(this.request, this.response);
 		assertThat(this.response.getHeaderNames()).hasSize(1);
 		assertThat(this.response.getHeader("Public-Key-Pins-Report-Only"))
-				.isEqualTo("max-age=5184000 ; pin-sha256=\"d6qzRu9zOECb90Uez27xWltNsj0e1Md7GkYYkVoZWmM=\"");
+	.isEqualTo("max-age=5184000 ; pin-sha256=\"d6qzRu9zOECb90Uez27xWltNsj0e1Md7GkYYkVoZWmM=\"");
 	}
 
 	@Test
@@ -80,7 +82,7 @@ public class HpkpHeaderWriterTests {
 		this.writer.writeHeaders(this.request, this.response);
 		assertThat(this.response.getHeaderNames()).hasSize(1);
 		assertThat(this.response.getHeader("Public-Key-Pins-Report-Only"))
-				.isEqualTo("max-age=2592000 ; pin-sha256=\"d6qzRu9zOECb90Uez27xWltNsj0e1Md7GkYYkVoZWmM=\"");
+	.isEqualTo("max-age=2592000 ; pin-sha256=\"d6qzRu9zOECb90Uez27xWltNsj0e1Md7GkYYkVoZWmM=\"");
 	}
 
 	@Test
@@ -90,7 +92,7 @@ public class HpkpHeaderWriterTests {
 		this.writer.writeHeaders(this.request, this.response);
 		assertThat(this.response.getHeaderNames()).hasSize(1);
 		assertThat(this.response.getHeader("Public-Key-Pins-Report-Only")).isEqualTo(
-				"max-age=2592000 ; pin-sha256=\"d6qzRu9zOECb90Uez27xWltNsj0e1Md7GkYYkVoZWmM=\" ; includeSubDomains");
+	"max-age=2592000 ; pin-sha256=\"d6qzRu9zOECb90Uez27xWltNsj0e1Md7GkYYkVoZWmM=\" ; includeSubDomains");
 	}
 
 	@Test
@@ -100,7 +102,7 @@ public class HpkpHeaderWriterTests {
 		this.writer.writeHeaders(this.request, this.response);
 		assertThat(this.response.getHeaderNames()).hasSize(1);
 		assertThat(this.response.getHeader("Public-Key-Pins")).isEqualTo(
-				"max-age=2592000 ; pin-sha256=\"d6qzRu9zOECb90Uez27xWltNsj0e1Md7GkYYkVoZWmM=\" ; includeSubDomains");
+	"max-age=2592000 ; pin-sha256=\"d6qzRu9zOECb90Uez27xWltNsj0e1Md7GkYYkVoZWmM=\" ; includeSubDomains");
 	}
 
 	@Test
@@ -109,7 +111,7 @@ public class HpkpHeaderWriterTests {
 		this.writer.writeHeaders(this.request, this.response);
 		assertThat(this.response.getHeaderNames()).hasSize(1);
 		assertThat(this.response.getHeader("Public-Key-Pins-Report-Only"))
-				.isEqualTo("max-age=2592000 ; pin-sha256=\"d6qzRu9zOECb90Uez27xWltNsj0e1Md7GkYYkVoZWmM=\"");
+	.isEqualTo("max-age=2592000 ; pin-sha256=\"d6qzRu9zOECb90Uez27xWltNsj0e1Md7GkYYkVoZWmM=\"");
 	}
 
 	@Test
@@ -118,7 +120,7 @@ public class HpkpHeaderWriterTests {
 		this.writer.writeHeaders(this.request, this.response);
 		assertThat(this.response.getHeaderNames()).hasSize(1);
 		assertThat(this.response.getHeader("Public-Key-Pins-Report-Only")).isEqualTo(
-				"max-age=5184000 ; pin-sha256=\"d6qzRu9zOECb90Uez27xWltNsj0e1Md7GkYYkVoZWmM=\" ; includeSubDomains");
+	"max-age=5184000 ; pin-sha256=\"d6qzRu9zOECb90Uez27xWltNsj0e1Md7GkYYkVoZWmM=\" ; includeSubDomains");
 	}
 
 	@Test
@@ -127,7 +129,7 @@ public class HpkpHeaderWriterTests {
 		this.writer.writeHeaders(this.request, this.response);
 		assertThat(this.response.getHeaderNames()).hasSize(1);
 		assertThat(this.response.getHeader("Public-Key-Pins"))
-				.isEqualTo("max-age=5184000 ; pin-sha256=\"d6qzRu9zOECb90Uez27xWltNsj0e1Md7GkYYkVoZWmM=\"");
+	.isEqualTo("max-age=5184000 ; pin-sha256=\"d6qzRu9zOECb90Uez27xWltNsj0e1Md7GkYYkVoZWmM=\"");
 	}
 
 	@Test
@@ -137,7 +139,7 @@ public class HpkpHeaderWriterTests {
 		this.writer.writeHeaders(this.request, this.response);
 		assertThat(this.response.getHeaderNames()).hasSize(1);
 		assertThat(this.response.getHeader("Public-Key-Pins")).isEqualTo(
-				"max-age=5184000 ; pin-sha256=\"d6qzRu9zOECb90Uez27xWltNsj0e1Md7GkYYkVoZWmM=\" ; report-uri=\"https://example.com/pkp-report\"");
+	"max-age=5184000 ; pin-sha256=\"d6qzRu9zOECb90Uez27xWltNsj0e1Md7GkYYkVoZWmM=\" ; report-uri=\"https://example.com/pkp-report\"");
 	}
 
 	@Test
@@ -147,17 +149,17 @@ public class HpkpHeaderWriterTests {
 		this.writer.writeHeaders(this.request, this.response);
 		assertThat(this.response.getHeaderNames()).hasSize(1);
 		assertThat(this.response.getHeader("Public-Key-Pins")).isEqualTo(
-				"max-age=5184000 ; pin-sha256=\"d6qzRu9zOECb90Uez27xWltNsj0e1Md7GkYYkVoZWmM=\" ; report-uri=\"https://example.com/pkp-report\"");
+	"max-age=5184000 ; pin-sha256=\"d6qzRu9zOECb90Uez27xWltNsj0e1Md7GkYYkVoZWmM=\" ; report-uri=\"https://example.com/pkp-report\"");
 	}
 
 	@Test
 	public void writeHeadersAddSha256Pins() {
 		this.writer.addSha256Pins("d6qzRu9zOECb90Uez27xWltNsj0e1Md7GkYYkVoZWmM=",
-				"E9CZ9INDbd+2eRQozYqqbQ2yXLVKB9+xcprMF+44U1g=");
+	"E9CZ9INDbd+2eRQozYqqbQ2yXLVKB9+xcprMF+44U1g=");
 		this.writer.writeHeaders(this.request, this.response);
 		assertThat(this.response.getHeaderNames()).hasSize(1);
 		assertThat(this.response.getHeader("Public-Key-Pins-Report-Only")).isEqualTo(
-				"max-age=5184000 ; pin-sha256=\"d6qzRu9zOECb90Uez27xWltNsj0e1Md7GkYYkVoZWmM=\" ; pin-sha256=\"E9CZ9INDbd+2eRQozYqqbQ2yXLVKB9+xcprMF+44U1g=\"");
+	"max-age=5184000 ; pin-sha256=\"d6qzRu9zOECb90Uez27xWltNsj0e1Md7GkYYkVoZWmM=\" ; pin-sha256=\"E9CZ9INDbd+2eRQozYqqbQ2yXLVKB9+xcprMF+44U1g=\"");
 	}
 
 	@Test
@@ -175,7 +177,7 @@ public class HpkpHeaderWriterTests {
 	@Test
 	public void addSha256PinsWithNullPin() {
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> this.writer.addSha256Pins("d6qzRu9zOECb90Uez27xWltNsj0e1Md7GkYYkVoZWmM=", null));
+	.isThrownBy(() -> this.writer.addSha256Pins("d6qzRu9zOECb90Uez27xWltNsj0e1Md7GkYYkVoZWmM=", null));
 	}
 
 	@Test

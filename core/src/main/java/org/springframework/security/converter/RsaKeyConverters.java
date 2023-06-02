@@ -83,8 +83,8 @@ public final class RsaKeyConverters {
 		return (source) -> {
 			List<String> lines = readAllLines(source);
 			Assert.isTrue(!lines.isEmpty() && lines.get(0).startsWith(PKCS8_PEM_HEADER),
-					"Key is not in PEM-encoded PKCS#8 format, please check that the header begins with "
-							+ PKCS8_PEM_HEADER);
+		"Key is not in PEM-encoded PKCS#8 format, please check that the header begins with "
+	+ PKCS8_PEM_HEADER);
 			StringBuilder base64Encoded = new StringBuilder();
 			for (String line : lines) {
 				if (RsaKeyConverters.isNotPkcs8Wrapper(line)) {
@@ -118,10 +118,10 @@ public final class RsaKeyConverters {
 			Assert.notEmpty(lines, "Input stream is empty");
 			String encodingHint = lines.get(0);
 			Converter<List<String>, RSAPublicKey> decoder = encodingHint.startsWith(X509_PEM_HEADER) ? pemDecoder
-					: encodingHint.startsWith(X509_CERT_HEADER) ? certDecoder : null;
+		: encodingHint.startsWith(X509_CERT_HEADER) ? certDecoder : null;
 			Assert.notNull(decoder,
-					"Key is not in PEM-encoded X.509 format or a valid X.509 certificate, please check that the header begins with "
-							+ X509_PEM_HEADER + " or " + X509_CERT_HEADER);
+		"Key is not in PEM-encoded X.509 format or a valid X.509 certificate, please check that the header begins with "
+	+ X509_PEM_HEADER + " or " + X509_CERT_HEADER);
 			return decoder.convert(lines);
 		};
 	}
@@ -205,7 +205,7 @@ public final class RsaKeyConverters {
 			byte[] x509 = Base64.getDecoder().decode(base64Encoded.toString());
 			try (InputStream x509CertStream = new ByteArrayInputStream(x509)) {
 				X509Certificate certificate = (X509Certificate) this.certificateFactory
-						.generateCertificate(x509CertStream);
+			.generateCertificate(x509CertStream);
 				return (RSAPublicKey) certificate.getPublicKey();
 			}
 			catch (CertificateException | IOException ex) {

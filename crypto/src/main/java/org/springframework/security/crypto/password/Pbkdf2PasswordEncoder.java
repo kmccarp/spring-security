@@ -106,7 +106,7 @@ public class Pbkdf2PasswordEncoder implements PasswordEncoder {
 		this.hashWidth = hashWidth;
 		this.algorithm = SecretKeyFactoryAlgorithm.PBKDF2WithHmacSHA1.name();
 		this.overrideHashWidth = false; // Honor 'hashWidth' to preserve backwards
-										// compatibility
+		// compatibility
 	}
 
 	/**
@@ -120,7 +120,7 @@ public class Pbkdf2PasswordEncoder implements PasswordEncoder {
 	 * @since 5.8
 	 */
 	public Pbkdf2PasswordEncoder(CharSequence secret, int saltLength, int iterations,
-			SecretKeyFactoryAlgorithm secretKeyFactoryAlgorithm) {
+SecretKeyFactoryAlgorithm secretKeyFactoryAlgorithm) {
 		this.secret = Utf8.encode(secret);
 		this.saltGenerator = KeyGenerators.secureRandom(saltLength);
 		this.iterations = iterations;
@@ -179,7 +179,7 @@ public class Pbkdf2PasswordEncoder implements PasswordEncoder {
 		}
 		if (this.overrideHashWidth) {
 			this.hashWidth = SecretKeyFactoryAlgorithm.PBKDF2WithHmacSHA1.equals(secretKeyFactoryAlgorithm) ? 160
-					: SecretKeyFactoryAlgorithm.PBKDF2WithHmacSHA256.equals(secretKeyFactoryAlgorithm) ? 256 : 512;
+		: SecretKeyFactoryAlgorithm.PBKDF2WithHmacSHA256.equals(secretKeyFactoryAlgorithm) ? 256 : 512;
 		}
 	}
 
@@ -224,7 +224,7 @@ public class Pbkdf2PasswordEncoder implements PasswordEncoder {
 	private byte[] encode(CharSequence rawPassword, byte[] salt) {
 		try {
 			PBEKeySpec spec = new PBEKeySpec(rawPassword.toString().toCharArray(),
-					EncodingUtils.concatenate(salt, this.secret), this.iterations, this.hashWidth);
+		EncodingUtils.concatenate(salt, this.secret), this.iterations, this.hashWidth);
 			SecretKeyFactory skf = SecretKeyFactory.getInstance(this.algorithm);
 			return EncodingUtils.concatenate(salt, skf.generateSecret(spec).getEncoded());
 		}

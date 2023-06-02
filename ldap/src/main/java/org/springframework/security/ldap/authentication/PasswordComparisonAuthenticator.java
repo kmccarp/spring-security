@@ -65,7 +65,7 @@ public final class PasswordComparisonAuthenticator extends AbstractLdapAuthentic
 	@Override
 	public DirContextOperations authenticate(final Authentication authentication) {
 		Assert.isInstanceOf(UsernamePasswordAuthenticationToken.class, authentication,
-				"Can only process UsernamePasswordAuthenticationToken objects");
+	"Can only process UsernamePasswordAuthenticationToken objects");
 		// locate the user and check the password
 		DirContextOperations user = null;
 		String username = authentication.getName();
@@ -97,20 +97,20 @@ public final class PasswordComparisonAuthenticator extends AbstractLdapAuthentic
 		}
 		if (logger.isTraceEnabled()) {
 			logger.trace(LogMessage.format("Comparing password attribute '%s' for user '%s'",
-					this.passwordAttributeName, user.getDn()));
+		this.passwordAttributeName, user.getDn()));
 		}
 		if (this.usePasswordAttrCompare && isPasswordAttrCompare(user, password)) {
 			logger.debug(LogMessage.format("Locally matched password attribute '%s' for user '%s'",
-					this.passwordAttributeName, user.getDn()));
+		this.passwordAttributeName, user.getDn()));
 			return user;
 		}
 		if (isLdapPasswordCompare(user, ldapTemplate, password)) {
 			logger.debug(LogMessage.format("LDAP-matched password attribute '%s' for user '%s'",
-					this.passwordAttributeName, user.getDn()));
+		this.passwordAttributeName, user.getDn()));
 			return user;
 		}
 		throw new BadCredentialsException(
-				this.messages.getMessage("PasswordComparisonAuthenticator.badCredentials", "Bad credentials"));
+	this.messages.getMessage("PasswordComparisonAuthenticator.badCredentials", "Bad credentials"));
 	}
 
 	private boolean isPasswordAttrCompare(DirContextOperations user, String password) {
@@ -130,7 +130,7 @@ public final class PasswordComparisonAuthenticator extends AbstractLdapAuthentic
 	}
 
 	private boolean isLdapPasswordCompare(DirContextOperations user, SpringSecurityLdapTemplate ldapTemplate,
-			String password) {
+String password) {
 		String encodedPassword = this.passwordEncoder.encode(password);
 		byte[] passwordBytes = Utf8.encode(encodedPassword);
 		return ldapTemplate.compare(user.getDn().toString(), this.passwordAttributeName, passwordBytes);

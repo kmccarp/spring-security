@@ -58,8 +58,7 @@ import org.springframework.web.client.RestTemplate;
  * 2.0 Security Best Current Practice.</a>
  */
 @Deprecated
-public final class DefaultPasswordTokenResponseClient
-		implements OAuth2AccessTokenResponseClient<OAuth2PasswordGrantRequest> {
+public final class DefaultPasswordTokenResponseClientimplements OAuth2AccessTokenResponseClient<OAuth2PasswordGrantRequest> {
 
 	private static final String INVALID_TOKEN_RESPONSE_ERROR_CODE = "invalid_token_response";
 
@@ -69,7 +68,7 @@ public final class DefaultPasswordTokenResponseClient
 
 	public DefaultPasswordTokenResponseClient() {
 		RestTemplate restTemplate = new RestTemplate(
-				Arrays.asList(new FormHttpMessageConverter(), new OAuth2AccessTokenResponseHttpMessageConverter()));
+	Arrays.asList(new FormHttpMessageConverter(), new OAuth2AccessTokenResponseHttpMessageConverter()));
 		restTemplate.setErrorHandler(new OAuth2ErrorResponseErrorHandler());
 		this.restOperations = restTemplate;
 	}
@@ -93,9 +92,9 @@ public final class DefaultPasswordTokenResponseClient
 		}
 		catch (RestClientException ex) {
 			OAuth2Error oauth2Error = new OAuth2Error(INVALID_TOKEN_RESPONSE_ERROR_CODE,
-					"An error occurred while attempting to retrieve the OAuth 2.0 Access Token Response: "
-							+ ex.getMessage(),
-					null);
+		"An error occurred while attempting to retrieve the OAuth 2.0 Access Token Response: "
+	+ ex.getMessage(),
+		null);
 			throw new OAuth2AuthorizationException(oauth2Error, ex);
 		}
 	}
@@ -108,7 +107,7 @@ public final class DefaultPasswordTokenResponseClient
 	 * {@link RequestEntity} representation of the Access Token Request
 	 */
 	public void setRequestEntityConverter(
-			Converter<OAuth2PasswordGrantRequest, RequestEntity<?>> requestEntityConverter) {
+Converter<OAuth2PasswordGrantRequest, RequestEntity<?>> requestEntityConverter) {
 		Assert.notNull(requestEntityConverter, "requestEntityConverter cannot be null");
 		this.requestEntityConverter = requestEntityConverter;
 	}

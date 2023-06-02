@@ -183,9 +183,9 @@ public class WebSecurityTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.httpBasic().and()
-				.authorizeRequests()
-					.anyRequest().denyAll();
+		.httpBasic().and()
+		.authorizeRequests()
+		.anyRequest().denyAll();
 			// @formatter:on
 			return http.build();
 		}
@@ -222,9 +222,9 @@ public class WebSecurityTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.httpBasic().and()
-				.authorizeRequests()
-					.anyRequest().denyAll();
+		.httpBasic().and()
+		.authorizeRequests()
+		.anyRequest().denyAll();
 			// @formatter:on
 			return http.build();
 		}
@@ -264,7 +264,7 @@ public class WebSecurityTests {
 		@Bean
 		WebSecurityCustomizer webSecurityCustomizer() {
 			return (web) -> web
-					.requestRejectedHandler(new HttpStatusRequestRejectedHandler(HttpStatus.BAD_REQUEST.value()));
+		.requestRejectedHandler(new HttpStatusRequestRejectedHandler(HttpStatus.BAD_REQUEST.value()));
 		}
 
 	}

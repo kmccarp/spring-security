@@ -97,7 +97,7 @@ public final class JwtBearerOAuth2AuthorizedClientProvider implements OAuth2Auth
 		JwtBearerGrantRequest jwtBearerGrantRequest = new JwtBearerGrantRequest(clientRegistration, jwt);
 		OAuth2AccessTokenResponse tokenResponse = getTokenResponse(clientRegistration, jwtBearerGrantRequest);
 		return new OAuth2AuthorizedClient(clientRegistration, context.getPrincipal().getName(),
-				tokenResponse.getAccessToken());
+	tokenResponse.getAccessToken());
 	}
 
 	private Jwt resolveJwtAssertion(OAuth2AuthorizationContext context) {
@@ -108,7 +108,7 @@ public final class JwtBearerOAuth2AuthorizedClientProvider implements OAuth2Auth
 	}
 
 	private OAuth2AccessTokenResponse getTokenResponse(ClientRegistration clientRegistration,
-			JwtBearerGrantRequest jwtBearerGrantRequest) {
+JwtBearerGrantRequest jwtBearerGrantRequest) {
 		try {
 			return this.accessTokenResponseClient.getTokenResponse(jwtBearerGrantRequest);
 		}
@@ -128,7 +128,7 @@ public final class JwtBearerOAuth2AuthorizedClientProvider implements OAuth2Auth
 	 * credential at the Token Endpoint for the {@code jwt-bearer} grant
 	 */
 	public void setAccessTokenResponseClient(
-			OAuth2AccessTokenResponseClient<JwtBearerGrantRequest> accessTokenResponseClient) {
+OAuth2AccessTokenResponseClient<JwtBearerGrantRequest> accessTokenResponseClient) {
 		Assert.notNull(accessTokenResponseClient, "accessTokenResponseClient cannot be null");
 		this.accessTokenResponseClient = accessTokenResponseClient;
 	}

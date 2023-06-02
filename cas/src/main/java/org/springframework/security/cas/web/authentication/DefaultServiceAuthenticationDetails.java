@@ -33,8 +33,7 @@ import org.springframework.util.Assert;
  *
  * @author Rob Winch
  */
-final class DefaultServiceAuthenticationDetails extends WebAuthenticationDetails
-		implements ServiceAuthenticationDetails {
+final class DefaultServiceAuthenticationDetails extends WebAuthenticationDetailsimplements ServiceAuthenticationDetails {
 
 	private static final long serialVersionUID = 6192409090610517700L;
 
@@ -49,13 +48,13 @@ final class DefaultServiceAuthenticationDetails extends WebAuthenticationDetails
 	 * {@link #createArtifactPattern(String)}.
 	 */
 	DefaultServiceAuthenticationDetails(String casService, HttpServletRequest request, Pattern artifactPattern)
-			throws MalformedURLException {
+throws MalformedURLException {
 		super(request);
 		URL casServiceUrl = new URL(casService);
 		int port = getServicePort(casServiceUrl);
 		final String query = getQueryString(request, artifactPattern);
 		this.serviceUrl = UrlUtils.buildFullRequestUrl(casServiceUrl.getProtocol(), casServiceUrl.getHost(), port,
-				request.getRequestURI(), query);
+	request.getRequestURI(), query);
 	}
 
 	/**

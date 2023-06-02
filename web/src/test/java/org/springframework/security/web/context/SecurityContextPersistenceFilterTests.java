@@ -99,7 +99,7 @@ public class SecurityContextPersistenceFilterTests {
 		final MockHttpServletRequest request = new MockHttpServletRequest();
 		final MockHttpServletResponse response = new MockHttpServletResponse();
 		SecurityContextPersistenceFilter filter = new SecurityContextPersistenceFilter(
-				mock(SecurityContextRepository.class));
+	mock(SecurityContextRepository.class));
 		request.setAttribute(SecurityContextPersistenceFilter.FILTER_APPLIED, Boolean.TRUE);
 		filter.doFilter(request, response, chain);
 		verify(chain).doFilter(request, response);

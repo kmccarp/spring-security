@@ -52,11 +52,11 @@ public final class Saml2MetadataFilter extends OncePerRequestFilter {
 	private final Saml2MetadataResponseResolver metadataResolver;
 
 	public Saml2MetadataFilter(RelyingPartyRegistrationResolver relyingPartyRegistrationResolver,
-			Saml2MetadataResolver saml2MetadataResolver) {
+Saml2MetadataResolver saml2MetadataResolver) {
 		Assert.notNull(relyingPartyRegistrationResolver, "relyingPartyRegistrationResolver cannot be null");
 		Assert.notNull(saml2MetadataResolver, "saml2MetadataResolver cannot be null");
 		this.metadataResolver = new Saml2MetadataResponseResolverAdapter(relyingPartyRegistrationResolver,
-				saml2MetadataResolver);
+	saml2MetadataResolver);
 	}
 
 	/**
@@ -70,7 +70,7 @@ public final class Saml2MetadataFilter extends OncePerRequestFilter {
 	 * @since 6.1
 	 */
 	public Saml2MetadataFilter(RelyingPartyRegistrationRepository relyingPartyRegistrationRepository,
-			Saml2MetadataResolver saml2MetadataResolver) {
+Saml2MetadataResolver saml2MetadataResolver) {
 		this(new DefaultRelyingPartyRegistrationResolver(relyingPartyRegistrationRepository), saml2MetadataResolver);
 	}
 
@@ -85,7 +85,7 @@ public final class Saml2MetadataFilter extends OncePerRequestFilter {
 
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
-			throws ServletException, IOException {
+throws ServletException, IOException {
 		Saml2MetadataResponse metadata;
 		try {
 			metadata = this.metadataResolver.resolve(request);
@@ -102,7 +102,7 @@ public final class Saml2MetadataFilter extends OncePerRequestFilter {
 	}
 
 	private void writeMetadataToResponse(HttpServletResponse response, Saml2MetadataResponse metadata)
-			throws IOException {
+throws IOException {
 		response.setContentType(MediaType.APPLICATION_XML_VALUE);
 		String format = "attachment; filename=\"%s\"; filename*=UTF-8''%s";
 		String fileName = metadata.getFileName();
@@ -121,7 +121,7 @@ public final class Saml2MetadataFilter extends OncePerRequestFilter {
 	public void setRequestMatcher(RequestMatcher requestMatcher) {
 		Assert.notNull(requestMatcher, "requestMatcher cannot be null");
 		Assert.isInstanceOf(Saml2MetadataResponseResolverAdapter.class, this.metadataResolver,
-				"a Saml2MetadataResponseResolver and RequestMatcher cannot be both set on this filter. Please set the request matcher on the Saml2MetadataResponseResolver itself.");
+	"a Saml2MetadataResponseResolver and RequestMatcher cannot be both set on this filter. Please set the request matcher on the Saml2MetadataResponseResolver itself.");
 		((Saml2MetadataResponseResolverAdapter) this.metadataResolver).setRequestMatcher(requestMatcher);
 	}
 
@@ -137,9 +137,9 @@ public final class Saml2MetadataFilter extends OncePerRequestFilter {
 	public void setMetadataFilename(String metadataFilename) {
 		Assert.hasText(metadataFilename, "metadataFilename cannot be empty");
 		Assert.isTrue(metadataFilename.contains("{registrationId}"),
-				"metadataFilename must contain a {registrationId} match variable");
+	"metadataFilename must contain a {registrationId} match variable");
 		Assert.isInstanceOf(Saml2MetadataResponseResolverAdapter.class, this.metadataResolver,
-				"a Saml2MetadataResponseResolver and file name cannot be both set on this filter. Please set the file name on the Saml2MetadataResponseResolver itself.");
+	"a Saml2MetadataResponseResolver and file name cannot be both set on this filter. Please set the file name on the Saml2MetadataResponseResolver itself.");
 		((Saml2MetadataResponseResolverAdapter) this.metadataResolver).setMetadataFilename(metadataFilename);
 	}
 
@@ -148,14 +148,14 @@ public final class Saml2MetadataFilter extends OncePerRequestFilter {
 		private final RelyingPartyRegistrationResolver registrations;
 
 		private RequestMatcher requestMatcher = new AntPathRequestMatcher(
-				"/saml2/service-provider-metadata/{registrationId}");
+	"/saml2/service-provider-metadata/{registrationId}");
 
 		private final Saml2MetadataResolver metadataResolver;
 
 		private String metadataFilename = DEFAULT_METADATA_FILE_NAME;
 
 		Saml2MetadataResponseResolverAdapter(RelyingPartyRegistrationResolver registrations,
-				Saml2MetadataResolver metadataResolver) {
+	Saml2MetadataResolver metadataResolver) {
 			this.registrations = registrations;
 			this.metadataResolver = metadataResolver;
 		}
@@ -185,7 +185,7 @@ public final class Saml2MetadataFilter extends OncePerRequestFilter {
 		void setMetadataFilename(String metadataFilename) {
 			Assert.hasText(metadataFilename, "metadataFilename cannot be empty");
 			Assert.isTrue(metadataFilename.contains("{registrationId}"),
-					"metadataFilename must contain a {registrationId} match variable");
+		"metadataFilename must contain a {registrationId} match variable");
 			this.metadataFilename = metadataFilename;
 		}
 

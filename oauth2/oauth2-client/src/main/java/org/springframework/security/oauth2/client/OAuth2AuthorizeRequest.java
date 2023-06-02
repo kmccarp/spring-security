@@ -220,7 +220,7 @@ public final class OAuth2AuthorizeRequest {
 			OAuth2AuthorizeRequest authorizeRequest = new OAuth2AuthorizeRequest();
 			if (this.authorizedClient != null) {
 				authorizeRequest.clientRegistrationId = this.authorizedClient.getClientRegistration()
-						.getRegistrationId();
+			.getRegistrationId();
 				authorizeRequest.authorizedClient = this.authorizedClient;
 			}
 			else {
@@ -228,7 +228,7 @@ public final class OAuth2AuthorizeRequest {
 			}
 			authorizeRequest.principal = this.principal;
 			authorizeRequest.attributes = Collections.unmodifiableMap(CollectionUtils.isEmpty(this.attributes)
-					? Collections.emptyMap() : new LinkedHashMap<>(this.attributes));
+		? Collections.emptyMap() : new LinkedHashMap<>(this.attributes));
 			return authorizeRequest;
 		}
 

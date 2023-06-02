@@ -127,7 +127,7 @@ public class AuthorizationMethodPointcutsTests {
 
 	}
 
-	@Target({ ElementType.METHOD, ElementType.TYPE })
+	@Target({ElementType.METHOD, ElementType.TYPE})
 	@Retention(RetentionPolicy.RUNTIME)
 	@PreAuthorize("hasAuthority('APP')")
 	@interface MyAnnotation {

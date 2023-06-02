@@ -35,6 +35,6 @@ import org.springframework.security.core.Authentication;
 public interface PostInvocationAuthorizationAdvice extends AopInfrastructureBean {
 
 	Object after(Authentication authentication, MethodInvocation mi, PostInvocationAttribute pia, Object returnedObject)
-			throws AccessDeniedException;
+throws AccessDeniedException;
 
 }

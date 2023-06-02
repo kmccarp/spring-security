@@ -83,9 +83,9 @@ public class OAuth2AuthorizationRequestRedirectWebFilter implements WebFilter {
 	 * @param clientRegistrationRepository the repository of client registrations
 	 */
 	public OAuth2AuthorizationRequestRedirectWebFilter(
-			ReactiveClientRegistrationRepository clientRegistrationRepository) {
+ReactiveClientRegistrationRepository clientRegistrationRepository) {
 		this.authorizationRequestResolver = new DefaultServerOAuth2AuthorizationRequestResolver(
-				clientRegistrationRepository);
+	clientRegistrationRepository);
 	}
 
 	/**
@@ -94,7 +94,7 @@ public class OAuth2AuthorizationRequestRedirectWebFilter implements WebFilter {
 	 * @param authorizationRequestResolver the resolver to use
 	 */
 	public OAuth2AuthorizationRequestRedirectWebFilter(
-			ServerOAuth2AuthorizationRequestResolver authorizationRequestResolver) {
+ServerOAuth2AuthorizationRequestResolver authorizationRequestResolver) {
 		Assert.notNull(authorizationRequestResolver, "authorizationRequestResolver cannot be null");
 		this.authorizationRequestResolver = authorizationRequestResolver;
 	}
@@ -114,7 +114,7 @@ public class OAuth2AuthorizationRequestRedirectWebFilter implements WebFilter {
 	 * {@link OAuth2AuthorizationRequest}'s
 	 */
 	public final void setAuthorizationRequestRepository(
-			ServerAuthorizationRequestRepository<OAuth2AuthorizationRequest> authorizationRequestRepository) {
+ServerAuthorizationRequestRepository<OAuth2AuthorizationRequest> authorizationRequestRepository) {
 		Assert.notNull(authorizationRequestRepository, "authorizationRequestRepository cannot be null");
 		this.authorizationRequestRepository = authorizationRequestRepository;
 	}
@@ -132,30 +132,29 @@ public class OAuth2AuthorizationRequestRedirectWebFilter implements WebFilter {
 	public Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain) {
 		// @formatter:off
 		return this.authorizationRequestResolver.resolve(exchange)
-				.switchIfEmpty(chain.filter(exchange).then(Mono.empty()))
-				.onErrorResume(ClientAuthorizationRequiredException.class,
-						(ex) -> this.requestCache.saveRequest(exchange).then(
-								this.authorizationRequestResolver.resolve(exchange, ex.getClientRegistrationId()))
-				)
-				.flatMap((clientRegistration) -> sendRedirectForAuthorization(exchange, clientRegistration));
+	.switchIfEmpty(chain.filter(exchange).then(Mono.empty()))
+	.onErrorResume(ClientAuthorizationRequiredException.class,
+(ex) -> this.requestCache.saveRequest(exchange).then(this.authorizationRequestResolver.resolve(exchange, ex.getClientRegistrationId()))
+	)
+	.flatMap((clientRegistration) -> sendRedirectForAuthorization(exchange, clientRegistration));
 		// @formatter:on
 	}
 
 	private Mono<Void> sendRedirectForAuthorization(ServerWebExchange exchange,
-			OAuth2AuthorizationRequest authorizationRequest) {
+OAuth2AuthorizationRequest authorizationRequest) {
 		return Mono.defer(() -> {
 			Mono<Void> saveAuthorizationRequest = Mono.empty();
 			if (AuthorizationGrantType.AUTHORIZATION_CODE.equals(authorizationRequest.getGrantType())) {
 				saveAuthorizationRequest = this.authorizationRequestRepository
-						.saveAuthorizationRequest(authorizationRequest, exchange);
+			.saveAuthorizationRequest(authorizationRequest, exchange);
 			}
 			// @formatter:off
 			URI redirectUri = UriComponentsBuilder.fromUriString(authorizationRequest.getAuthorizationRequestUri())
-					.build(true)
-					.toUri();
+		.build(true)
+		.toUri();
 			// @formatter:on
 			return saveAuthorizationRequest
-					.then(this.authorizationRedirectStrategy.sendRedirect(exchange, redirectUri));
+		.then(this.authorizationRedirectStrategy.sendRedirect(exchange, redirectUri));
 		});
 	}
 

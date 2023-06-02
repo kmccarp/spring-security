@@ -53,7 +53,7 @@ public class PasswordManagementConfigurerTests {
 		this.spring.register(PasswordManagementWithDefaultChangePasswordPageConfig.class).autowire();
 
 		this.mvc.perform(get("/.well-known/change-password")).andExpect(status().isFound())
-				.andExpect(redirectedUrl("/change-password"));
+	.andExpect(redirectedUrl("/change-password"));
 	}
 
 	@Test
@@ -61,28 +61,28 @@ public class PasswordManagementConfigurerTests {
 		this.spring.register(PasswordManagementWithCustomChangePasswordPageConfig.class).autowire();
 
 		this.mvc.perform(get("/.well-known/change-password")).andExpect(status().isFound())
-				.andExpect(redirectedUrl("/custom-change-password-page"));
+	.andExpect(redirectedUrl("/custom-change-password-page"));
 	}
 
 	@Test
 	public void whenSettingNullChangePasswordPage() {
 		PasswordManagementConfigurer configurer = new PasswordManagementConfigurer();
 		assertThatIllegalArgumentException().isThrownBy(() -> configurer.changePasswordPage(null))
-				.withMessage("changePasswordPage cannot be empty");
+	.withMessage("changePasswordPage cannot be empty");
 	}
 
 	@Test
 	public void whenSettingEmptyChangePasswordPage() {
 		PasswordManagementConfigurer configurer = new PasswordManagementConfigurer();
 		assertThatIllegalArgumentException().isThrownBy(() -> configurer.changePasswordPage(""))
-				.withMessage("changePasswordPage cannot be empty");
+	.withMessage("changePasswordPage cannot be empty");
 	}
 
 	@Test
 	public void whenSettingBlankChangePasswordPage() {
 		PasswordManagementConfigurer configurer = new PasswordManagementConfigurer();
 		assertThatIllegalArgumentException().isThrownBy(() -> configurer.changePasswordPage(" "))
-				.withMessage("changePasswordPage cannot be empty");
+	.withMessage("changePasswordPage cannot be empty");
 	}
 
 	@Configuration
@@ -93,8 +93,8 @@ public class PasswordManagementConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			return http
-					.passwordManagement(withDefaults())
-					.build();
+		.passwordManagement(withDefaults())
+		.build();
 			// @formatter:on
 		}
 
@@ -108,10 +108,10 @@ public class PasswordManagementConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			return http
-					.passwordManagement((passwordManagement) -> passwordManagement
-						.changePasswordPage("/custom-change-password-page")
-					)
-					.build();
+		.passwordManagement((passwordManagement) -> passwordManagement
+.changePasswordPage("/custom-change-password-page")
+		)
+		.build();
 			// @formatter:on
 		}
 

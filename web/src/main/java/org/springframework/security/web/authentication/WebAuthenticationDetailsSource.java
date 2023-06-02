@@ -27,8 +27,7 @@ import org.springframework.security.authentication.AuthenticationDetailsSource;
  *
  * @author Ben Alex
  */
-public class WebAuthenticationDetailsSource
-		implements AuthenticationDetailsSource<HttpServletRequest, WebAuthenticationDetails> {
+public class WebAuthenticationDetailsSourceimplements AuthenticationDetailsSource<HttpServletRequest, WebAuthenticationDetails> {
 
 	/**
 	 * @param context the {@code HttpServletRequest} object.

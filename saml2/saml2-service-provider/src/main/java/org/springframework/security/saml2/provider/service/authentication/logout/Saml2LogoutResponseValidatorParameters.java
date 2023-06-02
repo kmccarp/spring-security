@@ -39,7 +39,7 @@ public class Saml2LogoutResponseValidatorParameters {
 	 * @param registration the associated {@link RelyingPartyRegistration}
 	 */
 	public Saml2LogoutResponseValidatorParameters(Saml2LogoutResponse response, Saml2LogoutRequest request,
-			RelyingPartyRegistration registration) {
+RelyingPartyRegistration registration) {
 		this.response = response;
 		this.request = request;
 		this.registration = registration;

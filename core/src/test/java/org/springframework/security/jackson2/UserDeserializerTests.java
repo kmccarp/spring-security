@@ -44,15 +44,16 @@ public class UserDeserializerTests extends AbstractMixinTests {
 
 	// @formatter:off
 	public static final String USER_JSON = "{"
-		+ "\"@class\": \"org.springframework.security.core.userdetails.User\", "
-		+ "\"username\": \"admin\","
-		+ " \"password\": " + USER_PASSWORD + ", "
-		+ "\"accountNonExpired\": true, "
-		+ "\"accountNonLocked\": true, "
-		+ "\"credentialsNonExpired\": true, "
-		+ "\"enabled\": true, "
-		+ "\"authorities\": " + SimpleGrantedAuthorityMixinTests.AUTHORITIES_SET_JSON
-	+ "}";
++ "\"@class\": \"org.springframework.security.core.userdetails.User\", "
++ "\"username\": \"admin\","
++ " \"password\": " + USER_PASSWORD + ", "
++ "\"accountNonExpired\": true, "
++ "\"accountNonLocked\": true, "
++ "\"credentialsNonExpired\": true, "
++ "\"enabled\": true, "
++ "\"authorities\": " + SimpleGrantedAuthorityMixinTests.AUTHORITIES_SET_JSON
++ "}";
+
 	// @formatter:on
 	@Test
 	public void serializeUserTest() throws JsonProcessingException, JSONException {
@@ -71,9 +72,9 @@ public class UserDeserializerTests extends AbstractMixinTests {
 	@Test
 	public void deserializeUserWithNullPasswordEmptyAuthorityTest() throws IOException {
 		String userJsonWithoutPasswordString = USER_JSON.replace(SimpleGrantedAuthorityMixinTests.AUTHORITIES_SET_JSON,
-				"[]");
+	"[]");
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> this.mapper.readValue(userJsonWithoutPasswordString, User.class));
+	.isThrownBy(() -> this.mapper.readValue(userJsonWithoutPasswordString, User.class));
 	}
 
 	@Test
@@ -90,7 +91,7 @@ public class UserDeserializerTests extends AbstractMixinTests {
 	@Test
 	public void deserializeUserWithNoClassIdInAuthoritiesTest() throws Exception {
 		String userJson = USER_JSON.replace(SimpleGrantedAuthorityMixinTests.AUTHORITIES_SET_JSON,
-				"[{\"authority\": \"ROLE_USER\"}]");
+	"[{\"authority\": \"ROLE_USER\"}]");
 		assertThatIllegalArgumentException().isThrownBy(() -> this.mapper.readValue(userJson, User.class));
 	}
 
@@ -121,7 +122,7 @@ public class UserDeserializerTests extends AbstractMixinTests {
 
 	public static String userWithNoAuthoritiesJson() {
 		return userJson().replace(SimpleGrantedAuthorityMixinTests.AUTHORITIES_SET_JSON,
-				SimpleGrantedAuthorityMixinTests.NO_AUTHORITIES_SET_JSON);
+	SimpleGrantedAuthorityMixinTests.NO_AUTHORITIES_SET_JSON);
 	}
 
 }

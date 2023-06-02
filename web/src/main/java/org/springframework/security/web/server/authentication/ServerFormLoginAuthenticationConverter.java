@@ -29,9 +29,7 @@ import org.springframework.web.server.ServerWebExchange;
  * @since 5.1
  */
 @SuppressWarnings("deprecation")
-public class ServerFormLoginAuthenticationConverter
-		extends org.springframework.security.web.server.ServerFormLoginAuthenticationConverter
-		implements ServerAuthenticationConverter {
+public class ServerFormLoginAuthenticationConverterextends org.springframework.security.web.server.ServerFormLoginAuthenticationConverterimplements ServerAuthenticationConverter {
 
 	@Override
 	public Mono<Authentication> convert(ServerWebExchange exchange) {

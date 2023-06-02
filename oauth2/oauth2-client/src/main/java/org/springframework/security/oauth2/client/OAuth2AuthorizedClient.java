@@ -60,7 +60,7 @@ public class OAuth2AuthorizedClient implements Serializable {
 	 * @param accessToken the access token credential granted
 	 */
 	public OAuth2AuthorizedClient(ClientRegistration clientRegistration, String principalName,
-			OAuth2AccessToken accessToken) {
+OAuth2AccessToken accessToken) {
 		this(clientRegistration, principalName, accessToken, null);
 	}
 
@@ -72,7 +72,7 @@ public class OAuth2AuthorizedClient implements Serializable {
 	 * @param refreshToken the refresh token credential granted
 	 */
 	public OAuth2AuthorizedClient(ClientRegistration clientRegistration, String principalName,
-			OAuth2AccessToken accessToken, @Nullable OAuth2RefreshToken refreshToken) {
+OAuth2AccessToken accessToken, @Nullable OAuth2RefreshToken refreshToken) {
 		Assert.notNull(clientRegistration, "clientRegistration cannot be null");
 		Assert.hasText(principalName, "principalName cannot be empty");
 		Assert.notNull(accessToken, "accessToken cannot be null");

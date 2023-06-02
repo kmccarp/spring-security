@@ -83,7 +83,7 @@ public class MethodSecurityMetadataSourceAdvisor extends AbstractPointcutAdvisor
 	 * serialization)
 	 */
 	public MethodSecurityMetadataSourceAdvisor(String adviceBeanName, MethodSecurityMetadataSource attributeSource,
-			String attributeSourceBeanName) {
+String attributeSourceBeanName) {
 		Assert.notNull(adviceBeanName, "The adviceBeanName cannot be null");
 		Assert.notNull(attributeSource, "The attributeSource cannot be null");
 		Assert.notNull(attributeSourceBeanName, "The attributeSourceBeanName cannot be null");
@@ -118,7 +118,7 @@ public class MethodSecurityMetadataSourceAdvisor extends AbstractPointcutAdvisor
 		ois.defaultReadObject();
 		this.adviceMonitor = new Object();
 		this.attributeSource = this.beanFactory.getBean(this.metadataSourceBeanName,
-				MethodSecurityMetadataSource.class);
+	MethodSecurityMetadataSource.class);
 	}
 
 	class MethodSecurityMetadataSourcePointcut extends StaticMethodMatcherPointcut implements Serializable {

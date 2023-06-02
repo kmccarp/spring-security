@@ -39,8 +39,7 @@ import org.springframework.util.StringUtils;
  *
  * @author Ruud Senden
  */
-public class MapBasedAttributes2GrantedAuthoritiesMapper
-		implements Attributes2GrantedAuthoritiesMapper, MappableAttributesRetriever, InitializingBean {
+public class MapBasedAttributes2GrantedAuthoritiesMapperimplements Attributes2GrantedAuthoritiesMapper, MappableAttributesRetriever, InitializingBean {
 
 	private Map<String, Collection<GrantedAuthority>> attributes2grantedAuthoritiesMap = null;
 
@@ -82,7 +81,7 @@ public class MapBasedAttributes2GrantedAuthoritiesMapper
 	 */
 	public void setAttributes2grantedAuthoritiesMap(final Map<?, ?> attributes2grantedAuthoritiesMap) {
 		Assert.notEmpty(attributes2grantedAuthoritiesMap,
-				"A non-empty attributes2grantedAuthoritiesMap must be supplied");
+	"A non-empty attributes2grantedAuthoritiesMap must be supplied");
 		this.attributes2grantedAuthoritiesMap = preProcessMap(attributes2grantedAuthoritiesMap);
 		this.mappableAttributes = Collections.unmodifiableSet(this.attributes2grantedAuthoritiesMap.keySet());
 	}
@@ -96,7 +95,7 @@ public class MapBasedAttributes2GrantedAuthoritiesMapper
 		Map<String, Collection<GrantedAuthority>> result = new HashMap<>(orgMap.size());
 		for (Map.Entry<?, ?> entry : orgMap.entrySet()) {
 			Assert.isInstanceOf(String.class, entry.getKey(),
-					"attributes2grantedAuthoritiesMap contains non-String objects as keys");
+		"attributes2grantedAuthoritiesMap contains non-String objects as keys");
 			result.put((String) entry.getKey(), getGrantedAuthorityCollection(entry.getValue()));
 		}
 		return result;

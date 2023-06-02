@@ -63,12 +63,12 @@ public final class Saml2LogoutRequest implements Serializable {
 	private transient Function<Map<String, String>, String> encoder;
 
 	private Saml2LogoutRequest(String location, Saml2MessageBinding binding, Map<String, String> parameters, String id,
-			String relyingPartyRegistrationId) {
+String relyingPartyRegistrationId) {
 		this(location, binding, parameters, id, relyingPartyRegistrationId, DEFAULT_ENCODER);
 	}
 
 	private Saml2LogoutRequest(String location, Saml2MessageBinding binding, Map<String, String> parameters, String id,
-			String relyingPartyRegistrationId, Function<Map<String, String>, String> encoder) {
+String relyingPartyRegistrationId, Function<Map<String, String>, String> encoder) {
 		this.location = location;
 		this.binding = binding;
 		this.parameters = Collections.unmodifiableMap(new LinkedHashMap<>(parameters));
@@ -291,7 +291,7 @@ public final class Saml2LogoutRequest implements Serializable {
 		 */
 		public Saml2LogoutRequest build() {
 			return new Saml2LogoutRequest(this.location, this.binding, this.parameters, this.id,
-					this.registration.getRegistrationId(), this.encoder);
+		this.registration.getRegistrationId(), this.encoder);
 		}
 
 	}

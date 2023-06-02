@@ -83,7 +83,7 @@ public final class HstsHeaderWriter implements HeaderWriter {
 	 * @since 5.2.0
 	 */
 	public HstsHeaderWriter(RequestMatcher requestMatcher, long maxAgeInSeconds, boolean includeSubDomains,
-			boolean preload) {
+boolean preload) {
 		this.requestMatcher = requestMatcher;
 		this.maxAgeInSeconds = maxAgeInSeconds;
 		this.includeSubDomains = includeSubDomains;
@@ -149,7 +149,7 @@ public final class HstsHeaderWriter implements HeaderWriter {
 		if (!this.requestMatcher.matches(request)) {
 			if (this.logger.isTraceEnabled()) {
 				this.logger.trace(LogMessage.format("Not injecting HSTS header since it did not match request to [%s]",
-						this.requestMatcher));
+			this.requestMatcher));
 			}
 			return;
 		}

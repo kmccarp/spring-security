@@ -53,7 +53,7 @@ public class PasswordPolicyAwareContextSource extends DefaultSpringSecurityConte
 		this.logger.trace(LogMessage.format("Binding as %s, prior to reconnect as user %s", this.userDn, principal));
 		// First bind as manager user before rebinding as the specific principal.
 		LdapContext ctx = (LdapContext) super.getContext(this.userDn, this.password);
-		Control[] rctls = { new PasswordPolicyControl(false) };
+		Control[] rctls = {new PasswordPolicyControl(false)};
 		try {
 			ctx.addToEnvironment(Context.SECURITY_PRINCIPAL, principal);
 			ctx.addToEnvironment(Context.SECURITY_CREDENTIALS, credentials);

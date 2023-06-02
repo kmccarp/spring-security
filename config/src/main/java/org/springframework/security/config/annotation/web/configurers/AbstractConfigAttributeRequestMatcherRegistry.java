@@ -104,7 +104,7 @@ public abstract class AbstractConfigAttributeRequestMatcherRegistry<C> extends A
 	 */
 	final LinkedHashMap<RequestMatcher, Collection<ConfigAttribute>> createRequestMap() {
 		Assert.state(this.unmappedMatchers == null, () -> "An incomplete mapping was found for " + this.unmappedMatchers
-				+ ". Try completing it with something like requestUrls().<something>.hasRole('USER')");
+	+ ". Try completing it with something like requestUrls().<something>.hasRole('USER')");
 		LinkedHashMap<RequestMatcher, Collection<ConfigAttribute>> requestMap = new LinkedHashMap<>();
 		for (UrlMapping mapping : getUrlMappings()) {
 			RequestMatcher matcher = mapping.getRequestMatcher();

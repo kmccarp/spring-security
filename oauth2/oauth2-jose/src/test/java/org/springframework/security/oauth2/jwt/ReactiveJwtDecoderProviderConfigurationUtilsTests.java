@@ -57,27 +57,27 @@ public class ReactiveJwtDecoderProviderConfigurationUtilsTests {
 	 */
 	// @formatter:off
 	private static final String DEFAULT_RESPONSE_TEMPLATE = "{\n"
-			+ "    \"authorization_endpoint\": \"https://example.com/o/oauth2/v2/auth\", \n"
-			+ "    \"id_token_signing_alg_values_supported\": [\n"
-			+ "        \"RS256\"\n"
-			+ "    ], \n"
-			+ "    \"issuer\": \"%s\", \n"
-			+ "    \"jwks_uri\": \"%s/.well-known/jwks.json\", \n"
-			+ "    \"response_types_supported\": [\n"
-			+ "        \"code\", \n"
-			+ "        \"token\", \n"
-			+ "        \"id_token\", \n"
-			+ "        \"code token\", \n"
-			+ "        \"code id_token\", \n"
-			+ "        \"token id_token\", \n"
-			+ "        \"code token id_token\", \n"
-			+ "        \"none\"\n"
-			+ "    ], \n"
-			+ "    \"subject_types_supported\": [\n"
-			+ "        \"public\"\n"
-			+ "    ], \n"
-			+ "    \"token_endpoint\": \"https://example.com/oauth2/v4/token\"\n"
-			+ "}";
++ "    \"authorization_endpoint\": \"https://example.com/o/oauth2/v2/auth\", \n"
++ "    \"id_token_signing_alg_values_supported\": [\n"
++ "        \"RS256\"\n"
++ "    ], \n"
++ "    \"issuer\": \"%s\", \n"
++ "    \"jwks_uri\": \"%s/.well-known/jwks.json\", \n"
++ "    \"response_types_supported\": [\n"
++ "        \"code\", \n"
++ "        \"token\", \n"
++ "        \"id_token\", \n"
++ "        \"code token\", \n"
++ "        \"code id_token\", \n"
++ "        \"token id_token\", \n"
++ "        \"code token id_token\", \n"
++ "        \"none\"\n"
++ "    ], \n"
++ "    \"subject_types_supported\": [\n"
++ "        \"public\"\n"
++ "    ], \n"
++ "    \"token_endpoint\": \"https://example.com/oauth2/v4/token\"\n"
++ "}";
 	// @formatter:on
 
 	private static final String JWK_SET = "{\"keys\":[{\"kty\":\"RSA\",\"e\":\"AQAB\",\"use\":\"sig\",\"kid\":\"one\",\"n\":\"oXJ8OyOv_eRnce4akdanR4KYRfnC2zLV4uYNQpcFn6oHL0dj7D6kxQmsXoYgJV8ZVDn71KGmuLvolxsDncc2UrhyMBY6DVQVgMSVYaPCTgW76iYEKGgzTEw5IBRQL9w3SRJWd3VJTZZQjkXef48Ocz06PGF3lhbz4t5UEZtdF4rIe7u-977QwHuh7yRPBQ3sII-cVoOUMgaXB9SHcGF2iZCtPzL_IffDUcfhLQteGebhW8A6eUHgpD5A1PQ-JCw_G7UOzZAjjDjtNM2eqm8j-Ms_gqnm4MiCZ4E-9pDN77CAAPVN7kuX6ejs9KBXpk01z48i9fORYk9u7rAkh1HuQw\"}]}";
@@ -109,7 +109,7 @@ public class ReactiveJwtDecoderProviderConfigurationUtilsTests {
 	public void issuerWhenResponseIsTypicalThenReturnedConfigurationContainsJwksUri() {
 		prepareConfigurationResponse();
 		Map<String, Object> configuration = ReactiveJwtDecoderProviderConfigurationUtils
-				.getConfigurationForIssuerLocation(this.issuer, this.web).block();
+	.getConfigurationForIssuerLocation(this.issuer, this.web).block();
 		assertThat(configuration).containsKey("jwks_uri");
 	}
 
@@ -117,7 +117,7 @@ public class ReactiveJwtDecoderProviderConfigurationUtilsTests {
 	public void issuerWhenOidcFallbackResponseIsTypicalThenReturnedConfigurationContainsJwksUri() {
 		prepareConfigurationResponseOidc();
 		Map<String, Object> configuration = ReactiveJwtDecoderProviderConfigurationUtils
-				.getConfigurationForIssuerLocation(this.issuer, this.web).block();
+	.getConfigurationForIssuerLocation(this.issuer, this.web).block();
 		assertThat(configuration).containsKey("jwks_uri");
 	}
 
@@ -125,7 +125,7 @@ public class ReactiveJwtDecoderProviderConfigurationUtilsTests {
 	public void issuerWhenOAuth2ResponseIsTypicalThenReturnedConfigurationContainsJwksUri() {
 		prepareConfigurationResponseOAuth2();
 		Map<String, Object> configuration = ReactiveJwtDecoderProviderConfigurationUtils
-				.getConfigurationForIssuerLocation(this.issuer, this.web).block();
+	.getConfigurationForIssuerLocation(this.issuer, this.web).block();
 		assertThat(configuration).containsKey("jwks_uri");
 	}
 
@@ -134,7 +134,7 @@ public class ReactiveJwtDecoderProviderConfigurationUtilsTests {
 		prepareConfigurationResponseOidc("{ \"missing_required_keys\" : \"and_values\" }");
 		// @formatter:off
 		assertThatExceptionOfType(RuntimeException.class)
-				.isThrownBy(() -> ReactiveJwtDecoderProviderConfigurationUtils.getConfigurationForIssuerLocation(this.issuer, this.web).block());
+	.isThrownBy(() -> ReactiveJwtDecoderProviderConfigurationUtils.getConfigurationForIssuerLocation(this.issuer, this.web).block());
 		// @formatter:on
 	}
 
@@ -143,31 +143,31 @@ public class ReactiveJwtDecoderProviderConfigurationUtilsTests {
 		prepareConfigurationResponseOAuth2("{ \"missing_required_keys\" : \"and_values\" }");
 		// @formatter:off
 		assertThatExceptionOfType(RuntimeException.class)
-				.isThrownBy(() -> ReactiveJwtDecoderProviderConfigurationUtils.getConfigurationForIssuerLocation(this.issuer, this.web).block());
+	.isThrownBy(() -> ReactiveJwtDecoderProviderConfigurationUtils.getConfigurationForIssuerLocation(this.issuer, this.web).block());
 		// @formatter:on
 	}
 
 	// gh-7512
 	@Test
 	public void issuerWhenOidcFallbackResponseDoesNotContainJwksUriThenThrowsIllegalArgumentException()
-			throws JsonMappingException, JsonProcessingException {
+throws JsonMappingException, JsonProcessingException {
 		prepareConfigurationResponseOidc(this.buildResponseWithMissingJwksUri());
 		// @formatter:off
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> ReactiveJwtDecoderProviderConfigurationUtils.getConfigurationForIssuerLocation(this.issuer, this.web).block())
-				.withMessage("The public JWK set URI must not be null");
+	.isThrownBy(() -> ReactiveJwtDecoderProviderConfigurationUtils.getConfigurationForIssuerLocation(this.issuer, this.web).block())
+	.withMessage("The public JWK set URI must not be null");
 		// @formatter:on
 	}
 
 	// gh-7512
 	@Test
 	public void issuerWhenOAuth2ResponseDoesNotContainJwksUriThenThrowsIllegalArgumentException()
-			throws JsonMappingException, JsonProcessingException {
+throws JsonMappingException, JsonProcessingException {
 		prepareConfigurationResponseOAuth2(this.buildResponseWithMissingJwksUri());
 		// @formatter:off
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> ReactiveJwtDecoderProviderConfigurationUtils.getConfigurationForIssuerLocation(this.issuer, this.web).block())
-				.withMessage("The public JWK set URI must not be null");
+	.isThrownBy(() -> ReactiveJwtDecoderProviderConfigurationUtils.getConfigurationForIssuerLocation(this.issuer, this.web).block())
+	.withMessage("The public JWK set URI must not be null");
 		// @formatter:on
 	}
 
@@ -176,7 +176,7 @@ public class ReactiveJwtDecoderProviderConfigurationUtilsTests {
 		prepareConfigurationResponseOidc("malformed");
 		// @formatter:off
 		assertThatExceptionOfType(RuntimeException.class)
-				.isThrownBy(() -> ReactiveJwtDecoderProviderConfigurationUtils.getConfigurationForIssuerLocation(this.issuer, this.web).block());
+	.isThrownBy(() -> ReactiveJwtDecoderProviderConfigurationUtils.getConfigurationForIssuerLocation(this.issuer, this.web).block());
 		// @formatter:on
 	}
 
@@ -185,7 +185,7 @@ public class ReactiveJwtDecoderProviderConfigurationUtilsTests {
 		prepareConfigurationResponseOAuth2("malformed");
 		// @formatter:off
 		assertThatExceptionOfType(RuntimeException.class)
-				.isThrownBy(() -> ReactiveJwtDecoderProviderConfigurationUtils.getConfigurationForIssuerLocation(this.issuer, this.web).block());
+	.isThrownBy(() -> ReactiveJwtDecoderProviderConfigurationUtils.getConfigurationForIssuerLocation(this.issuer, this.web).block());
 		// @formatter:on
 	}
 
@@ -194,33 +194,33 @@ public class ReactiveJwtDecoderProviderConfigurationUtilsTests {
 		prepareConfigurationResponseOidc(String.format(DEFAULT_RESPONSE_TEMPLATE, this.issuer + "/wrong", this.issuer));
 		// @formatter:off
 		assertThatIllegalStateException()
-				.isThrownBy(() -> {
-					Map<String, Object> configuration = ReactiveJwtDecoderProviderConfigurationUtils.getConfigurationForIssuerLocation(this.issuer, this.web).block();
-					JwtDecoderProviderConfigurationUtils.validateIssuer(configuration, this.issuer);
-				});
+	.isThrownBy(() -> {
+		Map<String, Object> configuration = ReactiveJwtDecoderProviderConfigurationUtils.getConfigurationForIssuerLocation(this.issuer, this.web).block();
+		JwtDecoderProviderConfigurationUtils.validateIssuer(configuration, this.issuer);
+	});
 		// @formatter:on
 	}
 
 	@Test
 	public void issuerWhenOAuth2RespondingIssuerMismatchesRequestedIssuerThenThrowsIllegalStateException() {
 		prepareConfigurationResponseOAuth2(
-				String.format(DEFAULT_RESPONSE_TEMPLATE, this.issuer + "/wrong", this.issuer));
+	String.format(DEFAULT_RESPONSE_TEMPLATE, this.issuer + "/wrong", this.issuer));
 		// @formatter:off
 		assertThatIllegalStateException()
-				.isThrownBy(() -> {
-					Map<String, Object> configuration = ReactiveJwtDecoderProviderConfigurationUtils.getConfigurationForIssuerLocation(this.issuer, this.web).block();
-					JwtDecoderProviderConfigurationUtils.validateIssuer(configuration, this.issuer);
-				});
+	.isThrownBy(() -> {
+		Map<String, Object> configuration = ReactiveJwtDecoderProviderConfigurationUtils.getConfigurationForIssuerLocation(this.issuer, this.web).block();
+		JwtDecoderProviderConfigurationUtils.validateIssuer(configuration, this.issuer);
+	});
 		// @formatter:on
 	}
 
 	@Test
 	public void issuerWhenOidcFallbackRequestedIssuerIsUnresponsiveThenThrowsIllegalArgumentException()
-			throws Exception {
+throws Exception {
 		this.server.shutdown();
 		// @formatter:off
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> ReactiveJwtDecoderProviderConfigurationUtils.getConfigurationForIssuerLocation("https://issuer", this.web).block());
+	.isThrownBy(() -> ReactiveJwtDecoderProviderConfigurationUtils.getConfigurationForIssuerLocation("https://issuer", this.web).block());
 		// @formatter:on
 	}
 
@@ -264,10 +264,10 @@ public class ReactiveJwtDecoderProviderConfigurationUtilsTests {
 			public MockResponse dispatch(RecordedRequest request) {
 				// @formatter:off
 				return Optional.of(request)
-						.map(RecordedRequest::getRequestUrl)
-						.map(HttpUrl::toString)
-						.map(responses::get)
-						.orElse(new MockResponse().setResponseCode(404));
+			.map(RecordedRequest::getRequestUrl)
+			.map(HttpUrl::toString)
+			.map(responses::get)
+			.orElse(new MockResponse().setResponseCode(404));
 				// @formatter:on
 			}
 		};
@@ -282,8 +282,8 @@ public class ReactiveJwtDecoderProviderConfigurationUtilsTests {
 		URI uri = URI.create(this.issuer);
 		// @formatter:off
 		return UriComponentsBuilder.fromUri(uri)
-				.replacePath(uri.getPath() + OIDC_METADATA_PATH)
-				.toUriString();
+	.replacePath(uri.getPath() + OIDC_METADATA_PATH)
+	.toUriString();
 		// @formatter:on
 	}
 
@@ -291,8 +291,8 @@ public class ReactiveJwtDecoderProviderConfigurationUtilsTests {
 		URI uri = URI.create(this.issuer);
 		// @formatter:off
 		return UriComponentsBuilder.fromUri(uri)
-				.replacePath(OAUTH_METADATA_PATH + uri.getPath())
-				.toUriString();
+	.replacePath(OAUTH_METADATA_PATH + uri.getPath())
+	.toUriString();
 		// @formatter:on
 	}
 
@@ -303,15 +303,15 @@ public class ReactiveJwtDecoderProviderConfigurationUtilsTests {
 	private MockResponse response(String body) {
 		// @formatter:off
 		return new MockResponse().setBody(body)
-				.setHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
+	.setHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
 		// @formatter:on
 	}
 
 	public String buildResponseWithMissingJwksUri() throws JsonMappingException, JsonProcessingException {
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Object> response = mapper.readValue(DEFAULT_RESPONSE_TEMPLATE,
-				new TypeReference<Map<String, Object>>() {
-				});
+	new TypeReference<Map<String, Object>>() {
+	});
 		response.remove("jwks_uri");
 		return mapper.writeValueAsString(response);
 	}

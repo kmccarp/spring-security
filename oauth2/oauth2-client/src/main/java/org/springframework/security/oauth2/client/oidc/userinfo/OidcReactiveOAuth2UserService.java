@@ -64,12 +64,12 @@ public class OidcReactiveOAuth2UserService implements ReactiveOAuth2UserService<
 	private static final String INVALID_USER_INFO_RESPONSE_ERROR_CODE = "invalid_user_info_response";
 
 	private static final Converter<Map<String, Object>, Map<String, Object>> DEFAULT_CLAIM_TYPE_CONVERTER = new ClaimTypeConverter(
-			createDefaultClaimTypeConverters());
+createDefaultClaimTypeConverters());
 
 	private ReactiveOAuth2UserService<OAuth2UserRequest, OAuth2User> oauth2UserService = new DefaultReactiveOAuth2UserService();
 
 	private Function<ClientRegistration, Converter<Map<String, Object>, Map<String, Object>>> claimTypeConverterFactory = (
-			clientRegistration) -> DEFAULT_CLAIM_TYPE_CONVERTER;
+clientRegistration) -> DEFAULT_CLAIM_TYPE_CONVERTER;
 
 	/**
 	 * Returns the default {@link Converter}'s used for type conversion of claim values
@@ -91,7 +91,7 @@ public class OidcReactiveOAuth2UserService implements ReactiveOAuth2UserService<
 	private static Converter<Object, ?> getConverter(TypeDescriptor targetDescriptor) {
 		final TypeDescriptor sourceDescriptor = TypeDescriptor.valueOf(Object.class);
 		return (source) -> ClaimConversionService.getSharedInstance().convert(source, sourceDescriptor,
-				targetDescriptor);
+	targetDescriptor);
 	}
 
 	@Override
@@ -99,26 +99,26 @@ public class OidcReactiveOAuth2UserService implements ReactiveOAuth2UserService<
 		Assert.notNull(userRequest, "userRequest cannot be null");
 		// @formatter:off
 		return getUserInfo(userRequest)
-				.map((userInfo) ->
-						new OidcUserAuthority(userRequest.getIdToken(), userInfo)
-				)
-				.defaultIfEmpty(new OidcUserAuthority(userRequest.getIdToken(), null))
-				.map((authority) -> {
-					OidcUserInfo userInfo = authority.getUserInfo();
-					Set<GrantedAuthority> authorities = new HashSet<>();
-					authorities.add(authority);
-					OAuth2AccessToken token = userRequest.getAccessToken();
-					for (String scope : token.getScopes()) {
-						authorities.add(new SimpleGrantedAuthority("SCOPE_" + scope));
-					}
-					String userNameAttributeName = userRequest.getClientRegistration().getProviderDetails()
-							.getUserInfoEndpoint().getUserNameAttributeName();
-					if (StringUtils.hasText(userNameAttributeName)) {
-						return new DefaultOidcUser(authorities, userRequest.getIdToken(), userInfo,
-								userNameAttributeName);
-					}
-					return new DefaultOidcUser(authorities, userRequest.getIdToken(), userInfo);
-				});
+	.map((userInfo) ->
+new OidcUserAuthority(userRequest.getIdToken(), userInfo)
+	)
+	.defaultIfEmpty(new OidcUserAuthority(userRequest.getIdToken(), null))
+	.map((authority) -> {
+		OidcUserInfo userInfo = authority.getUserInfo();
+		Set<GrantedAuthority> authorities = new HashSet<>();
+		authorities.add(authority);
+		OAuth2AccessToken token = userRequest.getAccessToken();
+		for (String scope : token.getScopes()) {
+			authorities.add(new SimpleGrantedAuthority("SCOPE_" + scope));
+		}
+		String userNameAttributeName = userRequest.getClientRegistration().getProviderDetails()
+	.getUserInfoEndpoint().getUserNameAttributeName();
+		if (StringUtils.hasText(userNameAttributeName)) {
+			return new DefaultOidcUser(authorities, userRequest.getIdToken(), userInfo,
+		userNameAttributeName);
+		}
+		return new DefaultOidcUser(authorities, userRequest.getIdToken(), userInfo);
+	});
 		// @formatter:on
 	}
 
@@ -128,25 +128,25 @@ public class OidcReactiveOAuth2UserService implements ReactiveOAuth2UserService<
 		}
 		// @formatter:off
 		return this.oauth2UserService
-				.loadUser(userRequest)
-				.map(OAuth2User::getAttributes)
-				.map((claims) -> convertClaims(claims, userRequest.getClientRegistration()))
-				.map(OidcUserInfo::new)
-				.doOnNext((userInfo) -> {
-					String subject = userInfo.getSubject();
-					if (subject == null || !subject.equals(userRequest.getIdToken().getSubject())) {
-						OAuth2Error oauth2Error = new OAuth2Error(INVALID_USER_INFO_RESPONSE_ERROR_CODE);
-						throw new OAuth2AuthenticationException(oauth2Error, oauth2Error.toString());
-					}
-				});
+	.loadUser(userRequest)
+	.map(OAuth2User::getAttributes)
+	.map((claims) -> convertClaims(claims, userRequest.getClientRegistration()))
+	.map(OidcUserInfo::new)
+	.doOnNext((userInfo) -> {
+		String subject = userInfo.getSubject();
+		if (subject == null || !subject.equals(userRequest.getIdToken().getSubject())) {
+			OAuth2Error oauth2Error = new OAuth2Error(INVALID_USER_INFO_RESPONSE_ERROR_CODE);
+			throw new OAuth2AuthenticationException(oauth2Error, oauth2Error.toString());
+		}
+	});
 		// @formatter:on
 	}
 
 	private Map<String, Object> convertClaims(Map<String, Object> claims, ClientRegistration clientRegistration) {
 		Converter<Map<String, Object>, Map<String, Object>> claimTypeConverter = this.claimTypeConverterFactory
-				.apply(clientRegistration);
+	.apply(clientRegistration);
 		return (claimTypeConverter != null) ? claimTypeConverter.convert(claims)
-				: DEFAULT_CLAIM_TYPE_CONVERTER.convert(claims);
+	: DEFAULT_CLAIM_TYPE_CONVERTER.convert(claims);
 	}
 
 	public void setOauth2UserService(ReactiveOAuth2UserService<OAuth2UserRequest, OAuth2User> oauth2UserService) {
@@ -164,7 +164,7 @@ public class OidcReactiveOAuth2UserService implements ReactiveOAuth2UserService<
 	 * @since 5.2
 	 */
 	public final void setClaimTypeConverterFactory(
-			Function<ClientRegistration, Converter<Map<String, Object>, Map<String, Object>>> claimTypeConverterFactory) {
+Function<ClientRegistration, Converter<Map<String, Object>, Map<String, Object>>> claimTypeConverterFactory) {
 		Assert.notNull(claimTypeConverterFactory, "claimTypeConverterFactory cannot be null");
 		this.claimTypeConverterFactory = claimTypeConverterFactory;
 	}

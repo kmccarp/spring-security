@@ -35,14 +35,13 @@ import org.springframework.security.oauth2.core.OAuth2Error;
  * @see OAuth2ClientJackson2Module
  */
 @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS)
-@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY, getterVisibility = JsonAutoDetect.Visibility.NONE,
-		isGetterVisibility = JsonAutoDetect.Visibility.NONE)
+@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY, getterVisibility = JsonAutoDetect.Visibility.NONE,isGetterVisibility = JsonAutoDetect.Visibility.NONE)
 @JsonIgnoreProperties(ignoreUnknown = true)
 abstract class OAuth2ErrorMixin {
 
 	@JsonCreator
 	OAuth2ErrorMixin(@JsonProperty("errorCode") String errorCode, @JsonProperty("description") String description,
-			@JsonProperty("uri") String uri) {
+@JsonProperty("uri") String uri) {
 	}
 
 }

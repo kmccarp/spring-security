@@ -98,9 +98,9 @@ public class Saml2MetadataFilterTests {
 	public void doFilterWhenRelyingPartyRegistrationFoundThenInvokesMetadataResolver() throws Exception {
 		this.request.setPathInfo("/saml2/service-provider-metadata/validRegistration");
 		RelyingPartyRegistration validRegistration = TestRelyingPartyRegistrations.noCredentials()
-				.assertingPartyDetails((party) -> party.verificationX509Credentials(
-						(c) -> c.add(TestSaml2X509Credentials.relyingPartyVerifyingCredential())))
-				.build();
+	.assertingPartyDetails((party) -> party.verificationX509Credentials(
+(c) -> c.add(TestSaml2X509Credentials.relyingPartyVerifyingCredential())))
+	.build();
 		String generatedMetadata = "<xml>test</xml>";
 		given(this.resolver.resolve(validRegistration)).willReturn(generatedMetadata);
 		this.filter = new Saml2MetadataFilter((request, registrationId) -> validRegistration, this.resolver);
@@ -133,7 +133,7 @@ public class Saml2MetadataFilterTests {
 		this.filter.setMetadataFilename(testMetadataFilename);
 		this.filter.doFilter(this.request, this.response, this.chain);
 		assertThat(this.response.getHeaderValue(HttpHeaders.CONTENT_DISPOSITION)).asString()
-				.isEqualTo("attachment; filename=\"%s\"; filename*=UTF-8''%s", fileName, encodedFileName);
+	.isEqualTo("attachment; filename=\"%s\"; filename*=UTF-8''%s", fileName, encodedFileName);
 	}
 
 	@Test
@@ -142,7 +142,7 @@ public class Saml2MetadataFilterTests {
 		given(this.repository.findByRegistrationId("registration-id")).willReturn(registration);
 		given(this.resolver.resolve(any(RelyingPartyRegistration.class))).willReturn("metadata");
 		RelyingPartyRegistrationResolver resolver = new DefaultRelyingPartyRegistrationResolver(
-				(id) -> this.repository.findByRegistrationId("registration-id"));
+	(id) -> this.repository.findByRegistrationId("registration-id"));
 		this.filter = new Saml2MetadataFilter(resolver, this.resolver);
 		this.filter.setRequestMatcher(new AntPathRequestMatcher("/metadata"));
 		this.request.setPathInfo("/metadata");
@@ -152,12 +152,12 @@ public class Saml2MetadataFilterTests {
 
 	@Test
 	public void doFilterWhenRelyingPartyRegistrationRepositoryConstructorAndPathStartsWithRegistrationIdThenServesMetadata()
-			throws Exception {
+throws Exception {
 		RelyingPartyRegistration registration = TestRelyingPartyRegistrations.full().build();
 		given(this.repository.findByRegistrationId("registration-id")).willReturn(registration);
 		given(this.resolver.resolve(any(RelyingPartyRegistration.class))).willReturn("metadata");
 		this.filter = new Saml2MetadataFilter((id) -> this.repository.findByRegistrationId("registration-id"),
-				this.resolver);
+	this.resolver);
 		this.filter.setRequestMatcher(new AntPathRequestMatcher("/metadata"));
 		this.request.setPathInfo("/metadata");
 		this.filter.doFilter(this.request, this.response, new MockFilterChain());
@@ -187,14 +187,14 @@ public class Saml2MetadataFilterTests {
 	@Test
 	public void setMetadataFilenameWhenEmptyThenThrowsException() {
 		assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> this.filter.setMetadataFilename(" "))
-				.withMessage("metadataFilename cannot be empty");
+	.withMessage("metadataFilename cannot be empty");
 	}
 
 	@Test
 	public void setMetadataFilenameWhenMissingRegistrationIdVariableThenThrowsException() {
 		assertThatExceptionOfType(IllegalArgumentException.class)
-				.isThrownBy(() -> this.filter.setMetadataFilename("metadata-filename.xml"))
-				.withMessage("metadataFilename must contain a {registrationId} match variable");
+	.isThrownBy(() -> this.filter.setMetadataFilename("metadata-filename.xml"))
+	.withMessage("metadataFilename must contain a {registrationId} match variable");
 	}
 
 	@Test

@@ -35,7 +35,7 @@ import org.springframework.security.core.Authentication;
  * "{@docRoot}/org/springframework/security/web/method/annotation/AuthenticationPrincipalArgumentResolver.html"
  * > AuthenticationPrincipalArgumentResolver </a>
  */
-@Target({ ElementType.PARAMETER, ElementType.ANNOTATION_TYPE })
+@Target({ElementType.PARAMETER, ElementType.ANNOTATION_TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface AuthenticationPrincipal {

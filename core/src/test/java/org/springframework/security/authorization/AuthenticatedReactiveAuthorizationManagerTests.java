@@ -41,7 +41,7 @@ public class AuthenticatedReactiveAuthorizationManagerTests {
 	Authentication authentication;
 
 	AuthenticatedReactiveAuthorizationManager<Object> manager = AuthenticatedReactiveAuthorizationManager
-			.authenticated();
+.authenticated();
 
 	@Test
 	public void checkWhenAuthenticatedThenReturnTrue() {
@@ -74,8 +74,8 @@ public class AuthenticatedReactiveAuthorizationManagerTests {
 		Mono<AuthorizationDecision> result = this.manager.check(Mono.error(new RuntimeException("ooops")), null);
 		// @formatter:off
 		StepVerifier.create(result)
-				.expectError()
-				.verify();
+	.expectError()
+	.verify();
 		// @formatter:on
 	}
 

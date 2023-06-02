@@ -69,7 +69,7 @@ public class SecurityContextPersistenceFilter extends GenericFilterBean {
 	private SecurityContextRepository repo;
 
 	private SecurityContextHolderStrategy securityContextHolderStrategy = SecurityContextHolder
-			.getContextHolderStrategy();
+.getContextHolderStrategy();
 
 	private boolean forceEagerSessionCreation = false;
 
@@ -83,12 +83,12 @@ public class SecurityContextPersistenceFilter extends GenericFilterBean {
 
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
-			throws IOException, ServletException {
+throws IOException, ServletException {
 		doFilter((HttpServletRequest) request, (HttpServletResponse) response, chain);
 	}
 
 	private void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
-			throws IOException, ServletException {
+throws IOException, ServletException {
 		// ensure that filter is only applied once per request
 		if (request.getAttribute(FILTER_APPLIED) != null) {
 			chain.doFilter(request, response);
@@ -111,7 +111,7 @@ public class SecurityContextPersistenceFilter extends GenericFilterBean {
 			else {
 				if (this.logger.isDebugEnabled()) {
 					this.logger
-							.debug(LogMessage.format("Set SecurityContextHolder to %s", contextBeforeChainExecution));
+				.debug(LogMessage.format("Set SecurityContextHolder to %s", contextBeforeChainExecution));
 				}
 			}
 			chain.doFilter(holder.getRequest(), holder.getResponse());

@@ -37,11 +37,12 @@ public class WebAuthenticationDetailsMixinTests extends AbstractMixinTests {
 
 	// @formatter:off
 	private static final String AUTHENTICATION_DETAILS_JSON = "{"
-		+ "\"@class\": \"org.springframework.security.web.authentication.WebAuthenticationDetails\","
-		+ "\"sessionId\": \"1\", "
-		+ "\"remoteAddress\": "
-		+ "\"/localhost\""
-	+ "}";
++ "\"@class\": \"org.springframework.security.web.authentication.WebAuthenticationDetails\","
++ "\"sessionId\": \"1\", "
++ "\"remoteAddress\": "
++ "\"/localhost\""
++ "}";
+
 	// @formatter:on
 	@Test
 	public void buildWebAuthenticationDetailsUsingDifferentConstructors() throws IOException {
@@ -50,7 +51,7 @@ public class WebAuthenticationDetailsMixinTests extends AbstractMixinTests {
 		request.setSession(new MockHttpSession(null, "1"));
 		WebAuthenticationDetails details = new WebAuthenticationDetails(request);
 		WebAuthenticationDetails authenticationDetails = this.mapper.readValue(AUTHENTICATION_DETAILS_JSON,
-				WebAuthenticationDetails.class);
+	WebAuthenticationDetails.class);
 		assertThat(details.equals(authenticationDetails));
 	}
 
@@ -74,7 +75,7 @@ public class WebAuthenticationDetailsMixinTests extends AbstractMixinTests {
 	@Test
 	public void webAuthenticationDetailsDeserializeTest() throws IOException {
 		WebAuthenticationDetails details = this.mapper.readValue(AUTHENTICATION_DETAILS_JSON,
-				WebAuthenticationDetails.class);
+	WebAuthenticationDetails.class);
 		assertThat(details).isNotNull();
 		assertThat(details.getRemoteAddress()).isEqualTo("/localhost");
 		assertThat(details.getSessionId()).isEqualTo("1");

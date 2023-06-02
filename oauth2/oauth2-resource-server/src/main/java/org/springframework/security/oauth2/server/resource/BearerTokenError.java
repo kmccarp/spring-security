@@ -56,15 +56,15 @@ public final class BearerTokenError extends OAuth2Error {
 	 * @param scope the scope
 	 */
 	public BearerTokenError(String errorCode, HttpStatus httpStatus, String description, String errorUri,
-			String scope) {
+String scope) {
 		super(errorCode, description, errorUri);
 		Assert.notNull(httpStatus, "httpStatus cannot be null");
 		Assert.isTrue(isDescriptionValid(description),
-				"description contains invalid ASCII characters, it must conform to RFC 6750");
+	"description contains invalid ASCII characters, it must conform to RFC 6750");
 		Assert.isTrue(isErrorCodeValid(errorCode),
-				"errorCode contains invalid ASCII characters, it must conform to RFC 6750");
+	"errorCode contains invalid ASCII characters, it must conform to RFC 6750");
 		Assert.isTrue(isErrorUriValid(errorUri),
-				"errorUri contains invalid ASCII characters, it must conform to RFC 6750");
+	"errorUri contains invalid ASCII characters, it must conform to RFC 6750");
 		Assert.isTrue(isScopeValid(scope), "scope contains invalid ASCII characters, it must conform to RFC 6750");
 		this.httpStatus = httpStatus;
 		this.scope = scope;
@@ -89,32 +89,32 @@ public final class BearerTokenError extends OAuth2Error {
 	private static boolean isDescriptionValid(String description) {
 		// @formatter:off
 		return description == null || description.chars().allMatch((c) ->
-				withinTheRangeOf(c, 0x20, 0x21) ||
-				withinTheRangeOf(c, 0x23, 0x5B) ||
-				withinTheRangeOf(c, 0x5D, 0x7E));
+	withinTheRangeOf(c, 0x20, 0x21) ||
+withinTheRangeOf(c, 0x23, 0x5B) ||
+withinTheRangeOf(c, 0x5D, 0x7E));
 		// @formatter:on
 	}
 
 	private static boolean isErrorCodeValid(String errorCode) {
 		// @formatter:off
 		return errorCode.chars().allMatch((c) ->
-				withinTheRangeOf(c, 0x20, 0x21) ||
-				withinTheRangeOf(c, 0x23, 0x5B) ||
-				withinTheRangeOf(c, 0x5D, 0x7E));
+	withinTheRangeOf(c, 0x20, 0x21) ||
+withinTheRangeOf(c, 0x23, 0x5B) ||
+withinTheRangeOf(c, 0x5D, 0x7E));
 		// @formatter:on
 	}
 
 	private static boolean isErrorUriValid(String errorUri) {
 		return errorUri == null || errorUri.chars()
-				.allMatch((c) -> c == 0x21 || withinTheRangeOf(c, 0x23, 0x5B) || withinTheRangeOf(c, 0x5D, 0x7E));
+	.allMatch((c) -> c == 0x21 || withinTheRangeOf(c, 0x23, 0x5B) || withinTheRangeOf(c, 0x5D, 0x7E));
 	}
 
 	private static boolean isScopeValid(String scope) {
 		// @formatter:off
 		return scope == null || scope.chars().allMatch((c) ->
-				withinTheRangeOf(c, 0x20, 0x21) ||
-				withinTheRangeOf(c, 0x23, 0x5B) ||
-				withinTheRangeOf(c, 0x5D, 0x7E));
+	withinTheRangeOf(c, 0x20, 0x21) ||
+withinTheRangeOf(c, 0x23, 0x5B) ||
+withinTheRangeOf(c, 0x5D, 0x7E));
 		// @formatter:on
 	}
 

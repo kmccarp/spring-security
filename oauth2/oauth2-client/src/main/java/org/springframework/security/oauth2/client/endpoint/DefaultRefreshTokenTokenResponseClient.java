@@ -50,8 +50,7 @@ import org.springframework.web.client.RestTemplate;
  * @see <a target="_blank" href="https://tools.ietf.org/html/rfc6749#section-6">Section 6
  * Refreshing an Access Token</a>
  */
-public final class DefaultRefreshTokenTokenResponseClient
-		implements OAuth2AccessTokenResponseClient<OAuth2RefreshTokenGrantRequest> {
+public final class DefaultRefreshTokenTokenResponseClientimplements OAuth2AccessTokenResponseClient<OAuth2RefreshTokenGrantRequest> {
 
 	private static final String INVALID_TOKEN_RESPONSE_ERROR_CODE = "invalid_token_response";
 
@@ -61,7 +60,7 @@ public final class DefaultRefreshTokenTokenResponseClient
 
 	public DefaultRefreshTokenTokenResponseClient() {
 		RestTemplate restTemplate = new RestTemplate(
-				Arrays.asList(new FormHttpMessageConverter(), new OAuth2AccessTokenResponseHttpMessageConverter()));
+	Arrays.asList(new FormHttpMessageConverter(), new OAuth2AccessTokenResponseHttpMessageConverter()));
 		restTemplate.setErrorHandler(new OAuth2ErrorResponseErrorHandler());
 		this.restOperations = restTemplate;
 	}
@@ -73,9 +72,9 @@ public final class DefaultRefreshTokenTokenResponseClient
 		ResponseEntity<OAuth2AccessTokenResponse> response = getResponse(request);
 		OAuth2AccessTokenResponse tokenResponse = response.getBody();
 		if (CollectionUtils.isEmpty(tokenResponse.getAccessToken().getScopes())
-				|| tokenResponse.getRefreshToken() == null) {
+	|| tokenResponse.getRefreshToken() == null) {
 			OAuth2AccessTokenResponse.Builder tokenResponseBuilder = OAuth2AccessTokenResponse
-					.withResponse(tokenResponse);
+		.withResponse(tokenResponse);
 			if (CollectionUtils.isEmpty(tokenResponse.getAccessToken().getScopes())) {
 				// As per spec, in Section 5.1 Successful Access Token Response
 				// https://tools.ietf.org/html/rfc6749#section-5.1
@@ -98,9 +97,9 @@ public final class DefaultRefreshTokenTokenResponseClient
 		}
 		catch (RestClientException ex) {
 			OAuth2Error oauth2Error = new OAuth2Error(INVALID_TOKEN_RESPONSE_ERROR_CODE,
-					"An error occurred while attempting to retrieve the OAuth 2.0 Access Token Response: "
-							+ ex.getMessage(),
-					null);
+		"An error occurred while attempting to retrieve the OAuth 2.0 Access Token Response: "
+	+ ex.getMessage(),
+		null);
 			throw new OAuth2AuthorizationException(oauth2Error, ex);
 		}
 	}
@@ -113,7 +112,7 @@ public final class DefaultRefreshTokenTokenResponseClient
 	 * {@link RequestEntity} representation of the Access Token Request
 	 */
 	public void setRequestEntityConverter(
-			Converter<OAuth2RefreshTokenGrantRequest, RequestEntity<?>> requestEntityConverter) {
+Converter<OAuth2RefreshTokenGrantRequest, RequestEntity<?>> requestEntityConverter) {
 		Assert.notNull(requestEntityConverter, "requestEntityConverter cannot be null");
 		this.requestEntityConverter = requestEntityConverter;
 	}

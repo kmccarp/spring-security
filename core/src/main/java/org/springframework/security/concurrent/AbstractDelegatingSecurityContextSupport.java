@@ -34,7 +34,7 @@ import org.springframework.util.Assert;
 abstract class AbstractDelegatingSecurityContextSupport {
 
 	private SecurityContextHolderStrategy securityContextHolderStrategy = SecurityContextHolder
-			.getContextHolderStrategy();
+.getContextHolderStrategy();
 
 	private final SecurityContext securityContext;
 
@@ -57,12 +57,12 @@ abstract class AbstractDelegatingSecurityContextSupport {
 
 	protected final Runnable wrap(Runnable delegate) {
 		return DelegatingSecurityContextRunnable.create(delegate, this.securityContext,
-				this.securityContextHolderStrategy);
+	this.securityContextHolderStrategy);
 	}
 
 	protected final <T> Callable<T> wrap(Callable<T> delegate) {
 		return DelegatingSecurityContextCallable.create(delegate, this.securityContext,
-				this.securityContextHolderStrategy);
+	this.securityContextHolderStrategy);
 	}
 
 }

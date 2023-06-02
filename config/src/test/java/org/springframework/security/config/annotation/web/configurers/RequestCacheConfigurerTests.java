@@ -82,7 +82,7 @@ public class RequestCacheConfigurerTests {
 		this.spring.register(InvokeTwiceDoesNotOverrideConfig.class).autowire();
 		this.mvc.perform(get("/"));
 		verify(InvokeTwiceDoesNotOverrideConfig.requestCache).getMatchingRequest(any(HttpServletRequest.class),
-				any(HttpServletResponse.class));
+	any(HttpServletResponse.class));
 	}
 
 	@Test
@@ -90,10 +90,10 @@ public class RequestCacheConfigurerTests {
 		this.spring.register(RequestCacheDefaultsConfig.class, DefaultSecurityConfig.class).autowire();
 		// @formatter:off
 		MockHttpSession session = (MockHttpSession) this.mvc.perform(get("/favicon.ico"))
-				.andExpect(redirectedUrl("http://localhost/login"))
-				.andReturn()
-				.getRequest()
-				.getSession();
+	.andExpect(redirectedUrl("http://localhost/login"))
+	.andReturn()
+	.getRequest()
+	.getSession();
 		// @formatter:on
 		// ignores favicon.ico
 		this.mvc.perform(formLogin(session)).andExpect(redirectedUrl("/"));
@@ -104,10 +104,10 @@ public class RequestCacheConfigurerTests {
 		this.spring.register(RequestCacheDefaultsConfig.class, DefaultSecurityConfig.class).autowire();
 		// @formatter:off
 		MockHttpSession session = (MockHttpSession) this.mvc.perform(get("/favicon.png"))
-				.andExpect(redirectedUrl("http://localhost/login"))
-				.andReturn()
-				.getRequest()
-				.getSession();
+	.andExpect(redirectedUrl("http://localhost/login"))
+	.andReturn()
+	.getRequest()
+	.getSession();
 		// @formatter:on
 		// ignores favicon.png
 		this.mvc.perform(formLogin(session)).andExpect(redirectedUrl("/"));
@@ -120,10 +120,10 @@ public class RequestCacheConfigurerTests {
 		MockHttpServletRequestBuilder request = get("/messages").header(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON);
 		// @formatter:off
 		MockHttpSession session = (MockHttpSession) this.mvc.perform(request)
-				.andExpect(redirectedUrl("http://localhost/login"))
-				.andReturn()
-				.getRequest()
-				.getSession();
+	.andExpect(redirectedUrl("http://localhost/login"))
+	.andReturn()
+	.getRequest()
+	.getSession();
 		// @formatter:on
 		// ignores application/json
 		// This is desirable since JSON requests are typically not invoked directly from
@@ -137,13 +137,13 @@ public class RequestCacheConfigurerTests {
 		this.spring.register(RequestCacheDefaultsConfig.class, DefaultSecurityConfig.class).autowire();
 		// @formatter:off
 		MockHttpServletRequestBuilder xRequestedWith = get("/messages")
-				.header("X-Requested-With", "XMLHttpRequest");
+	.header("X-Requested-With", "XMLHttpRequest");
 		MockHttpSession session = (MockHttpSession) this.mvc
-				.perform(xRequestedWith)
-				.andExpect(redirectedUrl("http://localhost/login"))
-				.andReturn()
-				.getRequest()
-				.getSession();
+	.perform(xRequestedWith)
+	.andExpect(redirectedUrl("http://localhost/login"))
+	.andReturn()
+	.getRequest()
+	.getSession();
 		// @formatter:on
 		this.mvc.perform(formLogin(session)).andExpect(redirectedUrl("/"));
 		// This is desirable since XHR requests are typically not invoked directly from
@@ -154,13 +154,13 @@ public class RequestCacheConfigurerTests {
 	public void getWhenBookmarkedRequestIsTextEventStreamThenPostAuthenticationRedirectsToRoot() throws Exception {
 		this.spring.register(RequestCacheDefaultsConfig.class, DefaultSecurityConfig.class).autowire();
 		MockHttpServletRequestBuilder request = get("/messages").header(HttpHeaders.ACCEPT,
-				MediaType.TEXT_EVENT_STREAM);
+	MediaType.TEXT_EVENT_STREAM);
 		// @formatter:off
 		MockHttpSession session = (MockHttpSession) this.mvc.perform(request)
-				.andExpect(redirectedUrl("http://localhost/login"))
-				.andReturn()
-				.getRequest()
-				.getSession();
+	.andExpect(redirectedUrl("http://localhost/login"))
+	.andReturn()
+	.getRequest()
+	.getSession();
 		// @formatter:on
 		// ignores text/event-stream
 		// This is desirable since event-stream requests are typically not invoked
@@ -174,10 +174,10 @@ public class RequestCacheConfigurerTests {
 		MockHttpServletRequestBuilder request = get("/messages").header(HttpHeaders.ACCEPT, MediaType.ALL);
 		// @formatter:off
 		MockHttpSession session = (MockHttpSession) this.mvc.perform(request)
-				.andExpect(redirectedUrl("http://localhost/login"))
-				.andReturn()
-				.getRequest()
-				.getSession();
+	.andExpect(redirectedUrl("http://localhost/login"))
+	.andReturn()
+	.getRequest()
+	.getSession();
 		// @formatter:on
 		this.mvc.perform(formLogin(session)).andExpect(RequestCacheResultMatcher.redirectToCachedRequest());
 	}
@@ -188,10 +188,10 @@ public class RequestCacheConfigurerTests {
 		MockHttpServletRequestBuilder request = get("/messages").header(HttpHeaders.ACCEPT, MediaType.TEXT_HTML);
 		// @formatter:off
 		MockHttpSession session = (MockHttpSession) this.mvc.perform(request)
-				.andExpect(redirectedUrl("http://localhost/login"))
-				.andReturn()
-				.getRequest()
-				.getSession();
+	.andExpect(redirectedUrl("http://localhost/login"))
+	.andReturn()
+	.getRequest()
+	.getSession();
 		// @formatter:on
 		this.mvc.perform(formLogin(session)).andExpect(RequestCacheResultMatcher.redirectToCachedRequest());
 	}
@@ -201,12 +201,12 @@ public class RequestCacheConfigurerTests {
 		this.spring.register(RequestCacheDefaultsConfig.class, DefaultSecurityConfig.class).autowire();
 		// @formatter:off
 		MockHttpServletRequestBuilder request = get("/messages")
-				.header(HttpHeaders.ACCEPT, "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8");
+	.header(HttpHeaders.ACCEPT, "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8");
 		MockHttpSession session = (MockHttpSession) this.mvc.perform(request)
-				.andExpect(redirectedUrl("http://localhost/login"))
-				.andReturn()
-				.getRequest()
-				.getSession();
+	.andExpect(redirectedUrl("http://localhost/login"))
+	.andReturn()
+	.getRequest()
+	.getSession();
 		// @formatter:on
 		this.mvc.perform(formLogin(session)).andExpect(RequestCacheResultMatcher.redirectToCachedRequest());
 	}
@@ -216,12 +216,12 @@ public class RequestCacheConfigurerTests {
 		this.spring.register(RequestCacheDefaultsConfig.class, DefaultSecurityConfig.class).autowire();
 		// @formatter:off
 		MockHttpServletRequestBuilder request = get("/messages")
-				.header("X-Requested-With", "com.android");
+	.header("X-Requested-With", "com.android");
 		MockHttpSession session = (MockHttpSession) this.mvc.perform(request)
-				.andExpect(redirectedUrl("http://localhost/login"))
-				.andReturn()
-				.getRequest()
-				.getSession();
+	.andExpect(redirectedUrl("http://localhost/login"))
+	.andReturn()
+	.getRequest()
+	.getSession();
 		// @formatter:on
 		this.mvc.perform(formLogin(session)).andExpect(RequestCacheResultMatcher.redirectToCachedRequest());
 	}
@@ -232,9 +232,9 @@ public class RequestCacheConfigurerTests {
 		this.spring.register(RequestCacheDisabledConfig.class, DefaultSecurityConfig.class).autowire();
 		// @formatter:off
 		MockHttpSession session = (MockHttpSession) this.mvc.perform(get("/bob"))
-				.andReturn()
-				.getRequest()
-				.getSession();
+	.andReturn()
+	.getRequest()
+	.getSession();
 		// @formatter:on
 		this.mvc.perform(formLogin(session)).andExpect(redirectedUrl("/"));
 	}
@@ -247,22 +247,22 @@ public class RequestCacheConfigurerTests {
 		MockMultipartHttpServletRequestBuilder request = multipart("/upload").file(aFile);
 		// @formatter:off
 		MockHttpSession session = (MockHttpSession) this.mvc.perform(request)
-				.andReturn()
-				.getRequest()
-				.getSession();
+	.andReturn()
+	.getRequest()
+	.getSession();
 		// @formatter:on
 		this.mvc.perform(formLogin(session)).andExpect(redirectedUrl("/"));
 	}
 
 	@Test
 	public void getWhenRequestCacheIsDisabledInLambdaThenExceptionTranslationFilterDoesNotStoreRequest()
-			throws Exception {
+throws Exception {
 		this.spring.register(RequestCacheDisabledInLambdaConfig.class, DefaultSecurityConfig.class).autowire();
 		// @formatter:off
 		MockHttpSession session = (MockHttpSession) this.mvc.perform(get("/bob"))
-				.andReturn()
-				.getRequest()
-				.getSession();
+	.andReturn()
+	.getRequest()
+	.getSession();
 		// @formatter:on
 		this.mvc.perform(formLogin(session)).andExpect(redirectedUrl("/"));
 	}
@@ -272,9 +272,9 @@ public class RequestCacheConfigurerTests {
 		this.spring.register(RequestCacheInLambdaConfig.class, DefaultSecurityConfig.class).autowire();
 		// @formatter:off
 		MockHttpSession session = (MockHttpSession) this.mvc.perform(get("/bob"))
-				.andReturn()
-				.getRequest()
-				.getSession();
+	.andReturn()
+	.getRequest()
+	.getSession();
 		// @formatter:on
 		this.mvc.perform(formLogin(session)).andExpect(RequestCacheResultMatcher.redirectToCachedRequest());
 	}
@@ -284,9 +284,9 @@ public class RequestCacheConfigurerTests {
 		this.spring.register(CustomRequestCacheInLambdaConfig.class, DefaultSecurityConfig.class).autowire();
 		// @formatter:off
 		MockHttpSession session = (MockHttpSession) this.mvc.perform(get("/bob"))
-				.andReturn()
-				.getRequest()
-				.getSession();
+	.andReturn()
+	.getRequest()
+	.getSession();
 		// @formatter:on
 		this.mvc.perform(formLogin(session)).andExpect(redirectedUrl("/"));
 	}
@@ -294,10 +294,10 @@ public class RequestCacheConfigurerTests {
 	private static RequestBuilder formLogin(MockHttpSession session) {
 		// @formatter:off
 		return post("/login")
-				.param("username", "user")
-				.param("password", "password")
-				.session(session)
-				.with(csrf());
+	.param("username", "user")
+	.param("password", "password")
+	.session(session)
+	.with(csrf());
 		// @formatter:on
 	}
 
@@ -311,7 +311,7 @@ public class RequestCacheConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.requestCache();
+		.requestCache();
 			return http.build();
 			// @formatter:on
 		}
@@ -342,10 +342,10 @@ public class RequestCacheConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.requestCache()
-					.requestCache(requestCache)
-					.and()
-				.requestCache();
+		.requestCache()
+		.requestCache(requestCache)
+		.and()
+		.requestCache();
 			return http.build();
 			// @formatter:on
 		}
@@ -360,10 +360,10 @@ public class RequestCacheConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests()
-					.anyRequest().authenticated()
-					.and()
-				.formLogin();
+		.authorizeRequests()
+		.anyRequest().authenticated()
+		.and()
+		.formLogin();
 			return http.build();
 			// @formatter:on
 		}
@@ -378,11 +378,11 @@ public class RequestCacheConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeHttpRequests((requests) -> requests
-						.anyRequest().authenticated()
-				)
-				.formLogin(Customizer.withDefaults())
-				.requestCache((cache) -> cache.disable());
+		.authorizeHttpRequests((requests) -> requests
+.anyRequest().authenticated()
+		)
+		.formLogin(Customizer.withDefaults())
+		.requestCache((cache) -> cache.disable());
 			// @formatter:on
 			return http.build();
 		}
@@ -397,12 +397,12 @@ public class RequestCacheConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests((authorizeRequests) ->
-					authorizeRequests
-						.anyRequest().authenticated()
-				)
-				.formLogin(withDefaults())
-				.requestCache(RequestCacheConfigurer::disable);
+		.authorizeRequests((authorizeRequests) ->
+	authorizeRequests
+.anyRequest().authenticated()
+		)
+		.formLogin(withDefaults())
+		.requestCache(RequestCacheConfigurer::disable);
 			return http.build();
 			// @formatter:on
 		}
@@ -417,12 +417,12 @@ public class RequestCacheConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests((authorizeRequests) ->
-					authorizeRequests
-						.anyRequest().authenticated()
-				)
-				.formLogin(withDefaults())
-				.requestCache(withDefaults());
+		.authorizeRequests((authorizeRequests) ->
+	authorizeRequests
+.anyRequest().authenticated()
+		)
+		.formLogin(withDefaults())
+		.requestCache(withDefaults());
 			return http.build();
 			// @formatter:on
 		}
@@ -437,15 +437,15 @@ public class RequestCacheConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests((authorizeRequests) ->
-					authorizeRequests
-						.anyRequest().authenticated()
-				)
-				.formLogin(withDefaults())
-				.requestCache((requestCache) ->
-					requestCache
-						.requestCache(new NullRequestCache())
-				);
+		.authorizeRequests((authorizeRequests) ->
+	authorizeRequests
+.anyRequest().authenticated()
+		)
+		.formLogin(withDefaults())
+		.requestCache((requestCache) ->
+	requestCache
+.requestCache(new NullRequestCache())
+		);
 			return http.build();
 			// @formatter:on
 		}
@@ -460,10 +460,10 @@ public class RequestCacheConfigurerTests {
 		InMemoryUserDetailsManager userDetailsManager() {
 			// @formatter:off
 			return new InMemoryUserDetailsManager(User.withDefaultPasswordEncoder()
-					.username("user")
-					.password("password")
-					.roles("USER")
-					.build()
+		.username("user")
+		.password("password")
+		.roles("USER")
+		.build()
 			);
 			// @formatter:on
 		}

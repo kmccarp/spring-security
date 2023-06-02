@@ -54,12 +54,12 @@ final class OAuth2AuthorizationResponseUtils {
 
 	static boolean isAuthorizationResponseSuccess(MultiValueMap<String, String> request) {
 		return StringUtils.hasText(request.getFirst(OAuth2ParameterNames.CODE))
-				&& StringUtils.hasText(request.getFirst(OAuth2ParameterNames.STATE));
+	&& StringUtils.hasText(request.getFirst(OAuth2ParameterNames.STATE));
 	}
 
 	static boolean isAuthorizationResponseError(MultiValueMap<String, String> request) {
 		return StringUtils.hasText(request.getFirst(OAuth2ParameterNames.ERROR))
-				&& StringUtils.hasText(request.getFirst(OAuth2ParameterNames.STATE));
+	&& StringUtils.hasText(request.getFirst(OAuth2ParameterNames.STATE));
 	}
 
 	static OAuth2AuthorizationResponse convert(MultiValueMap<String, String> request, String redirectUri) {
@@ -73,11 +73,11 @@ final class OAuth2AuthorizationResponseUtils {
 		String errorUri = request.getFirst(OAuth2ParameterNames.ERROR_URI);
 		// @formatter:off
 		return OAuth2AuthorizationResponse.error(errorCode)
-				.redirectUri(redirectUri)
-				.errorDescription(errorDescription)
-				.errorUri(errorUri)
-				.state(state)
-				.build();
+	.redirectUri(redirectUri)
+	.errorDescription(errorDescription)
+	.errorUri(errorUri)
+	.state(state)
+	.build();
 		// @formatter:on
 	}
 

@@ -55,8 +55,7 @@ import org.springframework.security.saml2.core.OpenSamlInitializationService;
  * @author Josh Cummings
  * @since 5.4
  */
-public class OpenSamlRelyingPartyRegistrationBuilderHttpMessageConverter
-		implements HttpMessageConverter<RelyingPartyRegistration.Builder> {
+public class OpenSamlRelyingPartyRegistrationBuilderHttpMessageConverterimplements HttpMessageConverter<RelyingPartyRegistration.Builder> {
 
 	static {
 		OpenSamlInitializationService.initialize();
@@ -88,13 +87,13 @@ public class OpenSamlRelyingPartyRegistrationBuilderHttpMessageConverter
 
 	@Override
 	public RelyingPartyRegistration.Builder read(Class<? extends RelyingPartyRegistration.Builder> clazz,
-			HttpInputMessage inputMessage) throws IOException, HttpMessageNotReadableException {
+HttpInputMessage inputMessage) throws IOException, HttpMessageNotReadableException {
 		return this.converter.convert(inputMessage.getBody()).iterator().next();
 	}
 
 	@Override
 	public void write(RelyingPartyRegistration.Builder builder, MediaType contentType, HttpOutputMessage outputMessage)
-			throws HttpMessageNotWritableException {
+throws HttpMessageNotWritableException {
 		throw new HttpMessageNotWritableException("This converter cannot write a RelyingPartyRegistration.Builder");
 	}
 

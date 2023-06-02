@@ -72,8 +72,8 @@ public class SessionManagementConfigurerTransientAuthenticationTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.csrf().disable()
-				.authenticationProvider(new TransientAuthenticationProvider());
+		.csrf().disable()
+		.authenticationProvider(new TransientAuthenticationProvider());
 			// @formatter:on
 			return http.build();
 		}
@@ -88,7 +88,7 @@ public class SessionManagementConfigurerTransientAuthenticationTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.ALWAYS);
+		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.ALWAYS);
 			return http.build();
 			// @formatter:on
 		}

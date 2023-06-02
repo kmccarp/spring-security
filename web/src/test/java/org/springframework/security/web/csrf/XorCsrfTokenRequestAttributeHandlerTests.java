@@ -44,7 +44,7 @@ import static org.mockito.Mockito.verifyNoMoreInteractions;
  */
 public class XorCsrfTokenRequestAttributeHandlerTests {
 
-	private static final byte[] XOR_CSRF_TOKEN_BYTES = new byte[] { 1, 1, 1, 96, 99, 98 };
+	private static final byte[] XOR_CSRF_TOKEN_BYTES = new byte[]{1, 1, 1, 96, 99, 98};
 
 	private static final String XOR_CSRF_TOKEN_VALUE = Base64.getEncoder().encodeToString(XOR_CSRF_TOKEN_BYTES);
 
@@ -71,8 +71,8 @@ public class XorCsrfTokenRequestAttributeHandlerTests {
 	public void setSecureRandomWhenNullThenThrowsIllegalArgumentException() {
 		// @formatter:off
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> this.handler.setSecureRandom(null))
-				.withMessage("secureRandom cannot be null");
+	.isThrownBy(() -> this.handler.setSecureRandom(null))
+	.withMessage("secureRandom cannot be null");
 		// @formatter:on
 	}
 
@@ -80,8 +80,8 @@ public class XorCsrfTokenRequestAttributeHandlerTests {
 	public void handleWhenRequestIsNullThenThrowsIllegalArgumentException() {
 		// @formatter:off
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> this.handler.handle(null, this.response, () -> this.token))
-				.withMessage("request cannot be null");
+	.isThrownBy(() -> this.handler.handle(null, this.response, () -> this.token))
+	.withMessage("request cannot be null");
 		// @formatter:on
 	}
 
@@ -89,8 +89,8 @@ public class XorCsrfTokenRequestAttributeHandlerTests {
 	public void handleWhenResponseIsNullThenThrowsIllegalArgumentException() {
 		// @formatter:off
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> this.handler.handle(this.request, null, () -> this.token))
-				.withMessage("response cannot be null");
+	.isThrownBy(() -> this.handler.handle(this.request, null, () -> this.token))
+	.withMessage("response cannot be null");
 		// @formatter:on
 	}
 
@@ -98,8 +98,8 @@ public class XorCsrfTokenRequestAttributeHandlerTests {
 	public void handleWhenCsrfTokenSupplierIsNullThenThrowsIllegalArgumentException() {
 		// @formatter:off
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> this.handler.handle(this.request, this.response, null))
-				.withMessage("deferredCsrfToken cannot be null");
+	.isThrownBy(() -> this.handler.handle(this.request, this.response, null))
+	.withMessage("deferredCsrfToken cannot be null");
 		// @formatter:on
 	}
 
@@ -109,8 +109,8 @@ public class XorCsrfTokenRequestAttributeHandlerTests {
 		CsrfToken csrfTokenAttribute = (CsrfToken) this.request.getAttribute("_csrf");
 		// @formatter:off
 		assertThatIllegalStateException()
-				.isThrownBy(csrfTokenAttribute::getToken)
-				.withMessage("csrfToken supplier returned null");
+	.isThrownBy(csrfTokenAttribute::getToken)
+	.withMessage("csrfToken supplier returned null");
 		// @formatter:on
 	}
 
@@ -166,8 +166,8 @@ public class XorCsrfTokenRequestAttributeHandlerTests {
 	public void resolveCsrfTokenValueWhenRequestIsNullThenThrowsIllegalArgumentException() {
 		// @formatter:off
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> this.handler.resolveCsrfTokenValue(null, this.token))
-				.withMessage("request cannot be null");
+	.isThrownBy(() -> this.handler.resolveCsrfTokenValue(null, this.token))
+	.withMessage("request cannot be null");
 		// @formatter:on
 	}
 
@@ -175,8 +175,8 @@ public class XorCsrfTokenRequestAttributeHandlerTests {
 	public void resolveCsrfTokenValueWhenCsrfTokenIsNullThenThrowsIllegalArgumentException() {
 		// @formatter:off
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> this.handler.resolveCsrfTokenValue(this.request, null))
-				.withMessage("csrfToken cannot be null");
+	.isThrownBy(() -> this.handler.resolveCsrfTokenValue(this.request, null))
+	.withMessage("csrfToken cannot be null");
 		// @formatter:on
 	}
 

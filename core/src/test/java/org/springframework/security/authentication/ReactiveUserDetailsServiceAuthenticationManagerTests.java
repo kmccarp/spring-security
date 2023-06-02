@@ -66,19 +66,19 @@ public class ReactiveUserDetailsServiceAuthenticationManagerTests {
 	@Test
 	public void constructorNullUserDetailsService() {
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new UserDetailsRepositoryReactiveAuthenticationManager(null));
+	.isThrownBy(() -> new UserDetailsRepositoryReactiveAuthenticationManager(null));
 	}
 
 	@Test
 	public void authenticateWhenUserNotFoundThenBadCredentials() {
 		given(this.repository.findByUsername(this.username)).willReturn(Mono.empty());
 		UsernamePasswordAuthenticationToken token = UsernamePasswordAuthenticationToken.unauthenticated(this.username,
-				this.password);
+	this.password);
 		Mono<Authentication> authentication = this.manager.authenticate(token);
 		// @formatter:off
 		StepVerifier.create(authentication)
-				.expectError(BadCredentialsException.class)
-				.verify();
+	.expectError(BadCredentialsException.class)
+	.verify();
 		// @formatter:on
 	}
 
@@ -86,18 +86,18 @@ public class ReactiveUserDetailsServiceAuthenticationManagerTests {
 	public void authenticateWhenPasswordNotEqualThenBadCredentials() {
 		// @formatter:off
 		UserDetails user = PasswordEncodedUser.withUsername(this.username)
-			.password(this.password)
-			.roles("USER")
-			.build();
+	.password(this.password)
+	.roles("USER")
+	.build();
 		// @formatter:on
 		given(this.repository.findByUsername(user.getUsername())).willReturn(Mono.just(user));
 		UsernamePasswordAuthenticationToken token = UsernamePasswordAuthenticationToken.unauthenticated(this.username,
-				this.password + "INVALID");
+	this.password + "INVALID");
 		Mono<Authentication> authentication = this.manager.authenticate(token);
 		// @formatter:off
 		StepVerifier.create(authentication)
-				.expectError(BadCredentialsException.class)
-				.verify();
+	.expectError(BadCredentialsException.class)
+	.verify();
 		// @formatter:on
 	}
 
@@ -105,13 +105,13 @@ public class ReactiveUserDetailsServiceAuthenticationManagerTests {
 	public void authenticateWhenSuccessThenSuccess() {
 		// @formatter:off
 		UserDetails user = PasswordEncodedUser.withUsername(this.username)
-			.password(this.password)
-			.roles("USER")
-			.build();
+	.password(this.password)
+	.roles("USER")
+	.build();
 		// @formatter:on
 		given(this.repository.findByUsername(user.getUsername())).willReturn(Mono.just(user));
 		UsernamePasswordAuthenticationToken token = UsernamePasswordAuthenticationToken.unauthenticated(this.username,
-				this.password);
+	this.password);
 		Authentication authentication = this.manager.authenticate(token).block();
 		assertThat(authentication).isEqualTo(authentication);
 	}
@@ -123,7 +123,7 @@ public class ReactiveUserDetailsServiceAuthenticationManagerTests {
 		User user = new User(this.username, this.password, AuthorityUtils.createAuthorityList("ROLE_USER"));
 		given(this.repository.findByUsername(user.getUsername())).willReturn(Mono.just(user));
 		UsernamePasswordAuthenticationToken token = UsernamePasswordAuthenticationToken.unauthenticated(this.username,
-				this.password);
+	this.password);
 		Authentication authentication = this.manager.authenticate(token).block();
 		assertThat(authentication).isEqualTo(authentication);
 	}
@@ -135,12 +135,12 @@ public class ReactiveUserDetailsServiceAuthenticationManagerTests {
 		User user = new User(this.username, this.password, AuthorityUtils.createAuthorityList("ROLE_USER"));
 		given(this.repository.findByUsername(user.getUsername())).willReturn(Mono.just(user));
 		UsernamePasswordAuthenticationToken token = UsernamePasswordAuthenticationToken.unauthenticated(this.username,
-				this.password);
+	this.password);
 		Mono<Authentication> authentication = this.manager.authenticate(token);
 		// @formatter:off
 		StepVerifier.create(authentication)
-				.expectError(BadCredentialsException.class)
-				.verify();
+	.expectError(BadCredentialsException.class)
+	.verify();
 		// @formatter:on
 	}
 

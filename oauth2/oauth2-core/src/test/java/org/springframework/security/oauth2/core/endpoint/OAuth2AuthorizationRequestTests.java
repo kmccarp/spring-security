@@ -52,15 +52,8 @@ public class OAuth2AuthorizationRequestTests {
 	public void buildWhenAuthorizationUriIsNullThenThrowIllegalArgumentException() {
 		// @formatter:off
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> OAuth2AuthorizationRequest
-						.authorizationCode()
-						.authorizationUri(null)
-						.clientId(CLIENT_ID)
-						.redirectUri(REDIRECT_URI)
-						.scopes(SCOPES)
-						.state(STATE)
-						.build()
-				);
+	.isThrownBy(() -> OAuth2AuthorizationRequest.authorizationCode().authorizationUri(null).clientId(CLIENT_ID).redirectUri(REDIRECT_URI).scopes(SCOPES).state(STATE).build()
+	);
 		// @formatter:on
 	}
 
@@ -68,14 +61,8 @@ public class OAuth2AuthorizationRequestTests {
 	public void buildWhenClientIdIsNullThenThrowIllegalArgumentException() {
 		// @formatter:off
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> OAuth2AuthorizationRequest.authorizationCode()
-						.authorizationUri(AUTHORIZATION_URI)
-						.clientId(null)
-						.redirectUri(REDIRECT_URI)
-						.scopes(SCOPES)
-						.state(STATE)
-						.build()
-				);
+	.isThrownBy(() -> OAuth2AuthorizationRequest.authorizationCode().authorizationUri(AUTHORIZATION_URI).clientId(null).redirectUri(REDIRECT_URI).scopes(SCOPES).state(STATE).build()
+	);
 		// @formatter:on
 	}
 
@@ -83,12 +70,12 @@ public class OAuth2AuthorizationRequestTests {
 	public void buildWhenRedirectUriIsNullForAuthorizationCodeThenDoesNotThrowAnyException() {
 		// @formatter:off
 		OAuth2AuthorizationRequest.authorizationCode()
-				.authorizationUri(AUTHORIZATION_URI)
-				.clientId(CLIENT_ID)
-				.redirectUri(null)
-				.scopes(SCOPES)
-				.state(STATE)
-				.build();
+	.authorizationUri(AUTHORIZATION_URI)
+	.clientId(CLIENT_ID)
+	.redirectUri(null)
+	.scopes(SCOPES)
+	.state(STATE)
+	.build();
 		// @formatter:on
 	}
 
@@ -96,12 +83,12 @@ public class OAuth2AuthorizationRequestTests {
 	public void buildWhenScopesIsNullThenDoesNotThrowAnyException() {
 		// @formatter:off
 		OAuth2AuthorizationRequest.authorizationCode()
-				.authorizationUri(AUTHORIZATION_URI)
-				.clientId(CLIENT_ID)
-				.redirectUri(REDIRECT_URI)
-				.scopes(null)
-				.state(STATE)
-				.build();
+	.authorizationUri(AUTHORIZATION_URI)
+	.clientId(CLIENT_ID)
+	.redirectUri(REDIRECT_URI)
+	.scopes(null)
+	.state(STATE)
+	.build();
 		// @formatter:on
 	}
 
@@ -109,12 +96,12 @@ public class OAuth2AuthorizationRequestTests {
 	public void buildWhenStateIsNullThenDoesNotThrowAnyException() {
 		// @formatter:off
 		OAuth2AuthorizationRequest.authorizationCode()
-				.authorizationUri(AUTHORIZATION_URI)
-				.clientId(CLIENT_ID)
-				.redirectUri(REDIRECT_URI)
-				.scopes(SCOPES)
-				.state(null)
-				.build();
+	.authorizationUri(AUTHORIZATION_URI)
+	.clientId(CLIENT_ID)
+	.redirectUri(REDIRECT_URI)
+	.scopes(SCOPES)
+	.state(null)
+	.build();
 		// @formatter:on
 	}
 
@@ -122,13 +109,13 @@ public class OAuth2AuthorizationRequestTests {
 	public void buildWhenAdditionalParametersEmptyThenDoesNotThrowAnyException() {
 		// @formatter:off
 		OAuth2AuthorizationRequest.authorizationCode()
-				.authorizationUri(AUTHORIZATION_URI)
-				.clientId(CLIENT_ID)
-				.redirectUri(REDIRECT_URI)
-				.scopes(SCOPES)
-				.state(STATE)
-				.additionalParameters(Map::clear)
-				.build();
+	.authorizationUri(AUTHORIZATION_URI)
+	.clientId(CLIENT_ID)
+	.redirectUri(REDIRECT_URI)
+	.scopes(SCOPES)
+	.state(STATE)
+	.additionalParameters(Map::clear)
+	.build();
 		// @formatter:on
 	}
 
@@ -136,12 +123,12 @@ public class OAuth2AuthorizationRequestTests {
 	public void buildWhenAuthorizationCodeThenGrantTypeResponseTypeIsSet() {
 		// @formatter:off
 		OAuth2AuthorizationRequest authorizationRequest = OAuth2AuthorizationRequest.authorizationCode()
-				.authorizationUri(AUTHORIZATION_URI)
-				.clientId(CLIENT_ID)
-				.redirectUri(null)
-				.scopes(SCOPES)
-				.state(STATE)
-				.build();
+	.authorizationUri(AUTHORIZATION_URI)
+	.clientId(CLIENT_ID)
+	.redirectUri(null)
+	.scopes(SCOPES)
+	.state(STATE)
+	.build();
 		// @formatter:on
 		assertThat(authorizationRequest.getGrantType()).isEqualTo(AuthorizationGrantType.AUTHORIZATION_CODE);
 		assertThat(authorizationRequest.getResponseType()).isEqualTo(OAuth2AuthorizationResponseType.CODE);
@@ -157,15 +144,15 @@ public class OAuth2AuthorizationRequestTests {
 		attributes.put("attribute2", "value2");
 		// @formatter:off
 		OAuth2AuthorizationRequest authorizationRequest = OAuth2AuthorizationRequest.authorizationCode()
-				.authorizationUri(AUTHORIZATION_URI)
-				.clientId(CLIENT_ID)
-				.redirectUri(REDIRECT_URI)
-				.scopes(SCOPES)
-				.state(STATE)
-				.additionalParameters(additionalParameters)
-				.attributes(attributes)
-				.authorizationRequestUri(AUTHORIZATION_URI)
-				.build();
+	.authorizationUri(AUTHORIZATION_URI)
+	.clientId(CLIENT_ID)
+	.redirectUri(REDIRECT_URI)
+	.scopes(SCOPES)
+	.state(STATE)
+	.additionalParameters(additionalParameters)
+	.attributes(attributes)
+	.authorizationRequestUri(AUTHORIZATION_URI)
+	.build();
 		// @formatter:on
 		assertThat(authorizationRequest.getAuthorizationUri()).isEqualTo(AUTHORIZATION_URI);
 		assertThat(authorizationRequest.getGrantType()).isEqualTo(AuthorizationGrantType.AUTHORIZATION_CODE);
@@ -183,13 +170,13 @@ public class OAuth2AuthorizationRequestTests {
 	public void buildWhenAuthorizationRequestUriSetThenOverridesDefault() {
 		// @formatter:off
 		OAuth2AuthorizationRequest authorizationRequest = OAuth2AuthorizationRequest.authorizationCode()
-				.authorizationUri(AUTHORIZATION_URI)
-				.clientId(CLIENT_ID)
-				.redirectUri(REDIRECT_URI)
-				.scopes(SCOPES)
-				.state(STATE)
-				.authorizationRequestUri(AUTHORIZATION_URI)
-				.build();
+	.authorizationUri(AUTHORIZATION_URI)
+	.clientId(CLIENT_ID)
+	.redirectUri(REDIRECT_URI)
+	.scopes(SCOPES)
+	.state(STATE)
+	.authorizationRequestUri(AUTHORIZATION_URI)
+	.build();
 		// @formatter:on
 		assertThat(authorizationRequest.getAuthorizationRequestUri()).isEqualTo(AUTHORIZATION_URI);
 	}
@@ -198,13 +185,13 @@ public class OAuth2AuthorizationRequestTests {
 	public void buildWhenAuthorizationRequestUriFunctionSetThenOverridesDefault() {
 		// @formatter:off
 		OAuth2AuthorizationRequest authorizationRequest = OAuth2AuthorizationRequest.authorizationCode()
-				.authorizationUri(AUTHORIZATION_URI)
-				.clientId(CLIENT_ID)
-				.redirectUri(REDIRECT_URI)
-				.scopes(SCOPES)
-				.state(STATE)
-				.authorizationRequestUri((uriBuilder) -> URI.create(AUTHORIZATION_URI))
-				.build();
+	.authorizationUri(AUTHORIZATION_URI)
+	.clientId(CLIENT_ID)
+	.redirectUri(REDIRECT_URI)
+	.scopes(SCOPES)
+	.state(STATE)
+	.authorizationRequestUri((uriBuilder) -> URI.create(AUTHORIZATION_URI))
+	.build();
 		// @formatter:on
 		assertThat(authorizationRequest.getAuthorizationRequestUri()).isEqualTo(AUTHORIZATION_URI);
 	}
@@ -215,20 +202,20 @@ public class OAuth2AuthorizationRequestTests {
 		additionalParameters.put("param1", "value1");
 		additionalParameters.put("param2", "value2");
 		OAuth2AuthorizationRequest authorizationRequest = OAuth2AuthorizationRequest.authorizationCode()
-				.authorizationUri(AUTHORIZATION_URI).clientId(CLIENT_ID).redirectUri(REDIRECT_URI).scopes(SCOPES)
-				.state(STATE).additionalParameters(additionalParameters).build();
+	.authorizationUri(AUTHORIZATION_URI).clientId(CLIENT_ID).redirectUri(REDIRECT_URI).scopes(SCOPES)
+	.state(STATE).additionalParameters(additionalParameters).build();
 		assertThat(authorizationRequest.getAuthorizationRequestUri()).isNotNull();
 		assertThat(authorizationRequest.getAuthorizationRequestUri()).isEqualTo("https://provider.com/oauth2/authorize?"
-				+ "response_type=code&client_id=client-id&" + "scope=scope1%20scope2&state=state&"
-				+ "redirect_uri=https://example.com&param1=value1&param2=value2");
+	+ "response_type=code&client_id=client-id&" + "scope=scope1%20scope2&state=state&"
+	+ "redirect_uri=https://example.com&param1=value1&param2=value2");
 	}
 
 	@Test
 	public void buildWhenRequiredParametersSetThenAuthorizationRequestUriIncludesRequiredParametersOnly() {
 		OAuth2AuthorizationRequest authorizationRequest = OAuth2AuthorizationRequest.authorizationCode()
-				.authorizationUri(AUTHORIZATION_URI).clientId(CLIENT_ID).build();
+	.authorizationUri(AUTHORIZATION_URI).clientId(CLIENT_ID).build();
 		assertThat(authorizationRequest.getAuthorizationRequestUri())
-				.isEqualTo("https://provider.com/oauth2/authorize?response_type=code&client_id=client-id");
+	.isEqualTo("https://provider.com/oauth2/authorize?response_type=code&client_id=client-id");
 	}
 
 	@Test
@@ -246,19 +233,19 @@ public class OAuth2AuthorizationRequestTests {
 		attributes.put("attribute2", "value2");
 		// @formatter:off
 		OAuth2AuthorizationRequest authorizationRequest = OAuth2AuthorizationRequest.authorizationCode()
-				.authorizationUri(AUTHORIZATION_URI)
-				.clientId(CLIENT_ID)
-				.redirectUri(REDIRECT_URI)
-				.scopes(SCOPES)
-				.state(STATE)
-				.additionalParameters(additionalParameters)
-				.attributes(attributes)
-				.build();
+	.authorizationUri(AUTHORIZATION_URI)
+	.clientId(CLIENT_ID)
+	.redirectUri(REDIRECT_URI)
+	.scopes(SCOPES)
+	.state(STATE)
+	.additionalParameters(additionalParameters)
+	.attributes(attributes)
+	.build();
 		OAuth2AuthorizationRequest authorizationRequestCopy = OAuth2AuthorizationRequest.from(authorizationRequest)
-				.build();
+	.build();
 		// @formatter:on
 		assertThat(authorizationRequestCopy.getAuthorizationUri())
-				.isEqualTo(authorizationRequest.getAuthorizationUri());
+	.isEqualTo(authorizationRequest.getAuthorizationUri());
 		assertThat(authorizationRequestCopy.getGrantType()).isEqualTo(authorizationRequest.getGrantType());
 		assertThat(authorizationRequestCopy.getResponseType()).isEqualTo(authorizationRequest.getResponseType());
 		assertThat(authorizationRequestCopy.getClientId()).isEqualTo(authorizationRequest.getClientId());
@@ -266,33 +253,33 @@ public class OAuth2AuthorizationRequestTests {
 		assertThat(authorizationRequestCopy.getScopes()).isEqualTo(authorizationRequest.getScopes());
 		assertThat(authorizationRequestCopy.getState()).isEqualTo(authorizationRequest.getState());
 		assertThat(authorizationRequestCopy.getAdditionalParameters())
-				.isEqualTo(authorizationRequest.getAdditionalParameters());
+	.isEqualTo(authorizationRequest.getAdditionalParameters());
 		assertThat(authorizationRequestCopy.getAttributes()).isEqualTo(authorizationRequest.getAttributes());
 		assertThat(authorizationRequestCopy.getAuthorizationRequestUri())
-				.isEqualTo(authorizationRequest.getAuthorizationRequestUri());
+	.isEqualTo(authorizationRequest.getAuthorizationRequestUri());
 	}
 
 	@Test
 	public void buildWhenAuthorizationUriIncludesQueryParameterThenAuthorizationRequestUrlIncludesIt() {
 		OAuth2AuthorizationRequest authorizationRequest = TestOAuth2AuthorizationRequests.request()
-				.authorizationUri(AUTHORIZATION_URI + "?param1=value1&param2=value2").build();
+	.authorizationUri(AUTHORIZATION_URI + "?param1=value1&param2=value2").build();
 		assertThat(authorizationRequest.getAuthorizationRequestUri()).isNotNull();
 		assertThat(authorizationRequest.getAuthorizationRequestUri()).isEqualTo("https://provider.com/oauth2/authorize?"
-				+ "param1=value1&param2=value2&" + "response_type=code&client_id=client-id&state=state&"
-				+ "redirect_uri=https://example.com/authorize/oauth2/code/registration-id");
+	+ "param1=value1&param2=value2&" + "response_type=code&client_id=client-id&state=state&"
+	+ "redirect_uri=https://example.com/authorize/oauth2/code/registration-id");
 	}
 
 	@Test
 	public void buildWhenAuthorizationUriIncludesEscapedQueryParameterThenAuthorizationRequestUrlIncludesIt() {
 		OAuth2AuthorizationRequest authorizationRequest = TestOAuth2AuthorizationRequests.request()
-				.authorizationUri(AUTHORIZATION_URI
-						+ "?claims=%7B%22userinfo%22%3A%7B%22email_verified%22%3A%7B%22essential%22%3Atrue%7D%7D%7D")
-				.build();
+	.authorizationUri(AUTHORIZATION_URI
++ "?claims=%7B%22userinfo%22%3A%7B%22email_verified%22%3A%7B%22essential%22%3Atrue%7D%7D%7D")
+	.build();
 		assertThat(authorizationRequest.getAuthorizationRequestUri()).isNotNull();
 		assertThat(authorizationRequest.getAuthorizationRequestUri()).isEqualTo("https://provider.com/oauth2/authorize?"
-				+ "claims=%7B%22userinfo%22%3A%7B%22email_verified%22%3A%7B%22essential%22%3Atrue%7D%7D%7D&"
-				+ "response_type=code&client_id=client-id&state=state&"
-				+ "redirect_uri=https://example.com/authorize/oauth2/code/registration-id");
+	+ "claims=%7B%22userinfo%22%3A%7B%22email_verified%22%3A%7B%22essential%22%3Atrue%7D%7D%7D&"
+	+ "response_type=code&client_id=client-id&state=state&"
+	+ "redirect_uri=https://example.com/authorize/oauth2/code/registration-id");
 	}
 
 	@Test
@@ -302,12 +289,12 @@ public class OAuth2AuthorizationRequestTests {
 		additionalParameters.put("item name", "H" + '\u00c5' + "M" + '\u00d6');
 		additionalParameters.put('\u00e2' + "ge", "4" + '\u00bd');
 		OAuth2AuthorizationRequest authorizationRequest = TestOAuth2AuthorizationRequests.request()
-				.additionalParameters(additionalParameters).build();
+	.additionalParameters(additionalParameters).build();
 		assertThat(authorizationRequest.getAuthorizationRequestUri()).isNotNull();
 		assertThat(authorizationRequest.getAuthorizationRequestUri()).isEqualTo(
-				"https://example.com/login/oauth/authorize?" + "response_type=code&client_id=client-id&state=state&"
-						+ "redirect_uri=https://example.com/authorize/oauth2/code/registration-id&"
-						+ "item%20amount=19.95%E2%82%AC&%C3%A2ge=4%C2%BD&item%20name=H%C3%85M%C3%96");
+	"https://example.com/login/oauth/authorize?" + "response_type=code&client_id=client-id&state=state&"
++ "redirect_uri=https://example.com/authorize/oauth2/code/registration-id&"
++ "item%20amount=19.95%E2%82%AC&%C3%A2ge=4%C2%BD&item%20name=H%C3%85M%C3%96");
 	}
 
 }

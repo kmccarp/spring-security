@@ -62,7 +62,7 @@ public class AuthenticatedVoter implements AccessDecisionVoter<Object> {
 
 	private boolean isFullyAuthenticated(Authentication authentication) {
 		return (!this.authenticationTrustResolver.isAnonymous(authentication)
-				&& !this.authenticationTrustResolver.isRememberMe(authentication));
+	&& !this.authenticationTrustResolver.isRememberMe(authentication));
 	}
 
 	public void setAuthenticationTrustResolver(AuthenticationTrustResolver authenticationTrustResolver) {
@@ -73,8 +73,8 @@ public class AuthenticatedVoter implements AccessDecisionVoter<Object> {
 	@Override
 	public boolean supports(ConfigAttribute attribute) {
 		return (attribute.getAttribute() != null) && (IS_AUTHENTICATED_FULLY.equals(attribute.getAttribute())
-				|| IS_AUTHENTICATED_REMEMBERED.equals(attribute.getAttribute())
-				|| IS_AUTHENTICATED_ANONYMOUSLY.equals(attribute.getAttribute()));
+	|| IS_AUTHENTICATED_REMEMBERED.equals(attribute.getAttribute())
+	|| IS_AUTHENTICATED_ANONYMOUSLY.equals(attribute.getAttribute()));
 	}
 
 	/**
@@ -101,14 +101,14 @@ public class AuthenticatedVoter implements AccessDecisionVoter<Object> {
 				}
 				if (IS_AUTHENTICATED_REMEMBERED.equals(attribute.getAttribute())) {
 					if (this.authenticationTrustResolver.isRememberMe(authentication)
-							|| isFullyAuthenticated(authentication)) {
+				|| isFullyAuthenticated(authentication)) {
 						return ACCESS_GRANTED;
 					}
 				}
 				if (IS_AUTHENTICATED_ANONYMOUSLY.equals(attribute.getAttribute())) {
 					if (this.authenticationTrustResolver.isAnonymous(authentication)
-							|| isFullyAuthenticated(authentication)
-							|| this.authenticationTrustResolver.isRememberMe(authentication)) {
+				|| isFullyAuthenticated(authentication)
+				|| this.authenticationTrustResolver.isRememberMe(authentication)) {
 						return ACCESS_GRANTED;
 					}
 				}

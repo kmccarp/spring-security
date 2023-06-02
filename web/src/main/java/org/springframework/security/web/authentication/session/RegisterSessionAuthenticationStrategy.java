@@ -63,7 +63,7 @@ public class RegisterSessionAuthenticationStrategy implements SessionAuthenticat
 	 */
 	@Override
 	public void onAuthentication(Authentication authentication, HttpServletRequest request,
-			HttpServletResponse response) {
+HttpServletResponse response) {
 		this.sessionRegistry.registerNewSession(request.getSession().getId(), authentication.getPrincipal());
 	}
 

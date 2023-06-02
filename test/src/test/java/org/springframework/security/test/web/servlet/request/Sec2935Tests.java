@@ -66,36 +66,36 @@ public class Sec2935Tests {
 	@Test
 	public void postProcessorUserNoUser() throws Exception {
 		this.mvc.perform(get("/admin/abc").with(user("user").roles("ADMIN", "USER"))).andExpect(status().isNotFound())
-				.andExpect(authenticated().withUsername("user"));
+	.andExpect(authenticated().withUsername("user"));
 		this.mvc.perform(get("/admin/abc")).andExpect(status().isUnauthorized()).andExpect(unauthenticated());
 	}
 
 	@Test
 	public void postProcessorUserOtherUser() throws Exception {
 		this.mvc.perform(get("/admin/abc").with(user("user1").roles("ADMIN", "USER"))).andExpect(status().isNotFound())
-				.andExpect(authenticated().withUsername("user1"));
+	.andExpect(authenticated().withUsername("user1"));
 		this.mvc.perform(get("/admin/abc").with(user("user2").roles("USER"))).andExpect(status().isForbidden())
-				.andExpect(authenticated().withUsername("user2"));
+	.andExpect(authenticated().withUsername("user2"));
 	}
 
 	@WithMockUser
 	@Test
 	public void postProcessorUserWithMockUser() throws Exception {
 		this.mvc.perform(get("/admin/abc").with(user("user1").roles("ADMIN", "USER"))).andExpect(status().isNotFound())
-				.andExpect(authenticated().withUsername("user1"));
+	.andExpect(authenticated().withUsername("user1"));
 		this.mvc.perform(get("/admin/abc")).andExpect(status().isForbidden())
-				.andExpect(authenticated().withUsername("user"));
+	.andExpect(authenticated().withUsername("user"));
 	}
 
 	// SEC-2941
 	@Test
 	public void defaultRequest() throws Exception {
 		this.mvc = MockMvcBuilders.webAppContextSetup(this.context).apply(springSecurity())
-				.defaultRequest(get("/").with(user("default"))).build();
+	.defaultRequest(get("/").with(user("default"))).build();
 		this.mvc.perform(get("/admin/abc").with(user("user1").roles("ADMIN", "USER"))).andExpect(status().isNotFound())
-				.andExpect(authenticated().withUsername("user1"));
+	.andExpect(authenticated().withUsername("user1"));
 		this.mvc.perform(get("/admin/abc")).andExpect(status().isForbidden())
-				.andExpect(authenticated().withUsername("default"));
+	.andExpect(authenticated().withUsername("default"));
 	}
 
 	@Disabled
@@ -103,11 +103,11 @@ public class Sec2935Tests {
 	@Test
 	public void defaultRequestOverridesWithMockUser() throws Exception {
 		this.mvc = MockMvcBuilders.webAppContextSetup(this.context).apply(springSecurity())
-				.defaultRequest(get("/").with(user("default"))).build();
+	.defaultRequest(get("/").with(user("default"))).build();
 		this.mvc.perform(get("/admin/abc").with(user("user1").roles("ADMIN", "USER"))).andExpect(status().isNotFound())
-				.andExpect(authenticated().withUsername("user1"));
+	.andExpect(authenticated().withUsername("user1"));
 		this.mvc.perform(get("/admin/abc")).andExpect(status().isForbidden())
-				.andExpect(authenticated().withUsername("default"));
+	.andExpect(authenticated().withUsername("default"));
 	}
 
 	@EnableWebSecurity
@@ -119,11 +119,11 @@ public class Sec2935Tests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests()
-					.requestMatchers("/admin/**").hasRole("ADMIN")
-					.anyRequest().authenticated()
-					.and()
-				.httpBasic();
+		.authorizeRequests()
+		.requestMatchers("/admin/**").hasRole("ADMIN")
+		.anyRequest().authenticated()
+		.and()
+		.httpBasic();
 			return http.build();
 			// @formatter:on
 		}

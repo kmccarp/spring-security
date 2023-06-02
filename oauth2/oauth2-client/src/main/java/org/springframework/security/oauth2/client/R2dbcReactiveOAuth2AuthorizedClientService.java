@@ -66,15 +66,7 @@ public class R2dbcReactiveOAuth2AuthorizedClientService implements ReactiveOAuth
 
 	// @formatter:off
 	private static final String COLUMN_NAMES =
-			"client_registration_id, " +
-			"principal_name, " +
-			"access_token_type, " +
-			"access_token_value, " +
-			"access_token_issued_at, " +
-			"access_token_expires_at, " +
-			"access_token_scopes, " +
-			"refresh_token_value, " +
-			"refresh_token_issued_at";
+"client_registration_id, " +"principal_name, " +"access_token_type, " +"access_token_value, " +"access_token_issued_at, " +"access_token_expires_at, " +"access_token_scopes, " +"refresh_token_value, " +"refresh_token_issued_at";
 	// @formatter:on
 
 	private static final String TABLE_NAME = "oauth2_authorized_client";
@@ -83,29 +75,29 @@ public class R2dbcReactiveOAuth2AuthorizedClientService implements ReactiveOAuth
 
 	// @formatter:off
 	private static final String LOAD_AUTHORIZED_CLIENT_SQL = "SELECT " + COLUMN_NAMES + " FROM " + TABLE_NAME
-			+ " WHERE " + PK_FILTER;
++ " WHERE " + PK_FILTER;
 	// @formatter:on
 
 	// @formatter:off
 	private static final String SAVE_AUTHORIZED_CLIENT_SQL = "INSERT INTO " + TABLE_NAME + " (" + COLUMN_NAMES + ")" +
-			"VALUES (:clientRegistrationId, :principalName, :accessTokenType, :accessTokenValue," +
-				" :accessTokenIssuedAt, :accessTokenExpiresAt, :accessTokenScopes, :refreshTokenValue," +
-				" :refreshTokenIssuedAt)";
+"VALUES (:clientRegistrationId, :principalName, :accessTokenType, :accessTokenValue," +
+" :accessTokenIssuedAt, :accessTokenExpiresAt, :accessTokenScopes, :refreshTokenValue," +
+" :refreshTokenIssuedAt)";
 	// @formatter:on
 
 	private static final String REMOVE_AUTHORIZED_CLIENT_SQL = "DELETE FROM " + TABLE_NAME + " WHERE " + PK_FILTER;
 
 	// @formatter:off
 	private static final String UPDATE_AUTHORIZED_CLIENT_SQL = "UPDATE " + TABLE_NAME +
-			" SET access_token_type = :accessTokenType, " +
-			" access_token_value = :accessTokenValue, " +
-			" access_token_issued_at = :accessTokenIssuedAt," +
-			" access_token_expires_at = :accessTokenExpiresAt, " +
-			" access_token_scopes = :accessTokenScopes," +
-			" refresh_token_value = :refreshTokenValue, " +
-			" refresh_token_issued_at = :refreshTokenIssuedAt" +
-			" WHERE " +
-			PK_FILTER;
+" SET access_token_type = :accessTokenType, " +
+" access_token_value = :accessTokenValue, " +
+" access_token_issued_at = :accessTokenIssuedAt," +
+" access_token_expires_at = :accessTokenExpiresAt, " +
+" access_token_scopes = :accessTokenScopes," +
+" refresh_token_value = :refreshTokenValue, " +
+" refresh_token_issued_at = :refreshTokenIssuedAt" +
+" WHERE " +
+PK_FILTER;
 	// @formatter:on
 
 	protected final DatabaseClient databaseClient;
@@ -123,7 +115,7 @@ public class R2dbcReactiveOAuth2AuthorizedClientService implements ReactiveOAuth
 	 * @param clientRegistrationRepository the repository of client registrations
 	 */
 	public R2dbcReactiveOAuth2AuthorizedClientService(DatabaseClient databaseClient,
-			ReactiveClientRegistrationRepository clientRegistrationRepository) {
+ReactiveClientRegistrationRepository clientRegistrationRepository) {
 		Assert.notNull(databaseClient, "databaseClient cannot be null");
 		Assert.notNull(clientRegistrationRepository, "clientRegistrationRepository cannot be null");
 		this.databaseClient = databaseClient;
@@ -135,27 +127,27 @@ public class R2dbcReactiveOAuth2AuthorizedClientService implements ReactiveOAuth
 	@Override
 	@SuppressWarnings("unchecked")
 	public <T extends OAuth2AuthorizedClient> Mono<T> loadAuthorizedClient(String clientRegistrationId,
-			String principalName) {
+String principalName) {
 		Assert.hasText(clientRegistrationId, "clientRegistrationId cannot be empty");
 		Assert.hasText(principalName, "principalName cannot be empty");
 
 		return (Mono<T>) this.databaseClient.sql(LOAD_AUTHORIZED_CLIENT_SQL)
-				.bind("clientRegistrationId", clientRegistrationId).bind("principalName", principalName)
-				.map(this.authorizedClientRowMapper).first().flatMap(this::getAuthorizedClient);
+	.bind("clientRegistrationId", clientRegistrationId).bind("principalName", principalName)
+	.map(this.authorizedClientRowMapper).first().flatMap(this::getAuthorizedClient);
 	}
 
 	private Mono<OAuth2AuthorizedClient> getAuthorizedClient(OAuth2AuthorizedClientHolder authorizedClientHolder) {
 		return this.clientRegistrationRepository.findByRegistrationId(authorizedClientHolder.getClientRegistrationId())
-				.switchIfEmpty(
-						Mono.error(dataRetrievalFailureException(authorizedClientHolder.getClientRegistrationId())))
-				.map((clientRegistration) -> new OAuth2AuthorizedClient(clientRegistration,
-						authorizedClientHolder.getPrincipalName(), authorizedClientHolder.getAccessToken(),
-						authorizedClientHolder.getRefreshToken()));
+	.switchIfEmpty(
+Mono.error(dataRetrievalFailureException(authorizedClientHolder.getClientRegistrationId())))
+	.map((clientRegistration) -> new OAuth2AuthorizedClient(clientRegistration,
+authorizedClientHolder.getPrincipalName(), authorizedClientHolder.getAccessToken(),
+authorizedClientHolder.getRefreshToken()));
 	}
 
 	private static Throwable dataRetrievalFailureException(String clientRegistrationId) {
 		return new DataRetrievalFailureException("The ClientRegistration with id '" + clientRegistrationId
-				+ "' exists in the data source, however, it was not found in the ReactiveClientRegistrationRepository.");
+	+ "' exists in the data source, however, it was not found in the ReactiveClientRegistrationRepository.");
 	}
 
 	@Override
@@ -163,9 +155,9 @@ public class R2dbcReactiveOAuth2AuthorizedClientService implements ReactiveOAuth
 		Assert.notNull(authorizedClient, "authorizedClient cannot be null");
 		Assert.notNull(principal, "principal cannot be null");
 		return this
-				.loadAuthorizedClient(authorizedClient.getClientRegistration().getRegistrationId(), principal.getName())
-				.flatMap((dbAuthorizedClient) -> updateAuthorizedClient(authorizedClient, principal))
-				.switchIfEmpty(Mono.defer(() -> insertAuthorizedClient(authorizedClient, principal))).then();
+	.loadAuthorizedClient(authorizedClient.getClientRegistration().getRegistrationId(), principal.getName())
+	.flatMap((dbAuthorizedClient) -> updateAuthorizedClient(authorizedClient, principal))
+	.switchIfEmpty(Mono.defer(() -> insertAuthorizedClient(authorizedClient, principal))).then();
 	}
 
 	private Mono<Long> updateAuthorizedClient(OAuth2AuthorizedClient authorizedClient, Authentication principal) {
@@ -191,7 +183,7 @@ public class R2dbcReactiveOAuth2AuthorizedClientService implements ReactiveOAuth
 		Assert.hasText(clientRegistrationId, "clientRegistrationId cannot be empty");
 		Assert.hasText(principalName, "principalName cannot be empty");
 		return this.databaseClient.sql(REMOVE_AUTHORIZED_CLIENT_SQL).bind("clientRegistrationId", clientRegistrationId)
-				.bind("principalName", principalName).then();
+	.bind("principalName", principalName).then();
 	}
 
 	/**
@@ -203,7 +195,7 @@ public class R2dbcReactiveOAuth2AuthorizedClientService implements ReactiveOAuth
 	 * {@link Parameter}
 	 */
 	public final void setAuthorizedClientParametersMapper(
-			Function<OAuth2AuthorizedClientHolder, Map<String, Parameter>> authorizedClientParametersMapper) {
+Function<OAuth2AuthorizedClientHolder, Map<String, Parameter>> authorizedClientParametersMapper) {
 		Assert.notNull(authorizedClientParametersMapper, "authorizedClientParametersMapper cannot be null");
 		this.authorizedClientParametersMapper = authorizedClientParametersMapper;
 	}
@@ -216,7 +208,7 @@ public class R2dbcReactiveOAuth2AuthorizedClientService implements ReactiveOAuth
 	 * current {@code io.r2dbc.spi.Row} to {@link OAuth2AuthorizedClientHolder}
 	 */
 	public final void setAuthorizedClientRowMapper(
-			BiFunction<Row, RowMetadata, OAuth2AuthorizedClientHolder> authorizedClientRowMapper) {
+BiFunction<Row, RowMetadata, OAuth2AuthorizedClientHolder> authorizedClientRowMapper) {
 		Assert.notNull(authorizedClientRowMapper, "authorizedClientRowMapper cannot be null");
 		this.authorizedClientRowMapper = authorizedClientRowMapper;
 	}
@@ -259,7 +251,7 @@ public class R2dbcReactiveOAuth2AuthorizedClientService implements ReactiveOAuth
 		 * @param refreshToken the refresh token
 		 */
 		public OAuth2AuthorizedClientHolder(String clientRegistrationId, String principalName,
-				OAuth2AccessToken accessToken, OAuth2RefreshToken refreshToken) {
+	OAuth2AccessToken accessToken, OAuth2RefreshToken refreshToken) {
 			Assert.hasText(clientRegistrationId, "clientRegistrationId cannot be empty");
 			Assert.hasText(principalName, "principalName cannot be empty");
 			Assert.notNull(accessToken, "accessToken cannot be null");
@@ -292,7 +284,7 @@ public class R2dbcReactiveOAuth2AuthorizedClientService implements ReactiveOAuth
 	 * {@code Map} of {@link String} and {@link Parameter}.
 	 */
 	public static class OAuth2AuthorizedClientParametersMapper
-			implements Function<OAuth2AuthorizedClientHolder, Map<String, Parameter>> {
+implements Function<OAuth2AuthorizedClientHolder, Map<String, Parameter>> {
 
 		@Override
 		public Map<String, Parameter> apply(OAuth2AuthorizedClientHolder authorizedClientHolder) {
@@ -303,17 +295,17 @@ public class R2dbcReactiveOAuth2AuthorizedClientService implements ReactiveOAuth
 			final OAuth2RefreshToken refreshToken = authorizedClientHolder.getRefreshToken();
 
 			parameters.put("clientRegistrationId",
-					Parameter.fromOrEmpty(authorizedClientHolder.getClientRegistrationId(), String.class));
+		Parameter.fromOrEmpty(authorizedClientHolder.getClientRegistrationId(), String.class));
 			parameters.put("principalName",
-					Parameter.fromOrEmpty(authorizedClientHolder.getPrincipalName(), String.class));
+		Parameter.fromOrEmpty(authorizedClientHolder.getPrincipalName(), String.class));
 			parameters.put("accessTokenType",
-					Parameter.fromOrEmpty(accessToken.getTokenType().getValue(), String.class));
+		Parameter.fromOrEmpty(accessToken.getTokenType().getValue(), String.class));
 			parameters.put("accessTokenValue", Parameter.fromOrEmpty(
-					ByteBuffer.wrap(accessToken.getTokenValue().getBytes(StandardCharsets.UTF_8)), ByteBuffer.class));
+		ByteBuffer.wrap(accessToken.getTokenValue().getBytes(StandardCharsets.UTF_8)), ByteBuffer.class));
 			parameters.put("accessTokenIssuedAt", Parameter.fromOrEmpty(
-					LocalDateTime.ofInstant(accessToken.getIssuedAt(), ZoneOffset.UTC), LocalDateTime.class));
+		LocalDateTime.ofInstant(accessToken.getIssuedAt(), ZoneOffset.UTC), LocalDateTime.class));
 			parameters.put("accessTokenExpiresAt", Parameter.fromOrEmpty(
-					LocalDateTime.ofInstant(accessToken.getExpiresAt(), ZoneOffset.UTC), LocalDateTime.class));
+		LocalDateTime.ofInstant(accessToken.getExpiresAt(), ZoneOffset.UTC), LocalDateTime.class));
 			String accessTokenScopes = null;
 			if (!CollectionUtils.isEmpty(accessToken.getScopes())) {
 				accessTokenScopes = StringUtils.collectionToDelimitedString(accessToken.getScopes(), ",");
@@ -342,7 +334,7 @@ public class R2dbcReactiveOAuth2AuthorizedClientService implements ReactiveOAuth
 	 * {@link OAuth2AuthorizedClientHolder}.
 	 */
 	public static class OAuth2AuthorizedClientRowMapper
-			implements BiFunction<Row, RowMetadata, OAuth2AuthorizedClientHolder> {
+implements BiFunction<Row, RowMetadata, OAuth2AuthorizedClientHolder> {
 
 		@Override
 		public OAuth2AuthorizedClientHolder apply(Row row, RowMetadata rowMetadata) {
@@ -350,11 +342,11 @@ public class R2dbcReactiveOAuth2AuthorizedClientService implements ReactiveOAuth
 			String dbClientRegistrationId = row.get("client_registration_id", String.class);
 			OAuth2AccessToken.TokenType tokenType = null;
 			if (OAuth2AccessToken.TokenType.BEARER.getValue()
-					.equalsIgnoreCase(row.get("access_token_type", String.class))) {
+		.equalsIgnoreCase(row.get("access_token_type", String.class))) {
 				tokenType = OAuth2AccessToken.TokenType.BEARER;
 			}
 			String tokenValue = new String(row.get("access_token_value", ByteBuffer.class).array(),
-					StandardCharsets.UTF_8);
+		StandardCharsets.UTF_8);
 			Instant issuedAt = row.get("access_token_issued_at", LocalDateTime.class).toInstant(ZoneOffset.UTC);
 			Instant expiresAt = row.get("access_token_expires_at", LocalDateTime.class).toInstant(ZoneOffset.UTC);
 
@@ -364,7 +356,7 @@ public class R2dbcReactiveOAuth2AuthorizedClientService implements ReactiveOAuth
 				scopes = StringUtils.commaDelimitedListToSet(accessTokenScopes);
 			}
 			final OAuth2AccessToken accessToken = new OAuth2AccessToken(tokenType, tokenValue, issuedAt, expiresAt,
-					scopes);
+		scopes);
 
 			OAuth2RefreshToken refreshToken = null;
 			ByteBuffer refreshTokenValue = row.get("refresh_token_value", ByteBuffer.class);

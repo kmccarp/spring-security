@@ -79,11 +79,10 @@ import org.springframework.web.server.ServerWebExchange;
  * @see ReactiveOAuth2AuthorizationSuccessHandler
  * @see ReactiveOAuth2AuthorizationFailureHandler
  */
-public final class AuthorizedClientServiceReactiveOAuth2AuthorizedClientManager
-		implements ReactiveOAuth2AuthorizedClientManager {
+public final class AuthorizedClientServiceReactiveOAuth2AuthorizedClientManagerimplements ReactiveOAuth2AuthorizedClientManager {
 
 	private static final ReactiveOAuth2AuthorizedClientProvider DEFAULT_AUTHORIZED_CLIENT_PROVIDER = ReactiveOAuth2AuthorizedClientProviderBuilder
-			.builder().clientCredentials().build();
+.builder().clientCredentials().build();
 
 	private final ReactiveClientRegistrationRepository clientRegistrationRepository;
 
@@ -104,48 +103,44 @@ public final class AuthorizedClientServiceReactiveOAuth2AuthorizedClientManager
 	 * @param authorizedClientService the authorized client service
 	 */
 	public AuthorizedClientServiceReactiveOAuth2AuthorizedClientManager(
-			ReactiveClientRegistrationRepository clientRegistrationRepository,
-			ReactiveOAuth2AuthorizedClientService authorizedClientService) {
+ReactiveClientRegistrationRepository clientRegistrationRepository,
+ReactiveOAuth2AuthorizedClientService authorizedClientService) {
 		Assert.notNull(clientRegistrationRepository, "clientRegistrationRepository cannot be null");
 		Assert.notNull(authorizedClientService, "authorizedClientService cannot be null");
 		this.clientRegistrationRepository = clientRegistrationRepository;
 		this.authorizedClientService = authorizedClientService;
 		this.authorizationSuccessHandler = (authorizedClient, principal, attributes) -> authorizedClientService
-				.saveAuthorizedClient(authorizedClient, principal);
+	.saveAuthorizedClient(authorizedClient, principal);
 		this.authorizationFailureHandler = new RemoveAuthorizedClientReactiveOAuth2AuthorizationFailureHandler(
-				(clientRegistrationId, principal, attributes) -> this.authorizedClientService
-						.removeAuthorizedClient(clientRegistrationId, principal.getName()));
+	(clientRegistrationId, principal, attributes) -> this.authorizedClientService
+.removeAuthorizedClient(clientRegistrationId, principal.getName()));
 	}
 
 	@Override
 	public Mono<OAuth2AuthorizedClient> authorize(OAuth2AuthorizeRequest authorizeRequest) {
 		Assert.notNull(authorizeRequest, "authorizeRequest cannot be null");
 		return createAuthorizationContext(authorizeRequest)
-				.flatMap((authorizationContext) -> authorize(authorizationContext, authorizeRequest.getPrincipal()));
+	.flatMap((authorizationContext) -> authorize(authorizationContext, authorizeRequest.getPrincipal()));
 	}
 
 	private Mono<OAuth2AuthorizationContext> createAuthorizationContext(OAuth2AuthorizeRequest authorizeRequest) {
 		String clientRegistrationId = authorizeRequest.getClientRegistrationId();
 		Authentication principal = authorizeRequest.getPrincipal();
 		return Mono.justOrEmpty(authorizeRequest.getAuthorizedClient())
-				.map(OAuth2AuthorizationContext::withAuthorizedClient)
-				.switchIfEmpty(Mono.defer(() -> this.clientRegistrationRepository
-						.findByRegistrationId(clientRegistrationId)
-						.flatMap((clientRegistration) -> this.authorizedClientService
-								.loadAuthorizedClient(clientRegistrationId, principal.getName())
-								.map(OAuth2AuthorizationContext::withAuthorizedClient)
-								.switchIfEmpty(Mono.fromSupplier(
+	.map(OAuth2AuthorizationContext::withAuthorizedClient)
+	.switchIfEmpty(Mono.defer(() -> this.clientRegistrationRepository
+.findByRegistrationId(clientRegistrationId)
+.flatMap((clientRegistration) -> this.authorizedClientService.loadAuthorizedClient(clientRegistrationId, principal.getName()).map(OAuth2AuthorizationContext::withAuthorizedClient).switchIfEmpty(Mono.fromSupplier(
 										() -> OAuth2AuthorizationContext.withClientRegistration(clientRegistration))))
-						.switchIfEmpty(Mono.error(() -> new IllegalArgumentException(
-								"Could not find ClientRegistration with id '" + clientRegistrationId + "'")))))
-				.flatMap((contextBuilder) -> this.contextAttributesMapper.apply(authorizeRequest)
-						.defaultIfEmpty(Collections.emptyMap()).map((contextAttributes) -> {
-							OAuth2AuthorizationContext.Builder builder = contextBuilder.principal(principal);
-							if (!contextAttributes.isEmpty()) {
-								builder = builder.attributes((attributes) -> attributes.putAll(contextAttributes));
-							}
-							return builder.build();
-						}));
+.switchIfEmpty(Mono.error(() -> new IllegalArgumentException("Could not find ClientRegistration with id '" + clientRegistrationId + "'")))))
+	.flatMap((contextBuilder) -> this.contextAttributesMapper.apply(authorizeRequest)
+.defaultIfEmpty(Collections.emptyMap()).map((contextAttributes) -> {
+		OAuth2AuthorizationContext.Builder builder = contextBuilder.principal(principal);
+		if (!contextAttributes.isEmpty()) {
+			builder = builder.attributes((attributes) -> attributes.putAll(contextAttributes));
+		}
+		return builder.build();
+	}));
 	}
 
 	/**
@@ -160,19 +155,17 @@ public final class AuthorizedClientServiceReactiveOAuth2AuthorizedClientManager
 	 * {@link #authorizationFailureHandler} has completed
 	 */
 	private Mono<OAuth2AuthorizedClient> authorize(OAuth2AuthorizationContext authorizationContext,
-			Authentication principal) {
+Authentication principal) {
 		return this.authorizedClientProvider.authorize(authorizationContext)
-				// Delegate to the authorizationSuccessHandler of the successful
-				// authorization
-				.flatMap((authorizedClient) -> this.authorizationSuccessHandler
-						.onAuthorizationSuccess(authorizedClient, principal, Collections.emptyMap())
-						.thenReturn(authorizedClient))
-				// Delegate to the authorizationFailureHandler of the failed authorization
-				.onErrorResume(OAuth2AuthorizationException.class,
-						(authorizationException) -> this.authorizationFailureHandler
-								.onAuthorizationFailure(authorizationException, principal, Collections.emptyMap())
-								.then(Mono.error(authorizationException)))
-				.switchIfEmpty(Mono.defer(() -> Mono.justOrEmpty(authorizationContext.getAuthorizedClient())));
+	// Delegate to the authorizationSuccessHandler of the successful
+	// authorization
+	.flatMap((authorizedClient) -> this.authorizationSuccessHandler
+.onAuthorizationSuccess(authorizedClient, principal, Collections.emptyMap())
+.thenReturn(authorizedClient))
+	// Delegate to the authorizationFailureHandler of the failed authorization
+	.onErrorResume(OAuth2AuthorizationException.class,
+(authorizationException) -> this.authorizationFailureHandler.onAuthorizationFailure(authorizationException, principal, Collections.emptyMap()).then(Mono.error(authorizationException)))
+	.switchIfEmpty(Mono.defer(() -> Mono.justOrEmpty(authorizationContext.getAuthorizedClient())));
 	}
 
 	/**
@@ -195,7 +188,7 @@ public final class AuthorizedClientServiceReactiveOAuth2AuthorizedClientManager
 	 * authorization context}
 	 */
 	public void setContextAttributesMapper(
-			Function<OAuth2AuthorizeRequest, Mono<Map<String, Object>>> contextAttributesMapper) {
+Function<OAuth2AuthorizeRequest, Mono<Map<String, Object>>> contextAttributesMapper) {
 		Assert.notNull(contextAttributesMapper, "contextAttributesMapper cannot be null");
 		this.contextAttributesMapper = contextAttributesMapper;
 	}
@@ -235,7 +228,7 @@ public final class AuthorizedClientServiceReactiveOAuth2AuthorizedClientManager
 	 * contextAttributesMapper}.
 	 */
 	public static class DefaultContextAttributesMapper
-			implements Function<OAuth2AuthorizeRequest, Mono<Map<String, Object>>> {
+implements Function<OAuth2AuthorizeRequest, Mono<Map<String, Object>>> {
 
 		private final AuthorizedClientServiceOAuth2AuthorizedClientManager.DefaultContextAttributesMapper mapper = new AuthorizedClientServiceOAuth2AuthorizedClientManager.DefaultContextAttributesMapper();
 

@@ -67,8 +67,7 @@ import org.springframework.security.web.csrf.CsrfToken;
  * @since 3.2
  * @see EnableWebSecurity
  */
-public final class DefaultLoginPageConfigurer<H extends HttpSecurityBuilder<H>>
-		extends AbstractHttpConfigurer<DefaultLoginPageConfigurer<H>, H> {
+public final class DefaultLoginPageConfigurer<H extends HttpSecurityBuilder<H>>extends AbstractHttpConfigurer<DefaultLoginPageConfigurer<H>, H> {
 
 	private DefaultLoginPageGeneratingFilter loginPageGeneratingFilter = new DefaultLoginPageGeneratingFilter();
 
@@ -84,7 +83,7 @@ public final class DefaultLoginPageConfigurer<H extends HttpSecurityBuilder<H>>
 	private Map<String, String> hiddenInputs(HttpServletRequest request) {
 		CsrfToken token = (CsrfToken) request.getAttribute(CsrfToken.class.getName());
 		return (token != null) ? Collections.singletonMap(token.getParameterName(), token.getToken())
-				: Collections.emptyMap();
+	: Collections.emptyMap();
 	}
 
 	@Override

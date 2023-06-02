@@ -34,12 +34,10 @@ import org.springframework.util.StringUtils;
  * @author Steve Riesenberg
  * @since 5.6
  */
-public final class DefaultMapOAuth2AccessTokenResponseConverter
-		implements Converter<Map<String, Object>, OAuth2AccessTokenResponse> {
+public final class DefaultMapOAuth2AccessTokenResponseConverterimplements Converter<Map<String, Object>, OAuth2AccessTokenResponse> {
 
 	private static final Set<String> TOKEN_RESPONSE_PARAMETER_NAMES = new HashSet<>(
-			Arrays.asList(OAuth2ParameterNames.ACCESS_TOKEN, OAuth2ParameterNames.EXPIRES_IN,
-					OAuth2ParameterNames.REFRESH_TOKEN, OAuth2ParameterNames.SCOPE, OAuth2ParameterNames.TOKEN_TYPE));
+Arrays.asList(OAuth2ParameterNames.ACCESS_TOKEN, OAuth2ParameterNames.EXPIRES_IN,OAuth2ParameterNames.REFRESH_TOKEN, OAuth2ParameterNames.SCOPE, OAuth2ParameterNames.TOKEN_TYPE));
 
 	@Override
 	public OAuth2AccessTokenResponse convert(Map<String, Object> source) {
@@ -56,18 +54,18 @@ public final class DefaultMapOAuth2AccessTokenResponseConverter
 		}
 		// @formatter:off
 		return OAuth2AccessTokenResponse.withToken(accessToken)
-				.tokenType(accessTokenType)
-				.expiresIn(expiresIn)
-				.scopes(scopes)
-				.refreshToken(refreshToken)
-				.additionalParameters(additionalParameters)
-				.build();
+	.tokenType(accessTokenType)
+	.expiresIn(expiresIn)
+	.scopes(scopes)
+	.refreshToken(refreshToken)
+	.additionalParameters(additionalParameters)
+	.build();
 		// @formatter:on
 	}
 
 	private static OAuth2AccessToken.TokenType getAccessTokenType(Map<String, Object> tokenResponseParameters) {
 		if (OAuth2AccessToken.TokenType.BEARER.getValue()
-				.equalsIgnoreCase(getParameterValue(tokenResponseParameters, OAuth2ParameterNames.TOKEN_TYPE))) {
+	.equalsIgnoreCase(getParameterValue(tokenResponseParameters, OAuth2ParameterNames.TOKEN_TYPE))) {
 			return OAuth2AccessToken.TokenType.BEARER;
 		}
 		return null;
@@ -91,7 +89,7 @@ public final class DefaultMapOAuth2AccessTokenResponseConverter
 	}
 
 	private static long getParameterValue(Map<String, Object> tokenResponseParameters, String parameterName,
-			long defaultValue) {
+long defaultValue) {
 		long parameterValue = defaultValue;
 
 		Object obj = tokenResponseParameters.get(parameterName);

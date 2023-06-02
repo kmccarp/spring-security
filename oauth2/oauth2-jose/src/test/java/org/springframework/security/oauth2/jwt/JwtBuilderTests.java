@@ -36,15 +36,15 @@ public class JwtBuilderTests {
 		Jwt.Builder jwtBuilder = Jwt.withTokenValue("token");
 		// @formatter:off
 		Jwt first = jwtBuilder.tokenValue("V1")
-				.header("TEST_HEADER_1", "H1")
-				.claim("TEST_CLAIM_1", "C1")
-				.build();
+	.header("TEST_HEADER_1", "H1")
+	.claim("TEST_CLAIM_1", "C1")
+	.build();
 		Jwt second = jwtBuilder.tokenValue("V2")
-				.header("TEST_HEADER_1", "H2")
-				.header("TEST_HEADER_2", "H3")
-				.claim("TEST_CLAIM_1", "C2")
-				.claim("TEST_CLAIM_2", "C3")
-				.build();
+	.header("TEST_HEADER_1", "H2")
+	.header("TEST_HEADER_2", "H3")
+	.claim("TEST_CLAIM_1", "C2")
+	.claim("TEST_CLAIM_2", "C3")
+	.build();
 		// @formatter:on
 		assertThat(first.getHeaders()).hasSize(1);
 		assertThat(first.getHeaders().get("TEST_HEADER_1")).isEqualTo("H1");
@@ -64,7 +64,7 @@ public class JwtBuilderTests {
 	public void expiresAtWhenUsingGenericOrNamedClaimMethodRequiresInstant() {
 		// @formatter:off
 		Jwt.Builder jwtBuilder = Jwt.withTokenValue("token")
-				.header("needs", "a header");
+	.header("needs", "a header");
 		// @formatter:on
 		Instant now = Instant.now();
 		Jwt jwt = jwtBuilder.expiresAt(now).build();
@@ -72,14 +72,14 @@ public class JwtBuilderTests {
 		jwt = jwtBuilder.expiresAt(now).build();
 		assertThat(jwt.getExpiresAt()).isSameAs(now);
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> jwtBuilder.claim(JwtClaimNames.EXP, "not an instant").build());
+	.isThrownBy(() -> jwtBuilder.claim(JwtClaimNames.EXP, "not an instant").build());
 	}
 
 	@Test
 	public void issuedAtWhenUsingGenericOrNamedClaimMethodRequiresInstant() {
 		// @formatter:off
 		Jwt.Builder jwtBuilder = Jwt.withTokenValue("token")
-				.header("needs", "a header");
+	.header("needs", "a header");
 		// @formatter:on
 		Instant now = Instant.now();
 		Jwt jwt = jwtBuilder.issuedAt(now).build();
@@ -87,14 +87,14 @@ public class JwtBuilderTests {
 		jwt = jwtBuilder.issuedAt(now).build();
 		assertThat(jwt.getIssuedAt()).isSameAs(now);
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> jwtBuilder.claim(JwtClaimNames.IAT, "not an instant").build());
+	.isThrownBy(() -> jwtBuilder.claim(JwtClaimNames.IAT, "not an instant").build());
 	}
 
 	@Test
 	public void subjectWhenUsingGenericOrNamedClaimMethodThenLastOneWins() {
 		// @formatter:off
 		Jwt.Builder jwtBuilder = Jwt.withTokenValue("token")
-				.header("needs", "a header");
+	.header("needs", "a header");
 		// @formatter:on
 		String generic = new String("sub");
 		String named = new String("sub");
@@ -108,11 +108,11 @@ public class JwtBuilderTests {
 	public void claimsWhenRemovingAClaimThenIsNotPresent() {
 		// @formatter:off
 		Jwt.Builder jwtBuilder = Jwt.withTokenValue("token")
-				.claim("needs", "a claim")
-				.header("needs", "a header");
+	.claim("needs", "a claim")
+	.header("needs", "a header");
 		Jwt jwt = jwtBuilder.subject("sub")
-				.claims((claims) -> claims.remove(JwtClaimNames.SUB))
-				.build();
+	.claims((claims) -> claims.remove(JwtClaimNames.SUB))
+	.build();
 		// @formatter:on
 		assertThat(jwt.getSubject()).isNull();
 	}
@@ -121,7 +121,7 @@ public class JwtBuilderTests {
 	public void claimsWhenAddingAClaimThenIsPresent() {
 		// @formatter:off
 		Jwt.Builder jwtBuilder = Jwt.withTokenValue("token")
-				.header("needs", "a header");
+	.header("needs", "a header");
 		// @formatter:on
 		String name = new String("name");
 		String value = new String("value");
@@ -134,11 +134,11 @@ public class JwtBuilderTests {
 	public void headersWhenRemovingAClaimThenIsNotPresent() {
 		// @formatter:off
 		Jwt.Builder jwtBuilder = Jwt.withTokenValue("token")
-				.claim("needs", "a claim")
-				.header("needs", "a header");
+	.claim("needs", "a claim")
+	.header("needs", "a header");
 		Jwt jwt = jwtBuilder.header("alg", "none")
-				.headers((headers) -> headers.remove("alg"))
-				.build();
+	.headers((headers) -> headers.remove("alg"))
+	.build();
 		// @formatter:on
 		assertThat(jwt.getHeaders().get("alg")).isNull();
 	}
@@ -147,13 +147,13 @@ public class JwtBuilderTests {
 	public void headersWhenAddingAClaimThenIsPresent() {
 		// @formatter:off
 		Jwt.Builder jwtBuilder = Jwt.withTokenValue("token")
-				.claim("needs", "a claim");
+	.claim("needs", "a claim");
 		// @formatter:on
 		String name = new String("name");
 		String value = new String("value");
 		// @formatter:off
 		Jwt jwt = jwtBuilder.headers((headers) -> headers.put(name, value))
-				.build();
+	.build();
 		// @formatter:on
 		assertThat(jwt.getHeaders()).hasSize(1);
 		assertThat(jwt.getHeaders().get(name)).isSameAs(value);

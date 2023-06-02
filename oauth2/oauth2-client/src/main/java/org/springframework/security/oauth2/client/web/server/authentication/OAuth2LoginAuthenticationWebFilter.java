@@ -46,7 +46,7 @@ public class OAuth2LoginAuthenticationWebFilter extends AuthenticationWebFilter 
 	 * @param authorizedClientRepository
 	 */
 	public OAuth2LoginAuthenticationWebFilter(ReactiveAuthenticationManager authenticationManager,
-			ServerOAuth2AuthorizedClientRepository authorizedClientRepository) {
+ServerOAuth2AuthorizedClientRepository authorizedClientRepository) {
 		super(authenticationManager);
 		Assert.notNull(authorizedClientRepository, "authorizedClientService cannot be null");
 		this.authorizedClientRepository = authorizedClientRepository;
@@ -56,15 +56,15 @@ public class OAuth2LoginAuthenticationWebFilter extends AuthenticationWebFilter 
 	protected Mono<Void> onAuthenticationSuccess(Authentication authentication, WebFilterExchange webFilterExchange) {
 		OAuth2LoginAuthenticationToken authenticationResult = (OAuth2LoginAuthenticationToken) authentication;
 		OAuth2AuthorizedClient authorizedClient = new OAuth2AuthorizedClient(
-				authenticationResult.getClientRegistration(), authenticationResult.getName(),
-				authenticationResult.getAccessToken(), authenticationResult.getRefreshToken());
+	authenticationResult.getClientRegistration(), authenticationResult.getName(),
+	authenticationResult.getAccessToken(), authenticationResult.getRefreshToken());
 		OAuth2AuthenticationToken result = new OAuth2AuthenticationToken(authenticationResult.getPrincipal(),
-				authenticationResult.getAuthorities(),
-				authenticationResult.getClientRegistration().getRegistrationId());
+	authenticationResult.getAuthorities(),
+	authenticationResult.getClientRegistration().getRegistrationId());
 		// @formatter:off
 		return this.authorizedClientRepository
-				.saveAuthorizedClient(authorizedClient, authenticationResult, webFilterExchange.getExchange())
-				.then(super.onAuthenticationSuccess(result, webFilterExchange));
+	.saveAuthorizedClient(authorizedClient, authenticationResult, webFilterExchange.getExchange())
+	.then(super.onAuthenticationSuccess(result, webFilterExchange));
 		// @formatter:on
 	}
 

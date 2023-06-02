@@ -41,15 +41,15 @@ public class WebSessionOAuth2ServerAuthorizationRequestRepositoryTests {
 
 	// @formatter:off
 	private OAuth2AuthorizationRequest authorizationRequest = OAuth2AuthorizationRequest.authorizationCode()
-			.authorizationUri("https://example.com/oauth2/authorize")
-			.clientId("client-id")
-			.redirectUri("http://localhost/client-1")
-			.state("state")
-			.build();
+.authorizationUri("https://example.com/oauth2/authorize")
+.clientId("client-id")
+.redirectUri("http://localhost/client-1")
+.state("state")
+.build();
 	// @formatter:on
 
 	private ServerWebExchange exchange = MockServerWebExchange
-			.from(MockServerHttpRequest.get("/").queryParam(OAuth2ParameterNames.STATE, "state"));
+.from(MockServerHttpRequest.get("/").queryParam(OAuth2ParameterNames.STATE, "state"));
 
 	@Test
 	public void loadAuthorizationRequestWhenNullExchangeThenIllegalArgumentException() {
@@ -61,7 +61,7 @@ public class WebSessionOAuth2ServerAuthorizationRequestRepositoryTests {
 	public void loadAuthorizationRequestWhenNoSessionThenEmpty() {
 		// @formatter:off
 		StepVerifier.create(this.repository.loadAuthorizationRequest(this.exchange))
-				.verifyComplete();
+	.verifyComplete();
 		// @formatter:on
 		assertSessionStartedIs(false);
 	}
@@ -70,11 +70,11 @@ public class WebSessionOAuth2ServerAuthorizationRequestRepositoryTests {
 	public void loadAuthorizationRequestWhenSessionAndNoRequestThenEmpty() {
 		// @formatter:off
 		Mono<OAuth2AuthorizationRequest> setAttrThenLoad = this.exchange.getSession()
-				.map(WebSession::getAttributes)
-				.doOnNext((attrs) -> attrs.put("foo", "bar"))
-				.then(this.repository.loadAuthorizationRequest(this.exchange));
+	.map(WebSession::getAttributes)
+	.doOnNext((attrs) -> attrs.put("foo", "bar"))
+	.then(this.repository.loadAuthorizationRequest(this.exchange));
 		StepVerifier.create(setAttrThenLoad)
-				.verifyComplete();
+	.verifyComplete();
 		// @formatter:on
 	}
 
@@ -83,10 +83,10 @@ public class WebSessionOAuth2ServerAuthorizationRequestRepositoryTests {
 		this.exchange = MockServerWebExchange.from(MockServerHttpRequest.get("/"));
 		// @formatter:off
 		Mono<OAuth2AuthorizationRequest> saveAndLoad = this.repository
-				.saveAuthorizationRequest(this.authorizationRequest, this.exchange)
-				.then(this.repository.loadAuthorizationRequest(this.exchange));
+	.saveAuthorizationRequest(this.authorizationRequest, this.exchange)
+	.then(this.repository.loadAuthorizationRequest(this.exchange));
 		StepVerifier.create(saveAndLoad)
-				.verifyComplete();
+	.verifyComplete();
 		// @formatter:on
 	}
 
@@ -94,11 +94,11 @@ public class WebSessionOAuth2ServerAuthorizationRequestRepositoryTests {
 	public void loadAuthorizationRequestWhenSavedThenAuthorizationRequest() {
 		// @formatter:off
 		Mono<OAuth2AuthorizationRequest> saveAndLoad = this.repository
-				.saveAuthorizationRequest(this.authorizationRequest, this.exchange)
-				.then(this.repository.loadAuthorizationRequest(this.exchange));
+	.saveAuthorizationRequest(this.authorizationRequest, this.exchange)
+	.then(this.repository.loadAuthorizationRequest(this.exchange));
 		StepVerifier.create(saveAndLoad)
-				.expectNext(this.authorizationRequest)
-				.verifyComplete();
+	.expectNext(this.authorizationRequest)
+	.verifyComplete();
 		// @formatter:on
 	}
 
@@ -106,7 +106,7 @@ public class WebSessionOAuth2ServerAuthorizationRequestRepositoryTests {
 	public void saveAuthorizationRequestWhenAuthorizationRequestNullThenThrowsIllegalArgumentException() {
 		this.authorizationRequest = null;
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> this.repository.saveAuthorizationRequest(this.authorizationRequest, this.exchange));
+	.isThrownBy(() -> this.repository.saveAuthorizationRequest(this.authorizationRequest, this.exchange));
 		assertSessionStartedIs(false);
 	}
 
@@ -114,14 +114,14 @@ public class WebSessionOAuth2ServerAuthorizationRequestRepositoryTests {
 	public void saveAuthorizationRequestWhenExchangeNullThenThrowsIllegalArgumentException() {
 		this.exchange = null;
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> this.repository.saveAuthorizationRequest(this.authorizationRequest, this.exchange));
+	.isThrownBy(() -> this.repository.saveAuthorizationRequest(this.authorizationRequest, this.exchange));
 	}
 
 	@Test
 	public void removeAuthorizationRequestWhenExchangeNullThenThrowsIllegalArgumentException() {
 		this.exchange = null;
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> this.repository.removeAuthorizationRequest(this.exchange));
+	.isThrownBy(() -> this.repository.removeAuthorizationRequest(this.exchange));
 	}
 
 	@Test
@@ -134,17 +134,17 @@ public class WebSessionOAuth2ServerAuthorizationRequestRepositoryTests {
 	public void removeAuthorizationRequestWhenPresentThenFoundAndRemoved() {
 		// @formatter:off
 		Mono<OAuth2AuthorizationRequest> saveAndRemove = this.repository
-				.saveAuthorizationRequest(this.authorizationRequest, this.exchange)
-				.then(this.repository.removeAuthorizationRequest(this.exchange));
+	.saveAuthorizationRequest(this.authorizationRequest, this.exchange)
+	.then(this.repository.removeAuthorizationRequest(this.exchange));
 		StepVerifier.create(saveAndRemove)
-				.expectNext(this.authorizationRequest)
-				.verifyComplete();
+	.expectNext(this.authorizationRequest)
+	.verifyComplete();
 		StepVerifier.create(this.exchange
-					.getSession()
-					.map(WebSession::getAttributes)
-					.map(Map::isEmpty)
-				)
-				.expectNext(true).verifyComplete();
+	.getSession()
+	.map(WebSession::getAttributes)
+	.map(Map::isEmpty)
+		)
+	.expectNext(true).verifyComplete();
 		// @formatter:on
 	}
 
@@ -153,26 +153,26 @@ public class WebSessionOAuth2ServerAuthorizationRequestRepositoryTests {
 	public void removeAuthorizationRequestWhenStateMissingThenNoErrors() {
 		// @formatter:off
 		MockServerHttpRequest otherState = MockServerHttpRequest.get("/")
-				.queryParam(OAuth2ParameterNames.STATE, "other")
-				.build();
+	.queryParam(OAuth2ParameterNames.STATE, "other")
+	.build();
 		ServerWebExchange otherStateExchange = this.exchange.mutate()
-				.request(otherState)
-				.build();
+	.request(otherState)
+	.build();
 		Mono<OAuth2AuthorizationRequest> saveAndRemove = this.repository
-				.saveAuthorizationRequest(this.authorizationRequest, this.exchange)
-				.then(this.repository.removeAuthorizationRequest(otherStateExchange));
+	.saveAuthorizationRequest(this.authorizationRequest, this.exchange)
+	.then(this.repository.removeAuthorizationRequest(otherStateExchange));
 		StepVerifier.create(saveAndRemove)
-				.verifyComplete();
+	.verifyComplete();
 		// @formatter:on
 	}
 
 	private void assertSessionStartedIs(boolean expected) {
 		// @formatter:off
 		Mono<Boolean> isStarted = this.exchange.getSession()
-				.map(WebSession::isStarted);
+	.map(WebSession::isStarted);
 		StepVerifier.create(isStarted)
-				.expectNext(expected)
-				.verifyComplete();
+	.expectNext(expected)
+	.verifyComplete();
 		// @formatter:on
 	}
 

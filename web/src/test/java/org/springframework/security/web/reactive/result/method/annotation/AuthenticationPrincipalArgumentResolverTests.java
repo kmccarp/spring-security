@@ -97,7 +97,7 @@ public class AuthenticationPrincipalArgumentResolverTests {
 		MethodParameter parameter = this.authenticationPrincipal.arg(String.class);
 		given(this.authentication.getPrincipal()).willReturn("user");
 		Mono<Object> argument = this.resolver.resolveArgument(parameter, this.bindingContext, this.exchange)
-				.contextWrite(ReactiveSecurityContextHolder.withAuthentication(this.authentication));
+	.contextWrite(ReactiveSecurityContextHolder.withAuthentication(this.authentication));
 		assertThat(argument.block()).isEqualTo(this.authentication.getPrincipal());
 	}
 
@@ -114,17 +114,17 @@ public class AuthenticationPrincipalArgumentResolverTests {
 		MethodParameter parameter = this.authenticationPrincipal.arg(Mono.class, String.class);
 		given(this.authentication.getPrincipal()).willReturn("user");
 		Mono<Object> argument = this.resolver.resolveArgument(parameter, this.bindingContext, this.exchange)
-				.contextWrite(ReactiveSecurityContextHolder.withAuthentication(this.authentication));
+	.contextWrite(ReactiveSecurityContextHolder.withAuthentication(this.authentication));
 		assertThat(argument.cast(Mono.class).block().block()).isEqualTo(this.authentication.getPrincipal());
 	}
 
 	@Test
 	public void resolveArgumentWhenMonoIsAuthenticationAndNoGenericThenObtainsPrincipal() {
 		MethodParameter parameter = ResolvableMethod.on(getClass()).named("authenticationPrincipalNoGeneric").build()
-				.arg(Mono.class);
+	.arg(Mono.class);
 		given(this.authentication.getPrincipal()).willReturn("user");
 		Mono<Object> argument = this.resolver.resolveArgument(parameter, this.bindingContext, this.exchange)
-				.contextWrite(ReactiveSecurityContextHolder.withAuthentication(this.authentication));
+	.contextWrite(ReactiveSecurityContextHolder.withAuthentication(this.authentication));
 		assertThat(argument.cast(Mono.class).block().block()).isEqualTo(this.authentication.getPrincipal());
 	}
 
@@ -134,7 +134,7 @@ public class AuthenticationPrincipalArgumentResolverTests {
 		MethodParameter parameter = this.spel.arg(Long.class);
 		given(this.authentication.getPrincipal()).willReturn(user);
 		Mono<Object> argument = this.resolver.resolveArgument(parameter, this.bindingContext, this.exchange)
-				.contextWrite(ReactiveSecurityContextHolder.withAuthentication(this.authentication));
+	.contextWrite(ReactiveSecurityContextHolder.withAuthentication(this.authentication));
 		assertThat(argument.block()).isEqualTo(user.getId());
 	}
 
@@ -144,7 +144,7 @@ public class AuthenticationPrincipalArgumentResolverTests {
 		MethodParameter parameter = this.spelPrimitive.arg(int.class);
 		given(this.authentication.getPrincipal()).willReturn(user);
 		Mono<Object> argument = this.resolver.resolveArgument(parameter, this.bindingContext, this.exchange)
-				.contextWrite(ReactiveSecurityContextHolder.withAuthentication(this.authentication));
+	.contextWrite(ReactiveSecurityContextHolder.withAuthentication(this.authentication));
 		assertThat(argument.block()).isEqualTo(user.getId());
 	}
 
@@ -155,7 +155,7 @@ public class AuthenticationPrincipalArgumentResolverTests {
 		given(this.authentication.getPrincipal()).willReturn(user);
 		given(this.beanResolver.resolve(any(), eq("beanName"))).willReturn(new Bean());
 		Mono<Object> argument = this.resolver.resolveArgument(parameter, this.bindingContext, this.exchange)
-				.contextWrite(ReactiveSecurityContextHolder.withAuthentication(this.authentication));
+	.contextWrite(ReactiveSecurityContextHolder.withAuthentication(this.authentication));
 		assertThat(argument.block()).isEqualTo(user.getId());
 	}
 
@@ -164,42 +164,42 @@ public class AuthenticationPrincipalArgumentResolverTests {
 		MethodParameter parameter = this.meta.arg(String.class);
 		given(this.authentication.getPrincipal()).willReturn("user");
 		Mono<Object> argument = this.resolver.resolveArgument(parameter, this.bindingContext, this.exchange)
-				.contextWrite(ReactiveSecurityContextHolder.withAuthentication(this.authentication));
+	.contextWrite(ReactiveSecurityContextHolder.withAuthentication(this.authentication));
 		assertThat(argument.block()).isEqualTo("user");
 	}
 
 	@Test
 	public void resolveArgumentWhenErrorOnInvalidTypeImplicit() {
 		MethodParameter parameter = ResolvableMethod.on(getClass()).named("errorOnInvalidTypeWhenImplicit").build()
-				.arg(Integer.class);
+	.arg(Integer.class);
 		given(this.authentication.getPrincipal()).willReturn("user");
 		Mono<Object> argument = this.resolver.resolveArgument(parameter, this.bindingContext, this.exchange)
-				.contextWrite(ReactiveSecurityContextHolder.withAuthentication(this.authentication));
+	.contextWrite(ReactiveSecurityContextHolder.withAuthentication(this.authentication));
 		assertThat(argument.block()).isNull();
 	}
 
 	@Test
 	public void resolveArgumentWhenErrorOnInvalidTypeExplicitFalse() {
 		MethodParameter parameter = ResolvableMethod.on(getClass()).named("errorOnInvalidTypeWhenExplicitFalse").build()
-				.arg(Integer.class);
+	.arg(Integer.class);
 		given(this.authentication.getPrincipal()).willReturn("user");
 		Mono<Object> argument = this.resolver.resolveArgument(parameter, this.bindingContext, this.exchange)
-				.contextWrite(ReactiveSecurityContextHolder.withAuthentication(this.authentication));
+	.contextWrite(ReactiveSecurityContextHolder.withAuthentication(this.authentication));
 		assertThat(argument.block()).isNull();
 	}
 
 	@Test
 	public void resolveArgumentWhenErrorOnInvalidTypeExplicitTrue() {
 		MethodParameter parameter = ResolvableMethod.on(getClass()).named("errorOnInvalidTypeWhenExplicitTrue").build()
-				.arg(Integer.class);
+	.arg(Integer.class);
 		given(this.authentication.getPrincipal()).willReturn("user");
 		Mono<Object> argument = this.resolver.resolveArgument(parameter, this.bindingContext, this.exchange)
-				.contextWrite(ReactiveSecurityContextHolder.withAuthentication(this.authentication));
+	.contextWrite(ReactiveSecurityContextHolder.withAuthentication(this.authentication));
 		assertThatExceptionOfType(ClassCastException.class).isThrownBy(() -> argument.block());
 	}
 
 	void authenticationPrincipal(@AuthenticationPrincipal String principal,
-			@AuthenticationPrincipal Mono<String> monoPrincipal) {
+@AuthenticationPrincipal Mono<String> monoPrincipal) {
 	}
 
 	void authenticationPrincipalNoGeneric(@AuthenticationPrincipal Mono monoPrincipal) {
@@ -262,7 +262,7 @@ public class AuthenticationPrincipalArgumentResolverTests {
 
 	}
 
-	@Target({ ElementType.PARAMETER, ElementType.ANNOTATION_TYPE })
+	@Target({ElementType.PARAMETER, ElementType.ANNOTATION_TYPE})
 	@Retention(RetentionPolicy.RUNTIME)
 	@Documented
 	@AuthenticationPrincipal

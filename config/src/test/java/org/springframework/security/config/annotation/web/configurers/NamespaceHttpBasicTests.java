@@ -70,8 +70,8 @@ public class NamespaceHttpBasicTests {
 		MockHttpServletRequestBuilder requestWithInvalidPassword = get("/").with(httpBasic("user", "invalid"));
 		// @formatter:off
 		this.mvc.perform(requestWithInvalidPassword)
-				.andExpect(status().isUnauthorized())
-				.andExpect(header().string(HttpHeaders.WWW_AUTHENTICATE, "Basic realm=\"Realm\""));
+	.andExpect(status().isUnauthorized())
+	.andExpect(header().string(HttpHeaders.WWW_AUTHENTICATE, "Basic realm=\"Realm\""));
 		// @formatter:on
 		MockHttpServletRequestBuilder requestWithValidPassword = get("/").with(httpBasic("user", "password"));
 		this.mvc.perform(requestWithValidPassword).andExpect(status().isNotFound());
@@ -84,8 +84,8 @@ public class NamespaceHttpBasicTests {
 		MockHttpServletRequestBuilder requestWithInvalidPassword = get("/").with(httpBasic("user", "invalid"));
 		// @formatter:off
 		this.mvc.perform(requestWithInvalidPassword)
-				.andExpect(status().isUnauthorized())
-				.andExpect(header().string(HttpHeaders.WWW_AUTHENTICATE, "Basic realm=\"Realm\""));
+	.andExpect(status().isUnauthorized())
+	.andExpect(header().string(HttpHeaders.WWW_AUTHENTICATE, "Basic realm=\"Realm\""));
 		// @formatter:on
 		MockHttpServletRequestBuilder requestWithValidPassword = get("/").with(httpBasic("user", "password"));
 		this.mvc.perform(requestWithValidPassword).andExpect(status().isNotFound());
@@ -100,8 +100,8 @@ public class NamespaceHttpBasicTests {
 		MockHttpServletRequestBuilder requestWithInvalidPassword = get("/").with(httpBasic("user", "invalid"));
 		// @formatter:off
 		this.mvc.perform(requestWithInvalidPassword)
-				.andExpect(status().isUnauthorized())
-				.andExpect(header().string(HttpHeaders.WWW_AUTHENTICATE, "Basic realm=\"Custom Realm\""));
+	.andExpect(status().isUnauthorized())
+	.andExpect(header().string(HttpHeaders.WWW_AUTHENTICATE, "Basic realm=\"Custom Realm\""));
 		// @formatter:on
 	}
 
@@ -111,8 +111,8 @@ public class NamespaceHttpBasicTests {
 		MockHttpServletRequestBuilder requestWithInvalidPassword = get("/").with(httpBasic("user", "invalid"));
 		// @formatter:off
 		this.mvc.perform(requestWithInvalidPassword)
-				.andExpect(status().isUnauthorized())
-				.andExpect(header().string(HttpHeaders.WWW_AUTHENTICATE, "Basic realm=\"Custom Realm\""));
+	.andExpect(status().isUnauthorized())
+	.andExpect(header().string(HttpHeaders.WWW_AUTHENTICATE, "Basic realm=\"Custom Realm\""));
 		// @formatter:on
 	}
 
@@ -123,17 +123,17 @@ public class NamespaceHttpBasicTests {
 	public void basicAuthenticationWhenUsingAuthenticationDetailsSourceRefThenMatchesNamespace() throws Exception {
 		this.spring.register(AuthenticationDetailsSourceHttpBasicConfig.class, UserConfig.class).autowire();
 		AuthenticationDetailsSource<HttpServletRequest, ?> source = this.spring.getContext()
-				.getBean(AuthenticationDetailsSource.class);
+	.getBean(AuthenticationDetailsSource.class);
 		this.mvc.perform(get("/").with(httpBasic("user", "password")));
 		verify(source).buildDetails(any(HttpServletRequest.class));
 	}
 
 	@Test
 	public void basicAuthenticationWhenUsingAuthenticationDetailsSourceRefInLambdaThenMatchesNamespace()
-			throws Exception {
+throws Exception {
 		this.spring.register(AuthenticationDetailsSourceHttpBasicLambdaConfig.class, UserConfig.class).autowire();
 		AuthenticationDetailsSource<HttpServletRequest, ?> source = this.spring.getContext()
-				.getBean(AuthenticationDetailsSource.class);
+	.getBean(AuthenticationDetailsSource.class);
 		this.mvc.perform(get("/").with(httpBasic("user", "password")));
 		verify(source).buildDetails(any(HttpServletRequest.class));
 	}
@@ -163,13 +163,13 @@ public class NamespaceHttpBasicTests {
 		@Bean
 		UserDetailsService userDetailsService() {
 			return new InMemoryUserDetailsManager(
-			// @formatter:off
-				User.withDefaultPasswordEncoder()
-					.username("user")
-					.password("password")
-					.roles("USER")
-					.build()
-				// @formatter:on
+		// @formatter:off
+		User.withDefaultPasswordEncoder()
+	.username("user")
+	.password("password")
+	.roles("USER")
+	.build()
+			// @formatter:on
 			);
 		}
 
@@ -183,10 +183,10 @@ public class NamespaceHttpBasicTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests()
-					.anyRequest().hasRole("USER")
-					.and()
-				.httpBasic();
+		.authorizeRequests()
+		.anyRequest().hasRole("USER")
+		.and()
+		.httpBasic();
 			return http.build();
 			// @formatter:on
 		}
@@ -201,11 +201,11 @@ public class NamespaceHttpBasicTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests((authorizeRequests) ->
-					authorizeRequests
-						.anyRequest().hasRole("USER")
-				)
-				.httpBasic(withDefaults());
+		.authorizeRequests((authorizeRequests) ->
+	authorizeRequests
+.anyRequest().hasRole("USER")
+		)
+		.httpBasic(withDefaults());
 			return http.build();
 			// @formatter:on
 		}
@@ -220,10 +220,10 @@ public class NamespaceHttpBasicTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests()
-					.anyRequest().hasRole("USER")
-					.and()
-				.httpBasic().realmName("Custom Realm");
+		.authorizeRequests()
+		.anyRequest().hasRole("USER")
+		.and()
+		.httpBasic().realmName("Custom Realm");
 			return http.build();
 			// @formatter:on
 		}
@@ -238,11 +238,11 @@ public class NamespaceHttpBasicTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests((authorizeRequests) ->
-					authorizeRequests
-						.anyRequest().hasRole("USER")
-				)
-				.httpBasic((httpBasicConfig) -> httpBasicConfig.realmName("Custom Realm"));
+		.authorizeRequests((authorizeRequests) ->
+	authorizeRequests
+.anyRequest().hasRole("USER")
+		)
+		.httpBasic((httpBasicConfig) -> httpBasicConfig.realmName("Custom Realm"));
 			return http.build();
 			// @formatter:on
 		}
@@ -254,14 +254,14 @@ public class NamespaceHttpBasicTests {
 	static class AuthenticationDetailsSourceHttpBasicConfig {
 
 		AuthenticationDetailsSource<HttpServletRequest, ?> authenticationDetailsSource = mock(
-				AuthenticationDetailsSource.class);
+	AuthenticationDetailsSource.class);
 
 		@Bean
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.httpBasic()
-					.authenticationDetailsSource(this.authenticationDetailsSource);
+		.httpBasic()
+		.authenticationDetailsSource(this.authenticationDetailsSource);
 			return http.build();
 			// @formatter:on
 		}
@@ -278,14 +278,14 @@ public class NamespaceHttpBasicTests {
 	static class AuthenticationDetailsSourceHttpBasicLambdaConfig {
 
 		AuthenticationDetailsSource<HttpServletRequest, ?> authenticationDetailsSource = mock(
-				AuthenticationDetailsSource.class);
+	AuthenticationDetailsSource.class);
 
 		@Bean
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.httpBasic((httpBasicConfig) ->
-						httpBasicConfig.authenticationDetailsSource(this.authenticationDetailsSource));
+		.httpBasic((httpBasicConfig) ->
+	httpBasicConfig.authenticationDetailsSource(this.authenticationDetailsSource));
 			return http.build();
 			// @formatter:on
 		}
@@ -307,11 +307,11 @@ public class NamespaceHttpBasicTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests()
-					.anyRequest().hasRole("USER")
-					.and()
-				.httpBasic()
-					.authenticationEntryPoint(this.authenticationEntryPoint);
+		.authorizeRequests()
+		.anyRequest().hasRole("USER")
+		.and()
+		.httpBasic()
+		.authenticationEntryPoint(this.authenticationEntryPoint);
 			return http.build();
 			// @formatter:on
 		}
@@ -328,12 +328,12 @@ public class NamespaceHttpBasicTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests((authorizeRequests) ->
-					authorizeRequests
-						.anyRequest().hasRole("USER")
-				)
-				.httpBasic((httpBasicConfig) ->
-						httpBasicConfig.authenticationEntryPoint(this.authenticationEntryPoint));
+		.authorizeRequests((authorizeRequests) ->
+	authorizeRequests
+.anyRequest().hasRole("USER")
+		)
+		.httpBasic((httpBasicConfig) ->
+	httpBasicConfig.authenticationEntryPoint(this.authenticationEntryPoint));
 			return http.build();
 			// @formatter:on
 		}

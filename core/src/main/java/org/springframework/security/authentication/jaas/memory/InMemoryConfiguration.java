@@ -71,7 +71,7 @@ public class InMemoryConfiguration extends Configuration {
 	 * {@link #getAppConfigurationEntry(String)}. Can be <code>null</code>.
 	 */
 	public InMemoryConfiguration(Map<String, AppConfigurationEntry[]> mappedConfigurations,
-			AppConfigurationEntry[] defaultConfiguration) {
+AppConfigurationEntry[] defaultConfiguration) {
 		Assert.notNull(mappedConfigurations, "mappedConfigurations cannot be null.");
 		this.mappedConfigurations = mappedConfigurations;
 		this.defaultConfiguration = defaultConfiguration;

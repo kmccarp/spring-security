@@ -57,7 +57,7 @@ public final class SecuredAuthorizationManager implements AuthorizationManager<M
 	 * @since 6.1
 	 */
 	public void setAuthoritiesAuthorizationManager(
-			AuthorizationManager<Collection<String>> authoritiesAuthorizationManager) {
+AuthorizationManager<Collection<String>> authoritiesAuthorizationManager) {
 		Assert.notNull(authoritiesAuthorizationManager, "authoritiesAuthorizationManager cannot be null");
 		this.authoritiesAuthorizationManager = authoritiesAuthorizationManager;
 	}
@@ -93,7 +93,7 @@ public final class SecuredAuthorizationManager implements AuthorizationManager<M
 	private Secured findSecuredAnnotation(Method method) {
 		Secured secured = AuthorizationAnnotationUtils.findUniqueAnnotation(method, Secured.class);
 		return (secured != null) ? secured
-				: AuthorizationAnnotationUtils.findUniqueAnnotation(method.getDeclaringClass(), Secured.class);
+	: AuthorizationAnnotationUtils.findUniqueAnnotation(method.getDeclaringClass(), Secured.class);
 	}
 
 }

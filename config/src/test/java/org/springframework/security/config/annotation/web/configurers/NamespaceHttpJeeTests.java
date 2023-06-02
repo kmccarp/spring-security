@@ -80,10 +80,10 @@ public class NamespaceHttpJeeTests {
 		Principal user = mock(Principal.class);
 		given(user.getName()).willReturn("joe");
 		User result = new User(user.getName(), "N/A", true, true, true, true,
-				AuthorityUtils.createAuthorityList("ROLE_user"));
+	AuthorityUtils.createAuthorityList("ROLE_user"));
 		given(bean(AuthenticationUserDetailsService.class).loadUserDetails(any())).willReturn(result);
 		this.mvc.perform(get("/roles").principal(user)).andExpect(status().isOk())
-				.andExpect(content().string("ROLE_user"));
+	.andExpect(content().string("ROLE_user"));
 		verifyBean(AuthenticationUserDetailsService.class).loadUserDetails(any());
 	}
 
@@ -103,11 +103,11 @@ public class NamespaceHttpJeeTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests()
-					.anyRequest().hasRole("user")
-					.and()
-				.jee()
-					.mappableRoles("user", "admin");
+		.authorizeRequests()
+		.anyRequest().hasRole("user")
+		.and()
+		.jee()
+		.mappableRoles("user", "admin");
 			return http.build();
 			// @formatter:on
 		}
@@ -119,18 +119,18 @@ public class NamespaceHttpJeeTests {
 	public static class JeeUserServiceRefConfig {
 
 		private final AuthenticationUserDetailsService authenticationUserDetailsService = mock(
-				AuthenticationUserDetailsService.class);
+	AuthenticationUserDetailsService.class);
 
 		@Bean
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests()
-					.anyRequest().hasRole("user")
-					.and()
-				.jee()
-					.mappableAuthorities("ROLE_user", "ROLE_admin")
-					.authenticatedUserDetailsService(this.authenticationUserDetailsService);
+		.authorizeRequests()
+		.anyRequest().hasRole("user")
+		.and()
+		.jee()
+		.mappableAuthorities("ROLE_user", "ROLE_admin")
+		.authenticatedUserDetailsService(this.authenticationUserDetailsService);
 			return http.build();
 			// @formatter:on
 		}

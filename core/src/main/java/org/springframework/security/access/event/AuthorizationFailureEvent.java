@@ -57,10 +57,10 @@ public class AuthorizationFailureEvent extends AbstractAuthorizationEvent {
 	 * @throws IllegalArgumentException if any null arguments are presented.
 	 */
 	public AuthorizationFailureEvent(Object secureObject, Collection<ConfigAttribute> attributes,
-			Authentication authentication, AccessDeniedException accessDeniedException) {
+Authentication authentication, AccessDeniedException accessDeniedException) {
 		super(secureObject);
 		Assert.isTrue(attributes != null && authentication != null && accessDeniedException != null,
-				"All parameters are required and cannot be null");
+	"All parameters are required and cannot be null");
 		this.configAttributes = attributes;
 		this.authentication = authentication;
 		this.accessDeniedException = accessDeniedException;

@@ -76,7 +76,7 @@ public class PreFilterAuthorizationMethodInterceptorTests {
 	public void setExpressionHandlerWhenNullThenException() {
 		PreFilterAuthorizationMethodInterceptor advice = new PreFilterAuthorizationMethodInterceptor();
 		assertThatIllegalArgumentException().isThrownBy(() -> advice.setExpressionHandler(null))
-				.withMessage("expressionHandler cannot be null");
+	.withMessage("expressionHandler cannot be null");
 	}
 
 	@Test
@@ -84,7 +84,7 @@ public class PreFilterAuthorizationMethodInterceptorTests {
 		PreFilterAuthorizationMethodInterceptor advice = new PreFilterAuthorizationMethodInterceptor();
 		MethodMatcher methodMatcher = advice.getPointcut().getMethodMatcher();
 		assertThat(methodMatcher.matches(NoPreFilterClass.class.getMethod("doSomething"), NoPreFilterClass.class))
-				.isFalse();
+	.isFalse();
 	}
 
 	@Test
@@ -92,25 +92,25 @@ public class PreFilterAuthorizationMethodInterceptorTests {
 		PreFilterAuthorizationMethodInterceptor advice = new PreFilterAuthorizationMethodInterceptor();
 		MethodMatcher methodMatcher = advice.getPointcut().getMethodMatcher();
 		assertThat(methodMatcher.matches(TestClass.class.getMethod("doSomethingListFilterTargetMatch", List.class),
-				TestClass.class)).isTrue();
+	TestClass.class)).isTrue();
 	}
 
 	@Test
 	public void findFilterTargetWhenNameProvidedAndNotMatchThenException() throws Exception {
 		MockMethodInvocation methodInvocation = new MockMethodInvocation(new TestClass(), TestClass.class,
-				"doSomethingListFilterTargetNotMatch", new Class[] { List.class }, new Object[] { new ArrayList<>() });
+	"doSomethingListFilterTargetNotMatch", new Class[]{List.class}, new Object[]{new ArrayList<>()});
 		PreFilterAuthorizationMethodInterceptor advice = new PreFilterAuthorizationMethodInterceptor();
 		assertThatIllegalArgumentException().isThrownBy(() -> advice.invoke(methodInvocation)).withMessage(
-				"Filter target was null, or no argument with name 'filterTargetNotMatch' found in method.");
+	"Filter target was null, or no argument with name 'filterTargetNotMatch' found in method.");
 	}
 
 	@Test
 	public void findFilterTargetWhenNameProvidedAndMatchAndNullThenException() throws Exception {
 		MockMethodInvocation methodInvocation = new MockMethodInvocation(new TestClass(), TestClass.class,
-				"doSomethingListFilterTargetMatch", new Class[] { List.class }, new Object[] { null });
+	"doSomethingListFilterTargetMatch", new Class[]{List.class}, new Object[]{null});
 		PreFilterAuthorizationMethodInterceptor advice = new PreFilterAuthorizationMethodInterceptor();
 		assertThatIllegalArgumentException().isThrownBy(() -> advice.invoke(methodInvocation))
-				.withMessage("Filter target was null, or no argument with name 'list' found in method.");
+	.withMessage("Filter target was null, or no argument with name 'list' found in method.");
 	}
 
 	@Test
@@ -119,7 +119,7 @@ public class PreFilterAuthorizationMethodInterceptorTests {
 		list.add("john");
 		list.add("bob");
 		MockMethodInvocation methodInvocation = new MockMethodInvocation(new TestClass(), TestClass.class,
-				"doSomethingListFilterTargetMatch", new Class[] { List.class }, new Object[] { list });
+	"doSomethingListFilterTargetMatch", new Class[]{List.class}, new Object[]{list});
 		PreFilterAuthorizationMethodInterceptor advice = new PreFilterAuthorizationMethodInterceptor();
 		advice.invoke(methodInvocation);
 		assertThat(list).hasSize(1);
@@ -129,10 +129,10 @@ public class PreFilterAuthorizationMethodInterceptorTests {
 	@Test
 	public void findFilterTargetWhenNameNotProvidedAndSingleArgListNullThenException() throws Exception {
 		MockMethodInvocation methodInvocation = new MockMethodInvocation(new TestClass(), TestClass.class,
-				"doSomethingListFilterTargetNotProvided", new Class[] { List.class }, new Object[] { null });
+	"doSomethingListFilterTargetNotProvided", new Class[]{List.class}, new Object[]{null});
 		PreFilterAuthorizationMethodInterceptor advice = new PreFilterAuthorizationMethodInterceptor();
 		assertThatIllegalArgumentException().isThrownBy(() -> advice.invoke(methodInvocation))
-				.withMessage("Filter target was null. Make sure you passing the correct value in the method argument.");
+	.withMessage("Filter target was null. Make sure you passing the correct value in the method argument.");
 	}
 
 	@Test
@@ -141,7 +141,7 @@ public class PreFilterAuthorizationMethodInterceptorTests {
 		list.add("john");
 		list.add("bob");
 		MockMethodInvocation methodInvocation = new MockMethodInvocation(new TestClass(), TestClass.class,
-				"doSomethingListFilterTargetNotProvided", new Class[] { List.class }, new Object[] { list });
+	"doSomethingListFilterTargetNotProvided", new Class[]{List.class}, new Object[]{list});
 		PreFilterAuthorizationMethodInterceptor advice = new PreFilterAuthorizationMethodInterceptor();
 		advice.invoke(methodInvocation);
 		assertThat(list).hasSize(1);
@@ -151,52 +151,52 @@ public class PreFilterAuthorizationMethodInterceptorTests {
 	@Test
 	public void findFilterTargetWhenNameNotProvidedAndSingleArgArrayThenException() throws Exception {
 		MockMethodInvocation methodInvocation = new MockMethodInvocation(new TestClass(), TestClass.class,
-				"doSomethingArrayFilterTargetNotProvided", new Class[] { String[].class },
-				new Object[] { new String[] {} });
+	"doSomethingArrayFilterTargetNotProvided", new Class[]{String[].class},
+	new Object[]{new String[]{}});
 		PreFilterAuthorizationMethodInterceptor advice = new PreFilterAuthorizationMethodInterceptor();
 		assertThatIllegalStateException().isThrownBy(() -> advice.invoke(methodInvocation)).withMessage(
-				"Pre-filtering on array types is not supported. Using a Collection will solve this problem.");
+	"Pre-filtering on array types is not supported. Using a Collection will solve this problem.");
 	}
 
 	@Test
 	public void findFilterTargetWhenNameNotProvidedAndNotSingleArgThenException() throws Exception {
 		MockMethodInvocation methodInvocation = new MockMethodInvocation(new TestClass(), TestClass.class,
-				"doSomethingTwoArgsFilterTargetNotProvided", new Class[] { String.class, List.class },
-				new Object[] { "", new ArrayList<>() });
+	"doSomethingTwoArgsFilterTargetNotProvided", new Class[]{String.class, List.class},
+	new Object[]{"", new ArrayList<>()});
 		PreFilterAuthorizationMethodInterceptor advice = new PreFilterAuthorizationMethodInterceptor();
 		assertThatIllegalStateException().isThrownBy(() -> advice.invoke(methodInvocation))
-				.withMessage("Unable to determine the method argument for filtering. Specify the filter target.");
+	.withMessage("Unable to determine the method argument for filtering. Specify the filter target.");
 	}
 
 	@Test
 	public void checkInheritedAnnotationsWhenDuplicatedThenAnnotationConfigurationException() throws Exception {
 		MockMethodInvocation methodInvocation = new MockMethodInvocation(new TestClass(), TestClass.class,
-				"inheritedAnnotations");
+	"inheritedAnnotations");
 		PreFilterAuthorizationMethodInterceptor advice = new PreFilterAuthorizationMethodInterceptor();
 		assertThatExceptionOfType(AnnotationConfigurationException.class)
-				.isThrownBy(() -> advice.invoke(methodInvocation));
+	.isThrownBy(() -> advice.invoke(methodInvocation));
 	}
 
 	@Test
 	public void checkInheritedAnnotationsWhenConflictingThenAnnotationConfigurationException() throws Exception {
 		MockMethodInvocation methodInvocation = new MockMethodInvocation(new ConflictingAnnotations(),
-				ConflictingAnnotations.class, "inheritedAnnotations");
+	ConflictingAnnotations.class, "inheritedAnnotations");
 		PreFilterAuthorizationMethodInterceptor advice = new PreFilterAuthorizationMethodInterceptor();
 		assertThatExceptionOfType(AnnotationConfigurationException.class)
-				.isThrownBy(() -> advice.invoke(methodInvocation));
+	.isThrownBy(() -> advice.invoke(methodInvocation));
 	}
 
 	@Test
 	public void preFilterWhenMockSecurityContextHolderStrategyThenUses() throws Throwable {
 		SecurityContextHolderStrategy strategy = mock(SecurityContextHolderStrategy.class);
 		Authentication authentication = new TestingAuthenticationToken("john", "password",
-				AuthorityUtils.createAuthorityList("authority"));
+	AuthorityUtils.createAuthorityList("authority"));
 		given(strategy.getContext()).willReturn(new SecurityContextImpl(authentication));
 		List<String> list = new ArrayList<>();
 		list.add("john");
 		list.add("bob");
 		MockMethodInvocation invocation = new MockMethodInvocation(new TestClass(), TestClass.class,
-				"doSomethingArrayFilterAuthentication", new Class[] { List.class }, new Object[] { list });
+	"doSomethingArrayFilterAuthentication", new Class[]{List.class}, new Object[]{list});
 		PreFilterAuthorizationMethodInterceptor advice = new PreFilterAuthorizationMethodInterceptor();
 		advice.setSecurityContextHolderStrategy(strategy);
 		advice.invoke(invocation);

@@ -59,14 +59,14 @@ final class PostAuthorizeExpressionAttributeRegistry extends AbstractExpressionA
 			return ExpressionAttribute.NULL_ATTRIBUTE;
 		}
 		Expression postAuthorizeExpression = this.expressionHandler.getExpressionParser()
-				.parseExpression(postAuthorize.value());
+	.parseExpression(postAuthorize.value());
 		return new ExpressionAttribute(postAuthorizeExpression);
 	}
 
 	private PostAuthorize findPostAuthorizeAnnotation(Method method) {
 		PostAuthorize postAuthorize = AuthorizationAnnotationUtils.findUniqueAnnotation(method, PostAuthorize.class);
 		return (postAuthorize != null) ? postAuthorize
-				: AuthorizationAnnotationUtils.findUniqueAnnotation(method.getDeclaringClass(), PostAuthorize.class);
+	: AuthorizationAnnotationUtils.findUniqueAnnotation(method.getDeclaringClass(), PostAuthorize.class);
 	}
 
 }

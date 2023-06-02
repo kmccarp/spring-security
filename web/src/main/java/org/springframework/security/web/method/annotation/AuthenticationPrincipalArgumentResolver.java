@@ -91,7 +91,7 @@ import org.springframework.web.method.support.ModelAndViewContainer;
 public final class AuthenticationPrincipalArgumentResolver implements HandlerMethodArgumentResolver {
 
 	private SecurityContextHolderStrategy securityContextHolderStrategy = SecurityContextHolder
-			.getContextHolderStrategy();
+.getContextHolderStrategy();
 
 	private ExpressionParser parser = new SpelExpressionParser();
 
@@ -104,7 +104,7 @@ public final class AuthenticationPrincipalArgumentResolver implements HandlerMet
 
 	@Override
 	public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer,
-			NativeWebRequest webRequest, WebDataBinderFactory binderFactory) {
+NativeWebRequest webRequest, WebDataBinderFactory binderFactory) {
 		Authentication authentication = this.securityContextHolderStrategy.getContext().getAuthentication();
 		if (authentication == null) {
 			return null;

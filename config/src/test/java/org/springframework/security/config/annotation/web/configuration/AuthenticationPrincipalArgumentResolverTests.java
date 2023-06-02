@@ -68,13 +68,13 @@ public class AuthenticationPrincipalArgumentResolverTests {
 		User user = new User("user", "password", AuthorityUtils.createAuthorityList("ROLE_USER"));
 		SecurityContext context = SecurityContextHolder.createEmptyContext();
 		context.setAuthentication(
-				UsernamePasswordAuthenticationToken.authenticated(user, user.getPassword(), user.getAuthorities()));
+	UsernamePasswordAuthenticationToken.authenticated(user, user.getPassword(), user.getAuthorities()));
 		SecurityContextHolder.setContext(context);
 		MockMvc mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
 		// @formatter:off
 		mockMvc.perform(get("/users/self"))
-				.andExpect(status().isOk())
-				.andExpect(content().string("extracted-user"));
+	.andExpect(status().isOk())
+	.andExpect(content().string("extracted-user"));
 		// @formatter:on
 	}
 
@@ -98,7 +98,7 @@ public class AuthenticationPrincipalArgumentResolverTests {
 
 			@GetMapping("/users/self")
 			public String usersSelf(
-					@AuthenticationPrincipal(expression = "@usernameExtractor.extract(#this)") String userName) {
+		@AuthenticationPrincipal(expression = "@usernameExtractor.extract(#this)") String userName) {
 				return userName;
 			}
 

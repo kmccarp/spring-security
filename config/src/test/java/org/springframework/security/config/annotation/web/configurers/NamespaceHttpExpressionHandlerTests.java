@@ -57,7 +57,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @author Josh Cummings
  *
  */
-@ExtendWith({ SpringExtension.class, SpringTestContextExtension.class })
+@ExtendWith({SpringExtension.class, SpringTestContextExtension.class})
 @SecurityTestExecutionListeners
 public class NamespaceHttpExpressionHandlerTests {
 
@@ -86,7 +86,7 @@ public class NamespaceHttpExpressionHandlerTests {
 		@Bean
 		UserDetailsService userDetailsService() {
 			UserDetails user = User.withDefaultPasswordEncoder().username("rod").password("password")
-					.roles("USER", "ADMIN").build();
+		.roles("USER", "ADMIN").build();
 			return new InMemoryUserDetailsManager(user);
 		}
 
@@ -96,9 +96,9 @@ public class NamespaceHttpExpressionHandlerTests {
 			handler.setExpressionParser(expressionParser());
 			// @formatter:off
 			http
-				.authorizeRequests()
-					.expressionHandler(handler)
-					.anyRequest().access("hasRole('USER')");
+		.authorizeRequests()
+		.expressionHandler(handler)
+		.anyRequest().access("hasRole('USER')");
 			// @formatter:on
 			return http.build();
 		}

@@ -227,10 +227,10 @@ public class DefaultLdapAuthoritiesPopulator implements LdapAuthoritiesPopulator
 		}
 		Set<GrantedAuthority> authorities = new HashSet<>();
 		logger.trace(LogMessage.of(() -> "Searching for roles for user " + username + " with DN " + userDn
-				+ " and filter " + this.groupSearchFilter + " in search base " + getGroupSearchBase()));
+	+ " and filter " + this.groupSearchFilter + " in search base " + getGroupSearchBase()));
 		Set<Map<String, List<String>>> userRoles = getLdapTemplate().searchForMultipleAttributeValues(
-				getGroupSearchBase(), this.groupSearchFilter, new String[] { userDn, username },
-				new String[] { this.groupRoleAttribute });
+	getGroupSearchBase(), this.groupSearchFilter, new String[]{userDn, username},
+	new String[]{this.groupRoleAttribute});
 		logger.debug(LogMessage.of(() -> "Found roles from search " + userRoles));
 		for (Map<String, List<String>> role : userRoles) {
 			GrantedAuthority authority = this.authorityMapper.apply(role);

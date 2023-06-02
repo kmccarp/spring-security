@@ -64,7 +64,7 @@ public class LoginPageGeneratingWebFilter implements WebFilter {
 	@Override
 	public Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain) {
 		return this.matcher.matches(exchange).filter(ServerWebExchangeMatcher.MatchResult::isMatch)
-				.switchIfEmpty(chain.filter(exchange).then(Mono.empty())).flatMap((matchResult) -> render(exchange));
+	.switchIfEmpty(chain.filter(exchange).then(Mono.empty())).flatMap((matchResult) -> render(exchange));
 	}
 
 	private Mono<Void> render(ServerWebExchange exchange) {
@@ -96,10 +96,10 @@ public class LoginPageGeneratingWebFilter implements WebFilter {
 		page.append("    <meta name=\"author\" content=\"\">\n");
 		page.append("    <title>Please sign in</title>\n");
 		page.append("    <link href=\"https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css\" "
-				+ "rel=\"stylesheet\" integrity=\"sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M\" "
-				+ "crossorigin=\"anonymous\">\n");
+	+ "rel=\"stylesheet\" integrity=\"sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M\" "
+	+ "crossorigin=\"anonymous\">\n");
 		page.append("    <link href=\"https://getbootstrap.com/docs/4.0/examples/signin/signin.css\" "
-				+ "rel=\"stylesheet\" crossorigin=\"anonymous\"/>\n");
+	+ "rel=\"stylesheet\" crossorigin=\"anonymous\"/>\n");
 		page.append("  </head>\n");
 		page.append("  <body>\n");
 		page.append("     <div class=\"container\">\n");
@@ -125,11 +125,11 @@ public class LoginPageGeneratingWebFilter implements WebFilter {
 		page.append("        <p>\n");
 		page.append("          <label for=\"username\" class=\"sr-only\">Username</label>\n");
 		page.append("          <input type=\"text\" id=\"username\" name=\"username\" "
-				+ "class=\"form-control\" placeholder=\"Username\" required autofocus>\n");
+	+ "class=\"form-control\" placeholder=\"Username\" required autofocus>\n");
 		page.append("        </p>\n" + "        <p>\n");
 		page.append("          <label for=\"password\" class=\"sr-only\">Password</label>\n");
 		page.append("          <input type=\"password\" id=\"password\" name=\"password\" "
-				+ "class=\"form-control\" placeholder=\"Password\" required>\n");
+	+ "class=\"form-control\" placeholder=\"Password\" required>\n");
 		page.append("        </p>\n");
 		page.append(csrfTokenHtmlInput);
 		page.append("        <button class=\"btn btn-lg btn-primary btn-block\" type=\"submit\">Sign in</button>\n");
@@ -138,7 +138,7 @@ public class LoginPageGeneratingWebFilter implements WebFilter {
 	}
 
 	private static String oauth2LoginLinks(MultiValueMap<String, String> queryParams, String contextPath,
-			Map<String, String> oauth2AuthenticationUrlToClientName) {
+Map<String, String> oauth2AuthenticationUrlToClientName) {
 		if (oauth2AuthenticationUrlToClientName.isEmpty()) {
 			return "";
 		}
@@ -163,7 +163,7 @@ public class LoginPageGeneratingWebFilter implements WebFilter {
 
 	private static String csrfToken(CsrfToken token) {
 		return "          <input type=\"hidden\" name=\"" + token.getParameterName() + "\" value=\"" + token.getToken()
-				+ "\">\n";
+	+ "\">\n";
 	}
 
 	private static String createError(boolean isError) {
@@ -172,7 +172,7 @@ public class LoginPageGeneratingWebFilter implements WebFilter {
 
 	private static String createLogoutSuccess(boolean isLogoutSuccess) {
 		return isLogoutSuccess ? "<div class=\"alert alert-success\" role=\"alert\">You have been signed out</div>"
-				: "";
+	: "";
 	}
 
 }

@@ -43,7 +43,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 /**
  * @author Josh Cummings
  */
-@ExtendWith({ SpringExtension.class, SpringTestContextExtension.class })
+@ExtendWith({SpringExtension.class, SpringTestContextExtension.class})
 @SecurityTestExecutionListeners
 public class ExceptionHandlingConfigurerAccessDeniedHandlerTests {
 
@@ -81,22 +81,22 @@ public class ExceptionHandlingConfigurerAccessDeniedHandlerTests {
 	static class RequestMatcherBasedAccessDeniedHandlerConfig {
 
 		AccessDeniedHandler teapotDeniedHandler = (request, response, exception) -> response
-				.setStatus(HttpStatus.I_AM_A_TEAPOT.value());
+	.setStatus(HttpStatus.I_AM_A_TEAPOT.value());
 
 		@Bean
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests()
-					.anyRequest().denyAll()
-					.and()
-				.exceptionHandling()
-					.defaultAccessDeniedHandlerFor(
-							this.teapotDeniedHandler,
-							new AntPathRequestMatcher("/hello/**"))
-					.defaultAccessDeniedHandlerFor(
-							new AccessDeniedHandlerImpl(),
-							AnyRequestMatcher.INSTANCE);
+		.authorizeRequests()
+		.anyRequest().denyAll()
+		.and()
+		.exceptionHandling()
+		.defaultAccessDeniedHandlerFor(
+	this.teapotDeniedHandler,
+	new AntPathRequestMatcher("/hello/**"))
+		.defaultAccessDeniedHandlerFor(
+	new AccessDeniedHandlerImpl(),
+	AnyRequestMatcher.INSTANCE);
 			return http.build();
 			// @formatter:on
 		}
@@ -108,27 +108,23 @@ public class ExceptionHandlingConfigurerAccessDeniedHandlerTests {
 	static class RequestMatcherBasedAccessDeniedHandlerInLambdaConfig {
 
 		AccessDeniedHandler teapotDeniedHandler = (request, response, exception) -> response
-				.setStatus(HttpStatus.I_AM_A_TEAPOT.value());
+	.setStatus(HttpStatus.I_AM_A_TEAPOT.value());
 
 		@Bean
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests((authorizeRequests) ->
-					authorizeRequests
-						.anyRequest().denyAll()
-				)
-				.exceptionHandling((exceptionHandling) ->
-					exceptionHandling
-						.defaultAccessDeniedHandlerFor(
-								this.teapotDeniedHandler,
-								new AntPathRequestMatcher("/hello/**")
-						)
-						.defaultAccessDeniedHandlerFor(
-								new AccessDeniedHandlerImpl(),
-								AnyRequestMatcher.INSTANCE
-						)
-				);
+		.authorizeRequests((authorizeRequests) ->
+	authorizeRequests
+.anyRequest().denyAll()
+		)
+		.exceptionHandling((exceptionHandling) ->
+	exceptionHandling
+.defaultAccessDeniedHandlerFor(this.teapotDeniedHandler,new AntPathRequestMatcher("/hello/**")
+)
+.defaultAccessDeniedHandlerFor(new AccessDeniedHandlerImpl(),AnyRequestMatcher.INSTANCE
+)
+		);
 			return http.build();
 			// @formatter:on
 		}
@@ -140,19 +136,19 @@ public class ExceptionHandlingConfigurerAccessDeniedHandlerTests {
 	static class SingleRequestMatcherAccessDeniedHandlerConfig {
 
 		AccessDeniedHandler teapotDeniedHandler = (request, response, exception) -> response
-				.setStatus(HttpStatus.I_AM_A_TEAPOT.value());
+	.setStatus(HttpStatus.I_AM_A_TEAPOT.value());
 
 		@Bean
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-					.authorizeRequests()
-					.anyRequest().denyAll()
-					.and()
-					.exceptionHandling()
-					.defaultAccessDeniedHandlerFor(
-							this.teapotDeniedHandler,
-							new AntPathRequestMatcher("/hello/**"));
+		.authorizeRequests()
+		.anyRequest().denyAll()
+		.and()
+		.exceptionHandling()
+		.defaultAccessDeniedHandlerFor(
+	this.teapotDeniedHandler,
+	new AntPathRequestMatcher("/hello/**"));
 			return http.build();
 			// @formatter:on
 		}

@@ -46,7 +46,7 @@ import org.springframework.util.StopWatch;
  * @author Luke Taylor
  * @since 2.0
  */
-@ContextConfiguration(locations = { "/filter-chain-performance-app-context.xml" })
+@ContextConfiguration(locations = {"/filter-chain-performance-app-context.xml"})
 @ExtendWith(SpringExtension.class)
 public class FilterChainPerformanceTests {
 
@@ -58,7 +58,7 @@ public class FilterChainPerformanceTests {
 	private static StopWatch sw = new StopWatch("Filter Chain Performance Tests");
 
 	private final UsernamePasswordAuthenticationToken user = UsernamePasswordAuthenticationToken.authenticated("bob",
-			"bobspassword", createRoles(N_AUTHORITIES));
+"bobspassword", createRoles(N_AUTHORITIES));
 
 	private HttpSession session;
 
@@ -75,7 +75,7 @@ public class FilterChainPerformanceTests {
 		this.session = new MockHttpSession();
 		SecurityContextHolder.getContext().setAuthentication(this.user);
 		this.session.setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY,
-				SecurityContextHolder.getContext());
+	SecurityContextHolder.getContext());
 		SecurityContextHolder.clearContext();
 	}
 
@@ -129,9 +129,9 @@ public class FilterChainPerformanceTests {
 		for (int user = 0; user < N_AUTHORITIES / 10; user++) {
 			int nAuthorities = (user != 0) ? user * 10 : 1;
 			SecurityContextHolder.getContext().setAuthentication(UsernamePasswordAuthenticationToken
-					.authenticated("bob", "bobspassword", createRoles(nAuthorities)));
+		.authenticated("bob", "bobspassword", createRoles(nAuthorities)));
 			this.session.setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY,
-					SecurityContextHolder.getContext());
+		SecurityContextHolder.getContext());
 			SecurityContextHolder.clearContext();
 			sw.start(nAuthorities + " authorities");
 			runWithStack(this.minimalStack);

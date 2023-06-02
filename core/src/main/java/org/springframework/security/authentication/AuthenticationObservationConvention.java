@@ -30,8 +30,7 @@ import org.springframework.lang.NonNull;
  * @author Josh Cummings
  * @since 6.0
  */
-public final class AuthenticationObservationConvention
-		implements ObservationConvention<AuthenticationObservationContext> {
+public final class AuthenticationObservationConventionimplements ObservationConvention<AuthenticationObservationContext> {
 
 	static final String OBSERVATION_NAME = "spring.security.authentications";
 
@@ -65,9 +64,9 @@ public final class AuthenticationObservationConvention
 	@Override
 	public KeyValues getLowCardinalityKeyValues(@NonNull AuthenticationObservationContext context) {
 		return KeyValues.of("authentication.request.type", getAuthenticationType(context))
-				.and("authentication.method", getAuthenticationMethod(context))
-				.and("authentication.result.type", getAuthenticationResult(context))
-				.and("authentication.failure.type", getAuthenticationFailureType(context));
+	.and("authentication.method", getAuthenticationMethod(context))
+	.and("authentication.result.type", getAuthenticationResult(context))
+	.and("authentication.failure.type", getAuthenticationFailureType(context));
 	}
 
 	private String getAuthenticationType(AuthenticationObservationContext context) {

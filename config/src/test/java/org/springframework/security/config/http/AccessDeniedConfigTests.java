@@ -42,7 +42,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @author Luke Taylor
  * @author Josh Cummings
  */
-@ExtendWith({ SpringExtension.class, SpringTestContextExtension.class })
+@ExtendWith({SpringExtension.class, SpringTestContextExtension.class})
 @SecurityTestExecutionListeners
 public class AccessDeniedConfigTests {
 
@@ -63,7 +63,7 @@ public class AccessDeniedConfigTests {
 		 * See https://github.com/spring-projects/spring-framework/issues/25162.
 		 */
 		assertThatExceptionOfType(BeanCreationException.class).isThrownBy(() -> context.autowire()).havingRootCause()
-				.withMessageContaining("Property 'errorPage' threw exception");
+	.withMessageContaining("Property 'errorPage' threw exception");
 	}
 
 	@Test
@@ -77,7 +77,7 @@ public class AccessDeniedConfigTests {
 	public void configureWhenAccessDeniedHandlerUsesPathAndRefThenException() {
 		SpringTestContext context = this.spring.configLocations(this.xml("UsesPathAndRef"));
 		assertThatExceptionOfType(BeanDefinitionParsingException.class).isThrownBy(() -> context.autowire())
-				.withMessageContaining("attribute error-page cannot be used together with the 'ref' attribute");
+	.withMessageContaining("attribute error-page cannot be used together with the 'ref' attribute");
 	}
 
 	private String xml(String configName) {
@@ -88,7 +88,7 @@ public class AccessDeniedConfigTests {
 
 		@Override
 		public void handle(HttpServletRequest request, HttpServletResponse response,
-				AccessDeniedException accessDeniedException) {
+	AccessDeniedException accessDeniedException) {
 			response.setStatus(HttpStatus.GONE_410);
 		}
 

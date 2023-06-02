@@ -77,7 +77,7 @@ import org.springframework.web.method.support.ModelAndViewContainer;
 public final class CurrentSecurityContextArgumentResolver implements HandlerMethodArgumentResolver {
 
 	private SecurityContextHolderStrategy securityContextHolderStrategy = SecurityContextHolder
-			.getContextHolderStrategy();
+.getContextHolderStrategy();
 
 	private ExpressionParser parser = new SpelExpressionParser();
 
@@ -90,7 +90,7 @@ public final class CurrentSecurityContextArgumentResolver implements HandlerMeth
 
 	@Override
 	public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer,
-			NativeWebRequest webRequest, WebDataBinderFactory binderFactory) {
+NativeWebRequest webRequest, WebDataBinderFactory binderFactory) {
 		SecurityContext securityContext = this.securityContextHolderStrategy.getContext();
 		if (securityContext == null) {
 			return null;
@@ -107,10 +107,10 @@ public final class CurrentSecurityContextArgumentResolver implements HandlerMeth
 			securityContextResult = expression.getValue(context);
 		}
 		if (securityContextResult != null
-				&& !parameter.getParameterType().isAssignableFrom(securityContextResult.getClass())) {
+	&& !parameter.getParameterType().isAssignableFrom(securityContextResult.getClass())) {
 			if (annotation.errorOnInvalidType()) {
 				throw new ClassCastException(
-						securityContextResult + " is not assignable to " + parameter.getParameterType());
+			securityContextResult + " is not assignable to " + parameter.getParameterType());
 			}
 			return null;
 		}

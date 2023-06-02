@@ -73,10 +73,10 @@ public class AnonymousConfigurerTests {
 	@Test
 	public void requestWhenCustomSecurityContextHolderStrategyThenUses() throws Exception {
 		this.spring.register(AnonymousPrincipalInLambdaConfig.class, SecurityContextChangedListenerConfig.class,
-				PrincipalController.class).autowire();
+	PrincipalController.class).autowire();
 		this.mockMvc.perform(get("/")).andExpect(content().string("principal"));
 		SecurityContextChangedListener listener = this.spring.getContext()
-				.getBean(SecurityContextChangedListener.class);
+	.getBean(SecurityContextChangedListener.class);
 		verify(listener).securityContextChanged(setAuthentication(AnonymousAuthenticationToken.class));
 	}
 
@@ -101,11 +101,11 @@ public class AnonymousConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.anonymous()
-					.key("key")
-					.principal("principal")
-					.and()
-				.anonymous();
+		.anonymous()
+		.key("key")
+		.principal("principal")
+		.and()
+		.anonymous();
 			return http.build();
 			// @formatter:on
 		}
@@ -121,10 +121,10 @@ public class AnonymousConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.anonymous((anonymous) ->
-					anonymous
-						.principal("principal")
-				);
+		.anonymous((anonymous) ->
+	anonymous
+.principal("principal")
+		);
 			return http.build();
 			// @formatter:on
 		}
@@ -139,11 +139,11 @@ public class AnonymousConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests((authorizeRequests) ->
-					authorizeRequests
-						.anyRequest().permitAll()
-				)
-				.anonymous(AbstractHttpConfigurer::disable);
+		.authorizeRequests((authorizeRequests) ->
+	authorizeRequests
+.anyRequest().permitAll()
+		)
+		.anonymous(AbstractHttpConfigurer::disable);
 			// @formatter:on
 			return http.build();
 		}
@@ -163,11 +163,11 @@ public class AnonymousConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests((authorizeRequests) ->
-					authorizeRequests
-						.anyRequest().permitAll()
-				)
-				.anonymous(withDefaults());
+		.authorizeRequests((authorizeRequests) ->
+	authorizeRequests
+.anyRequest().permitAll()
+		)
+		.anonymous(withDefaults());
 			// @formatter:on
 			return http.build();
 		}

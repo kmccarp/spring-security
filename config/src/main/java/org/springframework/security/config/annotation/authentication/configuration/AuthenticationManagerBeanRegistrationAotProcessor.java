@@ -49,7 +49,7 @@ class AuthenticationManagerBeanRegistrationAotProcessor implements BeanRegistrat
 	}
 
 	private static class AuthenticationManagerBeanRegistrationAotContribution
-			implements BeanRegistrationAotContribution {
+implements BeanRegistrationAotContribution {
 
 		@Override
 		public void applyTo(GenerationContext generationContext, BeanRegistrationCode beanRegistrationCode) {

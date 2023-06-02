@@ -37,7 +37,7 @@ public final class UrlUtils {
 
 	public static String buildFullRequestUrl(HttpServletRequest r) {
 		return buildFullRequestUrl(r.getScheme(), r.getServerName(), r.getServerPort(), r.getRequestURI(),
-				r.getQueryString());
+	r.getQueryString());
 	}
 
 	/**
@@ -48,7 +48,7 @@ public final class UrlUtils {
 	 * @return the full URL, suitable for redirects (not decoded).
 	 */
 	public static String buildFullRequestUrl(String scheme, String serverName, int serverPort, String requestURI,
-			String queryString) {
+String queryString) {
 		scheme = scheme.toLowerCase();
 		StringBuilder url = new StringBuilder();
 		url.append(scheme).append("://").append(serverName);
@@ -92,14 +92,14 @@ public final class UrlUtils {
 	 */
 	public static String buildRequestUrl(HttpServletRequest r) {
 		return buildRequestUrl(r.getServletPath(), r.getRequestURI(), r.getContextPath(), r.getPathInfo(),
-				r.getQueryString());
+	r.getQueryString());
 	}
 
 	/**
 	 * Obtains the web application-specific fragment of the URL.
 	 */
 	private static String buildRequestUrl(String servletPath, String requestURI, String contextPath, String pathInfo,
-			String queryString) {
+String queryString) {
 		StringBuilder url = new StringBuilder();
 		if (servletPath != null) {
 			url.append(servletPath);

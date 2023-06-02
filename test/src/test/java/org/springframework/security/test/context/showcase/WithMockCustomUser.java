@@ -41,7 +41,7 @@ public @interface WithMockCustomUser {
 	 * "ROLE_". For example, the default will result in "ROLE_USER" being used.
 	 * @return
 	 */
-	String[] roles() default { "USER" };
+	String[] roles() default {"USER"};
 
 	/**
 	 * The name of the user

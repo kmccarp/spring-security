@@ -62,7 +62,7 @@ public class HttpStatusReturningLogoutSuccessHandler implements LogoutSuccessHan
 	 */
 	@Override
 	public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
-			throws IOException {
+throws IOException {
 		response.setStatus(this.httpStatusToReturn.value());
 		response.getWriter().flush();
 	}

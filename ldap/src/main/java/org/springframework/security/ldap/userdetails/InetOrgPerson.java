@@ -166,7 +166,7 @@ public class InetOrgPerson extends Person {
 		adapter.setAttributeValue("street", this.street);
 		adapter.setAttributeValue("uid", this.uid);
 		adapter.setAttributeValues("objectclass",
-				new String[] { "top", "person", "organizationalPerson", "inetOrgPerson" });
+	new String[]{"top", "person", "organizationalPerson", "inetOrgPerson"});
 	}
 
 	public static class Essence extends Person.Essence {

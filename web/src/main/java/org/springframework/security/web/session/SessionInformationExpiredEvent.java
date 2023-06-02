@@ -42,7 +42,7 @@ public final class SessionInformationExpiredEvent extends ApplicationEvent {
 	 * @param response the HttpServletResponse
 	 */
 	public SessionInformationExpiredEvent(SessionInformation sessionInformation, HttpServletRequest request,
-			HttpServletResponse response) {
+HttpServletResponse response) {
 		super(sessionInformation);
 		Assert.notNull(request, "request cannot be null");
 		Assert.notNull(response, "response cannot be null");

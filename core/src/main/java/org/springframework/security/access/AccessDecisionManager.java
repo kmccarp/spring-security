@@ -43,7 +43,7 @@ public interface AccessDecisionManager {
 	 * authentication does not provide a sufficient level of trust
 	 */
 	void decide(Authentication authentication, Object object, Collection<ConfigAttribute> configAttributes)
-			throws AccessDeniedException, InsufficientAuthenticationException;
+throws AccessDeniedException, InsufficientAuthenticationException;
 
 	/**
 	 * Indicates whether this <code>AccessDecisionManager</code> is able to process

@@ -200,13 +200,13 @@ public final class OAuth2AuthorizationRequest implements Serializable {
 		Assert.notNull(authorizationRequest, "authorizationRequest cannot be null");
 		// @formatter:off
 		return new Builder(authorizationRequest.getGrantType())
-				.authorizationUri(authorizationRequest.getAuthorizationUri())
-				.clientId(authorizationRequest.getClientId())
-				.redirectUri(authorizationRequest.getRedirectUri())
-				.scopes(authorizationRequest.getScopes())
-				.state(authorizationRequest.getState())
-				.additionalParameters(authorizationRequest.getAdditionalParameters())
-				.attributes(authorizationRequest.getAttributes());
+	.authorizationUri(authorizationRequest.getAuthorizationUri())
+	.clientId(authorizationRequest.getClientId())
+	.redirectUri(authorizationRequest.getRedirectUri())
+	.scopes(authorizationRequest.getScopes())
+	.state(authorizationRequest.getState())
+	.additionalParameters(authorizationRequest.getAdditionalParameters())
+	.attributes(authorizationRequest.getAttributes());
 		// @formatter:on
 	}
 
@@ -428,11 +428,11 @@ public final class OAuth2AuthorizationRequest implements Serializable {
 			authorizationRequest.redirectUri = this.redirectUri;
 			authorizationRequest.state = this.state;
 			authorizationRequest.scopes = Collections.unmodifiableSet(
-					CollectionUtils.isEmpty(this.scopes) ? Collections.emptySet() : new LinkedHashSet<>(this.scopes));
+		CollectionUtils.isEmpty(this.scopes) ? Collections.emptySet() : new LinkedHashSet<>(this.scopes));
 			authorizationRequest.additionalParameters = Collections.unmodifiableMap(this.additionalParameters);
 			authorizationRequest.attributes = Collections.unmodifiableMap(this.attributes);
 			authorizationRequest.authorizationRequestUri = StringUtils.hasText(this.authorizationRequestUri)
-					? this.authorizationRequestUri : this.buildAuthorizationRequestUri();
+		? this.authorizationRequestUri : this.buildAuthorizationRequestUri();
 			return authorizationRequest;
 		}
 

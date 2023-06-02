@@ -54,7 +54,7 @@ public class WithMockUserTests {
 	@Test
 	public void getMessageUnauthenticated() {
 		assertThatExceptionOfType(AuthenticationCredentialsNotFoundException.class)
-				.isThrownBy(() -> this.messageService.getMessage());
+	.isThrownBy(() -> this.messageService.getMessage());
 	}
 
 	@Test
@@ -72,14 +72,14 @@ public class WithMockUserTests {
 	}
 
 	@Test
-	@WithMockUser(username = "admin", roles = { "USER", "ADMIN" })
+	@WithMockUser(username = "admin", roles = {"USER", "ADMIN"})
 	public void getMessageWithMockUserCustomUser() {
 		String message = this.messageService.getMessage();
 		assertThat(message).contains("admin").contains("ROLE_USER").contains("ROLE_ADMIN");
 	}
 
 	@Test
-	@WithMockUser(username = "admin", authorities = { "ADMIN", "USER" })
+	@WithMockUser(username = "admin", authorities = {"ADMIN", "USER"})
 	public void getMessageWithMockUserCustomAuthorities() {
 		String message = this.messageService.getMessage();
 		assertThat(message).contains("admin").contains("ADMIN").contains("USER").doesNotContain("ROLE_");
@@ -112,8 +112,8 @@ public class WithMockUserTests {
 		void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 			// @formatter:off
 			auth
-				.inMemoryAuthentication()
-					.withUser("user").password("password").roles("USER");
+		.inMemoryAuthentication()
+		.withUser("user").password("password").roles("USER");
 			// @formatter:on
 		}
 

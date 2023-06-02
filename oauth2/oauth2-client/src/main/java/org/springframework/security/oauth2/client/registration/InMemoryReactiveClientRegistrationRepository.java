@@ -37,8 +37,7 @@ import org.springframework.util.Assert;
  * @see ClientRegistrationRepository
  * @see ClientRegistration
  */
-public final class InMemoryReactiveClientRegistrationRepository
-		implements ReactiveClientRegistrationRepository, Iterable<ClientRegistration> {
+public final class InMemoryReactiveClientRegistrationRepositoryimplements ReactiveClientRegistrationRepository, Iterable<ClientRegistration> {
 
 	private final Map<String, ClientRegistration> clientIdToClientRegistration;
 

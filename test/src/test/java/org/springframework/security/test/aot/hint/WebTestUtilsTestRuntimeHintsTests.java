@@ -44,32 +44,32 @@ class WebTestUtilsTestRuntimeHintsTests {
 	@BeforeEach
 	void setup() {
 		SpringFactoriesLoader.forResourceLocation("META-INF/spring/aot.factories").load(TestRuntimeHintsRegistrar.class)
-				.forEach((registrar) -> registrar.registerHints(this.hints, WebTestUtilsTestRuntimeHintsTests.class,
-						ClassUtils.getDefaultClassLoader()));
+	.forEach((registrar) -> registrar.registerHints(this.hints, WebTestUtilsTestRuntimeHintsTests.class,
+ClassUtils.getDefaultClassLoader()));
 	}
 
 	@Test
 	void filterChainProxyHasHints() {
 		assertThat(RuntimeHintsPredicates.reflection().onType(FilterChainProxy.class)
-				.withMemberCategories(MemberCategory.INVOKE_DECLARED_METHODS)).accepts(this.hints);
+	.withMemberCategories(MemberCategory.INVOKE_DECLARED_METHODS)).accepts(this.hints);
 	}
 
 	@Test
 	void csrfFilterHasHints() {
 		assertThat(RuntimeHintsPredicates.reflection().onType(CsrfFilter.class)
-				.withMemberCategories(MemberCategory.DECLARED_FIELDS)).accepts(this.hints);
+	.withMemberCategories(MemberCategory.DECLARED_FIELDS)).accepts(this.hints);
 	}
 
 	@Test
 	void securityContextPersistenceFilterHasHints() {
 		assertThat(RuntimeHintsPredicates.reflection().onType(SecurityContextPersistenceFilter.class)
-				.withMemberCategories(MemberCategory.DECLARED_FIELDS)).accepts(this.hints);
+	.withMemberCategories(MemberCategory.DECLARED_FIELDS)).accepts(this.hints);
 	}
 
 	@Test
 	void securityContextHolderFilterHasHints() {
 		assertThat(RuntimeHintsPredicates.reflection().onType(SecurityContextHolderFilter.class)
-				.withMemberCategories(MemberCategory.DECLARED_FIELDS)).accepts(this.hints);
+	.withMemberCategories(MemberCategory.DECLARED_FIELDS)).accepts(this.hints);
 	}
 
 }

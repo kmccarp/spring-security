@@ -83,13 +83,13 @@ public class DefaultFiltersTests {
 	public void nullWebInvocationPrivilegeEvaluator() {
 		this.spring.register(NullWebInvocationPrivilegeEvaluatorConfig.class, UserDetailsServiceConfig.class);
 		List<SecurityFilterChain> filterChains = this.spring.getContext().getBean(FilterChainProxy.class)
-				.getFilterChains();
+	.getFilterChains();
 		assertThat(filterChains.size()).isEqualTo(1);
 		DefaultSecurityFilterChain filterChain = (DefaultSecurityFilterChain) filterChains.get(0);
 		assertThat(filterChain.getRequestMatcher()).isInstanceOf(AnyRequestMatcher.class);
 		assertThat(filterChain.getFilters().size()).isEqualTo(1);
 		long filter = filterChain.getFilters().stream()
-				.filter((it) -> it instanceof UsernamePasswordAuthenticationFilter).count();
+	.filter((it) -> it instanceof UsernamePasswordAuthenticationFilter).count();
 		assertThat(filter).isEqualTo(1);
 	}
 
@@ -97,14 +97,14 @@ public class DefaultFiltersTests {
 	public void filterChainProxyBuilderIgnoringResources() {
 		this.spring.register(FilterChainProxyBuilderIgnoringConfig.class, UserDetailsServiceConfig.class);
 		List<SecurityFilterChain> filterChains = this.spring.getContext().getBean(FilterChainProxy.class)
-				.getFilterChains();
+	.getFilterChains();
 		assertThat(filterChains.size()).isEqualTo(2);
 		DefaultSecurityFilterChain firstFilter = (DefaultSecurityFilterChain) filterChains.get(0);
 		DefaultSecurityFilterChain secondFilter = (DefaultSecurityFilterChain) filterChains.get(1);
 		assertThat(firstFilter.getFilters().isEmpty()).isEqualTo(true);
 		assertThat(secondFilter.getRequestMatcher()).isInstanceOf(AnyRequestMatcher.class);
 		List<? extends Class<? extends Filter>> classes = secondFilter.getFilters().stream().map(Filter::getClass)
-				.collect(Collectors.toList());
+	.collect(Collectors.toList());
 		assertThat(classes.contains(WebAsyncManagerIntegrationFilter.class)).isTrue();
 		assertThat(classes.contains(SecurityContextHolderFilter.class)).isTrue();
 		assertThat(classes.contains(HeaderWriterFilter.class)).isTrue();
@@ -131,7 +131,7 @@ public class DefaultFiltersTests {
 		CsrfToken token = (CsrfToken) request.getAttribute(CsrfToken.class.getName());
 		request.setParameter(token.getParameterName(), token.getToken());
 		this.spring.getContext().getBean("springSecurityFilterChain", Filter.class).doFilter(request, response,
-				new MockFilterChain());
+	new MockFilterChain());
 		assertThat(response.getRedirectedUrl()).isEqualTo("/login?logout");
 	}
 
@@ -183,8 +183,8 @@ public class DefaultFiltersTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests()
-					.anyRequest().hasRole("USER");
+		.authorizeRequests()
+		.anyRequest().hasRole("USER");
 			return http.build();
 			// @formatter:on
 		}

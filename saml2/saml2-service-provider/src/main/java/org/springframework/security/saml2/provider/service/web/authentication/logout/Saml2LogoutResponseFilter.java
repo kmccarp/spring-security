@@ -75,7 +75,7 @@ public final class Saml2LogoutResponseFilter extends OncePerRequestFilter {
 	private RequestMatcher logoutRequestMatcher = new AntPathRequestMatcher("/logout/saml2/slo");
 
 	public Saml2LogoutResponseFilter(RelyingPartyRegistrationRepository registrations,
-			Saml2LogoutResponseValidator logoutResponseValidator, LogoutSuccessHandler logoutSuccessHandler) {
+Saml2LogoutResponseValidator logoutResponseValidator, LogoutSuccessHandler logoutSuccessHandler) {
 		this.relyingPartyRegistrationResolver = (request, id) -> {
 			if (id == null) {
 				return null;
@@ -95,7 +95,7 @@ public final class Saml2LogoutResponseFilter extends OncePerRequestFilter {
 	 * @param logoutSuccessHandler the action to perform now that logout has succeeded
 	 */
 	public Saml2LogoutResponseFilter(RelyingPartyRegistrationResolver relyingPartyRegistrationResolver,
-			Saml2LogoutResponseValidator logoutResponseValidator, LogoutSuccessHandler logoutSuccessHandler) {
+Saml2LogoutResponseValidator logoutResponseValidator, LogoutSuccessHandler logoutSuccessHandler) {
 		this.relyingPartyRegistrationResolver = relyingPartyRegistrationResolver;
 		this.logoutResponseValidator = logoutResponseValidator;
 		this.logoutSuccessHandler = logoutSuccessHandler;
@@ -106,7 +106,7 @@ public final class Saml2LogoutResponseFilter extends OncePerRequestFilter {
 	 */
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
-			throws ServletException, IOException {
+throws ServletException, IOException {
 
 		if (!this.logoutRequestMatcher.matches(request)) {
 			chain.doFilter(request, response);
@@ -125,18 +125,18 @@ public final class Saml2LogoutResponseFilter extends OncePerRequestFilter {
 			return;
 		}
 		RelyingPartyRegistration registration = this.relyingPartyRegistrationResolver.resolve(request,
-				logoutRequest.getRelyingPartyRegistrationId());
+	logoutRequest.getRelyingPartyRegistrationId());
 		if (registration == null) {
 			this.logger
-					.trace("Did not process logout response since failed to find associated RelyingPartyRegistration");
+		.trace("Did not process logout response since failed to find associated RelyingPartyRegistration");
 			Saml2Error error = new Saml2Error(Saml2ErrorCodes.RELYING_PARTY_REGISTRATION_NOT_FOUND,
-					"Failed to find associated RelyingPartyRegistration");
+		"Failed to find associated RelyingPartyRegistration");
 			response.sendError(HttpServletResponse.SC_BAD_REQUEST, error.toString());
 			return;
 		}
 		if (registration.getSingleLogoutServiceResponseLocation() == null) {
 			this.logger.trace(
-					"Did not process logout response since RelyingPartyRegistration has not been configured with a logout response endpoint");
+		"Did not process logout response since RelyingPartyRegistration has not been configured with a logout response endpoint");
 			response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
 			return;
 		}
@@ -145,7 +145,7 @@ public final class Saml2LogoutResponseFilter extends OncePerRequestFilter {
 		String logoutLocation = uriResolver.resolve(registration.getSingleLogoutServiceLocation());
 		String logoutResponseLocation = uriResolver.resolve(registration.getSingleLogoutServiceResponseLocation());
 		registration = registration.mutate().entityId(entityId).singleLogoutServiceLocation(logoutLocation)
-				.singleLogoutServiceResponseLocation(logoutResponseLocation).build();
+	.singleLogoutServiceResponseLocation(logoutResponseLocation).build();
 		Saml2MessageBinding saml2MessageBinding = Saml2MessageBindingUtils.resolveBinding(request);
 		if (!registration.getSingleLogoutServiceBindings().contains(saml2MessageBinding)) {
 			this.logger.trace("Did not process logout response since used incorrect binding");
@@ -155,15 +155,15 @@ public final class Saml2LogoutResponseFilter extends OncePerRequestFilter {
 
 		String serialized = request.getParameter(Saml2ParameterNames.SAML_RESPONSE);
 		Saml2LogoutResponse logoutResponse = Saml2LogoutResponse.withRelyingPartyRegistration(registration)
-				.samlResponse(serialized).relayState(request.getParameter(Saml2ParameterNames.RELAY_STATE))
-				.binding(saml2MessageBinding).location(registration.getSingleLogoutServiceResponseLocation())
-				.parameters((params) -> params.put(Saml2ParameterNames.SIG_ALG,
-						request.getParameter(Saml2ParameterNames.SIG_ALG)))
-				.parameters((params) -> params.put(Saml2ParameterNames.SIGNATURE,
-						request.getParameter(Saml2ParameterNames.SIGNATURE)))
-				.parametersQuery((params) -> request.getQueryString()).build();
+	.samlResponse(serialized).relayState(request.getParameter(Saml2ParameterNames.RELAY_STATE))
+	.binding(saml2MessageBinding).location(registration.getSingleLogoutServiceResponseLocation())
+	.parameters((params) -> params.put(Saml2ParameterNames.SIG_ALG,
+request.getParameter(Saml2ParameterNames.SIG_ALG)))
+	.parameters((params) -> params.put(Saml2ParameterNames.SIGNATURE,
+request.getParameter(Saml2ParameterNames.SIGNATURE)))
+	.parametersQuery((params) -> request.getQueryString()).build();
 		Saml2LogoutResponseValidatorParameters parameters = new Saml2LogoutResponseValidatorParameters(logoutResponse,
-				logoutRequest, registration);
+	logoutRequest, registration);
 		Saml2LogoutValidatorResult result = this.logoutResponseValidator.validate(parameters);
 		if (result.hasErrors()) {
 			response.sendError(HttpServletResponse.SC_UNAUTHORIZED, result.getErrors().iterator().next().toString());

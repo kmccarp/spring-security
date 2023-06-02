@@ -47,8 +47,7 @@ import org.springframework.util.Assert;
  * @author Eddú Meléndez
  * @since 5.2
  */
-public abstract class AbstractUserDetailsReactiveAuthenticationManager
-		implements ReactiveAuthenticationManager, MessageSourceAware {
+public abstract class AbstractUserDetailsReactiveAuthenticationManagerimplements ReactiveAuthenticationManager, MessageSourceAware {
 
 	protected final Log logger = LogFactory.getLog(getClass());
 
@@ -68,17 +67,17 @@ public abstract class AbstractUserDetailsReactiveAuthenticationManager
 		if (!user.isAccountNonLocked()) {
 			this.logger.debug("User account is locked");
 			throw new LockedException(this.messages.getMessage("AbstractUserDetailsAuthenticationProvider.locked",
-					"User account is locked"));
+		"User account is locked"));
 		}
 		if (!user.isEnabled()) {
 			this.logger.debug("User account is disabled");
 			throw new DisabledException(
-					this.messages.getMessage("AbstractUserDetailsAuthenticationProvider.disabled", "User is disabled"));
+		this.messages.getMessage("AbstractUserDetailsAuthenticationProvider.disabled", "User is disabled"));
 		}
 		if (!user.isAccountNonExpired()) {
 			this.logger.debug("User account is expired");
 			throw new AccountExpiredException(this.messages
-					.getMessage("AbstractUserDetailsAuthenticationProvider.expired", "User account has expired"));
+		.getMessage("AbstractUserDetailsAuthenticationProvider.expired", "User account has expired"));
 		}
 	}
 
@@ -86,7 +85,7 @@ public abstract class AbstractUserDetailsReactiveAuthenticationManager
 		if (!user.isCredentialsNonExpired()) {
 			this.logger.debug("User account credentials have expired");
 			throw new CredentialsExpiredException(this.messages.getMessage(
-					"AbstractUserDetailsAuthenticationProvider.credentialsExpired", "User credentials have expired"));
+		"AbstractUserDetailsAuthenticationProvider.credentialsExpired", "User credentials have expired"));
 		}
 	}
 
@@ -96,19 +95,19 @@ public abstract class AbstractUserDetailsReactiveAuthenticationManager
 		String presentedPassword = (String) authentication.getCredentials();
 		// @formatter:off
 		return retrieveUser(username)
-				.doOnNext(this.preAuthenticationChecks::check)
-				.publishOn(this.scheduler)
-				.filter((userDetails) -> this.passwordEncoder.matches(presentedPassword, userDetails.getPassword()))
-				.switchIfEmpty(Mono.defer(() -> Mono.error(new BadCredentialsException("Invalid Credentials"))))
-				.flatMap((userDetails) -> upgradeEncodingIfNecessary(userDetails, presentedPassword))
-				.doOnNext(this.postAuthenticationChecks::check)
-				.map(this::createUsernamePasswordAuthenticationToken);
+	.doOnNext(this.preAuthenticationChecks::check)
+	.publishOn(this.scheduler)
+	.filter((userDetails) -> this.passwordEncoder.matches(presentedPassword, userDetails.getPassword()))
+	.switchIfEmpty(Mono.defer(() -> Mono.error(new BadCredentialsException("Invalid Credentials"))))
+	.flatMap((userDetails) -> upgradeEncodingIfNecessary(userDetails, presentedPassword))
+	.doOnNext(this.postAuthenticationChecks::check)
+	.map(this::createUsernamePasswordAuthenticationToken);
 		// @formatter:on
 	}
 
 	private Mono<UserDetails> upgradeEncodingIfNecessary(UserDetails userDetails, String presentedPassword) {
 		boolean upgradeEncoding = this.userDetailsPasswordService != null
-				&& this.passwordEncoder.upgradeEncoding(userDetails.getPassword());
+	&& this.passwordEncoder.upgradeEncoding(userDetails.getPassword());
 		if (upgradeEncoding) {
 			String newPassword = this.passwordEncoder.encode(presentedPassword);
 			return this.userDetailsPasswordService.updatePassword(userDetails, newPassword);
@@ -118,7 +117,7 @@ public abstract class AbstractUserDetailsReactiveAuthenticationManager
 
 	private UsernamePasswordAuthenticationToken createUsernamePasswordAuthenticationToken(UserDetails userDetails) {
 		return UsernamePasswordAuthenticationToken.authenticated(userDetails, userDetails.getPassword(),
-				userDetails.getAuthorities());
+	userDetails.getAuthorities());
 	}
 
 	/**

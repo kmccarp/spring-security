@@ -29,9 +29,7 @@ import org.springframework.web.server.ServerWebExchange;
  * @since 5.1
  */
 @SuppressWarnings("deprecation")
-public class ServerHttpBasicAuthenticationConverter
-		extends org.springframework.security.web.server.ServerHttpBasicAuthenticationConverter
-		implements ServerAuthenticationConverter {
+public class ServerHttpBasicAuthenticationConverterextends org.springframework.security.web.server.ServerHttpBasicAuthenticationConverterimplements ServerAuthenticationConverter {
 
 	@Override
 	public Mono<Authentication> convert(ServerWebExchange exchange) {

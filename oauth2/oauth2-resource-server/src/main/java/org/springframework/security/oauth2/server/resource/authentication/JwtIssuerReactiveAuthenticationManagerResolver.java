@@ -60,8 +60,7 @@ import org.springframework.web.server.ServerWebExchange;
  * @author Roman Matiushchenko
  * @since 5.3
  */
-public final class JwtIssuerReactiveAuthenticationManagerResolver
-		implements ReactiveAuthenticationManagerResolver<ServerWebExchange> {
+public final class JwtIssuerReactiveAuthenticationManagerResolverimplements ReactiveAuthenticationManagerResolver<ServerWebExchange> {
 
 	private final ReactiveAuthenticationManager authenticationManager;
 
@@ -82,7 +81,7 @@ public final class JwtIssuerReactiveAuthenticationManagerResolver
 	public JwtIssuerReactiveAuthenticationManagerResolver(Collection<String> trustedIssuers) {
 		Assert.notEmpty(trustedIssuers, "trustedIssuers cannot be empty");
 		this.authenticationManager = new ResolvingAuthenticationManager(
-				new TrustedIssuerJwtAuthenticationManagerResolver(new ArrayList<>(trustedIssuers)::contains));
+	new TrustedIssuerJwtAuthenticationManagerResolver(new ArrayList<>(trustedIssuers)::contains));
 	}
 
 	/**
@@ -107,7 +106,7 @@ public final class JwtIssuerReactiveAuthenticationManagerResolver
 	 * {@link ReactiveAuthenticationManager} by the issuer
 	 */
 	public JwtIssuerReactiveAuthenticationManagerResolver(
-			ReactiveAuthenticationManagerResolver<String> issuerAuthenticationManagerResolver) {
+ReactiveAuthenticationManagerResolver<String> issuerAuthenticationManagerResolver) {
 		Assert.notNull(issuerAuthenticationManagerResolver, "issuerAuthenticationManagerResolver cannot be null");
 		this.authenticationManager = new ResolvingAuthenticationManager(issuerAuthenticationManagerResolver);
 	}
@@ -130,7 +129,7 @@ public final class JwtIssuerReactiveAuthenticationManagerResolver
 		private final ReactiveAuthenticationManagerResolver<String> issuerAuthenticationManagerResolver;
 
 		ResolvingAuthenticationManager(
-				ReactiveAuthenticationManagerResolver<String> issuerAuthenticationManagerResolver) {
+	ReactiveAuthenticationManagerResolver<String> issuerAuthenticationManagerResolver) {
 
 			this.issuerAuthenticationManagerResolver = issuerAuthenticationManagerResolver;
 		}
@@ -138,12 +137,12 @@ public final class JwtIssuerReactiveAuthenticationManagerResolver
 		@Override
 		public Mono<Authentication> authenticate(Authentication authentication) {
 			Assert.isTrue(authentication instanceof BearerTokenAuthenticationToken,
-					"Authentication must be of type BearerTokenAuthenticationToken");
+		"Authentication must be of type BearerTokenAuthenticationToken");
 			BearerTokenAuthenticationToken token = (BearerTokenAuthenticationToken) authentication;
 			return this.issuerConverter.convert(token)
-					.flatMap((issuer) -> this.issuerAuthenticationManagerResolver.resolve(issuer).switchIfEmpty(
-							Mono.error(() -> new InvalidBearerTokenException("Invalid issuer " + issuer))))
-					.flatMap((manager) -> manager.authenticate(authentication));
+		.flatMap((issuer) -> this.issuerAuthenticationManagerResolver.resolve(issuer).switchIfEmpty(
+	Mono.error(() -> new InvalidBearerTokenException("Invalid issuer " + issuer))))
+		.flatMap((manager) -> manager.authenticate(authentication));
 		}
 
 	}
@@ -167,7 +166,7 @@ public final class JwtIssuerReactiveAuthenticationManagerResolver
 	}
 
 	static class TrustedIssuerJwtAuthenticationManagerResolver
-			implements ReactiveAuthenticationManagerResolver<String> {
+implements ReactiveAuthenticationManagerResolver<String> {
 
 		private final Map<String, Mono<ReactiveAuthenticationManager>> authenticationManagers = new ConcurrentHashMap<>();
 
@@ -184,9 +183,9 @@ public final class JwtIssuerReactiveAuthenticationManagerResolver
 			}
 			// @formatter:off
 			return this.authenticationManagers.computeIfAbsent(issuer,
-					(k) -> Mono.<ReactiveAuthenticationManager>fromCallable(() -> new JwtReactiveAuthenticationManager(ReactiveJwtDecoders.fromIssuerLocation(k)))
-							.subscribeOn(Schedulers.boundedElastic())
-							.cache((manager) -> Duration.ofMillis(Long.MAX_VALUE), (ex) -> Duration.ZERO, () -> Duration.ZERO)
+		(k) -> Mono.<ReactiveAuthenticationManager>fromCallable(() -> new JwtReactiveAuthenticationManager(ReactiveJwtDecoders.fromIssuerLocation(k)))
+	.subscribeOn(Schedulers.boundedElastic())
+	.cache((manager) -> Duration.ofMillis(Long.MAX_VALUE), (ex) -> Duration.ZERO, () -> Duration.ZERO)
 			);
 			// @formatter:on
 		}

@@ -76,8 +76,7 @@ import org.springframework.util.MultiValueMap;
  * @see <a target="_blank" href="https://connect2id.com/products/nimbus-jose-jwt">Nimbus
  * JOSE + JWT SDK</a>
  */
-public final class NimbusJwtClientAuthenticationParametersConverter<T extends AbstractOAuth2AuthorizationGrantRequest>
-		implements Converter<T, MultiValueMap<String, String>> {
+public final class NimbusJwtClientAuthenticationParametersConverter<T extends AbstractOAuth2AuthorizationGrantRequest>implements Converter<T, MultiValueMap<String, String>> {
 
 	private static final String INVALID_KEY_ERROR_CODE = "invalid_key";
 
@@ -109,26 +108,26 @@ public final class NimbusJwtClientAuthenticationParametersConverter<T extends Ab
 
 		ClientRegistration clientRegistration = authorizationGrantRequest.getClientRegistration();
 		if (!ClientAuthenticationMethod.PRIVATE_KEY_JWT.equals(clientRegistration.getClientAuthenticationMethod())
-				&& !ClientAuthenticationMethod.CLIENT_SECRET_JWT
-						.equals(clientRegistration.getClientAuthenticationMethod())) {
+	&& !ClientAuthenticationMethod.CLIENT_SECRET_JWT
+	.equals(clientRegistration.getClientAuthenticationMethod())) {
 			return null;
 		}
 
 		JWK jwk = this.jwkResolver.apply(clientRegistration);
 		if (jwk == null) {
 			OAuth2Error oauth2Error = new OAuth2Error(INVALID_KEY_ERROR_CODE,
-					"Failed to resolve JWK signing key for client registration '"
-							+ clientRegistration.getRegistrationId() + "'.",
-					null);
+		"Failed to resolve JWK signing key for client registration '"
+	+ clientRegistration.getRegistrationId() + "'.",
+		null);
 			throw new OAuth2AuthorizationException(oauth2Error);
 		}
 
 		JwsAlgorithm jwsAlgorithm = resolveAlgorithm(jwk);
 		if (jwsAlgorithm == null) {
 			OAuth2Error oauth2Error = new OAuth2Error(INVALID_ALGORITHM_ERROR_CODE,
-					"Unable to resolve JWS (signing) algorithm from JWK associated to client registration '"
-							+ clientRegistration.getRegistrationId() + "'.",
-					null);
+		"Unable to resolve JWS (signing) algorithm from JWK associated to client registration '"
+	+ clientRegistration.getRegistrationId() + "'.",
+		null);
 			throw new OAuth2AuthorizationException(oauth2Error);
 		}
 
@@ -139,29 +138,29 @@ public final class NimbusJwtClientAuthenticationParametersConverter<T extends Ab
 
 		// @formatter:off
 		JwtClaimsSet.Builder claimsBuilder = JwtClaimsSet.builder()
-				.issuer(clientRegistration.getClientId())
-				.subject(clientRegistration.getClientId())
-				.audience(Collections.singletonList(clientRegistration.getProviderDetails().getTokenUri()))
-				.id(UUID.randomUUID().toString())
-				.issuedAt(issuedAt)
-				.expiresAt(expiresAt);
+	.issuer(clientRegistration.getClientId())
+	.subject(clientRegistration.getClientId())
+	.audience(Collections.singletonList(clientRegistration.getProviderDetails().getTokenUri()))
+	.id(UUID.randomUUID().toString())
+	.issuedAt(issuedAt)
+	.expiresAt(expiresAt);
 		// @formatter:on
 
 		JwtClientAuthenticationContext<T> jwtClientAssertionContext = new JwtClientAuthenticationContext<>(
-				authorizationGrantRequest, headersBuilder, claimsBuilder);
+	authorizationGrantRequest, headersBuilder, claimsBuilder);
 		this.jwtClientAssertionCustomizer.accept(jwtClientAssertionContext);
 
 		JwsHeader jwsHeader = headersBuilder.build();
 		JwtClaimsSet jwtClaimsSet = claimsBuilder.build();
 
 		JwsEncoderHolder jwsEncoderHolder = this.jwsEncoders.compute(clientRegistration.getRegistrationId(),
-				(clientRegistrationId, currentJwsEncoderHolder) -> {
-					if (currentJwsEncoderHolder != null && currentJwsEncoderHolder.getJwk().equals(jwk)) {
-						return currentJwsEncoderHolder;
-					}
-					JWKSource<SecurityContext> jwkSource = new ImmutableJWKSet<>(new JWKSet(jwk));
-					return new JwsEncoderHolder(new NimbusJwtEncoder(jwkSource), jwk);
-				});
+	(clientRegistrationId, currentJwsEncoderHolder) -> {
+		if (currentJwsEncoderHolder != null && currentJwsEncoderHolder.getJwk().equals(jwk)) {
+			return currentJwsEncoderHolder;
+		}
+		JWKSource<SecurityContext> jwkSource = new ImmutableJWKSet<>(new JWKSet(jwk));
+		return new JwsEncoderHolder(new NimbusJwtEncoder(jwkSource), jwk);
+	});
 
 		JwtEncoder jwsEncoder = jwsEncoderHolder.getJwsEncoder();
 		Jwt jws = jwsEncoder.encode(JwtEncoderParameters.from(jwsHeader, jwtClaimsSet));
@@ -208,7 +207,7 @@ public final class NimbusJwtClientAuthenticationParametersConverter<T extends Ab
 	 * @since 5.7
 	 */
 	public void setJwtClientAssertionCustomizer(
-			Consumer<JwtClientAuthenticationContext<T>> jwtClientAssertionCustomizer) {
+Consumer<JwtClientAuthenticationContext<T>> jwtClientAssertionCustomizer) {
 		Assert.notNull(jwtClientAssertionCustomizer, "jwtClientAssertionCustomizer cannot be null");
 		this.jwtClientAssertionCustomizer = jwtClientAssertionCustomizer;
 	}
@@ -251,7 +250,7 @@ public final class NimbusJwtClientAuthenticationParametersConverter<T extends Ab
 		private final JwtClaimsSet.Builder claims;
 
 		private JwtClientAuthenticationContext(T authorizationGrantRequest, JwsHeader.Builder headers,
-				JwtClaimsSet.Builder claims) {
+	JwtClaimsSet.Builder claims) {
 			this.authorizationGrantRequest = authorizationGrantRequest;
 			this.headers = headers;
 			this.claims = claims;

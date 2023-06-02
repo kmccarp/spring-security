@@ -87,8 +87,7 @@ import org.springframework.web.socket.sockjs.transport.TransportHandlingSockJsSe
 @Order(Ordered.HIGHEST_PRECEDENCE + 100)
 @Import(ObjectPostProcessorConfiguration.class)
 @Deprecated
-public abstract class AbstractSecurityWebSocketMessageBrokerConfigurer
-		implements WebSocketMessageBrokerConfigurer, SmartInitializingSingleton {
+public abstract class AbstractSecurityWebSocketMessageBrokerConfigurerimplements WebSocketMessageBrokerConfigurer, SmartInitializingSingleton {
 
 	private final WebSocketMessageSecurityMetadataSourceRegistry inboundRegistry = new WebSocketMessageSecurityMetadataSourceRegistry();
 
@@ -159,9 +158,9 @@ public abstract class AbstractSecurityWebSocketMessageBrokerConfigurer
 
 	@Bean
 	public ChannelSecurityInterceptor inboundChannelSecurity(
-			MessageSecurityMetadataSource messageSecurityMetadataSource) {
+MessageSecurityMetadataSource messageSecurityMetadataSource) {
 		ChannelSecurityInterceptor channelSecurityInterceptor = new ChannelSecurityInterceptor(
-				messageSecurityMetadataSource);
+	messageSecurityMetadataSource);
 		MessageExpressionVoter<Object> voter = new MessageExpressionVoter<>();
 		voter.setExpressionHandler(getMessageExpressionHandler());
 		List<AccessDecisionVoter<?>> voters = new ArrayList<>();
@@ -235,7 +234,7 @@ public abstract class AbstractSecurityWebSocketMessageBrokerConfigurer
 			}
 			else {
 				throw new IllegalStateException("Bean " + beanName + " is expected to contain mappings to either a "
-						+ "SockJsHttpRequestHandler or a WebSocketHttpRequestHandler but got " + object);
+			+ "SockJsHttpRequestHandler or a WebSocketHttpRequestHandler but got " + object);
 			}
 		}
 		if (this.inboundRegistry.containsMapping() && !this.inboundRegistry.isSimpDestPathMatcherConfigured()) {
@@ -247,7 +246,7 @@ public abstract class AbstractSecurityWebSocketMessageBrokerConfigurer
 	private void setHandshakeInterceptors(SockJsHttpRequestHandler handler) {
 		SockJsService sockJsService = handler.getSockJsService();
 		Assert.state(sockJsService instanceof TransportHandlingSockJsService,
-				() -> "sockJsService must be instance of TransportHandlingSockJsService got " + sockJsService);
+	() -> "sockJsService must be instance of TransportHandlingSockJsService got " + sockJsService);
 		TransportHandlingSockJsService transportHandlingSockJsService = (TransportHandlingSockJsService) sockJsService;
 		List<HandshakeInterceptor> handshakeInterceptors = transportHandlingSockJsService.getHandshakeInterceptors();
 		List<HandshakeInterceptor> interceptorsToSet = new ArrayList<>(handshakeInterceptors.size() + 1);

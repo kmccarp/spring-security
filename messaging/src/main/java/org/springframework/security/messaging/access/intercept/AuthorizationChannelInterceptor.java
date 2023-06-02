@@ -44,7 +44,7 @@ import org.springframework.util.Assert;
 public final class AuthorizationChannelInterceptor implements ChannelInterceptor {
 
 	private Supplier<Authentication> authentication = getAuthentication(
-			SecurityContextHolder.getContextHolderStrategy());
+SecurityContextHolder.getContextHolderStrategy());
 
 	private final Log logger = LogFactory.getLog(this.getClass());
 
@@ -70,7 +70,7 @@ public final class AuthorizationChannelInterceptor implements ChannelInterceptor
 		this.eventPublisher.publishAuthorizationEvent(this.authentication, message, decision);
 		if (decision == null || !decision.isGranted()) { // default deny
 			this.logger.debug(LogMessage.of(() -> "Failed to authorize message with authorization manager "
-					+ this.preSendAuthorizationManager + " and decision " + decision));
+		+ this.preSendAuthorizationManager + " and decision " + decision));
 			throw new AccessDeniedException("Access Denied");
 		}
 		this.logger.debug(LogMessage.of(() -> "Authorized message send"));
@@ -100,7 +100,7 @@ public final class AuthorizationChannelInterceptor implements ChannelInterceptor
 			Authentication authentication = strategy.getContext().getAuthentication();
 			if (authentication == null) {
 				throw new AuthenticationCredentialsNotFoundException(
-						"An Authentication object was not found in the SecurityContext");
+			"An Authentication object was not found in the SecurityContext");
 			}
 			return authentication;
 		};
@@ -110,7 +110,7 @@ public final class AuthorizationChannelInterceptor implements ChannelInterceptor
 
 		@Override
 		public <T> void publishAuthorizationEvent(Supplier<Authentication> authentication, T object,
-				AuthorizationDecision decision) {
+	AuthorizationDecision decision) {
 
 		}
 

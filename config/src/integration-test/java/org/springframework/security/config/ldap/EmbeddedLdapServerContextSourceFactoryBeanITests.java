@@ -48,7 +48,7 @@ public class EmbeddedLdapServerContextSourceFactoryBeanITests {
 		this.spring.register(FromEmbeddedLdapServerConfig.class).autowire();
 
 		this.mockMvc.perform(formLogin().user("bob").password("bobspassword"))
-				.andExpect(authenticated().withUsername("bob"));
+	.andExpect(authenticated().withUsername("bob"));
 	}
 
 	@Test
@@ -56,7 +56,7 @@ public class EmbeddedLdapServerContextSourceFactoryBeanITests {
 		this.spring.register(PortZeroConfig.class).autowire();
 
 		this.mockMvc.perform(formLogin().user("bob").password("bobspassword"))
-				.andExpect(authenticated().withUsername("bob"));
+	.andExpect(authenticated().withUsername("bob"));
 	}
 
 	@Test
@@ -71,15 +71,15 @@ public class EmbeddedLdapServerContextSourceFactoryBeanITests {
 		this.spring.register(CustomManagerDnConfig.class).autowire();
 
 		this.mockMvc.perform(formLogin().user("bob").password("bobspassword"))
-				.andExpect(authenticated().withUsername("bob"));
+	.andExpect(authenticated().withUsername("bob"));
 	}
 
 	@Test
 	public void contextSourceFactoryBeanWhenManagerDnAndNoPasswordThenException() {
 		assertThatExceptionOfType(UnsatisfiedDependencyException.class)
-				.isThrownBy(() -> this.spring.register(CustomManagerDnNoPasswordConfig.class).autowire())
-				.havingRootCause().isInstanceOf(IllegalStateException.class)
-				.withMessageContaining("managerPassword is required if managerDn is supplied");
+	.isThrownBy(() -> this.spring.register(CustomManagerDnNoPasswordConfig.class).autowire())
+	.havingRootCause().isInstanceOf(IllegalStateException.class)
+	.withMessageContaining("managerPassword is required if managerDn is supplied");
 	}
 
 	@Configuration
@@ -107,7 +107,7 @@ public class EmbeddedLdapServerContextSourceFactoryBeanITests {
 		@Bean
 		EmbeddedLdapServerContextSourceFactoryBean contextSourceFactoryBean() {
 			EmbeddedLdapServerContextSourceFactoryBean factoryBean = EmbeddedLdapServerContextSourceFactoryBean
-					.fromEmbeddedLdapServer();
+		.fromEmbeddedLdapServer();
 			factoryBean.setPort(0);
 			return factoryBean;
 		}
@@ -128,7 +128,7 @@ public class EmbeddedLdapServerContextSourceFactoryBeanITests {
 		@Bean
 		EmbeddedLdapServerContextSourceFactoryBean contextSourceFactoryBean() {
 			EmbeddedLdapServerContextSourceFactoryBean factoryBean = EmbeddedLdapServerContextSourceFactoryBean
-					.fromEmbeddedLdapServer();
+		.fromEmbeddedLdapServer();
 			factoryBean.setLdif("classpath*:test-server2.xldif");
 			factoryBean.setRoot("dc=monkeymachine,dc=co,dc=uk");
 			return factoryBean;
@@ -150,7 +150,7 @@ public class EmbeddedLdapServerContextSourceFactoryBeanITests {
 		@Bean
 		EmbeddedLdapServerContextSourceFactoryBean contextSourceFactoryBean() {
 			EmbeddedLdapServerContextSourceFactoryBean factoryBean = EmbeddedLdapServerContextSourceFactoryBean
-					.fromEmbeddedLdapServer();
+		.fromEmbeddedLdapServer();
 			factoryBean.setManagerDn("uid=admin,ou=system");
 			factoryBean.setManagerPassword("secret");
 			return factoryBean;
@@ -159,7 +159,7 @@ public class EmbeddedLdapServerContextSourceFactoryBeanITests {
 		@Bean
 		AuthenticationManager authenticationManager(LdapContextSource contextSource) {
 			LdapPasswordComparisonAuthenticationManagerFactory factory = new LdapPasswordComparisonAuthenticationManagerFactory(
-					contextSource, NoOpPasswordEncoder.getInstance());
+		contextSource, NoOpPasswordEncoder.getInstance());
 			factory.setUserDnPatterns("uid={0},ou=people");
 			return factory.createAuthenticationManager();
 		}
@@ -173,7 +173,7 @@ public class EmbeddedLdapServerContextSourceFactoryBeanITests {
 		@Bean
 		EmbeddedLdapServerContextSourceFactoryBean contextSourceFactoryBean() {
 			EmbeddedLdapServerContextSourceFactoryBean factoryBean = EmbeddedLdapServerContextSourceFactoryBean
-					.fromEmbeddedLdapServer();
+		.fromEmbeddedLdapServer();
 			factoryBean.setManagerDn("uid=admin,ou=system");
 			return factoryBean;
 		}
@@ -181,7 +181,7 @@ public class EmbeddedLdapServerContextSourceFactoryBeanITests {
 		@Bean
 		AuthenticationManager authenticationManager(LdapContextSource contextSource) {
 			LdapPasswordComparisonAuthenticationManagerFactory factory = new LdapPasswordComparisonAuthenticationManagerFactory(
-					contextSource, NoOpPasswordEncoder.getInstance());
+		contextSource, NoOpPasswordEncoder.getInstance());
 			factory.setUserDnPatterns("uid={0},ou=people");
 			return factory.createAuthenticationManager();
 		}

@@ -81,14 +81,14 @@ public final class ClientCredentialsOAuth2AuthorizedClientProvider implements OA
 		// Therefore, renewing an expired access token (re-authorization)
 		// is the same as acquiring a new access token (authorization).
 		OAuth2ClientCredentialsGrantRequest clientCredentialsGrantRequest = new OAuth2ClientCredentialsGrantRequest(
-				clientRegistration);
+	clientRegistration);
 		OAuth2AccessTokenResponse tokenResponse = getTokenResponse(clientRegistration, clientCredentialsGrantRequest);
 		return new OAuth2AuthorizedClient(clientRegistration, context.getPrincipal().getName(),
-				tokenResponse.getAccessToken());
+	tokenResponse.getAccessToken());
 	}
 
 	private OAuth2AccessTokenResponse getTokenResponse(ClientRegistration clientRegistration,
-			OAuth2ClientCredentialsGrantRequest clientCredentialsGrantRequest) {
+OAuth2ClientCredentialsGrantRequest clientCredentialsGrantRequest) {
 		try {
 			return this.accessTokenResponseClient.getTokenResponse(clientCredentialsGrantRequest);
 		}
@@ -108,7 +108,7 @@ public final class ClientCredentialsOAuth2AuthorizedClientProvider implements OA
 	 * credential at the Token Endpoint for the {@code client_credentials} grant
 	 */
 	public void setAccessTokenResponseClient(
-			OAuth2AccessTokenResponseClient<OAuth2ClientCredentialsGrantRequest> accessTokenResponseClient) {
+OAuth2AccessTokenResponseClient<OAuth2ClientCredentialsGrantRequest> accessTokenResponseClient) {
 		Assert.notNull(accessTokenResponseClient, "accessTokenResponseClient cannot be null");
 		this.accessTokenResponseClient = accessTokenResponseClient;
 	}

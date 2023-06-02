@@ -55,17 +55,17 @@ public class HttpSecurityDeferAddFilterTests {
 	@Test
 	public void addFilterAfterFilterNotRegisteredYetThenThrowIllegalArgument() {
 		assertThatExceptionOfType(UnsatisfiedDependencyException.class)
-				.isThrownBy(
-						() -> this.spring.register(MyOtherFilterAfterMyFilterNotRegisteredYetConfig.class).autowire())
-				.havingRootCause().isInstanceOf(IllegalArgumentException.class);
+	.isThrownBy(
+() -> this.spring.register(MyOtherFilterAfterMyFilterNotRegisteredYetConfig.class).autowire())
+	.havingRootCause().isInstanceOf(IllegalArgumentException.class);
 	}
 
 	@Test
 	public void addFilterBeforeFilterNotRegisteredYetThenThrowIllegalArgument() {
 		assertThatExceptionOfType(UnsatisfiedDependencyException.class)
-				.isThrownBy(
-						() -> this.spring.register(MyOtherFilterBeforeMyFilterNotRegisteredYetConfig.class).autowire())
-				.havingRootCause().isInstanceOf(IllegalArgumentException.class);
+	.isThrownBy(
+() -> this.spring.register(MyOtherFilterBeforeMyFilterNotRegisteredYetConfig.class).autowire())
+	.havingRootCause().isInstanceOf(IllegalArgumentException.class);
 	}
 
 	@Test
@@ -73,7 +73,7 @@ public class HttpSecurityDeferAddFilterTests {
 		this.spring.register(MyFilterMultipleAfterConfig.class).autowire();
 
 		assertThatFilters().containsSubsequence(WebAsyncManagerIntegrationFilter.class, MyFilter.class,
-				ExceptionTranslationFilter.class, MyFilter.class);
+	ExceptionTranslationFilter.class, MyFilter.class);
 	}
 
 	@Test
@@ -81,7 +81,7 @@ public class HttpSecurityDeferAddFilterTests {
 		this.spring.register(MyFilterMultipleBeforeConfig.class).autowire();
 
 		assertThatFilters().containsSubsequence(MyFilter.class, WebAsyncManagerIntegrationFilter.class, MyFilter.class,
-				ExceptionTranslationFilter.class);
+	ExceptionTranslationFilter.class);
 	}
 
 	@Test
@@ -89,7 +89,7 @@ public class HttpSecurityDeferAddFilterTests {
 		this.spring.register(MyFilterMultipleAtConfig.class).autowire();
 
 		assertThatFilters().containsSubsequence(MyFilter.class, WebAsyncManagerIntegrationFilter.class, MyFilter.class,
-				ExceptionTranslationFilter.class);
+	ExceptionTranslationFilter.class);
 	}
 
 	@Test
@@ -97,7 +97,7 @@ public class HttpSecurityDeferAddFilterTests {
 		this.spring.register(MyOtherFilterRelativeToMyFilterAfterConfig.class).autowire();
 
 		assertThatFilters().containsSubsequence(WebAsyncManagerIntegrationFilter.class, MyFilter.class,
-				MyOtherFilter.class);
+	MyOtherFilter.class);
 	}
 
 	@Test
@@ -105,7 +105,7 @@ public class HttpSecurityDeferAddFilterTests {
 		this.spring.register(MyOtherFilterRelativeToMyFilterBeforeConfig.class).autowire();
 
 		assertThatFilters().containsSubsequence(MyOtherFilter.class, MyFilter.class,
-				WebAsyncManagerIntegrationFilter.class);
+	WebAsyncManagerIntegrationFilter.class);
 	}
 
 	@Test
@@ -113,7 +113,7 @@ public class HttpSecurityDeferAddFilterTests {
 		this.spring.register(MyOtherFilterRelativeToMyFilterAtConfig.class).autowire();
 
 		assertThatFilters().containsSubsequence(WebAsyncManagerIntegrationFilter.class, MyFilter.class,
-				MyOtherFilter.class, SecurityContextHolderFilter.class);
+	MyOtherFilter.class, SecurityContextHolderFilter.class);
 	}
 
 	@Test
@@ -121,7 +121,7 @@ public class HttpSecurityDeferAddFilterTests {
 		this.spring.register(MyOtherFilterBeforeToMyFilterMultipleAfterConfig.class).autowire();
 
 		assertThatFilters().containsSubsequence(WebAsyncManagerIntegrationFilter.class, MyOtherFilter.class,
-				MyFilter.class, ExceptionTranslationFilter.class);
+	MyFilter.class, ExceptionTranslationFilter.class);
 	}
 
 	@Test
@@ -129,13 +129,13 @@ public class HttpSecurityDeferAddFilterTests {
 		this.spring.register(MyAnotherFilterRelativeToMyCustomFiltersMultipleConfig.class).autowire();
 
 		assertThatFilters().containsSubsequence(HeaderWriterFilter.class, MyFilter.class, MyOtherFilter.class,
-				MyOtherFilter.class, MyAnotherFilter.class, MyFilter.class, ExceptionTranslationFilter.class);
+	MyOtherFilter.class, MyAnotherFilter.class, MyFilter.class, ExceptionTranslationFilter.class);
 	}
 
 	private ListAssert<Class<?>> assertThatFilters() {
 		FilterChainProxy filterChain = this.spring.getContext().getBean(FilterChainProxy.class);
 		List<Class<?>> filters = filterChain.getFilters("/").stream().map(Object::getClass)
-				.collect(Collectors.toList());
+	.collect(Collectors.toList());
 		return assertThat(filters);
 	}
 
@@ -143,7 +143,7 @@ public class HttpSecurityDeferAddFilterTests {
 
 		@Override
 		public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
-				throws IOException, ServletException {
+	throws IOException, ServletException {
 			filterChain.doFilter(servletRequest, servletResponse);
 		}
 
@@ -153,7 +153,7 @@ public class HttpSecurityDeferAddFilterTests {
 
 		@Override
 		public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
-				throws IOException, ServletException {
+	throws IOException, ServletException {
 			filterChain.doFilter(servletRequest, servletResponse);
 		}
 
@@ -163,7 +163,7 @@ public class HttpSecurityDeferAddFilterTests {
 
 		@Override
 		public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
-				throws IOException, ServletException {
+	throws IOException, ServletException {
 			filterChain.doFilter(servletRequest, servletResponse);
 		}
 
@@ -177,8 +177,8 @@ public class HttpSecurityDeferAddFilterTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-					.addFilterAfter(new MyFilter(), WebAsyncManagerIntegrationFilter.class)
-					.addFilterAfter(new MyFilter(), ExceptionTranslationFilter.class);
+		.addFilterAfter(new MyFilter(), WebAsyncManagerIntegrationFilter.class)
+		.addFilterAfter(new MyFilter(), ExceptionTranslationFilter.class);
 			return http.build();
 			// @formatter:on
 		}
@@ -193,8 +193,8 @@ public class HttpSecurityDeferAddFilterTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-					.addFilterBefore(new MyFilter(), WebAsyncManagerIntegrationFilter.class)
-					.addFilterBefore(new MyFilter(), ExceptionTranslationFilter.class);
+		.addFilterBefore(new MyFilter(), WebAsyncManagerIntegrationFilter.class)
+		.addFilterBefore(new MyFilter(), ExceptionTranslationFilter.class);
 			return http.build();
 			// @formatter:on
 		}
@@ -209,8 +209,8 @@ public class HttpSecurityDeferAddFilterTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-					.addFilterAt(new MyFilter(), ChannelProcessingFilter.class)
-					.addFilterAt(new MyFilter(), UsernamePasswordAuthenticationFilter.class);
+		.addFilterAt(new MyFilter(), ChannelProcessingFilter.class)
+		.addFilterAt(new MyFilter(), UsernamePasswordAuthenticationFilter.class);
 			return http.build();
 			// @formatter:on
 		}
@@ -225,8 +225,8 @@ public class HttpSecurityDeferAddFilterTests {
 		SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-					.addFilterAfter(new MyFilter(), WebAsyncManagerIntegrationFilter.class)
-					.addFilterAfter(new MyOtherFilter(), MyFilter.class);
+		.addFilterAfter(new MyFilter(), WebAsyncManagerIntegrationFilter.class)
+		.addFilterAfter(new MyOtherFilter(), MyFilter.class);
 			// @formatter:on
 			return http.build();
 		}
@@ -241,7 +241,7 @@ public class HttpSecurityDeferAddFilterTests {
 		SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-					.addFilterAfter(new MyOtherFilter(), MyFilter.class);
+		.addFilterAfter(new MyOtherFilter(), MyFilter.class);
 			// @formatter:on
 			return http.build();
 		}
@@ -255,7 +255,7 @@ public class HttpSecurityDeferAddFilterTests {
 		SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-					.addFilterBefore(new MyOtherFilter(), MyFilter.class);
+		.addFilterBefore(new MyOtherFilter(), MyFilter.class);
 			// @formatter:on
 			return http.build();
 		}
@@ -269,8 +269,8 @@ public class HttpSecurityDeferAddFilterTests {
 		SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-					.addFilterBefore(new MyFilter(), WebAsyncManagerIntegrationFilter.class)
-					.addFilterBefore(new MyOtherFilter(), MyFilter.class);
+		.addFilterBefore(new MyFilter(), WebAsyncManagerIntegrationFilter.class)
+		.addFilterBefore(new MyOtherFilter(), MyFilter.class);
 			// @formatter:on
 			return http.build();
 		}
@@ -285,8 +285,8 @@ public class HttpSecurityDeferAddFilterTests {
 		SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-					.addFilterAt(new MyFilter(), WebAsyncManagerIntegrationFilter.class)
-					.addFilterAt(new MyOtherFilter(), MyFilter.class);
+		.addFilterAt(new MyFilter(), WebAsyncManagerIntegrationFilter.class)
+		.addFilterAt(new MyOtherFilter(), MyFilter.class);
 			// @formatter:on
 			return http.build();
 		}
@@ -301,9 +301,9 @@ public class HttpSecurityDeferAddFilterTests {
 		SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-					.addFilterAfter(new MyFilter(), WebAsyncManagerIntegrationFilter.class)
-					.addFilterAfter(new MyFilter(), ExceptionTranslationFilter.class)
-					.addFilterBefore(new MyOtherFilter(), MyFilter.class);
+		.addFilterAfter(new MyFilter(), WebAsyncManagerIntegrationFilter.class)
+		.addFilterAfter(new MyFilter(), ExceptionTranslationFilter.class)
+		.addFilterBefore(new MyOtherFilter(), MyFilter.class);
 			// @formatter:on
 			return http.build();
 		}
@@ -318,11 +318,11 @@ public class HttpSecurityDeferAddFilterTests {
 		SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-					.addFilterAfter(new MyFilter(), HeaderWriterFilter.class)
-					.addFilterBefore(new MyOtherFilter(), ExceptionTranslationFilter.class)
-					.addFilterAfter(new MyOtherFilter(), MyFilter.class)
-					.addFilterAt(new MyAnotherFilter(), MyOtherFilter.class)
-					.addFilterAfter(new MyFilter(), MyAnotherFilter.class);
+		.addFilterAfter(new MyFilter(), HeaderWriterFilter.class)
+		.addFilterBefore(new MyOtherFilter(), ExceptionTranslationFilter.class)
+		.addFilterAfter(new MyOtherFilter(), MyFilter.class)
+		.addFilterAt(new MyAnotherFilter(), MyOtherFilter.class)
+		.addFilterAfter(new MyFilter(), MyAnotherFilter.class);
 			// @formatter:on
 			return http.build();
 		}

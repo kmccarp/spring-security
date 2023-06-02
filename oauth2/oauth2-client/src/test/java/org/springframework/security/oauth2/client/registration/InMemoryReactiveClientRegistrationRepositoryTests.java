@@ -51,43 +51,43 @@ public class InMemoryReactiveClientRegistrationRepositoryTests {
 	public void constructorWhenClientRegistrationArrayThenIllegalArgumentException() {
 		ClientRegistration[] registrations = null;
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new InMemoryReactiveClientRegistrationRepository(registrations));
+	.isThrownBy(() -> new InMemoryReactiveClientRegistrationRepository(registrations));
 	}
 
 	@Test
 	public void constructorWhenClientRegistrationListThenIllegalArgumentException() {
 		List<ClientRegistration> registrations = null;
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new InMemoryReactiveClientRegistrationRepository(registrations));
+	.isThrownBy(() -> new InMemoryReactiveClientRegistrationRepository(registrations));
 	}
 
 	@Test
 	public void constructorListClientRegistrationWhenDuplicateIdThenIllegalArgumentException() {
 		List<ClientRegistration> registrations = Arrays.asList(this.registration, this.registration);
 		assertThatIllegalStateException()
-				.isThrownBy(() -> new InMemoryReactiveClientRegistrationRepository(registrations));
+	.isThrownBy(() -> new InMemoryReactiveClientRegistrationRepository(registrations));
 	}
 
 	@Test
 	public void constructorWhenClientRegistrationIsNullThenIllegalArgumentException() {
 		ClientRegistration registration = null;
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new InMemoryReactiveClientRegistrationRepository(registration));
+	.isThrownBy(() -> new InMemoryReactiveClientRegistrationRepository(registration));
 	}
 
 	@Test
 	public void findByRegistrationIdWhenValidIdThenFound() {
 		// @formatter:off
 		StepVerifier.create(this.repository.findByRegistrationId(this.registration.getRegistrationId()))
-				.expectNext(this.registration)
-				.verifyComplete();
+	.expectNext(this.registration)
+	.verifyComplete();
 		// @formatter:on
 	}
 
 	@Test
 	public void findByRegistrationIdWhenNotValidIdThenEmpty() {
 		StepVerifier.create(this.repository.findByRegistrationId(this.registration.getRegistrationId() + "invalid"))
-				.verifyComplete();
+	.verifyComplete();
 	}
 
 	@Test

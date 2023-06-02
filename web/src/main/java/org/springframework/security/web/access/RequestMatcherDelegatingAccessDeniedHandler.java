@@ -52,7 +52,7 @@ public final class RequestMatcherDelegatingAccessDeniedHandler implements Access
 	 * if none of the matchers match.
 	 */
 	public RequestMatcherDelegatingAccessDeniedHandler(LinkedHashMap<RequestMatcher, AccessDeniedHandler> handlers,
-			AccessDeniedHandler defaultHandler) {
+AccessDeniedHandler defaultHandler) {
 		Assert.notEmpty(handlers, "handlers cannot be null or empty");
 		Assert.notNull(defaultHandler, "defaultHandler cannot be null");
 		this.handlers = new LinkedHashMap<>(handlers);
@@ -61,7 +61,7 @@ public final class RequestMatcherDelegatingAccessDeniedHandler implements Access
 
 	@Override
 	public void handle(HttpServletRequest request, HttpServletResponse response,
-			AccessDeniedException accessDeniedException) throws IOException, ServletException {
+AccessDeniedException accessDeniedException) throws IOException, ServletException {
 		for (Entry<RequestMatcher, AccessDeniedHandler> entry : this.handlers.entrySet()) {
 			RequestMatcher matcher = entry.getKey();
 			if (matcher.matches(request)) {

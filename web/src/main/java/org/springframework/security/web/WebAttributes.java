@@ -50,7 +50,7 @@ public final class WebAttributes {
 	 * @see WebInvocationPrivilegeEvaluator
 	 */
 	public static final String WEB_INVOCATION_PRIVILEGE_EVALUATOR_ATTRIBUTE = WebAttributes.class.getName()
-			+ ".WEB_INVOCATION_PRIVILEGE_EVALUATOR_ATTRIBUTE";
++ ".WEB_INVOCATION_PRIVILEGE_EVALUATOR_ATTRIBUTE";
 
 	private WebAttributes() {
 	}

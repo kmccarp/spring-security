@@ -53,7 +53,7 @@ class ReactiveMethodSecurityConfiguration implements ImportAware {
 	@Role(BeanDefinition.ROLE_INFRASTRUCTURE)
 	MethodSecurityMetadataSourceAdvisor methodSecurityInterceptor(AbstractMethodSecurityMetadataSource source) {
 		MethodSecurityMetadataSourceAdvisor advisor = new MethodSecurityMetadataSourceAdvisor(
-				"securityMethodInterceptor", source, "methodMetadataSource");
+	"securityMethodInterceptor", source, "methodMetadataSource");
 		advisor.setOrder(this.advisorOrder);
 		return advisor;
 	}
@@ -61,17 +61,17 @@ class ReactiveMethodSecurityConfiguration implements ImportAware {
 	@Bean
 	@Role(BeanDefinition.ROLE_INFRASTRUCTURE)
 	DelegatingMethodSecurityMetadataSource methodMetadataSource(
-			MethodSecurityExpressionHandler methodSecurityExpressionHandler) {
+MethodSecurityExpressionHandler methodSecurityExpressionHandler) {
 		ExpressionBasedAnnotationAttributeFactory attributeFactory = new ExpressionBasedAnnotationAttributeFactory(
-				methodSecurityExpressionHandler);
+	methodSecurityExpressionHandler);
 		PrePostAnnotationSecurityMetadataSource prePostSource = new PrePostAnnotationSecurityMetadataSource(
-				attributeFactory);
+	attributeFactory);
 		return new DelegatingMethodSecurityMetadataSource(Arrays.asList(prePostSource));
 	}
 
 	@Bean
 	PrePostAdviceReactiveMethodInterceptor securityMethodInterceptor(AbstractMethodSecurityMetadataSource source,
-			MethodSecurityExpressionHandler handler) {
+MethodSecurityExpressionHandler handler) {
 		ExpressionBasedPostInvocationAdvice postAdvice = new ExpressionBasedPostInvocationAdvice(handler);
 		ExpressionBasedPreInvocationAdvice preAdvice = new ExpressionBasedPreInvocationAdvice();
 		preAdvice.setExpressionHandler(handler);
@@ -91,7 +91,7 @@ class ReactiveMethodSecurityConfiguration implements ImportAware {
 	@Override
 	public void setImportMetadata(AnnotationMetadata importMetadata) {
 		this.advisorOrder = (int) importMetadata.getAnnotationAttributes(EnableReactiveMethodSecurity.class.getName())
-				.get("order");
+	.get("order");
 	}
 
 	@Autowired(required = false)

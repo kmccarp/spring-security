@@ -80,11 +80,10 @@ import org.springframework.web.accept.HeaderContentNegotiationStrategy;
  * @author Evgeniy Cheban
  * @since 3.2
  */
-public final class HttpBasicConfigurer<B extends HttpSecurityBuilder<B>>
-		extends AbstractHttpConfigurer<HttpBasicConfigurer<B>, B> {
+public final class HttpBasicConfigurer<B extends HttpSecurityBuilder<B>>extends AbstractHttpConfigurer<HttpBasicConfigurer<B>, B> {
 
 	private static final RequestHeaderRequestMatcher X_REQUESTED_WITH = new RequestHeaderRequestMatcher(
-			"X-Requested-With", "XMLHttpRequest");
+"X-Requested-With", "XMLHttpRequest");
 
 	private static final String DEFAULT_REALM = "Realm";
 
@@ -142,7 +141,7 @@ public final class HttpBasicConfigurer<B extends HttpSecurityBuilder<B>>
 	 * @return {@link HttpBasicConfigurer} for additional customization
 	 */
 	public HttpBasicConfigurer<B> authenticationDetailsSource(
-			AuthenticationDetailsSource<HttpServletRequest, ?> authenticationDetailsSource) {
+AuthenticationDetailsSource<HttpServletRequest, ?> authenticationDetailsSource) {
 		this.authenticationDetailsSource = authenticationDetailsSource;
 		return this;
 	}
@@ -171,18 +170,18 @@ public final class HttpBasicConfigurer<B extends HttpSecurityBuilder<B>>
 			contentNegotiationStrategy = new HeaderContentNegotiationStrategy();
 		}
 		MediaTypeRequestMatcher restMatcher = new MediaTypeRequestMatcher(contentNegotiationStrategy,
-				MediaType.APPLICATION_ATOM_XML, MediaType.APPLICATION_FORM_URLENCODED, MediaType.APPLICATION_JSON,
-				MediaType.APPLICATION_OCTET_STREAM, MediaType.APPLICATION_XML, MediaType.MULTIPART_FORM_DATA,
-				MediaType.TEXT_XML);
+	MediaType.APPLICATION_ATOM_XML, MediaType.APPLICATION_FORM_URLENCODED, MediaType.APPLICATION_JSON,
+	MediaType.APPLICATION_OCTET_STREAM, MediaType.APPLICATION_XML, MediaType.MULTIPART_FORM_DATA,
+	MediaType.TEXT_XML);
 		restMatcher.setIgnoredMediaTypes(Collections.singleton(MediaType.ALL));
 		MediaTypeRequestMatcher allMatcher = new MediaTypeRequestMatcher(contentNegotiationStrategy, MediaType.ALL);
 		allMatcher.setUseEquals(true);
 		RequestMatcher notHtmlMatcher = new NegatedRequestMatcher(
-				new MediaTypeRequestMatcher(contentNegotiationStrategy, MediaType.TEXT_HTML));
+	new MediaTypeRequestMatcher(contentNegotiationStrategy, MediaType.TEXT_HTML));
 		RequestMatcher restNotHtmlMatcher = new AndRequestMatcher(
-				Arrays.<RequestMatcher>asList(notHtmlMatcher, restMatcher));
+	Arrays.<RequestMatcher>asList(notHtmlMatcher, restMatcher));
 		RequestMatcher preferredMatcher = new OrRequestMatcher(
-				Arrays.asList(X_REQUESTED_WITH, restNotHtmlMatcher, allMatcher));
+	Arrays.asList(X_REQUESTED_WITH, restNotHtmlMatcher, allMatcher));
 		registerDefaultEntryPoint(http, preferredMatcher);
 		registerDefaultLogoutSuccessHandler(http, preferredMatcher);
 	}
@@ -193,7 +192,7 @@ public final class HttpBasicConfigurer<B extends HttpSecurityBuilder<B>>
 			return;
 		}
 		exceptionHandling.defaultAuthenticationEntryPointFor(postProcess(this.authenticationEntryPoint),
-				preferredMatcher);
+	preferredMatcher);
 	}
 
 	private void registerDefaultLogoutSuccessHandler(B http, RequestMatcher preferredMatcher) {
@@ -202,14 +201,14 @@ public final class HttpBasicConfigurer<B extends HttpSecurityBuilder<B>>
 			return;
 		}
 		LogoutConfigurer<B> handler = logout.defaultLogoutSuccessHandlerFor(
-				postProcess(new HttpStatusReturningLogoutSuccessHandler(HttpStatus.NO_CONTENT)), preferredMatcher);
+	postProcess(new HttpStatusReturningLogoutSuccessHandler(HttpStatus.NO_CONTENT)), preferredMatcher);
 	}
 
 	@Override
 	public void configure(B http) {
 		AuthenticationManager authenticationManager = http.getSharedObject(AuthenticationManager.class);
 		BasicAuthenticationFilter basicAuthenticationFilter = new BasicAuthenticationFilter(authenticationManager,
-				this.authenticationEntryPoint);
+	this.authenticationEntryPoint);
 		if (this.authenticationDetailsSource != null) {
 			basicAuthenticationFilter.setAuthenticationDetailsSource(this.authenticationDetailsSource);
 		}

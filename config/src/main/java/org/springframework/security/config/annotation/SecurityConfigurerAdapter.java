@@ -111,7 +111,7 @@ public abstract class SecurityConfigurerAdapter<O, B extends SecurityBuilder<O>>
 		private List<ObjectPostProcessor<?>> postProcessors = new ArrayList<>();
 
 		@Override
-		@SuppressWarnings({ "rawtypes", "unchecked" })
+		@SuppressWarnings({"rawtypes", "unchecked"})
 		public Object postProcess(Object object) {
 			for (ObjectPostProcessor opp : this.postProcessors) {
 				Class<?> oppClass = opp.getClass();

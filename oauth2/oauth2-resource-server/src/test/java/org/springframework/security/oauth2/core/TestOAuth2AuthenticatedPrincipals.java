@@ -58,7 +58,7 @@ public final class TestOAuth2AuthenticatedPrincipals {
 		attributes.put(OAuth2TokenIntrospectionClaimNames.USERNAME, "jdoe");
 		attributesConsumer.accept(attributes);
 		Collection<GrantedAuthority> authorities = Arrays.asList(new SimpleGrantedAuthority("SCOPE_read"),
-				new SimpleGrantedAuthority("SCOPE_write"), new SimpleGrantedAuthority("SCOPE_dolphin"));
+	new SimpleGrantedAuthority("SCOPE_write"), new SimpleGrantedAuthority("SCOPE_dolphin"));
 		return new OAuth2IntrospectionAuthenticatedPrincipal(attributes, authorities);
 	}
 

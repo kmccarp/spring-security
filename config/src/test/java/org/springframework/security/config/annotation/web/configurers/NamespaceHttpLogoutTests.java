@@ -57,7 +57,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @author Rob Winch
  * @author Josh Cummings
  */
-@ExtendWith({ SpringExtension.class, SpringTestContextExtension.class })
+@ExtendWith({SpringExtension.class, SpringTestContextExtension.class})
 @SecurityTestExecutionListeners
 public class NamespaceHttpLogoutTests {
 
@@ -75,10 +75,10 @@ public class NamespaceHttpLogoutTests {
 		this.spring.register(HttpLogoutConfig.class).autowire();
 		// @formatter:off
 		this.mvc.perform(post("/logout").with(csrf()))
-				.andExpect(authenticated(false))
-				.andExpect(redirectedUrl("/login?logout"))
-				.andExpect(noCookies())
-				.andExpect(session(Objects::isNull));
+	.andExpect(authenticated(false))
+	.andExpect(redirectedUrl("/login?logout"))
+	.andExpect(noCookies())
+	.andExpect(session(Objects::isNull));
 		// @formatter:on
 	}
 
@@ -99,11 +99,11 @@ public class NamespaceHttpLogoutTests {
 		this.spring.register(CustomHttpLogoutConfig.class).autowire();
 		// @formatter:off
 		this.mvc.perform(post("/custom-logout").with(csrf()))
-				.andExpect(authenticated(false))
-				.andExpect(redirectedUrl("/logout-success"))
-				.andExpect((result) -> assertThat(result.getResponse().getCookies()).hasSize(1))
-				.andExpect(cookie().maxAge("remove", 0))
-				.andExpect(session(Objects::nonNull));
+	.andExpect(authenticated(false))
+	.andExpect(redirectedUrl("/logout-success"))
+	.andExpect((result) -> assertThat(result.getResponse().getCookies()).hasSize(1))
+	.andExpect(cookie().maxAge("remove", 0))
+	.andExpect(session(Objects::nonNull));
 		// @formatter:on
 	}
 
@@ -113,11 +113,11 @@ public class NamespaceHttpLogoutTests {
 		this.spring.register(CustomHttpLogoutInLambdaConfig.class).autowire();
 		// @formatter:off
 		this.mvc.perform(post("/custom-logout").with(csrf()))
-				.andExpect(authenticated(false))
-				.andExpect(redirectedUrl("/logout-success"))
-				.andExpect((result) -> assertThat(result.getResponse().getCookies()).hasSize(1))
-				.andExpect(cookie().maxAge("remove", 0))
-				.andExpect(session(Objects::nonNull));
+	.andExpect(authenticated(false))
+	.andExpect(redirectedUrl("/logout-success"))
+	.andExpect((result) -> assertThat(result.getResponse().getCookies()).hasSize(1))
+	.andExpect(cookie().maxAge("remove", 0))
+	.andExpect(session(Objects::nonNull));
 		// @formatter:on
 	}
 
@@ -130,10 +130,10 @@ public class NamespaceHttpLogoutTests {
 		this.spring.register(SuccessHandlerRefHttpLogoutConfig.class).autowire();
 		// @formatter:off
 		this.mvc.perform(post("/logout").with(csrf()))
-				.andExpect(authenticated(false))
-				.andExpect(redirectedUrl("/SuccessHandlerRefHttpLogoutConfig"))
-				.andExpect(noCookies())
-				.andExpect(session(Objects::isNull));
+	.andExpect(authenticated(false))
+	.andExpect(redirectedUrl("/SuccessHandlerRefHttpLogoutConfig"))
+	.andExpect(noCookies())
+	.andExpect(session(Objects::isNull));
 		// @formatter:on
 	}
 
@@ -143,16 +143,16 @@ public class NamespaceHttpLogoutTests {
 		this.spring.register(SuccessHandlerRefHttpLogoutInLambdaConfig.class).autowire();
 		// @formatter:off
 		this.mvc.perform(post("/logout").with(csrf()))
-				.andExpect(authenticated(false))
-				.andExpect(redirectedUrl("/SuccessHandlerRefHttpLogoutConfig"))
-				.andExpect(noCookies())
-				.andExpect(session(Objects::isNull));
+	.andExpect(authenticated(false))
+	.andExpect(redirectedUrl("/SuccessHandlerRefHttpLogoutConfig"))
+	.andExpect(noCookies())
+	.andExpect(session(Objects::isNull));
 		// @formatter:on
 	}
 
 	ResultMatcher authenticated(boolean authenticated) {
 		return (result) -> assertThat(Optional.ofNullable(SecurityContextHolder.getContext().getAuthentication())
-				.map(Authentication::isAuthenticated).orElse(false)).isEqualTo(authenticated);
+	.map(Authentication::isAuthenticated).orElse(false)).isEqualTo(authenticated);
 	}
 
 	ResultMatcher noCookies() {
@@ -161,7 +161,7 @@ public class NamespaceHttpLogoutTests {
 
 	ResultMatcher session(Predicate<HttpSession> sessionPredicate) {
 		return (result) -> assertThat(result.getRequest().getSession(false))
-				.is(new Condition<>(sessionPredicate, "sessionPredicate failed"));
+	.is(new Condition<>(sessionPredicate, "sessionPredicate failed"));
 	}
 
 	@Configuration
@@ -195,11 +195,11 @@ public class NamespaceHttpLogoutTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.logout()
-					.deleteCookies("remove") // logout@delete-cookies
-					.invalidateHttpSession(false) // logout@invalidate-session=false (default is true)
-					.logoutUrl("/custom-logout") // logout@logout-url (default is /logout)
-					.logoutSuccessUrl("/logout-success");
+		.logout()
+		.deleteCookies("remove") // logout@delete-cookies
+		.invalidateHttpSession(false) // logout@invalidate-session=false (default is true)
+		.logoutUrl("/custom-logout") // logout@logout-url (default is /logout)
+		.logoutSuccessUrl("/logout-success");
 			return http.build(); // logout@success-url (default is /login?logout)
 			// @formatter:on
 		}
@@ -214,12 +214,12 @@ public class NamespaceHttpLogoutTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.logout((logout) ->
-						logout.deleteCookies("remove")
-							.invalidateHttpSession(false)
-							.logoutUrl("/custom-logout")
-							.logoutSuccessUrl("/logout-success")
-				);
+		.logout((logout) ->
+	logout.deleteCookies("remove")
+.invalidateHttpSession(false)
+.logoutUrl("/custom-logout")
+.logoutSuccessUrl("/logout-success")
+		);
 			return http.build();
 			// @formatter:on
 		}
@@ -236,8 +236,8 @@ public class NamespaceHttpLogoutTests {
 			logoutSuccessHandler.setDefaultTargetUrl("/SuccessHandlerRefHttpLogoutConfig");
 			// @formatter:off
 			http
-				.logout()
-					.logoutSuccessHandler(logoutSuccessHandler);
+		.logout()
+		.logoutSuccessHandler(logoutSuccessHandler);
 			return http.build();
 			// @formatter:on
 		}
@@ -254,7 +254,7 @@ public class NamespaceHttpLogoutTests {
 			logoutSuccessHandler.setDefaultTargetUrl("/SuccessHandlerRefHttpLogoutConfig");
 			// @formatter:off
 			http
-				.logout((logout) -> logout.logoutSuccessHandler(logoutSuccessHandler));
+		.logout((logout) -> logout.logoutSuccessHandler(logoutSuccessHandler));
 			return http.build();
 			// @formatter:on
 		}

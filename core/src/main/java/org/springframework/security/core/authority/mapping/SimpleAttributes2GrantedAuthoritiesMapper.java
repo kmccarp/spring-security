@@ -38,8 +38,7 @@ import org.springframework.util.Assert;
  * @author Ruud Senden
  * @since 2.0
  */
-public class SimpleAttributes2GrantedAuthoritiesMapper
-		implements Attributes2GrantedAuthoritiesMapper, InitializingBean {
+public class SimpleAttributes2GrantedAuthoritiesMapperimplements Attributes2GrantedAuthoritiesMapper, InitializingBean {
 
 	private String attributePrefix = "ROLE_";
 
@@ -55,7 +54,7 @@ public class SimpleAttributes2GrantedAuthoritiesMapper
 	@Override
 	public void afterPropertiesSet() {
 		Assert.isTrue(!(isConvertAttributeToUpperCase() && isConvertAttributeToLowerCase()),
-				"Either convertAttributeToUpperCase or convertAttributeToLowerCase can be set to true, but not both");
+	"Either convertAttributeToUpperCase or convertAttributeToLowerCase can be set to true, but not both");
 	}
 
 	/**

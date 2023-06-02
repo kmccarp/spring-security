@@ -89,37 +89,37 @@ public class AuthorizeHttpRequestsConfigurerTests {
 	@Test
 	public void configureWhenAuthorizedHttpRequestsAndNoRequestsThenException() {
 		assertThatExceptionOfType(BeanCreationException.class)
-				.isThrownBy(() -> this.spring.register(NoRequestsConfig.class).autowire()).withMessageContaining(
-						"At least one mapping is required (for example, authorizeHttpRequests().anyRequest().authenticated())");
+	.isThrownBy(() -> this.spring.register(NoRequestsConfig.class).autowire()).withMessageContaining(
+	"At least one mapping is required (for example, authorizeHttpRequests().anyRequest().authenticated())");
 	}
 
 	@Test
 	public void configureNoParameterWhenAuthorizedHttpRequestsAndNoRequestsThenException() {
 		assertThatExceptionOfType(BeanCreationException.class)
-				.isThrownBy(() -> this.spring.register(NoRequestsNoParameterConfig.class).autowire())
-				.withMessageContaining(
-						"At least one mapping is required (for example, authorizeHttpRequests().anyRequest().authenticated())");
+	.isThrownBy(() -> this.spring.register(NoRequestsNoParameterConfig.class).autowire())
+	.withMessageContaining(
+"At least one mapping is required (for example, authorizeHttpRequests().anyRequest().authenticated())");
 	}
 
 	@Test
 	public void configureWhenAnyRequestIncompleteMappingThenException() {
 		assertThatExceptionOfType(BeanCreationException.class)
-				.isThrownBy(() -> this.spring.register(IncompleteMappingConfig.class).autowire())
-				.withMessageContaining("An incomplete mapping was found for ");
+	.isThrownBy(() -> this.spring.register(IncompleteMappingConfig.class).autowire())
+	.withMessageContaining("An incomplete mapping was found for ");
 	}
 
 	@Test
 	public void configureNoParameterWhenAnyRequestIncompleteMappingThenException() {
 		assertThatExceptionOfType(BeanCreationException.class)
-				.isThrownBy(() -> this.spring.register(IncompleteMappingNoParameterConfig.class).autowire())
-				.withMessageContaining("An incomplete mapping was found for ");
+	.isThrownBy(() -> this.spring.register(IncompleteMappingNoParameterConfig.class).autowire())
+	.withMessageContaining("An incomplete mapping was found for ");
 	}
 
 	@Test
 	public void configureWhenMvcMatcherAfterAnyRequestThenException() {
 		assertThatExceptionOfType(BeanCreationException.class)
-				.isThrownBy(() -> this.spring.register(AfterAnyRequestConfig.class).autowire())
-				.withMessageContaining("Can't configure mvcMatchers after anyRequest");
+	.isThrownBy(() -> this.spring.register(AfterAnyRequestConfig.class).autowire())
+	.withMessageContaining("Can't configure mvcMatchers after anyRequest");
 	}
 
 	@Test
@@ -142,8 +142,8 @@ public class AuthorizeHttpRequestsConfigurerTests {
 	public void configureMvcMatcherAccessAuthorizationManagerWhenNullThenException() {
 		CustomAuthorizationManagerConfig.authorizationManager = null;
 		assertThatExceptionOfType(BeanCreationException.class)
-				.isThrownBy(() -> this.spring.register(CustomAuthorizationManagerConfig.class).autowire())
-				.withMessageContaining("manager cannot be null");
+	.isThrownBy(() -> this.spring.register(CustomAuthorizationManagerConfig.class).autowire())
+	.withMessageContaining("manager cannot be null");
 	}
 
 	@Test
@@ -159,20 +159,20 @@ public class AuthorizeHttpRequestsConfigurerTests {
 		this.spring.register(RoleUserAnyAuthorityConfig.class, BasicController.class).autowire();
 		// @formatter:off
 		MockHttpServletRequestBuilder requestWithUser = get("/")
-				.with(user("user")
-				.authorities(new SimpleGrantedAuthority("ROLE_USER")));
+	.with(user("user")
+.authorities(new SimpleGrantedAuthority("ROLE_USER")));
 		// @formatter:on
 		this.mvc.perform(requestWithUser).andExpect(status().isOk());
 	}
 
 	@Test
 	public void getWhenHasAnyAuthorityRoleUserConfiguredAndAuthorityIsRoleAdminThenRespondsWithForbidden()
-			throws Exception {
+throws Exception {
 		this.spring.register(RoleUserAnyAuthorityConfig.class, BasicController.class).autowire();
 		// @formatter:off
 		MockHttpServletRequestBuilder requestWithAdmin = get("/")
-				.with(user("user")
-				.authorities(new SimpleGrantedAuthority("ROLE_ADMIN")));
+	.with(user("user")
+.authorities(new SimpleGrantedAuthority("ROLE_ADMIN")));
 		// @formatter:on
 		this.mvc.perform(requestWithAdmin).andExpect(status().isForbidden());
 	}
@@ -188,20 +188,20 @@ public class AuthorizeHttpRequestsConfigurerTests {
 		this.spring.register(RoleUserAuthorityConfig.class, BasicController.class).autowire();
 		// @formatter:off
 		MockHttpServletRequestBuilder requestWithUser = get("/")
-				.with(user("user")
-				.authorities(new SimpleGrantedAuthority("ROLE_USER")));
+	.with(user("user")
+.authorities(new SimpleGrantedAuthority("ROLE_USER")));
 		// @formatter:on
 		this.mvc.perform(requestWithUser).andExpect(status().isOk());
 	}
 
 	@Test
 	public void getWhenHasAuthorityRoleUserConfiguredAndAuthorityIsRoleAdminThenRespondsWithForbidden()
-			throws Exception {
+throws Exception {
 		this.spring.register(RoleUserAuthorityConfig.class, BasicController.class).autowire();
 		// @formatter:off
 		MockHttpServletRequestBuilder requestWithAdmin = get("/")
-				.with(user("user")
-				.authorities(new SimpleGrantedAuthority("ROLE_ADMIN")));
+	.with(user("user")
+.authorities(new SimpleGrantedAuthority("ROLE_ADMIN")));
 		// @formatter:on
 		this.mvc.perform(requestWithAdmin).andExpect(status().isForbidden());
 	}
@@ -217,8 +217,8 @@ public class AuthorizeHttpRequestsConfigurerTests {
 		this.spring.register(RoleUserOrRoleAdminAuthorityConfig.class, BasicController.class).autowire();
 		// @formatter:off
 		MockHttpServletRequestBuilder requestWithUser = get("/")
-				.with(user("user")
-				.authorities(new SimpleGrantedAuthority("ROLE_USER")));
+	.with(user("user")
+.authorities(new SimpleGrantedAuthority("ROLE_USER")));
 		// @formatter:on
 		this.mvc.perform(requestWithUser).andExpect(status().isOk());
 	}
@@ -228,20 +228,20 @@ public class AuthorizeHttpRequestsConfigurerTests {
 		this.spring.register(RoleUserOrRoleAdminAuthorityConfig.class, BasicController.class).autowire();
 		// @formatter:off
 		MockHttpServletRequestBuilder requestWithAdmin = get("/")
-				.with(user("user")
-				.authorities(new SimpleGrantedAuthority("ROLE_ADMIN")));
+	.with(user("user")
+.authorities(new SimpleGrantedAuthority("ROLE_ADMIN")));
 		// @formatter:on
 		this.mvc.perform(requestWithAdmin).andExpect(status().isOk());
 	}
 
 	@Test
 	public void getWhenAuthorityRoleUserOrAdminRequiredAndAuthorityIsRoleOtherThenRespondsWithForbidden()
-			throws Exception {
+throws Exception {
 		this.spring.register(RoleUserOrRoleAdminAuthorityConfig.class, BasicController.class).autowire();
 		// @formatter:off
 		MockHttpServletRequestBuilder requestWithOther = get("/")
-				.with(user("user")
-				.authorities(new SimpleGrantedAuthority("ROLE_OTHER")));
+	.with(user("user")
+.authorities(new SimpleGrantedAuthority("ROLE_OTHER")));
 		// @formatter:on
 		this.mvc.perform(requestWithOther).andExpect(status().isForbidden());
 	}
@@ -257,8 +257,8 @@ public class AuthorizeHttpRequestsConfigurerTests {
 		this.spring.register(RoleUserConfig.class, BasicController.class).autowire();
 		// @formatter:off
 		MockHttpServletRequestBuilder requestWithUser = get("/")
-				.with(user("user")
-				.roles("USER"));
+	.with(user("user")
+.roles("USER"));
 		// @formatter:on
 		this.mvc.perform(requestWithUser).andExpect(status().isOk());
 	}
@@ -268,8 +268,8 @@ public class AuthorizeHttpRequestsConfigurerTests {
 		this.spring.register(RoleUserConfig.class, BasicController.class).autowire();
 		// @formatter:off
 		MockHttpServletRequestBuilder requestWithAdmin = get("/")
-				.with(user("user")
-				.roles("ADMIN"));
+	.with(user("user")
+.roles("ADMIN"));
 		// @formatter:on
 		this.mvc.perform(requestWithAdmin).andExpect(status().isForbidden());
 	}
@@ -279,8 +279,8 @@ public class AuthorizeHttpRequestsConfigurerTests {
 		this.spring.register(RoleHierarchyUserConfig.class, BasicController.class).autowire();
 		// @formatter:off
 		MockHttpServletRequestBuilder requestWithAdmin = get("/")
-				.with(user("user")
-				.roles("ADMIN"));
+	.with(user("user")
+.roles("ADMIN"));
 		// @formatter:on
 		this.mvc.perform(requestWithAdmin).andExpect(status().isOk());
 	}
@@ -290,8 +290,8 @@ public class AuthorizeHttpRequestsConfigurerTests {
 		this.spring.register(RoleUserOrAdminConfig.class, BasicController.class).autowire();
 		// @formatter:off
 		MockHttpServletRequestBuilder requestWithUser = get("/")
-				.with(user("user")
-				.roles("USER"));
+	.with(user("user")
+.roles("USER"));
 		// @formatter:on
 		this.mvc.perform(requestWithUser).andExpect(status().isOk());
 	}
@@ -301,8 +301,8 @@ public class AuthorizeHttpRequestsConfigurerTests {
 		this.spring.register(RoleUserOrAdminConfig.class, BasicController.class).autowire();
 		// @formatter:off
 		MockHttpServletRequestBuilder requestWithAdmin = get("/")
-				.with(user("user")
-				.roles("ADMIN"));
+	.with(user("user")
+.roles("ADMIN"));
 		// @formatter:on
 		this.mvc.perform(requestWithAdmin).andExpect(status().isOk());
 	}
@@ -312,8 +312,8 @@ public class AuthorizeHttpRequestsConfigurerTests {
 		this.spring.register(RoleUserOrAdminConfig.class, BasicController.class).autowire();
 		// @formatter:off
 		MockHttpServletRequestBuilder requestWithRoleOther = get("/")
-				.with(user("user")
-				.roles("OTHER"));
+	.with(user("user")
+.roles("OTHER"));
 		// @formatter:on
 		this.mvc.perform(requestWithRoleOther).andExpect(status().isForbidden());
 	}
@@ -329,8 +329,8 @@ public class AuthorizeHttpRequestsConfigurerTests {
 		this.spring.register(DenyAllConfig.class, BasicController.class).autowire();
 		// @formatter:off
 		MockHttpServletRequestBuilder requestWithUser = get("/")
-				.with(user("user")
-				.roles("USER"));
+	.with(user("user")
+.roles("USER"));
 		// @formatter:on
 		this.mvc.perform(requestWithUser).andExpect(status().isForbidden());
 	}
@@ -346,8 +346,8 @@ public class AuthorizeHttpRequestsConfigurerTests {
 		this.spring.register(PermitAllConfig.class, BasicController.class).autowire();
 		// @formatter:off
 		MockHttpServletRequestBuilder requestWithUser = get("/")
-				.with(user("user")
-				.roles("USER"));
+	.with(user("user")
+.roles("USER"));
 		// @formatter:on
 		this.mvc.perform(requestWithUser).andExpect(status().isOk());
 	}
@@ -363,21 +363,21 @@ public class AuthorizeHttpRequestsConfigurerTests {
 		this.spring.register(ServletPathConfig.class, BasicController.class).autowire();
 		// @formatter:off
 		MockHttpServletRequestBuilder requestWithUser = get("/spring/")
-				.servletPath("/spring")
-				.with(user("user")
-				.roles("USER"));
+	.servletPath("/spring")
+	.with(user("user")
+.roles("USER"));
 		// @formatter:on
 		this.mvc.perform(requestWithUser).andExpect(status().isForbidden());
 	}
 
 	@Test
 	public void getWhenServletPathRoleAdminConfiguredAndRoleIsUserAndWithoutServletPathThenRespondsWithForbidden()
-			throws Exception {
+throws Exception {
 		this.spring.register(ServletPathConfig.class, BasicController.class).autowire();
 		// @formatter:off
 		MockHttpServletRequestBuilder requestWithUser = get("/")
-				.with(user("user")
-				.roles("USER"));
+	.with(user("user")
+.roles("USER"));
 		// @formatter:on
 		this.mvc.perform(requestWithUser).andExpect(status().isForbidden());
 	}
@@ -387,9 +387,9 @@ public class AuthorizeHttpRequestsConfigurerTests {
 		this.spring.register(ServletPathConfig.class, BasicController.class).autowire();
 		// @formatter:off
 		MockHttpServletRequestBuilder requestWithAdmin = get("/spring/")
-				.servletPath("/spring")
-				.with(user("user")
-				.roles("ADMIN"));
+	.servletPath("/spring")
+	.with(user("user")
+.roles("ADMIN"));
 		// @formatter:on
 		this.mvc.perform(requestWithAdmin).andExpect(status().isOk());
 	}
@@ -406,7 +406,7 @@ public class AuthorizeHttpRequestsConfigurerTests {
 		this.mvc.perform(get("/")).andExpect(status().isUnauthorized());
 		AuthorizationEventPublisher publisher = this.spring.getContext().getBean(AuthorizationEventPublisher.class);
 		verify(publisher).publishAuthorizationEvent(any(Supplier.class), any(HttpServletRequest.class),
-				any(AuthorizationDecision.class));
+	any(AuthorizationDecision.class));
 	}
 
 	@Test
@@ -414,8 +414,8 @@ public class AuthorizeHttpRequestsConfigurerTests {
 		this.spring.register(AuthenticatedConfig.class, BasicController.class).autowire();
 		// @formatter:off
 		MockHttpServletRequestBuilder requestWithUser = get("/")
-				.with(user("user")
-				.roles("USER"));
+	.with(user("user")
+.roles("USER"));
 		// @formatter:on
 		this.mvc.perform(requestWithUser).andExpect(status().isOk());
 	}
@@ -425,8 +425,8 @@ public class AuthorizeHttpRequestsConfigurerTests {
 		this.spring.register(ExpressionRoleUserConfig.class, BasicController.class).autowire();
 		// @formatter:off
 		MockHttpServletRequestBuilder requestWithUser = get("/")
-				.with(user("user")
-				.roles("USER"));
+	.with(user("user")
+.roles("USER"));
 		// @formatter:on
 		this.mvc.perform(requestWithUser).andExpect(status().isOk());
 	}
@@ -436,8 +436,8 @@ public class AuthorizeHttpRequestsConfigurerTests {
 		this.spring.register(ExpressionRoleUserConfig.class, BasicController.class).autowire();
 		// @formatter:off
 		MockHttpServletRequestBuilder requestWithAdmin = get("/")
-				.with(user("user")
-				.roles("ADMIN"));
+	.with(user("user")
+.roles("ADMIN"));
 		// @formatter:on
 		this.mvc.perform(requestWithAdmin).andExpect(status().isForbidden());
 	}
@@ -447,8 +447,8 @@ public class AuthorizeHttpRequestsConfigurerTests {
 		this.spring.register(ExpressionRoleUserOrAdminConfig.class, BasicController.class).autowire();
 		// @formatter:off
 		MockHttpServletRequestBuilder requestWithUser = get("/")
-				.with(user("user")
-				.roles("USER"));
+	.with(user("user")
+.roles("USER"));
 		// @formatter:on
 		this.mvc.perform(requestWithUser).andExpect(status().isOk());
 	}
@@ -458,8 +458,8 @@ public class AuthorizeHttpRequestsConfigurerTests {
 		this.spring.register(ExpressionRoleUserOrAdminConfig.class, BasicController.class).autowire();
 		// @formatter:off
 		MockHttpServletRequestBuilder requestWithAdmin = get("/")
-				.with(user("user")
-				.roles("ADMIN"));
+	.with(user("user")
+.roles("ADMIN"));
 		// @formatter:on
 		this.mvc.perform(requestWithAdmin).andExpect(status().isOk());
 	}
@@ -469,30 +469,30 @@ public class AuthorizeHttpRequestsConfigurerTests {
 		this.spring.register(ExpressionRoleUserOrAdminConfig.class, BasicController.class).autowire();
 		// @formatter:off
 		MockHttpServletRequestBuilder requestWithRoleOther = get("/")
-				.with(user("user")
-				.roles("OTHER"));
+	.with(user("user")
+.roles("OTHER"));
 		// @formatter:on
 		this.mvc.perform(requestWithRoleOther).andExpect(status().isForbidden());
 	}
 
 	@Test
 	public void getWhenExpressionHasIpAddressLocalhostConfiguredIpAddressIsLocalhostThenRespondsWithOk()
-			throws Exception {
+throws Exception {
 		this.spring.register(ExpressionIpAddressLocalhostConfig.class, BasicController.class).autowire();
 		// @formatter:off
 		MockHttpServletRequestBuilder requestFromLocalhost = get("/")
-				.with(remoteAddress("127.0.0.1"));
+	.with(remoteAddress("127.0.0.1"));
 		// @formatter:on
 		this.mvc.perform(requestFromLocalhost).andExpect(status().isOk());
 	}
 
 	@Test
 	public void getWhenExpressionHasIpAddressLocalhostConfiguredIpAddressIsOtherThenRespondsWithForbidden()
-			throws Exception {
+throws Exception {
 		this.spring.register(ExpressionIpAddressLocalhostConfig.class, BasicController.class).autowire();
 		// @formatter:off
 		MockHttpServletRequestBuilder requestFromOtherHost = get("/")
-				.with(remoteAddress("192.168.0.1"));
+	.with(remoteAddress("192.168.0.1"));
 		// @formatter:on
 		this.mvc.perform(requestFromOtherHost).andExpect(status().isForbidden());
 	}
@@ -517,7 +517,7 @@ public class AuthorizeHttpRequestsConfigurerTests {
 	public void getWhenFullyAuthenticatedConfiguredAndRememberMeTokenThenRespondsWithUnauthorized() throws Exception {
 		this.spring.register(FullyAuthenticatedConfig.class, BasicController.class).autowire();
 		RememberMeAuthenticationToken rememberMe = new RememberMeAuthenticationToken("key", "user",
-				AuthorityUtils.createAuthorityList("ROLE_USER"));
+	AuthorityUtils.createAuthorityList("ROLE_USER"));
 		MockHttpServletRequestBuilder requestWithRememberMe = get("/").with(authentication(rememberMe));
 		this.mvc.perform(requestWithRememberMe).andExpect(status().isUnauthorized());
 	}
@@ -539,7 +539,7 @@ public class AuthorizeHttpRequestsConfigurerTests {
 	public void getWhenRememberMeConfiguredAndRememberMeTokenThenRespondsWithOk() throws Exception {
 		this.spring.register(RememberMeConfig.class, BasicController.class).autowire();
 		RememberMeAuthenticationToken rememberMe = new RememberMeAuthenticationToken("key", "user",
-				AuthorityUtils.createAuthorityList("ROLE_USER"));
+	AuthorityUtils.createAuthorityList("ROLE_USER"));
 		MockHttpServletRequestBuilder requestWithRememberMe = get("/").with(authentication(rememberMe));
 		this.mvc.perform(requestWithRememberMe).andExpect(status().isOk());
 	}
@@ -565,8 +565,8 @@ public class AuthorizeHttpRequestsConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			return http
-					.authorizeHttpRequests(withDefaults())
-					.build();
+		.authorizeHttpRequests(withDefaults())
+		.build();
 			// @formatter:on
 		}
 
@@ -580,7 +580,7 @@ public class AuthorizeHttpRequestsConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeHttpRequests();
+		.authorizeHttpRequests();
 			// @formatter:on
 
 			return http.build();
@@ -596,8 +596,8 @@ public class AuthorizeHttpRequestsConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			return http
-					.authorizeHttpRequests(AbstractRequestMatcherRegistry::anyRequest)
-					.build();
+		.authorizeHttpRequests(AbstractRequestMatcherRegistry::anyRequest)
+		.build();
 			// @formatter:on
 		}
 
@@ -611,8 +611,8 @@ public class AuthorizeHttpRequestsConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-					.authorizeHttpRequests()
-					.anyRequest();
+		.authorizeHttpRequests()
+		.anyRequest();
 			// @formatter:on
 
 			return http.build();
@@ -628,11 +628,11 @@ public class AuthorizeHttpRequestsConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			return http
-					.authorizeHttpRequests((requests) -> requests
-						.anyRequest().authenticated()
-						.requestMatchers("/path").hasRole("USER")
-					)
-					.build();
+		.authorizeHttpRequests((requests) -> requests
+.anyRequest().authenticated()
+.requestMatchers("/path").hasRole("USER")
+		)
+		.build();
 			// @formatter:on
 		}
 
@@ -648,10 +648,10 @@ public class AuthorizeHttpRequestsConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			return http
-					.authorizeHttpRequests((requests) -> requests
-						.anyRequest().access(authorizationManager)
-					)
-					.build();
+		.authorizeHttpRequests((requests) -> requests
+.anyRequest().access(authorizationManager)
+		)
+		.build();
 			// @formatter:on
 		}
 
@@ -667,8 +667,8 @@ public class AuthorizeHttpRequestsConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeHttpRequests()
-					.anyRequest().access(authorizationManager);
+		.authorizeHttpRequests()
+		.anyRequest().access(authorizationManager);
 			// @formatter:on
 
 			return http.build();
@@ -686,10 +686,10 @@ public class AuthorizeHttpRequestsConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			return http
-					.authorizeHttpRequests((requests) -> requests
-						.anyRequest().authenticated()
-					)
-					.build();
+		.authorizeHttpRequests((requests) -> requests
+.anyRequest().authenticated()
+		)
+		.build();
 			// @formatter:on
 		}
 
@@ -717,12 +717,12 @@ public class AuthorizeHttpRequestsConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			return http
-					.httpBasic()
-						.and()
-					.authorizeHttpRequests((requests) -> requests
-						.anyRequest().hasAnyAuthority("ROLE_USER")
-					)
-					.build();
+		.httpBasic()
+		.and()
+		.authorizeHttpRequests((requests) -> requests
+.anyRequest().hasAnyAuthority("ROLE_USER")
+		)
+		.build();
 			// @formatter:on
 		}
 
@@ -736,12 +736,12 @@ public class AuthorizeHttpRequestsConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			return http
-					.httpBasic()
-						.and()
-					.authorizeHttpRequests((requests) -> requests
-						.anyRequest().hasAuthority("ROLE_USER")
-					)
-					.build();
+		.httpBasic()
+		.and()
+		.authorizeHttpRequests((requests) -> requests
+.anyRequest().hasAuthority("ROLE_USER")
+		)
+		.build();
 			// @formatter:on
 		}
 
@@ -755,12 +755,12 @@ public class AuthorizeHttpRequestsConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			return http
-					.httpBasic()
-						.and()
-					.authorizeHttpRequests((requests) -> requests
-						.anyRequest().hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
-					)
-					.build();
+		.httpBasic()
+		.and()
+		.authorizeHttpRequests((requests) -> requests
+.anyRequest().hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
+		)
+		.build();
 			// @formatter:on
 		}
 
@@ -774,10 +774,10 @@ public class AuthorizeHttpRequestsConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			return http
-					.authorizeHttpRequests((requests) -> requests
-						.anyRequest().hasRole("USER")
-					)
-					.build();
+		.authorizeHttpRequests((requests) -> requests
+.anyRequest().hasRole("USER")
+		)
+		.build();
 			// @formatter:on
 		}
 
@@ -791,10 +791,10 @@ public class AuthorizeHttpRequestsConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			return http
-					.authorizeHttpRequests((requests) -> requests
-						.anyRequest().hasRole("USER")
-					)
-					.build();
+		.authorizeHttpRequests((requests) -> requests
+.anyRequest().hasRole("USER")
+		)
+		.build();
 			// @formatter:on
 		}
 
@@ -815,10 +815,10 @@ public class AuthorizeHttpRequestsConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			return http
-					.authorizeHttpRequests((requests) -> requests
-						.anyRequest().hasAnyRole("USER", "ADMIN")
-					)
-					.build();
+		.authorizeHttpRequests((requests) -> requests
+.anyRequest().hasAnyRole("USER", "ADMIN")
+		)
+		.build();
 			// @formatter:on
 		}
 
@@ -832,12 +832,12 @@ public class AuthorizeHttpRequestsConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			return http
-					.httpBasic()
-						.and()
-					.authorizeHttpRequests((requests) -> requests
-						.anyRequest().denyAll()
-					)
-					.build();
+		.httpBasic()
+		.and()
+		.authorizeHttpRequests((requests) -> requests
+.anyRequest().denyAll()
+		)
+		.build();
 			// @formatter:on
 		}
 
@@ -851,10 +851,10 @@ public class AuthorizeHttpRequestsConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			return http
-					.authorizeHttpRequests((requests) -> requests
-						.anyRequest().permitAll()
-					)
-					.build();
+		.authorizeHttpRequests((requests) -> requests
+.anyRequest().permitAll()
+		)
+		.build();
 			// @formatter:on
 		}
 
@@ -868,13 +868,13 @@ public class AuthorizeHttpRequestsConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			return http
-					.httpBasic()
-						.and()
-					.authorizeHttpRequests((requests) -> requests
-						.anyRequest().authenticated()
-					)
-					.authorizeHttpRequests(withDefaults())
-					.build();
+		.httpBasic()
+		.and()
+		.authorizeHttpRequests((requests) -> requests
+.anyRequest().authenticated()
+		)
+		.authorizeHttpRequests(withDefaults())
+		.build();
 			// @formatter:on
 		}
 
@@ -888,13 +888,13 @@ public class AuthorizeHttpRequestsConfigurerTests {
 		@Bean
 		SecurityFilterChain filterChain(HttpSecurity http, HandlerMappingIntrospector introspector) throws Exception {
 			MvcRequestMatcher.Builder mvcMatcherBuilder = new MvcRequestMatcher.Builder(introspector)
-					.servletPath("/spring");
+		.servletPath("/spring");
 			// @formatter:off
 			return http
-					.authorizeHttpRequests((requests) -> requests
-						.requestMatchers(mvcMatcherBuilder.pattern("/")).hasRole("ADMIN")
-					)
-					.build();
+		.authorizeHttpRequests((requests) -> requests
+.requestMatchers(mvcMatcherBuilder.pattern("/")).hasRole("ADMIN")
+		)
+		.build();
 			// @formatter:on
 		}
 
@@ -908,12 +908,12 @@ public class AuthorizeHttpRequestsConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			return http
-					.httpBasic()
-						.and()
-					.authorizeHttpRequests((requests) -> requests
-						.anyRequest().authenticated()
-					)
-					.build();
+		.httpBasic()
+		.and()
+		.authorizeHttpRequests((requests) -> requests
+.anyRequest().authenticated()
+		)
+		.build();
 			// @formatter:on
 		}
 
@@ -927,10 +927,10 @@ public class AuthorizeHttpRequestsConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			return http
-					.authorizeHttpRequests((requests) -> requests
-						.anyRequest().access(new WebExpressionAuthorizationManager("hasRole('USER')"))
-					)
-					.build();
+		.authorizeHttpRequests((requests) -> requests
+.anyRequest().access(new WebExpressionAuthorizationManager("hasRole('USER')"))
+		)
+		.build();
 			// @formatter:on
 		}
 
@@ -944,10 +944,10 @@ public class AuthorizeHttpRequestsConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			return http
-					.authorizeHttpRequests((requests) -> requests
-						.anyRequest().access(new WebExpressionAuthorizationManager("hasRole('USER') or hasRole('ADMIN')"))
-					)
-					.build();
+		.authorizeHttpRequests((requests) -> requests
+.anyRequest().access(new WebExpressionAuthorizationManager("hasRole('USER') or hasRole('ADMIN')"))
+		)
+		.build();
 			// @formatter:on
 		}
 
@@ -961,10 +961,10 @@ public class AuthorizeHttpRequestsConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			return http
-					.authorizeHttpRequests((requests) -> requests
-						.anyRequest().access(new WebExpressionAuthorizationManager("hasIpAddress('127.0.0.1')"))
-					)
-					.build();
+		.authorizeHttpRequests((requests) -> requests
+.anyRequest().access(new WebExpressionAuthorizationManager("hasIpAddress('127.0.0.1')"))
+		)
+		.build();
 			// @formatter:on
 		}
 
@@ -979,10 +979,10 @@ public class AuthorizeHttpRequestsConfigurerTests {
 		SecurityFilterChain chain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.httpBasic(withDefaults())
-				.authorizeHttpRequests((requests) -> requests
-					.requestMatchers("/user/{username}").access(new WebExpressionAuthorizationManager("#username == 'user'"))
-				);
+		.httpBasic(withDefaults())
+		.authorizeHttpRequests((requests) -> requests
+.requestMatchers("/user/{username}").access(new WebExpressionAuthorizationManager("#username == 'user'"))
+		);
 			// @formatter:on
 			return http.build();
 		}
@@ -1007,11 +1007,11 @@ public class AuthorizeHttpRequestsConfigurerTests {
 		SecurityFilterChain chain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.httpBasic(withDefaults())
-				.rememberMe(withDefaults())
-				.authorizeHttpRequests((requests) -> requests
-					.anyRequest().fullyAuthenticated()
-				);
+		.httpBasic(withDefaults())
+		.rememberMe(withDefaults())
+		.authorizeHttpRequests((requests) -> requests
+.anyRequest().fullyAuthenticated()
+		);
 			// @formatter:on
 			return http.build();
 		}
@@ -1031,11 +1031,11 @@ public class AuthorizeHttpRequestsConfigurerTests {
 		SecurityFilterChain chain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.httpBasic(withDefaults())
-				.rememberMe(withDefaults())
-				.authorizeHttpRequests((requests) -> requests
-					.anyRequest().rememberMe()
-				);
+		.httpBasic(withDefaults())
+		.rememberMe(withDefaults())
+		.authorizeHttpRequests((requests) -> requests
+.anyRequest().rememberMe()
+		);
 			// @formatter:on
 			return http.build();
 		}
@@ -1055,10 +1055,10 @@ public class AuthorizeHttpRequestsConfigurerTests {
 		SecurityFilterChain chain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.httpBasic(withDefaults())
-				.authorizeHttpRequests((requests) -> requests
-					.anyRequest().anonymous()
-				);
+		.httpBasic(withDefaults())
+		.authorizeHttpRequests((requests) -> requests
+.anyRequest().anonymous()
+		);
 			// @formatter:on
 			return http.build();
 		}

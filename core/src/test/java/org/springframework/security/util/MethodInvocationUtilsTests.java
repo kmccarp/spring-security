@@ -41,20 +41,20 @@ public class MethodInvocationUtilsTests {
 	@Test
 	public void createFromClassReturnsMethodIfArgInfoOmittedAndMethodNameIsUnique() {
 		MethodInvocation mi = MethodInvocationUtils.createFromClass(BusinessServiceImpl.class,
-				"methodReturningAnArray");
+	"methodReturningAnArray");
 		assertThat(mi).isNotNull();
 	}
 
 	@Test
 	public void exceptionIsRaisedIfArgInfoOmittedAndMethodNameIsNotUnique() {
 		assertThatIllegalArgumentException().isThrownBy(
-				() -> MethodInvocationUtils.createFromClass(BusinessServiceImpl.class, "methodReturningAList"));
+	() -> MethodInvocationUtils.createFromClass(BusinessServiceImpl.class, "methodReturningAList"));
 	}
 
 	@Test
 	public void createFromClassReturnsMethodIfGivenArgInfoForMethodWithArgs() {
 		MethodInvocation mi = MethodInvocationUtils.createFromClass(null, String.class, "compareTo",
-				new Class<?>[] { String.class }, new Object[] { "" });
+	new Class<?>[]{String.class}, new Object[]{""});
 		assertThat(mi).isNotNull();
 	}
 
@@ -62,7 +62,7 @@ public class MethodInvocationUtilsTests {
 	public void createFromObjectLocatesExistingMethods() {
 		AdvisedTarget t = new AdvisedTarget();
 		// Just lie about interfaces
-		t.setInterfaces(new Class[] { Serializable.class, MethodInvocation.class, Blah.class });
+		t.setInterfaces(new Class[]{Serializable.class, MethodInvocation.class, Blah.class});
 		MethodInvocation mi = MethodInvocationUtils.create(t, "blah");
 		assertThat(mi).isNotNull();
 		t.setProxyTargetClass(true);

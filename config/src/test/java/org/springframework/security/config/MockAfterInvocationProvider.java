@@ -27,7 +27,7 @@ public class MockAfterInvocationProvider implements AfterInvocationProvider {
 
 	@Override
 	public Object decide(Authentication authentication, Object object, Collection<ConfigAttribute> config,
-			Object returnedObject) throws AccessDeniedException {
+Object returnedObject) throws AccessDeniedException {
 		return returnedObject;
 	}
 

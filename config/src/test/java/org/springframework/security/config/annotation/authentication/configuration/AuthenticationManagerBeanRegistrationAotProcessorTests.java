@@ -58,14 +58,14 @@ class AuthenticationManagerBeanRegistrationAotProcessorTests {
 	void shouldProcessWhenImplementsInterface() {
 		process(MyAuthenticationManager.class);
 		assertThat(RuntimeHintsPredicates.proxies().forInterfaces(AuthenticationManager.class, SpringProxy.class,
-				Advised.class, DecoratingProxy.class)).accepts(this.generationContext.getRuntimeHints());
+	Advised.class, DecoratingProxy.class)).accepts(this.generationContext.getRuntimeHints());
 	}
 
 	@Test
 	void shouldProcessWhenSuperclassImplementsInterface() {
 		process(ChildAuthenticationManager.class);
 		assertThat(RuntimeHintsPredicates.proxies().forInterfaces(AuthenticationManager.class, SpringProxy.class,
-				Advised.class, DecoratingProxy.class)).accepts(this.generationContext.getRuntimeHints());
+	Advised.class, DecoratingProxy.class)).accepts(this.generationContext.getRuntimeHints());
 	}
 
 	private void process(Class<?> beanClass) {

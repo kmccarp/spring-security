@@ -54,7 +54,7 @@ public class DefaultServiceAuthenticationDetailsTests {
 		this.request.setServerPort(8443);
 		this.request.setRequestURI("/cas-sample/secure/");
 		this.artifactPattern = DefaultServiceAuthenticationDetails
-				.createArtifactPattern(ServiceProperties.DEFAULT_CAS_ARTIFACT_PARAMETER);
+	.createArtifactPattern(ServiceProperties.DEFAULT_CAS_ARTIFACT_PARAMETER);
 	}
 
 	@AfterEach
@@ -119,7 +119,7 @@ public class DefaultServiceAuthenticationDetailsTests {
 		this.casServiceUrl = "https://example.com/j_spring_security_cas";
 		this.request.setServerName("evil.com");
 		ServiceAuthenticationDetails details = loadServiceAuthenticationDetails(
-				"defaultserviceauthenticationdetails-explicit.xml");
+	"defaultserviceauthenticationdetails-explicit.xml");
 		assertThat(details.getServiceUrl()).isEqualTo("https://example.com/cas-sample/secure/");
 	}
 

@@ -80,7 +80,7 @@ public class SecurityContextHolder {
 	private static void initializeStrategy() {
 		if (MODE_PRE_INITIALIZED.equals(strategyName)) {
 			Assert.state(strategy != null, "When using " + MODE_PRE_INITIALIZED
-					+ ", setContextHolderStrategy must be called with the fully constructed strategy");
+		+ ", setContextHolderStrategy must be called with the fully constructed strategy");
 			return;
 		}
 		if (!StringUtils.hasText(strategyName)) {
@@ -230,7 +230,7 @@ public class SecurityContextHolder {
 	@Override
 	public String toString() {
 		return "SecurityContextHolder[strategy='" + strategy.getClass().getSimpleName() + "'; initializeCount="
-				+ initializeCount + "]";
+	+ initializeCount + "]";
 	}
 
 }

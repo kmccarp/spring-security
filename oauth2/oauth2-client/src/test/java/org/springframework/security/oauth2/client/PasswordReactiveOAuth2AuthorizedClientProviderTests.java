@@ -67,16 +67,16 @@ public class PasswordReactiveOAuth2AuthorizedClientProviderTests {
 	@Test
 	public void setAccessTokenResponseClientWhenClientIsNullThenThrowIllegalArgumentException() {
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> this.authorizedClientProvider.setAccessTokenResponseClient(null))
-				.withMessage("accessTokenResponseClient cannot be null");
+	.isThrownBy(() -> this.authorizedClientProvider.setAccessTokenResponseClient(null))
+	.withMessage("accessTokenResponseClient cannot be null");
 	}
 
 	@Test
 	public void setClockSkewWhenNullThenThrowIllegalArgumentException() {
 		// @formatter:off
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> this.authorizedClientProvider.setClockSkew(null))
-				.withMessage("clockSkew cannot be null");
+	.isThrownBy(() -> this.authorizedClientProvider.setClockSkew(null))
+	.withMessage("clockSkew cannot be null");
 		// @formatter:on
 	}
 
@@ -84,8 +84,8 @@ public class PasswordReactiveOAuth2AuthorizedClientProviderTests {
 	public void setClockSkewWhenNegativeSecondsThenThrowIllegalArgumentException() {
 		// @formatter:off
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> this.authorizedClientProvider.setClockSkew(Duration.ofSeconds(-1)))
-				.withMessage("clockSkew must be >= 0");
+	.isThrownBy(() -> this.authorizedClientProvider.setClockSkew(Duration.ofSeconds(-1)))
+	.withMessage("clockSkew must be >= 0");
 		// @formatter:on
 	}
 
@@ -93,8 +93,8 @@ public class PasswordReactiveOAuth2AuthorizedClientProviderTests {
 	public void setClockWhenNullThenThrowIllegalArgumentException() {
 		// @formatter:off
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> this.authorizedClientProvider.setClock(null))
-				.withMessage("clock cannot be null");
+	.isThrownBy(() -> this.authorizedClientProvider.setClock(null))
+	.withMessage("clock cannot be null");
 		// @formatter:on
 	}
 
@@ -102,8 +102,8 @@ public class PasswordReactiveOAuth2AuthorizedClientProviderTests {
 	public void authorizeWhenContextIsNullThenThrowIllegalArgumentException() {
 		// @formatter:off
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> this.authorizedClientProvider.authorize(null).block())
-				.withMessage("context cannot be null");
+	.isThrownBy(() -> this.authorizedClientProvider.authorize(null).block())
+	.withMessage("context cannot be null");
 		// @formatter:on
 	}
 
@@ -112,9 +112,9 @@ public class PasswordReactiveOAuth2AuthorizedClientProviderTests {
 		ClientRegistration clientRegistration = TestClientRegistrations.clientCredentials().build();
 		// @formatter:off
 		OAuth2AuthorizationContext authorizationContext = OAuth2AuthorizationContext
-				.withClientRegistration(clientRegistration)
-				.principal(this.principal).
-				build();
+	.withClientRegistration(clientRegistration)
+	.principal(this.principal).
+	build();
 		// @formatter:on
 		assertThat(this.authorizedClientProvider.authorize(authorizationContext).block()).isNull();
 	}
@@ -123,11 +123,11 @@ public class PasswordReactiveOAuth2AuthorizedClientProviderTests {
 	public void authorizeWhenPasswordAndNotAuthorizedAndEmptyUsernameThenUnableToAuthorize() {
 		// @formatter:off
 		OAuth2AuthorizationContext authorizationContext = OAuth2AuthorizationContext
-				.withClientRegistration(this.clientRegistration)
-				.principal(this.principal)
-				.attribute(OAuth2AuthorizationContext.USERNAME_ATTRIBUTE_NAME, null)
-				.attribute(OAuth2AuthorizationContext.PASSWORD_ATTRIBUTE_NAME, "password")
-				.build();
+	.withClientRegistration(this.clientRegistration)
+	.principal(this.principal)
+	.attribute(OAuth2AuthorizationContext.USERNAME_ATTRIBUTE_NAME, null)
+	.attribute(OAuth2AuthorizationContext.PASSWORD_ATTRIBUTE_NAME, "password")
+	.build();
 		// @formatter:on
 		assertThat(this.authorizedClientProvider.authorize(authorizationContext).block()).isNull();
 	}
@@ -136,11 +136,11 @@ public class PasswordReactiveOAuth2AuthorizedClientProviderTests {
 	public void authorizeWhenPasswordAndNotAuthorizedAndEmptyPasswordThenUnableToAuthorize() {
 		// @formatter:off
 		OAuth2AuthorizationContext authorizationContext = OAuth2AuthorizationContext
-				.withClientRegistration(this.clientRegistration)
-				.principal(this.principal)
-				.attribute(OAuth2AuthorizationContext.USERNAME_ATTRIBUTE_NAME, "username")
-				.attribute(OAuth2AuthorizationContext.PASSWORD_ATTRIBUTE_NAME, null)
-				.build();
+	.withClientRegistration(this.clientRegistration)
+	.principal(this.principal)
+	.attribute(OAuth2AuthorizationContext.USERNAME_ATTRIBUTE_NAME, "username")
+	.attribute(OAuth2AuthorizationContext.PASSWORD_ATTRIBUTE_NAME, null)
+	.build();
 		// @formatter:on
 		assertThat(this.authorizedClientProvider.authorize(authorizationContext).block()).isNull();
 	}
@@ -151,11 +151,11 @@ public class PasswordReactiveOAuth2AuthorizedClientProviderTests {
 		given(this.accessTokenResponseClient.getTokenResponse(any())).willReturn(Mono.just(accessTokenResponse));
 		// @formatter:off
 		OAuth2AuthorizationContext authorizationContext = OAuth2AuthorizationContext
-				.withClientRegistration(this.clientRegistration)
-				.principal(this.principal)
-				.attribute(OAuth2AuthorizationContext.USERNAME_ATTRIBUTE_NAME, "username")
-				.attribute(OAuth2AuthorizationContext.PASSWORD_ATTRIBUTE_NAME, "password")
-				.build();
+	.withClientRegistration(this.clientRegistration)
+	.principal(this.principal)
+	.attribute(OAuth2AuthorizationContext.USERNAME_ATTRIBUTE_NAME, "username")
+	.attribute(OAuth2AuthorizationContext.PASSWORD_ATTRIBUTE_NAME, "password")
+	.build();
 		// @formatter:on
 		OAuth2AuthorizedClient authorizedClient = this.authorizedClientProvider.authorize(authorizationContext).block();
 		assertThat(authorizedClient.getClientRegistration()).isSameAs(this.clientRegistration);
@@ -168,18 +168,18 @@ public class PasswordReactiveOAuth2AuthorizedClientProviderTests {
 		Instant issuedAt = Instant.now().minus(Duration.ofDays(1));
 		Instant expiresAt = issuedAt.plus(Duration.ofMinutes(60));
 		OAuth2AccessToken accessToken = new OAuth2AccessToken(OAuth2AccessToken.TokenType.BEARER,
-				"access-token-expired", issuedAt, expiresAt);
+	"access-token-expired", issuedAt, expiresAt);
 		OAuth2AuthorizedClient authorizedClient = new OAuth2AuthorizedClient(this.clientRegistration,
-				this.principal.getName(), accessToken); // without refresh token
+	this.principal.getName(), accessToken); // without refresh token
 		OAuth2AccessTokenResponse accessTokenResponse = TestOAuth2AccessTokenResponses.accessTokenResponse().build();
 		given(this.accessTokenResponseClient.getTokenResponse(any())).willReturn(Mono.just(accessTokenResponse));
 		// @formatter:off
 		OAuth2AuthorizationContext authorizationContext = OAuth2AuthorizationContext
-				.withAuthorizedClient(authorizedClient)
-				.attribute(OAuth2AuthorizationContext.USERNAME_ATTRIBUTE_NAME, "username")
-				.attribute(OAuth2AuthorizationContext.PASSWORD_ATTRIBUTE_NAME, "password")
-				.principal(this.principal)
-				.build();
+	.withAuthorizedClient(authorizedClient)
+	.attribute(OAuth2AuthorizationContext.USERNAME_ATTRIBUTE_NAME, "username")
+	.attribute(OAuth2AuthorizationContext.PASSWORD_ATTRIBUTE_NAME, "password")
+	.principal(this.principal)
+	.build();
 		// @formatter:on
 		authorizedClient = this.authorizedClientProvider.authorize(authorizationContext).block();
 		assertThat(authorizedClient.getClientRegistration()).isSameAs(this.clientRegistration);
@@ -192,18 +192,18 @@ public class PasswordReactiveOAuth2AuthorizedClientProviderTests {
 		Instant issuedAt = Instant.now().minus(Duration.ofDays(1));
 		Instant expiresAt = issuedAt.plus(Duration.ofMinutes(60));
 		OAuth2AccessToken accessToken = new OAuth2AccessToken(OAuth2AccessToken.TokenType.BEARER,
-				"access-token-expired", issuedAt, expiresAt);
+	"access-token-expired", issuedAt, expiresAt);
 		OAuth2AuthorizedClient authorizedClient = new OAuth2AuthorizedClient(this.clientRegistration,
-				this.principal.getName(), accessToken, TestOAuth2RefreshTokens.refreshToken()); // with
-																								// refresh
-																								// token
+	this.principal.getName(), accessToken, TestOAuth2RefreshTokens.refreshToken()); // with
+		// refresh
+		// token
 		// @formatter:off
 		OAuth2AuthorizationContext authorizationContext = OAuth2AuthorizationContext
-				.withAuthorizedClient(authorizedClient)
-				.attribute(OAuth2AuthorizationContext.USERNAME_ATTRIBUTE_NAME, "username")
-				.attribute(OAuth2AuthorizationContext.PASSWORD_ATTRIBUTE_NAME, "password")
-				.principal(this.principal)
-				.build();
+	.withAuthorizedClient(authorizedClient)
+	.attribute(OAuth2AuthorizationContext.USERNAME_ATTRIBUTE_NAME, "username")
+	.attribute(OAuth2AuthorizationContext.PASSWORD_ATTRIBUTE_NAME, "password")
+	.principal(this.principal)
+	.build();
 		// @formatter:on
 		assertThat(this.authorizedClientProvider.authorize(authorizationContext).block()).isNull();
 	}
@@ -215,10 +215,10 @@ public class PasswordReactiveOAuth2AuthorizedClientProviderTests {
 		Instant issuedAt = now.minus(Duration.ofMinutes(60));
 		Instant expiresAt = now.minus(Duration.ofMinutes(1));
 		OAuth2AccessToken expiresInOneMinAccessToken = new OAuth2AccessToken(OAuth2AccessToken.TokenType.BEARER,
-				"access-token-1234", issuedAt, expiresAt);
+	"access-token-1234", issuedAt, expiresAt);
 		OAuth2AuthorizedClient authorizedClient = new OAuth2AuthorizedClient(this.clientRegistration,
-				this.principal.getName(), expiresInOneMinAccessToken); // without refresh
-																		// token
+	this.principal.getName(), expiresInOneMinAccessToken); // without refresh
+		// token
 		// Shorten the lifespan of the access token by 90 seconds, which will ultimately
 		// force it to expire on the client
 		this.authorizedClientProvider.setClockSkew(Duration.ofSeconds(90));
@@ -226,14 +226,14 @@ public class PasswordReactiveOAuth2AuthorizedClientProviderTests {
 		given(this.accessTokenResponseClient.getTokenResponse(any())).willReturn(Mono.just(accessTokenResponse));
 		// @formatter:off
 		OAuth2AuthorizationContext authorizationContext = OAuth2AuthorizationContext
-				.withAuthorizedClient(authorizedClient)
-				.attribute(OAuth2AuthorizationContext.USERNAME_ATTRIBUTE_NAME, "username")
-				.attribute(OAuth2AuthorizationContext.PASSWORD_ATTRIBUTE_NAME, "password")
-				.principal(this.principal)
-				.build();
+	.withAuthorizedClient(authorizedClient)
+	.attribute(OAuth2AuthorizationContext.USERNAME_ATTRIBUTE_NAME, "username")
+	.attribute(OAuth2AuthorizationContext.PASSWORD_ATTRIBUTE_NAME, "password")
+	.principal(this.principal)
+	.build();
 		// @formatter:on
 		OAuth2AuthorizedClient reauthorizedClient = this.authorizedClientProvider.authorize(authorizationContext)
-				.block();
+	.block();
 		assertThat(reauthorizedClient.getClientRegistration()).isSameAs(this.clientRegistration);
 		assertThat(reauthorizedClient.getPrincipalName()).isEqualTo(this.principal.getName());
 		assertThat(reauthorizedClient.getAccessToken()).isEqualTo(accessTokenResponse.getAccessToken());

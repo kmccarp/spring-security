@@ -92,8 +92,8 @@ public class CorsSpecTests {
 	@Test
 	public void corsWhenCorsConfigurationSourceBeanThenAccessControlAllowOriginAndSecurityHeaders() {
 		givenGetCorsConfigurationWillReturnWildcard();
-		given(this.context.getBeanNamesForType(any(ResolvableType.class))).willReturn(new String[] { "source" },
-				new String[0]);
+		given(this.context.getBeanNamesForType(any(ResolvableType.class))).willReturn(new String[]{"source"},
+	new String[0]);
 		given(this.context.getBean("source")).willReturn(this.source);
 		this.expectedHeaders.set("Access-Control-Allow-Origin", "*");
 		this.expectedHeaders.set("X-Frame-Options", "DENY");
@@ -111,10 +111,10 @@ public class CorsSpecTests {
 		WebTestClient client = buildClient();
 		// @formatter:off
 		FluxExchangeResult<String> response = client.get()
-				.uri("https://example.com/")
-				.headers((h) -> h.setOrigin("https://origin.example.com"))
-				.exchange()
-				.returnResult(String.class);
+	.uri("https://example.com/")
+	.headers((h) -> h.setOrigin("https://origin.example.com"))
+	.exchange()
+	.returnResult(String.class);
 		// @formatter:on
 		Map<String, List<String>> responseHeaders = response.getResponseHeaders();
 		if (!this.expectedHeaders.isEmpty()) {
@@ -128,7 +128,7 @@ public class CorsSpecTests {
 	private WebTestClient buildClient() {
 		// @formatter:off
 		return WebTestClientBuilder.bindToWebFilters(this.http.build())
-				.build();
+	.build();
 		// @formatter:on
 	}
 

@@ -50,11 +50,10 @@ import org.springframework.util.function.SingletonSupplier;
  * @author Evgeniy Cheban
  * @since 5.5
  */
-public final class AuthorizeHttpRequestsConfigurer<H extends HttpSecurityBuilder<H>>
-		extends AbstractHttpConfigurer<AuthorizeHttpRequestsConfigurer<H>, H> {
+public final class AuthorizeHttpRequestsConfigurer<H extends HttpSecurityBuilder<H>>extends AbstractHttpConfigurer<AuthorizeHttpRequestsConfigurer<H>, H> {
 
 	static final AuthorizationManager<RequestAuthorizationContext> permitAllAuthorizationManager = (a,
-			o) -> new AuthorizationDecision(true);
+o) -> new AuthorizationDecision(true);
 
 	private final AuthorizationManagerRequestMatcherRegistry registry;
 
@@ -75,7 +74,7 @@ public final class AuthorizeHttpRequestsConfigurer<H extends HttpSecurityBuilder
 			this.publisher = new SpringAuthorizationEventPublisher(context);
 		}
 		this.roleHierarchy = SingletonSupplier.of(() -> (context.getBeanNamesForType(RoleHierarchy.class).length > 0)
-				? context.getBean(RoleHierarchy.class) : new NullRoleHierarchy());
+	? context.getBean(RoleHierarchy.class) : new NullRoleHierarchy());
 	}
 
 	/**
@@ -99,7 +98,7 @@ public final class AuthorizeHttpRequestsConfigurer<H extends HttpSecurityBuilder
 	}
 
 	private AuthorizationManagerRequestMatcherRegistry addMapping(List<? extends RequestMatcher> matchers,
-			AuthorizationManager<RequestAuthorizationContext> manager) {
+AuthorizationManager<RequestAuthorizationContext> manager) {
 		for (RequestMatcher matcher : matchers) {
 			this.registry.addMapping(matcher, manager);
 		}
@@ -107,7 +106,7 @@ public final class AuthorizeHttpRequestsConfigurer<H extends HttpSecurityBuilder
 	}
 
 	AuthorizationManagerRequestMatcherRegistry addFirst(RequestMatcher matcher,
-			AuthorizationManager<RequestAuthorizationContext> manager) {
+AuthorizationManager<RequestAuthorizationContext> manager) {
 		this.registry.addFirst(matcher, manager);
 		return this.registry;
 	}
@@ -129,10 +128,10 @@ public final class AuthorizeHttpRequestsConfigurer<H extends HttpSecurityBuilder
 	 * @author Evgeniy Cheban
 	 */
 	public final class AuthorizationManagerRequestMatcherRegistry
-			extends AbstractRequestMatcherRegistry<AuthorizedUrl> {
+extends AbstractRequestMatcherRegistry<AuthorizedUrl> {
 
 		private final RequestMatcherDelegatingAuthorizationManager.Builder managerBuilder = RequestMatcherDelegatingAuthorizationManager
-				.builder();
+	.builder();
 
 		private List<RequestMatcher> unmappedMatchers;
 
@@ -158,10 +157,10 @@ public final class AuthorizeHttpRequestsConfigurer<H extends HttpSecurityBuilder
 
 		private AuthorizationManager<HttpServletRequest> createAuthorizationManager() {
 			Assert.state(this.unmappedMatchers == null,
-					() -> "An incomplete mapping was found for " + this.unmappedMatchers
-							+ ". Try completing it with something like requestUrls().<something>.hasRole('USER')");
+		() -> "An incomplete mapping was found for " + this.unmappedMatchers
+	+ ". Try completing it with something like requestUrls().<something>.hasRole('USER')");
 			Assert.state(this.mappingCount > 0,
-					"At least one mapping is required (for example, authorizeHttpRequests().anyRequest().authenticated())");
+		"At least one mapping is required (for example, authorizeHttpRequests().anyRequest().authenticated())");
 			ObservationRegistry registry = getObservationRegistry();
 			RequestMatcherDelegatingAuthorizationManager manager = postProcess(this.managerBuilder.build());
 			if (registry.isNoop()) {
@@ -183,7 +182,7 @@ public final class AuthorizeHttpRequestsConfigurer<H extends HttpSecurityBuilder
 		 * customizations
 		 */
 		public AuthorizationManagerRequestMatcherRegistry withObjectPostProcessor(
-				ObjectPostProcessor<?> objectPostProcessor) {
+	ObjectPostProcessor<?> objectPostProcessor) {
 			addObjectPostProcessor(objectPostProcessor);
 			return this;
 		}
@@ -316,7 +315,7 @@ public final class AuthorizeHttpRequestsConfigurer<H extends HttpSecurityBuilder
 		}
 
 		private AuthorityAuthorizationManager<RequestAuthorizationContext> withRoleHierarchy(
-				AuthorityAuthorizationManager<RequestAuthorizationContext> manager) {
+	AuthorityAuthorizationManager<RequestAuthorizationContext> manager) {
 			manager.setRoleHierarchy(AuthorizeHttpRequestsConfigurer.this.roleHierarchy.get());
 			return manager;
 		}
@@ -370,7 +369,7 @@ public final class AuthorizeHttpRequestsConfigurer<H extends HttpSecurityBuilder
 		 * customizations
 		 */
 		public AuthorizationManagerRequestMatcherRegistry access(
-				AuthorizationManager<RequestAuthorizationContext> manager) {
+	AuthorizationManager<RequestAuthorizationContext> manager) {
 			Assert.notNull(manager, "manager cannot be null");
 			return AuthorizeHttpRequestsConfigurer.this.addMapping(this.matchers, manager);
 		}

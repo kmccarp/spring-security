@@ -77,7 +77,7 @@ public class HttpSessionRequestCacheTests {
 			@Override
 			public void saveRequest(HttpServletRequest request, HttpServletResponse response) {
 				request.getSession().setAttribute(SAVED_REQUEST,
-						new CustomSavedRequest(new DefaultSavedRequest(request, new PortResolverImpl())));
+			new CustomSavedRequest(new DefaultSavedRequest(request, new PortResolverImpl())));
 			}
 		};
 		cache.saveRequest(request, response);

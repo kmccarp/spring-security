@@ -82,7 +82,7 @@ class RSocketSecurityConfiguration {
 		}
 		if (this.reactiveUserDetailsService != null) {
 			UserDetailsRepositoryReactiveAuthenticationManager manager = new UserDetailsRepositoryReactiveAuthenticationManager(
-					this.reactiveUserDetailsService);
+		this.reactiveUserDetailsService);
 			if (this.passwordEncoder != null) {
 				manager.setPasswordEncoder(this.passwordEncoder);
 			}

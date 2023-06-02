@@ -60,7 +60,7 @@ public final class DelegatingRequestMatcherHeaderWriter implements HeaderWriter 
 	@Override
 	public String toString() {
 		return getClass().getName() + " [requestMatcher=" + this.requestMatcher + ", delegateHeaderWriter="
-				+ this.delegateHeaderWriter + "]";
+	+ this.delegateHeaderWriter + "]";
 	}
 
 }

@@ -73,7 +73,7 @@ public class ReactorContextTestExecutionListener extends DelegatingTestExecution
 		public void beforeTestMethod(TestContext testContext) {
 			SecurityContext securityContext = TestSecurityContextHolder.getContext();
 			Hooks.onLastOperator(CONTEXT_OPERATOR_KEY,
-					Operators.lift((s, sub) -> new SecuritySubContext<>(sub, securityContext)));
+		Operators.lift((s, sub) -> new SecuritySubContext<>(sub, securityContext)));
 		}
 
 		@Override
@@ -84,7 +84,7 @@ public class ReactorContextTestExecutionListener extends DelegatingTestExecution
 		private static class SecuritySubContext<T> implements CoreSubscriber<T> {
 
 			private static String CONTEXT_DEFAULTED_ATTR_NAME = SecuritySubContext.class.getName()
-					.concat(".CONTEXT_DEFAULTED_ATTR_NAME");
+		.concat(".CONTEXT_DEFAULTED_ATTR_NAME");
 
 			private final CoreSubscriber<T> delegate;
 

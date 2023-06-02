@@ -72,7 +72,7 @@ import org.springframework.web.filter.GenericFilterBean;
 public class SecurityContextHolderAwareRequestFilter extends GenericFilterBean {
 
 	private SecurityContextHolderStrategy securityContextHolderStrategy = SecurityContextHolder
-			.getContextHolderStrategy();
+.getContextHolderStrategy();
 
 	private String rolePrefix = "ROLE_";
 
@@ -175,7 +175,7 @@ public class SecurityContextHolderAwareRequestFilter extends GenericFilterBean {
 
 	@Override
 	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
-			throws IOException, ServletException {
+throws IOException, ServletException {
 		chain.doFilter(this.requestFactory.create((HttpServletRequest) req, (HttpServletResponse) res), res);
 	}
 

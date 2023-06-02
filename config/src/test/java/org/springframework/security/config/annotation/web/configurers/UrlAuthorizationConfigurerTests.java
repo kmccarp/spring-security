@@ -140,25 +140,25 @@ public class UrlAuthorizationConfigurerTests {
 	public void multiMvcMatchersConfig() throws Exception {
 		loadConfig(MultiMvcMatcherConfig.class);
 		this.request.addHeader("Authorization",
-				"Basic " + new String(Base64.getEncoder().encode("user:password".getBytes())));
+	"Basic " + new String(Base64.getEncoder().encode("user:password".getBytes())));
 		this.request.setRequestURI("/test-1");
 		this.springSecurityFilterChain.doFilter(this.request, this.response, this.chain);
 		assertThat(this.response.getStatus()).isEqualTo(HttpServletResponse.SC_FORBIDDEN);
 		setup();
 		this.request.addHeader("Authorization",
-				"Basic " + new String(Base64.getEncoder().encode("user:password".getBytes())));
+	"Basic " + new String(Base64.getEncoder().encode("user:password".getBytes())));
 		this.request.setRequestURI("/test-2");
 		this.springSecurityFilterChain.doFilter(this.request, this.response, this.chain);
 		assertThat(this.response.getStatus()).isEqualTo(HttpServletResponse.SC_FORBIDDEN);
 		setup();
 		this.request.addHeader("Authorization",
-				"Basic " + new String(Base64.getEncoder().encode("user:password".getBytes())));
+	"Basic " + new String(Base64.getEncoder().encode("user:password".getBytes())));
 		this.request.setRequestURI("/test-3");
 		this.springSecurityFilterChain.doFilter(this.request, this.response, this.chain);
 		assertThat(this.response.getStatus()).isEqualTo(HttpServletResponse.SC_FORBIDDEN);
 		setup();
 		this.request.addHeader("Authorization",
-				"Basic " + new String(Base64.getEncoder().encode("user:password".getBytes())));
+	"Basic " + new String(Base64.getEncoder().encode("user:password".getBytes())));
 		this.request.setRequestURI("/test-x");
 		this.springSecurityFilterChain.doFilter(this.request, this.response, this.chain);
 		assertThat(this.response.getStatus()).isEqualTo(HttpServletResponse.SC_OK);
@@ -179,12 +179,12 @@ public class UrlAuthorizationConfigurerTests {
 
 		@Bean
 		SecurityFilterChain filterChain(HttpSecurity http, ApplicationContext context,
-				HandlerMappingIntrospector introspector) throws Exception {
+	HandlerMappingIntrospector introspector) throws Exception {
 			// @formatter:off
 			http
-				.httpBasic().and()
-				.apply(new UrlAuthorizationConfigurer(context)).getRegistry()
-					.requestMatchers(new MvcRequestMatcher(introspector, "/path")).hasRole("ADMIN");
+		.httpBasic().and()
+		.apply(new UrlAuthorizationConfigurer(context)).getRegistry()
+		.requestMatchers(new MvcRequestMatcher(introspector, "/path")).hasRole("ADMIN");
 			// @formatter:on
 			return http.build();
 		}
@@ -213,14 +213,14 @@ public class UrlAuthorizationConfigurerTests {
 
 		@Bean
 		SecurityFilterChain filterChain(HttpSecurity http, ApplicationContext context,
-				HandlerMappingIntrospector introspector) throws Exception {
+	HandlerMappingIntrospector introspector) throws Exception {
 			MvcRequestMatcher mvcRequestMatcher = new MvcRequestMatcher(introspector, "/path");
 			mvcRequestMatcher.setServletPath("/spring");
 			// @formatter:off
 			http
-				.httpBasic().and()
-				.apply(new UrlAuthorizationConfigurer(context)).getRegistry()
-					.requestMatchers(mvcRequestMatcher).hasRole("ADMIN");
+		.httpBasic().and()
+		.apply(new UrlAuthorizationConfigurer(context)).getRegistry()
+		.requestMatchers(mvcRequestMatcher).hasRole("ADMIN");
 			// @formatter:on
 			return http.build();
 		}
@@ -250,8 +250,8 @@ public class UrlAuthorizationConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.apply(new UrlAuthorizationConfigurer<>(null)).getRegistry()
-					.anyRequest().anonymous();
+		.apply(new UrlAuthorizationConfigurer<>(null)).getRegistry()
+		.anyRequest().anonymous();
 			return http.build();
 			// @formatter:on
 		}
@@ -278,12 +278,12 @@ public class UrlAuthorizationConfigurerTests {
 		SecurityFilterChain security(HttpSecurity http, ApplicationContext context) throws Exception {
 			// @formatter:off
 			http
-					.httpBasic(Customizer.withDefaults())
-					.apply(new UrlAuthorizationConfigurer<>(context)).getRegistry()
-						.requestMatchers("/test-1").hasRole("ADMIN")
-						.requestMatchers("/test-2").hasRole("ADMIN")
-						.requestMatchers("/test-3").hasRole("ADMIN")
-						.anyRequest().hasRole("USER");
+		.httpBasic(Customizer.withDefaults())
+		.apply(new UrlAuthorizationConfigurer<>(context)).getRegistry()
+		.requestMatchers("/test-1").hasRole("ADMIN")
+		.requestMatchers("/test-2").hasRole("ADMIN")
+		.requestMatchers("/test-3").hasRole("ADMIN")
+		.anyRequest().hasRole("USER");
 			// @formatter:on
 			return http.build();
 		}
@@ -291,14 +291,14 @@ public class UrlAuthorizationConfigurerTests {
 		@Bean
 		UserDetailsService userDetailsService() {
 			UserDetails user = User.withDefaultPasswordEncoder().username("user").password("password").roles("USER")
-					.build();
+		.build();
 			return new InMemoryUserDetailsManager(user);
 		}
 
 		@RestController
 		static class PathController {
 
-			@RequestMapping({ "/test-1", "/test-2", "/test-3", "/test-x" })
+			@RequestMapping({"/test-1", "/test-2", "/test-3", "/test-x"})
 			String path() {
 				return "path";
 			}

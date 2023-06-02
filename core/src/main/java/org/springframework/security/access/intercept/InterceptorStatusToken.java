@@ -46,7 +46,7 @@ public class InterceptorStatusToken {
 	private boolean contextHolderRefreshRequired;
 
 	public InterceptorStatusToken(SecurityContext securityContext, boolean contextHolderRefreshRequired,
-			Collection<ConfigAttribute> attributes, Object secureObject) {
+Collection<ConfigAttribute> attributes, Object secureObject) {
 		this.securityContext = securityContext;
 		this.contextHolderRefreshRequired = contextHolderRefreshRequired;
 		this.attr = attributes;

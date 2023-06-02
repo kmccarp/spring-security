@@ -62,7 +62,7 @@ public class DefaultToken implements Token {
 		if (obj != null && obj instanceof DefaultToken) {
 			DefaultToken rhs = (DefaultToken) obj;
 			return this.key.equals(rhs.key) && this.keyCreationTime == rhs.keyCreationTime
-					&& this.extendedInformation.equals(rhs.extendedInformation);
+		&& this.extendedInformation.equals(rhs.extendedInformation);
 		}
 		return false;
 	}
@@ -79,7 +79,7 @@ public class DefaultToken implements Token {
 	@Override
 	public String toString() {
 		return "DefaultToken[key=" + this.key + "; creation=" + new Date(this.keyCreationTime) + "; extended="
-				+ this.extendedInformation + "]";
+	+ this.extendedInformation + "]";
 	}
 
 }

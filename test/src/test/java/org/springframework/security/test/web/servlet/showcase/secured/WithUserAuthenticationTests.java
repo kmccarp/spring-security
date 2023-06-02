@@ -54,37 +54,37 @@ public class WithUserAuthenticationTests {
 	@BeforeEach
 	public void setup() {
 		this.mvc = MockMvcBuilders.webAppContextSetup(this.context).apply(SecurityMockMvcConfigurers.springSecurity())
-				.build();
+	.build();
 	}
 
 	@Test
 	@WithMockUser
 	public void requestProtectedUrlWithUser() throws Exception {
 		this.mvc.perform(get("/"))
-				// Ensure we got past Security
-				.andExpect(status().isNotFound())
-				// Ensure it appears we are authenticated with user
-				.andExpect(authenticated().withUsername("user"));
+	// Ensure we got past Security
+	.andExpect(status().isNotFound())
+	// Ensure it appears we are authenticated with user
+	.andExpect(authenticated().withUsername("user"));
 	}
 
 	@Test
 	@WithAdminRob
 	public void requestProtectedUrlWithAdminRob() throws Exception {
 		this.mvc.perform(get("/"))
-				// Ensure we got past Security
-				.andExpect(status().isNotFound())
-				// Ensure it appears we are authenticated with user
-				.andExpect(authenticated().withUsername("rob").withRoles("ADMIN"));
+	// Ensure we got past Security
+	.andExpect(status().isNotFound())
+	// Ensure it appears we are authenticated with user
+	.andExpect(authenticated().withUsername("rob").withRoles("ADMIN"));
 	}
 
 	@Test
 	@WithMockUser(roles = "ADMIN")
 	public void requestProtectedUrlWithAdmin() throws Exception {
 		this.mvc.perform(get("/admin"))
-				// Ensure we got past Security
-				.andExpect(status().isNotFound())
-				// Ensure it appears we are authenticated with user
-				.andExpect(authenticated().withUsername("user").withRoles("ADMIN"));
+	// Ensure we got past Security
+	.andExpect(status().isNotFound())
+	// Ensure it appears we are authenticated with user
+	.andExpect(authenticated().withUsername("user").withRoles("ADMIN"));
 	}
 
 	@Configuration
@@ -96,11 +96,11 @@ public class WithUserAuthenticationTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests()
-					.requestMatchers("/admin/**").hasRole("ADMIN")
-					.anyRequest().authenticated()
-					.and()
-				.formLogin();
+		.authorizeRequests()
+		.requestMatchers("/admin/**").hasRole("ADMIN")
+		.anyRequest().authenticated()
+		.and()
+		.formLogin();
 			return http.build();
 			// @formatter:on
 		}
@@ -109,8 +109,8 @@ public class WithUserAuthenticationTests {
 		void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 			// @formatter:off
 			auth
-				.inMemoryAuthentication()
-					.withUser("user").password("password").roles("USER");
+		.inMemoryAuthentication()
+		.withUser("user").password("password").roles("USER");
 			// @formatter:on
 		}
 

@@ -29,7 +29,7 @@ public class InMemoryRelyingPartyRegistrationRepositoryTests {
 	void findByRegistrationIdWhenGivenIdThenReturnsMatchingRegistration() {
 		RelyingPartyRegistration registration = TestRelyingPartyRegistrations.relyingPartyRegistration().build();
 		InMemoryRelyingPartyRegistrationRepository registrations = new InMemoryRelyingPartyRegistrationRepository(
-				registration);
+	registration);
 		assertThat(registrations.findByRegistrationId(registration.getRegistrationId())).isSameAs(registration);
 	}
 
@@ -37,7 +37,7 @@ public class InMemoryRelyingPartyRegistrationRepositoryTests {
 	void findByRegistrationIdWhenGivenWrongIdThenReturnsNull() {
 		RelyingPartyRegistration registration = TestRelyingPartyRegistrations.relyingPartyRegistration().build();
 		InMemoryRelyingPartyRegistrationRepository registrations = new InMemoryRelyingPartyRegistrationRepository(
-				registration);
+	registration);
 		assertThat(registrations.findByRegistrationId(registration.getRegistrationId() + "wrong")).isNull();
 		assertThat(registrations.findByRegistrationId(null)).isNull();
 	}
@@ -46,7 +46,7 @@ public class InMemoryRelyingPartyRegistrationRepositoryTests {
 	void findByAssertingPartyEntityIdWhenGivenEntityIdThenReturnsMatchingRegistrations() {
 		RelyingPartyRegistration registration = TestRelyingPartyRegistrations.relyingPartyRegistration().build();
 		InMemoryRelyingPartyRegistrationRepository registrations = new InMemoryRelyingPartyRegistrationRepository(
-				registration);
+	registration);
 		String assertingPartyEntityId = registration.getAssertingPartyDetails().getEntityId();
 		assertThat(registrations.findUniqueByAssertingPartyEntityId(assertingPartyEntityId)).isEqualTo(registration);
 	}
@@ -55,7 +55,7 @@ public class InMemoryRelyingPartyRegistrationRepositoryTests {
 	void findByAssertingPartyEntityIdWhenGivenWrongEntityIdThenReturnsEmpty() {
 		RelyingPartyRegistration registration = TestRelyingPartyRegistrations.relyingPartyRegistration().build();
 		InMemoryRelyingPartyRegistrationRepository registrations = new InMemoryRelyingPartyRegistrationRepository(
-				registration);
+	registration);
 		String assertingPartyEntityId = registration.getAssertingPartyDetails().getEntityId();
 		assertThat(registrations.findUniqueByAssertingPartyEntityId(assertingPartyEntityId + "wrong")).isNull();
 	}

@@ -56,8 +56,8 @@ public final class XFrameOptionsHeaderWriter implements HeaderWriter {
 	public XFrameOptionsHeaderWriter(XFrameOptionsMode frameOptionsMode) {
 		Assert.notNull(frameOptionsMode, "frameOptionsMode cannot be null");
 		Assert.isTrue(!XFrameOptionsMode.ALLOW_FROM.equals(frameOptionsMode),
-				"ALLOW_FROM requires an AllowFromStrategy. Please use "
-						+ "FrameOptionsHeaderWriter(AllowFromStrategy allowFromStrategy) instead");
+	"ALLOW_FROM requires an AllowFromStrategy. Please use "
++ "FrameOptionsHeaderWriter(AllowFromStrategy allowFromStrategy) instead");
 		this.frameOptionsMode = frameOptionsMode;
 		this.allowFromStrategy = null;
 	}
@@ -95,7 +95,7 @@ public final class XFrameOptionsHeaderWriter implements HeaderWriter {
 			else if (allowFromValue != null) {
 				if (!response.containsHeader(XFRAME_OPTIONS_HEADER)) {
 					response.setHeader(XFRAME_OPTIONS_HEADER,
-							XFrameOptionsMode.ALLOW_FROM.getMode() + " " + allowFromValue);
+				XFrameOptionsMode.ALLOW_FROM.getMode() + " " + allowFromValue);
 				}
 			}
 		}

@@ -28,8 +28,7 @@ import org.springframework.security.core.context.SecurityContext;
  * @since 3.2
  *
  */
-public class CurrentDelegatingSecurityContextExecutorServiceTests
-		extends AbstractDelegatingSecurityContextExecutorServiceTests {
+public class CurrentDelegatingSecurityContextExecutorServiceTestsextends AbstractDelegatingSecurityContextExecutorServiceTests {
 
 	@BeforeEach
 	public void setUp() throws Exception {

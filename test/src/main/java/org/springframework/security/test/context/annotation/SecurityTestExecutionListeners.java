@@ -43,8 +43,7 @@ import org.springframework.test.context.TestExecutionListeners;
 @Inherited
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-@TestExecutionListeners(inheritListeners = false,
-		listeners = { WithSecurityContextTestExecutionListener.class, ReactorContextTestExecutionListener.class })
+@TestExecutionListeners(inheritListeners = false,listeners = {WithSecurityContextTestExecutionListener.class, ReactorContextTestExecutionListener.class})
 public @interface SecurityTestExecutionListeners {
 
 }

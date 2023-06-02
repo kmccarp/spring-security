@@ -56,21 +56,21 @@ public class JdbcAclService implements AclService {
 	private static final String DEFAULT_SELECT_ACL_CLASS_COLUMNS = "class.class as class";
 
 	private static final String DEFAULT_SELECT_ACL_CLASS_COLUMNS_WITH_ID_TYPE = DEFAULT_SELECT_ACL_CLASS_COLUMNS
-			+ ", class.class_id_type as class_id_type";
++ ", class.class_id_type as class_id_type";
 
 	private static final String DEFAULT_SELECT_ACL_WITH_PARENT_SQL = "select obj.object_id_identity as obj_id, "
-			+ DEFAULT_SELECT_ACL_CLASS_COLUMNS
-			+ " from acl_object_identity obj, acl_object_identity parent, acl_class class "
-			+ "where obj.parent_object = parent.id and obj.object_id_class = class.id "
-			+ "and parent.object_id_identity = ? and parent.object_id_class = ("
-			+ "select id FROM acl_class where acl_class.class = ?)";
++ DEFAULT_SELECT_ACL_CLASS_COLUMNS
++ " from acl_object_identity obj, acl_object_identity parent, acl_class class "
++ "where obj.parent_object = parent.id and obj.object_id_class = class.id "
++ "and parent.object_id_identity = ? and parent.object_id_class = ("
++ "select id FROM acl_class where acl_class.class = ?)";
 
 	private static final String DEFAULT_SELECT_ACL_WITH_PARENT_SQL_WITH_CLASS_ID_TYPE = "select obj.object_id_identity as obj_id, "
-			+ DEFAULT_SELECT_ACL_CLASS_COLUMNS_WITH_ID_TYPE
-			+ " from acl_object_identity obj, acl_object_identity parent, acl_class class "
-			+ "where obj.parent_object = parent.id and obj.object_id_class = class.id "
-			+ "and parent.object_id_identity = ? and parent.object_id_class = ("
-			+ "select id FROM acl_class where acl_class.class = ?)";
++ DEFAULT_SELECT_ACL_CLASS_COLUMNS_WITH_ID_TYPE
++ " from acl_object_identity obj, acl_object_identity parent, acl_class class "
++ "where obj.parent_object = parent.id and obj.object_id_class = class.id "
++ "and parent.object_id_identity = ? and parent.object_id_class = ("
++ "select id FROM acl_class where acl_class.class = ?)";
 
 	protected final JdbcOperations jdbcOperations;
 
@@ -99,9 +99,9 @@ public class JdbcAclService implements AclService {
 
 	@Override
 	public List<ObjectIdentity> findChildren(ObjectIdentity parentIdentity) {
-		Object[] args = { parentIdentity.getIdentifier().toString(), parentIdentity.getType() };
+		Object[] args = {parentIdentity.getIdentifier().toString(), parentIdentity.getType()};
 		List<ObjectIdentity> objects = this.jdbcOperations.query(this.findChildrenSql, args,
-				(rs, rowNum) -> mapObjectIdentityRow(rs));
+	(rs, rowNum) -> mapObjectIdentityRow(rs));
 		return (!objects.isEmpty()) ? objects : null;
 	}
 
@@ -116,7 +116,7 @@ public class JdbcAclService implements AclService {
 	public Acl readAclById(ObjectIdentity object, List<Sid> sids) throws NotFoundException {
 		Map<ObjectIdentity, Acl> map = readAclsById(Collections.singletonList(object), sids);
 		Assert.isTrue(map.containsKey(object),
-				() -> "There should have been an Acl entry for ObjectIdentity " + object);
+	() -> "There should have been an Acl entry for ObjectIdentity " + object);
 		return map.get(object);
 	}
 
@@ -132,7 +132,7 @@ public class JdbcAclService implements AclService {
 
 	@Override
 	public Map<ObjectIdentity, Acl> readAclsById(List<ObjectIdentity> objects, List<Sid> sids)
-			throws NotFoundException {
+throws NotFoundException {
 		Map<ObjectIdentity, Acl> result = this.lookupStrategy.readAclsById(objects, sids);
 		// Check every requested object identity was found (throw NotFoundException if
 		// needed)

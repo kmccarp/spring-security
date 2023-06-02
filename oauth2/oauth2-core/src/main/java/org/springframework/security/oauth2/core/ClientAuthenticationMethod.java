@@ -38,19 +38,19 @@ public final class ClientAuthenticationMethod implements Serializable {
 	 * @since 5.5
 	 */
 	public static final ClientAuthenticationMethod CLIENT_SECRET_BASIC = new ClientAuthenticationMethod(
-			"client_secret_basic");
+"client_secret_basic");
 
 	/**
 	 * @since 5.5
 	 */
 	public static final ClientAuthenticationMethod CLIENT_SECRET_POST = new ClientAuthenticationMethod(
-			"client_secret_post");
+"client_secret_post");
 
 	/**
 	 * @since 5.5
 	 */
 	public static final ClientAuthenticationMethod CLIENT_SECRET_JWT = new ClientAuthenticationMethod(
-			"client_secret_jwt");
+"client_secret_jwt");
 
 	/**
 	 * @since 5.5

@@ -55,7 +55,7 @@ public class ELRequestMatcherTests {
 	@Test
 	public void testHasHeaderTwoEntries() {
 		ELRequestMatcher requestMatcher = new ELRequestMatcher(
-				"hasHeader('User-Agent','MSIE') or hasHeader('User-Agent','Mozilla')");
+	"hasHeader('User-Agent','MSIE') or hasHeader('User-Agent','Mozilla')");
 		MockHttpServletRequest request = new MockHttpServletRequest();
 		request.addHeader("User-Agent", "MSIE");
 		assertThat(requestMatcher.matches(request)).isTrue();

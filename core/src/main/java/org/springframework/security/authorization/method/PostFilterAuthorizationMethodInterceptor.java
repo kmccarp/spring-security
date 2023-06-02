@@ -43,11 +43,10 @@ import org.springframework.security.core.context.SecurityContextHolderStrategy;
  * @author Josh Cummings
  * @since 5.6
  */
-public final class PostFilterAuthorizationMethodInterceptor
-		implements Ordered, MethodInterceptor, PointcutAdvisor, AopInfrastructureBean {
+public final class PostFilterAuthorizationMethodInterceptorimplements Ordered, MethodInterceptor, PointcutAdvisor, AopInfrastructureBean {
 
 	private Supplier<Authentication> authentication = getAuthentication(
-			SecurityContextHolder.getContextHolderStrategy());
+SecurityContextHolder.getContextHolderStrategy());
 
 	private PostFilterExpressionAttributeRegistry registry = new PostFilterExpressionAttributeRegistry();
 
@@ -134,7 +133,7 @@ public final class PostFilterAuthorizationMethodInterceptor
 			Authentication authentication = strategy.getContext().getAuthentication();
 			if (authentication == null) {
 				throw new AuthenticationCredentialsNotFoundException(
-						"An Authentication object was not found in the SecurityContext");
+			"An Authentication object was not found in the SecurityContext");
 			}
 			return authentication;
 		};

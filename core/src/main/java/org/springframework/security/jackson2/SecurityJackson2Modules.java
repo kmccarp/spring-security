@@ -74,10 +74,10 @@ public final class SecurityJackson2Modules {
 	private static final Log logger = LogFactory.getLog(SecurityJackson2Modules.class);
 
 	private static final List<String> securityJackson2ModuleClasses = Arrays.asList(
-			"org.springframework.security.jackson2.CoreJackson2Module",
-			"org.springframework.security.cas.jackson2.CasJackson2Module",
-			"org.springframework.security.web.jackson2.WebJackson2Module",
-			"org.springframework.security.web.server.jackson2.WebServerJackson2Module");
+"org.springframework.security.jackson2.CoreJackson2Module",
+"org.springframework.security.cas.jackson2.CasJackson2Module",
+"org.springframework.security.web.jackson2.WebJackson2Module",
+"org.springframework.security.web.server.jackson2.WebServerJackson2Module");
 
 	private static final String webServletJackson2ModuleClass = "org.springframework.security.web.jackson2.WebServletJackson2Module";
 
@@ -103,7 +103,7 @@ public final class SecurityJackson2Modules {
 		ClassLoader classLoader = SecurityJackson2Modules.class.getClassLoader();
 		webServletPresent = ClassUtils.isPresent("jakarta.servlet.http.Cookie", classLoader);
 		oauth2ClientPresent = ClassUtils.isPresent("org.springframework.security.oauth2.client.OAuth2AuthorizedClient",
-				classLoader);
+	classLoader);
 		javaTimeJacksonPresent = ClassUtils.isPresent(javaTimeJackson2ModuleClass, classLoader);
 		ldapJacksonPresent = ClassUtils.isPresent(ldapJackson2ModuleClass, classLoader);
 		saml2JacksonPresent = ClassUtils.isPresent(saml2Jackson2ModuleClass, classLoader);
@@ -181,7 +181,7 @@ public final class SecurityJackson2Modules {
 	 */
 	private static TypeResolverBuilder<? extends TypeResolverBuilder> createAllowlistedDefaultTyping() {
 		TypeResolverBuilder<? extends TypeResolverBuilder> result = new AllowlistTypeResolverBuilder(
-				ObjectMapper.DefaultTyping.NON_FINAL);
+	ObjectMapper.DefaultTyping.NON_FINAL);
 		result = result.init(JsonTypeInfo.Id.CLASS, null);
 		result = result.inclusion(JsonTypeInfo.As.PROPERTY);
 		return result;
@@ -198,14 +198,14 @@ public final class SecurityJackson2Modules {
 
 		AllowlistTypeResolverBuilder(ObjectMapper.DefaultTyping defaultTyping) {
 			super(defaultTyping,
-					// we do explicit validation in the TypeIdResolver
-					BasicPolymorphicTypeValidator.builder().allowIfSubType(Object.class).build());
+		// we do explicit validation in the TypeIdResolver
+		BasicPolymorphicTypeValidator.builder().allowIfSubType(Object.class).build());
 		}
 
 		@Override
 		protected TypeIdResolver idResolver(MapperConfig<?> config, JavaType baseType,
-				PolymorphicTypeValidator subtypeValidator, Collection<NamedType> subtypes, boolean forSer,
-				boolean forDeser) {
+	PolymorphicTypeValidator subtypeValidator, Collection<NamedType> subtypes, boolean forSer,
+	boolean forDeser) {
 			TypeIdResolver result = super.idResolver(config, baseType, subtypeValidator, subtypes, forSer, forDeser);
 			return new AllowlistTypeIdResolver(result);
 		}
@@ -221,6 +221,7 @@ public final class SecurityJackson2Modules {
 	static class AllowlistTypeIdResolver implements TypeIdResolver {
 
 		private static final Set<String> ALLOWLIST_CLASS_NAMES;
+
 		static {
 			Set<String> names = new HashSet<>();
 			names.add("java.util.ArrayList");
@@ -278,15 +279,15 @@ public final class SecurityJackson2Modules {
 				return result;
 			}
 			JacksonAnnotation jacksonAnnotation = AnnotationUtils.findAnnotation(result.getRawClass(),
-					JacksonAnnotation.class);
+		JacksonAnnotation.class);
 			if (jacksonAnnotation != null) {
 				return result;
 			}
 			throw new IllegalArgumentException("The class with " + id + " and name of " + className
-					+ " is not in the allowlist. "
-					+ "If you believe this class is safe to deserialize, please provide an explicit mapping using Jackson annotations or by providing a Mixin. "
-					+ "If the serialization is only done by a trusted source, you can also enable default typing. "
-					+ "See https://github.com/spring-projects/spring-security/issues/4370 for details");
+		+ " is not in the allowlist. "
+		+ "If you believe this class is safe to deserialize, please provide an explicit mapping using Jackson annotations or by providing a Mixin. "
+		+ "If the serialization is only done by a trusted source, you can also enable default typing. "
+		+ "See https://github.com/spring-projects/spring-security/issues/4370 for details");
 		}
 
 		private boolean isInAllowlist(String id) {

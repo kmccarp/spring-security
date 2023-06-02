@@ -53,7 +53,7 @@ public class HttpSecurityAuthenticationManagerTests {
 		this.spring.register(AuthenticationManagerConfig.class).autowire();
 
 		given(AuthenticationManagerConfig.AUTHENTICATION_MANAGER.authenticate(any()))
-				.willReturn(new TestingAuthenticationToken("user", "test", "ROLE_USER"));
+	.willReturn(new TestingAuthenticationToken("user", "test", "ROLE_USER"));
 
 		this.mvc.perform(get("/").with(httpBasic("user", "test")));
 
@@ -62,11 +62,11 @@ public class HttpSecurityAuthenticationManagerTests {
 
 	@Test
 	public void authenticationManagerWhenBuilderAndAuthenticationManagerConfiguredThenBuilderIgnored()
-			throws Exception {
+throws Exception {
 		this.spring.register(AuthenticationManagerBuilderConfig.class).autowire();
 
 		given(AuthenticationManagerBuilderConfig.AUTHENTICATION_MANAGER.authenticate(any()))
-				.willReturn(new TestingAuthenticationToken("user", "test", "ROLE_USER"));
+	.willReturn(new TestingAuthenticationToken("user", "test", "ROLE_USER"));
 
 		this.mvc.perform(get("/").with(httpBasic("user", "test")));
 
@@ -84,11 +84,11 @@ public class HttpSecurityAuthenticationManagerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-					.authorizeRequests((authz) -> authz
-							.anyRequest().authenticated()
-					)
-					.httpBasic(withDefaults())
-					.authenticationManager(AUTHENTICATION_MANAGER);
+		.authorizeRequests((authz) -> authz
+.anyRequest().authenticated()
+		)
+		.httpBasic(withDefaults())
+		.authenticationManager(AUTHENTICATION_MANAGER);
 			return http.build();
 			// @formatter:on
 		}
@@ -106,11 +106,11 @@ public class HttpSecurityAuthenticationManagerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-					.authorizeRequests((authz) -> authz
-						.anyRequest().authenticated()
-					)
-					.httpBasic(withDefaults())
-					.authenticationManager(AUTHENTICATION_MANAGER);
+		.authorizeRequests((authz) -> authz
+.anyRequest().authenticated()
+		)
+		.httpBasic(withDefaults())
+		.authenticationManager(AUTHENTICATION_MANAGER);
 			// @formatter:on
 			return http.build();
 		}

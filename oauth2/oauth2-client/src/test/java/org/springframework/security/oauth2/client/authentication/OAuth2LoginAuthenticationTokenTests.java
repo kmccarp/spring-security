@@ -59,26 +59,26 @@ public class OAuth2LoginAuthenticationTokenTests {
 		this.authorities = Collections.emptyList();
 		this.clientRegistration = TestClientRegistrations.clientRegistration().build();
 		this.authorizationExchange = new OAuth2AuthorizationExchange(TestOAuth2AuthorizationRequests.request().build(),
-				TestOAuth2AuthorizationResponses.success().code("code").build());
+	TestOAuth2AuthorizationResponses.success().code("code").build());
 		this.accessToken = TestOAuth2AccessTokens.noScopes();
 	}
 
 	@Test
 	public void constructorAuthorizationRequestResponseWhenClientRegistrationIsNullThenThrowIllegalArgumentException() {
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new OAuth2LoginAuthenticationToken(null, this.authorizationExchange));
+	.isThrownBy(() -> new OAuth2LoginAuthenticationToken(null, this.authorizationExchange));
 	}
 
 	@Test
 	public void constructorAuthorizationRequestResponseWhenAuthorizationExchangeIsNullThenThrowIllegalArgumentException() {
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new OAuth2LoginAuthenticationToken(this.clientRegistration, null));
+	.isThrownBy(() -> new OAuth2LoginAuthenticationToken(this.clientRegistration, null));
 	}
 
 	@Test
 	public void constructorAuthorizationRequestResponseWhenAllParametersProvidedAndValidThenCreated() {
 		OAuth2LoginAuthenticationToken authentication = new OAuth2LoginAuthenticationToken(this.clientRegistration,
-				this.authorizationExchange);
+	this.authorizationExchange);
 		assertThat(authentication.getPrincipal()).isNull();
 		assertThat(authentication.getCredentials()).isEqualTo("");
 		assertThat(authentication.getAuthorities()).isEqualTo(Collections.emptyList());
@@ -91,46 +91,46 @@ public class OAuth2LoginAuthenticationTokenTests {
 	@Test
 	public void constructorTokenRequestResponseWhenClientRegistrationIsNullThenThrowIllegalArgumentException() {
 		assertThatIllegalArgumentException().isThrownBy(() -> new OAuth2LoginAuthenticationToken(null,
-				this.authorizationExchange, this.principal, this.authorities, this.accessToken));
+	this.authorizationExchange, this.principal, this.authorities, this.accessToken));
 	}
 
 	@Test
 	public void constructorTokenRequestResponseWhenAuthorizationExchangeIsNullThenThrowIllegalArgumentException() {
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new OAuth2LoginAuthenticationToken(this.clientRegistration, null, this.principal,
-						this.authorities, this.accessToken));
+	.isThrownBy(() -> new OAuth2LoginAuthenticationToken(this.clientRegistration, null, this.principal,
+this.authorities, this.accessToken));
 	}
 
 	@Test
 	public void constructorTokenRequestResponseWhenPrincipalIsNullThenThrowIllegalArgumentException() {
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new OAuth2LoginAuthenticationToken(this.clientRegistration,
-						this.authorizationExchange, null, this.authorities, this.accessToken));
+	.isThrownBy(() -> new OAuth2LoginAuthenticationToken(this.clientRegistration,
+this.authorizationExchange, null, this.authorities, this.accessToken));
 	}
 
 	@Test
 	public void constructorTokenRequestResponseWhenAuthoritiesIsNullThenCreated() {
 		new OAuth2LoginAuthenticationToken(this.clientRegistration, this.authorizationExchange, this.principal, null,
-				this.accessToken);
+	this.accessToken);
 	}
 
 	@Test
 	public void constructorTokenRequestResponseWhenAuthoritiesIsEmptyThenCreated() {
 		new OAuth2LoginAuthenticationToken(this.clientRegistration, this.authorizationExchange, this.principal,
-				Collections.emptyList(), this.accessToken);
+	Collections.emptyList(), this.accessToken);
 	}
 
 	@Test
 	public void constructorTokenRequestResponseWhenAccessTokenIsNullThenThrowIllegalArgumentException() {
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new OAuth2LoginAuthenticationToken(this.clientRegistration,
-						this.authorizationExchange, this.principal, this.authorities, null));
+	.isThrownBy(() -> new OAuth2LoginAuthenticationToken(this.clientRegistration,
+this.authorizationExchange, this.principal, this.authorities, null));
 	}
 
 	@Test
 	public void constructorTokenRequestResponseWhenAllParametersProvidedAndValidThenCreated() {
 		OAuth2LoginAuthenticationToken authentication = new OAuth2LoginAuthenticationToken(this.clientRegistration,
-				this.authorizationExchange, this.principal, this.authorities, this.accessToken);
+	this.authorizationExchange, this.principal, this.authorities, this.accessToken);
 		assertThat(authentication.getPrincipal()).isEqualTo(this.principal);
 		assertThat(authentication.getCredentials()).isEqualTo("");
 		assertThat(authentication.getAuthorities()).isEqualTo(this.authorities);

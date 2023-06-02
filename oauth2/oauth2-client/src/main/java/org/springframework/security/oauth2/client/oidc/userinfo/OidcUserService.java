@@ -68,15 +68,15 @@ public class OidcUserService implements OAuth2UserService<OidcUserRequest, OidcU
 	private static final String INVALID_USER_INFO_RESPONSE_ERROR_CODE = "invalid_user_info_response";
 
 	private static final Converter<Map<String, Object>, Map<String, Object>> DEFAULT_CLAIM_TYPE_CONVERTER = new ClaimTypeConverter(
-			createDefaultClaimTypeConverters());
+createDefaultClaimTypeConverters());
 
 	private Set<String> accessibleScopes = new HashSet<>(
-			Arrays.asList(OidcScopes.PROFILE, OidcScopes.EMAIL, OidcScopes.ADDRESS, OidcScopes.PHONE));
+Arrays.asList(OidcScopes.PROFILE, OidcScopes.EMAIL, OidcScopes.ADDRESS, OidcScopes.PHONE));
 
 	private OAuth2UserService<OAuth2UserRequest, OAuth2User> oauth2UserService = new DefaultOAuth2UserService();
 
 	private Function<ClientRegistration, Converter<Map<String, Object>, Map<String, Object>>> claimTypeConverterFactory = (
-			clientRegistration) -> DEFAULT_CLAIM_TYPE_CONVERTER;
+clientRegistration) -> DEFAULT_CLAIM_TYPE_CONVERTER;
 
 	/**
 	 * Returns the default {@link Converter}'s used for type conversion of claim values
@@ -98,7 +98,7 @@ public class OidcUserService implements OAuth2UserService<OidcUserRequest, OidcU
 	private static Converter<Object, ?> getConverter(TypeDescriptor targetDescriptor) {
 		TypeDescriptor sourceDescriptor = TypeDescriptor.valueOf(Object.class);
 		return (source) -> ClaimConversionService.getSharedInstance().convert(source, sourceDescriptor,
-				targetDescriptor);
+	targetDescriptor);
 	}
 
 	@Override
@@ -138,7 +138,7 @@ public class OidcUserService implements OAuth2UserService<OidcUserRequest, OidcU
 
 	private Map<String, Object> getClaims(OidcUserRequest userRequest, OAuth2User oauth2User) {
 		Converter<Map<String, Object>, Map<String, Object>> converter = this.claimTypeConverterFactory
-				.apply(userRequest.getClientRegistration());
+	.apply(userRequest.getClientRegistration());
 		if (converter != null) {
 			return converter.convert(oauth2User.getAttributes());
 		}
@@ -170,7 +170,7 @@ public class OidcUserService implements OAuth2UserService<OidcUserRequest, OidcU
 		// The Authorization Code Grant Flow, which is response_type=code, results in an
 		// Access Token being issued.
 		if (AuthorizationGrantType.AUTHORIZATION_CODE
-				.equals(userRequest.getClientRegistration().getAuthorizationGrantType())) {
+	.equals(userRequest.getClientRegistration().getAuthorizationGrantType())) {
 			// Return true if there is at least one match between the authorized scope(s)
 			// and accessible scope(s)
 			//
@@ -178,8 +178,8 @@ public class OidcUserService implements OAuth2UserService<OidcUserRequest, OidcU
 			// not indicated which scopes are accessible via the access token
 			// @formatter:off
 			return this.accessibleScopes.isEmpty()
-					|| CollectionUtils.isEmpty(userRequest.getAccessToken().getScopes())
-					|| CollectionUtils.containsAny(userRequest.getAccessToken().getScopes(), this.accessibleScopes);
+		|| CollectionUtils.isEmpty(userRequest.getAccessToken().getScopes())
+		|| CollectionUtils.containsAny(userRequest.getAccessToken().getScopes(), this.accessibleScopes);
 			// @formatter:on
 		}
 		return false;
@@ -206,7 +206,7 @@ public class OidcUserService implements OAuth2UserService<OidcUserRequest, OidcU
 	 * @since 5.2
 	 */
 	public final void setClaimTypeConverterFactory(
-			Function<ClientRegistration, Converter<Map<String, Object>, Map<String, Object>>> claimTypeConverterFactory) {
+Function<ClientRegistration, Converter<Map<String, Object>, Map<String, Object>>> claimTypeConverterFactory) {
 		Assert.notNull(claimTypeConverterFactory, "claimTypeConverterFactory cannot be null");
 		this.claimTypeConverterFactory = claimTypeConverterFactory;
 	}

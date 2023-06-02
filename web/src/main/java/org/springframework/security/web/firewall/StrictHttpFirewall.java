@@ -91,19 +91,19 @@ public class StrictHttpFirewall implements HttpFirewall {
 	private static final String PERCENT = "%";
 
 	private static final List<String> FORBIDDEN_ENCODED_PERIOD = Collections
-			.unmodifiableList(Arrays.asList("%2e", "%2E"));
+.unmodifiableList(Arrays.asList("%2e", "%2E"));
 
 	private static final List<String> FORBIDDEN_SEMICOLON = Collections
-			.unmodifiableList(Arrays.asList(";", "%3b", "%3B"));
+.unmodifiableList(Arrays.asList(";", "%3b", "%3B"));
 
 	private static final List<String> FORBIDDEN_FORWARDSLASH = Collections
-			.unmodifiableList(Arrays.asList("%2f", "%2F"));
+.unmodifiableList(Arrays.asList("%2f", "%2F"));
 
 	private static final List<String> FORBIDDEN_DOUBLE_FORWARDSLASH = Collections
-			.unmodifiableList(Arrays.asList("//", "%2f%2f", "%2f%2F", "%2F%2f", "%2F%2F"));
+.unmodifiableList(Arrays.asList("//", "%2f%2f", "%2f%2F", "%2F%2f", "%2F%2F"));
 
 	private static final List<String> FORBIDDEN_BACKSLASH = Collections
-			.unmodifiableList(Arrays.asList("\\", "%5c", "%5C"));
+.unmodifiableList(Arrays.asList("\\", "%5c", "%5C"));
 
 	private static final List<String> FORBIDDEN_NULL = Collections.unmodifiableList(Arrays.asList("\0", "%00"));
 
@@ -114,7 +114,7 @@ public class StrictHttpFirewall implements HttpFirewall {
 	private static final List<String> FORBIDDEN_LINE_SEPARATOR = Collections.unmodifiableList(Arrays.asList("\u2028"));
 
 	private static final List<String> FORBIDDEN_PARAGRAPH_SEPARATOR = Collections
-			.unmodifiableList(Arrays.asList("\u2029"));
+.unmodifiableList(Arrays.asList("\u2029"));
 
 	private Set<String> encodedUrlBlocklist = new HashSet<>();
 
@@ -125,10 +125,10 @@ public class StrictHttpFirewall implements HttpFirewall {
 	private Predicate<String> allowedHostnames = (hostname) -> true;
 
 	private static final Pattern ASSIGNED_AND_NOT_ISO_CONTROL_PATTERN = Pattern
-			.compile("[\\p{IsAssigned}&&[^\\p{IsControl}]]*");
+.compile("[\\p{IsAssigned}&&[^\\p{IsControl}]]*");
 
 	private static final Predicate<String> ASSIGNED_AND_NOT_ISO_CONTROL_PREDICATE = (
-			s) -> ASSIGNED_AND_NOT_ISO_CONTROL_PATTERN.matcher(s).matches();
+s) -> ASSIGNED_AND_NOT_ISO_CONTROL_PATTERN.matcher(s).matches();
 
 	private Predicate<String> allowedHeaderNames = ASSIGNED_AND_NOT_ISO_CONTROL_PREDICATE;
 
@@ -181,7 +181,7 @@ public class StrictHttpFirewall implements HttpFirewall {
 	public void setAllowedHttpMethods(Collection<String> allowedHttpMethods) {
 		Assert.notNull(allowedHttpMethods, "allowedHttpMethods cannot be null");
 		this.allowedHttpMethods = (allowedHttpMethods != ALLOW_ANY_HTTP_METHOD) ? new HashSet<>(allowedHttpMethods)
-				: ALLOW_ANY_HTTP_METHOD;
+	: ALLOW_ANY_HTTP_METHOD;
 	}
 
 	/**
@@ -514,7 +514,7 @@ public class StrictHttpFirewall implements HttpFirewall {
 	private void rejectNonPrintableAsciiCharactersInFieldName(String toCheck, String propertyName) {
 		if (!containsOnlyPrintableAsciiCharacters(toCheck)) {
 			throw new RequestRejectedException(String.format(
-					"The %s was rejected because it can only contain printable ASCII characters.", propertyName));
+		"The %s was rejected because it can only contain printable ASCII characters.", propertyName));
 		}
 	}
 
@@ -524,8 +524,8 @@ public class StrictHttpFirewall implements HttpFirewall {
 		}
 		if (!this.allowedHttpMethods.contains(request.getMethod())) {
 			throw new RequestRejectedException(
-					"The request was rejected because the HTTP method \"" + request.getMethod()
-							+ "\" was not included within the list of allowed HTTP methods " + this.allowedHttpMethods);
+		"The request was rejected because the HTTP method \"" + request.getMethod()
+	+ "\" was not included within the list of allowed HTTP methods " + this.allowedHttpMethods);
 		}
 	}
 
@@ -533,15 +533,15 @@ public class StrictHttpFirewall implements HttpFirewall {
 		for (String forbidden : this.encodedUrlBlocklist) {
 			if (encodedUrlContains(request, forbidden)) {
 				throw new RequestRejectedException(
-						"The request was rejected because the URL contained a potentially malicious String \""
-								+ forbidden + "\"");
+			"The request was rejected because the URL contained a potentially malicious String \""
+		+ forbidden + "\"");
 			}
 		}
 		for (String forbidden : this.decodedUrlBlocklist) {
 			if (decodedUrlContains(request, forbidden)) {
 				throw new RequestRejectedException(
-						"The request was rejected because the URL contained a potentially malicious String \""
-								+ forbidden + "\"");
+			"The request was rejected because the URL contained a potentially malicious String \""
+		+ forbidden + "\"");
 			}
 		}
 	}
@@ -550,7 +550,7 @@ public class StrictHttpFirewall implements HttpFirewall {
 		String serverName = request.getServerName();
 		if (serverName != null && !this.allowedHostnames.test(serverName)) {
 			throw new RequestRejectedException(
-					"The request was rejected because the domain " + serverName + " is untrusted.");
+		"The request was rejected because the domain " + serverName + " is untrusted.");
 		}
 	}
 
@@ -632,7 +632,7 @@ public class StrictHttpFirewall implements HttpFirewall {
 		if (path == null) {
 			return true;
 		}
-		for (int i = path.length(); i > 0;) {
+		for (int i = path.length(); i > 0; ) {
 			int slashIndex = path.lastIndexOf('/', i - 1);
 			int gap = i - slashIndex;
 			if (gap == 2 && path.charAt(slashIndex + 1) == '.') {
@@ -824,28 +824,28 @@ public class StrictHttpFirewall implements HttpFirewall {
 		private void validateAllowedHeaderName(String headerNames) {
 			if (!StrictHttpFirewall.this.allowedHeaderNames.test(headerNames)) {
 				throw new RequestRejectedException(
-						"The request was rejected because the header name \"" + headerNames + "\" is not allowed.");
+			"The request was rejected because the header name \"" + headerNames + "\" is not allowed.");
 			}
 		}
 
 		private void validateAllowedHeaderValue(String value) {
 			if (!StrictHttpFirewall.this.allowedHeaderValues.test(value)) {
 				throw new RequestRejectedException(
-						"The request was rejected because the header value \"" + value + "\" is not allowed.");
+			"The request was rejected because the header value \"" + value + "\" is not allowed.");
 			}
 		}
 
 		private void validateAllowedParameterName(String name) {
 			if (!StrictHttpFirewall.this.allowedParameterNames.test(name)) {
 				throw new RequestRejectedException(
-						"The request was rejected because the parameter name \"" + name + "\" is not allowed.");
+			"The request was rejected because the parameter name \"" + name + "\" is not allowed.");
 			}
 		}
 
 		private void validateAllowedParameterValue(String value) {
 			if (!StrictHttpFirewall.this.allowedParameterValues.test(value)) {
 				throw new RequestRejectedException(
-						"The request was rejected because the parameter value \"" + value + "\" is not allowed.");
+			"The request was rejected because the parameter value \"" + value + "\" is not allowed.");
 			}
 		}
 
@@ -853,6 +853,6 @@ public class StrictHttpFirewall implements HttpFirewall {
 		public void reset() {
 		}
 
-	};
+	}
 
 }

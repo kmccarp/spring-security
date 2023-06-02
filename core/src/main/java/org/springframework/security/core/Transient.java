@@ -30,7 +30,7 @@ import java.lang.annotation.Target;
  * @author Josh Cummings
  * @since 5.1
  */
-@Target({ ElementType.TYPE, ElementType.ANNOTATION_TYPE })
+@Target({ElementType.TYPE, ElementType.ANNOTATION_TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
 @Documented

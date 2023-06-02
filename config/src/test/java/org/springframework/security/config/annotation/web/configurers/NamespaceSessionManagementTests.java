@@ -83,14 +83,14 @@ public class NamespaceSessionManagementTests {
 	@Test
 	public void authenticateWhenDefaultSessionManagementThenMatchesNamespace() throws Exception {
 		this.spring.register(SessionManagementConfig.class, BasicController.class, UserDetailsServiceConfig.class)
-				.autowire();
+	.autowire();
 		MockHttpSession session = new MockHttpSession();
 		String sessionId = session.getId();
 		MockHttpServletRequestBuilder request = get("/auth").session(session).with(httpBasic("user", "password"));
 		// @formatter:off
 		MvcResult result = this.mvc.perform(request)
-				.andExpect(session())
-				.andReturn();
+	.andExpect(session())
+	.andReturn();
 		// @formatter:on
 		assertThat(result.getRequest().getSession(false).getId()).isNotEqualTo(sessionId);
 	}
@@ -120,24 +120,24 @@ public class NamespaceSessionManagementTests {
 	@Test
 	public void authenticateWhenUsingMaxSessionsThenMatchesNamespace() throws Exception {
 		this.spring.register(CustomSessionManagementConfig.class, BasicController.class, UserDetailsServiceConfig.class)
-				.autowire();
+	.autowire();
 		this.mvc.perform(get("/auth").with(httpBasic("user", "password"))).andExpect(status().isOk());
 		this.mvc.perform(get("/auth").with(httpBasic("user", "password")))
-				.andExpect(redirectedUrl("/session-auth-error"));
+	.andExpect(redirectedUrl("/session-auth-error"));
 	}
 
 	@Test
 	public void authenticateWhenUsingFailureUrlThenMatchesNamespace() throws Exception {
 		this.spring.register(CustomSessionManagementConfig.class, BasicController.class, UserDetailsServiceConfig.class)
-				.autowire();
+	.autowire();
 		MockHttpServletRequest mock = spy(MockHttpServletRequest.class);
 		mock.setSession(new MockHttpSession());
 		given(mock.changeSessionId()).willThrow(SessionAuthenticationException.class);
 		mock.setMethod("GET");
 		// @formatter:off
 		MockHttpServletRequestBuilder authRequest = get("/auth")
-				.with((request) -> mock)
-				.with(httpBasic("user", "password"));
+	.with((request) -> mock)
+	.with(httpBasic("user", "password"));
 		// @formatter:on
 		this.mvc.perform(authRequest).andExpect(redirectedUrl("/session-auth-error"));
 	}
@@ -145,7 +145,7 @@ public class NamespaceSessionManagementTests {
 	@Test
 	public void authenticateWhenUsingSessionRegistryThenMatchesNamespace() throws Exception {
 		this.spring.register(CustomSessionManagementConfig.class, BasicController.class, UserDetailsServiceConfig.class)
-				.autowire();
+	.autowire();
 		SessionRegistry sessionRegistry = this.spring.getContext().getBean(SessionRegistry.class);
 		MockHttpServletRequestBuilder request = get("/auth").with(httpBasic("user", "password"));
 		this.mvc.perform(request).andExpect(status().isOk());
@@ -163,35 +163,35 @@ public class NamespaceSessionManagementTests {
 		});
 		this.mvc.perform(authRequest).andExpect(status().isOk());
 		verifyBean(InvalidSessionStrategy.class).onInvalidSessionDetected(any(HttpServletRequest.class),
-				any(HttpServletResponse.class));
+	any(HttpServletResponse.class));
 	}
 
 	@Test
 	public void authenticateWhenUsingCustomSessionAuthenticationStrategyThenMatchesNamespace() throws Exception {
 		this.spring.register(RefsSessionManagementConfig.class, BasicController.class, UserDetailsServiceConfig.class)
-				.autowire();
+	.autowire();
 		MockHttpServletRequestBuilder request = get("/auth").with(httpBasic("user", "password"));
 		this.mvc.perform(request).andExpect(status().isOk());
 		verifyBean(SessionAuthenticationStrategy.class).onAuthentication(any(Authentication.class),
-				any(HttpServletRequest.class), any(HttpServletResponse.class));
+	any(HttpServletRequest.class), any(HttpServletResponse.class));
 	}
 
 	@Test
 	public void authenticateWhenNoSessionFixationProtectionThenMatchesNamespace() throws Exception {
 		this.spring
-				.register(SFPNoneSessionManagementConfig.class, BasicController.class, UserDetailsServiceConfig.class)
-				.autowire();
+	.register(SFPNoneSessionManagementConfig.class, BasicController.class, UserDetailsServiceConfig.class)
+	.autowire();
 		MockHttpSession givenSession = new MockHttpSession();
 		String givenSessionId = givenSession.getId();
 		// @formatter:off
 		MockHttpServletRequestBuilder request = get("/auth")
-				.session(givenSession)
-				.with(httpBasic("user", "password"));
+	.session(givenSession)
+	.with(httpBasic("user", "password"));
 		MockHttpSession resultingSession = (MockHttpSession) this.mvc.perform(request)
-				.andExpect(status().isOk())
-				.andReturn()
-				.getRequest()
-				.getSession(false);
+	.andExpect(status().isOk())
+	.andReturn()
+	.getRequest()
+	.getSession(false);
 		// @formatter:on
 		assertThat(givenSessionId).isEqualTo(resultingSession.getId());
 	}
@@ -199,18 +199,18 @@ public class NamespaceSessionManagementTests {
 	@Test
 	public void authenticateWhenMigrateSessionFixationProtectionThenMatchesNamespace() throws Exception {
 		this.spring.register(SFPMigrateSessionManagementConfig.class, BasicController.class,
-				UserDetailsServiceConfig.class).autowire();
+	UserDetailsServiceConfig.class).autowire();
 		MockHttpSession givenSession = new MockHttpSession();
 		String givenSessionId = givenSession.getId();
 		givenSession.setAttribute("name", "value");
 		// @formatter:off
 		MockHttpSession resultingSession = (MockHttpSession) this.mvc.perform(get("/auth")
-				.session(givenSession)
-				.with(httpBasic("user", "password")))
-				.andExpect(status().isOk())
-				.andReturn()
-				.getRequest()
-				.getSession(false);
+	.session(givenSession)
+	.with(httpBasic("user", "password")))
+	.andExpect(status().isOk())
+	.andReturn()
+	.getRequest()
+	.getSession(false);
 		// @formatter:on
 		assertThat(givenSessionId).isNotEqualTo(resultingSession.getId());
 		assertThat(resultingSession.getAttribute("name")).isEqualTo("value");
@@ -222,8 +222,8 @@ public class NamespaceSessionManagementTests {
 		this.spring.register(SFPPostProcessedConfig.class, UserDetailsServiceConfig.class).autowire();
 		// @formatter:off
 		MockHttpServletRequestBuilder request = get("/auth")
-				.session(new MockHttpSession())
-				.with(httpBasic("user", "password"));
+	.session(new MockHttpSession())
+	.with(httpBasic("user", "password"));
 		// @formatter:on
 		this.mvc.perform(request).andExpect(status().isNotFound());
 		verifyBean(MockEventListener.class).onApplicationEvent(any(SessionFixationProtectionEvent.class));
@@ -238,10 +238,10 @@ public class NamespaceSessionManagementTests {
 		MockHttpServletRequestBuilder request = get("/auth").session(givenSession).with(httpBasic("user", "password"));
 		// @formatter:off
 		MockHttpSession resultingSession = (MockHttpSession) this.mvc.perform(request)
-				.andExpect(status().isNotFound())
-				.andReturn()
-				.getRequest()
-				.getSession(false);
+	.andExpect(status().isNotFound())
+	.andReturn()
+	.getRequest()
+	.getSession(false);
 		// @formatter:on
 		assertThat(givenSessionId).isNotEqualTo(resultingSession.getId());
 		assertThat(resultingSession.getAttribute("name")).isNull();
@@ -263,13 +263,13 @@ public class NamespaceSessionManagementTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeHttpRequests((authorize) -> authorize
-					.anyRequest().authenticated()
-				)
-				.sessionManagement((sessions) -> sessions
-					.requireExplicitAuthenticationStrategy(false)
-				)
-				.httpBasic(Customizer.withDefaults());
+		.authorizeHttpRequests((authorize) -> authorize
+.anyRequest().authenticated()
+		)
+		.sessionManagement((sessions) -> sessions
+.requireExplicitAuthenticationStrategy(false)
+		)
+		.httpBasic(Customizer.withDefaults());
 			// @formatter:on
 			return http.build();
 		}
@@ -286,18 +286,18 @@ public class NamespaceSessionManagementTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests()
-					.anyRequest().authenticated()
-					.and()
-				.httpBasic()
-					.and()
-				.sessionManagement()
-					.invalidSessionUrl("/invalid-session") // session-management@invalid-session-url
-					.sessionAuthenticationErrorUrl("/session-auth-error") // session-management@session-authentication-error-url
-					.maximumSessions(1) // session-management/concurrency-control@max-sessions
-						.maxSessionsPreventsLogin(true) // session-management/concurrency-control@error-if-maximum-exceeded
-						.expiredUrl("/expired-session") // session-management/concurrency-control@expired-url
-						.sessionRegistry(sessionRegistry());
+		.authorizeRequests()
+		.anyRequest().authenticated()
+		.and()
+		.httpBasic()
+		.and()
+		.sessionManagement()
+		.invalidSessionUrl("/invalid-session") // session-management@invalid-session-url
+		.sessionAuthenticationErrorUrl("/session-auth-error") // session-management@session-authentication-error-url
+		.maximumSessions(1) // session-management/concurrency-control@max-sessions
+		.maxSessionsPreventsLogin(true) // session-management/concurrency-control@error-if-maximum-exceeded
+		.expiredUrl("/expired-session") // session-management/concurrency-control@expired-url
+		.sessionRegistry(sessionRegistry());
 			return http.build(); // session-management/concurrency-control@session-registry-ref
 			// @formatter:on
 		}
@@ -319,8 +319,8 @@ public class NamespaceSessionManagementTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.sessionManagement()
-					.invalidSessionStrategy(invalidSessionStrategy());
+		.sessionManagement()
+		.invalidSessionStrategy(invalidSessionStrategy());
 			return http.build();
 			// @formatter:on
 		}
@@ -342,10 +342,10 @@ public class NamespaceSessionManagementTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.sessionManagement()
-					.sessionAuthenticationStrategy(sessionAuthenticationStrategy()) // session-management@session-authentication-strategy-ref
-					.and()
-				.httpBasic();
+		.sessionManagement()
+		.sessionAuthenticationStrategy(sessionAuthenticationStrategy()) // session-management@session-authentication-strategy-ref
+		.and()
+		.httpBasic();
 			return http.build();
 			// @formatter:on
 		}
@@ -365,10 +365,10 @@ public class NamespaceSessionManagementTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.sessionManagement()
-					.sessionAuthenticationStrategy(new NullAuthenticatedSessionStrategy())
-					.and()
-				.httpBasic();
+		.sessionManagement()
+		.sessionAuthenticationStrategy(new NullAuthenticatedSessionStrategy())
+		.and()
+		.httpBasic();
 			return http.build();
 			// @formatter:on
 		}
@@ -383,10 +383,10 @@ public class NamespaceSessionManagementTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.sessionManagement()
-					.requireExplicitAuthenticationStrategy(false)
-					.and()
-				.httpBasic();
+		.sessionManagement()
+		.requireExplicitAuthenticationStrategy(false)
+		.and()
+		.httpBasic();
 			return http.build();
 			// @formatter:on
 		}
@@ -401,10 +401,10 @@ public class NamespaceSessionManagementTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.sessionManagement((sessions) -> sessions
-					.requireExplicitAuthenticationStrategy(false)
-				)
-				.httpBasic();
+		.sessionManagement((sessions) -> sessions
+.requireExplicitAuthenticationStrategy(false)
+		)
+		.httpBasic();
 			return http.build();
 			// @formatter:on
 		}
@@ -424,11 +424,11 @@ public class NamespaceSessionManagementTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.sessionManagement((sessions) -> sessions
-					.sessionFixation().newSession()
-					.requireExplicitAuthenticationStrategy(false)
-				)
-				.httpBasic();
+		.sessionManagement((sessions) -> sessions
+.sessionFixation().newSession()
+.requireExplicitAuthenticationStrategy(false)
+		)
+		.httpBasic();
 			return http.build();
 			// @formatter:on
 		}
@@ -452,13 +452,13 @@ public class NamespaceSessionManagementTests {
 		@Bean
 		UserDetailsService userDetailsService() {
 			return new InMemoryUserDetailsManager(
-			// @formatter:off
-					User.withDefaultPasswordEncoder()
-							.username("user")
-							.password("password")
-							.roles("USER")
-							.build());
-					// @formatter:on
+		// @formatter:off
+		User.withDefaultPasswordEncoder()
+	.username("user")
+	.password("password")
+	.roles("USER")
+	.build());
+			// @formatter:on
 		}
 
 	}

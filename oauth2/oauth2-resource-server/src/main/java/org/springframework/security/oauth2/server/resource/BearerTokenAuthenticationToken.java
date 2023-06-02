@@ -23,8 +23,7 @@ import org.springframework.security.core.SpringSecurityCoreVersion;
  * {@link org.springframework.security.oauth2.server.resource.authentication.BearerTokenAuthenticationToken}
  */
 @Deprecated
-public class BearerTokenAuthenticationToken
-		extends org.springframework.security.oauth2.server.resource.authentication.BearerTokenAuthenticationToken {
+public class BearerTokenAuthenticationTokenextends org.springframework.security.oauth2.server.resource.authentication.BearerTokenAuthenticationToken {
 
 	private static final long serialVersionUID = SpringSecurityCoreVersion.SERIAL_VERSION_UID;
 

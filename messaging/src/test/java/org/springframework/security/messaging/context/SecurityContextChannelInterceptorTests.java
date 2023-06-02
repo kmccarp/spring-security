@@ -67,7 +67,7 @@ public class SecurityContextChannelInterceptorTests {
 		this.authentication = new TestingAuthenticationToken("user", "pass", "ROLE_USER");
 		this.messageBuilder = MessageBuilder.withPayload("payload");
 		this.expectedAnonymous = new AnonymousAuthenticationToken("key", "anonymous",
-				AuthorityUtils.createAuthorityList("ROLE_ANONYMOUS"));
+	AuthorityUtils.createAuthorityList("ROLE_ANONYMOUS"));
 		this.interceptor = new SecurityContextChannelInterceptor();
 	}
 
@@ -117,7 +117,7 @@ public class SecurityContextChannelInterceptorTests {
 	@Test
 	public void preSendUsesCustomAnonymous() {
 		this.expectedAnonymous = new AnonymousAuthenticationToken("customKey", "customAnonymous",
-				AuthorityUtils.createAuthorityList("ROLE_CUSTOM"));
+	AuthorityUtils.createAuthorityList("ROLE_CUSTOM"));
 		this.interceptor.setAnonymousAuthentication(this.expectedAnonymous);
 		this.interceptor.preSend(this.messageBuilder.build(), this.channel);
 		assertAnonymous();
@@ -242,7 +242,7 @@ public class SecurityContextChannelInterceptorTests {
 	@Test
 	public void restoresOriginalContextNestedThreeDeep() {
 		AnonymousAuthenticationToken anonymous = new AnonymousAuthenticationToken("key", "anonymous",
-				AuthorityUtils.createAuthorityList("ROLE_USER"));
+	AuthorityUtils.createAuthorityList("ROLE_USER"));
 		TestingAuthenticationToken origional = new TestingAuthenticationToken("original", "origional", "ROLE_USER");
 		SecurityContextHolder.getContext().setAuthentication(origional);
 		this.messageBuilder.setHeader(SimpMessageHeaderAccessor.USER_HEADER, this.authentication);

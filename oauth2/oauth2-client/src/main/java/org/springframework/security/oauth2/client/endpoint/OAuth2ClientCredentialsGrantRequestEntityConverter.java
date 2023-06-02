@@ -37,18 +37,17 @@ import org.springframework.util.StringUtils;
  * @see OAuth2ClientCredentialsGrantRequest
  * @see RequestEntity
  */
-public class OAuth2ClientCredentialsGrantRequestEntityConverter
-		extends AbstractOAuth2AuthorizationGrantRequestEntityConverter<OAuth2ClientCredentialsGrantRequest> {
+public class OAuth2ClientCredentialsGrantRequestEntityConverterextends AbstractOAuth2AuthorizationGrantRequestEntityConverter<OAuth2ClientCredentialsGrantRequest> {
 
 	@Override
 	protected MultiValueMap<String, String> createParameters(
-			OAuth2ClientCredentialsGrantRequest clientCredentialsGrantRequest) {
+OAuth2ClientCredentialsGrantRequest clientCredentialsGrantRequest) {
 		ClientRegistration clientRegistration = clientCredentialsGrantRequest.getClientRegistration();
 		MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
 		parameters.add(OAuth2ParameterNames.GRANT_TYPE, clientCredentialsGrantRequest.getGrantType().getValue());
 		if (!CollectionUtils.isEmpty(clientRegistration.getScopes())) {
 			parameters.add(OAuth2ParameterNames.SCOPE,
-					StringUtils.collectionToDelimitedString(clientRegistration.getScopes(), " "));
+		StringUtils.collectionToDelimitedString(clientRegistration.getScopes(), " "));
 		}
 		if (ClientAuthenticationMethod.CLIENT_SECRET_POST.equals(clientRegistration.getClientAuthenticationMethod())) {
 			parameters.add(OAuth2ParameterNames.CLIENT_ID, clientRegistration.getClientId());

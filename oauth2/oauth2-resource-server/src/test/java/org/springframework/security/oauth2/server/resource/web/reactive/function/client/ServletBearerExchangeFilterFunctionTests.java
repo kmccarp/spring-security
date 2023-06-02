@@ -52,10 +52,10 @@ public class ServletBearerExchangeFilterFunctionTests {
 	private MockExchangeFunction exchange = new MockExchangeFunction();
 
 	private OAuth2AccessToken accessToken = new OAuth2AccessToken(OAuth2AccessToken.TokenType.BEARER, "token-0",
-			Instant.now(), Instant.now().plus(Duration.ofDays(1)));
+Instant.now(), Instant.now().plus(Duration.ofDays(1)));
 
 	private Authentication authentication = new AbstractOAuth2TokenAuthenticationToken<OAuth2AccessToken>(
-			this.accessToken) {
+this.accessToken) {
 		@Override
 		public Map<String, Object> getTokenAttributes() {
 			return Collections.emptyMap();
@@ -83,13 +83,13 @@ public class ServletBearerExchangeFilterFunctionTests {
 		ClientRequest request = ClientRequest.create(HttpMethod.GET, URI.create("https://example.com")).build();
 		this.function.filter(request, this.exchange).contextWrite(context(this.authentication)).block();
 		assertThat(this.exchange.getRequest().headers().getFirst(HttpHeaders.AUTHORIZATION))
-				.isEqualTo("Bearer " + this.accessToken.getTokenValue());
+	.isEqualTo("Bearer " + this.accessToken.getTokenValue());
 	}
 
 	@Test
 	public void filterWhenExistingAuthorizationThenSingleAuthorizationHeader() {
 		ClientRequest request = ClientRequest.create(HttpMethod.GET, URI.create("https://example.com"))
-				.header(HttpHeaders.AUTHORIZATION, "Existing").build();
+	.header(HttpHeaders.AUTHORIZATION, "Existing").build();
 		this.function.filter(request, this.exchange).contextWrite(context(this.authentication)).block();
 		HttpHeaders headers = this.exchange.getRequest().headers();
 		assertThat(headers.get(HttpHeaders.AUTHORIZATION)).containsOnly("Bearer " + this.accessToken.getTokenValue());
@@ -99,7 +99,7 @@ public class ServletBearerExchangeFilterFunctionTests {
 		Map<Class<?>, Object> contextAttributes = new HashMap<>();
 		contextAttributes.put(Authentication.class, authentication);
 		return Context.of(ServletBearerExchangeFilterFunction.SECURITY_REACTOR_CONTEXT_ATTRIBUTES_KEY,
-				contextAttributes);
+	contextAttributes);
 	}
 
 }

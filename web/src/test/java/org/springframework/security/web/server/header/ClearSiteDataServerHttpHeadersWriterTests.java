@@ -47,7 +47,7 @@ public class ClearSiteDataServerHttpHeadersWriterTests {
 	public void writeHttpHeadersWhenSecureConnectionThenHeaderWritten() {
 		ClearSiteDataServerHttpHeadersWriter writer = new ClearSiteDataServerHttpHeadersWriter(Directive.ALL);
 		ServerWebExchange secureExchange = MockServerWebExchange
-				.from(MockServerHttpRequest.get("https://localhost").build());
+	.from(MockServerHttpRequest.get("https://localhost").build());
 		writer.writeHttpHeaders(secureExchange);
 		assertThat(secureExchange.getResponse()).hasClearSiteDataHeaderDirectives(Directive.ALL);
 	}
@@ -63,9 +63,9 @@ public class ClearSiteDataServerHttpHeadersWriterTests {
 	@Test
 	public void writeHttpHeadersWhenMultipleDirectivesSpecifiedThenHeaderContainsAll() {
 		ClearSiteDataServerHttpHeadersWriter writer = new ClearSiteDataServerHttpHeadersWriter(Directive.CACHE,
-				Directive.COOKIES);
+	Directive.COOKIES);
 		ServerWebExchange secureExchange = MockServerWebExchange
-				.from(MockServerHttpRequest.get("https://localhost").build());
+	.from(MockServerHttpRequest.get("https://localhost").build());
 		writer.writeHttpHeaders(secureExchange);
 		assertThat(secureExchange.getResponse()).hasClearSiteDataHeaderDirectives(Directive.CACHE, Directive.COOKIES);
 	}
@@ -85,10 +85,10 @@ public class ClearSiteDataServerHttpHeadersWriterTests {
 			List<String> header = getHeader();
 			String actualHeaderValue = String.join("", header);
 			String expectedHeaderVale = Stream.of(directives).map(Directive::getHeaderValue)
-					.collect(Collectors.joining(", "));
+		.collect(Collectors.joining(", "));
 			if (!actualHeaderValue.equals(expectedHeaderVale)) {
 				failWithMessage("Expected to have %s as Clear-Site-Data header value but found %s", expectedHeaderVale,
-						actualHeaderValue);
+			actualHeaderValue);
 			}
 		}
 
@@ -97,7 +97,7 @@ public class ClearSiteDataServerHttpHeadersWriterTests {
 			List<String> header = getHeader();
 			if (!CollectionUtils.isEmpty(header)) {
 				failWithMessage("Expected not to have Clear-Site-Data header set but found %s",
-						String.join("", header));
+			String.join("", header));
 			}
 		}
 

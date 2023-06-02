@@ -33,8 +33,7 @@ import org.springframework.security.task.DelegatingSecurityContextAsyncTaskExecu
  * @author Rob Winch
  * @since 3.2
  */
-public class DelegatingSecurityContextSchedulingTaskExecutor extends DelegatingSecurityContextAsyncTaskExecutor
-		implements SchedulingTaskExecutor {
+public class DelegatingSecurityContextSchedulingTaskExecutor extends DelegatingSecurityContextAsyncTaskExecutorimplements SchedulingTaskExecutor {
 
 	/**
 	 * Creates a new {@link DelegatingSecurityContextSchedulingTaskExecutor} that uses the
@@ -46,7 +45,7 @@ public class DelegatingSecurityContextSchedulingTaskExecutor extends DelegatingS
 	 * {@link DelegatingSecurityContextCallable}
 	 */
 	public DelegatingSecurityContextSchedulingTaskExecutor(SchedulingTaskExecutor delegateSchedulingTaskExecutor,
-			SecurityContext securityContext) {
+SecurityContext securityContext) {
 		super(delegateSchedulingTaskExecutor, securityContext);
 	}
 

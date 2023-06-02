@@ -60,7 +60,7 @@ public class ExpressionBasedPreInvocationAdvice implements PreInvocationAuthoriz
 		if (filterTargetName.length() > 0) {
 			filterTarget = ctx.lookupVariable(filterTargetName);
 			Assert.notNull(filterTarget,
-					() -> "Filter target was null, or no argument with name " + filterTargetName + " found in method");
+		() -> "Filter target was null, or no argument with name " + filterTargetName + " found in method");
 		}
 		else if (invocation.getArguments().length == 1) {
 			Object arg = invocation.getArguments()[0];
@@ -68,14 +68,14 @@ public class ExpressionBasedPreInvocationAdvice implements PreInvocationAuthoriz
 				filterTarget = arg;
 			}
 			Assert.notNull(filterTarget, () -> "A PreFilter expression was set but the method argument type"
-					+ arg.getClass() + " is not filterable");
+		+ arg.getClass() + " is not filterable");
 		}
 		else if (invocation.getArguments().length > 1) {
 			throw new IllegalArgumentException(
-					"Unable to determine the method argument for filtering. Specify the filter target.");
+		"Unable to determine the method argument for filtering. Specify the filter target.");
 		}
 		Assert.isTrue(!filterTarget.getClass().isArray(),
-				"Pre-filtering on array types is not supported. Using a Collection will solve this problem");
+	"Pre-filtering on array types is not supported. Using a Collection will solve this problem");
 		return filterTarget;
 	}
 

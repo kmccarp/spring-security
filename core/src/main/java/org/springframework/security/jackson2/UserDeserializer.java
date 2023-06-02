@@ -61,7 +61,7 @@ class UserDeserializer extends JsonDeserializer<User> {
 		ObjectMapper mapper = (ObjectMapper) jp.getCodec();
 		JsonNode jsonNode = mapper.readTree(jp);
 		Set<? extends GrantedAuthority> authorities = mapper.convertValue(jsonNode.get("authorities"),
-				SIMPLE_GRANTED_AUTHORITY_SET);
+	SIMPLE_GRANTED_AUTHORITY_SET);
 		JsonNode passwordNode = readJsonNode(jsonNode, "password");
 		String username = readJsonNode(jsonNode, "username").asText();
 		String password = passwordNode.asText("");
@@ -70,7 +70,7 @@ class UserDeserializer extends JsonDeserializer<User> {
 		boolean credentialsNonExpired = readJsonNode(jsonNode, "credentialsNonExpired").asBoolean();
 		boolean accountNonLocked = readJsonNode(jsonNode, "accountNonLocked").asBoolean();
 		User result = new User(username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked,
-				authorities);
+	authorities);
 		if (passwordNode.asText(null) == null) {
 			result.eraseCredentials();
 		}

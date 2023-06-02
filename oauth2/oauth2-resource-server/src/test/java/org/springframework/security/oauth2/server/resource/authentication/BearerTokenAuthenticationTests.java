@@ -46,7 +46,7 @@ import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException
 public class BearerTokenAuthenticationTests {
 
 	private final OAuth2AccessToken token = new OAuth2AccessToken(OAuth2AccessToken.TokenType.BEARER, "token",
-			Instant.now(), Instant.now().plusSeconds(3600));
+Instant.now(), Instant.now().plusSeconds(3600));
 
 	private final String name = "sub";
 
@@ -67,16 +67,16 @@ public class BearerTokenAuthenticationTests {
 	@Test
 	public void getNameWhenConfiguredInConstructorThenReturnsName() {
 		OAuth2AuthenticatedPrincipal principal = new DefaultOAuth2AuthenticatedPrincipal(this.name, this.attributesMap,
-				this.authorities);
+	this.authorities);
 		BearerTokenAuthentication authenticated = new BearerTokenAuthentication(principal, this.token,
-				this.authorities);
+	this.authorities);
 		assertThat(authenticated.getName()).isEqualTo(this.name);
 	}
 
 	@Test
 	public void getNameWhenHasNoSubjectThenReturnsNull() {
 		OAuth2AuthenticatedPrincipal principal = new DefaultOAuth2AuthenticatedPrincipal(
-				Collections.singletonMap("claim", "value"), null);
+	Collections.singletonMap("claim", "value"), null);
 		BearerTokenAuthentication authenticated = new BearerTokenAuthentication(principal, this.token, null);
 		assertThat(authenticated.getName()).isNull();
 	}
@@ -86,7 +86,7 @@ public class BearerTokenAuthenticationTests {
 		BearerTokenAuthentication authenticated = new BearerTokenAuthentication(this.principal, this.token, null);
 		// @formatter:off
 		assertThat(authenticated.getName())
-				.isEqualTo(this.principal.getAttribute(OAuth2TokenIntrospectionClaimNames.SUB));
+	.isEqualTo(this.principal.getAttribute(OAuth2TokenIntrospectionClaimNames.SUB));
 		// @formatter:on
 	}
 
@@ -94,8 +94,8 @@ public class BearerTokenAuthenticationTests {
 	public void constructorWhenTokenIsNullThenThrowsException() {
 		// @formatter:off
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new BearerTokenAuthentication(this.principal, null, null))
-				.withMessageContaining("token cannot be null");
+	.isThrownBy(() -> new BearerTokenAuthentication(this.principal, null, null))
+	.withMessageContaining("token cannot be null");
 		// @formatter:on
 	}
 
@@ -103,15 +103,15 @@ public class BearerTokenAuthenticationTests {
 	public void constructorWhenCredentialIsNullThenThrowsException() {
 		// @formatter:off
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new BearerTokenAuthentication(null, this.token, null))
-				.withMessageContaining("principal cannot be null");
+	.isThrownBy(() -> new BearerTokenAuthentication(null, this.token, null))
+	.withMessageContaining("principal cannot be null");
 		// @formatter:on
 	}
 
 	@Test
 	public void constructorWhenPassingAllAttributesThenTokenIsAuthenticated() {
 		OAuth2AuthenticatedPrincipal principal = new DefaultOAuth2AuthenticatedPrincipal("harris",
-				Collections.singletonMap("claim", "value"), null);
+	Collections.singletonMap("claim", "value"), null);
 		BearerTokenAuthentication authenticated = new BearerTokenAuthentication(principal, this.token, null);
 		assertThat(authenticated.isAuthenticated()).isTrue();
 	}
@@ -119,7 +119,7 @@ public class BearerTokenAuthenticationTests {
 	@Test
 	public void getTokenAttributesWhenHasTokenThenReturnsThem() {
 		BearerTokenAuthentication authenticated = new BearerTokenAuthentication(this.principal, this.token,
-				Collections.emptyList());
+	Collections.emptyList());
 		assertThat(authenticated.getTokenAttributes()).isEqualTo(this.principal.getAttributes());
 	}
 
@@ -127,7 +127,7 @@ public class BearerTokenAuthenticationTests {
 	public void getAuthoritiesWhenHasAuthoritiesThenReturnsThem() {
 		List<GrantedAuthority> authorities = AuthorityUtils.createAuthorityList("USER");
 		BearerTokenAuthentication authenticated = new BearerTokenAuthentication(this.principal, this.token,
-				authorities);
+	authorities);
 		assertThat(authenticated.getAuthorities()).isEqualTo(authorities);
 	}
 

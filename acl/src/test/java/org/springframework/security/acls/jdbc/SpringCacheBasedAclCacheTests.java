@@ -87,12 +87,12 @@ public class SpringCacheBasedAclCacheTests {
 		Map realCache = (Map) cache.getNativeCache();
 		ObjectIdentity identity = new ObjectIdentityImpl(TARGET_CLASS, 100L);
 		AclAuthorizationStrategy aclAuthorizationStrategy = new AclAuthorizationStrategyImpl(
-				new SimpleGrantedAuthority("ROLE_OWNERSHIP"), new SimpleGrantedAuthority("ROLE_AUDITING"),
-				new SimpleGrantedAuthority("ROLE_GENERAL"));
+	new SimpleGrantedAuthority("ROLE_OWNERSHIP"), new SimpleGrantedAuthority("ROLE_AUDITING"),
+	new SimpleGrantedAuthority("ROLE_GENERAL"));
 		AuditLogger auditLogger = new ConsoleAuditLogger();
 		PermissionGrantingStrategy permissionGrantingStrategy = new DefaultPermissionGrantingStrategy(auditLogger);
 		SpringCacheBasedAclCache myCache = new SpringCacheBasedAclCache(cache, permissionGrantingStrategy,
-				aclAuthorizationStrategy);
+	aclAuthorizationStrategy);
 		MutableAcl acl = new AclImpl(identity, 1L, aclAuthorizationStrategy, auditLogger);
 		assertThat(realCache).isEmpty();
 		myCache.putInCache(acl);
@@ -127,12 +127,12 @@ public class SpringCacheBasedAclCacheTests {
 		ObjectIdentity identity = new ObjectIdentityImpl(TARGET_CLASS, 1L);
 		ObjectIdentity identityParent = new ObjectIdentityImpl(TARGET_CLASS, 2L);
 		AclAuthorizationStrategy aclAuthorizationStrategy = new AclAuthorizationStrategyImpl(
-				new SimpleGrantedAuthority("ROLE_OWNERSHIP"), new SimpleGrantedAuthority("ROLE_AUDITING"),
-				new SimpleGrantedAuthority("ROLE_GENERAL"));
+	new SimpleGrantedAuthority("ROLE_OWNERSHIP"), new SimpleGrantedAuthority("ROLE_AUDITING"),
+	new SimpleGrantedAuthority("ROLE_GENERAL"));
 		AuditLogger auditLogger = new ConsoleAuditLogger();
 		PermissionGrantingStrategy permissionGrantingStrategy = new DefaultPermissionGrantingStrategy(auditLogger);
 		SpringCacheBasedAclCache myCache = new SpringCacheBasedAclCache(cache, permissionGrantingStrategy,
-				aclAuthorizationStrategy);
+	aclAuthorizationStrategy);
 		MutableAcl acl = new AclImpl(identity, 1L, aclAuthorizationStrategy, auditLogger);
 		MutableAcl parentAcl = new AclImpl(identityParent, 2L, aclAuthorizationStrategy, auditLogger);
 		acl.setParent(parentAcl);

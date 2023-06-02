@@ -75,9 +75,9 @@ public final class ExpressionBasedMessageSecurityMetadataSourceFactory {
 	 * @return the {@link MessageSecurityMetadataSource} to use. Cannot be null.
 	 */
 	public static MessageSecurityMetadataSource createExpressionMessageMetadataSource(
-			LinkedHashMap<MessageMatcher<?>, String> matcherToExpression) {
+LinkedHashMap<MessageMatcher<?>, String> matcherToExpression) {
 		return createExpressionMessageMetadataSource(matcherToExpression,
-				new DefaultMessageSecurityExpressionHandler<>());
+	new DefaultMessageSecurityExpressionHandler<>());
 	}
 
 	/**
@@ -113,8 +113,8 @@ public final class ExpressionBasedMessageSecurityMetadataSourceFactory {
 	 * @return the {@link MessageSecurityMetadataSource} to use. Cannot be null.
 	 */
 	public static MessageSecurityMetadataSource createExpressionMessageMetadataSource(
-			LinkedHashMap<MessageMatcher<?>, String> matcherToExpression,
-			SecurityExpressionHandler<Message<Object>> handler) {
+LinkedHashMap<MessageMatcher<?>, String> matcherToExpression,
+SecurityExpressionHandler<Message<Object>> handler) {
 		LinkedHashMap<MessageMatcher<?>, Collection<ConfigAttribute>> matcherToAttrs = new LinkedHashMap<>();
 		for (Map.Entry<MessageMatcher<?>, String> entry : matcherToExpression.entrySet()) {
 			MessageMatcher<?> matcher = entry.getKey();

@@ -100,7 +100,7 @@ class ServerHttpSecurityConfiguration {
 
 	@Bean
 	static WebFluxConfigurer authenticationPrincipalArgumentResolverConfigurer(
-			ObjectProvider<AuthenticationPrincipalArgumentResolver> authenticationPrincipalArgumentResolver) {
+ObjectProvider<AuthenticationPrincipalArgumentResolver> authenticationPrincipalArgumentResolver) {
 		return new WebFluxConfigurer() {
 
 			@Override
@@ -114,7 +114,7 @@ class ServerHttpSecurityConfiguration {
 	@Bean
 	AuthenticationPrincipalArgumentResolver authenticationPrincipalArgumentResolver() {
 		AuthenticationPrincipalArgumentResolver resolver = new AuthenticationPrincipalArgumentResolver(
-				this.adapterRegistry);
+	this.adapterRegistry);
 		if (this.beanFactory != null) {
 			resolver.setBeanResolver(new BeanFactoryResolver(this.beanFactory));
 		}
@@ -124,7 +124,7 @@ class ServerHttpSecurityConfiguration {
 	@Bean
 	CurrentSecurityContextArgumentResolver reactiveCurrentSecurityContextArgumentResolver() {
 		CurrentSecurityContextArgumentResolver resolver = new CurrentSecurityContextArgumentResolver(
-				this.adapterRegistry);
+	this.adapterRegistry);
 		if (this.beanFactory != null) {
 			resolver.setBeanResolver(new BeanFactoryResolver(this.beanFactory));
 		}
@@ -137,8 +137,8 @@ class ServerHttpSecurityConfiguration {
 		ContextAwareServerHttpSecurity http = new ContextAwareServerHttpSecurity();
 		// @formatter:off
 		return http.authenticationManager(authenticationManager())
-			.headers().and()
-			.logout().and();
+	.headers().and()
+	.logout().and();
 		// @formatter:on
 	}
 
@@ -148,7 +148,7 @@ class ServerHttpSecurityConfiguration {
 		}
 		if (this.reactiveUserDetailsService != null) {
 			UserDetailsRepositoryReactiveAuthenticationManager manager = new UserDetailsRepositoryReactiveAuthenticationManager(
-					this.reactiveUserDetailsService);
+		this.reactiveUserDetailsService);
 			if (this.passwordEncoder != null) {
 				manager.setPasswordEncoder(this.passwordEncoder);
 			}

@@ -50,8 +50,7 @@ import org.springframework.util.StringUtils;
  * @author Evgeniy Cheban
  * @since 5.8
  */
-public final class PreFilterAuthorizationReactiveMethodInterceptor
-		implements Ordered, MethodInterceptor, PointcutAdvisor, AopInfrastructureBean {
+public final class PreFilterAuthorizationReactiveMethodInterceptorimplements Ordered, MethodInterceptor, PointcutAdvisor, AopInfrastructureBean {
 
 	private final PreFilterExpressionAttributeRegistry registry;
 
@@ -96,21 +95,21 @@ public final class PreFilterAuthorizationReactiveMethodInterceptor
 		}
 		FilterTarget filterTarget = findFilterTarget(attribute.getFilterTarget(), mi);
 		Mono<EvaluationContext> toInvoke = ReactiveAuthenticationUtils.getAuthentication()
-				.map((auth) -> this.registry.getExpressionHandler().createEvaluationContext(auth, mi));
+	.map((auth) -> this.registry.getExpressionHandler().createEvaluationContext(auth, mi));
 		Method method = mi.getMethod();
 		Class<?> type = filterTarget.value.getClass();
 		Assert.state(Publisher.class.isAssignableFrom(type),
-				() -> String.format("The parameter type %s on %s must be an instance of org.reactivestreams.Publisher "
-						+ "(for example, a Mono or Flux) in order to support Reactor Context", type, method));
+	() -> String.format("The parameter type %s on %s must be an instance of org.reactivestreams.Publisher "
++ "(for example, a Mono or Flux) in order to support Reactor Context", type, method));
 		ReactiveAdapter adapter = ReactiveAdapterRegistry.getSharedInstance().getAdapter(type);
 		if (isMultiValue(type, adapter)) {
 			Flux<?> result = toInvoke
-					.flatMapMany((ctx) -> filterMultiValue(filterTarget.value, attribute.getExpression(), ctx));
+		.flatMapMany((ctx) -> filterMultiValue(filterTarget.value, attribute.getExpression(), ctx));
 			mi.getArguments()[filterTarget.index] = (adapter != null) ? adapter.fromPublisher(result) : result;
 		}
 		else {
 			Mono<?> result = toInvoke
-					.flatMap((ctx) -> filterSingleValue(filterTarget.value, attribute.getExpression(), ctx));
+		.flatMap((ctx) -> filterSingleValue(filterTarget.value, attribute.getExpression(), ctx));
 			mi.getArguments()[filterTarget.index] = (adapter != null) ? adapter.fromPublisher(result) : result;
 		}
 		return ReactiveMethodInvocationUtils.proceed(mi);
@@ -133,16 +132,16 @@ public final class PreFilterAuthorizationReactiveMethodInterceptor
 					}
 				}
 				Assert.notNull(value,
-						"Filter target was null, or no argument with name '" + name + "' found in method.");
+			"Filter target was null, or no argument with name '" + name + "' found in method.");
 			}
 		}
 		else {
 			Object[] arguments = mi.getArguments();
 			Assert.state(arguments.length == 1,
-					"Unable to determine the method argument for filtering. Specify the filter target.");
+		"Unable to determine the method argument for filtering. Specify the filter target.");
 			value = arguments[0];
 			Assert.notNull(value,
-					"Filter target was null. Make sure you passing the correct value in the method argument.");
+		"Filter target was null. Make sure you passing the correct value in the method argument.");
 		}
 		Assert.state(value instanceof Publisher<?>, "Filter target must be an instance of Publisher.");
 		return new FilterTarget((Publisher<?>) value, index);
@@ -157,7 +156,7 @@ public final class PreFilterAuthorizationReactiveMethodInterceptor
 
 	private Mono<?> filterSingleValue(Publisher<?> filterTarget, Expression filterExpression, EvaluationContext ctx) {
 		MethodSecurityExpressionOperations rootObject = (MethodSecurityExpressionOperations) ctx.getRootObject()
-				.getValue();
+	.getValue();
 		return Mono.from(filterTarget).filterWhen((filterObject) -> {
 			rootObject.setFilterObject(filterObject);
 			return ReactiveExpressionUtils.evaluateAsBoolean(filterExpression, ctx);
@@ -166,7 +165,7 @@ public final class PreFilterAuthorizationReactiveMethodInterceptor
 
 	private Flux<?> filterMultiValue(Publisher<?> filterTarget, Expression filterExpression, EvaluationContext ctx) {
 		MethodSecurityExpressionOperations rootObject = (MethodSecurityExpressionOperations) ctx.getRootObject()
-				.getValue();
+	.getValue();
 		return Flux.from(filterTarget).filterWhen((filterObject) -> {
 			rootObject.setFilterObject(filterObject);
 			return ReactiveExpressionUtils.evaluateAsBoolean(filterExpression, ctx);

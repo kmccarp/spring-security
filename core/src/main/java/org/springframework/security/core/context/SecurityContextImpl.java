@@ -48,7 +48,7 @@ public class SecurityContextImpl implements SecurityContext {
 				return true;
 			}
 			if ((this.getAuthentication() != null) && (other.getAuthentication() != null)
-					&& this.getAuthentication().equals(other.getAuthentication())) {
+		&& this.getAuthentication().equals(other.getAuthentication())) {
 				return true;
 			}
 		}

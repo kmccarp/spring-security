@@ -97,7 +97,7 @@ public final class AesBytesEncryptor implements BytesEncryptor {
 	 */
 	public AesBytesEncryptor(String password, CharSequence salt, BytesKeyGenerator ivGenerator, CipherAlgorithm alg) {
 		this(CipherUtils.newSecretKey("PBKDF2WithHmacSHA1",
-				new PBEKeySpec(password.toCharArray(), Hex.decode(salt), 1024, 256)), ivGenerator, alg);
+	new PBEKeySpec(password.toCharArray(), Hex.decode(salt), 1024, 256)), ivGenerator, alg);
 	}
 
 	/**
@@ -132,14 +132,14 @@ public final class AesBytesEncryptor implements BytesEncryptor {
 			byte[] iv = iv(encryptedBytes);
 			CipherUtils.initCipher(this.decryptor, Cipher.DECRYPT_MODE, this.secretKey, this.alg.getParameterSpec(iv));
 			return CipherUtils.doFinal(this.decryptor,
-					(this.ivGenerator != NULL_IV_GENERATOR) ? encrypted(encryptedBytes, iv.length) : encryptedBytes);
+		(this.ivGenerator != NULL_IV_GENERATOR) ? encrypted(encryptedBytes, iv.length) : encryptedBytes);
 		}
 	}
 
 	private byte[] iv(byte[] encrypted) {
 		return (this.ivGenerator != NULL_IV_GENERATOR)
-				? EncodingUtils.subArray(encrypted, 0, this.ivGenerator.getKeyLength())
-				: NULL_IV_GENERATOR.generateKey();
+	? EncodingUtils.subArray(encrypted, 0, this.ivGenerator.getKeyLength())
+	: NULL_IV_GENERATOR.generateKey();
 	}
 
 	private byte[] encrypted(byte[] encryptedBytes, int ivLength) {

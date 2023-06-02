@@ -50,7 +50,7 @@ import org.springframework.test.context.TestContext;
  * @author Rob Winch
  * @since 4.0
  */
-@Target({ ElementType.ANNOTATION_TYPE })
+@Target({ElementType.ANNOTATION_TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
 @Documented

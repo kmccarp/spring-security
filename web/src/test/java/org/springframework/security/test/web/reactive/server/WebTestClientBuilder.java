@@ -52,7 +52,7 @@ public final class WebTestClientBuilder {
 	}
 
 	public static Builder bindToControllerAndWebFilters(Class<?> controller,
-			SecurityWebFilterChain securityWebFilterChain) {
+SecurityWebFilterChain securityWebFilterChain) {
 		return bindToControllerAndWebFilters(controller, new WebFilterChainProxy(securityWebFilterChain));
 	}
 

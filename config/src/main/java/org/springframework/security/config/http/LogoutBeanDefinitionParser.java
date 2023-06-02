@@ -64,7 +64,7 @@ class LogoutBeanDefinitionParser implements BeanDefinitionParser {
 	private BeanMetadataElement authenticationFilterSecurityContextHolderStrategyRef;
 
 	LogoutBeanDefinitionParser(String loginPageUrl, String rememberMeServices, BeanMetadataElement csrfLogoutHandler,
-			BeanMetadataElement authenticationFilterSecurityContextHolderStrategyRef) {
+BeanMetadataElement authenticationFilterSecurityContextHolderStrategyRef) {
 		this.defaultLogoutUrl = loginPageUrl + "?logout";
 		this.rememberMeServices = rememberMeServices;
 		this.csrfEnabled = csrfLogoutHandler != null;
@@ -100,8 +100,8 @@ class LogoutBeanDefinitionParser implements BeanDefinitionParser {
 		if (StringUtils.hasText(successHandlerRef)) {
 			if (StringUtils.hasText(logoutSuccessUrl)) {
 				pc.getReaderContext().error(
-						"Use " + ATT_LOGOUT_SUCCESS_URL + " or " + ATT_LOGOUT_HANDLER + ", but not both",
-						pc.extractSource(element));
+			"Use " + ATT_LOGOUT_SUCCESS_URL + " or " + ATT_LOGOUT_HANDLER + ", but not both",
+			pc.extractSource(element));
 			}
 			builder.addConstructorArgReference(successHandlerRef);
 			this.logoutSuccessHandler = new RuntimeBeanReference(successHandlerRef);
@@ -128,13 +128,13 @@ class LogoutBeanDefinitionParser implements BeanDefinitionParser {
 		this.logoutHandlers.add(new RootBeanDefinition(LogoutSuccessEventPublishingLogoutHandler.class));
 		builder.addConstructorArgValue(this.logoutHandlers);
 		builder.addPropertyValue("securityContextHolderStrategy",
-				this.authenticationFilterSecurityContextHolderStrategyRef);
+	this.authenticationFilterSecurityContextHolderStrategyRef);
 		return builder.getBeanDefinition();
 	}
 
 	private BeanDefinition getLogoutRequestMatcher(String logoutUrl) {
 		BeanDefinitionBuilder matcherBuilder = BeanDefinitionBuilder
-				.rootBeanDefinition("org.springframework.security.web.util.matcher.AntPathRequestMatcher");
+	.rootBeanDefinition("org.springframework.security.web.util.matcher.AntPathRequestMatcher");
 		matcherBuilder.addConstructorArgValue(logoutUrl);
 		if (this.csrfEnabled) {
 			matcherBuilder.addConstructorArgValue("POST");

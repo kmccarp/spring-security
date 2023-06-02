@@ -104,8 +104,7 @@ import org.springframework.security.web.util.matcher.RequestMatcher;
  * @since 5.6
  * @see Saml2LogoutConfigurer
  */
-public final class Saml2LogoutConfigurer<H extends HttpSecurityBuilder<H>>
-		extends AbstractHttpConfigurer<Saml2LogoutConfigurer<H>, H> {
+public final class Saml2LogoutConfigurer<H extends HttpSecurityBuilder<H>>extends AbstractHttpConfigurer<Saml2LogoutConfigurer<H>, H> {
 
 	private ApplicationContext context;
 
@@ -182,7 +181,7 @@ public final class Saml2LogoutConfigurer<H extends HttpSecurityBuilder<H>>
 	 * @return the {@link Saml2LogoutConfigurer} for further customizations
 	 */
 	public Saml2LogoutConfigurer<H> logoutRequest(
-			Customizer<LogoutRequestConfigurer> logoutRequestConfigurerCustomizer) {
+Customizer<LogoutRequestConfigurer> logoutRequestConfigurerCustomizer) {
 		logoutRequestConfigurerCustomizer.customize(this.logoutRequestConfigurer);
 		return this;
 	}
@@ -204,7 +203,7 @@ public final class Saml2LogoutConfigurer<H extends HttpSecurityBuilder<H>>
 	 * @return the {@link Saml2LogoutConfigurer} for further customizations
 	 */
 	public Saml2LogoutConfigurer<H> logoutResponse(
-			Customizer<LogoutResponseConfigurer> logoutResponseConfigurerCustomizer) {
+Customizer<LogoutResponseConfigurer> logoutResponseConfigurerCustomizer) {
 		logoutResponseConfigurerCustomizer.customize(this.logoutResponseConfigurer);
 		return this;
 	}
@@ -240,23 +239,23 @@ public final class Saml2LogoutConfigurer<H extends HttpSecurityBuilder<H>>
 	}
 
 	private Saml2LogoutRequestFilter createLogoutRequestProcessingFilter(
-			RelyingPartyRegistrationRepository registrations) {
+RelyingPartyRegistrationRepository registrations) {
 		LogoutHandler[] logoutHandlers = this.logoutHandlers.toArray(new LogoutHandler[0]);
 		Saml2LogoutResponseResolver logoutResponseResolver = createSaml2LogoutResponseResolver(registrations);
 		RequestMatcher requestMatcher = createLogoutRequestMatcher();
 		OpenSamlLogoutRequestValidatorParametersResolver parameters = new OpenSamlLogoutRequestValidatorParametersResolver(
-				registrations);
+	registrations);
 		parameters.setRequestMatcher(requestMatcher);
 		Saml2LogoutRequestFilter filter = new Saml2LogoutRequestFilter(parameters,
-				this.logoutRequestConfigurer.logoutRequestValidator(), logoutResponseResolver, logoutHandlers);
+	this.logoutRequestConfigurer.logoutRequestValidator(), logoutResponseResolver, logoutHandlers);
 		filter.setSecurityContextHolderStrategy(getSecurityContextHolderStrategy());
 		return postProcess(filter);
 	}
 
 	private Saml2LogoutResponseFilter createLogoutResponseProcessingFilter(
-			RelyingPartyRegistrationRepository registrations) {
+RelyingPartyRegistrationRepository registrations) {
 		Saml2LogoutResponseFilter logoutResponseFilter = new Saml2LogoutResponseFilter(registrations,
-				this.logoutResponseConfigurer.logoutResponseValidator(), this.logoutSuccessHandler);
+	this.logoutResponseConfigurer.logoutResponseValidator(), this.logoutSuccessHandler);
 		logoutResponseFilter.setLogoutRequestMatcher(createLogoutResponseMatcher());
 		logoutResponseFilter.setLogoutRequestRepository(this.logoutRequestConfigurer.logoutRequestRepository);
 		return postProcess(logoutResponseFilter);
@@ -265,7 +264,7 @@ public final class Saml2LogoutConfigurer<H extends HttpSecurityBuilder<H>>
 	private LogoutFilter createRelyingPartyLogoutFilter(RelyingPartyRegistrationRepository registrations) {
 		LogoutHandler[] logoutHandlers = this.logoutHandlers.toArray(new LogoutHandler[0]);
 		Saml2RelyingPartyInitiatedLogoutSuccessHandler logoutRequestSuccessHandler = createSaml2LogoutRequestSuccessHandler(
-				registrations);
+	registrations);
 		logoutRequestSuccessHandler.setLogoutRequestRepository(this.logoutRequestConfigurer.logoutRequestRepository);
 		LogoutFilter logoutFilter = new LogoutFilter(logoutRequestSuccessHandler, logoutHandlers);
 		logoutFilter.setLogoutRequestMatcher(createLogoutMatcher());
@@ -291,14 +290,14 @@ public final class Saml2LogoutConfigurer<H extends HttpSecurityBuilder<H>>
 	}
 
 	private Saml2RelyingPartyInitiatedLogoutSuccessHandler createSaml2LogoutRequestSuccessHandler(
-			RelyingPartyRegistrationRepository registrations) {
+RelyingPartyRegistrationRepository registrations) {
 		Saml2LogoutRequestResolver logoutRequestResolver = this.logoutRequestConfigurer
-				.logoutRequestResolver(registrations);
+	.logoutRequestResolver(registrations);
 		return new Saml2RelyingPartyInitiatedLogoutSuccessHandler(logoutRequestResolver);
 	}
 
 	private Saml2LogoutResponseResolver createSaml2LogoutResponseResolver(
-			RelyingPartyRegistrationRepository registrations) {
+RelyingPartyRegistrationRepository registrations) {
 		return this.logoutResponseConfigurer.logoutResponseResolver(registrations);
 	}
 

@@ -51,10 +51,10 @@ public class RedirectServerAuthenticationEntryPointTests {
 	private String location = "/login";
 
 	private RedirectServerAuthenticationEntryPoint entryPoint = new RedirectServerAuthenticationEntryPoint(
-			this.location);
+this.location);
 
 	private AuthenticationException exception = new AuthenticationCredentialsNotFoundException(
-			"Authentication Required");
+"Authentication Required");
 
 	@Test
 	public void constructorStringWhenNullLocationThenException() {

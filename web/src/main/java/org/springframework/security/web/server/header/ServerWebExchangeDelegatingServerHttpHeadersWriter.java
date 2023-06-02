@@ -41,7 +41,7 @@ public final class ServerWebExchangeDelegatingServerHttpHeadersWriter implements
 	 * if the matcher returns a match.
 	 */
 	public ServerWebExchangeDelegatingServerHttpHeadersWriter(
-			ServerWebExchangeMatcherEntry<ServerHttpHeadersWriter> headersWriter) {
+ServerWebExchangeMatcherEntry<ServerHttpHeadersWriter> headersWriter) {
 		Assert.notNull(headersWriter, "headersWriter cannot be null");
 		Assert.notNull(headersWriter.getMatcher(), "webExchangeMatcher cannot be null");
 		Assert.notNull(headersWriter.getEntry(), "delegateHeadersWriter cannot be null");
@@ -56,14 +56,14 @@ public final class ServerWebExchangeDelegatingServerHttpHeadersWriter implements
 	 * {@link ServerWebExchangeMatcher} returns a match.
 	 */
 	public ServerWebExchangeDelegatingServerHttpHeadersWriter(ServerWebExchangeMatcher webExchangeMatcher,
-			ServerHttpHeadersWriter delegateHeadersWriter) {
+ServerHttpHeadersWriter delegateHeadersWriter) {
 		this(new ServerWebExchangeMatcherEntry<>(webExchangeMatcher, delegateHeadersWriter));
 	}
 
 	@Override
 	public Mono<Void> writeHttpHeaders(ServerWebExchange exchange) {
 		return this.headersWriter.getMatcher().matches(exchange).filter(ServerWebExchangeMatcher.MatchResult::isMatch)
-				.flatMap((matchResult) -> this.headersWriter.getEntry().writeHttpHeaders(exchange));
+	.flatMap((matchResult) -> this.headersWriter.getEntry().writeHttpHeaders(exchange));
 	}
 
 }

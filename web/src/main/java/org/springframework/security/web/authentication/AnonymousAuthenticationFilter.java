@@ -51,7 +51,7 @@ import org.springframework.web.filter.GenericFilterBean;
 public class AnonymousAuthenticationFilter extends GenericFilterBean implements InitializingBean {
 
 	private SecurityContextHolderStrategy securityContextHolderStrategy = SecurityContextHolder
-			.getContextHolderStrategy();
+.getContextHolderStrategy();
 
 	private AuthenticationDetailsSource<HttpServletRequest, ?> authenticationDetailsSource = new WebAuthenticationDetailsSource();
 
@@ -93,15 +93,15 @@ public class AnonymousAuthenticationFilter extends GenericFilterBean implements 
 
 	@Override
 	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
-			throws IOException, ServletException {
+throws IOException, ServletException {
 		Supplier<SecurityContext> deferredContext = this.securityContextHolderStrategy.getDeferredContext();
 		this.securityContextHolderStrategy
-				.setDeferredContext(defaultWithAnonymous((HttpServletRequest) req, deferredContext));
+	.setDeferredContext(defaultWithAnonymous((HttpServletRequest) req, deferredContext));
 		chain.doFilter(req, res);
 	}
 
 	private Supplier<SecurityContext> defaultWithAnonymous(HttpServletRequest request,
-			Supplier<SecurityContext> currentDeferredContext) {
+Supplier<SecurityContext> currentDeferredContext) {
 		return SingletonSupplier.of(() -> {
 			SecurityContext currentContext = currentDeferredContext.get();
 			return defaultWithAnonymous(request, currentContext);
@@ -125,7 +125,7 @@ public class AnonymousAuthenticationFilter extends GenericFilterBean implements 
 		else {
 			if (this.logger.isTraceEnabled()) {
 				this.logger.trace(LogMessage.of(() -> "Did not set SecurityContextHolder since already authenticated "
-						+ currentAuthentication));
+			+ currentAuthentication));
 			}
 		}
 		return currentContext;
@@ -133,13 +133,13 @@ public class AnonymousAuthenticationFilter extends GenericFilterBean implements 
 
 	protected Authentication createAuthentication(HttpServletRequest request) {
 		AnonymousAuthenticationToken token = new AnonymousAuthenticationToken(this.key, this.principal,
-				this.authorities);
+	this.authorities);
 		token.setDetails(this.authenticationDetailsSource.buildDetails(request));
 		return token;
 	}
 
 	public void setAuthenticationDetailsSource(
-			AuthenticationDetailsSource<HttpServletRequest, ?> authenticationDetailsSource) {
+AuthenticationDetailsSource<HttpServletRequest, ?> authenticationDetailsSource) {
 		Assert.notNull(authenticationDetailsSource, "AuthenticationDetailsSource required");
 		this.authenticationDetailsSource = authenticationDetailsSource;
 	}

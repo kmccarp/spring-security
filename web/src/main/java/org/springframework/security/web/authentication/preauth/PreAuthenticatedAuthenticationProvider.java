@@ -94,10 +94,10 @@ public class PreAuthenticatedAuthenticationProvider implements AuthenticationPro
 			return null;
 		}
 		UserDetails userDetails = this.preAuthenticatedUserDetailsService
-				.loadUserDetails((PreAuthenticatedAuthenticationToken) authentication);
+	.loadUserDetails((PreAuthenticatedAuthenticationToken) authentication);
 		this.userDetailsChecker.check(userDetails);
 		PreAuthenticatedAuthenticationToken result = new PreAuthenticatedAuthenticationToken(userDetails,
-				authentication.getCredentials(), userDetails.getAuthorities());
+	authentication.getCredentials(), userDetails.getAuthorities());
 		result.setDetails(authentication.getDetails());
 		return result;
 	}
@@ -117,7 +117,7 @@ public class PreAuthenticatedAuthenticationProvider implements AuthenticationPro
 	 * @param uds
 	 */
 	public void setPreAuthenticatedUserDetailsService(
-			AuthenticationUserDetailsService<PreAuthenticatedAuthenticationToken> uds) {
+AuthenticationUserDetailsService<PreAuthenticatedAuthenticationToken> uds) {
 		this.preAuthenticatedUserDetailsService = uds;
 	}
 

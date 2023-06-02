@@ -65,7 +65,7 @@ public class OidcClientInitiatedServerLogoutSuccessHandler implements ServerLogo
 	 * end_session_endpoint value
 	 */
 	public OidcClientInitiatedServerLogoutSuccessHandler(
-			ReactiveClientRegistrationRepository clientRegistrationRepository) {
+ReactiveClientRegistrationRepository clientRegistrationRepository) {
 		Assert.notNull(clientRegistrationRepository, "clientRegistrationRepository cannot be null");
 		this.clientRegistrationRepository = clientRegistrationRepository;
 	}
@@ -74,31 +74,31 @@ public class OidcClientInitiatedServerLogoutSuccessHandler implements ServerLogo
 	public Mono<Void> onLogoutSuccess(WebFilterExchange exchange, Authentication authentication) {
 		// @formatter:off
 		return Mono.just(authentication)
-				.filter(OAuth2AuthenticationToken.class::isInstance)
-				.filter((token) -> authentication.getPrincipal() instanceof OidcUser)
-				.map(OAuth2AuthenticationToken.class::cast)
-				.map(OAuth2AuthenticationToken::getAuthorizedClientRegistrationId)
-				.flatMap(this.clientRegistrationRepository::findByRegistrationId)
-				.flatMap((clientRegistration) -> {
-					URI endSessionEndpoint = endSessionEndpoint(clientRegistration);
-					if (endSessionEndpoint == null) {
-						return Mono.empty();
-					}
-					String idToken = idToken(authentication);
-					String postLogoutRedirectUri = postLogoutRedirectUri(exchange.getExchange().getRequest(), clientRegistration);
-					return Mono.just(endpointUri(endSessionEndpoint, idToken, postLogoutRedirectUri));
-				})
-				.switchIfEmpty(
-						this.serverLogoutSuccessHandler.onLogoutSuccess(exchange, authentication).then(Mono.empty())
-				)
-				.flatMap((endpointUri) -> this.redirectStrategy.sendRedirect(exchange.getExchange(), URI.create(endpointUri)));
+	.filter(OAuth2AuthenticationToken.class::isInstance)
+	.filter((token) -> authentication.getPrincipal() instanceof OidcUser)
+	.map(OAuth2AuthenticationToken.class::cast)
+	.map(OAuth2AuthenticationToken::getAuthorizedClientRegistrationId)
+	.flatMap(this.clientRegistrationRepository::findByRegistrationId)
+	.flatMap((clientRegistration) -> {
+		URI endSessionEndpoint = endSessionEndpoint(clientRegistration);
+		if (endSessionEndpoint == null) {
+			return Mono.empty();
+		}
+		String idToken = idToken(authentication);
+		String postLogoutRedirectUri = postLogoutRedirectUri(exchange.getExchange().getRequest(), clientRegistration);
+		return Mono.just(endpointUri(endSessionEndpoint, idToken, postLogoutRedirectUri));
+	})
+	.switchIfEmpty(
+this.serverLogoutSuccessHandler.onLogoutSuccess(exchange, authentication).then(Mono.empty())
+	)
+	.flatMap((endpointUri) -> this.redirectStrategy.sendRedirect(exchange.getExchange(), URI.create(endpointUri)));
 		// @formatter:on
 	}
 
 	private URI endSessionEndpoint(ClientRegistration clientRegistration) {
 		if (clientRegistration != null) {
 			Object endSessionEndpoint = clientRegistration.getProviderDetails().getConfigurationMetadata()
-					.get("end_session_endpoint");
+		.get("end_session_endpoint");
 			if (endSessionEndpoint != null) {
 				return URI.create(endSessionEndpoint.toString());
 			}
@@ -125,10 +125,10 @@ public class OidcClientInitiatedServerLogoutSuccessHandler implements ServerLogo
 		}
 		// @formatter:off
 		UriComponents uriComponents = UriComponentsBuilder.fromUri(request.getURI())
-				.replacePath(request.getPath().contextPath().value())
-				.replaceQuery(null)
-				.fragment(null)
-				.build();
+	.replacePath(request.getPath().contextPath().value())
+	.replaceQuery(null)
+	.fragment(null)
+	.build();
 
 		Map<String, String> uriVariables = new HashMap<>();
 		String scheme = uriComponents.getScheme();
@@ -147,8 +147,8 @@ public class OidcClientInitiatedServerLogoutSuccessHandler implements ServerLogo
 		uriVariables.put("registrationId", clientRegistration.getRegistrationId());
 
 		return UriComponentsBuilder.fromUriString(this.postLogoutRedirectUri)
-				.buildAndExpand(uriVariables)
-				.toUriString();
+	.buildAndExpand(uriVariables)
+	.toUriString();
 		// @formatter:on
 	}
 

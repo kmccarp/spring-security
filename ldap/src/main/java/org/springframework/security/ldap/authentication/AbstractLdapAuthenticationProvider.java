@@ -62,30 +62,30 @@ public abstract class AbstractLdapAuthenticationProvider implements Authenticati
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 		Assert.isInstanceOf(UsernamePasswordAuthenticationToken.class, authentication,
-				() -> this.messages.getMessage("LdapAuthenticationProvider.onlySupports",
-						"Only UsernamePasswordAuthenticationToken is supported"));
+	() -> this.messages.getMessage("LdapAuthenticationProvider.onlySupports",
+"Only UsernamePasswordAuthenticationToken is supported"));
 		UsernamePasswordAuthenticationToken userToken = (UsernamePasswordAuthenticationToken) authentication;
 		String username = userToken.getName();
 		String password = (String) authentication.getCredentials();
 		if (!StringUtils.hasLength(username)) {
 			throw new BadCredentialsException(
-					this.messages.getMessage("LdapAuthenticationProvider.emptyUsername", "Empty Username"));
+		this.messages.getMessage("LdapAuthenticationProvider.emptyUsername", "Empty Username"));
 		}
 		if (!StringUtils.hasLength(password)) {
 			throw new BadCredentialsException(
-					this.messages.getMessage("AbstractLdapAuthenticationProvider.emptyPassword", "Empty Password"));
+		this.messages.getMessage("AbstractLdapAuthenticationProvider.emptyPassword", "Empty Password"));
 		}
 		Assert.notNull(password, "Null password was supplied in authentication token");
 		DirContextOperations userData = doAuthentication(userToken);
 		UserDetails user = this.userDetailsContextMapper.mapUserFromContext(userData, authentication.getName(),
-				loadUserAuthorities(userData, authentication.getName(), (String) authentication.getCredentials()));
+	loadUserAuthorities(userData, authentication.getName(), (String) authentication.getCredentials()));
 		return createSuccessfulAuthentication(userToken, user);
 	}
 
 	protected abstract DirContextOperations doAuthentication(UsernamePasswordAuthenticationToken auth);
 
 	protected abstract Collection<? extends GrantedAuthority> loadUserAuthorities(DirContextOperations userData,
-			String username, String password);
+String username, String password);
 
 	/**
 	 * Creates the final {@code Authentication} object which will be returned from the
@@ -96,11 +96,11 @@ public abstract class AbstractLdapAuthenticationProvider implements Authenticati
 	 * @return the Authentication object for the fully authenticated user.
 	 */
 	protected Authentication createSuccessfulAuthentication(UsernamePasswordAuthenticationToken authentication,
-			UserDetails user) {
+UserDetails user) {
 		Object password = this.useAuthenticationRequestCredentials ? authentication.getCredentials()
-				: user.getPassword();
+	: user.getPassword();
 		UsernamePasswordAuthenticationToken result = UsernamePasswordAuthenticationToken.authenticated(user, password,
-				this.authoritiesMapper.mapAuthorities(user.getAuthorities()));
+	this.authoritiesMapper.mapAuthorities(user.getAuthorities()));
 		result.setDetails(authentication.getDetails());
 		this.logger.debug("Authenticated user");
 		return result;

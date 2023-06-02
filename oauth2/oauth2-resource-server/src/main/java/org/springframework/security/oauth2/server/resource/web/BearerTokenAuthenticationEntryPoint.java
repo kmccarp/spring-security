@@ -59,7 +59,7 @@ public final class BearerTokenAuthenticationEntryPoint implements Authentication
 	 */
 	@Override
 	public void commence(HttpServletRequest request, HttpServletResponse response,
-			AuthenticationException authException) {
+AuthenticationException authException) {
 		HttpStatus status = HttpStatus.UNAUTHORIZED;
 		Map<String, String> parameters = new LinkedHashMap<>();
 		if (this.realmName != null) {

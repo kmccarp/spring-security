@@ -57,37 +57,37 @@ public class CasAuthenticationTokenMixinTests {
 	public static final String AUTHORITY_JSON = "{\"@class\": \"org.springframework.security.core.authority.SimpleGrantedAuthority\", \"authority\": \"ROLE_USER\"}";
 
 	public static final String AUTHORITIES_SET_JSON = "[\"java.util.Collections$UnmodifiableSet\", [" + AUTHORITY_JSON
-			+ "]]";
++ "]]";
 
 	public static final String AUTHORITIES_ARRAYLIST_JSON = "[\"java.util.Collections$UnmodifiableRandomAccessList\", ["
-			+ AUTHORITY_JSON + "]]";
++ AUTHORITY_JSON + "]]";
 
 	// @formatter:off
 	public static final String USER_JSON = "{"
-		+ "\"@class\": \"org.springframework.security.core.userdetails.User\", "
-		+ "\"username\": \"admin\","
-		+ " \"password\": " + PASSWORD + ", "
-		+ "\"accountNonExpired\": true, "
-		+ "\"accountNonLocked\": true, "
-		+ "\"credentialsNonExpired\": true, "
-		+ "\"enabled\": true, "
-		+ "\"authorities\": " + AUTHORITIES_SET_JSON
-	+ "}";
++ "\"@class\": \"org.springframework.security.core.userdetails.User\", "
++ "\"username\": \"admin\","
++ " \"password\": " + PASSWORD + ", "
++ "\"accountNonExpired\": true, "
++ "\"accountNonLocked\": true, "
++ "\"credentialsNonExpired\": true, "
++ "\"enabled\": true, "
++ "\"authorities\": " + AUTHORITIES_SET_JSON
++ "}";
 	// @formatter:on
 	private static final String CAS_TOKEN_JSON = "{"
-			+ "\"@class\": \"org.springframework.security.cas.authentication.CasAuthenticationToken\", "
-			+ "\"keyHash\": " + KEY.hashCode() + "," + "\"principal\": " + USER_JSON + ", " + "\"credentials\": "
-			+ PASSWORD + ", " + "\"authorities\": " + AUTHORITIES_ARRAYLIST_JSON + "," + "\"userDetails\": " + USER_JSON
-			+ "," + "\"authenticated\": true, " + "\"details\": null," + "\"assertion\": {"
-			+ "\"@class\": \"org.apereo.cas.client.validation.AssertionImpl\", " + "\"principal\": {"
-			+ "\"@class\": \"org.apereo.cas.client.authentication.AttributePrincipalImpl\", "
-			+ "\"name\": \"assertName\", " + "\"attributes\": {\"@class\": \"java.util.Collections$EmptyMap\"}, "
-			+ "\"proxyGrantingTicket\": null, " + "\"proxyRetriever\": null" + "}, "
-			+ "\"validFromDate\": [\"java.util.Date\", " + START_DATE.getTime() + "], "
-			+ "\"validUntilDate\": [\"java.util.Date\", " + END_DATE.getTime() + "],"
-			+ "\"authenticationDate\": [\"java.util.Date\", " + START_DATE.getTime() + "], "
-			+ "\"attributes\": {\"@class\": \"java.util.Collections$EmptyMap\"},"
-			+ "\"context\": {\"@class\":\"java.util.HashMap\"}" + "}" + "}";
++ "\"@class\": \"org.springframework.security.cas.authentication.CasAuthenticationToken\", "
++ "\"keyHash\": " + KEY.hashCode() + "," + "\"principal\": " + USER_JSON + ", " + "\"credentials\": "
++ PASSWORD + ", " + "\"authorities\": " + AUTHORITIES_ARRAYLIST_JSON + "," + "\"userDetails\": " + USER_JSON
++ "," + "\"authenticated\": true, " + "\"details\": null," + "\"assertion\": {"
++ "\"@class\": \"org.apereo.cas.client.validation.AssertionImpl\", " + "\"principal\": {"
++ "\"@class\": \"org.apereo.cas.client.authentication.AttributePrincipalImpl\", "
++ "\"name\": \"assertName\", " + "\"attributes\": {\"@class\": \"java.util.Collections$EmptyMap\"}, "
++ "\"proxyGrantingTicket\": null, " + "\"proxyRetriever\": null" + "}, "
++ "\"validFromDate\": [\"java.util.Date\", " + START_DATE.getTime() + "], "
++ "\"validUntilDate\": [\"java.util.Date\", " + END_DATE.getTime() + "],"
++ "\"authenticationDate\": [\"java.util.Date\", " + START_DATE.getTime() + "], "
++ "\"attributes\": {\"@class\": \"java.util.Collections$EmptyMap\"},"
++ "\"context\": {\"@class\":\"java.util.HashMap\"}" + "}" + "}";
 
 	private static final String CAS_TOKEN_CLEARED_JSON = CAS_TOKEN_JSON.replaceFirst(PASSWORD, "null");
 
@@ -109,7 +109,7 @@ public class CasAuthenticationTokenMixinTests {
 
 	@Test
 	public void serializeCasAuthenticationTestAfterEraseCredentialInvoked()
-			throws JsonProcessingException, JSONException {
+throws JsonProcessingException, JSONException {
 		CasAuthenticationToken token = createCasAuthenticationToken();
 		token.eraseCredentials();
 		String actualJson = this.mapper.writeValueAsString(token);
@@ -133,7 +133,7 @@ public class CasAuthenticationTokenMixinTests {
 		assertThat(token.getAssertion()).isNotNull().isInstanceOf(AssertionImpl.class);
 		assertThat(token.getKeyHash()).isEqualTo(KEY.hashCode());
 		assertThat(token.getUserDetails().getAuthorities()).extracting(GrantedAuthority::getAuthority)
-				.containsOnly("ROLE_USER");
+	.containsOnly("ROLE_USER");
 		assertThat(token.getAssertion().getAuthenticationDate()).isEqualTo(START_DATE);
 		assertThat(token.getAssertion().getValidFromDate()).isEqualTo(START_DATE);
 		assertThat(token.getAssertion().getValidUntilDate()).isEqualTo(END_DATE);
@@ -144,11 +144,11 @@ public class CasAuthenticationTokenMixinTests {
 	private CasAuthenticationToken createCasAuthenticationToken() {
 		User principal = new User("admin", "1234", Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER")));
 		Collection<? extends GrantedAuthority> authorities = Collections
-				.singletonList(new SimpleGrantedAuthority("ROLE_USER"));
+	.singletonList(new SimpleGrantedAuthority("ROLE_USER"));
 		Assertion assertion = new AssertionImpl(new AttributePrincipalImpl("assertName"), START_DATE, END_DATE,
-				START_DATE, Collections.<String, Object>emptyMap());
+	START_DATE, Collections.<String, Object>emptyMap());
 		return new CasAuthenticationToken(KEY, principal, principal.getPassword(), authorities,
-				new User("admin", "1234", authorities), assertion);
+	new User("admin", "1234", authorities), assertion);
 	}
 
 }

@@ -51,7 +51,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @author Josh Cummings
  *
  */
-@ExtendWith({ SpringExtension.class, SpringTestContextExtension.class })
+@ExtendWith({SpringExtension.class, SpringTestContextExtension.class})
 @SecurityTestExecutionListeners
 public class Sec2758Tests {
 
@@ -87,8 +87,8 @@ public class Sec2758Tests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-			.authorizeRequests()
-			.anyRequest().access("hasAnyRole('CUSTOM')");
+		.authorizeRequests()
+		.anyRequest().access("hasAnyRole('CUSTOM')");
 			return http.build();
 			// @formatter:on
 		}

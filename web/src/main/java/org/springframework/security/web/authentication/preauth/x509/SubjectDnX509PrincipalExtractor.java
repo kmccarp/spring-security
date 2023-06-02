@@ -64,7 +64,7 @@ public class SubjectDnX509PrincipalExtractor implements X509PrincipalExtractor, 
 		Matcher matcher = this.subjectDnPattern.matcher(subjectDN);
 		if (!matcher.find()) {
 			throw new BadCredentialsException(this.messages.getMessage("SubjectDnX509PrincipalExtractor.noMatching",
-					new Object[] { subjectDN }, "No matching pattern was found in subject DN: {0}"));
+		new Object[]{subjectDN}, "No matching pattern was found in subject DN: {0}"));
 		}
 		Assert.isTrue(matcher.groupCount() == 1, "Regular expression must contain a single group ");
 		String username = matcher.group(1);

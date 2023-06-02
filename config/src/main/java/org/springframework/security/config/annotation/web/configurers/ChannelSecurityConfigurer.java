@@ -79,8 +79,7 @@ import org.springframework.security.web.util.matcher.RequestMatcher;
  * @author Onur Kagan Ozcan
  * @since 3.2
  */
-public final class ChannelSecurityConfigurer<H extends HttpSecurityBuilder<H>>
-		extends AbstractHttpConfigurer<ChannelSecurityConfigurer<H>, H> {
+public final class ChannelSecurityConfigurer<H extends HttpSecurityBuilder<H>>extends AbstractHttpConfigurer<ChannelSecurityConfigurer<H>, H> {
 
 	private ChannelProcessingFilter channelFilter = new ChannelProcessingFilter();
 
@@ -111,7 +110,7 @@ public final class ChannelSecurityConfigurer<H extends HttpSecurityBuilder<H>>
 		channelDecisionManager = postProcess(channelDecisionManager);
 		this.channelFilter.setChannelDecisionManager(channelDecisionManager);
 		DefaultFilterInvocationSecurityMetadataSource filterInvocationSecurityMetadataSource = new DefaultFilterInvocationSecurityMetadataSource(
-				this.requestMap);
+	this.requestMap);
 		this.channelFilter.setSecurityMetadataSource(filterInvocationSecurityMetadataSource);
 		this.channelFilter = postProcess(this.channelFilter);
 		http.addFilter(this.channelFilter);
@@ -148,7 +147,7 @@ public final class ChannelSecurityConfigurer<H extends HttpSecurityBuilder<H>>
 	}
 
 	public final class ChannelRequestMatcherRegistry
-			extends AbstractConfigAttributeRequestMatcherRegistry<RequiresChannelUrl> {
+extends AbstractConfigAttributeRequestMatcherRegistry<RequiresChannelUrl> {
 
 		private ChannelRequestMatcherRegistry(ApplicationContext context) {
 			setApplicationContext(context);

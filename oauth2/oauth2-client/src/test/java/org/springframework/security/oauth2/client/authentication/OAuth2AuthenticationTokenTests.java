@@ -52,7 +52,7 @@ public class OAuth2AuthenticationTokenTests {
 	@Test
 	public void constructorWhenPrincipalIsNullThenThrowIllegalArgumentException() {
 		assertThatIllegalArgumentException().isThrownBy(
-				() -> new OAuth2AuthenticationToken(null, this.authorities, this.authorizedClientRegistrationId));
+	() -> new OAuth2AuthenticationToken(null, this.authorities, this.authorizedClientRegistrationId));
 	}
 
 	@Test
@@ -68,13 +68,13 @@ public class OAuth2AuthenticationTokenTests {
 	@Test
 	public void constructorWhenAuthorizedClientRegistrationIdIsNullThenThrowIllegalArgumentException() {
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new OAuth2AuthenticationToken(this.principal, this.authorities, null));
+	.isThrownBy(() -> new OAuth2AuthenticationToken(this.principal, this.authorities, null));
 	}
 
 	@Test
 	public void constructorWhenAllParametersProvidedAndValidThenCreated() {
 		OAuth2AuthenticationToken authentication = new OAuth2AuthenticationToken(this.principal, this.authorities,
-				this.authorizedClientRegistrationId);
+	this.authorizedClientRegistrationId);
 		assertThat(authentication.getPrincipal()).isEqualTo(this.principal);
 		assertThat(authentication.getCredentials()).isEqualTo("");
 		assertThat(authentication.getAuthorities()).isEqualTo(this.authorities);

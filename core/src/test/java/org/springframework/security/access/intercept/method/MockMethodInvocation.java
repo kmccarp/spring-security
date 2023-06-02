@@ -31,13 +31,13 @@ public class MockMethodInvocation implements MethodInvocation {
 	private Object[] arguments = new Object[0];
 
 	public MockMethodInvocation(Object targetObject, Class clazz, String methodName, Class[] parameterTypes,
-			Object[] arguments) throws NoSuchMethodException {
+Object[] arguments) throws NoSuchMethodException {
 		this(targetObject, clazz, methodName, parameterTypes);
 		this.arguments = arguments;
 	}
 
 	public MockMethodInvocation(Object targetObject, Class clazz, String methodName, Class... parameterTypes)
-			throws NoSuchMethodException {
+throws NoSuchMethodException {
 		this(targetObject, clazz.getMethod(methodName, parameterTypes));
 		this.targetObject = targetObject;
 	}

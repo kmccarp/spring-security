@@ -39,7 +39,7 @@ public class Jsr250BusinessServiceImpl implements BusinessService {
 	}
 
 	@Override
-	@RolesAllowed({ "ROLE_USER", "ROLE_ADMIN" })
+	@RolesAllowed({"ROLE_USER", "ROLE_ADMIN"})
 	public void someUserAndAdminMethod() {
 	}
 
@@ -74,7 +74,7 @@ public class Jsr250BusinessServiceImpl implements BusinessService {
 	}
 
 	@Override
-	@RolesAllowed({ "USER" })
+	@RolesAllowed({"USER"})
 	public void rolesAllowedUser() {
 	}
 

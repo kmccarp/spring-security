@@ -60,7 +60,7 @@ public class ObjectIdentityImplTests {
 	public void testGetIdMethodConstraints() {
 		// Check the getId() method is present
 		assertThatExceptionOfType(IdentityUnavailableException.class)
-				.isThrownBy(() -> new ObjectIdentityImpl("A_STRING_OBJECT"));
+	.isThrownBy(() -> new ObjectIdentityImpl("A_STRING_OBJECT"));
 		// getId() should return a non-null value
 		MockIdDomainObject mockId = new MockIdDomainObject();
 		assertThatIllegalArgumentException().isThrownBy(() -> new ObjectIdentityImpl(mockId));
@@ -88,7 +88,7 @@ public class ObjectIdentityImplTests {
 		assertThat(obj).isNotEqualTo("DIFFERENT_OBJECT_TYPE");
 		assertThat(obj).isNotEqualTo(new ObjectIdentityImpl(DOMAIN_CLASS, 2L));
 		assertThat(obj).isNotEqualTo(new ObjectIdentityImpl(
-				"org.springframework.security.acls.domain.ObjectIdentityImplTests$MockOtherIdDomainObject", 1L));
+	"org.springframework.security.acls.domain.ObjectIdentityImplTests$MockOtherIdDomainObject", 1L));
 		assertThat(new ObjectIdentityImpl(DOMAIN_CLASS, 1L)).isEqualTo(obj);
 		assertThat(new ObjectIdentityImpl(mockObj)).isEqualTo(obj);
 	}

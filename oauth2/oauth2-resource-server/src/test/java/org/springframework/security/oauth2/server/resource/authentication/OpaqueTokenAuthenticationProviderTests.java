@@ -54,7 +54,7 @@ public class OpaqueTokenAuthenticationProviderTests {
 	@Test
 	public void authenticateWhenActiveTokenThenOk() throws Exception {
 		OAuth2AuthenticatedPrincipal principal = TestOAuth2AuthenticatedPrincipals
-				.active((attributes) -> attributes.put("extension_field", "twenty-seven"));
+	.active((attributes) -> attributes.put("extension_field", "twenty-seven"));
 		OpaqueTokenIntrospector introspector = mock(OpaqueTokenIntrospector.class);
 		given(introspector.introspect(any())).willReturn(principal);
 		OpaqueTokenAuthenticationProvider provider = new OpaqueTokenAuthenticationProvider(introspector);
@@ -63,29 +63,29 @@ public class OpaqueTokenAuthenticationProviderTests {
 		Map<String, Object> attributes = ((OAuth2AuthenticatedPrincipal) result.getPrincipal()).getAttributes();
 		// @formatter:off
 		assertThat(attributes)
-				.isNotNull()
-				.containsEntry(OAuth2TokenIntrospectionClaimNames.ACTIVE, true)
-				.containsEntry(OAuth2TokenIntrospectionClaimNames.AUD,
-						Arrays.asList("https://protected.example.net/resource"))
-				.containsEntry(OAuth2TokenIntrospectionClaimNames.CLIENT_ID, "l238j323ds-23ij4")
-				.containsEntry(OAuth2TokenIntrospectionClaimNames.EXP, Instant.ofEpochSecond(1419356238))
-				.containsEntry(OAuth2TokenIntrospectionClaimNames.ISS, new URL("https://server.example.com/"))
-				.containsEntry(OAuth2TokenIntrospectionClaimNames.NBF, Instant.ofEpochSecond(29348723984L))
-				.containsEntry(OAuth2TokenIntrospectionClaimNames.SCOPE, Arrays.asList("read", "write", "dolphin"))
-				.containsEntry(OAuth2TokenIntrospectionClaimNames.SUB, "Z5O3upPC88QrAjx00dis")
-				.containsEntry(OAuth2TokenIntrospectionClaimNames.USERNAME, "jdoe")
-				.containsEntry("extension_field", "twenty-seven");
+	.isNotNull()
+	.containsEntry(OAuth2TokenIntrospectionClaimNames.ACTIVE, true)
+	.containsEntry(OAuth2TokenIntrospectionClaimNames.AUD,
+Arrays.asList("https://protected.example.net/resource"))
+	.containsEntry(OAuth2TokenIntrospectionClaimNames.CLIENT_ID, "l238j323ds-23ij4")
+	.containsEntry(OAuth2TokenIntrospectionClaimNames.EXP, Instant.ofEpochSecond(1419356238))
+	.containsEntry(OAuth2TokenIntrospectionClaimNames.ISS, new URL("https://server.example.com/"))
+	.containsEntry(OAuth2TokenIntrospectionClaimNames.NBF, Instant.ofEpochSecond(29348723984L))
+	.containsEntry(OAuth2TokenIntrospectionClaimNames.SCOPE, Arrays.asList("read", "write", "dolphin"))
+	.containsEntry(OAuth2TokenIntrospectionClaimNames.SUB, "Z5O3upPC88QrAjx00dis")
+	.containsEntry(OAuth2TokenIntrospectionClaimNames.USERNAME, "jdoe")
+	.containsEntry("extension_field", "twenty-seven");
 		assertThat(result.getAuthorities())
-				.extracting("authority")
-				.containsExactly("SCOPE_read", "SCOPE_write",
-				"SCOPE_dolphin");
+	.extracting("authority")
+	.containsExactly("SCOPE_read", "SCOPE_write",
+"SCOPE_dolphin");
 		// @formatter:on
 	}
 
 	@Test
 	public void authenticateWhenMissingScopeAttributeThenNoAuthorities() {
 		OAuth2AuthenticatedPrincipal principal = new OAuth2IntrospectionAuthenticatedPrincipal(
-				Collections.singletonMap("claim", "value"), null);
+	Collections.singletonMap("claim", "value"), null);
 		OpaqueTokenIntrospector introspector = mock(OpaqueTokenIntrospector.class);
 		given(introspector.introspect(any())).willReturn(principal);
 		OpaqueTokenAuthenticationProvider provider = new OpaqueTokenAuthenticationProvider(introspector);
@@ -94,8 +94,8 @@ public class OpaqueTokenAuthenticationProviderTests {
 		Map<String, Object> attributes = ((OAuth2AuthenticatedPrincipal) result.getPrincipal()).getAttributes();
 		// @formatter:off
 		assertThat(attributes)
-				.isNotNull()
-				.doesNotContainKey(OAuth2TokenIntrospectionClaimNames.SCOPE);
+	.isNotNull()
+	.doesNotContainKey(OAuth2TokenIntrospectionClaimNames.SCOPE);
 		// @formatter:on
 		assertThat(result.getAuthorities()).isEmpty();
 	}
@@ -106,14 +106,14 @@ public class OpaqueTokenAuthenticationProviderTests {
 		given(introspector.introspect(any())).willThrow(new OAuth2IntrospectionException("with \"invalid\" chars"));
 		OpaqueTokenAuthenticationProvider provider = new OpaqueTokenAuthenticationProvider(introspector);
 		assertThatExceptionOfType(AuthenticationServiceException.class)
-				.isThrownBy(() -> provider.authenticate(new BearerTokenAuthenticationToken("token")));
+	.isThrownBy(() -> provider.authenticate(new BearerTokenAuthenticationToken("token")));
 	}
 
 	@Test
 	public void constructorWhenIntrospectionClientIsNullThenIllegalArgumentException() {
 		// @formatter:off
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new OpaqueTokenAuthenticationProvider(null));
+	.isThrownBy(() -> new OpaqueTokenAuthenticationProvider(null));
 		// @formatter:on
 	}
 
@@ -123,8 +123,8 @@ public class OpaqueTokenAuthenticationProviderTests {
 		OpaqueTokenAuthenticationProvider provider = new OpaqueTokenAuthenticationProvider(introspector);
 		// @formatter:off
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> provider.setAuthenticationConverter(null))
-				.withMessage("authenticationConverter cannot be null");
+	.isThrownBy(() -> provider.setAuthenticationConverter(null))
+	.withMessage("authenticationConverter cannot be null");
 		// @formatter:on
 	}
 
@@ -136,7 +136,7 @@ public class OpaqueTokenAuthenticationProviderTests {
 		OpaqueTokenAuthenticationProvider provider = new OpaqueTokenAuthenticationProvider(introspector);
 		OpaqueTokenAuthenticationConverter authenticationConverter = mock(OpaqueTokenAuthenticationConverter.class);
 		given(authenticationConverter.convert(any(), any(OAuth2AuthenticatedPrincipal.class)))
-				.willReturn(new TestingAuthenticationToken(principal, null, Collections.emptyList()));
+	.willReturn(new TestingAuthenticationToken(principal, null, Collections.emptyList()));
 		provider.setAuthenticationConverter(authenticationConverter);
 
 		Authentication result = provider.authenticate(new BearerTokenAuthenticationToken("token"));

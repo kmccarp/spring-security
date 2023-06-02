@@ -166,7 +166,7 @@ public class NimbusOpaqueTokenIntrospector implements OpaqueTokenIntrospector {
 			this.logger.trace("Did not receive Content-Type from introspection endpoint in response");
 
 			throw new OAuth2IntrospectionException(
-					"Introspection endpoint response was invalid, as no Content-Type header was provided");
+		"Introspection endpoint response was invalid, as no Content-Type header was provided");
 		}
 
 		// Nimbus expects JSON, but does not appear to validate this header first.
@@ -174,7 +174,7 @@ public class NimbusOpaqueTokenIntrospector implements OpaqueTokenIntrospector {
 			this.logger.trace("Did not receive JSON-compatible Content-Type from introspection endpoint in response");
 
 			throw new OAuth2IntrospectionException("Introspection endpoint response was invalid, as content type '"
-					+ contentType + "' is not compatible with JSON");
+		+ contentType + "' is not compatible with JSON");
 		}
 
 		HTTPResponse response = new HTTPResponse(responseEntity.getStatusCodeValue());
@@ -185,7 +185,7 @@ public class NimbusOpaqueTokenIntrospector implements OpaqueTokenIntrospector {
 			this.logger.trace("Introspection endpoint returned non-OK status code");
 
 			throw new OAuth2IntrospectionException(
-					"Introspection endpoint responded with HTTP status code " + response.getStatusCode());
+		"Introspection endpoint responded with HTTP status code " + response.getStatusCode());
 		}
 		return response;
 	}

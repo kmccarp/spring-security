@@ -66,7 +66,7 @@ public class JdbcMutableAclService extends JdbcAclService implements MutableAclS
 	private static final String DEFAULT_INSERT_INTO_ACL_CLASS_WITH_ID = "insert into acl_class (class, class_id_type) values (?, ?)";
 
 	private SecurityContextHolderStrategy securityContextHolderStrategy = SecurityContextHolder
-			.getContextHolderStrategy();
+.getContextHolderStrategy();
 
 	private boolean foreignKeysInDatabase = true;
 
@@ -83,24 +83,24 @@ public class JdbcMutableAclService extends JdbcAclService implements MutableAclS
 	private String insertClass = DEFAULT_INSERT_INTO_ACL_CLASS;
 
 	private String insertEntry = "insert into acl_entry "
-			+ "(acl_object_identity, ace_order, sid, mask, granting, audit_success, audit_failure)"
-			+ "values (?, ?, ?, ?, ?, ?, ?)";
++ "(acl_object_identity, ace_order, sid, mask, granting, audit_success, audit_failure)"
++ "values (?, ?, ?, ?, ?, ?, ?)";
 
 	private String insertObjectIdentity = "insert into acl_object_identity "
-			+ "(object_id_class, object_id_identity, owner_sid, entries_inheriting) " + "values (?, ?, ?, ?)";
++ "(object_id_class, object_id_identity, owner_sid, entries_inheriting) " + "values (?, ?, ?, ?)";
 
 	private String insertSid = "insert into acl_sid (principal, sid) values (?, ?)";
 
 	private String selectClassPrimaryKey = "select id from acl_class where class=?";
 
 	private String selectObjectIdentityPrimaryKey = "select acl_object_identity.id from acl_object_identity, acl_class "
-			+ "where acl_object_identity.object_id_class = acl_class.id and acl_class.class=? "
-			+ "and acl_object_identity.object_id_identity = ?";
++ "where acl_object_identity.object_id_class = acl_class.id and acl_class.class=? "
++ "and acl_object_identity.object_id_identity = ?";
 
 	private String selectSidPrimaryKey = "select id from acl_sid where principal=? and sid=?";
 
 	private String updateObjectIdentity = "update acl_object_identity set "
-			+ "parent_object = ?, owner_sid = ?, entries_inheriting = ?" + " where id = ?";
++ "parent_object = ?, owner_sid = ?, entries_inheriting = ?" + " where id = ?";
 
 	public JdbcMutableAclService(DataSource dataSource, LookupStrategy lookupStrategy, AclCache aclCache) {
 		super(dataSource, lookupStrategy);
@@ -179,7 +179,7 @@ public class JdbcMutableAclService extends JdbcAclService implements MutableAclS
 		Long sidId = createOrRetrieveSidPrimaryKey(owner, true);
 		Long classId = createOrRetrieveClassPrimaryKey(object.getType(), true, object.getIdentifier().getClass());
 		this.jdbcOperations.update(this.insertObjectIdentity, classId, object.getIdentifier().toString(), sidId,
-				Boolean.TRUE);
+	Boolean.TRUE);
 	}
 
 	/**
@@ -190,8 +190,8 @@ public class JdbcMutableAclService extends JdbcAclService implements MutableAclS
 	 * @return the primary key or null if not found
 	 */
 	protected Long createOrRetrieveClassPrimaryKey(String type, boolean allowCreate, Class idType) {
-		List<Long> classIds = this.jdbcOperations.queryForList(this.selectClassPrimaryKey, new Object[] { type },
-				Long.class);
+		List<Long> classIds = this.jdbcOperations.queryForList(this.selectClassPrimaryKey, new Object[]{type},
+	Long.class);
 
 		if (!classIds.isEmpty()) {
 			return classIds.get(0);
@@ -243,7 +243,7 @@ public class JdbcMutableAclService extends JdbcAclService implements MutableAclS
 	 */
 	protected Long createOrRetrieveSidPrimaryKey(String sidName, boolean sidIsPrincipal, boolean allowCreate) {
 		List<Long> sidIds = this.jdbcOperations.queryForList(this.selectSidPrimaryKey,
-				new Object[] { sidIsPrincipal, sidName }, Long.class);
+	new Object[]{sidIsPrincipal, sidName}, Long.class);
 		if (!sidIds.isEmpty()) {
 			return sidIds.get(0);
 		}
@@ -274,7 +274,7 @@ public class JdbcMutableAclService extends JdbcAclService implements MutableAclS
 				List<ObjectIdentity> children = findChildren(objectIdentity);
 				if (children != null) {
 					throw new ChildrenExistException(
-							"Cannot delete '" + objectIdentity + "' (has " + children.size() + " children)");
+				"Cannot delete '" + objectIdentity + "' (has " + children.size() + " children)");
 				}
 			}
 		}
@@ -323,7 +323,7 @@ public class JdbcMutableAclService extends JdbcAclService implements MutableAclS
 	protected Long retrieveObjectIdentityPrimaryKey(ObjectIdentity oid) {
 		try {
 			return this.jdbcOperations.queryForObject(this.selectObjectIdentityPrimaryKey, Long.class, oid.getType(),
-					oid.getIdentifier().toString());
+		oid.getIdentifier().toString());
 		}
 		catch (DataAccessException notFound) {
 			return null;
@@ -379,14 +379,14 @@ public class JdbcMutableAclService extends JdbcAclService implements MutableAclS
 		Long parentId = null;
 		if (acl.getParentAcl() != null) {
 			Assert.isInstanceOf(ObjectIdentityImpl.class, acl.getParentAcl().getObjectIdentity(),
-					"Implementation only supports ObjectIdentityImpl");
+		"Implementation only supports ObjectIdentityImpl");
 			ObjectIdentityImpl oii = (ObjectIdentityImpl) acl.getParentAcl().getObjectIdentity();
 			parentId = retrieveObjectIdentityPrimaryKey(oii);
 		}
 		Assert.notNull(acl.getOwner(), "Owner is required in this implementation");
 		Long ownerSid = createOrRetrieveSidPrimaryKey(acl.getOwner(), true);
 		int count = this.jdbcOperations.update(this.updateObjectIdentity, parentId, ownerSid, acl.isEntriesInheriting(),
-				acl.getId());
+	acl.getId());
 		if (count != 1) {
 			throw new NotFoundException("Unable to locate ACL to update");
 		}

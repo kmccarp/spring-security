@@ -49,7 +49,7 @@ final class WebConfigUtils {
 	 */
 	static void validateHttpRedirect(String url, ParserContext pc, Object source) {
 		if (!StringUtils.hasText(url) || UrlUtils.isValidRedirectUrl(url) || url.startsWith("$")
-				|| url.startsWith("#")) {
+	|| url.startsWith("#")) {
 			return;
 		}
 		pc.getReaderContext().warning(url + " is not a valid redirect URL (must start with '/' or http(s))", source);

@@ -170,12 +170,12 @@ public class DefaultLoginPageGeneratingFilter extends GenericFilterBean {
 
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
-			throws IOException, ServletException {
+throws IOException, ServletException {
 		doFilter((HttpServletRequest) request, (HttpServletResponse) response, chain);
 	}
 
 	private void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
-			throws IOException, ServletException {
+throws IOException, ServletException {
 		boolean loginError = isErrorPage(request);
 		boolean logoutSuccess = isLogoutSuccess(request);
 		if (isLoginUrlRequest(request) || loginError || logoutSuccess) {
@@ -201,25 +201,25 @@ public class DefaultLoginPageGeneratingFilter extends GenericFilterBean {
 		sb.append("    <meta name=\"author\" content=\"\">\n");
 		sb.append("    <title>Please sign in</title>\n");
 		sb.append("    <link href=\"https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css\" "
-				+ "rel=\"stylesheet\" integrity=\"sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M\" crossorigin=\"anonymous\">\n");
+	+ "rel=\"stylesheet\" integrity=\"sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M\" crossorigin=\"anonymous\">\n");
 		sb.append("    <link href=\"https://getbootstrap.com/docs/4.0/examples/signin/signin.css\" "
-				+ "rel=\"stylesheet\" crossorigin=\"anonymous\"/>\n");
+	+ "rel=\"stylesheet\" crossorigin=\"anonymous\"/>\n");
 		sb.append("  </head>\n");
 		sb.append("  <body>\n");
 		sb.append("     <div class=\"container\">\n");
 		if (this.formLoginEnabled) {
 			sb.append("      <form class=\"form-signin\" method=\"post\" action=\"" + contextPath
-					+ this.authenticationUrl + "\">\n");
+		+ this.authenticationUrl + "\">\n");
 			sb.append("        <h2 class=\"form-signin-heading\">Please sign in</h2>\n");
 			sb.append(createError(loginError, errorMsg) + createLogoutSuccess(logoutSuccess) + "        <p>\n");
 			sb.append("          <label for=\"username\" class=\"sr-only\">Username</label>\n");
 			sb.append("          <input type=\"text\" id=\"username\" name=\"" + this.usernameParameter
-					+ "\" class=\"form-control\" placeholder=\"Username\" required autofocus>\n");
+		+ "\" class=\"form-control\" placeholder=\"Username\" required autofocus>\n");
 			sb.append("        </p>\n");
 			sb.append("        <p>\n");
 			sb.append("          <label for=\"password\" class=\"sr-only\">Password</label>\n");
 			sb.append("          <input type=\"password\" id=\"password\" name=\"" + this.passwordParameter
-					+ "\" class=\"form-control\" placeholder=\"Password\" required>\n");
+		+ "\" class=\"form-control\" placeholder=\"Password\" required>\n");
 			sb.append("        </p>\n");
 			sb.append(createRememberMe(this.rememberMeParameter) + renderHiddenInputs(request));
 			sb.append("        <button class=\"btn btn-lg btn-primary btn-block\" type=\"submit\">Sign in</button>\n");
@@ -267,7 +267,7 @@ public class DefaultLoginPageGeneratingFilter extends GenericFilterBean {
 	private String getLoginErrorMessage(HttpServletRequest request) {
 		HttpSession session = request.getSession(false);
 		if (session != null &&
-				session.getAttribute(WebAttributes.AUTHENTICATION_EXCEPTION) instanceof AuthenticationException exception) {
+	session.getAttribute(WebAttributes.AUTHENTICATION_EXCEPTION) instanceof AuthenticationException exception) {
 			return exception.getMessage();
 		}
 		return "Invalid credentials";

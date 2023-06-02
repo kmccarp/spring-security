@@ -42,7 +42,7 @@ class PrefixBasedMethodMatcher implements MethodMatcher, Pointcut {
 	static PrefixBasedMethodMatcher fromClass(String className, String method) {
 		int lastDotIndex = method.lastIndexOf(".");
 		Assert.isTrue(lastDotIndex != -1 || StringUtils.hasText(className),
-				() -> "'" + method + "' is not a valid method name: format is FQN.methodName");
+	() -> "'" + method + "' is not a valid method name: format is FQN.methodName");
 		if (lastDotIndex == -1) {
 			Class<?> javaType = ClassUtils.resolveClassName(className, beanClassLoader);
 			return new PrefixBasedMethodMatcher(javaType, method);

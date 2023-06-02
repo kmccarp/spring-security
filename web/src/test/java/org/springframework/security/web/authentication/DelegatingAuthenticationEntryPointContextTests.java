@@ -35,8 +35,7 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(
-		locations = "classpath:org/springframework/security/web/authentication/DelegatingAuthenticationEntryPointTest-context.xml")
+@ContextConfiguration(locations = "classpath:org/springframework/security/web/authentication/DelegatingAuthenticationEntryPointTest-context.xml")
 public class DelegatingAuthenticationEntryPointContextTests {
 
 	@Autowired
@@ -59,7 +58,7 @@ public class DelegatingAuthenticationEntryPointContextTests {
 		this.daep.commence(request, null, null);
 		verify(this.firstAEP).commence(request, null, null);
 		verify(this.defaultAEP, never()).commence(any(HttpServletRequest.class), any(HttpServletResponse.class),
-				any(AuthenticationException.class));
+	any(AuthenticationException.class));
 	}
 
 	@Test
@@ -70,7 +69,7 @@ public class DelegatingAuthenticationEntryPointContextTests {
 		this.daep.commence(request, null, null);
 		verify(this.defaultAEP).commence(request, null, null);
 		verify(this.firstAEP, never()).commence(any(HttpServletRequest.class), any(HttpServletResponse.class),
-				any(AuthenticationException.class));
+	any(AuthenticationException.class));
 	}
 
 }

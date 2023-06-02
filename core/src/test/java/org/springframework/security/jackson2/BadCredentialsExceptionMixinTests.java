@@ -35,11 +35,12 @@ public class BadCredentialsExceptionMixinTests extends AbstractMixinTests {
 
 	// @formatter:off
 	private static final String EXCEPTION_JSON = "{"
-		+ "\"@class\": \"org.springframework.security.authentication.BadCredentialsException\","
-		+ "\"localizedMessage\": \"message\", "
-		+ "\"message\": \"message\", "
-		+ "\"suppressed\": [\"[Ljava.lang.Throwable;\",[]]"
-		+ "}";
++ "\"@class\": \"org.springframework.security.authentication.BadCredentialsException\","
++ "\"localizedMessage\": \"message\", "
++ "\"message\": \"message\", "
++ "\"suppressed\": [\"[Ljava.lang.Throwable;\",[]]"
++ "}";
+
 	// @formatter:on
 	@Test
 	public void serializeBadCredentialsExceptionMixinTest() throws JsonProcessingException, JSONException {

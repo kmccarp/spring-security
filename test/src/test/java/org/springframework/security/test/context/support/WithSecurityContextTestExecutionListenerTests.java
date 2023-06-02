@@ -49,7 +49,7 @@ import static org.mockito.Mockito.verify;
  * @author Rob Winch
  * @since 5.0
  */
-@ExtendWith({ MockitoExtension.class, SpringExtension.class })
+@ExtendWith({MockitoExtension.class, SpringExtension.class})
 @ContextConfiguration(classes = WithSecurityContextTestExecutionListenerTests.NoOpConfiguration.class)
 public class WithSecurityContextTestExecutionListenerTests {
 
@@ -74,7 +74,7 @@ public class WithSecurityContextTestExecutionListenerTests {
 		this.listener.beforeTestMethod(this.testContext);
 		assertThat(TestSecurityContextHolder.getContext().getAuthentication()).isNotNull();
 		verify(this.testContext, never()).setAttribute(
-				eq(WithSecurityContextTestExecutionListener.SECURITY_CONTEXT_ATTR_NAME), any(SecurityContext.class));
+	eq(WithSecurityContextTestExecutionListener.SECURITY_CONTEXT_ATTR_NAME), any(SecurityContext.class));
 	}
 
 	@Test
@@ -85,7 +85,7 @@ public class WithSecurityContextTestExecutionListenerTests {
 		this.listener.beforeTestMethod(this.testContext);
 		assertThat(TestSecurityContextHolder.getContext().getAuthentication()).isNotNull();
 		verify(this.testContext, never()).setAttribute(
-				eq(WithSecurityContextTestExecutionListener.SECURITY_CONTEXT_ATTR_NAME), any(SecurityContext.class));
+	eq(WithSecurityContextTestExecutionListener.SECURITY_CONTEXT_ATTR_NAME), any(SecurityContext.class));
 	}
 
 	@Test
@@ -96,7 +96,7 @@ public class WithSecurityContextTestExecutionListenerTests {
 		this.listener.beforeTestMethod(this.testContext);
 		assertThat(TestSecurityContextHolder.getContext().getAuthentication()).isNull();
 		verify(this.testContext).setAttribute(eq(WithSecurityContextTestExecutionListener.SECURITY_CONTEXT_ATTR_NAME),
-				ArgumentMatchers.<Supplier<SecurityContext>>any());
+	ArgumentMatchers.<Supplier<SecurityContext>>any());
 	}
 
 	@Test
@@ -108,7 +108,7 @@ public class WithSecurityContextTestExecutionListenerTests {
 		this.listener.beforeTestMethod(this.testContext);
 		ArgumentCaptor<Supplier<SecurityContext>> supplierCaptor = ArgumentCaptor.forClass(Supplier.class);
 		verify(this.testContext).setAttribute(eq(WithSecurityContextTestExecutionListener.SECURITY_CONTEXT_ATTR_NAME),
-				supplierCaptor.capture());
+	supplierCaptor.capture());
 		assertThat(supplierCaptor.getValue().get().getAuthentication()).isNotNull();
 	}
 
@@ -135,10 +135,10 @@ public class WithSecurityContextTestExecutionListenerTests {
 		securityContext.setAuthentication(new TestingAuthenticationToken("user", "passsword", "ROLE_USER"));
 		Supplier<SecurityContext> supplier = () -> securityContext;
 		given(this.testContext.removeAttribute(WithSecurityContextTestExecutionListener.SECURITY_CONTEXT_ATTR_NAME))
-				.willReturn(supplier);
+	.willReturn(supplier);
 		this.listener.beforeTestExecution(this.testContext);
 		assertThat(TestSecurityContextHolder.getContext().getAuthentication())
-				.isEqualTo(securityContext.getAuthentication());
+	.isEqualTo(securityContext.getAuthentication());
 	}
 
 	@Configuration

@@ -67,7 +67,7 @@ public class OAuth2AccessToken extends AbstractOAuth2Token {
 	 * @param scopes the scope(s) associated to the token
 	 */
 	public OAuth2AccessToken(TokenType tokenType, String tokenValue, Instant issuedAt, Instant expiresAt,
-			Set<String> scopes) {
+Set<String> scopes) {
 		super(tokenValue, issuedAt, expiresAt);
 		Assert.notNull(tokenType, "tokenType cannot be null");
 		this.tokenType = tokenType;

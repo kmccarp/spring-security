@@ -53,7 +53,7 @@ final class AuthorizationMethodPointcuts {
 
 	private static Pointcut classOrMethod(Class<? extends Annotation> annotation) {
 		return Pointcuts.union(new AnnotationMatchingPointcut(null, annotation, true),
-				new AnnotationMatchingPointcut(annotation, true));
+	new AnnotationMatchingPointcut(annotation, true));
 	}
 
 	private AuthorizationMethodPointcuts() {

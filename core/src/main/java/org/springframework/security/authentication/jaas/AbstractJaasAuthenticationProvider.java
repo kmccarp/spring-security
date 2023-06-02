@@ -116,8 +116,7 @@ import org.springframework.util.ObjectUtils;
  * @author Ray Krueger
  * @author Rob Winch
  */
-public abstract class AbstractJaasAuthenticationProvider implements AuthenticationProvider,
-		ApplicationEventPublisherAware, InitializingBean, ApplicationListener<SessionDestroyedEvent> {
+public abstract class AbstractJaasAuthenticationProvider implements AuthenticationProvider,ApplicationEventPublisherAware, InitializingBean, ApplicationListener<SessionDestroyedEvent> {
 
 	private ApplicationEventPublisher applicationEventPublisher;
 
@@ -142,8 +141,8 @@ public abstract class AbstractJaasAuthenticationProvider implements Authenticati
 		Assert.hasLength(this.loginContextName, "loginContextName cannot be null or empty");
 		Assert.notEmpty(this.authorityGranters, "authorityGranters cannot be null or empty");
 		if (ObjectUtils.isEmpty(this.callbackHandlers)) {
-			setCallbackHandlers(new JaasAuthenticationCallbackHandler[] { new JaasNameCallbackHandler(),
-					new JaasPasswordCallbackHandler() });
+			setCallbackHandlers(new JaasAuthenticationCallbackHandler[]{new JaasNameCallbackHandler(),
+		new JaasPasswordCallbackHandler()});
 		}
 		Assert.notNull(this.loginExceptionResolver, "loginExceptionResolver cannot be null");
 	}
@@ -178,7 +177,7 @@ public abstract class AbstractJaasAuthenticationProvider implements Authenticati
 			authorities = getAuthorities(principals);
 			// Convert the authorities set back to an array and apply it to the token.
 			JaasAuthenticationToken result = new JaasAuthenticationToken(request.getPrincipal(),
-					request.getCredentials(), new ArrayList<>(authorities), loginContext);
+		request.getCredentials(), new ArrayList<>(authorities), loginContext);
 			// Publish the success event
 			publishSuccessEvent(result);
 			// we're done, return the token.
@@ -249,12 +248,12 @@ public abstract class AbstractJaasAuthenticationProvider implements Authenticati
 	private void logout(JaasAuthenticationToken token, LoginContext loginContext) throws LoginException {
 		if (loginContext != null) {
 			this.log.debug(
-					LogMessage.of(() -> "Logging principal: [" + token.getPrincipal() + "] out of LoginContext"));
+		LogMessage.of(() -> "Logging principal: [" + token.getPrincipal() + "] out of LoginContext"));
 			loginContext.logout();
 			return;
 		}
 		this.log.debug(LogMessage.of(() -> "Cannot logout principal: [" + token.getPrincipal()
-				+ "] from LoginContext. The LoginContext is unavailable"));
+	+ "] from LoginContext. The LoginContext is unavailable"));
 	}
 
 	@Override

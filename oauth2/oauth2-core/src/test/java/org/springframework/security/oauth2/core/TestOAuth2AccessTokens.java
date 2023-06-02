@@ -32,12 +32,12 @@ public final class TestOAuth2AccessTokens {
 
 	public static OAuth2AccessToken noScopes() {
 		return new OAuth2AccessToken(OAuth2AccessToken.TokenType.BEARER, "no-scopes", Instant.now(),
-				Instant.now().plus(Duration.ofDays(1)));
+	Instant.now().plus(Duration.ofDays(1)));
 	}
 
 	public static OAuth2AccessToken scopes(String... scopes) {
 		return new OAuth2AccessToken(OAuth2AccessToken.TokenType.BEARER, "scopes", Instant.now(),
-				Instant.now().plus(Duration.ofDays(1)), new HashSet<>(Arrays.asList(scopes)));
+	Instant.now().plus(Duration.ofDays(1)), new HashSet<>(Arrays.asList(scopes)));
 	}
 
 }

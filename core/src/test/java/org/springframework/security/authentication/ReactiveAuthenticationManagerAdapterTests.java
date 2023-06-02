@@ -82,8 +82,8 @@ public class ReactiveAuthenticationManagerAdapterTests {
 		Mono<Authentication> result = this.manager.authenticate(this.authentication);
 		// @formatter:off
 		StepVerifier.create(result)
-				.expectError(BadCredentialsException.class)
-				.verify();
+	.expectError(BadCredentialsException.class)
+	.verify();
 		// @formatter:on
 	}
 

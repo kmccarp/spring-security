@@ -62,16 +62,16 @@ public class PreAuthenticatedAuthenticationTokenTests {
 		Object credentials = "dummyCredentials";
 		List<GrantedAuthority> gas = AuthorityUtils.createAuthorityList("Role1");
 		PreAuthenticatedAuthenticationToken token = new PreAuthenticatedAuthenticationToken(principal, credentials,
-				gas);
+	gas);
 		assertThat(token.getPrincipal()).isEqualTo(principal);
 		assertThat(token.getCredentials()).isEqualTo(credentials);
 		assertThat(token.getDetails()).isNull();
 		assertThat(token.getAuthorities()).isNotNull();
 		Collection<GrantedAuthority> resultColl = token.getAuthorities();
 		assertThat(gas.containsAll(resultColl) && resultColl.containsAll(gas))
-				.withFailMessage(
-						"GrantedAuthority collections do not match; result: " + resultColl + ", expected: " + gas)
-				.isTrue();
+	.withFailMessage(
+"GrantedAuthority collections do not match; result: " + resultColl + ", expected: " + gas)
+	.isTrue();
 	}
 
 }

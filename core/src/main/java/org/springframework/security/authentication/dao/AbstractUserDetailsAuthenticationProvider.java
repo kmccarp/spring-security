@@ -74,8 +74,7 @@ import org.springframework.util.Assert;
  *
  * @author Ben Alex
  */
-public abstract class AbstractUserDetailsAuthenticationProvider
-		implements AuthenticationProvider, InitializingBean, MessageSourceAware {
+public abstract class AbstractUserDetailsAuthenticationProviderimplements AuthenticationProvider, InitializingBean, MessageSourceAware {
 
 	protected final Log logger = LogFactory.getLog(getClass());
 
@@ -110,7 +109,7 @@ public abstract class AbstractUserDetailsAuthenticationProvider
 	 * <code>AuthenticationServiceException</code>)
 	 */
 	protected abstract void additionalAuthenticationChecks(UserDetails userDetails,
-			UsernamePasswordAuthenticationToken authentication) throws AuthenticationException;
+UsernamePasswordAuthenticationToken authentication) throws AuthenticationException;
 
 	@Override
 	public final void afterPropertiesSet() throws Exception {
@@ -122,8 +121,8 @@ public abstract class AbstractUserDetailsAuthenticationProvider
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 		Assert.isInstanceOf(UsernamePasswordAuthenticationToken.class, authentication,
-				() -> this.messages.getMessage("AbstractUserDetailsAuthenticationProvider.onlySupports",
-						"Only UsernamePasswordAuthenticationToken is supported"));
+	() -> this.messages.getMessage("AbstractUserDetailsAuthenticationProvider.onlySupports",
+"Only UsernamePasswordAuthenticationToken is supported"));
 		String username = determineUsername(authentication);
 		boolean cacheWasUsed = true;
 		UserDetails user = this.userCache.getUserFromCache(username);
@@ -138,7 +137,7 @@ public abstract class AbstractUserDetailsAuthenticationProvider
 					throw ex;
 				}
 				throw new BadCredentialsException(this.messages
-						.getMessage("AbstractUserDetailsAuthenticationProvider.badCredentials", "Bad credentials"));
+			.getMessage("AbstractUserDetailsAuthenticationProvider.badCredentials", "Bad credentials"));
 			}
 			Assert.notNull(user, "retrieveUser returned null - a violation of the interface contract");
 		}
@@ -188,13 +187,13 @@ public abstract class AbstractUserDetailsAuthenticationProvider
 	 * @return the successful authentication token
 	 */
 	protected Authentication createSuccessAuthentication(Object principal, Authentication authentication,
-			UserDetails user) {
+UserDetails user) {
 		// Ensure we return the original credentials the user supplied,
 		// so subsequent attempts are successful even with encoded passwords.
 		// Also ensure we return the original getDetails(), so that future
 		// authentication events after cache expiry contain the details
 		UsernamePasswordAuthenticationToken result = UsernamePasswordAuthenticationToken.authenticated(principal,
-				authentication.getCredentials(), this.authoritiesMapper.mapAuthorities(user.getAuthorities()));
+	authentication.getCredentials(), this.authoritiesMapper.mapAuthorities(user.getAuthorities()));
 		result.setDetails(authentication.getDetails());
 		this.logger.debug("Authenticated user");
 		return result;
@@ -254,7 +253,7 @@ public abstract class AbstractUserDetailsAuthenticationProvider
 	 * <code>UsernameNotFoundException</code>)
 	 */
 	protected abstract UserDetails retrieveUser(String username, UsernamePasswordAuthenticationToken authentication)
-			throws AuthenticationException;
+throws AuthenticationException;
 
 	public void setForcePrincipalAsString(boolean forcePrincipalAsString) {
 		this.forcePrincipalAsString = forcePrincipalAsString;
@@ -320,21 +319,21 @@ public abstract class AbstractUserDetailsAuthenticationProvider
 		public void check(UserDetails user) {
 			if (!user.isAccountNonLocked()) {
 				AbstractUserDetailsAuthenticationProvider.this.logger
-						.debug("Failed to authenticate since user account is locked");
+			.debug("Failed to authenticate since user account is locked");
 				throw new LockedException(AbstractUserDetailsAuthenticationProvider.this.messages
-						.getMessage("AbstractUserDetailsAuthenticationProvider.locked", "User account is locked"));
+			.getMessage("AbstractUserDetailsAuthenticationProvider.locked", "User account is locked"));
 			}
 			if (!user.isEnabled()) {
 				AbstractUserDetailsAuthenticationProvider.this.logger
-						.debug("Failed to authenticate since user account is disabled");
+			.debug("Failed to authenticate since user account is disabled");
 				throw new DisabledException(AbstractUserDetailsAuthenticationProvider.this.messages
-						.getMessage("AbstractUserDetailsAuthenticationProvider.disabled", "User is disabled"));
+			.getMessage("AbstractUserDetailsAuthenticationProvider.disabled", "User is disabled"));
 			}
 			if (!user.isAccountNonExpired()) {
 				AbstractUserDetailsAuthenticationProvider.this.logger
-						.debug("Failed to authenticate since user account has expired");
+			.debug("Failed to authenticate since user account has expired");
 				throw new AccountExpiredException(AbstractUserDetailsAuthenticationProvider.this.messages
-						.getMessage("AbstractUserDetailsAuthenticationProvider.expired", "User account has expired"));
+			.getMessage("AbstractUserDetailsAuthenticationProvider.expired", "User account has expired"));
 			}
 		}
 
@@ -346,10 +345,10 @@ public abstract class AbstractUserDetailsAuthenticationProvider
 		public void check(UserDetails user) {
 			if (!user.isCredentialsNonExpired()) {
 				AbstractUserDetailsAuthenticationProvider.this.logger
-						.debug("Failed to authenticate since user account credentials have expired");
+			.debug("Failed to authenticate since user account credentials have expired");
 				throw new CredentialsExpiredException(AbstractUserDetailsAuthenticationProvider.this.messages
-						.getMessage("AbstractUserDetailsAuthenticationProvider.credentialsExpired",
-								"User credentials have expired"));
+			.getMessage("AbstractUserDetailsAuthenticationProvider.credentialsExpired",
+		"User credentials have expired"));
 			}
 		}
 

@@ -98,7 +98,7 @@ public final class Jsr250AuthorizationManager implements AuthorizationManager<Me
 			if (annotation instanceof RolesAllowed) {
 				RolesAllowed rolesAllowed = (RolesAllowed) annotation;
 				return AuthorityAuthorizationManager.hasAnyRole(Jsr250AuthorizationManager.this.rolePrefix,
-						rolesAllowed.value());
+			rolesAllowed.value());
 			}
 			return NULL_MANAGER;
 		}
@@ -122,7 +122,7 @@ public final class Jsr250AuthorizationManager implements AuthorizationManager<Me
 			}
 			if (annotations.size() > 1) {
 				throw new AnnotationConfigurationException(
-						"The JSR-250 specification disallows DenyAll, PermitAll, and RolesAllowed from appearing on the same method.");
+			"The JSR-250 specification disallows DenyAll, PermitAll, and RolesAllowed from appearing on the same method.");
 			}
 			return annotations.iterator().next();
 		}
@@ -140,7 +140,7 @@ public final class Jsr250AuthorizationManager implements AuthorizationManager<Me
 			}
 			if (annotations.size() > 1) {
 				throw new AnnotationConfigurationException(
-						"The JSR-250 specification disallows DenyAll, PermitAll, and RolesAllowed from appearing on the same class definition.");
+			"The JSR-250 specification disallows DenyAll, PermitAll, and RolesAllowed from appearing on the same class definition.");
 			}
 			return annotations.iterator().next();
 		}

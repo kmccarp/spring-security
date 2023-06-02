@@ -59,14 +59,14 @@ public class AuthorizeTagTests {
 	private MockHttpServletRequest request = new MockHttpServletRequest();
 
 	private final TestingAuthenticationToken currentUser = new TestingAuthenticationToken("abc", "123",
-			"ROLE SUPERVISOR", "ROLE_TELLER");
+"ROLE SUPERVISOR", "ROLE_TELLER");
 
 	@BeforeEach
 	public void setUp() {
 		SecurityContextHolder.getContext().setAuthentication(this.currentUser);
 		StaticWebApplicationContext ctx = new StaticWebApplicationContext();
 		BeanDefinitionBuilder webExpressionHandler = BeanDefinitionBuilder
-				.rootBeanDefinition(DefaultWebSecurityExpressionHandler.class);
+	.rootBeanDefinition(DefaultWebSecurityExpressionHandler.class);
 		webExpressionHandler.addPropertyValue("permissionEvaluator", this.permissionEvaluator);
 		ctx.registerBeanDefinition("expressionHandler", webExpressionHandler.getBeanDefinition());
 		ctx.registerSingleton("wipe", MockWebInvocationPrivilegeEvaluator.class);

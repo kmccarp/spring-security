@@ -142,7 +142,7 @@ public class AbstractAuthenticationProcessingFilterTests {
 		filter.afterPropertiesSet();
 		assertThat(filter.getRememberMeServices()).isNotNull();
 		filter.setRememberMeServices(
-				new TokenBasedRememberMeServices("key", new AbstractRememberMeServicesTests.MockUserDetailsService()));
+	new TokenBasedRememberMeServices("key", new AbstractRememberMeServicesTests.MockUserDetailsService()));
 		assertThat(filter.getRememberMeServices().getClass()).isEqualTo(TokenBasedRememberMeServices.class);
 		assertThat(filter.getAuthenticationManager() != null).isTrue();
 	}
@@ -190,7 +190,7 @@ public class AbstractAuthenticationProcessingFilterTests {
 		assertThat(SecurityContextHolder.getContext().getAuthentication()).isNotNull();
 		assertThat(SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString()).isEqualTo("test");
 		assertThat(request.getAttribute(RequestAttributeSecurityContextRepository.DEFAULT_REQUEST_ATTR_NAME))
-				.isNotNull();
+	.isNotNull();
 		// Should still have the same session
 		assertThat(request.getSession()).isEqualTo(sessionPreAuth);
 	}
@@ -208,7 +208,7 @@ public class AbstractAuthenticationProcessingFilterTests {
 		MockHttpServletResponse response = new MockHttpServletResponse();
 		// Setup our test object, to grant access
 		MockAuthenticationFilter filter = new MockAuthenticationFilter("/j_mock_post",
-				mock(AuthenticationManager.class));
+	mock(AuthenticationManager.class));
 		filter.setSessionAuthenticationStrategy(mock(SessionAuthenticationStrategy.class));
 		filter.setAuthenticationSuccessHandler(this.successHandler);
 		filter.setAuthenticationFailureHandler(this.failureHandler);
@@ -219,7 +219,7 @@ public class AbstractAuthenticationProcessingFilterTests {
 		assertThat(SecurityContextHolder.getContext().getAuthentication()).isNotNull();
 		assertThat(SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString()).isEqualTo("test");
 		assertThat(request.getAttribute(RequestAttributeSecurityContextRepository.DEFAULT_REQUEST_ATTR_NAME))
-				.isNotNull();
+	.isNotNull();
 		// Should still have the same session
 		assertThat(request.getSession()).isEqualTo(sessionPreAuth);
 	}
@@ -239,7 +239,7 @@ public class AbstractAuthenticationProcessingFilterTests {
 		MockHttpServletResponse response = new MockHttpServletResponse();
 		// Setup our test object, to grant access
 		MockAuthenticationFilter filter = new MockAuthenticationFilter(
-				new AntPathRequestMatcher("/j_eradicate_corona_virus"), mock(AuthenticationManager.class));
+	new AntPathRequestMatcher("/j_eradicate_corona_virus"), mock(AuthenticationManager.class));
 		filter.setSessionAuthenticationStrategy(mock(SessionAuthenticationStrategy.class));
 		filter.setAuthenticationSuccessHandler(this.successHandler);
 		filter.setAuthenticationFailureHandler(this.failureHandler);
@@ -250,7 +250,7 @@ public class AbstractAuthenticationProcessingFilterTests {
 		assertThat(SecurityContextHolder.getContext().getAuthentication()).isNotNull();
 		assertThat(SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString()).isEqualTo("test");
 		assertThat(request.getAttribute(RequestAttributeSecurityContextRepository.DEFAULT_REQUEST_ATTR_NAME))
-				.isNotNull();
+	.isNotNull();
 		// Should still have the same session
 		assertThat(request.getSession()).isEqualTo(sessionPreAuth);
 	}
@@ -263,7 +263,7 @@ public class AbstractAuthenticationProcessingFilterTests {
 		filter.setAuthenticationSuccessHandler(this.successHandler);
 		filter.setFilterProcessesUrl("/login");
 		assertThatIllegalArgumentException().isThrownBy(filter::afterPropertiesSet)
-				.withMessage("authenticationManager must be specified");
+	.withMessage("authenticationManager must be specified");
 	}
 
 	@Test
@@ -273,7 +273,7 @@ public class AbstractAuthenticationProcessingFilterTests {
 		filter.setAuthenticationManager(mock(AuthenticationManager.class));
 		filter.setAuthenticationSuccessHandler(this.successHandler);
 		assertThatIllegalArgumentException().isThrownBy(() -> filter.setFilterProcessesUrl(null))
-				.withMessage("Pattern cannot be null or empty");
+	.withMessage("Pattern cannot be null or empty");
 	}
 
 	@Test
@@ -328,10 +328,10 @@ public class AbstractAuthenticationProcessingFilterTests {
 		// Test
 		filter.doFilter(request, response, chain);
 		verify(successHandler).onAuthenticationSuccess(any(HttpServletRequest.class), any(HttpServletResponse.class),
-				any(Authentication.class));
+	any(Authentication.class));
 		assertThat(SecurityContextHolder.getContext().getAuthentication()).isNotNull();
 		assertThat(request.getAttribute(RequestAttributeSecurityContextRepository.DEFAULT_REQUEST_ATTR_NAME))
-				.isNotNull();
+	.isNotNull();
 	}
 
 	@Test
@@ -349,7 +349,7 @@ public class AbstractAuthenticationProcessingFilterTests {
 
 	@Test
 	public void testSuccessfulAuthenticationWhenCustomSecurityContextRepositoryThenAuthenticationSaved()
-			throws Exception {
+throws Exception {
 		ArgumentCaptor<SecurityContext> contextCaptor = ArgumentCaptor.forClass(SecurityContext.class);
 		SecurityContextRepository repository = mock(SecurityContextRepository.class);
 		Authentication authentication = TestAuthentication.authenticatedUser();
@@ -382,7 +382,7 @@ public class AbstractAuthenticationProcessingFilterTests {
 		// Test
 		filter.doFilter(request, response, chain);
 		verify(failureHandler).onAuthenticationFailure(any(HttpServletRequest.class), any(HttpServletResponse.class),
-				any(AuthenticationException.class));
+	any(AuthenticationException.class));
 		assertThat(SecurityContextHolder.getContext().getAuthentication()).isNull();
 	}
 
@@ -466,14 +466,14 @@ public class AbstractAuthenticationProcessingFilterTests {
 		}
 
 		private MockAuthenticationFilter(String defaultFilterProcessingUrl,
-				AuthenticationManager authenticationManager) {
+	AuthenticationManager authenticationManager) {
 			super(defaultFilterProcessingUrl, authenticationManager);
 			setupRememberMeServicesAndAuthenticationException();
 			this.grantAccess = true;
 		}
 
 		private MockAuthenticationFilter(RequestMatcher requiresAuthenticationRequestMatcher,
-				AuthenticationManager authenticationManager) {
+	AuthenticationManager authenticationManager) {
 			super(requiresAuthenticationRequestMatcher, authenticationManager);
 			setupRememberMeServicesAndAuthenticationException();
 			this.grantAccess = true;
@@ -481,10 +481,10 @@ public class AbstractAuthenticationProcessingFilterTests {
 
 		@Override
 		public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
-				throws AuthenticationException {
+	throws AuthenticationException {
 			if (this.grantAccess) {
 				return UsernamePasswordAuthenticationToken.authenticated("test", "test",
-						AuthorityUtils.createAuthorityList("TEST"));
+			AuthorityUtils.createAuthorityList("TEST"));
 			}
 			else {
 				throw this.exceptionToThrow;

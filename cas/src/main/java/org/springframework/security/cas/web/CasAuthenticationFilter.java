@@ -200,14 +200,14 @@ public class CasAuthenticationFilter extends AbstractAuthenticationProcessingFil
 
 	@Override
 	protected final void successfulAuthentication(HttpServletRequest request, HttpServletResponse response,
-			FilterChain chain, Authentication authResult) throws IOException, ServletException {
+FilterChain chain, Authentication authResult) throws IOException, ServletException {
 		boolean continueFilterChain = proxyTicketRequest(serviceTicketRequest(request, response), request);
 		if (!continueFilterChain) {
 			super.successfulAuthentication(request, response, chain, authResult);
 			return;
 		}
 		this.logger.debug(
-				LogMessage.format("Authentication success. Updating SecurityContextHolder to contain: %s", authResult));
+	LogMessage.format("Authentication success. Updating SecurityContextHolder to contain: %s", authResult));
 		SecurityContext context = SecurityContextHolder.createEmptyContext();
 		context.setAuthentication(authResult);
 		SecurityContextHolder.setContext(context);
@@ -219,7 +219,7 @@ public class CasAuthenticationFilter extends AbstractAuthenticationProcessingFil
 
 	@Override
 	public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
-			throws AuthenticationException, IOException {
+throws AuthenticationException, IOException {
 		// if the request is a proxy request process it and return null to indicate the
 		// request has been processed
 		if (proxyReceptorRequest(request)) {
@@ -234,8 +234,8 @@ public class CasAuthenticationFilter extends AbstractAuthenticationProcessingFil
 		}
 		boolean serviceTicketRequest = serviceTicketRequest(request, response);
 		CasServiceTicketAuthenticationToken authRequest = serviceTicketRequest
-				? CasServiceTicketAuthenticationToken.stateful(serviceTicket)
-				: CasServiceTicketAuthenticationToken.stateless(serviceTicket);
+	? CasServiceTicketAuthenticationToken.stateful(serviceTicket)
+	: CasServiceTicketAuthenticationToken.stateless(serviceTicket);
 		authRequest.setDetails(this.authenticationDetailsSource.buildDetails(request));
 		return this.getAuthenticationManager().authenticate(authRequest);
 	}
@@ -256,7 +256,7 @@ public class CasAuthenticationFilter extends AbstractAuthenticationProcessingFil
 	protected boolean requiresAuthentication(HttpServletRequest request, HttpServletResponse response) {
 		final boolean serviceTicketRequest = serviceTicketRequest(request, response);
 		final boolean result = serviceTicketRequest || proxyReceptorRequest(request)
-				|| (proxyTicketRequest(serviceTicketRequest, request));
+	|| (proxyTicketRequest(serviceTicketRequest, request));
 		if (this.logger.isDebugEnabled()) {
 			this.logger.debug("requiresAuthentication = " + result);
 		}
@@ -328,7 +328,7 @@ public class CasAuthenticationFilter extends AbstractAuthenticationProcessingFil
 	private boolean authenticated() {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		return authentication != null && authentication.isAuthenticated()
-				&& !(authentication instanceof AnonymousAuthenticationToken);
+	&& !(authentication instanceof AnonymousAuthenticationToken);
 	}
 
 	/**
@@ -372,7 +372,7 @@ public class CasAuthenticationFilter extends AbstractAuthenticationProcessingFil
 
 		@Override
 		public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
-				AuthenticationException exception) throws IOException, ServletException {
+	AuthenticationException exception) throws IOException, ServletException {
 			if (serviceTicketRequest(request, response)) {
 				this.serviceTicketFailureHandler.onAuthenticationFailure(request, response, exception);
 			}

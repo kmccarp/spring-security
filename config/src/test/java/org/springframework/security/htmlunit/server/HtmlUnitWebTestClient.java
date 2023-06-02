@@ -57,17 +57,17 @@ final class HtmlUnitWebTestClient {
 		this.webClient = webClient;
 		// @formatter:off
 		this.webTestClient = webTestClient.mutate()
-				.filter(new FollowRedirects())
-				.filter(new CookieManager())
-				.build();
+	.filter(new FollowRedirects())
+	.filter(new CookieManager())
+	.build();
 		// @formatter:on
 	}
 
 	FluxExchangeResult<String> getResponse(WebRequest webRequest) {
 		// @formatter:off
 		WebTestClient.RequestBodySpec request = this.webTestClient
-				.method(httpMethod(webRequest))
-				.uri(uri(webRequest));
+	.method(httpMethod(webRequest))
+	.uri(uri(webRequest));
 		// @formatter:on
 		contentType(request, webRequest);
 		cookies(request, webRequest);
@@ -112,7 +112,7 @@ final class HtmlUnitWebTestClient {
 			while (tokens.hasMoreTokens()) {
 				String cookieName = tokens.nextToken().trim();
 				Assert.isTrue(tokens.hasMoreTokens(), () -> "Expected value for cookie name '" + cookieName
-						+ "': full cookie header was [" + cookieHeaderValue + "]");
+			+ "': full cookie header was [" + cookieHeaderValue + "]");
 				String cookieValue = tokens.nextToken().trim();
 				request.cookie(cookieName, cookieValue);
 			}
@@ -150,7 +150,7 @@ final class HtmlUnitWebTestClient {
 		}
 
 		private Mono<ClientResponse> redirectIfNecessary(ClientRequest request, ExchangeFunction next,
-				ClientResponse response) {
+	ClientResponse response) {
 			URI location = response.headers().asHttpHeaders().getLocation();
 			String host = request.url().getHost();
 			String scheme = request.url().getScheme();
@@ -161,10 +161,10 @@ final class HtmlUnitWebTestClient {
 				}
 				// @formatter:off
 				ClientRequest redirect = ClientRequest.method(HttpMethod.GET, URI.create(redirectUrl))
-						.headers((headers) -> headers.addAll(request.headers()))
-						.cookies((cookies) -> cookies.addAll(request.cookies()))
-						.attributes((attributes) -> attributes.putAll(request.attributes()))
-						.build();
+			.headers((headers) -> headers.addAll(request.headers()))
+			.cookies((cookies) -> cookies.addAll(request.cookies()))
+			.attributes((attributes) -> attributes.putAll(request.attributes()))
+			.build();
 				// @formatter:on
 				return next.exchange(redirect).flatMap((r) -> redirectIfNecessary(request, next, r));
 			}

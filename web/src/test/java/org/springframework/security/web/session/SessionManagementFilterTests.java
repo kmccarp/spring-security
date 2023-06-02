@@ -97,7 +97,7 @@ public class SessionManagementFilterTests {
 		authenticateUser();
 		filter.doFilter(request, new MockHttpServletResponse(), new MockFilterChain());
 		verify(strategy).onAuthentication(any(Authentication.class), any(HttpServletRequest.class),
-				any(HttpServletResponse.class));
+	any(HttpServletResponse.class));
 		// Check that it is only applied once to the request
 		filter.doFilter(request, new MockHttpServletResponse(), new MockFilterChain());
 		verifyNoMoreInteractions(strategy);
@@ -117,7 +117,7 @@ public class SessionManagementFilterTests {
 		authenticateUser();
 		SessionAuthenticationException exception = new SessionAuthenticationException("Failure");
 		willThrow(exception).given(strategy).onAuthentication(SecurityContextHolder.getContext().getAuthentication(),
-				request, response);
+	request, response);
 		filter.doFilter(request, response, fc);
 		verifyNoMoreInteractions(fc);
 		verify(failureHandler).onAuthenticationFailure(request, response, exception);

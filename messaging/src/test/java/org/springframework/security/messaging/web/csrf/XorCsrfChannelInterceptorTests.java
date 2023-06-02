@@ -75,7 +75,7 @@ public class XorCsrfChannelInterceptorTests {
 		this.messageHeaders.getSessionAttributes().put(CsrfToken.class.getName(), this.token);
 		// @formatter:off
 		assertThatExceptionOfType(InvalidCsrfTokenException.class)
-				.isThrownBy(() -> this.interceptor.preSend(message(), mock(MessageChannel.class)));
+	.isThrownBy(() -> this.interceptor.preSend(message(), mock(MessageChannel.class)));
 		// @formatter:on
 	}
 
@@ -84,7 +84,7 @@ public class XorCsrfChannelInterceptorTests {
 		this.messageHeaders.getSessionAttributes().put(CsrfToken.class.getName(), this.token);
 		// @formatter:off
 		assertThatExceptionOfType(InvalidCsrfTokenException.class)
-				.isThrownBy(() -> this.interceptor.preSend(message(), mock(MessageChannel.class)));
+	.isThrownBy(() -> this.interceptor.preSend(message(), mock(MessageChannel.class)));
 		// @formatter:on
 	}
 
@@ -92,7 +92,7 @@ public class XorCsrfChannelInterceptorTests {
 	public void preSendWhenConnectWithMissingTokenThenThrowsMissingCsrfTokenException() {
 		// @formatter:off
 		assertThatExceptionOfType(MissingCsrfTokenException.class)
-				.isThrownBy(() -> this.interceptor.preSend(message(), mock(MessageChannel.class)));
+	.isThrownBy(() -> this.interceptor.preSend(message(), mock(MessageChannel.class)));
 		// @formatter:on
 	}
 
@@ -101,7 +101,7 @@ public class XorCsrfChannelInterceptorTests {
 		this.messageHeaders.setSessionAttributes(null);
 		// @formatter:off
 		assertThatExceptionOfType(MissingCsrfTokenException.class)
-				.isThrownBy(() -> this.interceptor.preSend(message(), mock(MessageChannel.class)));
+	.isThrownBy(() -> this.interceptor.preSend(message(), mock(MessageChannel.class)));
 		// @formatter:on
 	}
 

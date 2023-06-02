@@ -52,7 +52,7 @@ public class LdapUserDetailsMapper implements UserDetailsContextMapper {
 
 	@Override
 	public UserDetails mapUserFromContext(DirContextOperations ctx, String username,
-			Collection<? extends GrantedAuthority> authorities) {
+Collection<? extends GrantedAuthority> authorities) {
 		String dn = ctx.getNameInNamespace();
 		this.logger.debug(LogMessage.format("Mapping user details from context with DN %s", dn));
 		LdapUserDetailsImpl.Essence essence = new LdapUserDetailsImpl.Essence();
@@ -67,7 +67,7 @@ public class LdapUserDetailsMapper implements UserDetailsContextMapper {
 			String[] rolesForAttribute = ctx.getStringAttributes(this.roleAttributes[i]);
 			if (rolesForAttribute == null) {
 				this.logger.debug(
-						LogMessage.format("Couldn't read role attribute %s for user %s", this.roleAttributes[i], dn));
+			LogMessage.format("Couldn't read role attribute %s for user %s", this.roleAttributes[i], dn));
 				continue;
 			}
 			for (String role : rolesForAttribute) {
@@ -83,7 +83,7 @@ public class LdapUserDetailsMapper implements UserDetailsContextMapper {
 		}
 		// Check for PPolicy data
 		PasswordPolicyResponseControl ppolicy = (PasswordPolicyResponseControl) ctx
-				.getObjectAttribute(PasswordPolicyControl.OID);
+	.getObjectAttribute(PasswordPolicyControl.OID);
 		if (ppolicy != null) {
 			essence.setTimeBeforeExpiration(ppolicy.getTimeBeforeExpiration());
 			essence.setGraceLoginsRemaining(ppolicy.getGraceLoginsRemaining());
@@ -94,7 +94,7 @@ public class LdapUserDetailsMapper implements UserDetailsContextMapper {
 	@Override
 	public void mapUserToContext(UserDetails user, DirContextAdapter ctx) {
 		throw new UnsupportedOperationException("LdapUserDetailsMapper only supports reading from a context. Please"
-				+ " use a subclass if mapUserToContext() is required.");
+	+ " use a subclass if mapUserToContext() is required.");
 	}
 
 	/**

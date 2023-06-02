@@ -73,13 +73,13 @@ public class RememberMeConfigTests {
 		this.spring.configLocations(xml("WithTokenRepository")).autowire();
 		// @formatter:off
 		MvcResult result = rememberAuthentication("user", "password")
-				.andExpect(cookie().secure(AbstractRememberMeServices.SPRING_SECURITY_REMEMBER_ME_COOKIE_KEY, false))
-				.andReturn();
+	.andExpect(cookie().secure(AbstractRememberMeServices.SPRING_SECURITY_REMEMBER_ME_COOKIE_KEY, false))
+	.andReturn();
 		// @formatter:on
 		Cookie cookie = rememberMeCookie(result);
 		// @formatter:off
 		this.mvc.perform(get("/authenticated").cookie(cookie))
-				.andExpect(status().isOk());
+	.andExpect(status().isOk());
 		// @formatter:on
 		JdbcTemplate template = this.spring.getContext().getBean(JdbcTemplate.class);
 		int count = template.queryForObject("select count(*) from persistent_logins", int.class);
@@ -94,13 +94,13 @@ public class RememberMeConfigTests {
 		template.execute(JdbcTokenRepositoryImpl.CREATE_TABLE_SQL);
 		// @formatter:off
 		MvcResult result = rememberAuthentication("user", "password")
-				.andExpect(cookie().secure(AbstractRememberMeServices.SPRING_SECURITY_REMEMBER_ME_COOKIE_KEY, false))
-				.andReturn();
+	.andExpect(cookie().secure(AbstractRememberMeServices.SPRING_SECURITY_REMEMBER_ME_COOKIE_KEY, false))
+	.andReturn();
 		// @formatter:on
 		Cookie cookie = rememberMeCookie(result);
 		// @formatter:off
 		this.mvc.perform(get("/authenticated").cookie(cookie))
-				.andExpect(status().isOk());
+	.andExpect(status().isOk());
 		// @formatter:on
 		int count = template.queryForObject("select count(*) from persistent_logins", int.class);
 		assertThat(count).isEqualTo(1);
@@ -114,13 +114,13 @@ public class RememberMeConfigTests {
 		template.execute(JdbcTokenRepositoryImpl.CREATE_TABLE_SQL);
 		// @formatter:off
 		MvcResult result = rememberAuthentication("user", "password")
-				.andExpect(cookie().secure(AbstractRememberMeServices.SPRING_SECURITY_REMEMBER_ME_COOKIE_KEY, false))
-				.andReturn();
+	.andExpect(cookie().secure(AbstractRememberMeServices.SPRING_SECURITY_REMEMBER_ME_COOKIE_KEY, false))
+	.andReturn();
 		// @formatter:on
 		Cookie cookie = rememberMeCookie(result);
 		// @formatter:off
 		this.mvc.perform(get("/authenticated").cookie(cookie))
-				.andExpect(redirectedUrl("/target"));
+	.andExpect(redirectedUrl("/target"));
 		// @formatter:on
 		int count = template.queryForObject("select count(*) from persistent_logins", int.class);
 		assertThat(count).isEqualTo(1);
@@ -132,18 +132,18 @@ public class RememberMeConfigTests {
 		this.spring.configLocations(xml("WithServicesRef")).autowire();
 		// @formatter:off
 		MvcResult result = rememberAuthentication("user", "password")
-				.andExpect(cookie().secure(AbstractRememberMeServices.SPRING_SECURITY_REMEMBER_ME_COOKIE_KEY, false))
-				.andExpect(cookie().maxAge(AbstractRememberMeServices.SPRING_SECURITY_REMEMBER_ME_COOKIE_KEY, 5000))
-				.andReturn();
+	.andExpect(cookie().secure(AbstractRememberMeServices.SPRING_SECURITY_REMEMBER_ME_COOKIE_KEY, false))
+	.andExpect(cookie().maxAge(AbstractRememberMeServices.SPRING_SECURITY_REMEMBER_ME_COOKIE_KEY, 5000))
+	.andReturn();
 		// @formatter:on
 		Cookie cookie = rememberMeCookie(result);
 		// @formatter:off
 		this.mvc.perform(get("/authenticated").cookie(cookie))
-				.andExpect(status().isOk());
+	.andExpect(status().isOk());
 		// SEC-909
 		this.mvc.perform(post("/logout").cookie(cookie).with(csrf()))
-				.andExpect(cookie().maxAge(AbstractRememberMeServices.SPRING_SECURITY_REMEMBER_ME_COOKIE_KEY, 0))
-				.andReturn();
+	.andExpect(cookie().maxAge(AbstractRememberMeServices.SPRING_SECURITY_REMEMBER_ME_COOKIE_KEY, 0))
+	.andReturn();
 		// @formatter:on
 	}
 
@@ -154,23 +154,23 @@ public class RememberMeConfigTests {
 		Cookie cookie = rememberMeCookie(result);
 		// @formatter:off
 		this.mvc.perform(post("/logout").cookie(cookie).with(csrf()))
-				.andExpect(cookie().maxAge(AbstractRememberMeServices.SPRING_SECURITY_REMEMBER_ME_COOKIE_KEY, 0));
+	.andExpect(cookie().maxAge(AbstractRememberMeServices.SPRING_SECURITY_REMEMBER_ME_COOKIE_KEY, 0));
 		// @formatter:on
 	}
 
 	@Test
 	public void requestWithRememberMeWhenTokenValidityIsConfiguredThenCookieReflectsCorrectExpiration()
-			throws Exception {
+throws Exception {
 		this.spring.configLocations(xml("TokenValidity")).autowire();
 		// @formatter:off
 		MvcResult result = rememberAuthentication("user", "password")
-				.andExpect(cookie().maxAge(AbstractRememberMeServices.SPRING_SECURITY_REMEMBER_ME_COOKIE_KEY, 10000))
-				.andReturn();
+	.andExpect(cookie().maxAge(AbstractRememberMeServices.SPRING_SECURITY_REMEMBER_ME_COOKIE_KEY, 10000))
+	.andReturn();
 		// @formatter:on
 		Cookie cookie = rememberMeCookie(result);
 		// @formatter:off
 		this.mvc.perform(get("/authenticated").cookie(cookie))
-				.andExpect(status().isOk());
+	.andExpect(status().isOk());
 		// @formatter:on
 	}
 
@@ -179,29 +179,29 @@ public class RememberMeConfigTests {
 		this.spring.configLocations(xml("NegativeTokenValidity")).autowire();
 		// @formatter:off
 		rememberAuthentication("user", "password")
-				.andExpect(cookie().maxAge(AbstractRememberMeServices.SPRING_SECURITY_REMEMBER_ME_COOKIE_KEY, -1));
+	.andExpect(cookie().maxAge(AbstractRememberMeServices.SPRING_SECURITY_REMEMBER_ME_COOKIE_KEY, -1));
 		// @formatter:on
 	}
 
 	@Test
 	public void configureWhenUsingDataSourceAndANegativeTokenValidityThenThrowsWiringException() {
 		assertThatExceptionOfType(FatalBeanException.class)
-				.isThrownBy(() -> this.spring.configLocations(xml("NegativeTokenValidityWithDataSource")).autowire());
+	.isThrownBy(() -> this.spring.configLocations(xml("NegativeTokenValidityWithDataSource")).autowire());
 	}
 
 	@Test
 	public void requestWithRememberMeWhenTokenValidityIsResolvedByPropertyPlaceholderThenCookieReflectsCorrectExpiration()
-			throws Exception {
+throws Exception {
 		this.spring.configLocations(xml("Sec2165")).autowire();
 		rememberAuthentication("user", "password")
-				.andExpect(cookie().maxAge(AbstractRememberMeServices.SPRING_SECURITY_REMEMBER_ME_COOKIE_KEY, 30));
+	.andExpect(cookie().maxAge(AbstractRememberMeServices.SPRING_SECURITY_REMEMBER_ME_COOKIE_KEY, 30));
 	}
 
 	@Test
 	public void requestWithRememberMeWhenUseSecureCookieIsTrueThenCookieIsSecure() throws Exception {
 		this.spring.configLocations(xml("SecureCookie")).autowire();
 		rememberAuthentication("user", "password")
-				.andExpect(cookie().secure(AbstractRememberMeServices.SPRING_SECURITY_REMEMBER_ME_COOKIE_KEY, true));
+	.andExpect(cookie().secure(AbstractRememberMeServices.SPRING_SECURITY_REMEMBER_ME_COOKIE_KEY, true));
 	}
 
 	/**
@@ -211,13 +211,13 @@ public class RememberMeConfigTests {
 	public void requestWithRememberMeWhenUseSecureCookieIsFalseThenCookieIsNotSecure() throws Exception {
 		this.spring.configLocations(xml("Sec1827")).autowire();
 		rememberAuthentication("user", "password")
-				.andExpect(cookie().secure(AbstractRememberMeServices.SPRING_SECURITY_REMEMBER_ME_COOKIE_KEY, false));
+	.andExpect(cookie().secure(AbstractRememberMeServices.SPRING_SECURITY_REMEMBER_ME_COOKIE_KEY, false));
 	}
 
 	@Test
 	public void configureWhenUsingPersistentTokenRepositoryAndANegativeTokenValidityThenThrowsWiringException() {
 		assertThatExceptionOfType(BeanDefinitionParsingException.class).isThrownBy(
-				() -> this.spring.configLocations(xml("NegativeTokenValidityWithPersistentRepository")).autowire());
+	() -> this.spring.configLocations(xml("NegativeTokenValidityWithPersistentRepository")).autowire());
 	}
 
 	@Test
@@ -227,23 +227,23 @@ public class RememberMeConfigTests {
 		Cookie cookie = rememberMeCookie(result);
 		// @formatter:off
 		this.mvc.perform(get("/authenticated").cookie(cookie))
-				.andExpect(status().isOk());
+	.andExpect(status().isOk());
 		// @formatter:on
 		verify(this.spring.getContext().getBean(SecurityContextHolderStrategy.class), atLeastOnce()).getContext();
 	}
 
 	@Test
 	public void requestWithRememberMeWhenUsingCustomUserDetailsServiceThenInvokesThisUserDetailsService()
-			throws Exception {
+throws Exception {
 		this.spring.configLocations(xml("WithUserDetailsService")).autowire();
 		UserDetailsService userDetailsService = this.spring.getContext().getBean(UserDetailsService.class);
 		given(userDetailsService.loadUserByUsername("user"))
-				.willAnswer((invocation) -> new User("user", "{noop}password", Collections.emptyList()));
+	.willAnswer((invocation) -> new User("user", "{noop}password", Collections.emptyList()));
 		MvcResult result = rememberAuthentication("user", "password").andReturn();
 		Cookie cookie = rememberMeCookie(result);
 		// @formatter:off
 		this.mvc.perform(get("/authenticated").cookie(cookie))
-				.andExpect(status().isOk());
+	.andExpect(status().isOk());
 		// @formatter:on
 		verify(userDetailsService, atLeastOnce()).loadUserByUsername("user");
 	}
@@ -256,13 +256,13 @@ public class RememberMeConfigTests {
 		this.spring.configLocations(xml("Sec742")).autowire();
 		// @formatter:off
 		MvcResult result = this.mvc.perform(login("user", "password").param("remember-me", "true").with(csrf()))
-				.andExpect(redirectedUrl("/messageList.html"))
-				.andReturn();
+	.andExpect(redirectedUrl("/messageList.html"))
+	.andReturn();
 		// @formatter:on
 		Cookie cookie = rememberMeCookie(result);
 		// @formatter:off
 		this.mvc.perform(get("/authenticated").cookie(cookie))
-				.andExpect(status().isOk());
+	.andExpect(status().isOk());
 		// @formatter:on
 	}
 
@@ -274,23 +274,23 @@ public class RememberMeConfigTests {
 		this.spring.configLocations(xml("WithRememberMeParameter")).autowire();
 		// @formatter:off
 		MockHttpServletRequestBuilder request = login("user", "password")
-				.param("custom-remember-me-parameter", "true")
-				.with(csrf());
+	.param("custom-remember-me-parameter", "true")
+	.with(csrf());
 		MvcResult result = this.mvc.perform(request)
-				.andExpect(redirectedUrl("/"))
-				.andReturn();
+	.andExpect(redirectedUrl("/"))
+	.andReturn();
 		// @formatter:on
 		Cookie cookie = rememberMeCookie(result);
 		// @formatter:off
 		this.mvc.perform(get("/authenticated").cookie(cookie))
-				.andExpect(status().isOk());
+	.andExpect(status().isOk());
 		// @formatter:on
 	}
 
 	@Test
 	public void configureWhenUsingRememberMeParameterAndServicesRefThenThrowsWiringException() {
 		assertThatExceptionOfType(BeanDefinitionParsingException.class)
-				.isThrownBy(() -> this.spring.configLocations(xml("WithRememberMeParameterAndServicesRef")).autowire());
+	.isThrownBy(() -> this.spring.configLocations(xml("WithRememberMeParameterAndServicesRef")).autowire());
 	}
 
 	/**
@@ -301,7 +301,7 @@ public class RememberMeConfigTests {
 		this.spring.configLocations(xml("WithRememberMeCookie")).autowire();
 		// @formatter:off
 		rememberAuthentication("user", "password")
-				.andExpect(cookie().exists("custom-remember-me-cookie"));
+	.andExpect(cookie().exists("custom-remember-me-cookie"));
 		// @formatter:on
 	}
 
@@ -311,28 +311,26 @@ public class RememberMeConfigTests {
 	@Test
 	public void configureWhenUsingRememberMeCookieAndServicesRefThenThrowsWiringException() {
 		assertThatExceptionOfType(BeanDefinitionParsingException.class)
-				.isThrownBy(() -> this.spring.configLocations(xml("WithRememberMeCookieAndServicesRef")).autowire())
-				.withMessageContaining(
-						"Configuration problem: services-ref can't be used in combination with attributes "
-								+ "token-repository-ref,data-source-ref, user-service-ref, token-validity-seconds, "
-								+ "use-secure-cookie, remember-me-parameter or remember-me-cookie");
+	.isThrownBy(() -> this.spring.configLocations(xml("WithRememberMeCookieAndServicesRef")).autowire())
+	.withMessageContaining(
+"Configuration problem: services-ref can't be used in combination with attributes "+ "token-repository-ref,data-source-ref, user-service-ref, token-validity-seconds, "+ "use-secure-cookie, remember-me-parameter or remember-me-cookie");
 	}
 
 	private ResultActions rememberAuthentication(String username, String password) throws Exception {
 		// @formatter:off
 		MockHttpServletRequestBuilder request = login(username, password)
-				.param(AbstractRememberMeServices.DEFAULT_PARAMETER, "true")
-				.with(csrf());
+	.param(AbstractRememberMeServices.DEFAULT_PARAMETER, "true")
+	.with(csrf());
 		return this.mvc.perform(request)
-				.andExpect(redirectedUrl("/"));
+	.andExpect(redirectedUrl("/"));
 		// @formatter:on
 	}
 
 	private static MockHttpServletRequestBuilder login(String username, String password) {
 		// @formatter:off
 		return post("/login")
-				.param("username", username)
-				.param("password", password);
+	.param("username", username)
+	.param("password", password);
 		// @formatter:on
 	}
 

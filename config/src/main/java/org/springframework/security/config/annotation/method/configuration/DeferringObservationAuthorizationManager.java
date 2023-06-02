@@ -32,7 +32,7 @@ final class DeferringObservationAuthorizationManager<T> implements Authorization
 	private final Supplier<AuthorizationManager<T>> delegate;
 
 	DeferringObservationAuthorizationManager(ObjectProvider<ObservationRegistry> provider,
-			AuthorizationManager<T> delegate) {
+AuthorizationManager<T> delegate) {
 		this.delegate = SingletonSupplier.of(() -> {
 			ObservationRegistry registry = provider.getIfAvailable(() -> ObservationRegistry.NOOP);
 			if (registry.isNoop()) {

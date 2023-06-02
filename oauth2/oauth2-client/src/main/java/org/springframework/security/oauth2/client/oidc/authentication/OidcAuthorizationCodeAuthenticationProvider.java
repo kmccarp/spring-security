@@ -108,8 +108,8 @@ public class OidcAuthorizationCodeAuthenticationProvider implements Authenticati
 	 * End-User from the UserInfo Endpoint
 	 */
 	public OidcAuthorizationCodeAuthenticationProvider(
-			OAuth2AccessTokenResponseClient<OAuth2AuthorizationCodeGrantRequest> accessTokenResponseClient,
-			OAuth2UserService<OidcUserRequest, OidcUser> userService) {
+OAuth2AccessTokenResponseClient<OAuth2AuthorizationCodeGrantRequest> accessTokenResponseClient,
+OAuth2UserService<OidcUserRequest, OidcUser> userService) {
 		Assert.notNull(accessTokenResponseClient, "accessTokenResponseClient cannot be null");
 		Assert.notNull(userService, "userService cannot be null");
 		this.accessTokenResponseClient = accessTokenResponseClient;
@@ -124,18 +124,18 @@ public class OidcAuthorizationCodeAuthenticationProvider implements Authenticati
 		// scope
 		// REQUIRED. OpenID Connect requests MUST contain the "openid" scope value.
 		if (!authorizationCodeAuthentication.getAuthorizationExchange().getAuthorizationRequest().getScopes()
-				.contains(OidcScopes.OPENID)) {
+	.contains(OidcScopes.OPENID)) {
 			// This is NOT an OpenID Connect Authentication Request so return null
 			// and let OAuth2LoginAuthenticationProvider handle it instead
 			return null;
 		}
 		OAuth2AuthorizationRequest authorizationRequest = authorizationCodeAuthentication.getAuthorizationExchange()
-				.getAuthorizationRequest();
+	.getAuthorizationRequest();
 		OAuth2AuthorizationResponse authorizationResponse = authorizationCodeAuthentication.getAuthorizationExchange()
-				.getAuthorizationResponse();
+	.getAuthorizationResponse();
 		if (authorizationResponse.statusError()) {
 			throw new OAuth2AuthenticationException(authorizationResponse.getError(),
-					authorizationResponse.getError().toString());
+		authorizationResponse.getError().toString());
 		}
 		if (!authorizationResponse.getState().equals(authorizationRequest.getState())) {
 			OAuth2Error oauth2Error = new OAuth2Error(INVALID_STATE_PARAMETER_ERROR_CODE);
@@ -146,21 +146,21 @@ public class OidcAuthorizationCodeAuthenticationProvider implements Authenticati
 		Map<String, Object> additionalParameters = accessTokenResponse.getAdditionalParameters();
 		if (!additionalParameters.containsKey(OidcParameterNames.ID_TOKEN)) {
 			OAuth2Error invalidIdTokenError = new OAuth2Error(INVALID_ID_TOKEN_ERROR_CODE,
-					"Missing (required) ID Token in Token Response for Client Registration: "
-							+ clientRegistration.getRegistrationId(),
-					null);
+		"Missing (required) ID Token in Token Response for Client Registration: "
+	+ clientRegistration.getRegistrationId(),
+		null);
 			throw new OAuth2AuthenticationException(invalidIdTokenError, invalidIdTokenError.toString());
 		}
 		OidcIdToken idToken = createOidcToken(clientRegistration, accessTokenResponse);
 		validateNonce(authorizationRequest, idToken);
 		OidcUser oidcUser = this.userService.loadUser(new OidcUserRequest(clientRegistration,
-				accessTokenResponse.getAccessToken(), idToken, additionalParameters));
+	accessTokenResponse.getAccessToken(), idToken, additionalParameters));
 		Collection<? extends GrantedAuthority> mappedAuthorities = this.authoritiesMapper
-				.mapAuthorities(oidcUser.getAuthorities());
+	.mapAuthorities(oidcUser.getAuthorities());
 		OAuth2LoginAuthenticationToken authenticationResult = new OAuth2LoginAuthenticationToken(
-				authorizationCodeAuthentication.getClientRegistration(),
-				authorizationCodeAuthentication.getAuthorizationExchange(), oidcUser, mappedAuthorities,
-				accessTokenResponse.getAccessToken(), accessTokenResponse.getRefreshToken());
+	authorizationCodeAuthentication.getClientRegistration(),
+	authorizationCodeAuthentication.getAuthorizationExchange(), oidcUser, mappedAuthorities,
+	accessTokenResponse.getAccessToken(), accessTokenResponse.getRefreshToken());
 		authenticationResult.setDetails(authorizationCodeAuthentication.getDetails());
 		return authenticationResult;
 	}
@@ -168,8 +168,8 @@ public class OidcAuthorizationCodeAuthenticationProvider implements Authenticati
 	private OAuth2AccessTokenResponse getResponse(OAuth2LoginAuthenticationToken authorizationCodeAuthentication) {
 		try {
 			return this.accessTokenResponseClient.getTokenResponse(
-					new OAuth2AuthorizationCodeGrantRequest(authorizationCodeAuthentication.getClientRegistration(),
-							authorizationCodeAuthentication.getAuthorizationExchange()));
+		new OAuth2AuthorizationCodeGrantRequest(authorizationCodeAuthentication.getClientRegistration(),
+	authorizationCodeAuthentication.getAuthorizationExchange()));
 		}
 		catch (OAuth2AuthorizationException ex) {
 			OAuth2Error oauth2Error = ex.getError();
@@ -231,11 +231,11 @@ public class OidcAuthorizationCodeAuthenticationProvider implements Authenticati
 	}
 
 	private OidcIdToken createOidcToken(ClientRegistration clientRegistration,
-			OAuth2AccessTokenResponse accessTokenResponse) {
+OAuth2AccessTokenResponse accessTokenResponse) {
 		JwtDecoder jwtDecoder = this.jwtDecoderFactory.createDecoder(clientRegistration);
 		Jwt jwt = getJwt(accessTokenResponse, jwtDecoder);
 		OidcIdToken idToken = new OidcIdToken(jwt.getTokenValue(), jwt.getIssuedAt(), jwt.getExpiresAt(),
-				jwt.getClaims());
+	jwt.getClaims());
 		return idToken;
 	}
 

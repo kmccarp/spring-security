@@ -67,7 +67,7 @@ class UsernamePasswordAuthenticationTokenDeserializer extends JsonDeserializer<U
 	 */
 	@Override
 	public UsernamePasswordAuthenticationToken deserialize(JsonParser jp, DeserializationContext ctxt)
-			throws IOException, JsonProcessingException {
+throws IOException, JsonProcessingException {
 		ObjectMapper mapper = (ObjectMapper) jp.getCodec();
 		JsonNode jsonNode = mapper.readTree(jp);
 		Boolean authenticated = readJsonNode(jsonNode, "authenticated").asBoolean();
@@ -76,10 +76,10 @@ class UsernamePasswordAuthenticationTokenDeserializer extends JsonDeserializer<U
 		JsonNode credentialsNode = readJsonNode(jsonNode, "credentials");
 		Object credentials = getCredentials(credentialsNode);
 		List<GrantedAuthority> authorities = mapper.readValue(readJsonNode(jsonNode, "authorities").traverse(mapper),
-				GRANTED_AUTHORITY_LIST);
+	GRANTED_AUTHORITY_LIST);
 		UsernamePasswordAuthenticationToken token = (!authenticated)
-				? UsernamePasswordAuthenticationToken.unauthenticated(principal, credentials)
-				: UsernamePasswordAuthenticationToken.authenticated(principal, credentials, authorities);
+	? UsernamePasswordAuthenticationToken.unauthenticated(principal, credentials)
+	: UsernamePasswordAuthenticationToken.authenticated(principal, credentials, authorities);
 		JsonNode detailsNode = readJsonNode(jsonNode, "details");
 		if (detailsNode.isNull() || detailsNode.isMissingNode()) {
 			token.setDetails(null);
@@ -99,7 +99,7 @@ class UsernamePasswordAuthenticationTokenDeserializer extends JsonDeserializer<U
 	}
 
 	private Object getPrincipal(ObjectMapper mapper, JsonNode principalNode)
-			throws IOException, JsonParseException, JsonMappingException {
+throws IOException, JsonParseException, JsonMappingException {
 		if (principalNode.isObject()) {
 			return mapper.readValue(principalNode.traverse(mapper), Object.class);
 		}

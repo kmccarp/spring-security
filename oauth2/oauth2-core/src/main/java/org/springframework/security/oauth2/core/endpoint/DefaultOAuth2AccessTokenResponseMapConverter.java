@@ -32,8 +32,7 @@ import org.springframework.util.StringUtils;
  * @author Steve Riesenberg
  * @since 5.6
  */
-public final class DefaultOAuth2AccessTokenResponseMapConverter
-		implements Converter<OAuth2AccessTokenResponse, Map<String, Object>> {
+public final class DefaultOAuth2AccessTokenResponseMapConverterimplements Converter<OAuth2AccessTokenResponse, Map<String, Object>> {
 
 	@Override
 	public Map<String, Object> convert(OAuth2AccessTokenResponse tokenResponse) {
@@ -43,7 +42,7 @@ public final class DefaultOAuth2AccessTokenResponseMapConverter
 		parameters.put(OAuth2ParameterNames.EXPIRES_IN, getExpiresIn(tokenResponse));
 		if (!CollectionUtils.isEmpty(tokenResponse.getAccessToken().getScopes())) {
 			parameters.put(OAuth2ParameterNames.SCOPE,
-					StringUtils.collectionToDelimitedString(tokenResponse.getAccessToken().getScopes(), " "));
+		StringUtils.collectionToDelimitedString(tokenResponse.getAccessToken().getScopes(), " "));
 		}
 		if (tokenResponse.getRefreshToken() != null) {
 			parameters.put(OAuth2ParameterNames.REFRESH_TOKEN, tokenResponse.getRefreshToken().getTokenValue());

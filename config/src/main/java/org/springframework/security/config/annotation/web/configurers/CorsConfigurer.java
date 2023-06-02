@@ -72,7 +72,7 @@ public class CorsConfigurer<H extends HttpSecurityBuilder<H>> extends AbstractHt
 		ApplicationContext context = http.getSharedObject(ApplicationContext.class);
 		CorsFilter corsFilter = getCorsFilter(context);
 		Assert.state(corsFilter != null, () -> "Please configure either a " + CORS_FILTER_BEAN_NAME + " bean or a "
-				+ CORS_CONFIGURATION_SOURCE_BEAN_NAME + "bean.");
+	+ CORS_CONFIGURATION_SOURCE_BEAN_NAME + "bean.");
 		http.addFilter(corsFilter);
 	}
 
@@ -87,7 +87,7 @@ public class CorsConfigurer<H extends HttpSecurityBuilder<H>> extends AbstractHt
 		boolean containsCorsSource = context.containsBean(CORS_CONFIGURATION_SOURCE_BEAN_NAME);
 		if (containsCorsSource) {
 			CorsConfigurationSource configurationSource = context.getBean(CORS_CONFIGURATION_SOURCE_BEAN_NAME,
-					CorsConfigurationSource.class);
+		CorsConfigurationSource.class);
 			return new CorsFilter(configurationSource);
 		}
 		if (mvcPresent) {
@@ -109,12 +109,12 @@ public class CorsConfigurer<H extends HttpSecurityBuilder<H>> extends AbstractHt
 		private static CorsFilter getMvcCorsFilter(ApplicationContext context) {
 			if (!context.containsBean(HANDLER_MAPPING_INTROSPECTOR_BEAN_NAME)) {
 				throw new NoSuchBeanDefinitionException(HANDLER_MAPPING_INTROSPECTOR_BEAN_NAME, "A Bean named "
-						+ HANDLER_MAPPING_INTROSPECTOR_BEAN_NAME + " of type "
-						+ HandlerMappingIntrospector.class.getName()
-						+ " is required to use MvcRequestMatcher. Please ensure Spring Security & Spring MVC are configured in a shared ApplicationContext.");
+			+ HANDLER_MAPPING_INTROSPECTOR_BEAN_NAME + " of type "
+			+ HandlerMappingIntrospector.class.getName()
+			+ " is required to use MvcRequestMatcher. Please ensure Spring Security & Spring MVC are configured in a shared ApplicationContext.");
 			}
 			HandlerMappingIntrospector mappingIntrospector = context.getBean(HANDLER_MAPPING_INTROSPECTOR_BEAN_NAME,
-					HandlerMappingIntrospector.class);
+		HandlerMappingIntrospector.class);
 			return new CorsFilter(mappingIntrospector);
 		}
 

@@ -40,8 +40,7 @@ import org.springframework.util.Assert;
  * @author Josh Cummings
  * @since 5.7
  */
-public final class RequestMatcherDelegatingAuthenticationManagerResolver
-		implements AuthenticationManagerResolver<HttpServletRequest> {
+public final class RequestMatcherDelegatingAuthenticationManagerResolverimplements AuthenticationManagerResolver<HttpServletRequest> {
 
 	private final List<RequestMatcherEntry<AuthenticationManager>> authenticationManagers;
 
@@ -56,7 +55,7 @@ public final class RequestMatcherDelegatingAuthenticationManagerResolver
 	 * {@link RequestMatcher}/{@link AuthenticationManager} pairs
 	 */
 	RequestMatcherDelegatingAuthenticationManagerResolver(
-			RequestMatcherEntry<AuthenticationManager>... authenticationManagers) {
+RequestMatcherEntry<AuthenticationManager>... authenticationManagers) {
 		Assert.notEmpty(authenticationManagers, "authenticationManagers cannot be empty");
 		this.authenticationManagers = Arrays.asList(authenticationManagers);
 	}
@@ -68,7 +67,7 @@ public final class RequestMatcherDelegatingAuthenticationManagerResolver
 	 * {@link RequestMatcher}/{@link AuthenticationManager} pairs
 	 */
 	RequestMatcherDelegatingAuthenticationManagerResolver(
-			List<RequestMatcherEntry<AuthenticationManager>> authenticationManagers) {
+List<RequestMatcherEntry<AuthenticationManager>> authenticationManagers) {
 		Assert.notEmpty(authenticationManagers, "authenticationManagers cannot be empty");
 		this.authenticationManagers = authenticationManagers;
 	}

@@ -54,10 +54,10 @@ public class RedirectServerAuthenticationFailureHandlerTests {
 	private String location = "/login";
 
 	private RedirectServerAuthenticationFailureHandler handler = new RedirectServerAuthenticationFailureHandler(
-			this.location);
+this.location);
 
 	private AuthenticationException exception = new AuthenticationCredentialsNotFoundException(
-			"Authentication Required");
+"Authentication Required");
 
 	@Test
 	public void constructorStringWhenNullLocationThenException() {
@@ -97,7 +97,7 @@ public class RedirectServerAuthenticationFailureHandlerTests {
 
 	private WebFilterExchange createExchange() {
 		return new WebFilterExchange(MockServerWebExchange.from(MockServerHttpRequest.get("/").build()),
-				new DefaultWebFilterChain((e) -> Mono.empty(), Collections.emptyList()));
+	new DefaultWebFilterChain((e) -> Mono.empty(), Collections.emptyList()));
 	}
 
 }

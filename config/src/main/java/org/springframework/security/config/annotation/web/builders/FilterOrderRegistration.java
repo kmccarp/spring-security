@@ -82,19 +82,19 @@ final class FilterOrderRegistration {
 		put(CsrfFilter.class, order.next());
 		put(LogoutFilter.class, order.next());
 		this.filterToOrder.put(
-				"org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter",
-				order.next());
+	"org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter",
+	order.next());
 		this.filterToOrder.put(
-				"org.springframework.security.saml2.provider.service.web.Saml2WebSsoAuthenticationRequestFilter",
-				order.next());
+	"org.springframework.security.saml2.provider.service.web.Saml2WebSsoAuthenticationRequestFilter",
+	order.next());
 		put(X509AuthenticationFilter.class, order.next());
 		put(AbstractPreAuthenticatedProcessingFilter.class, order.next());
 		this.filterToOrder.put("org.springframework.security.cas.web.CasAuthenticationFilter", order.next());
 		this.filterToOrder.put("org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter",
-				order.next());
+	order.next());
 		this.filterToOrder.put(
-				"org.springframework.security.saml2.provider.service.web.authentication.Saml2WebSsoAuthenticationFilter",
-				order.next());
+	"org.springframework.security.saml2.provider.service.web.authentication.Saml2WebSsoAuthenticationFilter",
+	order.next());
 		put(UsernamePasswordAuthenticationFilter.class, order.next());
 		order.next(); // gh-8105
 		put(DefaultLoginPageGeneratingFilter.class, order.next());
@@ -102,8 +102,8 @@ final class FilterOrderRegistration {
 		put(ConcurrentSessionFilter.class, order.next());
 		put(DigestAuthenticationFilter.class, order.next());
 		this.filterToOrder.put(
-				"org.springframework.security.oauth2.server.resource.web.authentication.BearerTokenAuthenticationFilter",
-				order.next());
+	"org.springframework.security.oauth2.server.resource.web.authentication.BearerTokenAuthenticationFilter",
+	order.next());
 		put(BasicAuthenticationFilter.class, order.next());
 		put(RequestCacheAwareFilter.class, order.next());
 		put(SecurityContextHolderAwareRequestFilter.class, order.next());
@@ -111,7 +111,7 @@ final class FilterOrderRegistration {
 		put(RememberMeAuthenticationFilter.class, order.next());
 		put(AnonymousAuthenticationFilter.class, order.next());
 		this.filterToOrder.put("org.springframework.security.oauth2.client.web.OAuth2AuthorizationCodeGrantFilter",
-				order.next());
+	order.next());
 		put(SessionManagementFilter.class, order.next());
 		put(ExceptionTranslationFilter.class, order.next());
 		put(FilterSecurityInterceptor.class, order.next());

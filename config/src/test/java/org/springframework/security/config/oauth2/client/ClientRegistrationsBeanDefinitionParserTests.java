@@ -51,77 +51,77 @@ public class ClientRegistrationsBeanDefinitionParserTests {
 
 	// @formatter:off
 	private static final String ISSUER_URI_XML_CONFIG = "<b:beans xmlns:b=\"http://www.springframework.org/schema/beans\"\n"
-			+ "		xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n"
-			+ "		xmlns=\"http://www.springframework.org/schema/security\"\n"
-			+ "		xsi:schemaLocation=\"\n"
-			+ "			http://www.springframework.org/schema/security\n"
-			+ "			https://www.springframework.org/schema/security/spring-security.xsd\n"
-			+ "			http://www.springframework.org/schema/beans\n"
-			+ "			https://www.springframework.org/schema/beans/spring-beans.xsd\">\n"
-			+ "\n"
-			+ "	<client-registrations>\n"
-			+ "		<client-registration registration-id=\"google-login\" client-id=\"google-client-id\" \n"
-			+ "							 client-secret=\"google-client-secret\" provider-id=\"google\"/>\n"
-			+ "		<provider provider-id=\"google\" issuer-uri=\"${issuer-uri}\"/>\n"
-			+ "	</client-registrations>\n"
-			+ "\n"
-			+ "</b:beans>\n";
++ "		xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n"
++ "		xmlns=\"http://www.springframework.org/schema/security\"\n"
++ "		xsi:schemaLocation=\"\n"
++ "			http://www.springframework.org/schema/security\n"
++ "			https://www.springframework.org/schema/security/spring-security.xsd\n"
++ "			http://www.springframework.org/schema/beans\n"
++ "			https://www.springframework.org/schema/beans/spring-beans.xsd\">\n"
++ "\n"
++ "	<client-registrations>\n"
++ "		<client-registration registration-id=\"google-login\" client-id=\"google-client-id\" \n"
++ "							 client-secret=\"google-client-secret\" provider-id=\"google\"/>\n"
++ "		<provider provider-id=\"google\" issuer-uri=\"${issuer-uri}\"/>\n"
++ "	</client-registrations>\n"
++ "\n"
++ "</b:beans>\n";
 	// @formatter:on
 
 	// @formatter:off
 	private static final String OIDC_DISCOVERY_RESPONSE = "{\n"
-			+ "    \"authorization_endpoint\": \"https://example.com/o/oauth2/v2/auth\", \n"
-			+ "    \"claims_supported\": [\n"
-			+ "        \"aud\", \n"
-			+ "        \"email\", \n"
-			+ "        \"email_verified\", \n"
-			+ "        \"exp\", \n"
-			+ "        \"family_name\", \n"
-			+ "        \"given_name\", \n"
-			+ "        \"iat\", \n"
-			+ "        \"iss\", \n"
-			+ "        \"locale\", \n"
-			+ "        \"name\", \n"
-			+ "        \"picture\", \n"
-			+ "        \"sub\"\n"
-			+ "    ], \n"
-			+ "    \"code_challenge_methods_supported\": [\n"
-			+ "        \"plain\", \n"
-			+ "        \"S256\"\n"
-			+ "    ], \n"
-			+ "    \"id_token_signing_alg_values_supported\": [\n"
-			+ "        \"RS256\"\n"
-			+ "    ], \n"
-			+ "    \"issuer\": \"${issuer-uri}\", \n"
-			+ "    \"jwks_uri\": \"https://example.com/oauth2/v3/certs\", \n"
-			+ "    \"response_types_supported\": [\n"
-			+ "        \"code\", \n"
-			+ "        \"token\", \n"
-			+ "        \"id_token\", \n"
-			+ "        \"code token\", \n"
-			+ "        \"code id_token\", \n"
-			+ "        \"token id_token\", \n"
-			+ "        \"code token id_token\", \n"
-			+ "        \"none\"\n"
-			+ "    ], \n"
-			+ "    \"revocation_endpoint\": \"https://example.com/o/oauth2/revoke\", \n"
-			+ "    \"scopes_supported\": [\n"
-			+ "        \"openid\", \n"
-			+ "        \"email\", \n"
-			+ "        \"profile\"\n"
-			+ "    ], \n"
-			+ "    \"subject_types_supported\": [\n"
-			+ "        \"public\"\n"
-			+ "    ], \n"
-			+ "    \"grant_types_supported\" : [\"authorization_code\"], \n"
-			+ "    \"token_endpoint\": \"https://example.com/oauth2/v4/token\", \n"
-			+ "    \"token_endpoint_auth_methods_supported\": [\n"
-			+ "        \"client_secret_post\", \n"
-			+ "        \"client_secret_basic\", \n"
-			+ "        \"none\"\n"
-			+ "    ], \n"
-			+ "    \"userinfo_endpoint\": \"https://example.com/oauth2/v3/userinfo\"\n"
-			+ "}";
++ "    \"authorization_endpoint\": \"https://example.com/o/oauth2/v2/auth\", \n"
++ "    \"claims_supported\": [\n"
++ "        \"aud\", \n"
++ "        \"email\", \n"
++ "        \"email_verified\", \n"
++ "        \"exp\", \n"
++ "        \"family_name\", \n"
++ "        \"given_name\", \n"
++ "        \"iat\", \n"
++ "        \"iss\", \n"
++ "        \"locale\", \n"
++ "        \"name\", \n"
++ "        \"picture\", \n"
++ "        \"sub\"\n"
++ "    ], \n"
++ "    \"code_challenge_methods_supported\": [\n"
++ "        \"plain\", \n"
++ "        \"S256\"\n"
++ "    ], \n"
++ "    \"id_token_signing_alg_values_supported\": [\n"
++ "        \"RS256\"\n"
++ "    ], \n"
++ "    \"issuer\": \"${issuer-uri}\", \n"
++ "    \"jwks_uri\": \"https://example.com/oauth2/v3/certs\", \n"
++ "    \"response_types_supported\": [\n"
++ "        \"code\", \n"
++ "        \"token\", \n"
++ "        \"id_token\", \n"
++ "        \"code token\", \n"
++ "        \"code id_token\", \n"
++ "        \"token id_token\", \n"
++ "        \"code token id_token\", \n"
++ "        \"none\"\n"
++ "    ], \n"
++ "    \"revocation_endpoint\": \"https://example.com/o/oauth2/revoke\", \n"
++ "    \"scopes_supported\": [\n"
++ "        \"openid\", \n"
++ "        \"email\", \n"
++ "        \"profile\"\n"
++ "    ], \n"
++ "    \"subject_types_supported\": [\n"
++ "        \"public\"\n"
++ "    ], \n"
++ "    \"grant_types_supported\" : [\"authorization_code\"], \n"
++ "    \"token_endpoint\": \"https://example.com/oauth2/v4/token\", \n"
++ "    \"token_endpoint_auth_methods_supported\": [\n"
++ "        \"client_secret_post\", \n"
++ "        \"client_secret_basic\", \n"
++ "        \"none\"\n"
++ "    ], \n"
++ "    \"userinfo_endpoint\": \"https://example.com/oauth2/v3/userinfo\"\n"
++ "}";
 	// @formatter:on
 
 	@Autowired
@@ -154,7 +154,7 @@ public class ClientRegistrationsBeanDefinitionParserTests {
 		assertThat(googleRegistration.getClientId()).isEqualTo("google-client-id");
 		assertThat(googleRegistration.getClientSecret()).isEqualTo("google-client-secret");
 		assertThat(googleRegistration.getClientAuthenticationMethod())
-				.isEqualTo(ClientAuthenticationMethod.CLIENT_SECRET_BASIC);
+	.isEqualTo(ClientAuthenticationMethod.CLIENT_SECRET_BASIC);
 		assertThat(googleRegistration.getAuthorizationGrantType()).isEqualTo(AuthorizationGrantType.AUTHORIZATION_CODE);
 		assertThat(googleRegistration.getRedirectUri()).isEqualTo("{baseUrl}/{action}/oauth2/code/{registrationId}");
 		assertThat(googleRegistration.getScopes()).isNull();
@@ -164,9 +164,9 @@ public class ClientRegistrationsBeanDefinitionParserTests {
 		assertThat(googleProviderDetails.getAuthorizationUri()).isEqualTo("https://example.com/o/oauth2/v2/auth");
 		assertThat(googleProviderDetails.getTokenUri()).isEqualTo("https://example.com/oauth2/v4/token");
 		assertThat(googleProviderDetails.getUserInfoEndpoint().getUri())
-				.isEqualTo("https://example.com/oauth2/v3/userinfo");
+	.isEqualTo("https://example.com/oauth2/v3/userinfo");
 		assertThat(googleProviderDetails.getUserInfoEndpoint().getAuthenticationMethod())
-				.isEqualTo(AuthenticationMethod.HEADER);
+	.isEqualTo(AuthenticationMethod.HEADER);
 		assertThat(googleProviderDetails.getUserInfoEndpoint().getUserNameAttributeName()).isEqualTo("sub");
 		assertThat(googleProviderDetails.getJwkSetUri()).isEqualTo("https://example.com/oauth2/v3/certs");
 		assertThat(googleProviderDetails.getIssuerUri()).isEqualTo(serverUrl);
@@ -175,7 +175,7 @@ public class ClientRegistrationsBeanDefinitionParserTests {
 	@Test
 	public void parseWhenMultipleClientsConfiguredThenAvailableInRepository() {
 		this.spring.configLocations(ClientRegistrationsBeanDefinitionParserTests.xml("MultiClientRegistration"))
-				.autowire();
+	.autowire();
 		assertThat(this.clientRegistrationRepository).isInstanceOf(InMemoryClientRegistrationRepository.class);
 		ClientRegistration googleRegistration = this.clientRegistrationRepository.findByRegistrationId("google-login");
 		assertThat(googleRegistration).isNotNull();
@@ -183,21 +183,21 @@ public class ClientRegistrationsBeanDefinitionParserTests {
 		assertThat(googleRegistration.getClientId()).isEqualTo("google-client-id");
 		assertThat(googleRegistration.getClientSecret()).isEqualTo("google-client-secret");
 		assertThat(googleRegistration.getClientAuthenticationMethod())
-				.isEqualTo(ClientAuthenticationMethod.CLIENT_SECRET_BASIC);
+	.isEqualTo(ClientAuthenticationMethod.CLIENT_SECRET_BASIC);
 		assertThat(googleRegistration.getAuthorizationGrantType()).isEqualTo(AuthorizationGrantType.AUTHORIZATION_CODE);
 		assertThat(googleRegistration.getRedirectUri()).isEqualTo("{baseUrl}/login/oauth2/code/{registrationId}");
 		assertThat(googleRegistration.getScopes())
-				.isEqualTo(StringUtils.commaDelimitedListToSet("openid,profile,email"));
+	.isEqualTo(StringUtils.commaDelimitedListToSet("openid,profile,email"));
 		assertThat(googleRegistration.getClientName()).isEqualTo("Google");
 		ProviderDetails googleProviderDetails = googleRegistration.getProviderDetails();
 		assertThat(googleProviderDetails).isNotNull();
 		assertThat(googleProviderDetails.getAuthorizationUri())
-				.isEqualTo("https://accounts.google.com/o/oauth2/v2/auth");
+	.isEqualTo("https://accounts.google.com/o/oauth2/v2/auth");
 		assertThat(googleProviderDetails.getTokenUri()).isEqualTo("https://www.googleapis.com/oauth2/v4/token");
 		assertThat(googleProviderDetails.getUserInfoEndpoint().getUri())
-				.isEqualTo("https://www.googleapis.com/oauth2/v3/userinfo");
+	.isEqualTo("https://www.googleapis.com/oauth2/v3/userinfo");
 		assertThat(googleProviderDetails.getUserInfoEndpoint().getAuthenticationMethod())
-				.isEqualTo(AuthenticationMethod.HEADER);
+	.isEqualTo(AuthenticationMethod.HEADER);
 		assertThat(googleProviderDetails.getUserInfoEndpoint().getUserNameAttributeName()).isEqualTo("sub");
 		assertThat(googleProviderDetails.getJwkSetUri()).isEqualTo("https://www.googleapis.com/oauth2/v3/certs");
 		assertThat(googleProviderDetails.getIssuerUri()).isEqualTo("https://accounts.google.com");
@@ -207,11 +207,11 @@ public class ClientRegistrationsBeanDefinitionParserTests {
 		assertThat(githubRegistration.getClientId()).isEqualTo("github-client-id");
 		assertThat(githubRegistration.getClientSecret()).isEqualTo("github-client-secret");
 		assertThat(githubRegistration.getClientAuthenticationMethod())
-				.isEqualTo(ClientAuthenticationMethod.CLIENT_SECRET_BASIC);
+	.isEqualTo(ClientAuthenticationMethod.CLIENT_SECRET_BASIC);
 		assertThat(githubRegistration.getAuthorizationGrantType()).isEqualTo(AuthorizationGrantType.AUTHORIZATION_CODE);
 		assertThat(githubRegistration.getRedirectUri()).isEqualTo("{baseUrl}/login/oauth2/code/{registrationId}");
 		assertThat(googleRegistration.getScopes())
-				.isEqualTo(StringUtils.commaDelimitedListToSet("openid,profile,email"));
+	.isEqualTo(StringUtils.commaDelimitedListToSet("openid,profile,email"));
 		assertThat(githubRegistration.getClientName()).isEqualTo("Github");
 		ProviderDetails githubProviderDetails = githubRegistration.getProviderDetails();
 		assertThat(githubProviderDetails).isNotNull();
@@ -219,7 +219,7 @@ public class ClientRegistrationsBeanDefinitionParserTests {
 		assertThat(githubProviderDetails.getTokenUri()).isEqualTo("https://github.com/login/oauth/access_token");
 		assertThat(githubProviderDetails.getUserInfoEndpoint().getUri()).isEqualTo("https://api.github.com/user");
 		assertThat(githubProviderDetails.getUserInfoEndpoint().getAuthenticationMethod())
-				.isEqualTo(AuthenticationMethod.HEADER);
+	.isEqualTo(AuthenticationMethod.HEADER);
 		assertThat(githubProviderDetails.getUserInfoEndpoint().getUserNameAttributeName()).isEqualTo("id");
 	}
 

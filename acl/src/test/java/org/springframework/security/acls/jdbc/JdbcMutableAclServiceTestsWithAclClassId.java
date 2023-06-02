@@ -35,7 +35,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Paul Wheeler
  */
-@ContextConfiguration(locations = { "/jdbcMutableAclServiceTestsWithAclClass-context.xml" })
+@ContextConfiguration(locations = {"/jdbcMutableAclServiceTestsWithAclClass-context.xml"})
 public class JdbcMutableAclServiceTestsWithAclClassId extends JdbcMutableAclServiceTests {
 
 	private static final String TARGET_CLASS_WITH_UUID = TargetObjectWithUUID.class.getName();
@@ -79,7 +79,7 @@ public class JdbcMutableAclServiceTestsWithAclClassId extends JdbcMutableAclServ
 		ObjectIdentity oid = new ObjectIdentityImpl(TARGET_CLASS_WITH_UUID, id);
 		getJdbcMutableAclService().createAcl(oid);
 		assertThat(getJdbcMutableAclService().readAclById(new ObjectIdentityImpl(TARGET_CLASS_WITH_UUID, id)))
-				.isNotNull();
+	.isNotNull();
 	}
 
 }

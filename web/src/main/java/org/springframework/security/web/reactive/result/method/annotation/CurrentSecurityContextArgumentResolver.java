@@ -72,7 +72,7 @@ public class CurrentSecurityContextArgumentResolver extends HandlerMethodArgumen
 
 	@Override
 	public Mono<Object> resolveArgument(MethodParameter parameter, BindingContext bindingContext,
-			ServerWebExchange exchange) {
+ServerWebExchange exchange) {
 		ReactiveAdapter adapter = getAdapterRegistry().getAdapter(parameter.getParameterType());
 		Mono<SecurityContext> reactiveSecurityContext = ReactiveSecurityContextHolder.getContext();
 		if (reactiveSecurityContext == null) {
@@ -81,7 +81,7 @@ public class CurrentSecurityContextArgumentResolver extends HandlerMethodArgumen
 		return reactiveSecurityContext.flatMap((securityContext) -> {
 			Mono<Object> resolvedSecurityContext = Mono.justOrEmpty(resolveSecurityContext(parameter, securityContext));
 			return (adapter != null) ? Mono.just(adapter.fromPublisher(resolvedSecurityContext))
-					: resolvedSecurityContext;
+		: resolvedSecurityContext;
 		});
 
 	}
@@ -108,7 +108,7 @@ public class CurrentSecurityContextArgumentResolver extends HandlerMethodArgumen
 		if (isInvalidType(parameter, securityContextResult)) {
 			if (annotation.errorOnInvalidType()) {
 				throw new ClassCastException(
-						securityContextResult + " is not assignable to " + parameter.getParameterType());
+			securityContextResult + " is not assignable to " + parameter.getParameterType());
 			}
 			return null;
 		}

@@ -66,7 +66,7 @@ import static org.mockito.Mockito.verify;
 public class AuthenticationPayloadInterceptorTests {
 
 	static final MimeType COMPOSITE_METADATA = MimeTypeUtils
-			.parseMimeType(WellKnownMimeType.MESSAGE_RSOCKET_COMPOSITE_METADATA.getString());
+.parseMimeType(WellKnownMimeType.MESSAGE_RSOCKET_COMPOSITE_METADATA.getString());
 
 	@Mock
 	ReactiveAuthenticationManager authenticationManager;
@@ -90,7 +90,7 @@ public class AuthenticationPayloadInterceptorTests {
 		Authentication authentication = authenticationPayloadChain.getAuthentication();
 		verify(this.authenticationManager).authenticate(this.authenticationArg.capture());
 		assertThat(this.authenticationArg.getValue()).isEqualToComparingFieldByField(
-				UsernamePasswordAuthenticationToken.unauthenticated("user", "password"));
+	UsernamePasswordAuthenticationToken.unauthenticated("user", "password"));
 		assertThat(authentication).isEqualTo(expectedAuthentication);
 	}
 
@@ -104,7 +104,7 @@ public class AuthenticationPayloadInterceptorTests {
 		PayloadInterceptorChain chain = mock(PayloadInterceptorChain.class);
 		given(chain.next(any())).willReturn(voidResult.mono());
 		StepVerifier.create(interceptor.intercept(exchange, chain))
-				.then(() -> assertThat(voidResult.subscribeCount()).isEqualTo(1)).verifyComplete();
+	.then(() -> assertThat(voidResult.subscribeCount()).isEqualTo(1)).verifyComplete();
 	}
 
 	private Payload createRequestPayload() {
@@ -118,13 +118,13 @@ public class AuthenticationPayloadInterceptorTests {
 		ByteBufAllocator allocator = ByteBufAllocator.DEFAULT;
 		CompositeByteBuf metadata = allocator.compositeBuffer();
 		CompositeMetadataCodec.encodeAndAddMetadata(metadata, allocator, mimeType.toString(),
-				NettyDataBufferFactory.toByteBuf(dataBuffer));
+	NettyDataBufferFactory.toByteBuf(dataBuffer));
 		return DefaultPayload.create(allocator.buffer(), metadata);
 	}
 
 	private PayloadExchange createExchange() {
 		return new DefaultPayloadExchange(PayloadExchangeType.REQUEST_RESPONSE, createRequestPayload(),
-				COMPOSITE_METADATA, MediaType.APPLICATION_JSON);
+	COMPOSITE_METADATA, MediaType.APPLICATION_JSON);
 	}
 
 }

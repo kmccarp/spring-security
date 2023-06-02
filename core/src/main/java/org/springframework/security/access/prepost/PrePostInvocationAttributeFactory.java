@@ -29,7 +29,7 @@ import org.springframework.security.authorization.AuthorizationManager;
 public interface PrePostInvocationAttributeFactory extends AopInfrastructureBean {
 
 	PreInvocationAttribute createPreInvocationAttribute(String preFilterAttribute, String filterObject,
-			String preAuthorizeAttribute);
+String preAuthorizeAttribute);
 
 	PostInvocationAttribute createPostInvocationAttribute(String postFilterAttribute, String postAuthorizeAttribute);
 

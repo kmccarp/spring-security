@@ -87,14 +87,14 @@ public class Saml2WebSsoAuthenticationRequestFilter extends OncePerRequestFilter
 	 * @since 5.6
 	 */
 	public void setAuthenticationRequestRepository(
-			Saml2AuthenticationRequestRepository<AbstractSaml2AuthenticationRequest> authenticationRequestRepository) {
+Saml2AuthenticationRequestRepository<AbstractSaml2AuthenticationRequest> authenticationRequestRepository) {
 		Assert.notNull(authenticationRequestRepository, "authenticationRequestRepository cannot be null");
 		this.authenticationRequestRepository = authenticationRequestRepository;
 	}
 
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
-			throws ServletException, IOException {
+throws ServletException, IOException {
 		AbstractSaml2AuthenticationRequest authenticationRequest = this.authenticationRequestResolver.resolve(request);
 		if (authenticationRequest == null) {
 			filterChain.doFilter(request, response);
@@ -109,10 +109,10 @@ public class Saml2WebSsoAuthenticationRequestFilter extends OncePerRequestFilter
 	}
 
 	private void sendRedirect(HttpServletRequest request, HttpServletResponse response,
-			Saml2RedirectAuthenticationRequest authenticationRequest) throws IOException {
+Saml2RedirectAuthenticationRequest authenticationRequest) throws IOException {
 		this.authenticationRequestRepository.saveAuthenticationRequest(authenticationRequest, request, response);
 		UriComponentsBuilder uriBuilder = UriComponentsBuilder
-				.fromUriString(authenticationRequest.getAuthenticationRequestUri());
+	.fromUriString(authenticationRequest.getAuthenticationRequestUri());
 		addParameter(Saml2ParameterNames.SAML_REQUEST, authenticationRequest.getSamlRequest(), uriBuilder);
 		addParameter(Saml2ParameterNames.RELAY_STATE, authenticationRequest.getRelayState(), uriBuilder);
 		addParameter(Saml2ParameterNames.SIG_ALG, authenticationRequest.getSigAlg(), uriBuilder);
@@ -125,12 +125,12 @@ public class Saml2WebSsoAuthenticationRequestFilter extends OncePerRequestFilter
 		Assert.hasText(name, "name cannot be empty or null");
 		if (StringUtils.hasText(value)) {
 			builder.queryParam(UriUtils.encode(name, StandardCharsets.ISO_8859_1),
-					UriUtils.encode(value, StandardCharsets.ISO_8859_1));
+		UriUtils.encode(value, StandardCharsets.ISO_8859_1));
 		}
 	}
 
 	private void sendPost(HttpServletRequest request, HttpServletResponse response,
-			Saml2PostAuthenticationRequest authenticationRequest) throws IOException {
+Saml2PostAuthenticationRequest authenticationRequest) throws IOException {
 		this.authenticationRequestRepository.saveAuthenticationRequest(authenticationRequest, request, response);
 		String html = createSamlPostRequestFormData(authenticationRequest);
 		response.setContentType(MediaType.TEXT_HTML_VALUE);
@@ -145,7 +145,7 @@ public class Saml2WebSsoAuthenticationRequestFilter extends OncePerRequestFilter
 		html.append("<!DOCTYPE html>\n");
 		html.append("<html>\n").append("    <head>\n");
 		html.append("        <meta http-equiv=\"Content-Security-Policy\" ")
-				.append("content=\"script-src 'sha256-oZhLbc2kO8b8oaYLrUc7uye1MgVKMyLtPqWR4WtKF+c='\">\n");
+	.append("content=\"script-src 'sha256-oZhLbc2kO8b8oaYLrUc7uye1MgVKMyLtPqWR4WtKF+c='\">\n");
 		html.append("        <meta charset=\"utf-8\" />\n");
 		html.append("    </head>\n");
 		html.append("    <body>\n");

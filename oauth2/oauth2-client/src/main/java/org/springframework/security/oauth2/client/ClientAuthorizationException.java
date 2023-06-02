@@ -71,7 +71,7 @@ public class ClientAuthorizationException extends OAuth2AuthorizationException {
 	 * @param cause the root cause
 	 */
 	public ClientAuthorizationException(OAuth2Error error, String clientRegistrationId, String message,
-			Throwable cause) {
+Throwable cause) {
 		super(error, message, cause);
 		Assert.hasText(clientRegistrationId, "clientRegistrationId cannot be empty");
 		this.clientRegistrationId = clientRegistrationId;

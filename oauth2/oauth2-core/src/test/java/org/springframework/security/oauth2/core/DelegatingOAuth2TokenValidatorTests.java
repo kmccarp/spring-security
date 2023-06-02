@@ -52,7 +52,7 @@ public class DelegatingOAuth2TokenValidatorTests {
 		given(success.validate(any(OAuth2Token.class))).willReturn(OAuth2TokenValidatorResult.success());
 		given(failure.validate(any(OAuth2Token.class))).willReturn(OAuth2TokenValidatorResult.failure(DETAIL));
 		DelegatingOAuth2TokenValidator<OAuth2Token> tokenValidator = new DelegatingOAuth2TokenValidator<>(
-				Arrays.asList(success, failure));
+	Arrays.asList(success, failure));
 		OAuth2Token token = mock(OAuth2Token.class);
 		OAuth2TokenValidatorResult result = tokenValidator.validate(token);
 		assertThat(result.hasErrors()).isTrue();
@@ -66,9 +66,9 @@ public class DelegatingOAuth2TokenValidatorTests {
 		OAuth2Error otherDetail = new OAuth2Error("another-error");
 		given(firstFailure.validate(any(OAuth2Token.class))).willReturn(OAuth2TokenValidatorResult.failure(DETAIL));
 		given(secondFailure.validate(any(OAuth2Token.class)))
-				.willReturn(OAuth2TokenValidatorResult.failure(otherDetail));
+	.willReturn(OAuth2TokenValidatorResult.failure(otherDetail));
 		DelegatingOAuth2TokenValidator<OAuth2Token> tokenValidator = new DelegatingOAuth2TokenValidator<>(firstFailure,
-				secondFailure);
+	secondFailure);
 		OAuth2Token token = mock(OAuth2Token.class);
 		OAuth2TokenValidatorResult result = tokenValidator.validate(token);
 		assertThat(result.hasErrors()).isTrue();
@@ -82,7 +82,7 @@ public class DelegatingOAuth2TokenValidatorTests {
 		given(firstSuccess.validate(any(OAuth2Token.class))).willReturn(OAuth2TokenValidatorResult.success());
 		given(secondSuccess.validate(any(OAuth2Token.class))).willReturn(OAuth2TokenValidatorResult.success());
 		DelegatingOAuth2TokenValidator<OAuth2Token> tokenValidator = new DelegatingOAuth2TokenValidator<>(
-				Arrays.asList(firstSuccess, secondSuccess));
+	Arrays.asList(firstSuccess, secondSuccess));
 		OAuth2Token token = mock(OAuth2Token.class);
 		OAuth2TokenValidatorResult result = tokenValidator.validate(token);
 		assertThat(result.hasErrors()).isFalse();
@@ -92,7 +92,7 @@ public class DelegatingOAuth2TokenValidatorTests {
 	@Test
 	public void constructorWhenInvokedWithNullValidatorListThenThrowsIllegalArgumentException() {
 		assertThatIllegalArgumentException().isThrownBy(
-				() -> new DelegatingOAuth2TokenValidator<>((Collection<OAuth2TokenValidator<OAuth2Token>>) null));
+	() -> new DelegatingOAuth2TokenValidator<>((Collection<OAuth2TokenValidator<OAuth2Token>>) null));
 	}
 
 	@Test
@@ -102,9 +102,9 @@ public class DelegatingOAuth2TokenValidatorTests {
 		given(firstSuccess.validate(any(OAuth2Token.class))).willReturn(OAuth2TokenValidatorResult.success());
 		given(secondSuccess.validate(any(OAuth2Token.class))).willReturn(OAuth2TokenValidatorResult.success());
 		DelegatingOAuth2TokenValidator<OAuth2Token> firstValidator = new DelegatingOAuth2TokenValidator<>(
-				Arrays.asList(firstSuccess, secondSuccess));
+	Arrays.asList(firstSuccess, secondSuccess));
 		DelegatingOAuth2TokenValidator<OAuth2Token> secondValidator = new DelegatingOAuth2TokenValidator<>(firstSuccess,
-				secondSuccess);
+	secondSuccess);
 		OAuth2Token token = mock(OAuth2Token.class);
 		firstValidator.validate(token);
 		secondValidator.validate(token);

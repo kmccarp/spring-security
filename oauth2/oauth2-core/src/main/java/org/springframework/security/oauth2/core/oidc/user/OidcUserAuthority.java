@@ -103,7 +103,7 @@ public class OidcUserAuthority extends OAuth2UserAuthority {
 			return false;
 		}
 		return (this.getUserInfo() != null) ? this.getUserInfo().equals(that.getUserInfo())
-				: that.getUserInfo() == null;
+	: that.getUserInfo() == null;
 	}
 
 	@Override

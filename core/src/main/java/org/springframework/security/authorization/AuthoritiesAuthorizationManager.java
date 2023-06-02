@@ -56,7 +56,7 @@ public final class AuthoritiesAuthorizationManager implements AuthorizationManag
 	 */
 	@Override
 	public AuthorityAuthorizationDecision check(Supplier<Authentication> authentication,
-			Collection<String> authorities) {
+Collection<String> authorities) {
 		boolean granted = isGranted(authentication.get(), authorities);
 		return new AuthorityAuthorizationDecision(granted, AuthorityUtils.createAuthorityList(authorities));
 	}

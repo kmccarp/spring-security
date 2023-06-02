@@ -85,13 +85,13 @@ public class JwtITests {
 	public void setup() {
 		// @formatter:off
 		this.server = RSocketServer.create()
-			.payloadDecoder(PayloadDecoder.ZERO_COPY)
-			.interceptors((registry) ->
-				registry.forSocketAcceptor(this.interceptor)
-			)
-			.acceptor(this.handler.responder())
-			.bind(TcpServerTransport.create("localhost", 0))
-			.block();
+	.payloadDecoder(PayloadDecoder.ZERO_COPY)
+	.interceptors((registry) ->
+registry.forSocketAcceptor(this.interceptor)
+	)
+	.acceptor(this.handler.responder())
+	.bind(TcpServerTransport.create("localhost", 0))
+	.block();
 		// @formatter:on
 	}
 
@@ -108,13 +108,13 @@ public class JwtITests {
 		given(this.decoder.decode(any())).willReturn(Mono.just(jwt()));
 		// @formatter:off
 		this.requester = requester()
-			.setupMetadata(credentials.getToken(), BearerTokenMetadata.BEARER_AUTHENTICATION_MIME_TYPE)
-			.connectTcp(this.server.address().getHostName(), this.server.address().getPort())
-			.block();
+	.setupMetadata(credentials.getToken(), BearerTokenMetadata.BEARER_AUTHENTICATION_MIME_TYPE)
+	.connectTcp(this.server.address().getHostName(), this.server.address().getPort())
+	.block();
 		String hiRob = this.requester.route("secure.retrieve-mono")
-			.data("rob")
-			.retrieveMono(String.class)
-			.block();
+	.data("rob")
+	.retrieveMono(String.class)
+	.block();
 		// @formatter:on
 		assertThat(hiRob).isEqualTo("Hi rob");
 	}
@@ -122,23 +122,23 @@ public class JwtITests {
 	@Test
 	public void routeWhenAuthenticationBearerThenAuthorized() {
 		MimeType authenticationMimeType = MimeTypeUtils
-				.parseMimeType(WellKnownMimeType.MESSAGE_RSOCKET_AUTHENTICATION.getString());
+	.parseMimeType(WellKnownMimeType.MESSAGE_RSOCKET_AUTHENTICATION.getString());
 		BearerTokenMetadata credentials = new BearerTokenMetadata("token");
 		given(this.decoder.decode(any())).willReturn(Mono.just(jwt()));
 		// @formatter:off
 		this.requester = requester().setupMetadata(credentials, authenticationMimeType)
-				.connectTcp(this.server.address().getHostName(), this.server.address().getPort())
-				.block();
+	.connectTcp(this.server.address().getHostName(), this.server.address().getPort())
+	.block();
 		String hiRob = this.requester.route("secure.retrieve-mono")
-				.data("rob")
-				.retrieveMono(String.class).block();
+	.data("rob")
+	.retrieveMono(String.class).block();
 		// @formatter:on
 		assertThat(hiRob).isEqualTo("Hi rob");
 	}
 
 	private Jwt jwt() {
 		return TestJwts.jwt().claim(IdTokenClaimNames.ISS, "https://issuer.example.com")
-				.claim(IdTokenClaimNames.SUB, "rob").claim(IdTokenClaimNames.AUD, Arrays.asList("client-id")).build();
+	.claim(IdTokenClaimNames.SUB, "rob").claim(IdTokenClaimNames.AUD, Arrays.asList("client-id")).build();
 	}
 
 	private RSocketRequester.Builder requester() {
@@ -169,7 +169,7 @@ public class JwtITests {
 		@Bean
 		PayloadSocketAcceptorInterceptor rsocketInterceptor(RSocketSecurity rsocket) {
 			rsocket.authorizePayload((authorize) -> authorize.anyRequest().authenticated().anyExchange().permitAll())
-					.jwt(Customizer.withDefaults());
+		.jwt(Customizer.withDefaults());
 			return rsocket.build();
 		}
 

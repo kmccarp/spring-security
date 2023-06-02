@@ -76,8 +76,8 @@ public final class OpenSamlAuthenticationTokenConverter implements Authenticatio
 	private final RelyingPartyRegistrationRepository registrations;
 
 	private RequestMatcher requestMatcher = new OrRequestMatcher(
-			new AntPathRequestMatcher("/login/saml2/sso/{registrationId}"),
-			new AntPathRequestMatcher("/login/saml2/sso"));
+new AntPathRequestMatcher("/login/saml2/sso/{registrationId}"),
+new AntPathRequestMatcher("/login/saml2/sso"));
 
 	private final ParserPool parserPool;
 
@@ -96,7 +96,7 @@ public final class OpenSamlAuthenticationTokenConverter implements Authenticatio
 		XMLObjectProviderRegistry registry = ConfigurationService.get(XMLObjectProviderRegistry.class);
 		this.parserPool = registry.getParserPool();
 		this.unmarshaller = (ResponseUnmarshaller) XMLObjectProviderRegistrySupport.getUnmarshallerFactory()
-				.getUnmarshaller(Response.DEFAULT_ELEMENT_NAME);
+	.getUnmarshaller(Response.DEFAULT_ELEMENT_NAME);
 		this.registrations = registrations;
 		this.loader = new HttpSessionSaml2AuthenticationRequestRepository()::loadAuthenticationRequest;
 	}
@@ -157,7 +157,7 @@ public final class OpenSamlAuthenticationTokenConverter implements Authenticatio
 	}
 
 	private Saml2AuthenticationToken tokenByRegistrationId(HttpServletRequest request,
-			RequestMatcher.MatchResult result) {
+RequestMatcher.MatchResult result) {
 		String registrationId = result.getVariables().get("registrationId");
 		if (registrationId == null) {
 			return null;
@@ -176,7 +176,7 @@ public final class OpenSamlAuthenticationTokenConverter implements Authenticatio
 	}
 
 	private Saml2AuthenticationToken tokenByRegistration(HttpServletRequest request,
-			RelyingPartyRegistration registration, AbstractSaml2AuthenticationRequest authenticationRequest) {
+RelyingPartyRegistration registration, AbstractSaml2AuthenticationRequest authenticationRequest) {
 		if (registration == null) {
 			return null;
 		}
@@ -184,8 +184,8 @@ public final class OpenSamlAuthenticationTokenConverter implements Authenticatio
 		String decoded = inflateIfRequired(request, samlDecode(serialized));
 		UriResolver resolver = RelyingPartyRegistrationPlaceholderResolvers.uriResolver(request, registration);
 		registration = registration.mutate().entityId(resolver.resolve(registration.getEntityId()))
-				.assertionConsumerServiceLocation(resolver.resolve(registration.getAssertionConsumerServiceLocation()))
-				.build();
+	.assertionConsumerServiceLocation(resolver.resolve(registration.getAssertionConsumerServiceLocation()))
+	.build();
 		return new Saml2AuthenticationToken(registration, decoded, authenticationRequest);
 	}
 
@@ -196,7 +196,7 @@ public final class OpenSamlAuthenticationTokenConverter implements Authenticatio
 	 * {@link Saml2AuthenticationRequestRepository} to use
 	 */
 	public void setAuthenticationRequestRepository(
-			Saml2AuthenticationRequestRepository<AbstractSaml2AuthenticationRequest> authenticationRequestRepository) {
+Saml2AuthenticationRequestRepository<AbstractSaml2AuthenticationRequest> authenticationRequestRepository) {
 		Assert.notNull(authenticationRequestRepository, "authenticationRequestRepository cannot be null");
 		this.loader = authenticationRequestRepository::loadAuthenticationRequest;
 	}
@@ -228,7 +228,7 @@ public final class OpenSamlAuthenticationTokenConverter implements Authenticatio
 		}
 		catch (Exception ex) {
 			throw new Saml2AuthenticationException(
-					new Saml2Error(Saml2ErrorCodes.INVALID_RESPONSE, "Failed to decode SAMLResponse"), ex);
+		new Saml2Error(Saml2ErrorCodes.INVALID_RESPONSE, "Failed to decode SAMLResponse"), ex);
 		}
 	}
 
@@ -242,14 +242,14 @@ public final class OpenSamlAuthenticationTokenConverter implements Authenticatio
 		}
 		catch (Exception ex) {
 			throw new Saml2AuthenticationException(
-					new Saml2Error(Saml2ErrorCodes.INVALID_RESPONSE, "Unable to inflate string"), ex);
+		new Saml2Error(Saml2ErrorCodes.INVALID_RESPONSE, "Unable to inflate string"), ex);
 		}
 	}
 
 	private Response parse(String request) throws Saml2Exception {
 		try {
 			Document document = this.parserPool
-					.parse(new ByteArrayInputStream(request.getBytes(StandardCharsets.UTF_8)));
+		.parse(new ByteArrayInputStream(request.getBytes(StandardCharsets.UTF_8)));
 			Element element = document.getDocumentElement();
 			return (Response) this.unmarshaller.unmarshall(element);
 		}
@@ -268,7 +268,7 @@ public final class OpenSamlAuthenticationTokenConverter implements Authenticatio
 
 		private static int[] genValueMapping() {
 			byte[] alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
-					.getBytes(StandardCharsets.ISO_8859_1);
+		.getBytes(StandardCharsets.ISO_8859_1);
 
 			int[] values = new int[256];
 			Arrays.fill(values, -1);
@@ -293,14 +293,14 @@ public final class OpenSamlAuthenticationTokenConverter implements Authenticatio
 
 			// in cases of an incomplete final chunk, ensure the unused bits are zero
 			switch (goodChars % 4) {
-			case 0:
-				return true;
-			case 2:
-				return (lastGoodCharVal & 0b1111) == 0;
-			case 3:
-				return (lastGoodCharVal & 0b11) == 0;
-			default:
-				return false;
+				case 0:
+					return true;
+				case 2:
+					return (lastGoodCharVal & 0b1111) == 0;
+				case 3:
+					return (lastGoodCharVal & 0b11) == 0;
+				default:
+					return false;
 			}
 		}
 

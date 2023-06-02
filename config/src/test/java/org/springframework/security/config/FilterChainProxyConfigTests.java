@@ -94,7 +94,7 @@ public class FilterChainProxyConfigTests {
 	@Test
 	public void normalOperationWithNewConfigNonNamespace() throws Exception {
 		FilterChainProxy filterChainProxy = this.appCtx.getBean("newFilterChainProxyNonNamespace",
-				FilterChainProxy.class);
+	FilterChainProxy.class);
 		filterChainProxy.setFirewall(new DefaultHttpFirewall());
 		checkPathAndFilterOrder(filterChainProxy);
 		doNormalOperation(filterChainProxy);
@@ -103,7 +103,7 @@ public class FilterChainProxyConfigTests {
 	@Test
 	public void pathWithNoMatchHasNoFilters() {
 		FilterChainProxy filterChainProxy = this.appCtx.getBean("newFilterChainProxyNoDefaultPath",
-				FilterChainProxy.class);
+	FilterChainProxy.class);
 		assertThat(filterChainProxy.getFilters("/nomatch")).isNull();
 	}
 
@@ -115,7 +115,7 @@ public class FilterChainProxyConfigTests {
 		assertThat(getPattern(chains.get(0))).isEqualTo("/login*");
 		assertThat(getPattern(chains.get(1))).isEqualTo("/logout");
 		assertThat(((DefaultSecurityFilterChain) chains.get(2)).getRequestMatcher())
-				.isInstanceOf(AnyRequestMatcher.class);
+	.isInstanceOf(AnyRequestMatcher.class);
 	}
 
 	private String getPattern(SecurityFilterChain chain) {

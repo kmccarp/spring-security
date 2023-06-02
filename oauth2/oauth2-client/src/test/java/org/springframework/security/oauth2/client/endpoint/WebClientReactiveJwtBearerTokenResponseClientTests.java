@@ -62,10 +62,10 @@ public class WebClientReactiveJwtBearerTokenResponseClientTests {
 
 	// @formatter:off
 	private static final String DEFAULT_ACCESS_TOKEN_RESPONSE = "{\n"
-			+ "  \"access_token\": \"access-token-1234\",\n"
-			+ "  \"token_type\": \"bearer\",\n"
-			+ "  \"expires_in\": 3600\n"
-			+ "}\n";
++ "  \"access_token\": \"access-token-1234\",\n"
++ "  \"token_type\": \"bearer\",\n"
++ "  \"expires_in\": 3600\n"
++ "}\n";
 	// @formatter:on
 
 	private WebClientReactiveJwtBearerTokenResponseClient client;
@@ -84,9 +84,9 @@ public class WebClientReactiveJwtBearerTokenResponseClientTests {
 		String tokenUri = this.server.url("/oauth2/token").toString();
 		// @formatter:off
 		this.clientRegistration = TestClientRegistrations.clientCredentials()
-				.authorizationGrantType(AuthorizationGrantType.JWT_BEARER)
-				.tokenUri(tokenUri)
-				.scope("read", "write");
+	.authorizationGrantType(AuthorizationGrantType.JWT_BEARER)
+	.tokenUri(tokenUri)
+	.scope("read", "write");
 		// @formatter:on
 		this.jwtAssertion = TestJwts.jwt().build();
 	}
@@ -99,31 +99,31 @@ public class WebClientReactiveJwtBearerTokenResponseClientTests {
 	@Test
 	public void setWebClientWhenNullThenThrowIllegalArgumentException() {
 		assertThatIllegalArgumentException().isThrownBy(() -> this.client.setWebClient(null))
-				.withMessage("webClient cannot be null");
+	.withMessage("webClient cannot be null");
 	}
 
 	@Test
 	public void setHeadersConverterWhenNullThenThrowIllegalArgumentException() {
 		assertThatIllegalArgumentException().isThrownBy(() -> this.client.setHeadersConverter(null))
-				.withMessage("headersConverter cannot be null");
+	.withMessage("headersConverter cannot be null");
 	}
 
 	@Test
 	public void addHeadersConverterWhenNullThenThrowIllegalArgumentException() {
 		assertThatIllegalArgumentException().isThrownBy(() -> this.client.addHeadersConverter(null))
-				.withMessage("headersConverter cannot be null");
+	.withMessage("headersConverter cannot be null");
 	}
 
 	@Test
 	public void setBodyExtractorWhenNullThenThrowIllegalArgumentException() {
 		assertThatIllegalArgumentException().isThrownBy(() -> this.client.setBodyExtractor(null))
-				.withMessage("bodyExtractor cannot be null");
+	.withMessage("bodyExtractor cannot be null");
 	}
 
 	@Test
 	public void getTokenResponseWhenNullThenThrowIllegalArgumentException() {
 		assertThatIllegalArgumentException().isThrownBy(() -> this.client.getTokenResponse(null))
-				.withMessage("grantRequest cannot be null");
+	.withMessage("grantRequest cannot be null");
 	}
 
 	@Test
@@ -132,9 +132,9 @@ public class WebClientReactiveJwtBearerTokenResponseClientTests {
 		enqueueUnexpectedResponse();
 		JwtBearerGrantRequest request = new JwtBearerGrantRequest(registration, this.jwtAssertion);
 		assertThatExceptionOfType(OAuth2AuthorizationException.class)
-				.isThrownBy(() -> this.client.getTokenResponse(request).block())
-				.satisfies((ex) -> assertThat(ex.getError().getErrorCode()).isEqualTo("invalid_token_response"))
-				.withMessage("[invalid_token_response] Empty OAuth 2.0 Access Token Response");
+	.isThrownBy(() -> this.client.getTokenResponse(request).block())
+	.satisfies((ex) -> assertThat(ex.getError().getErrorCode()).isEqualTo("invalid_token_response"))
+	.withMessage("[invalid_token_response] Empty OAuth 2.0 Access Token Response");
 	}
 
 	@Test
@@ -143,44 +143,44 @@ public class WebClientReactiveJwtBearerTokenResponseClientTests {
 		enqueueServerErrorResponse();
 		JwtBearerGrantRequest request = new JwtBearerGrantRequest(registration, this.jwtAssertion);
 		assertThatExceptionOfType(OAuth2AuthorizationException.class)
-				.isThrownBy(() -> this.client.getTokenResponse(request).block())
-				.satisfies((ex) -> assertThat(ex.getError().getErrorCode()).isEqualTo(OAuth2ErrorCodes.SERVER_ERROR))
-				.withMessageContaining("[server_error]");
+	.isThrownBy(() -> this.client.getTokenResponse(request).block())
+	.satisfies((ex) -> assertThat(ex.getError().getErrorCode()).isEqualTo(OAuth2ErrorCodes.SERVER_ERROR))
+	.withMessageContaining("[server_error]");
 	}
 
 	@Test
 	public void getTokenResponseWhenErrorResponseThenThrowOAuth2AuthorizationException() {
 		// @formatter:off
 		String accessTokenResponse = "{\n"
-				+ "  \"error\": \"invalid_grant\"\n"
-				+ "}\n";
+	+ "  \"error\": \"invalid_grant\"\n"
+	+ "}\n";
 		// @formatter:on
 		ClientRegistration registration = this.clientRegistration.build();
 		enqueueJson(accessTokenResponse);
 		JwtBearerGrantRequest request = new JwtBearerGrantRequest(registration, this.jwtAssertion);
 		assertThatExceptionOfType(OAuth2AuthorizationException.class)
-				.isThrownBy(() -> this.client.getTokenResponse(request).block())
-				.satisfies((ex) -> assertThat(ex.getError().getErrorCode()).isEqualTo(OAuth2ErrorCodes.INVALID_GRANT))
-				.withMessageContaining("[invalid_grant]");
+	.isThrownBy(() -> this.client.getTokenResponse(request).block())
+	.satisfies((ex) -> assertThat(ex.getError().getErrorCode()).isEqualTo(OAuth2ErrorCodes.INVALID_GRANT))
+	.withMessageContaining("[invalid_grant]");
 	}
 
 	@Test
 	public void getTokenResponseWhenResponseIsNotBearerTokenTypeThenThrowOAuth2AuthorizationException() {
 		// @formatter:off
 		String accessTokenResponse = "{\n"
-				+ "  \"access_token\": \"access-token-1234\",\n"
-				+ "  \"token_type\": \"not-bearer\",\n"
-				+ "  \"expires_in\": 3600\n"
-				+ "}\n";
+	+ "  \"access_token\": \"access-token-1234\",\n"
+	+ "  \"token_type\": \"not-bearer\",\n"
+	+ "  \"expires_in\": 3600\n"
+	+ "}\n";
 		// @formatter:on
 		ClientRegistration registration = this.clientRegistration.build();
 		enqueueJson(accessTokenResponse);
 		JwtBearerGrantRequest request = new JwtBearerGrantRequest(registration, this.jwtAssertion);
 		assertThatExceptionOfType(OAuth2AuthorizationException.class)
-				.isThrownBy(() -> this.client.getTokenResponse(request).block())
-				.satisfies((ex) -> assertThat(ex.getError().getErrorCode()).isEqualTo("invalid_token_response"))
-				.withMessageContaining("[invalid_token_response] An error occurred parsing the Access Token response")
-				.withMessageContaining("Unsupported token_type: not-bearer");
+	.isThrownBy(() -> this.client.getTokenResponse(request).block())
+	.satisfies((ex) -> assertThat(ex.getError().getErrorCode()).isEqualTo("invalid_token_response"))
+	.withMessageContaining("[invalid_token_response] An error occurred parsing the Access Token response")
+	.withMessageContaining("Unsupported token_type: not-bearer");
 	}
 
 	@Test
@@ -209,7 +209,7 @@ public class WebClientReactiveJwtBearerTokenResponseClientTests {
 		verify(headersConverter).convert(request);
 		RecordedRequest actualRequest = this.server.takeRequest();
 		assertThat(actualRequest.getHeader(HttpHeaders.AUTHORIZATION))
-				.isEqualTo("Basic Y2xpZW50LWlkOmNsaWVudC1zZWNyZXQ=");
+	.isEqualTo("Basic Y2xpZW50LWlkOmNsaWVudC1zZWNyZXQ=");
 	}
 
 	@Test
@@ -226,20 +226,20 @@ public class WebClientReactiveJwtBearerTokenResponseClientTests {
 		verify(addedHeadersConverter).convert(request);
 		RecordedRequest actualRequest = this.server.takeRequest();
 		assertThat(actualRequest.getHeader(HttpHeaders.AUTHORIZATION))
-				.isEqualTo("Basic Y2xpZW50LWlkOmNsaWVudC1zZWNyZXQ=");
+	.isEqualTo("Basic Y2xpZW50LWlkOmNsaWVudC1zZWNyZXQ=");
 		assertThat(actualRequest.getHeader("custom-header-name")).isEqualTo("custom-header-value");
 	}
 
 	@Test
 	public void setParametersConverterWhenNullThenThrowIllegalArgumentException() {
 		assertThatIllegalArgumentException().isThrownBy(() -> this.client.setParametersConverter(null))
-				.withMessage("parametersConverter cannot be null");
+	.withMessage("parametersConverter cannot be null");
 	}
 
 	@Test
 	public void addParametersConverterWhenNullThenThrowIllegalArgumentException() {
 		assertThatIllegalArgumentException().isThrownBy(() -> this.client.addParametersConverter(null))
-				.withMessage("parametersConverter cannot be null");
+	.withMessage("parametersConverter cannot be null");
 	}
 
 	@Test
@@ -247,7 +247,7 @@ public class WebClientReactiveJwtBearerTokenResponseClientTests {
 		ClientRegistration clientRegistration = this.clientRegistration.build();
 		JwtBearerGrantRequest request = new JwtBearerGrantRequest(clientRegistration, this.jwtAssertion);
 		Converter<JwtBearerGrantRequest, MultiValueMap<String, String>> addedParametersConverter = mock(
-				Converter.class);
+	Converter.class);
 		MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
 		parameters.add("custom-parameter-name", "custom-parameter-value");
 		given(addedParametersConverter.convert(request)).willReturn(parameters);
@@ -257,8 +257,8 @@ public class WebClientReactiveJwtBearerTokenResponseClientTests {
 		verify(addedParametersConverter).convert(request);
 		RecordedRequest actualRequest = this.server.takeRequest();
 		assertThat(actualRequest.getBody().readUtf8()).contains(
-				"grant_type=urn%3Aietf%3Aparams%3Aoauth%3Agrant-type%3Ajwt-bearer",
-				"custom-parameter-name=custom-parameter-value");
+	"grant_type=urn%3Aietf%3Aparams%3Aoauth%3Agrant-type%3Ajwt-bearer",
+	"custom-parameter-name=custom-parameter-value");
 	}
 
 	@Test
@@ -280,7 +280,7 @@ public class WebClientReactiveJwtBearerTokenResponseClientTests {
 	@Test
 	public void getTokenResponseWhenBodyExtractorSetThenCalled() {
 		BodyExtractor<Mono<OAuth2AccessTokenResponse>, ReactiveHttpInputMessage> bodyExtractor = mock(
-				BodyExtractor.class);
+	BodyExtractor.class);
 		OAuth2AccessTokenResponse response = TestOAuth2AccessTokenResponses.accessTokenResponse().build();
 		given(bodyExtractor.extract(any(), any())).willReturn(Mono.just(response));
 		ClientRegistration clientRegistration = this.clientRegistration.build();
@@ -295,11 +295,11 @@ public class WebClientReactiveJwtBearerTokenResponseClientTests {
 	public void getTokenResponseWhenClientSecretBasicThenSuccess() throws Exception {
 		// @formatter:off
 		String accessTokenResponse = "{\n"
-				+ "  \"access_token\": \"access-token-1234\",\n"
-				+ "  \"token_type\": \"bearer\",\n"
-				+ "  \"expires_in\": 3600,\n"
-				+ "  \"scope\": \"read write\""
-				+ "}\n";
+	+ "  \"access_token\": \"access-token-1234\",\n"
+	+ "  \"token_type\": \"bearer\",\n"
+	+ "  \"expires_in\": 3600,\n"
+	+ "  \"scope\": \"read write\""
+	+ "}\n";
 		// @formatter:on
 		ClientRegistration clientRegistration = this.clientRegistration.build();
 		JwtBearerGrantRequest request = new JwtBearerGrantRequest(clientRegistration, this.jwtAssertion);
@@ -309,23 +309,23 @@ public class WebClientReactiveJwtBearerTokenResponseClientTests {
 		assertThat(response.getAccessToken().getScopes()).containsExactly("read", "write");
 		RecordedRequest actualRequest = this.server.takeRequest();
 		assertThat(actualRequest.getHeader(HttpHeaders.AUTHORIZATION))
-				.isEqualTo("Basic Y2xpZW50LWlkOmNsaWVudC1zZWNyZXQ=");
+	.isEqualTo("Basic Y2xpZW50LWlkOmNsaWVudC1zZWNyZXQ=");
 		assertThat(actualRequest.getBody().readUtf8()).isEqualTo(
-				"grant_type=urn%3Aietf%3Aparams%3Aoauth%3Agrant-type%3Ajwt-bearer&scope=read+write&assertion=token");
+	"grant_type=urn%3Aietf%3Aparams%3Aoauth%3Agrant-type%3Ajwt-bearer&scope=read+write&assertion=token");
 	}
 
 	@Test
 	public void getTokenResponseWhenClientSecretPostThenSuccess() throws Exception {
 		// @formatter:off
 		String accessTokenResponse = "{\n"
-				+ "  \"access_token\": \"access-token-1234\",\n"
-				+ "  \"token_type\": \"bearer\",\n"
-				+ "  \"expires_in\": 3600,\n"
-				+ "  \"scope\": \"read write\""
-				+ "}\n";
+	+ "  \"access_token\": \"access-token-1234\",\n"
+	+ "  \"token_type\": \"bearer\",\n"
+	+ "  \"expires_in\": 3600,\n"
+	+ "  \"scope\": \"read write\""
+	+ "}\n";
 		ClientRegistration clientRegistration = this.clientRegistration
-				.clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_POST)
-				.build();
+	.clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_POST)
+	.build();
 		// @formatter:on
 		JwtBearerGrantRequest request = new JwtBearerGrantRequest(clientRegistration, this.jwtAssertion);
 		enqueueJson(accessTokenResponse);
@@ -335,18 +335,18 @@ public class WebClientReactiveJwtBearerTokenResponseClientTests {
 		RecordedRequest actualRequest = this.server.takeRequest();
 		assertThat(actualRequest.getHeader(HttpHeaders.AUTHORIZATION)).isNull();
 		assertThat(actualRequest.getBody().readUtf8()).isEqualTo(
-				"grant_type=urn%3Aietf%3Aparams%3Aoauth%3Agrant-type%3Ajwt-bearer&client_id=client-id&client_secret=client-secret&scope=read+write&assertion=token");
+	"grant_type=urn%3Aietf%3Aparams%3Aoauth%3Agrant-type%3Ajwt-bearer&client_id=client-id&client_secret=client-secret&scope=read+write&assertion=token");
 	}
 
 	@Test
 	public void getTokenResponseWhenResponseIncludesScopeThenAccessTokenHasResponseScope() throws Exception {
 		// @formatter:off
 		String accessTokenResponse = "{\n"
-				+ "  \"access_token\": \"access-token-1234\",\n"
-				+ "  \"token_type\": \"bearer\",\n"
-				+ "  \"expires_in\": 3600,\n"
-				+ "  \"scope\": \"read\"\n"
-				+ "}\n";
+	+ "  \"access_token\": \"access-token-1234\",\n"
+	+ "  \"token_type\": \"bearer\",\n"
+	+ "  \"expires_in\": 3600,\n"
+	+ "  \"scope\": \"read\"\n"
+	+ "}\n";
 		// @formatter:on
 		ClientRegistration clientRegistration = this.clientRegistration.build();
 		JwtBearerGrantRequest request = new JwtBearerGrantRequest(clientRegistration, this.jwtAssertion);
@@ -358,7 +358,7 @@ public class WebClientReactiveJwtBearerTokenResponseClientTests {
 
 	@Test
 	public void getTokenResponseWhenResponseDoesNotIncludeScopeThenReturnAccessTokenResponseWithNoScopes()
-			throws Exception {
+throws Exception {
 		ClientRegistration clientRegistration = this.clientRegistration.build();
 		JwtBearerGrantRequest request = new JwtBearerGrantRequest(clientRegistration, this.jwtAssertion);
 		enqueueJson(DEFAULT_ACCESS_TOKEN_RESPONSE);
@@ -369,15 +369,15 @@ public class WebClientReactiveJwtBearerTokenResponseClientTests {
 
 	private void enqueueJson(String body) {
 		MockResponse response = new MockResponse().setBody(body).setHeader(HttpHeaders.CONTENT_TYPE,
-				MediaType.APPLICATION_JSON_VALUE);
+	MediaType.APPLICATION_JSON_VALUE);
 		this.server.enqueue(response);
 	}
 
 	private void enqueueUnexpectedResponse() {
 		// @formatter:off
 		MockResponse response = new MockResponse()
-				.setHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-				.setResponseCode(301);
+	.setHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+	.setResponseCode(301);
 		// @formatter:on
 		this.server.enqueue(response);
 	}
@@ -385,9 +385,9 @@ public class WebClientReactiveJwtBearerTokenResponseClientTests {
 	private void enqueueServerErrorResponse() {
 		// @formatter:off
 		MockResponse response = new MockResponse()
-				.setHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-				.setResponseCode(500)
-				.setBody("{}");
+	.setHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+	.setResponseCode(500)
+	.setBody("{}");
 		// @formatter:on
 		this.server.enqueue(response);
 	}

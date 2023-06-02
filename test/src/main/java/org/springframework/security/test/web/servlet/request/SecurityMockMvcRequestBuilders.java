@@ -99,7 +99,7 @@ public final class SecurityMockMvcRequestBuilders {
 		@Override
 		public MockHttpServletRequest buildRequest(ServletContext servletContext) {
 			MockHttpServletRequestBuilder logoutRequest = post(this.logoutUrl).accept(MediaType.TEXT_HTML,
-					MediaType.ALL);
+		MediaType.ALL);
 			if (this.parent != null) {
 				logoutRequest = (MockHttpServletRequestBuilder) logoutRequest.merge(this.parent);
 			}
@@ -178,7 +178,7 @@ public final class SecurityMockMvcRequestBuilders {
 		@Override
 		public MockHttpServletRequest buildRequest(ServletContext servletContext) {
 			MockHttpServletRequestBuilder loginRequest = post(this.loginProcessingUrl).accept(this.acceptMediaType)
-					.param(this.usernameParam, this.username).param(this.passwordParam, this.password);
+		.param(this.usernameParam, this.username).param(this.passwordParam, this.password);
 			if (this.parent != null) {
 				loginRequest = (MockHttpServletRequestBuilder) loginRequest.merge(this.parent);
 			}
@@ -205,7 +205,7 @@ public final class SecurityMockMvcRequestBuilders {
 		 */
 		public FormLoginRequestBuilder loginProcessingUrl(String loginProcessingUrl, Object... uriVars) {
 			this.loginProcessingUrl = UriComponentsBuilder.fromPath(loginProcessingUrl).buildAndExpand(uriVars).encode()
-					.toString();
+		.toString();
 			return this;
 		}
 

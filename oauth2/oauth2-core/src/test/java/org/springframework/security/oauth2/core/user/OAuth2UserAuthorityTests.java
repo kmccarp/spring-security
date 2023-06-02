@@ -44,9 +44,9 @@ public class OAuth2UserAuthorityTests {
 	static {
 		try {
 			AUTHORITY_WITH_OBJECTURL = new OAuth2UserAuthority(
-					Collections.singletonMap("someurl", new URL("https://localhost")));
+		Collections.singletonMap("someurl", new URL("https://localhost")));
 			AUTHORITY_WITH_STRINGURL = new OAuth2UserAuthority(
-					Collections.singletonMap("someurl", "https://localhost"));
+		Collections.singletonMap("someurl", "https://localhost"));
 		}
 		catch (MalformedURLException ex) {
 			throw new RuntimeException(ex);
@@ -66,7 +66,7 @@ public class OAuth2UserAuthorityTests {
 	@Test
 	public void constructorWhenAttributesIsEmptyThenThrowIllegalArgumentException() {
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new OAuth2UserAuthority(AUTHORITY, Collections.emptyMap()));
+	.isThrownBy(() -> new OAuth2UserAuthority(AUTHORITY, Collections.emptyMap()));
 	}
 
 	@Test

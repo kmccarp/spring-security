@@ -52,7 +52,7 @@ public class ServerOAuth2AuthorizationCodeAuthenticationTokenConverter implement
 	private final ReactiveClientRegistrationRepository clientRegistrationRepository;
 
 	public ServerOAuth2AuthorizationCodeAuthenticationTokenConverter(
-			ReactiveClientRegistrationRepository clientRegistrationRepository) {
+ReactiveClientRegistrationRepository clientRegistrationRepository) {
 		Assert.notNull(clientRegistrationRepository, "clientRegistrationRepository cannot be null");
 		this.clientRegistrationRepository = clientRegistrationRepository;
 	}
@@ -63,7 +63,7 @@ public class ServerOAuth2AuthorizationCodeAuthenticationTokenConverter implement
 	 * @param authorizationRequestRepository the repository to use.
 	 */
 	public void setAuthorizationRequestRepository(
-			ServerAuthorizationRequestRepository<OAuth2AuthorizationRequest> authorizationRequestRepository) {
+ServerAuthorizationRequestRepository<OAuth2AuthorizationRequest> authorizationRequestRepository) {
 		Assert.notNull(authorizationRequestRepository, "authorizationRequestRepository cannot be null");
 		this.authorizationRequestRepository = authorizationRequestRepository;
 	}
@@ -72,8 +72,8 @@ public class ServerOAuth2AuthorizationCodeAuthenticationTokenConverter implement
 	public Mono<Authentication> convert(ServerWebExchange serverWebExchange) {
 		// @formatter:off
 		return this.authorizationRequestRepository.removeAuthorizationRequest(serverWebExchange)
-				.switchIfEmpty(oauth2AuthorizationException(AUTHORIZATION_REQUEST_NOT_FOUND_ERROR_CODE))
-				.flatMap((authorizationRequest) -> authenticationRequest(serverWebExchange, authorizationRequest));
+	.switchIfEmpty(oauth2AuthorizationException(AUTHORIZATION_REQUEST_NOT_FOUND_ERROR_CODE))
+	.flatMap((authorizationRequest) -> authenticationRequest(serverWebExchange, authorizationRequest));
 		// @formatter:on
 	}
 
@@ -85,24 +85,24 @@ public class ServerOAuth2AuthorizationCodeAuthenticationTokenConverter implement
 	}
 
 	private Mono<OAuth2AuthorizationCodeAuthenticationToken> authenticationRequest(ServerWebExchange exchange,
-			OAuth2AuthorizationRequest authorizationRequest) {
+OAuth2AuthorizationRequest authorizationRequest) {
 		// @formatter:off
 		return Mono.just(authorizationRequest)
-				.map(OAuth2AuthorizationRequest::getAttributes).flatMap((attributes) -> {
-					String id = (String) attributes.get(OAuth2ParameterNames.REGISTRATION_ID);
-					if (id == null) {
-						return oauth2AuthorizationException(CLIENT_REGISTRATION_NOT_FOUND_ERROR_CODE);
-					}
-					return this.clientRegistrationRepository.findByRegistrationId(id);
-				})
-				.switchIfEmpty(oauth2AuthorizationException(CLIENT_REGISTRATION_NOT_FOUND_ERROR_CODE))
-				.map((clientRegistration) -> {
-					OAuth2AuthorizationResponse authorizationResponse = convertResponse(exchange);
-					OAuth2AuthorizationCodeAuthenticationToken authenticationRequest = new OAuth2AuthorizationCodeAuthenticationToken(
-							clientRegistration,
-							new OAuth2AuthorizationExchange(authorizationRequest, authorizationResponse));
-					return authenticationRequest;
-				});
+	.map(OAuth2AuthorizationRequest::getAttributes).flatMap((attributes) -> {
+			String id = (String) attributes.get(OAuth2ParameterNames.REGISTRATION_ID);
+			if (id == null) {
+				return oauth2AuthorizationException(CLIENT_REGISTRATION_NOT_FOUND_ERROR_CODE);
+			}
+			return this.clientRegistrationRepository.findByRegistrationId(id);
+		})
+	.switchIfEmpty(oauth2AuthorizationException(CLIENT_REGISTRATION_NOT_FOUND_ERROR_CODE))
+	.map((clientRegistration) -> {
+		OAuth2AuthorizationResponse authorizationResponse = convertResponse(exchange);
+		OAuth2AuthorizationCodeAuthenticationToken authenticationRequest = new OAuth2AuthorizationCodeAuthenticationToken(
+	clientRegistration,
+	new OAuth2AuthorizationExchange(authorizationRequest, authorizationResponse));
+		return authenticationRequest;
+	});
 		// @formatter:on
 	}
 

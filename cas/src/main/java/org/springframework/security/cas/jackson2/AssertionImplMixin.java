@@ -45,8 +45,7 @@ import org.apereo.cas.client.authentication.AttributePrincipal;
  * @see org.springframework.security.jackson2.SecurityJackson2Modules
  */
 @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.PROPERTY)
-@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY, getterVisibility = JsonAutoDetect.Visibility.NONE,
-		isGetterVisibility = JsonAutoDetect.Visibility.NONE)
+@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY, getterVisibility = JsonAutoDetect.Visibility.NONE,isGetterVisibility = JsonAutoDetect.Visibility.NONE)
 @JsonIgnoreProperties(ignoreUnknown = true)
 class AssertionImplMixin {
 
@@ -61,9 +60,9 @@ class AssertionImplMixin {
 	 */
 	@JsonCreator
 	AssertionImplMixin(@JsonProperty("principal") AttributePrincipal principal,
-			@JsonProperty("validFromDate") Date validFromDate, @JsonProperty("validUntilDate") Date validUntilDate,
-			@JsonProperty("authenticationDate") Date authenticationDate,
-			@JsonProperty("attributes") Map<String, Object> attributes) {
+@JsonProperty("validFromDate") Date validFromDate, @JsonProperty("validUntilDate") Date validUntilDate,
+@JsonProperty("authenticationDate") Date authenticationDate,
+@JsonProperty("attributes") Map<String, Object> attributes) {
 	}
 
 }

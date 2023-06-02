@@ -75,7 +75,7 @@ public class OAuth2AuthorizationCodeReactiveAuthenticationManager implements Rea
 	private final ReactiveOAuth2AccessTokenResponseClient<OAuth2AuthorizationCodeGrantRequest> accessTokenResponseClient;
 
 	public OAuth2AuthorizationCodeReactiveAuthenticationManager(
-			ReactiveOAuth2AccessTokenResponseClient<OAuth2AuthorizationCodeGrantRequest> accessTokenResponseClient) {
+ReactiveOAuth2AccessTokenResponseClient<OAuth2AuthorizationCodeGrantRequest> accessTokenResponseClient) {
 		Assert.notNull(accessTokenResponseClient, "accessTokenResponseClient cannot be null");
 		this.accessTokenResponseClient = accessTokenResponseClient;
 	}
@@ -85,31 +85,31 @@ public class OAuth2AuthorizationCodeReactiveAuthenticationManager implements Rea
 		return Mono.defer(() -> {
 			OAuth2AuthorizationCodeAuthenticationToken token = (OAuth2AuthorizationCodeAuthenticationToken) authentication;
 			OAuth2AuthorizationResponse authorizationResponse = token.getAuthorizationExchange()
-					.getAuthorizationResponse();
+		.getAuthorizationResponse();
 			if (authorizationResponse.statusError()) {
 				return Mono.error(new OAuth2AuthorizationException(authorizationResponse.getError()));
 			}
 			OAuth2AuthorizationRequest authorizationRequest = token.getAuthorizationExchange()
-					.getAuthorizationRequest();
+		.getAuthorizationRequest();
 			if (!authorizationResponse.getState().equals(authorizationRequest.getState())) {
 				OAuth2Error oauth2Error = new OAuth2Error(INVALID_STATE_PARAMETER_ERROR_CODE);
 				return Mono.error(new OAuth2AuthorizationException(oauth2Error));
 			}
 			OAuth2AuthorizationCodeGrantRequest authzRequest = new OAuth2AuthorizationCodeGrantRequest(
-					token.getClientRegistration(), token.getAuthorizationExchange());
+		token.getClientRegistration(), token.getAuthorizationExchange());
 			return this.accessTokenResponseClient.getTokenResponse(authzRequest).map(onSuccess(token));
 		});
 	}
 
 	private Function<OAuth2AccessTokenResponse, OAuth2AuthorizationCodeAuthenticationToken> onSuccess(
-			OAuth2AuthorizationCodeAuthenticationToken token) {
+OAuth2AuthorizationCodeAuthenticationToken token) {
 		return (accessTokenResponse) -> {
 			ClientRegistration registration = token.getClientRegistration();
 			OAuth2AuthorizationExchange exchange = token.getAuthorizationExchange();
 			OAuth2AccessToken accessToken = accessTokenResponse.getAccessToken();
 			OAuth2RefreshToken refreshToken = accessTokenResponse.getRefreshToken();
 			return new OAuth2AuthorizationCodeAuthenticationToken(registration, exchange, accessToken, refreshToken,
-					accessTokenResponse.getAdditionalParameters());
+		accessTokenResponse.getAdditionalParameters());
 		};
 	}
 

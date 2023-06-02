@@ -43,7 +43,7 @@ import org.springframework.util.MimeTypeUtils;
 public class SimpleAuthenticationEncoder extends AbstractEncoder<UsernamePasswordMetadata> {
 
 	private static final MimeType AUTHENTICATION_MIME_TYPE = MimeTypeUtils
-			.parseMimeType("message/x.rsocket.authentication.v0");
+.parseMimeType("message/x.rsocket.authentication.v0");
 
 	private NettyDataBufferFactory defaultBufferFactory = new NettyDataBufferFactory(ByteBufAllocator.DEFAULT);
 
@@ -53,20 +53,20 @@ public class SimpleAuthenticationEncoder extends AbstractEncoder<UsernamePasswor
 
 	@Override
 	public Flux<DataBuffer> encode(Publisher<? extends UsernamePasswordMetadata> inputStream,
-			DataBufferFactory bufferFactory, ResolvableType elementType, MimeType mimeType, Map<String, Object> hints) {
+DataBufferFactory bufferFactory, ResolvableType elementType, MimeType mimeType, Map<String, Object> hints) {
 		return Flux.from(inputStream)
-				.map((credentials) -> encodeValue(credentials, bufferFactory, elementType, mimeType, hints));
+	.map((credentials) -> encodeValue(credentials, bufferFactory, elementType, mimeType, hints));
 	}
 
 	@Override
 	public DataBuffer encodeValue(UsernamePasswordMetadata credentials, DataBufferFactory bufferFactory,
-			ResolvableType valueType, MimeType mimeType, Map<String, Object> hints) {
+ResolvableType valueType, MimeType mimeType, Map<String, Object> hints) {
 		String username = credentials.getUsername();
 		String password = credentials.getPassword();
 		NettyDataBufferFactory factory = nettyFactory(bufferFactory);
 		ByteBufAllocator allocator = factory.getByteBufAllocator();
 		ByteBuf simpleAuthentication = AuthMetadataCodec.encodeSimpleMetadata(allocator, username.toCharArray(),
-				password.toCharArray());
+	password.toCharArray());
 		return factory.wrap(simpleAuthentication);
 	}
 

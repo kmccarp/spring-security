@@ -70,8 +70,7 @@ import org.springframework.web.accept.HeaderContentNegotiationStrategy;
  * @since 3.2
  * @see RequestCache
  */
-public final class RequestCacheConfigurer<H extends HttpSecurityBuilder<H>>
-		extends AbstractHttpConfigurer<RequestCacheConfigurer<H>, H> {
+public final class RequestCacheConfigurer<H extends HttpSecurityBuilder<H>>extends AbstractHttpConfigurer<RequestCacheConfigurer<H>, H> {
 
 	public RequestCacheConfigurer() {
 	}
@@ -146,7 +145,7 @@ public final class RequestCacheConfigurer<H extends HttpSecurityBuilder<H>>
 	private RequestMatcher createDefaultSavedRequestMatcher(H http) {
 		RequestMatcher notFavIcon = new NegatedRequestMatcher(new AntPathRequestMatcher("/**/favicon.*"));
 		RequestMatcher notXRequestedWith = new NegatedRequestMatcher(
-				new RequestHeaderRequestMatcher("X-Requested-With", "XMLHttpRequest"));
+	new RequestHeaderRequestMatcher("X-Requested-With", "XMLHttpRequest"));
 		boolean isCsrfEnabled = http.getConfigurer(CsrfConfigurer.class) != null;
 		List<RequestMatcher> matchers = new ArrayList<>();
 		if (isCsrfEnabled) {

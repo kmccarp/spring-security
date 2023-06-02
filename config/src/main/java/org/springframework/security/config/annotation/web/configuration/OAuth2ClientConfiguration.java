@@ -65,8 +65,8 @@ final class OAuth2ClientConfiguration {
 			if (!webMvcPresent) {
 				return new String[0];
 			}
-			return new String[] { "org.springframework.security.config.annotation.web.configuration."
-					+ "OAuth2ClientConfiguration.OAuth2ClientWebMvcSecurityConfiguration" };
+			return new String[]{"org.springframework.security.config.annotation.web.configuration."
+		+ "OAuth2ClientConfiguration.OAuth2ClientWebMvcSecurityConfiguration"};
 		}
 
 	}
@@ -89,7 +89,7 @@ final class OAuth2ClientConfiguration {
 			OAuth2AuthorizedClientManager authorizedClientManager = getAuthorizedClientManager();
 			if (authorizedClientManager != null) {
 				OAuth2AuthorizedClientArgumentResolver resolver = new OAuth2AuthorizedClientArgumentResolver(
-						authorizedClientManager);
+			authorizedClientManager);
 				if (this.securityContextHolderStrategy != null) {
 					resolver.setSecurityContextHolderStrategy(this.securityContextHolderStrategy);
 				}
@@ -113,7 +113,7 @@ final class OAuth2ClientConfiguration {
 
 		@Autowired(required = false)
 		void setAccessTokenResponseClient(
-				OAuth2AccessTokenResponseClient<OAuth2ClientCredentialsGrantRequest> accessTokenResponseClient) {
+	OAuth2AccessTokenResponseClient<OAuth2ClientCredentialsGrantRequest> accessTokenResponseClient) {
 			this.accessTokenResponseClient = accessTokenResponseClient;
 		}
 
@@ -138,21 +138,21 @@ final class OAuth2ClientConfiguration {
 				if (this.accessTokenResponseClient != null) {
 					// @formatter:off
 					OAuth2AuthorizedClientProvider authorizedClientProvider = OAuth2AuthorizedClientProviderBuilder
-						.builder()
-						.authorizationCode()
-						.refreshToken()
-						.clientCredentials((configurer) -> configurer.accessTokenResponseClient(this.accessTokenResponseClient))
-						.password()
-						.build();
+				.builder()
+				.authorizationCode()
+				.refreshToken()
+				.clientCredentials((configurer) -> configurer.accessTokenResponseClient(this.accessTokenResponseClient))
+				.password()
+				.build();
 					// @formatter:on
 					DefaultOAuth2AuthorizedClientManager defaultAuthorizedClientManager = new DefaultOAuth2AuthorizedClientManager(
-							this.clientRegistrationRepository, this.authorizedClientRepository);
+				this.clientRegistrationRepository, this.authorizedClientRepository);
 					defaultAuthorizedClientManager.setAuthorizedClientProvider(authorizedClientProvider);
 					authorizedClientManager = defaultAuthorizedClientManager;
 				}
 				else {
 					authorizedClientManager = new DefaultOAuth2AuthorizedClientManager(
-							this.clientRegistrationRepository, this.authorizedClientRepository);
+				this.clientRegistrationRepository, this.authorizedClientRepository);
 				}
 			}
 			return authorizedClientManager;

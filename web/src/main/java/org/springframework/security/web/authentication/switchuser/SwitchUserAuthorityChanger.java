@@ -47,6 +47,6 @@ public interface SwitchUserAuthorityChanger {
 	 * @return the modified list of granted authorities.
 	 */
 	Collection<? extends GrantedAuthority> modifyGrantedAuthorities(UserDetails targetUser,
-			Authentication currentAuthentication, Collection<? extends GrantedAuthority> authoritiesToBeGranted);
+Authentication currentAuthentication, Collection<? extends GrantedAuthority> authoritiesToBeGranted);
 
 }

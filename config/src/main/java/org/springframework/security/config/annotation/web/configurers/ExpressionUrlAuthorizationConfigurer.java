@@ -80,8 +80,7 @@ import org.springframework.util.StringUtils;
  * @deprecated Use {@link AuthorizeHttpRequestsConfigurer} instead
  */
 @Deprecated
-public final class ExpressionUrlAuthorizationConfigurer<H extends HttpSecurityBuilder<H>>
-		extends AbstractInterceptUrlConfigurer<ExpressionUrlAuthorizationConfigurer<H>, H> {
+public final class ExpressionUrlAuthorizationConfigurer<H extends HttpSecurityBuilder<H>>extends AbstractInterceptUrlConfigurer<ExpressionUrlAuthorizationConfigurer<H>, H> {
 
 	static final String permitAll = "permitAll";
 
@@ -109,7 +108,7 @@ public final class ExpressionUrlAuthorizationConfigurer<H extends HttpSecurityBu
 		String[] grantedAuthorityDefaultsBeanNames = context.getBeanNamesForType(GrantedAuthorityDefaults.class);
 		if (grantedAuthorityDefaultsBeanNames.length == 1) {
 			GrantedAuthorityDefaults grantedAuthorityDefaults = context.getBean(grantedAuthorityDefaultsBeanNames[0],
-					GrantedAuthorityDefaults.class);
+		GrantedAuthorityDefaults.class);
 			this.rolePrefix = grantedAuthorityDefaults.getRolePrefix();
 		}
 		else {
@@ -131,10 +130,10 @@ public final class ExpressionUrlAuthorizationConfigurer<H extends HttpSecurityBu
 	 * {@link RequestMatcher} instances
 	 */
 	private void interceptUrl(Iterable<? extends RequestMatcher> requestMatchers,
-			Collection<ConfigAttribute> configAttributes) {
+Collection<ConfigAttribute> configAttributes) {
 		for (RequestMatcher requestMatcher : requestMatchers) {
 			this.REGISTRY.addMapping(
-					new AbstractConfigAttributeRequestMatcherRegistry.UrlMapping(requestMatcher, configAttributes));
+		new AbstractConfigAttributeRequestMatcherRegistry.UrlMapping(requestMatcher, configAttributes));
 		}
 	}
 
@@ -152,7 +151,7 @@ public final class ExpressionUrlAuthorizationConfigurer<H extends HttpSecurityBu
 	ExpressionBasedFilterInvocationSecurityMetadataSource createMetadataSource(H http) {
 		LinkedHashMap<RequestMatcher, Collection<ConfigAttribute>> requestMap = this.REGISTRY.createRequestMap();
 		Assert.state(!requestMap.isEmpty(),
-				"At least one mapping is required (i.e. authorizeRequests().anyRequest().authenticated())");
+	"At least one mapping is required (i.e. authorizeRequests().anyRequest().authenticated())");
 		return new ExpressionBasedFilterInvocationSecurityMetadataSource(requestMap, getExpressionHandler(http));
 	}
 
@@ -174,13 +173,13 @@ public final class ExpressionUrlAuthorizationConfigurer<H extends HttpSecurityBu
 			String[] grantedAuthorityDefaultsBeanNames = context.getBeanNamesForType(GrantedAuthorityDefaults.class);
 			if (grantedAuthorityDefaultsBeanNames.length == 1) {
 				GrantedAuthorityDefaults grantedAuthorityDefaults = context
-						.getBean(grantedAuthorityDefaultsBeanNames[0], GrantedAuthorityDefaults.class);
+			.getBean(grantedAuthorityDefaultsBeanNames[0], GrantedAuthorityDefaults.class);
 				defaultHandler.setDefaultRolePrefix(grantedAuthorityDefaults.getRolePrefix());
 			}
 			String[] permissionEvaluatorBeanNames = context.getBeanNamesForType(PermissionEvaluator.class);
 			if (permissionEvaluatorBeanNames.length == 1) {
 				PermissionEvaluator permissionEvaluator = context.getBean(permissionEvaluatorBeanNames[0],
-						PermissionEvaluator.class);
+			PermissionEvaluator.class);
 				defaultHandler.setPermissionEvaluator(permissionEvaluator);
 			}
 		}
@@ -196,7 +195,7 @@ public final class ExpressionUrlAuthorizationConfigurer<H extends HttpSecurityBu
 	private static String hasRole(String rolePrefix, String role) {
 		Assert.notNull(role, "role cannot be null");
 		Assert.isTrue(rolePrefix.isEmpty() || !role.startsWith(rolePrefix), () -> "role should not start with '"
-				+ rolePrefix + "' since it is automatically inserted. Got '" + role + "'");
+	+ rolePrefix + "' since it is automatically inserted. Got '" + role + "'");
 		return "hasRole('" + rolePrefix + role + "')";
 	}
 
@@ -214,7 +213,7 @@ public final class ExpressionUrlAuthorizationConfigurer<H extends HttpSecurityBu
 	}
 
 	public final class ExpressionInterceptUrlRegistry extends
-			ExpressionUrlAuthorizationConfigurer<H>.AbstractInterceptUrlRegistry<ExpressionInterceptUrlRegistry, AuthorizedUrl> {
+ExpressionUrlAuthorizationConfigurer<H>.AbstractInterceptUrlRegistry<ExpressionInterceptUrlRegistry, AuthorizedUrl> {
 
 		private ExpressionInterceptUrlRegistry(ApplicationContext context) {
 			setApplicationContext(context);
@@ -233,7 +232,7 @@ public final class ExpressionUrlAuthorizationConfigurer<H extends HttpSecurityBu
 		 * customization.
 		 */
 		public ExpressionInterceptUrlRegistry expressionHandler(
-				SecurityExpressionHandler<FilterInvocation> expressionHandler) {
+	SecurityExpressionHandler<FilterInvocation> expressionHandler) {
 			ExpressionUrlAuthorizationConfigurer.this.expressionHandler = expressionHandler;
 			return this;
 		}
@@ -294,7 +293,7 @@ public final class ExpressionUrlAuthorizationConfigurer<H extends HttpSecurityBu
 		 */
 		public ExpressionInterceptUrlRegistry hasRole(String role) {
 			return access(ExpressionUrlAuthorizationConfigurer
-					.hasRole(ExpressionUrlAuthorizationConfigurer.this.rolePrefix, role));
+		.hasRole(ExpressionUrlAuthorizationConfigurer.this.rolePrefix, role));
 		}
 
 		/**
@@ -308,7 +307,7 @@ public final class ExpressionUrlAuthorizationConfigurer<H extends HttpSecurityBu
 		 */
 		public ExpressionInterceptUrlRegistry hasAnyRole(String... roles) {
 			return access(ExpressionUrlAuthorizationConfigurer
-					.hasAnyRole(ExpressionUrlAuthorizationConfigurer.this.rolePrefix, roles));
+		.hasAnyRole(ExpressionUrlAuthorizationConfigurer.this.rolePrefix, roles));
 		}
 
 		/**

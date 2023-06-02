@@ -51,7 +51,7 @@ public final class RequestMatcherDelegatingAuthorizationManager implements Autho
 	private final List<RequestMatcherEntry<AuthorizationManager<RequestAuthorizationContext>>> mappings;
 
 	private RequestMatcherDelegatingAuthorizationManager(
-			List<RequestMatcherEntry<AuthorizationManager<RequestAuthorizationContext>>> mappings) {
+List<RequestMatcherEntry<AuthorizationManager<RequestAuthorizationContext>>> mappings) {
 		Assert.notEmpty(mappings, "mappings cannot be empty");
 		this.mappings = mappings;
 	}
@@ -80,7 +80,7 @@ public final class RequestMatcherDelegatingAuthorizationManager implements Autho
 					this.logger.trace(LogMessage.format("Checking authorization on %s using %s", request, manager));
 				}
 				return manager.check(authentication,
-						new RequestAuthorizationContext(request, matchResult.getVariables()));
+			new RequestAuthorizationContext(request, matchResult.getVariables()));
 			}
 		}
 		if (this.logger.isTraceEnabled()) {
@@ -126,7 +126,7 @@ public final class RequestMatcherDelegatingAuthorizationManager implements Autho
 		 * @since 5.7
 		 */
 		public Builder mappings(
-				Consumer<List<RequestMatcherEntry<AuthorizationManager<RequestAuthorizationContext>>>> mappingsConsumer) {
+	Consumer<List<RequestMatcherEntry<AuthorizationManager<RequestAuthorizationContext>>>> mappingsConsumer) {
 			Assert.notNull(mappingsConsumer, "mappingsConsumer cannot be null");
 			mappingsConsumer.accept(this.mappings);
 			return this;

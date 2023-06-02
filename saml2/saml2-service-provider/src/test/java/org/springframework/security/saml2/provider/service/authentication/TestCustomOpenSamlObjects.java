@@ -47,28 +47,28 @@ public final class TestCustomOpenSamlObjects {
 	static {
 		OpenSamlInitializationService.initialize();
 		XMLObjectProviderRegistrySupport.getMarshallerFactory().registerMarshaller(CustomOpenSamlObject.TYPE_NAME,
-				new TestCustomOpenSamlObjects.CustomSamlObjectMarshaller());
+	new TestCustomOpenSamlObjects.CustomSamlObjectMarshaller());
 		XMLObjectProviderRegistrySupport.getUnmarshallerFactory().registerUnmarshaller(CustomOpenSamlObject.TYPE_NAME,
-				new TestCustomOpenSamlObjects.CustomSamlObjectUnmarshaller());
+	new TestCustomOpenSamlObjects.CustomSamlObjectUnmarshaller());
 	}
 
 	public static CustomOpenSamlObject instance() {
 		CustomOpenSamlObject samlObject = new TestCustomOpenSamlObjects.CustomSamlObjectBuilder()
-				.buildObject(AttributeValue.DEFAULT_ELEMENT_NAME, CustomOpenSamlObject.TYPE_NAME);
+	.buildObject(AttributeValue.DEFAULT_ELEMENT_NAME, CustomOpenSamlObject.TYPE_NAME);
 		XSAny street = new XSAnyBuilder().buildObject(CustomOpenSamlObject.CUSTOM_NS, "Street",
-				CustomOpenSamlObject.TYPE_CUSTOM_PREFIX);
+	CustomOpenSamlObject.TYPE_CUSTOM_PREFIX);
 		street.setTextContent("Test Street");
 		samlObject.getUnknownXMLObjects().add(street);
 		XSAny streetNumber = new XSAnyBuilder().buildObject(CustomOpenSamlObject.CUSTOM_NS, "Number",
-				CustomOpenSamlObject.TYPE_CUSTOM_PREFIX);
+	CustomOpenSamlObject.TYPE_CUSTOM_PREFIX);
 		streetNumber.setTextContent("1");
 		samlObject.getUnknownXMLObjects().add(streetNumber);
 		XSAny zip = new XSAnyBuilder().buildObject(CustomOpenSamlObject.CUSTOM_NS, "ZIP",
-				CustomOpenSamlObject.TYPE_CUSTOM_PREFIX);
+	CustomOpenSamlObject.TYPE_CUSTOM_PREFIX);
 		zip.setTextContent("11111");
 		samlObject.getUnknownXMLObjects().add(zip);
 		XSAny city = new XSAnyBuilder().buildObject(CustomOpenSamlObject.CUSTOM_NS, "City",
-				CustomOpenSamlObject.TYPE_CUSTOM_PREFIX);
+	CustomOpenSamlObject.TYPE_CUSTOM_PREFIX);
 		city.setTextContent("Test City");
 		samlObject.getUnknownXMLObjects().add(city);
 		return samlObject;
@@ -112,7 +112,7 @@ public final class TestCustomOpenSamlObjects {
 		 * @param namespacePrefix the prefix for the given namespace
 		 */
 		protected CustomOpenSamlObjectImpl(@Nullable String namespaceURI, @Nonnull String elementLocalName,
-				@Nullable String namespacePrefix) {
+	@Nullable String namespacePrefix) {
 			super(namespaceURI, elementLocalName, namespacePrefix);
 			super.getNamespaceManager().registerNamespaceDeclaration(new Namespace(CUSTOM_NS, TYPE_CUSTOM_PREFIX));
 			this.unknownXMLObjects = new IndexedXMLObjectChildrenList<>(this);
@@ -163,7 +163,7 @@ public final class TestCustomOpenSamlObjects {
 		@Nonnull
 		@Override
 		public CustomOpenSamlObject buildObject(@Nullable String namespaceURI, @Nonnull String localName,
-				@Nullable String namespacePrefix) {
+	@Nullable String namespacePrefix) {
 			return new CustomOpenSamlObjectImpl(namespaceURI, localName, namespacePrefix);
 		}
 
@@ -194,7 +194,7 @@ public final class TestCustomOpenSamlObjects {
 
 		@Override
 		protected void processChildElement(@Nonnull XMLObject parentXMLObject, @Nonnull XMLObject childXMLObject)
-				throws UnmarshallingException {
+	throws UnmarshallingException {
 			final CustomOpenSamlObject customSamlObject = (CustomOpenSamlObject) parentXMLObject;
 			super.processChildElement(customSamlObject, childXMLObject);
 			customSamlObject.getUnknownXMLObjects().add(childXMLObject);
@@ -204,7 +204,7 @@ public final class TestCustomOpenSamlObjects {
 		@Override
 		protected XMLObject buildXMLObject(@Nonnull Element domElement) {
 			return new CustomOpenSamlObjectImpl(SAMLConstants.SAML20_NS, AttributeValue.DEFAULT_ELEMENT_LOCAL_NAME,
-					CustomOpenSamlObject.TYPE_CUSTOM_PREFIX);
+		CustomOpenSamlObject.TYPE_CUSTOM_PREFIX);
 		}
 
 	}

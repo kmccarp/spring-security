@@ -78,8 +78,8 @@ public class DefaultFilterChainValidator implements FilterChainProxy.FilterChain
 			RequestMatcher matcher = ((DefaultSecurityFilterChain) chains.next()).getRequestMatcher();
 			if (AnyRequestMatcher.INSTANCE.equals(matcher) && chains.hasNext()) {
 				throw new IllegalArgumentException("A universal match pattern ('/**') is defined "
-						+ " before other patterns in the filter chain, causing them to be ignored. Please check the "
-						+ "ordering in your <security:http> namespace or FilterChainProxy bean configuration");
+			+ " before other patterns in the filter chain, causing them to be ignored. Please check the "
+			+ "ordering in your <security:http> namespace or FilterChainProxy bean configuration");
 			}
 		}
 	}
@@ -90,14 +90,14 @@ public class DefaultFilterChainValidator implements FilterChainProxy.FilterChain
 			for (SecurityFilterChain test : chains) {
 				if (chain.getRequestMatcher().equals(((DefaultSecurityFilterChain) test).getRequestMatcher())) {
 					throw new IllegalArgumentException("The FilterChainProxy contains two filter chains using the"
-							+ " matcher " + chain.getRequestMatcher() + ". If you are using multiple <http> namespace "
-							+ "elements, you must use a 'pattern' attribute to define the request patterns to which they apply.");
+				+ " matcher " + chain.getRequestMatcher() + ". If you are using multiple <http> namespace "
+				+ "elements, you must use a 'pattern' attribute to define the request patterns to which they apply.");
 				}
 			}
 		}
 	}
 
-	@SuppressWarnings({ "unchecked" })
+	@SuppressWarnings({"unchecked"})
 	private <F extends Filter> F getFilter(Class<F> type, List<Filter> filters) {
 		for (Filter f : filters) {
 			if (type.isAssignableFrom(f.getClass())) {
@@ -131,7 +131,7 @@ public class DefaultFilterChainValidator implements FilterChainProxy.FilterChain
 					Filter f2 = filters.get(j);
 					if (clazz.isAssignableFrom(f2.getClass())) {
 						this.logger.warn("Possible error: Filters at position " + i + " and " + j + " are both "
-								+ "instances of " + clazz.getName());
+					+ "instances of " + clazz.getName());
 						return;
 					}
 				}
@@ -146,11 +146,11 @@ public class DefaultFilterChainValidator implements FilterChainProxy.FilterChain
 	private void checkLoginPageIsntProtected(FilterChainProxy fcp, List<Filter> filterStack) {
 		ExceptionTranslationFilter exceptions = getFilter(ExceptionTranslationFilter.class, filterStack);
 		if (exceptions == null
-				|| !(exceptions.getAuthenticationEntryPoint() instanceof LoginUrlAuthenticationEntryPoint)) {
+	|| !(exceptions.getAuthenticationEntryPoint() instanceof LoginUrlAuthenticationEntryPoint)) {
 			return;
 		}
 		String loginPage = ((LoginUrlAuthenticationEntryPoint) exceptions.getAuthenticationEntryPoint())
-				.getLoginFormUrl();
+	.getLoginFormUrl();
 		this.logger.info("Checking whether login URL '" + loginPage + "' is accessible with your configuration");
 		FilterInvocation loginRequest = new FilterInvocation(loginPage, "POST");
 		List<Filter> filters = null;
@@ -177,19 +177,19 @@ public class DefaultFilterChainValidator implements FilterChainProxy.FilterChain
 		AnonymousAuthenticationFilter anonymous = getFilter(AnonymousAuthenticationFilter.class, filters);
 		if (anonymous == null) {
 			this.logger.warn("The login page is being protected by the filter chain, but you don't appear to have"
-					+ " anonymous authentication enabled. This is almost certainly an error.");
+		+ " anonymous authentication enabled. This is almost certainly an error.");
 			return;
 		}
 		// Simulate an anonymous access with the supplied attributes.
 		AnonymousAuthenticationToken token = new AnonymousAuthenticationToken("key", anonymous.getPrincipal(),
-				anonymous.getAuthorities());
+	anonymous.getAuthorities());
 		Supplier<Boolean> check = deriveAnonymousCheck(filters, loginRequest, token);
 		try {
 			boolean allowed = check.get();
 			if (!allowed) {
 				this.logger.warn("Anonymous access to the login page doesn't appear to be enabled. "
-						+ "This is almost certainly an error. Please check your configuration allows unauthenticated "
-						+ "access to the configured login page. (Simulated access was rejected)");
+			+ "This is almost certainly an error. Please check your configuration allows unauthenticated "
+			+ "access to the configured login page. (Simulated access was rejected)");
 			}
 		}
 		catch (Exception ex) {
@@ -197,7 +197,7 @@ public class DefaultFilterChainValidator implements FilterChainProxy.FilterChain
 			// request data than that provided
 			// by the dummy request used when creating the filter invocation. See SEC-1878
 			this.logger.info("Unable to check access to the login page to determine if anonymous access is allowed. "
-					+ "This might be an error, but can happen under normal circumstances.", ex);
+		+ "This might be an error, but can happen under normal circumstances.", ex);
 		}
 	}
 
@@ -210,7 +210,7 @@ public class DefaultFilterChainValidator implements FilterChainProxy.FilterChain
 				this.logger.debug("No access attributes defined for login page URL");
 				if (authorizationInterceptor.isRejectPublicInvocations()) {
 					this.logger.warn("FilterSecurityInterceptor is configured to reject public invocations."
-							+ " Your login page may not be accessible.");
+				+ " Your login page may not be accessible.");
 				}
 				return true;
 			}
@@ -219,7 +219,7 @@ public class DefaultFilterChainValidator implements FilterChainProxy.FilterChain
 		AuthorizationFilter authorizationFilter = getFilter(AuthorizationFilter.class, filters);
 		if (authorizationFilter != null) {
 			AuthorizationManager<HttpServletRequest> authorizationManager = authorizationFilter
-					.getAuthorizationManager();
+		.getAuthorizationManager();
 			try {
 				AuthorizationDecision decision = authorizationManager.check(() -> TEST, loginRequest.getHttpRequest());
 				return decision != null && decision.isGranted();
@@ -232,7 +232,7 @@ public class DefaultFilterChainValidator implements FilterChainProxy.FilterChain
 	}
 
 	private Supplier<Boolean> deriveAnonymousCheck(List<Filter> filters, FilterInvocation loginRequest,
-			AnonymousAuthenticationToken token) {
+AnonymousAuthenticationToken token) {
 		FilterSecurityInterceptor authorizationInterceptor = getFilter(FilterSecurityInterceptor.class, filters);
 		if (authorizationInterceptor != null) {
 			return () -> {
@@ -251,7 +251,7 @@ public class DefaultFilterChainValidator implements FilterChainProxy.FilterChain
 		if (authorizationFilter != null) {
 			return () -> {
 				AuthorizationManager<HttpServletRequest> authorizationManager = authorizationFilter
-						.getAuthorizationManager();
+			.getAuthorizationManager();
 				AuthorizationDecision decision = authorizationManager.check(() -> token, loginRequest.getHttpRequest());
 				return decision != null && decision.isGranted();
 			};

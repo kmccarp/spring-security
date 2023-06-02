@@ -92,7 +92,7 @@ public class FilterInvocation {
 	}
 
 	public FilterInvocation(String contextPath, String servletPath, String pathInfo, String query, String method,
-			ServletContext servletContext) {
+ServletContext servletContext) {
 		DummyRequest request = new DummyRequest();
 		contextPath = (contextPath != null) ? contextPath : "/cp";
 		request.setContextPath(contextPath);
@@ -157,8 +157,8 @@ public class FilterInvocation {
 	static class DummyRequest extends HttpServletRequestWrapper {
 
 		private static final HttpServletRequest UNSUPPORTED_REQUEST = (HttpServletRequest) Proxy.newProxyInstance(
-				DummyRequest.class.getClassLoader(), new Class[] { HttpServletRequest.class },
-				new UnsupportedOperationExceptionInvocationHandler());
+	DummyRequest.class.getClassLoader(), new Class[]{HttpServletRequest.class},
+	new UnsupportedOperationExceptionInvocationHandler());
 
 		private String requestURI;
 
@@ -336,9 +336,9 @@ public class FilterInvocation {
 				return invokeDefaultMethodForJdk8(proxy, method, args);
 			}
 			return MethodHandles.lookup()
-					.findSpecial(method.getDeclaringClass(), method.getName(),
-							MethodType.methodType(method.getReturnType(), new Class[0]), method.getDeclaringClass())
-					.bindTo(proxy).invokeWithArguments(args);
+		.findSpecial(method.getDeclaringClass(), method.getName(),
+	MethodType.methodType(method.getReturnType(), new Class[0]), method.getDeclaringClass())
+		.bindTo(proxy).invokeWithArguments(args);
 		}
 
 		private Object invokeDefaultMethodForJdk8(Object proxy, Method method, Object[] args) throws Throwable {
@@ -346,7 +346,7 @@ public class FilterInvocation {
 			constructor.setAccessible(true);
 			Class<?> clazz = method.getDeclaringClass();
 			return constructor.newInstance(clazz).in(clazz).unreflectSpecial(method, clazz).bindTo(proxy)
-					.invokeWithArguments(args);
+		.invokeWithArguments(args);
 		}
 
 		private boolean isJdk8OrEarlier() {

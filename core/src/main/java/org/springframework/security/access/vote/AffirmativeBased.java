@@ -56,25 +56,25 @@ public class AffirmativeBased extends AbstractAccessDecisionManager {
 	 * @throws AccessDeniedException if access is denied
 	 */
 	@Override
-	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@SuppressWarnings({"rawtypes", "unchecked"})
 	public void decide(Authentication authentication, Object object, Collection<ConfigAttribute> configAttributes)
-			throws AccessDeniedException {
+throws AccessDeniedException {
 		int deny = 0;
 		for (AccessDecisionVoter voter : getDecisionVoters()) {
 			int result = voter.vote(authentication, object, configAttributes);
 			switch (result) {
-			case AccessDecisionVoter.ACCESS_GRANTED:
-				return;
-			case AccessDecisionVoter.ACCESS_DENIED:
-				deny++;
-				break;
-			default:
-				break;
+				case AccessDecisionVoter.ACCESS_GRANTED:
+					return;
+				case AccessDecisionVoter.ACCESS_DENIED:
+					deny++;
+					break;
+				default:
+					break;
 			}
 		}
 		if (deny > 0) {
 			throw new AccessDeniedException(
-					this.messages.getMessage("AbstractAccessDecisionManager.accessDenied", "Access is denied"));
+		this.messages.getMessage("AbstractAccessDecisionManager.accessDenied", "Access is denied"));
 		}
 		// To get this far, every AccessDecisionVoter abstained
 		checkAllowIfAllAbstainDecisions();

@@ -35,8 +35,7 @@ import org.springframework.security.util.InMemoryResource;
  * @since 5.0
  * @see UserDetailsResourceFactoryBean
  */
-public class UserDetailsManagerResourceFactoryBean
-		implements ResourceLoaderAware, FactoryBean<InMemoryUserDetailsManager> {
+public class UserDetailsManagerResourceFactoryBeanimplements ResourceLoaderAware, FactoryBean<InMemoryUserDetailsManager> {
 
 	private UserDetailsResourceFactoryBean userDetails = new UserDetailsResourceFactoryBean();
 

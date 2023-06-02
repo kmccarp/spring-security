@@ -55,7 +55,7 @@ public class DefaultCsrfShowcaseTests {
 	@BeforeEach
 	public void setup() {
 		this.mvc = MockMvcBuilders.webAppContextSetup(this.context).defaultRequest(get("/").with(csrf()))
-				.apply(springSecurity()).build();
+	.apply(springSecurity()).build();
 	}
 
 	@Test
@@ -82,8 +82,8 @@ public class DefaultCsrfShowcaseTests {
 		void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 			// @formatter:off
 			auth
-				.inMemoryAuthentication()
-					.withUser("user").password("password").roles("USER");
+		.inMemoryAuthentication()
+		.withUser("user").password("password").roles("USER");
 			// @formatter:on
 		}
 

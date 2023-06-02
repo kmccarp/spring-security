@@ -61,11 +61,11 @@ class ReactiveRemoteJWKSource implements ReactiveJWKSource {
 	public Mono<List<JWK>> get(JWKSelector jwkSelector) {
 		// @formatter:off
 		return this.cachedJWKSet.get()
-				.switchIfEmpty(Mono.defer(() -> getJWKSet()))
-				.flatMap((jwkSet) -> get(jwkSelector, jwkSet))
-				.switchIfEmpty(Mono.defer(() -> getJWKSet()
-						.map((jwkSet) -> jwkSelector.select(jwkSet)))
-				);
+	.switchIfEmpty(Mono.defer(() -> getJWKSet()))
+	.flatMap((jwkSet) -> get(jwkSelector, jwkSet))
+	.switchIfEmpty(Mono.defer(() -> getJWKSet()
+.map((jwkSet) -> jwkSelector.select(jwkSet)))
+	);
 		// @formatter:on
 	}
 
@@ -101,14 +101,13 @@ class ReactiveRemoteJWKSource implements ReactiveJWKSource {
 	private Mono<JWKSet> getJWKSet() {
 		// @formatter:off
 		return this.jwkSetURL.flatMap((jwkSetURL) -> this.webClient.get()
-				.uri(jwkSetURL)
-				.retrieve()
-				.bodyToMono(String.class))
-				.map(this::parse)
-				.doOnNext((jwkSet) -> this.cachedJWKSet
-						.set(Mono.just(jwkSet))
-				)
-				.cache();
+	.uri(jwkSetURL)
+	.retrieve()
+	.bodyToMono(String.class))
+	.map(this::parse)
+	.doOnNext((jwkSet) -> this.cachedJWKSet.set(Mono.just(jwkSet))
+	)
+	.cache();
 		// @formatter:on
 	}
 

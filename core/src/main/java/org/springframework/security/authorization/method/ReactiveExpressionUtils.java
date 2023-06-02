@@ -38,7 +38,7 @@ final class ReactiveExpressionUtils {
 			}
 			catch (EvaluationException ex) {
 				return Mono.error(() -> new IllegalArgumentException(
-						"Failed to evaluate expression '" + expr.getExpressionString() + "'", ex));
+			"Failed to evaluate expression '" + expr.getExpressionString() + "'", ex));
 			}
 			if (value instanceof Boolean) {
 				return Mono.just((Boolean) value);
@@ -47,9 +47,9 @@ final class ReactiveExpressionUtils {
 				Mono<?> monoValue = (Mono<?>) value;
 				// @formatter:off
 				return monoValue
-						.filter(Boolean.class::isInstance)
-						.map(Boolean.class::cast)
-						.switchIfEmpty(createInvalidReturnTypeMono(expr));
+			.filter(Boolean.class::isInstance)
+			.map(Boolean.class::cast)
+			.switchIfEmpty(createInvalidReturnTypeMono(expr));
 				// @formatter:on
 			}
 			return createInvalidReturnTypeMono(expr);
@@ -58,7 +58,7 @@ final class ReactiveExpressionUtils {
 
 	private static Mono<Boolean> createInvalidReturnTypeMono(Expression expr) {
 		return Mono.error(() -> new IllegalStateException(
-				"Expression: '" + expr.getExpressionString() + "' must return boolean or Mono<Boolean>"));
+	"Expression: '" + expr.getExpressionString() + "' must return boolean or Mono<Boolean>"));
 	}
 
 	private ReactiveExpressionUtils() {

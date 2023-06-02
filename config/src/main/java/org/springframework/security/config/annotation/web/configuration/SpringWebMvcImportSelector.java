@@ -42,8 +42,8 @@ class SpringWebMvcImportSelector implements ImportSelector {
 		if (!webMvcPresent) {
 			return new String[0];
 		}
-		return new String[] {
-				"org.springframework.security.config.annotation.web.configuration.WebMvcSecurityConfiguration" };
+		return new String[]{
+	"org.springframework.security.config.annotation.web.configuration.WebMvcSecurityConfiguration"};
 	}
 
 }

@@ -46,14 +46,14 @@ public class DefaultLogoutPageGeneratingFilter extends OncePerRequestFilter {
 
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
-			throws ServletException, IOException {
+throws ServletException, IOException {
 		if (this.matcher.matches(request)) {
 			renderLogout(request, response);
 		}
 		else {
 			if (logger.isTraceEnabled()) {
 				logger.trace(LogMessage.format("Did not render default logout page since request did not match [%s]",
-						this.matcher));
+			this.matcher));
 			}
 			filterChain.doFilter(request, response);
 		}
@@ -70,18 +70,18 @@ public class DefaultLogoutPageGeneratingFilter extends OncePerRequestFilter {
 		sb.append("    <meta name=\"author\" content=\"\">\n");
 		sb.append("    <title>Confirm Log Out?</title>\n");
 		sb.append("    <link href=\"https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css\" "
-				+ "rel=\"stylesheet\" integrity=\"sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M\" "
-				+ "crossorigin=\"anonymous\">\n");
+	+ "rel=\"stylesheet\" integrity=\"sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M\" "
+	+ "crossorigin=\"anonymous\">\n");
 		sb.append("    <link href=\"https://getbootstrap.com/docs/4.0/examples/signin/signin.css\" "
-				+ "rel=\"stylesheet\" crossorigin=\"anonymous\"/>\n");
+	+ "rel=\"stylesheet\" crossorigin=\"anonymous\"/>\n");
 		sb.append("  </head>\n");
 		sb.append("  <body>\n");
 		sb.append("     <div class=\"container\">\n");
 		sb.append("      <form class=\"form-signin\" method=\"post\" action=\"" + request.getContextPath()
-				+ "/logout\">\n");
+	+ "/logout\">\n");
 		sb.append("        <h2 class=\"form-signin-heading\">Are you sure you want to log out?</h2>\n");
 		sb.append(renderHiddenInputs(request)
-				+ "        <button class=\"btn btn-lg btn-primary btn-block\" type=\"submit\">Log Out</button>\n");
+	+ "        <button class=\"btn btn-lg btn-primary btn-block\" type=\"submit\">Log Out</button>\n");
 		sb.append("      </form>\n");
 		sb.append("    </div>\n");
 		sb.append("  </body>\n");

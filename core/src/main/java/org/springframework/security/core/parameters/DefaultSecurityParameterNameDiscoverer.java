@@ -52,7 +52,7 @@ public class DefaultSecurityParameterNameDiscoverer extends PrioritizedParameter
 	private static final String DATA_PARAM_CLASSNAME = "org.springframework.data.repository.query.Param";
 
 	private static final boolean DATA_PARAM_PRESENT = ClassUtils.isPresent(DATA_PARAM_CLASSNAME,
-			DefaultSecurityParameterNameDiscoverer.class.getClassLoader());
+DefaultSecurityParameterNameDiscoverer.class.getClassLoader());
 
 	/**
 	 * Creates a new instance with only the default {@link ParameterNameDiscoverer}

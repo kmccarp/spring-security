@@ -35,8 +35,7 @@ import static org.mockito.Mockito.verify;
  * @see CurrentDelegatingSecurityContextAsyncTaskExecutorTests
  * @see ExplicitDelegatingSecurityContextAsyncTaskExecutorTests
  */
-public abstract class AbstractDelegatingSecurityContextAsyncTaskExecutorTests
-		extends AbstractDelegatingSecurityContextExecutorTests {
+public abstract class AbstractDelegatingSecurityContextAsyncTaskExecutorTestsextends AbstractDelegatingSecurityContextExecutorTests {
 
 	@Mock
 	protected AsyncTaskExecutor taskExecutorDelegate;

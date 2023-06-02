@@ -39,21 +39,22 @@ public class SavedCookieMixinTests extends AbstractMixinTests {
 
 	// @formatter:off
 	private static final String COOKIE_JSON = "{"
-		+ "\"@class\": \"org.springframework.security.web.savedrequest.SavedCookie\", "
-		+ "\"name\": \"SESSION\", "
-		+ "\"value\": \"123456789\", "
-		+ "\"comment\": null, "
-		+ "\"maxAge\": -1, "
-		+ "\"path\": null, "
-		+ "\"secure\":false, "
-		+ "\"version\": 0, "
-		+ "\"domain\": null"
-	+ "}";
++ "\"@class\": \"org.springframework.security.web.savedrequest.SavedCookie\", "
++ "\"name\": \"SESSION\", "
++ "\"value\": \"123456789\", "
++ "\"comment\": null, "
++ "\"maxAge\": -1, "
++ "\"path\": null, "
++ "\"secure\":false, "
++ "\"version\": 0, "
++ "\"domain\": null"
++ "}";
 	// @formatter:on
 	// @formatter:off
 	private static final String COOKIES_JSON = "[\"java.util.ArrayList\", ["
-		+ COOKIE_JSON
-	+ "]]";
++ COOKIE_JSON
++ "]]";
+
 	// @formatter:on
 	@Test
 	public void serializeWithDefaultConfigurationTest() throws JsonProcessingException, JSONException {
@@ -66,7 +67,7 @@ public class SavedCookieMixinTests extends AbstractMixinTests {
 	public void serializeWithOverrideConfigurationTest() throws JsonProcessingException, JSONException {
 		SavedCookie savedCookie = new SavedCookie(new Cookie("SESSION", "123456789"));
 		this.mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.PUBLIC_ONLY)
-				.setVisibility(PropertyAccessor.GETTER, JsonAutoDetect.Visibility.ANY);
+	.setVisibility(PropertyAccessor.GETTER, JsonAutoDetect.Visibility.ANY);
 		String actualJson = this.mapper.writeValueAsString(savedCookie);
 		JSONAssert.assertEquals(COOKIE_JSON, actualJson, true);
 	}

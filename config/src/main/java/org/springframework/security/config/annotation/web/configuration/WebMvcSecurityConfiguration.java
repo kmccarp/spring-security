@@ -53,7 +53,7 @@ class WebMvcSecurityConfiguration implements WebMvcConfigurer, ApplicationContex
 	private BeanResolver beanResolver;
 
 	private SecurityContextHolderStrategy securityContextHolderStrategy = SecurityContextHolder
-			.getContextHolderStrategy();
+.getContextHolderStrategy();
 
 	@Override
 	@SuppressWarnings("deprecation")
@@ -63,7 +63,7 @@ class WebMvcSecurityConfiguration implements WebMvcConfigurer, ApplicationContex
 		authenticationPrincipalResolver.setSecurityContextHolderStrategy(this.securityContextHolderStrategy);
 		argumentResolvers.add(authenticationPrincipalResolver);
 		argumentResolvers
-				.add(new org.springframework.security.web.bind.support.AuthenticationPrincipalArgumentResolver());
+	.add(new org.springframework.security.web.bind.support.AuthenticationPrincipalArgumentResolver());
 		CurrentSecurityContextArgumentResolver currentSecurityContextArgumentResolver = new CurrentSecurityContextArgumentResolver();
 		currentSecurityContextArgumentResolver.setBeanResolver(this.beanResolver);
 		currentSecurityContextArgumentResolver.setSecurityContextHolderStrategy(this.securityContextHolderStrategy);

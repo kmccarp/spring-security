@@ -49,8 +49,8 @@ class DefaultSaml2AuthenticatedPrincipalMixinTests {
 	@Test
 	void shouldSerializeWithoutRegistrationId() throws Exception {
 		DefaultSaml2AuthenticatedPrincipal principal = new DefaultSaml2AuthenticatedPrincipal(
-				TestSaml2JsonPayloads.PRINCIPAL_NAME, TestSaml2JsonPayloads.ATTRIBUTES,
-				TestSaml2JsonPayloads.SESSION_INDEXES);
+	TestSaml2JsonPayloads.PRINCIPAL_NAME, TestSaml2JsonPayloads.ATTRIBUTES,
+	TestSaml2JsonPayloads.SESSION_INDEXES);
 
 		String principalJson = this.mapper.writeValueAsString(principal);
 
@@ -60,7 +60,7 @@ class DefaultSaml2AuthenticatedPrincipalMixinTests {
 	@Test
 	void shouldSerializeWithoutIndices() throws Exception {
 		DefaultSaml2AuthenticatedPrincipal principal = new DefaultSaml2AuthenticatedPrincipal(
-				TestSaml2JsonPayloads.PRINCIPAL_NAME, TestSaml2JsonPayloads.ATTRIBUTES);
+	TestSaml2JsonPayloads.PRINCIPAL_NAME, TestSaml2JsonPayloads.ATTRIBUTES);
 		principal.setRelyingPartyRegistrationId(TestSaml2JsonPayloads.REG_ID);
 
 		String principalJson = this.mapper.writeValueAsString(principal);
@@ -71,7 +71,7 @@ class DefaultSaml2AuthenticatedPrincipalMixinTests {
 	@Test
 	void shouldDeserialize() throws Exception {
 		DefaultSaml2AuthenticatedPrincipal principal = this.mapper.readValue(
-				TestSaml2JsonPayloads.DEFAULT_AUTHENTICATED_PRINCIPAL_JSON, DefaultSaml2AuthenticatedPrincipal.class);
+	TestSaml2JsonPayloads.DEFAULT_AUTHENTICATED_PRINCIPAL_JSON, DefaultSaml2AuthenticatedPrincipal.class);
 
 		assertThat(principal).isNotNull();
 		assertThat(principal.getName()).isEqualTo(TestSaml2JsonPayloads.PRINCIPAL_NAME);
@@ -83,7 +83,7 @@ class DefaultSaml2AuthenticatedPrincipalMixinTests {
 	@Test
 	void shouldDeserializeWithoutRegistrationId() throws Exception {
 		DefaultSaml2AuthenticatedPrincipal principal = this.mapper.readValue(principalWithoutRegId(),
-				DefaultSaml2AuthenticatedPrincipal.class);
+	DefaultSaml2AuthenticatedPrincipal.class);
 
 		assertThat(principal).isNotNull();
 		assertThat(principal.getName()).isEqualTo(TestSaml2JsonPayloads.PRINCIPAL_NAME);
@@ -94,12 +94,12 @@ class DefaultSaml2AuthenticatedPrincipalMixinTests {
 
 	private static String principalWithoutRegId() {
 		return TestSaml2JsonPayloads.DEFAULT_AUTHENTICATED_PRINCIPAL_JSON.replace(TestSaml2JsonPayloads.REG_ID_JSON,
-				"null");
+	"null");
 	}
 
 	private static String principalWithoutIndices() {
 		return TestSaml2JsonPayloads.DEFAULT_AUTHENTICATED_PRINCIPAL_JSON
-				.replace(TestSaml2JsonPayloads.SESSION_INDEXES_JSON, "[\"java.util.Collections$EmptyList\", []]");
+	.replace(TestSaml2JsonPayloads.SESSION_INDEXES_JSON, "[\"java.util.Collections$EmptyList\", []]");
 	}
 
 }

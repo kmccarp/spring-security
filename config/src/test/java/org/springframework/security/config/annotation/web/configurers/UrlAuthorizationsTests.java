@@ -49,7 +49,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @author Josh Cummings
  *
  */
-@ExtendWith({ SpringExtension.class, SpringTestContextExtension.class })
+@ExtendWith({SpringExtension.class, SpringTestContextExtension.class})
 @SecurityTestExecutionListeners
 public class UrlAuthorizationsTests {
 
@@ -64,11 +64,11 @@ public class UrlAuthorizationsTests {
 		this.spring.register(RoleConfig.class).autowire();
 		// @formatter:off
 		this.mvc.perform(get("/role-user-authority"))
-				.andExpect(status().isNotFound());
+	.andExpect(status().isNotFound());
 		this.mvc.perform(get("/role-user"))
-				.andExpect(status().isNotFound());
+	.andExpect(status().isNotFound());
 		this.mvc.perform(get("/role-admin-authority"))
-				.andExpect(status().isForbidden());
+	.andExpect(status().isForbidden());
 		// @formatter:on
 	}
 
@@ -87,9 +87,9 @@ public class UrlAuthorizationsTests {
 		this.spring.register(RoleConfig.class).autowire();
 		// @formatter:off
 		this.mvc.perform(get("/role-user"))
-				.andExpect(status().isNotFound());
+	.andExpect(status().isNotFound());
 		this.mvc.perform(get("/role-admin"))
-				.andExpect(status().isForbidden());
+	.andExpect(status().isForbidden());
 		// @formatter:on
 	}
 
@@ -107,9 +107,9 @@ public class UrlAuthorizationsTests {
 		this.spring.register(RoleConfig.class).autowire();
 		// @formatter:off
 		this.mvc.perform(get("/role-user"))
-				.andExpect(status().isForbidden());
+	.andExpect(status().isForbidden());
 		this.mvc.perform(get("/role-admin"))
-				.andExpect(status().isForbidden());
+	.andExpect(status().isForbidden());
 		// @formatter:on
 	}
 
@@ -141,13 +141,13 @@ public class UrlAuthorizationsTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests()
-					.requestMatchers("/role-user-authority").hasAnyAuthority("ROLE_USER")
-					.requestMatchers("/role-admin-authority").hasAnyAuthority("ROLE_ADMIN")
-					.requestMatchers("/role-user-admin-authority").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
-					.requestMatchers("/role-user").hasAnyRole("USER")
-					.requestMatchers("/role-admin").hasAnyRole("ADMIN")
-					.requestMatchers("/role-user-admin").hasAnyRole("USER", "ADMIN");
+		.authorizeRequests()
+		.requestMatchers("/role-user-authority").hasAnyAuthority("ROLE_USER")
+		.requestMatchers("/role-admin-authority").hasAnyAuthority("ROLE_ADMIN")
+		.requestMatchers("/role-user-admin-authority").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
+		.requestMatchers("/role-user").hasAnyRole("USER")
+		.requestMatchers("/role-admin").hasAnyRole("ADMIN")
+		.requestMatchers("/role-user-admin").hasAnyRole("USER", "ADMIN");
 			return http.build();
 			// @formatter:on
 		}
@@ -162,11 +162,11 @@ public class UrlAuthorizationsTests {
 		@Bean
 		SecurityFilterChain filterChain(HttpSecurity http, ApplicationContext context) throws Exception {
 			UrlAuthorizationConfigurer<HttpSecurity>.StandardInterceptUrlRegistry registry = http
-					.apply(new UrlAuthorizationConfigurer(context)).getRegistry();
+		.apply(new UrlAuthorizationConfigurer(context)).getRegistry();
 			// @formatter:off
 			registry
-					.requestMatchers("/a").hasRole("ADMIN")
-					.anyRequest().hasRole("USER");
+		.requestMatchers("/a").hasRole("ADMIN")
+		.anyRequest().hasRole("USER");
 			return http.build();
 			// @formatter:on
 		}

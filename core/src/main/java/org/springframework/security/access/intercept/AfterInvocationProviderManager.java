@@ -66,7 +66,7 @@ public class AfterInvocationProviderManager implements AfterInvocationManager, I
 
 	@Override
 	public Object decide(Authentication authentication, Object object, Collection<ConfigAttribute> config,
-			Object returnedObject) throws AccessDeniedException {
+Object returnedObject) throws AccessDeniedException {
 		Object result = returnedObject;
 		for (AfterInvocationProvider provider : this.providers) {
 			result = provider.decide(authentication, object, config, result);
@@ -83,7 +83,7 @@ public class AfterInvocationProviderManager implements AfterInvocationManager, I
 		this.providers = new ArrayList<>(newList.size());
 		for (Object currentObject : newList) {
 			Assert.isInstanceOf(AfterInvocationProvider.class, currentObject, () -> "AfterInvocationProvider "
-					+ currentObject.getClass().getName() + " must implement AfterInvocationProvider");
+		+ currentObject.getClass().getName() + " must implement AfterInvocationProvider");
 			this.providers.add((AfterInvocationProvider) currentObject);
 		}
 	}

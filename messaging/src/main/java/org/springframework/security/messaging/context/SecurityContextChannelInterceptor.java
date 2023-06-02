@@ -46,14 +46,14 @@ public final class SecurityContextChannelInterceptor implements ExecutorChannelI
 	private static final ThreadLocal<Stack<SecurityContext>> originalContext = new ThreadLocal<>();
 
 	private SecurityContextHolderStrategy securityContextHolderStrategy = SecurityContextHolder
-			.getContextHolderStrategy();
+.getContextHolderStrategy();
 
 	private SecurityContext empty = this.securityContextHolderStrategy.createEmptyContext();
 
 	private final String authenticationHeaderName;
 
 	private Authentication anonymous = new AnonymousAuthenticationToken("key", "anonymous",
-			AuthorityUtils.createAuthorityList("ROLE_ANONYMOUS"));
+AuthorityUtils.createAuthorityList("ROLE_ANONYMOUS"));
 
 	/**
 	 * Creates a new instance using the header of the name

@@ -36,15 +36,14 @@ import org.springframework.web.context.ServletContextAware;
  * @author Marcus Da Coregio
  * @since 5.5.5
  */
-public final class RequestMatcherDelegatingWebInvocationPrivilegeEvaluator
-		implements WebInvocationPrivilegeEvaluator, ServletContextAware {
+public final class RequestMatcherDelegatingWebInvocationPrivilegeEvaluatorimplements WebInvocationPrivilegeEvaluator, ServletContextAware {
 
 	private final List<RequestMatcherEntry<List<WebInvocationPrivilegeEvaluator>>> delegates;
 
 	private ServletContext servletContext;
 
 	public RequestMatcherDelegatingWebInvocationPrivilegeEvaluator(
-			List<RequestMatcherEntry<List<WebInvocationPrivilegeEvaluator>>> requestMatcherPrivilegeEvaluatorsEntries) {
+List<RequestMatcherEntry<List<WebInvocationPrivilegeEvaluator>>> requestMatcherPrivilegeEvaluatorsEntries) {
 		Assert.notNull(requestMatcherPrivilegeEvaluatorsEntries, "requestMatcherPrivilegeEvaluators cannot be null");
 		for (RequestMatcherEntry<List<WebInvocationPrivilegeEvaluator>> entry : requestMatcherPrivilegeEvaluatorsEntries) {
 			Assert.notNull(entry.getRequestMatcher(), "requestMatcher cannot be null");

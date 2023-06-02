@@ -147,7 +147,7 @@ public final class AntPathRequestMatcher implements RequestMatcher, RequestVaria
 	 * HttpServletRequest
 	 */
 	public AntPathRequestMatcher(String pattern, String httpMethod, boolean caseSensitive,
-			UrlPathHelper urlPathHelper) {
+UrlPathHelper urlPathHelper) {
 		Assert.hasText(pattern, "Pattern cannot be null or empty");
 		this.caseSensitive = caseSensitive;
 		if (pattern.equals(MATCH_ALL) || pattern.equals("**")) {
@@ -158,8 +158,8 @@ public final class AntPathRequestMatcher implements RequestMatcher, RequestVaria
 			// If the pattern ends with {@code /**} and has no other wildcards or path
 			// variables, then optimize to a sub-path match
 			if (pattern.endsWith(MATCH_ALL)
-					&& (pattern.indexOf('?') == -1 && pattern.indexOf('{') == -1 && pattern.indexOf('}') == -1)
-					&& pattern.indexOf("*") == pattern.length() - 2) {
+		&& (pattern.indexOf('?') == -1 && pattern.indexOf('{') == -1 && pattern.indexOf('}') == -1)
+		&& pattern.indexOf("*") == pattern.length() - 2) {
 				this.matcher = new SubpathMatcher(pattern.substring(0, pattern.length() - 3), caseSensitive);
 			}
 			else {
@@ -180,7 +180,7 @@ public final class AntPathRequestMatcher implements RequestMatcher, RequestVaria
 	@Override
 	public boolean matches(HttpServletRequest request) {
 		if (this.httpMethod != null && StringUtils.hasText(request.getMethod())
-				&& this.httpMethod != HttpMethod.valueOf(request.getMethod())) {
+	&& this.httpMethod != HttpMethod.valueOf(request.getMethod())) {
 			return false;
 		}
 		if (this.pattern.equals(MATCH_ALL)) {
@@ -231,7 +231,7 @@ public final class AntPathRequestMatcher implements RequestMatcher, RequestVaria
 		}
 		AntPathRequestMatcher other = (AntPathRequestMatcher) obj;
 		return this.pattern.equals(other.pattern) && this.httpMethod == other.httpMethod
-				&& this.caseSensitive == other.caseSensitive;
+	&& this.caseSensitive == other.caseSensitive;
 	}
 
 	@Override

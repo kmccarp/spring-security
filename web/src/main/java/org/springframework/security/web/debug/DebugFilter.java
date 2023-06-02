@@ -60,7 +60,7 @@ public final class DebugFilter implements Filter {
 
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain)
-			throws ServletException, IOException {
+throws ServletException, IOException {
 		if (!(request instanceof HttpServletRequest) || !(response instanceof HttpServletResponse)) {
 			throw new ServletException("DebugFilter just supports HTTP requests");
 		}
@@ -68,12 +68,12 @@ public final class DebugFilter implements Filter {
 	}
 
 	private void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
-			throws IOException, ServletException {
+throws IOException, ServletException {
 		List<Filter> filters = getFilters(request);
 		this.logger.info("Request received for " + request.getMethod() + " '" + UrlUtils.buildRequestUrl(request)
-				+ "':\n\n" + request + "\n\n" + "servletPath:" + request.getServletPath() + "\n" + "pathInfo:"
-				+ request.getPathInfo() + "\n" + "headers: \n" + formatHeaders(request) + "\n\n"
-				+ formatFilters(filters));
+	+ "':\n\n" + request + "\n\n" + "servletPath:" + request.getServletPath() + "\n" + "pathInfo:"
+	+ request.getPathInfo() + "\n" + "headers: \n" + formatHeaders(request) + "\n\n"
+	+ formatFilters(filters));
 		if (request.getAttribute(ALREADY_FILTERED_ATTR_NAME) == null) {
 			invokeWithWrappedRequest(request, response, filterChain);
 		}
@@ -83,7 +83,7 @@ public final class DebugFilter implements Filter {
 	}
 
 	private void invokeWithWrappedRequest(HttpServletRequest request, HttpServletResponse response,
-			FilterChain filterChain) throws IOException, ServletException {
+FilterChain filterChain) throws IOException, ServletException {
 		request.setAttribute(ALREADY_FILTERED_ATTR_NAME, Boolean.TRUE);
 		request = new DebugRequestWrapper(request);
 		try {

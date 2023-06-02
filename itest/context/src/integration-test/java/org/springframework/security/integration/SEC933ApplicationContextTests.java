@@ -26,7 +26,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@ContextConfiguration(locations = { "/sec-933-app-context.xml" })
+@ContextConfiguration(locations = {"/sec-933-app-context.xml"})
 @ExtendWith(SpringExtension.class)
 public class SEC933ApplicationContextTests {
 

@@ -64,7 +64,7 @@ public abstract class AbstractSaml2AuthenticationRequest implements Serializable
 	 * or null
 	 */
 	AbstractSaml2AuthenticationRequest(String samlRequest, String relayState, String authenticationRequestUri,
-			String relyingPartyRegistrationId, String id) {
+String relyingPartyRegistrationId, String id) {
 		Assert.hasText(samlRequest, "samlRequest cannot be null or empty");
 		Assert.hasText(authenticationRequestUri, "authenticationRequestUri cannot be null or empty");
 		this.authenticationRequestUri = authenticationRequestUri;

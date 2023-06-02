@@ -45,23 +45,23 @@ public class RunAsManagerImplTests {
 	@Test
 	public void testDoesNotReturnAdditionalAuthoritiesIfCalledWithoutARunAsSetting() {
 		UsernamePasswordAuthenticationToken inputToken = UsernamePasswordAuthenticationToken.authenticated("Test",
-				"Password", AuthorityUtils.createAuthorityList("ROLE_ONE", "ROLE_TWO"));
+	"Password", AuthorityUtils.createAuthorityList("ROLE_ONE", "ROLE_TWO"));
 		RunAsManagerImpl runAs = new RunAsManagerImpl();
 		runAs.setKey("my_password");
 		Authentication resultingToken = runAs.buildRunAs(inputToken, new Object(),
-				SecurityConfig.createList("SOMETHING_WE_IGNORE"));
+	SecurityConfig.createList("SOMETHING_WE_IGNORE"));
 		assertThat(resultingToken).isNull();
 	}
 
 	@Test
 	public void testRespectsRolePrefix() {
 		UsernamePasswordAuthenticationToken inputToken = UsernamePasswordAuthenticationToken.authenticated("Test",
-				"Password", AuthorityUtils.createAuthorityList("ONE", "TWO"));
+	"Password", AuthorityUtils.createAuthorityList("ONE", "TWO"));
 		RunAsManagerImpl runAs = new RunAsManagerImpl();
 		runAs.setKey("my_password");
 		runAs.setRolePrefix("FOOBAR_");
 		Authentication result = runAs.buildRunAs(inputToken, new Object(),
-				SecurityConfig.createList("RUN_AS_SOMETHING"));
+	SecurityConfig.createList("RUN_AS_SOMETHING"));
 		assertThat(result instanceof RunAsUserToken).withFailMessage("Should have returned a RunAsUserToken").isTrue();
 		assertThat(result.getPrincipal()).isEqualTo(inputToken.getPrincipal());
 		assertThat(result.getCredentials()).isEqualTo(inputToken.getCredentials());
@@ -76,11 +76,11 @@ public class RunAsManagerImplTests {
 	@Test
 	public void testReturnsAdditionalGrantedAuthorities() {
 		UsernamePasswordAuthenticationToken inputToken = UsernamePasswordAuthenticationToken.authenticated("Test",
-				"Password", AuthorityUtils.createAuthorityList("ROLE_ONE", "ROLE_TWO"));
+	"Password", AuthorityUtils.createAuthorityList("ROLE_ONE", "ROLE_TWO"));
 		RunAsManagerImpl runAs = new RunAsManagerImpl();
 		runAs.setKey("my_password");
 		Authentication result = runAs.buildRunAs(inputToken, new Object(),
-				SecurityConfig.createList("RUN_AS_SOMETHING"));
+	SecurityConfig.createList("RUN_AS_SOMETHING"));
 		if (!(result instanceof RunAsUserToken)) {
 			fail("Should have returned a RunAsUserToken");
 		}

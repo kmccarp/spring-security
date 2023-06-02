@@ -58,8 +58,7 @@ import org.springframework.web.accept.HeaderContentNegotiationStrategy;
  * @since 3.2
  * @see FormLoginConfigurer
  */
-public abstract class AbstractAuthenticationFilterConfigurer<B extends HttpSecurityBuilder<B>, T extends AbstractAuthenticationFilterConfigurer<B, T, F>, F extends AbstractAuthenticationProcessingFilter>
-		extends AbstractHttpConfigurer<T, B> {
+public abstract class AbstractAuthenticationFilterConfigurer<B extends HttpSecurityBuilder<B>, T extends AbstractAuthenticationFilterConfigurer<B, T, F>, F extends AbstractAuthenticationProcessingFilter>extends AbstractHttpConfigurer<T, B> {
 
 	private F authFilter;
 
@@ -165,7 +164,7 @@ public abstract class AbstractAuthenticationFilterConfigurer<B extends HttpSecur
 	 * @return the {@link FormLoginConfigurer} for additional customization
 	 */
 	public final T authenticationDetailsSource(
-			AuthenticationDetailsSource<HttpServletRequest, ?> authenticationDetailsSource) {
+AuthenticationDetailsSource<HttpServletRequest, ?> authenticationDetailsSource) {
 		this.authenticationDetailsSource = authenticationDetailsSource;
 		return getSelf();
 	}
@@ -249,7 +248,7 @@ public abstract class AbstractAuthenticationFilterConfigurer<B extends HttpSecur
 			return;
 		}
 		exceptionHandling.defaultAuthenticationEntryPointFor(postProcess(authenticationEntryPoint),
-				getAuthenticationEntryPointMatcher(http));
+	getAuthenticationEntryPointMatcher(http));
 	}
 
 	protected final RequestMatcher getAuthenticationEntryPointMatcher(B http) {
@@ -258,11 +257,11 @@ public abstract class AbstractAuthenticationFilterConfigurer<B extends HttpSecur
 			contentNegotiationStrategy = new HeaderContentNegotiationStrategy();
 		}
 		MediaTypeRequestMatcher mediaMatcher = new MediaTypeRequestMatcher(contentNegotiationStrategy,
-				MediaType.APPLICATION_XHTML_XML, new MediaType("image", "*"), MediaType.TEXT_HTML,
-				MediaType.TEXT_PLAIN);
+	MediaType.APPLICATION_XHTML_XML, new MediaType("image", "*"), MediaType.TEXT_HTML,
+	MediaType.TEXT_PLAIN);
 		mediaMatcher.setIgnoredMediaTypes(Collections.singleton(MediaType.ALL));
 		RequestMatcher notXRequestedWith = new NegatedRequestMatcher(
-				new RequestHeaderRequestMatcher("X-Requested-With", "XMLHttpRequest"));
+	new RequestHeaderRequestMatcher("X-Requested-With", "XMLHttpRequest"));
 		return new AndRequestMatcher(Arrays.asList(notXRequestedWith, mediaMatcher));
 	}
 
@@ -283,7 +282,7 @@ public abstract class AbstractAuthenticationFilterConfigurer<B extends HttpSecur
 			this.authFilter.setAuthenticationDetailsSource(this.authenticationDetailsSource);
 		}
 		SessionAuthenticationStrategy sessionAuthenticationStrategy = http
-				.getSharedObject(SessionAuthenticationStrategy.class);
+	.getSharedObject(SessionAuthenticationStrategy.class);
 		if (sessionAuthenticationStrategy != null) {
 			this.authFilter.setSessionAuthenticationStrategy(sessionAuthenticationStrategy);
 		}
@@ -294,7 +293,7 @@ public abstract class AbstractAuthenticationFilterConfigurer<B extends HttpSecur
 		SecurityContextConfigurer securityContextConfigurer = http.getConfigurer(SecurityContextConfigurer.class);
 		if (securityContextConfigurer != null && securityContextConfigurer.isRequireExplicitSave()) {
 			SecurityContextRepository securityContextRepository = securityContextConfigurer
-					.getSecurityContextRepository();
+		.getSecurityContextRepository();
 			this.authFilter.setSecurityContextRepository(securityContextRepository);
 		}
 		this.authFilter.setSecurityContextHolderStrategy(getSecurityContextHolderStrategy());

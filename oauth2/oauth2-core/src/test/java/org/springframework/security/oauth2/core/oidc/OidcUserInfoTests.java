@@ -114,6 +114,7 @@ public class OidcUserInfoTests {
 	private static final long UPDATED_AT_VALUE = Instant.now().minusSeconds(60).toEpochMilli();
 
 	private static final Map<String, Object> CLAIMS;
+
 	static {
 		CLAIMS = new HashMap<>();
 		CLAIMS.put(SUB_CLAIM, SUB_VALUE);
@@ -136,16 +137,16 @@ public class OidcUserInfoTests {
 		CLAIMS.put(PHONE_NUMBER_VERIFIED_CLAIM, PHONE_NUMBER_VERIFIED_VALUE);
 		ADDRESS_VALUE = new HashMap<>();
 		ADDRESS_VALUE.put(DefaultAddressStandardClaimTests.FORMATTED_FIELD_NAME,
-				DefaultAddressStandardClaimTests.FORMATTED);
+	DefaultAddressStandardClaimTests.FORMATTED);
 		ADDRESS_VALUE.put(DefaultAddressStandardClaimTests.STREET_ADDRESS_FIELD_NAME,
-				DefaultAddressStandardClaimTests.STREET_ADDRESS);
+	DefaultAddressStandardClaimTests.STREET_ADDRESS);
 		ADDRESS_VALUE.put(DefaultAddressStandardClaimTests.LOCALITY_FIELD_NAME,
-				DefaultAddressStandardClaimTests.LOCALITY);
+	DefaultAddressStandardClaimTests.LOCALITY);
 		ADDRESS_VALUE.put(DefaultAddressStandardClaimTests.REGION_FIELD_NAME, DefaultAddressStandardClaimTests.REGION);
 		ADDRESS_VALUE.put(DefaultAddressStandardClaimTests.POSTAL_CODE_FIELD_NAME,
-				DefaultAddressStandardClaimTests.POSTAL_CODE);
+	DefaultAddressStandardClaimTests.POSTAL_CODE);
 		ADDRESS_VALUE.put(DefaultAddressStandardClaimTests.COUNTRY_FIELD_NAME,
-				DefaultAddressStandardClaimTests.COUNTRY);
+	DefaultAddressStandardClaimTests.COUNTRY);
 		CLAIMS.put(ADDRESS_CLAIM, ADDRESS_VALUE);
 		CLAIMS.put(UPDATED_AT_CLAIM, UPDATED_AT_VALUE);
 	}

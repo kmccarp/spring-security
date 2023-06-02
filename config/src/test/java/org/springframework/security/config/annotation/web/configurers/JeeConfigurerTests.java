@@ -66,7 +66,7 @@ public class JeeConfigurerTests {
 		ObjectPostProcessorConfig.objectPostProcessor = spy(ReflectingObjectPostProcessor.class);
 		this.spring.register(ObjectPostProcessorConfig.class).autowire();
 		verify(ObjectPostProcessorConfig.objectPostProcessor)
-				.postProcess(any(J2eePreAuthenticatedProcessingFilter.class));
+	.postProcess(any(J2eePreAuthenticatedProcessingFilter.class));
 	}
 
 	@Test
@@ -74,7 +74,7 @@ public class JeeConfigurerTests {
 		ObjectPostProcessorConfig.objectPostProcessor = spy(ReflectingObjectPostProcessor.class);
 		this.spring.register(ObjectPostProcessorConfig.class).autowire();
 		verify(ObjectPostProcessorConfig.objectPostProcessor)
-				.postProcess(any(J2eeBasedPreAuthenticatedWebAuthenticationDetailsSource.class));
+	.postProcess(any(J2eeBasedPreAuthenticatedWebAuthenticationDetailsSource.class));
 	}
 
 	@Test
@@ -84,12 +84,12 @@ public class JeeConfigurerTests {
 		given(user.getName()).willReturn("user");
 		// @formatter:off
 		MockHttpServletRequestBuilder authRequest = get("/")
-				.principal(user)
-				.with((request) -> {
-					request.addUserRole("ROLE_ADMIN");
-					request.addUserRole("ROLE_USER");
-					return request;
-				});
+	.principal(user)
+	.with((request) -> {
+		request.addUserRole("ROLE_ADMIN");
+		request.addUserRole("ROLE_USER");
+		return request;
+	});
 		// @formatter:on
 		this.mvc.perform(authRequest).andExpect(authenticated().withRoles("USER"));
 	}
@@ -101,12 +101,12 @@ public class JeeConfigurerTests {
 		given(user.getName()).willReturn("user");
 		// @formatter:off
 		MockHttpServletRequestBuilder authRequest = get("/")
-				.principal(user)
-				.with((request) -> {
-					request.addUserRole("ROLE_ADMIN");
-					request.addUserRole("ROLE_USER");
-					return request;
-				});
+	.principal(user)
+	.with((request) -> {
+		request.addUserRole("ROLE_ADMIN");
+		request.addUserRole("ROLE_USER");
+		return request;
+	});
 		// @formatter:on
 		this.mvc.perform(authRequest).andExpect(authenticated().withRoles("USER"));
 	}
@@ -118,36 +118,36 @@ public class JeeConfigurerTests {
 		given(user.getName()).willReturn("user");
 		// @formatter:off
 		MockHttpServletRequestBuilder authRequest = get("/")
-				.principal(user)
-				.with((request) -> {
-					request.addUserRole("ROLE_ADMIN");
-					request.addUserRole("ROLE_USER");
-					return request;
-				});
+	.principal(user)
+	.with((request) -> {
+		request.addUserRole("ROLE_ADMIN");
+		request.addUserRole("ROLE_USER");
+		return request;
+	});
 		// @formatter:on
 		SecurityMockMvcResultMatchers.AuthenticatedMatcher authenticatedAsUser = authenticated()
-				.withAuthorities(AuthorityUtils.createAuthorityList("ROLE_USER"));
+	.withAuthorities(AuthorityUtils.createAuthorityList("ROLE_USER"));
 		this.mvc.perform(authRequest).andExpect(authenticatedAsUser);
 	}
 
 	@Test
 	public void requestWhenCustomAuthenticatedUserDetailsServiceInLambdaThenCustomAuthenticatedUserDetailsServiceUsed()
-			throws Exception {
+throws Exception {
 		this.spring.register(JeeCustomAuthenticatedUserDetailsServiceConfig.class).autowire();
 		Principal user = mock(Principal.class);
 		User userDetails = new User("user", "N/A", true, true, true, true,
-				AuthorityUtils.createAuthorityList("ROLE_USER"));
+	AuthorityUtils.createAuthorityList("ROLE_USER"));
 		given(user.getName()).willReturn("user");
 		given(JeeCustomAuthenticatedUserDetailsServiceConfig.authenticationUserDetailsService.loadUserDetails(any()))
-				.willReturn(userDetails);
+	.willReturn(userDetails);
 		// @formatter:off
 		MockHttpServletRequestBuilder authRequest = get("/")
-				.principal(user)
-				.with((request) -> {
-					request.addUserRole("ROLE_ADMIN");
-					request.addUserRole("ROLE_USER");
-					return request;
-				});
+	.principal(user)
+	.with((request) -> {
+		request.addUserRole("ROLE_ADMIN");
+		request.addUserRole("ROLE_USER");
+		return request;
+	});
 		// @formatter:on
 		this.mvc.perform(authRequest).andExpect(authenticated().withRoles("USER"));
 	}
@@ -162,7 +162,7 @@ public class JeeConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.jee();
+		.jee();
 			return http.build();
 			// @formatter:on
 		}
@@ -191,10 +191,10 @@ public class JeeConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.jee()
-					.mappableRoles("USER")
-					.and()
-				.jee();
+		.jee()
+		.mappableRoles("USER")
+		.and()
+		.jee();
 			return http.build();
 			// @formatter:on
 		}
@@ -209,14 +209,14 @@ public class JeeConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests((authorizeRequests) ->
-					authorizeRequests
-						.anyRequest().hasRole("USER")
-				)
-				.jee((jee) ->
-					jee
-						.mappableRoles("USER")
-				);
+		.authorizeRequests((authorizeRequests) ->
+	authorizeRequests
+.anyRequest().hasRole("USER")
+		)
+		.jee((jee) ->
+	jee
+.mappableRoles("USER")
+		);
 			return http.build();
 			// @formatter:on
 		}
@@ -231,14 +231,14 @@ public class JeeConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests((authorizeRequests) ->
-					authorizeRequests
-						.anyRequest().hasRole("USER")
-				)
-				.jee((jee) ->
-					jee
-						.mappableAuthorities("ROLE_USER")
-				);
+		.authorizeRequests((authorizeRequests) ->
+	authorizeRequests
+.anyRequest().hasRole("USER")
+		)
+		.jee((jee) ->
+	jee
+.mappableAuthorities("ROLE_USER")
+		);
 			return http.build();
 			// @formatter:on
 		}
@@ -250,20 +250,20 @@ public class JeeConfigurerTests {
 	public static class JeeCustomAuthenticatedUserDetailsServiceConfig {
 
 		static AuthenticationUserDetailsService authenticationUserDetailsService = mock(
-				AuthenticationUserDetailsService.class);
+	AuthenticationUserDetailsService.class);
 
 		@Bean
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests((authorizeRequests) ->
-					authorizeRequests
-						.anyRequest().hasRole("USER")
-				)
-				.jee((jee) ->
-					jee
-						.authenticatedUserDetailsService(authenticationUserDetailsService)
-				);
+		.authorizeRequests((authorizeRequests) ->
+	authorizeRequests
+.anyRequest().hasRole("USER")
+		)
+		.jee((jee) ->
+	jee
+.authenticatedUserDetailsService(authenticationUserDetailsService)
+		);
 			return http.build();
 			// @formatter:on
 		}

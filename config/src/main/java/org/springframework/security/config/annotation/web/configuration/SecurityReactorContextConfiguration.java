@@ -65,7 +65,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 class SecurityReactorContextConfiguration {
 
 	private SecurityContextHolderStrategy securityContextHolderStrategy = SecurityContextHolder
-			.getContextHolderStrategy();
+.getContextHolderStrategy();
 
 	@Bean
 	SecurityReactorContextSubscriberRegistrar securityReactorContextSubscriberRegistrar() {
@@ -87,20 +87,20 @@ class SecurityReactorContextConfiguration {
 		private final Map<Object, Supplier<Object>> CONTEXT_ATTRIBUTE_VALUE_LOADERS = new HashMap<>();
 
 		private SecurityContextHolderStrategy securityContextHolderStrategy = SecurityContextHolder
-				.getContextHolderStrategy();
+	.getContextHolderStrategy();
 
 		SecurityReactorContextSubscriberRegistrar() {
 			this.CONTEXT_ATTRIBUTE_VALUE_LOADERS.put(HttpServletRequest.class,
-					SecurityReactorContextSubscriberRegistrar::getRequest);
+		SecurityReactorContextSubscriberRegistrar::getRequest);
 			this.CONTEXT_ATTRIBUTE_VALUE_LOADERS.put(HttpServletResponse.class,
-					SecurityReactorContextSubscriberRegistrar::getResponse);
+		SecurityReactorContextSubscriberRegistrar::getResponse);
 			this.CONTEXT_ATTRIBUTE_VALUE_LOADERS.put(Authentication.class, this::getAuthentication);
 		}
 
 		@Override
 		public void afterPropertiesSet() throws Exception {
 			Function<? super Publisher<Object>, ? extends Publisher<Object>> lifter = Operators
-					.liftPublisher((pub, sub) -> createSubscriberIfNecessary(sub));
+		.liftPublisher((pub, sub) -> createSubscriberIfNecessary(sub));
 			Hooks.onLastOperator(SECURITY_REACTOR_CONTEXT_OPERATOR_KEY, lifter::apply);
 		}
 
@@ -235,7 +235,7 @@ class SecurityReactorContextConfiguration {
 		public V get(Object key) {
 			if (!this.loaders.containsKey(key)) {
 				throw new IllegalArgumentException(
-						"This map only supports the following keys: " + this.loaders.keySet());
+			"This map only supports the following keys: " + this.loaders.keySet());
 			}
 			return this.loaded.computeIfAbsent((K) key, (k) -> this.loaders.get(k).get());
 		}
@@ -244,7 +244,7 @@ class SecurityReactorContextConfiguration {
 		public V put(K key, V value) {
 			if (!this.loaders.containsKey(key)) {
 				throw new IllegalArgumentException(
-						"This map only supports the following keys: " + this.loaders.keySet());
+			"This map only supports the following keys: " + this.loaders.keySet());
 			}
 			return this.loaded.put(key, value);
 		}
@@ -253,7 +253,7 @@ class SecurityReactorContextConfiguration {
 		public V remove(Object key) {
 			if (!this.loaders.containsKey(key)) {
 				throw new IllegalArgumentException(
-						"This map only supports the following keys: " + this.loaders.keySet());
+			"This map only supports the following keys: " + this.loaders.keySet());
 			}
 			return this.loaded.remove(key);
 		}

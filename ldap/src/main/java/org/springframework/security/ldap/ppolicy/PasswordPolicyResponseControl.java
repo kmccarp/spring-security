@@ -190,13 +190,13 @@ public class PasswordPolicyResponseControl extends PasswordPolicyControl {
 
 		@Override
 		public void decode() throws IOException {
-			int[] bread = { 0 };
+			int[] bread = {0};
 			BERSequence seq = (BERSequence) BERElement.getElement(new SpecificTagDecoder(),
-					new ByteArrayInputStream(PasswordPolicyResponseControl.this.encodedValue), bread);
+		new ByteArrayInputStream(PasswordPolicyResponseControl.this.encodedValue), bread);
 			int size = seq.size();
 			if (logger.isDebugEnabled()) {
 				logger.debug(LogMessage.format("Received PasswordPolicyResponse whose ASN.1 sequence has %d elements",
-						size));
+			size));
 			}
 			for (int i = 0; i < seq.size(); i++) {
 				BERTag elt = (BERTag) seq.elementAt(i);
@@ -215,7 +215,7 @@ public class PasswordPolicyResponseControl extends PasswordPolicyControl {
 				else if (tag == 1) {
 					BERIntegral error = (BERIntegral) elt.getValue();
 					PasswordPolicyResponseControl.this.errorStatus = PasswordPolicyErrorStatus.values()[error
-							.getValue()];
+				.getValue()];
 				}
 			}
 		}
@@ -227,7 +227,7 @@ public class PasswordPolicyResponseControl extends PasswordPolicyControl {
 
 			@Override
 			public BERElement getElement(BERTagDecoder decoder, int tag, InputStream stream, int[] bytesRead,
-					boolean[] implicit) throws IOException {
+		boolean[] implicit) throws IOException {
 				tag &= 0x1F;
 				implicit[0] = false;
 				if (tag == 0) {

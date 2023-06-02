@@ -55,6 +55,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class NamespaceHttpHeadersTests {
 
 	static final Map<String, String> defaultHeaders = new LinkedHashMap<>();
+
 	static {
 		defaultHeaders.put("X-Content-Type-Options", "nosniff");
 		defaultHeaders.put("X-Frame-Options", "DENY");
@@ -64,6 +65,7 @@ public class NamespaceHttpHeadersTests {
 		defaultHeaders.put("Pragma", "no-cache");
 		defaultHeaders.put("X-XSS-Protection", "0");
 	}
+
 	public final SpringTestContext spring = new SpringTestContext(this);
 
 	@Autowired
@@ -91,7 +93,7 @@ public class NamespaceHttpHeadersTests {
 	public void requestWhenHstsCustomThenBehaviorMatchesNamespace() throws Exception {
 		this.spring.register(HstsCustomConfig.class).autowire();
 		this.mvc.perform(get("/"))
-				.andExpect(includes(Collections.singletonMap("Strict-Transport-Security", "max-age=15768000")));
+	.andExpect(includes(Collections.singletonMap("Strict-Transport-Security", "max-age=15768000")));
 	}
 
 	@Test
@@ -104,7 +106,7 @@ public class NamespaceHttpHeadersTests {
 	public void requestWhenFrameOptionsAllowFromThenBehaviorMatchesNamespace() throws Exception {
 		this.spring.register(FrameOptionsAllowFromConfig.class).autowire();
 		this.mvc.perform(get("/"))
-				.andExpect(includes(Collections.singletonMap("X-Frame-Options", "ALLOW-FROM https://example.com")));
+	.andExpect(includes(Collections.singletonMap("X-Frame-Options", "ALLOW-FROM https://example.com")));
 	}
 
 	@Test
@@ -129,7 +131,7 @@ public class NamespaceHttpHeadersTests {
 	public void requestWhenCustomHeaderOnlyThenBehaviorMatchesNamespace() throws Exception {
 		this.spring.register(HeaderRefConfig.class).autowire();
 		this.mvc.perform(get("/"))
-				.andExpect(includes(Collections.singletonMap("customHeaderName", "customHeaderValue")));
+	.andExpect(includes(Collections.singletonMap("customHeaderName", "customHeaderValue")));
 	}
 
 	private static ResultMatcher includesDefaults() {
@@ -161,7 +163,7 @@ public class NamespaceHttpHeadersTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.headers();
+		.headers();
 			return http.build();
 			// @formatter:on
 		}
@@ -176,9 +178,9 @@ public class NamespaceHttpHeadersTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.headers()
-					.defaultsDisabled()
-					.cacheControl();
+		.headers()
+		.defaultsDisabled()
+		.cacheControl();
 			return http.build();
 			// @formatter:on
 		}
@@ -193,9 +195,9 @@ public class NamespaceHttpHeadersTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.headers()
-					.defaultsDisabled()
-					.httpStrictTransportSecurity();
+		.headers()
+		.defaultsDisabled()
+		.httpStrictTransportSecurity();
 			return http.build();
 			// @formatter:on
 		}
@@ -210,13 +212,13 @@ public class NamespaceHttpHeadersTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.headers()
-					// hsts@request-matcher-ref, hsts@max-age-seconds, hsts@include-subdomains
-					.defaultsDisabled()
-					.httpStrictTransportSecurity()
-						.requestMatcher(AnyRequestMatcher.INSTANCE)
-						.maxAgeInSeconds(15768000)
-						.includeSubDomains(false);
+		.headers()
+		// hsts@request-matcher-ref, hsts@max-age-seconds, hsts@include-subdomains
+		.defaultsDisabled()
+		.httpStrictTransportSecurity()
+		.requestMatcher(AnyRequestMatcher.INSTANCE)
+		.maxAgeInSeconds(15768000)
+		.includeSubDomains(false);
 			return http.build();
 			// @formatter:on
 		}
@@ -231,11 +233,11 @@ public class NamespaceHttpHeadersTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.headers()
-					// frame-options@policy=SAMEORIGIN
-					.defaultsDisabled()
-					.frameOptions()
-						.sameOrigin();
+		.headers()
+		// frame-options@policy=SAMEORIGIN
+		.defaultsDisabled()
+		.frameOptions()
+		.sameOrigin();
 			return http.build();
 			// @formatter:on
 		}
@@ -250,11 +252,11 @@ public class NamespaceHttpHeadersTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.headers()
-					// frame-options@ref
-					.defaultsDisabled()
-					.addHeaderWriter(new XFrameOptionsHeaderWriter(
-							new StaticAllowFromStrategy(URI.create("https://example.com"))));
+		.headers()
+		// frame-options@ref
+		.defaultsDisabled()
+		.addHeaderWriter(new XFrameOptionsHeaderWriter(
+	new StaticAllowFromStrategy(URI.create("https://example.com"))));
 			return http.build();
 			// @formatter:on
 		}
@@ -269,10 +271,10 @@ public class NamespaceHttpHeadersTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.headers()
-					// xss-protection
-					.defaultsDisabled()
-					.xssProtection();
+		.headers()
+		// xss-protection
+		.defaultsDisabled()
+		.xssProtection();
 			return http.build();
 			// @formatter:on
 		}
@@ -287,11 +289,11 @@ public class NamespaceHttpHeadersTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.headers()
-					// xss-protection@enabled and xss-protection@block
-					.defaultsDisabled()
-					.xssProtection()
-						.headerValue(XXssProtectionHeaderWriter.HeaderValue.ENABLED_MODE_BLOCK);
+		.headers()
+		// xss-protection@enabled and xss-protection@block
+		.defaultsDisabled()
+		.xssProtection()
+		.headerValue(XXssProtectionHeaderWriter.HeaderValue.ENABLED_MODE_BLOCK);
 			// @formatter:on
 			return http.build();
 		}
@@ -306,10 +308,10 @@ public class NamespaceHttpHeadersTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.headers()
-					// content-type-options
-					.defaultsDisabled()
-					.contentTypeOptions();
+		.headers()
+		// content-type-options
+		.defaultsDisabled()
+		.contentTypeOptions();
 			return http.build();
 			// @formatter:on
 		}
@@ -324,9 +326,9 @@ public class NamespaceHttpHeadersTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.headers()
-					.defaultsDisabled()
-					.addHeaderWriter(new StaticHeadersWriter("customHeaderName", "customHeaderValue"));
+		.headers()
+		.defaultsDisabled()
+		.addHeaderWriter(new StaticHeadersWriter("customHeaderName", "customHeaderValue"));
 			return http.build();
 			// @formatter:on
 		}

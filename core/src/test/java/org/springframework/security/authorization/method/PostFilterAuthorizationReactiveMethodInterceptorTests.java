@@ -45,36 +45,36 @@ public class PostFilterAuthorizationReactiveMethodInterceptorTests {
 	public void setExpressionHandlerWhenNotNullThenSetsExpressionHandler() {
 		MethodSecurityExpressionHandler expressionHandler = new DefaultMethodSecurityExpressionHandler();
 		PostFilterAuthorizationReactiveMethodInterceptor interceptor = new PostFilterAuthorizationReactiveMethodInterceptor(
-				expressionHandler);
+	expressionHandler);
 		assertThat(interceptor).extracting("registry").extracting("expressionHandler").isEqualTo(expressionHandler);
 	}
 
 	@Test
 	public void setExpressionHandlerWhenNullThenException() {
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new PostFilterAuthorizationReactiveMethodInterceptor(null))
-				.withMessage("expressionHandler cannot be null");
+	.isThrownBy(() -> new PostFilterAuthorizationReactiveMethodInterceptor(null))
+	.withMessage("expressionHandler cannot be null");
 	}
 
 	@Test
 	public void methodMatcherWhenMethodHasNotPostFilterAnnotationThenNotMatches() throws Exception {
 		PostFilterAuthorizationReactiveMethodInterceptor interceptor = new PostFilterAuthorizationReactiveMethodInterceptor();
 		assertThat(interceptor.getPointcut().getMethodMatcher()
-				.matches(NoPostFilterClass.class.getMethod("doSomething"), NoPostFilterClass.class)).isFalse();
+	.matches(NoPostFilterClass.class.getMethod("doSomething"), NoPostFilterClass.class)).isFalse();
 	}
 
 	@Test
 	public void methodMatcherWhenMethodHasPostFilterAnnotationThenMatches() throws Exception {
 		PostFilterAuthorizationReactiveMethodInterceptor interceptor = new PostFilterAuthorizationReactiveMethodInterceptor();
 		assertThat(interceptor.getPointcut().getMethodMatcher()
-				.matches(TestClass.class.getMethod("doSomethingFlux", Flux.class), TestClass.class)).isTrue();
+	.matches(TestClass.class.getMethod("doSomethingFlux", Flux.class), TestClass.class)).isTrue();
 	}
 
 	@Test
 	public void invokeWhenMonoThenFilteredMono() throws Throwable {
 		Mono<String> mono = Mono.just("bob");
 		MockMethodInvocation methodInvocation = new MockMethodInvocation(new TestClass(), TestClass.class,
-				"doSomethingMono", new Class[] { Mono.class }, new Object[] { mono }) {
+	"doSomethingMono", new Class[]{Mono.class}, new Object[]{mono}) {
 			@Override
 			public Object proceed() {
 				return mono;
@@ -89,7 +89,7 @@ public class PostFilterAuthorizationReactiveMethodInterceptorTests {
 	public void invokeWhenFluxThenFilteredFlux() throws Throwable {
 		Flux<String> flux = Flux.just("john", "bob");
 		MockMethodInvocation methodInvocation = new MockMethodInvocation(new TestClass(), TestClass.class,
-				"doSomethingFluxClassLevel", new Class[] { Flux.class }, new Object[] { flux }) {
+	"doSomethingFluxClassLevel", new Class[]{Flux.class}, new Object[]{flux}) {
 			@Override
 			public Object proceed() {
 				return flux;
@@ -98,25 +98,25 @@ public class PostFilterAuthorizationReactiveMethodInterceptorTests {
 		PostFilterAuthorizationReactiveMethodInterceptor interceptor = new PostFilterAuthorizationReactiveMethodInterceptor();
 		Object result = interceptor.invoke(methodInvocation);
 		assertThat(result).asInstanceOf(InstanceOfAssertFactories.type(Flux.class)).extracting(Flux::collectList)
-				.extracting(Mono::block, InstanceOfAssertFactories.list(String.class)).containsOnly("john");
+	.extracting(Mono::block, InstanceOfAssertFactories.list(String.class)).containsOnly("john");
 	}
 
 	@Test
 	public void checkInheritedAnnotationsWhenDuplicatedThenAnnotationConfigurationException() throws Exception {
 		MockMethodInvocation methodInvocation = new MockMethodInvocation(new TestClass(), TestClass.class,
-				"inheritedAnnotations");
+	"inheritedAnnotations");
 		PostFilterAuthorizationReactiveMethodInterceptor interceptor = new PostFilterAuthorizationReactiveMethodInterceptor();
 		assertThatExceptionOfType(AnnotationConfigurationException.class)
-				.isThrownBy(() -> interceptor.invoke(methodInvocation));
+	.isThrownBy(() -> interceptor.invoke(methodInvocation));
 	}
 
 	@Test
 	public void checkInheritedAnnotationsWhenConflictingThenAnnotationConfigurationException() throws Exception {
 		MockMethodInvocation methodInvocation = new MockMethodInvocation(new ConflictingAnnotations(),
-				ConflictingAnnotations.class, "inheritedAnnotations");
+	ConflictingAnnotations.class, "inheritedAnnotations");
 		PostFilterAuthorizationReactiveMethodInterceptor interceptor = new PostFilterAuthorizationReactiveMethodInterceptor();
 		assertThatExceptionOfType(AnnotationConfigurationException.class)
-				.isThrownBy(() -> interceptor.invoke(methodInvocation));
+	.isThrownBy(() -> interceptor.invoke(methodInvocation));
 	}
 
 	@PostFilter("filterObject == 'john'")

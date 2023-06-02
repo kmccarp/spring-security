@@ -88,8 +88,7 @@ import org.springframework.util.Assert;
  * @deprecated Use {@link AuthorizeHttpRequestsConfigurer} instead
  */
 @Deprecated
-public final class UrlAuthorizationConfigurer<H extends HttpSecurityBuilder<H>>
-		extends AbstractInterceptUrlConfigurer<UrlAuthorizationConfigurer<H>, H> {
+public final class UrlAuthorizationConfigurer<H extends HttpSecurityBuilder<H>>extends AbstractInterceptUrlConfigurer<UrlAuthorizationConfigurer<H>, H> {
 
 	private final StandardInterceptUrlRegistry registry;
 
@@ -151,10 +150,10 @@ public final class UrlAuthorizationConfigurer<H extends HttpSecurityBuilder<H>>
 	 * @return the {@link ExpressionUrlAuthorizationConfigurer} for further customizations
 	 */
 	private StandardInterceptUrlRegistry addMapping(Iterable<? extends RequestMatcher> requestMatchers,
-			Collection<ConfigAttribute> configAttributes) {
+Collection<ConfigAttribute> configAttributes) {
 		for (RequestMatcher requestMatcher : requestMatchers) {
 			this.registry.addMapping(
-					new AbstractConfigAttributeRequestMatcherRegistry.UrlMapping(requestMatcher, configAttributes));
+		new AbstractConfigAttributeRequestMatcherRegistry.UrlMapping(requestMatcher, configAttributes));
 		}
 		return this.registry;
 	}
@@ -167,7 +166,7 @@ public final class UrlAuthorizationConfigurer<H extends HttpSecurityBuilder<H>>
 	 */
 	private static String hasRole(String role) {
 		Assert.isTrue(!role.startsWith("ROLE_"), () -> role
-				+ " should not start with ROLE_ since ROLE_ is automatically prepended when using hasRole. Consider using hasAuthority or access instead.");
+	+ " should not start with ROLE_ since ROLE_ is automatically prepended when using hasRole. Consider using hasAuthority or access instead.");
 		return "ROLE_" + role;
 	}
 
@@ -196,7 +195,7 @@ public final class UrlAuthorizationConfigurer<H extends HttpSecurityBuilder<H>>
 	}
 
 	public final class StandardInterceptUrlRegistry extends
-			UrlAuthorizationConfigurer<H>.AbstractInterceptUrlRegistry<StandardInterceptUrlRegistry, AuthorizedUrl> {
+UrlAuthorizationConfigurer<H>.AbstractInterceptUrlRegistry<StandardInterceptUrlRegistry, AuthorizedUrl> {
 
 		private StandardInterceptUrlRegistry(ApplicationContext context) {
 			setApplicationContext(context);

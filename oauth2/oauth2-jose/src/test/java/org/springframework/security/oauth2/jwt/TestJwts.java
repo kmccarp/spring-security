@@ -27,22 +27,22 @@ public final class TestJwts {
 	public static Jwt.Builder jwt() {
 		// @formatter:off
 		return Jwt.withTokenValue("token")
-				.header("alg", "none")
-				.audience(Arrays.asList("https://audience.example.org"))
-				.expiresAt(Instant.MAX)
-				.issuedAt(Instant.MIN)
-				.issuer("https://issuer.example.org")
-				.jti("jti")
-				.notBefore(Instant.MIN)
-				.subject("mock-test-subject");
+	.header("alg", "none")
+	.audience(Arrays.asList("https://audience.example.org"))
+	.expiresAt(Instant.MAX)
+	.issuedAt(Instant.MIN)
+	.issuer("https://issuer.example.org")
+	.jti("jti")
+	.notBefore(Instant.MIN)
+	.subject("mock-test-subject");
 		// @formatter:on
 	}
 
 	public static Jwt user() {
 		// @formatter:off
 		return jwt()
-				.claim("sub", "mock-test-subject")
-				.build();
+	.claim("sub", "mock-test-subject")
+	.build();
 		// @formatter:on
 	}
 

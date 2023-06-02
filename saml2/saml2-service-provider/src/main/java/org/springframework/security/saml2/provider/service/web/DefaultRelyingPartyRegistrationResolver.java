@@ -36,8 +36,7 @@ import org.springframework.util.Assert;
  * @author Josh Cummings
  * @since 5.4
  */
-public final class DefaultRelyingPartyRegistrationResolver
-		implements Converter<HttpServletRequest, RelyingPartyRegistration>, RelyingPartyRegistrationResolver {
+public final class DefaultRelyingPartyRegistrationResolverimplements Converter<HttpServletRequest, RelyingPartyRegistration>, RelyingPartyRegistrationResolver {
 
 	private Log logger = LogFactory.getLog(getClass());
 
@@ -46,7 +45,7 @@ public final class DefaultRelyingPartyRegistrationResolver
 	private final RequestMatcher registrationRequestMatcher = new AntPathRequestMatcher("/**/{registrationId}");
 
 	public DefaultRelyingPartyRegistrationResolver(
-			RelyingPartyRegistrationRepository relyingPartyRegistrationRepository) {
+RelyingPartyRegistrationRepository relyingPartyRegistrationRepository) {
 		Assert.notNull(relyingPartyRegistrationRepository, "relyingPartyRegistrationRepository cannot be null");
 		this.relyingPartyRegistrationRepository = relyingPartyRegistrationRepository;
 	}
@@ -67,10 +66,10 @@ public final class DefaultRelyingPartyRegistrationResolver
 		if (relyingPartyRegistrationId == null) {
 			if (this.logger.isTraceEnabled()) {
 				this.logger.trace("Attempting to resolve from " + this.registrationRequestMatcher
-						+ " since registrationId is null");
+			+ " since registrationId is null");
 			}
 			relyingPartyRegistrationId = this.registrationRequestMatcher.matcher(request).getVariables()
-					.get("registrationId");
+		.get("registrationId");
 		}
 		if (relyingPartyRegistrationId == null) {
 			if (this.logger.isTraceEnabled()) {
@@ -79,18 +78,18 @@ public final class DefaultRelyingPartyRegistrationResolver
 			return null;
 		}
 		RelyingPartyRegistration registration = this.relyingPartyRegistrationRepository
-				.findByRegistrationId(relyingPartyRegistrationId);
+	.findByRegistrationId(relyingPartyRegistrationId);
 		if (registration == null) {
 			return null;
 		}
 		UriResolver uriResolver = RelyingPartyRegistrationPlaceholderResolvers.uriResolver(request, registration);
 		return registration.mutate().entityId(uriResolver.resolve(registration.getEntityId()))
-				.assertionConsumerServiceLocation(
-						uriResolver.resolve(registration.getAssertionConsumerServiceLocation()))
-				.singleLogoutServiceLocation(uriResolver.resolve(registration.getSingleLogoutServiceLocation()))
-				.singleLogoutServiceResponseLocation(
-						uriResolver.resolve(registration.getSingleLogoutServiceResponseLocation()))
-				.build();
+	.assertionConsumerServiceLocation(
+uriResolver.resolve(registration.getAssertionConsumerServiceLocation()))
+	.singleLogoutServiceLocation(uriResolver.resolve(registration.getSingleLogoutServiceLocation()))
+	.singleLogoutServiceResponseLocation(
+uriResolver.resolve(registration.getSingleLogoutServiceResponseLocation()))
+	.build();
 	}
 
 }

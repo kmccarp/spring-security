@@ -46,33 +46,33 @@ public class PreAuthorizeReactiveAuthorizationManagerTests {
 	public void setExpressionHandlerWhenNotNullThenSetsExpressionHandler() {
 		MethodSecurityExpressionHandler expressionHandler = new DefaultMethodSecurityExpressionHandler();
 		PreAuthorizeReactiveAuthorizationManager manager = new PreAuthorizeReactiveAuthorizationManager(
-				expressionHandler);
+	expressionHandler);
 		assertThat(manager).extracting("registry").extracting("expressionHandler").isEqualTo(expressionHandler);
 	}
 
 	@Test
 	public void setExpressionHandlerWhenNullThenException() {
 		assertThatIllegalArgumentException().isThrownBy(() -> new PreAuthorizeReactiveAuthorizationManager(null))
-				.withMessage("expressionHandler cannot be null");
+	.withMessage("expressionHandler cannot be null");
 	}
 
 	@Test
 	public void checkDoSomethingWhenNoPostAuthorizeAnnotationThenNullDecision() throws Exception {
 		MockMethodInvocation methodInvocation = new MockMethodInvocation(new TestClass(), TestClass.class,
-				"doSomething", new Class[] {}, new Object[] {});
+	"doSomething", new Class[]{}, new Object[]{});
 		PreAuthorizeReactiveAuthorizationManager manager = new PreAuthorizeReactiveAuthorizationManager();
 		AuthorizationDecision decision = manager
-				.check(ReactiveAuthenticationUtils.getAuthentication(), methodInvocation).block();
+	.check(ReactiveAuthenticationUtils.getAuthentication(), methodInvocation).block();
 		assertThat(decision).isNull();
 	}
 
 	@Test
 	public void checkDoSomethingStringWhenArgIsGrantThenGrantedDecision() throws Exception {
 		MockMethodInvocation methodInvocation = new MockMethodInvocation(new TestClass(), TestClass.class,
-				"doSomethingString", new Class[] { String.class }, new Object[] { "grant" });
+	"doSomethingString", new Class[]{String.class}, new Object[]{"grant"});
 		PreAuthorizeReactiveAuthorizationManager manager = new PreAuthorizeReactiveAuthorizationManager();
 		AuthorizationDecision decision = manager
-				.check(ReactiveAuthenticationUtils.getAuthentication(), methodInvocation).block();
+	.check(ReactiveAuthenticationUtils.getAuthentication(), methodInvocation).block();
 		assertThat(decision).isNotNull();
 		assertThat(decision.isGranted()).isTrue();
 	}
@@ -80,10 +80,10 @@ public class PreAuthorizeReactiveAuthorizationManagerTests {
 	@Test
 	public void checkDoSomethingStringWhenArgIsNotGrantThenDeniedDecision() throws Exception {
 		MockMethodInvocation methodInvocation = new MockMethodInvocation(new TestClass(), TestClass.class,
-				"doSomethingString", new Class[] { String.class }, new Object[] { "deny" });
+	"doSomethingString", new Class[]{String.class}, new Object[]{"deny"});
 		PreAuthorizeReactiveAuthorizationManager manager = new PreAuthorizeReactiveAuthorizationManager();
 		AuthorizationDecision decision = manager
-				.check(ReactiveAuthenticationUtils.getAuthentication(), methodInvocation).block();
+	.check(ReactiveAuthenticationUtils.getAuthentication(), methodInvocation).block();
 		assertThat(decision).isNotNull();
 		assertThat(decision.isGranted()).isFalse();
 	}
@@ -91,9 +91,9 @@ public class PreAuthorizeReactiveAuthorizationManagerTests {
 	@Test
 	public void checkRequiresAdminWhenClassAnnotationsThenMethodAnnotationsTakePrecedence() throws Exception {
 		Mono<Authentication> authentication = Mono
-				.just(new TestingAuthenticationToken("user", "password", "ROLE_USER"));
+	.just(new TestingAuthenticationToken("user", "password", "ROLE_USER"));
 		MockMethodInvocation methodInvocation = new MockMethodInvocation(new ClassLevelAnnotations(),
-				ClassLevelAnnotations.class, "securedAdmin");
+	ClassLevelAnnotations.class, "securedAdmin");
 		PreAuthorizeReactiveAuthorizationManager manager = new PreAuthorizeReactiveAuthorizationManager();
 		AuthorizationDecision decision = manager.check(authentication, methodInvocation).block();
 		assertThat(decision).isNotNull();
@@ -107,9 +107,9 @@ public class PreAuthorizeReactiveAuthorizationManagerTests {
 	@Test
 	public void checkRequiresUserWhenClassAnnotationsThenApplies() throws Exception {
 		Mono<Authentication> authentication = Mono
-				.just(new TestingAuthenticationToken("user", "password", "ROLE_USER"));
+	.just(new TestingAuthenticationToken("user", "password", "ROLE_USER"));
 		MockMethodInvocation methodInvocation = new MockMethodInvocation(new ClassLevelAnnotations(),
-				ClassLevelAnnotations.class, "securedUser");
+	ClassLevelAnnotations.class, "securedUser");
 		PreAuthorizeReactiveAuthorizationManager manager = new PreAuthorizeReactiveAuthorizationManager();
 		AuthorizationDecision decision = manager.check(authentication, methodInvocation).block();
 		assertThat(decision).isNotNull();
@@ -123,23 +123,23 @@ public class PreAuthorizeReactiveAuthorizationManagerTests {
 	@Test
 	public void checkInheritedAnnotationsWhenDuplicatedThenAnnotationConfigurationException() throws Exception {
 		Mono<Authentication> authentication = Mono
-				.just(new TestingAuthenticationToken("user", "password", "ROLE_USER"));
+	.just(new TestingAuthenticationToken("user", "password", "ROLE_USER"));
 		MockMethodInvocation methodInvocation = new MockMethodInvocation(new TestClass(), TestClass.class,
-				"inheritedAnnotations");
+	"inheritedAnnotations");
 		PreAuthorizeReactiveAuthorizationManager manager = new PreAuthorizeReactiveAuthorizationManager();
 		assertThatExceptionOfType(AnnotationConfigurationException.class)
-				.isThrownBy(() -> manager.check(authentication, methodInvocation));
+	.isThrownBy(() -> manager.check(authentication, methodInvocation));
 	}
 
 	@Test
 	public void checkInheritedAnnotationsWhenConflictingThenAnnotationConfigurationException() throws Exception {
 		Mono<Authentication> authentication = Mono
-				.just(new TestingAuthenticationToken("user", "password", "ROLE_USER"));
+	.just(new TestingAuthenticationToken("user", "password", "ROLE_USER"));
 		MockMethodInvocation methodInvocation = new MockMethodInvocation(new ClassLevelAnnotations(),
-				ClassLevelAnnotations.class, "inheritedAnnotations");
+	ClassLevelAnnotations.class, "inheritedAnnotations");
 		PreAuthorizeReactiveAuthorizationManager manager = new PreAuthorizeReactiveAuthorizationManager();
 		assertThatExceptionOfType(AnnotationConfigurationException.class)
-				.isThrownBy(() -> manager.check(authentication, methodInvocation));
+	.isThrownBy(() -> manager.check(authentication, methodInvocation));
 	}
 
 	public static class TestClass implements InterfaceAnnotationsOne, InterfaceAnnotationsTwo {

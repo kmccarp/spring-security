@@ -144,13 +144,13 @@ public class WebSecurityConfiguration implements ImportAware, BeanClassLoaderAwa
 	 */
 	@Autowired(required = false)
 	public void setFilterChainProxySecurityConfigurer(ObjectPostProcessor<Object> objectPostProcessor,
-			ConfigurableListableBeanFactory beanFactory) throws Exception {
+ConfigurableListableBeanFactory beanFactory) throws Exception {
 		this.webSecurity = objectPostProcessor.postProcess(new WebSecurity(objectPostProcessor));
 		if (this.debugEnabled != null) {
 			this.webSecurity.debug(this.debugEnabled);
 		}
 		List<SecurityConfigurer<Filter, WebSecurity>> webSecurityConfigurers = new AutowiredWebSecurityConfigurersIgnoreParents(
-				beanFactory).getWebSecurityConfigurers();
+	beanFactory).getWebSecurityConfigurers();
 		webSecurityConfigurers.sort(AnnotationAwareOrderComparator.INSTANCE);
 		Integer previousOrder = null;
 		Object previousConfig = null;
@@ -158,7 +158,7 @@ public class WebSecurityConfiguration implements ImportAware, BeanClassLoaderAwa
 			Integer order = AnnotationAwareOrderComparator.lookupOrder(config);
 			if (previousOrder != null && previousOrder.equals(order)) {
 				throw new IllegalStateException("@Order on WebSecurityConfigurers must be unique. Order of " + order
-						+ " was already used on " + previousConfig + ", so it cannot be used on " + config + " too.");
+			+ " was already used on " + previousConfig + ", so it cannot be used on " + config + " too.");
 			}
 			previousOrder = order;
 			previousConfig = config;
@@ -187,7 +187,7 @@ public class WebSecurityConfiguration implements ImportAware, BeanClassLoaderAwa
 	@Override
 	public void setImportMetadata(AnnotationMetadata importMetadata) {
 		Map<String, Object> enableWebSecurityAttrMap = importMetadata
-				.getAnnotationAttributes(EnableWebSecurity.class.getName());
+	.getAnnotationAttributes(EnableWebSecurity.class.getName());
 		AnnotationAttributes enableWebSecurityAttrs = AnnotationAttributes.fromMap(enableWebSecurityAttrMap);
 		this.debugEnabled = enableWebSecurityAttrs.getBoolean("debug");
 		if (this.webSecurity != null) {

@@ -31,8 +31,7 @@ import org.springframework.util.Assert;
  * @since 5.2
  * @see ReactiveOAuth2AuthorizedClientProvider
  */
-public final class AuthorizationCodeReactiveOAuth2AuthorizedClientProvider
-		implements ReactiveOAuth2AuthorizedClientProvider {
+public final class AuthorizationCodeReactiveOAuth2AuthorizedClientProviderimplements ReactiveOAuth2AuthorizedClientProvider {
 
 	/**
 	 * Attempt to authorize the {@link OAuth2AuthorizationContext#getClientRegistration()
@@ -52,11 +51,11 @@ public final class AuthorizationCodeReactiveOAuth2AuthorizedClientProvider
 	public Mono<OAuth2AuthorizedClient> authorize(OAuth2AuthorizationContext context) {
 		Assert.notNull(context, "context cannot be null");
 		if (AuthorizationGrantType.AUTHORIZATION_CODE.equals(
-				context.getClientRegistration().getAuthorizationGrantType()) && context.getAuthorizedClient() == null) {
+	context.getClientRegistration().getAuthorizationGrantType()) && context.getAuthorizedClient() == null) {
 			// ClientAuthorizationRequiredException is caught by
 			// OAuth2AuthorizationRequestRedirectWebFilter which initiates authorization
 			return Mono.error(() -> new ClientAuthorizationRequiredException(
-					context.getClientRegistration().getRegistrationId()));
+		context.getClientRegistration().getRegistrationId()));
 		}
 		return Mono.empty();
 	}

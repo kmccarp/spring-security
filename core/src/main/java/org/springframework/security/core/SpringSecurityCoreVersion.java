@@ -75,7 +75,7 @@ public final class SpringSecurityCoreVersion {
 		logger.info("You are running with Spring Security Core " + version);
 		if (new ComparableVersion(springVersion).compareTo(new ComparableVersion(minSpringVersion)) < 0) {
 			logger.warn("**** You are advised to use Spring " + minSpringVersion
-					+ " or later with this version. You are running: " + springVersion);
+		+ " or later with this version. You are running: " + springVersion);
 		}
 	}
 
@@ -105,7 +105,7 @@ public final class SpringSecurityCoreVersion {
 	private static String getSpringVersion() {
 		Properties properties = new Properties();
 		try (InputStream is = SpringSecurityCoreVersion.class.getClassLoader()
-				.getResourceAsStream("META-INF/spring-security.versions")) {
+	.getResourceAsStream("META-INF/spring-security.versions")) {
 			properties.load(is);
 		}
 		catch (IOException | NullPointerException ex) {

@@ -46,11 +46,11 @@ class Saml2RedirectAuthenticationRequestMixin {
 
 	@JsonCreator
 	Saml2RedirectAuthenticationRequestMixin(@JsonProperty("samlRequest") String samlRequest,
-			@JsonProperty("sigAlg") String sigAlg, @JsonProperty("signature") String signature,
-			@JsonProperty("relayState") String relayState,
-			@JsonProperty("authenticationRequestUri") String authenticationRequestUri,
-			@JsonProperty("relyingPartyRegistrationId") String relyingPartyRegistrationId,
-			@JsonProperty("id") String id) {
+@JsonProperty("sigAlg") String sigAlg, @JsonProperty("signature") String signature,
+@JsonProperty("relayState") String relayState,
+@JsonProperty("authenticationRequestUri") String authenticationRequestUri,
+@JsonProperty("relyingPartyRegistrationId") String relyingPartyRegistrationId,
+@JsonProperty("id") String id) {
 	}
 
 }

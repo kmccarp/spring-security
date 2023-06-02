@@ -36,8 +36,7 @@ import org.springframework.util.Assert;
  * @author Scott Battaglia
  * @since 3.0
  */
-public final class GrantedAuthorityFromAssertionAttributesUserDetailsService
-		extends AbstractCasAssertionUserDetailsService {
+public final class GrantedAuthorityFromAssertionAttributesUserDetailsServiceextends AbstractCasAssertionUserDetailsService {
 
 	private static final String NON_EXISTENT_PASSWORD_VALUE = "NO_PASSWORD";
 
@@ -69,7 +68,7 @@ public final class GrantedAuthorityFromAssertionAttributesUserDetailsService
 			}
 		}
 		return new User(assertion.getPrincipal().getName(), NON_EXISTENT_PASSWORD_VALUE, true, true, true, true,
-				grantedAuthorities);
+	grantedAuthorities);
 	}
 
 	private SimpleGrantedAuthority createSimpleGrantedAuthority(Object o) {

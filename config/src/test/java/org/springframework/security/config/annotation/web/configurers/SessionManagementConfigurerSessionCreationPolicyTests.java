@@ -67,8 +67,8 @@ public class SessionManagementConfigurerSessionCreationPolicyTests {
 		this.spring.register(DefaultConfig.class, BasicController.class).autowire();
 		// @formatter:off
 		MvcResult result = this.mvc.perform(get("/"))
-				.andExpect(status().isUnauthorized())
-				.andReturn();
+	.andExpect(status().isUnauthorized())
+	.andReturn();
 		// @formatter:on
 		assertThat(result.getRequest().getSession(false)).isNotNull();
 	}
@@ -93,7 +93,7 @@ public class SessionManagementConfigurerSessionCreationPolicyTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-					.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 			// @formatter:on
 			http.setSharedObject(SessionCreationPolicy.class, SessionCreationPolicy.ALWAYS);
 			return http.build();

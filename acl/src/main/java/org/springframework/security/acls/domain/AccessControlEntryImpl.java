@@ -47,7 +47,7 @@ public class AccessControlEntryImpl implements AccessControlEntry, AuditableAcce
 	private final boolean granting;
 
 	public AccessControlEntryImpl(Serializable id, Acl acl, Sid sid, Permission permission, boolean granting,
-			boolean auditSuccess, boolean auditFailure) {
+boolean auditSuccess, boolean auditFailure) {
 		Assert.notNull(acl, "Acl required");
 		Assert.notNull(sid, "Sid required");
 		Assert.notNull(permission, "Permission required");
@@ -109,8 +109,8 @@ public class AccessControlEntryImpl implements AccessControlEntry, AuditableAcce
 			}
 		}
 		if ((this.auditFailure != other.isAuditFailure()) || (this.auditSuccess != other.isAuditSuccess())
-				|| (this.granting != other.isGranting()) || !this.permission.equals(other.getPermission())
-				|| !this.sid.equals(other.getSid())) {
+	|| (this.granting != other.isGranting()) || !this.permission.equals(other.getPermission())
+	|| !this.sid.equals(other.getSid())) {
 			return false;
 		}
 		return true;

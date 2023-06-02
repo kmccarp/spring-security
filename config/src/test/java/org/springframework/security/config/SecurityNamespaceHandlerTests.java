@@ -46,12 +46,12 @@ public class SecurityNamespaceHandlerTests {
 
 	// @formatter:off
 	private static final String XML_AUTHENTICATION_MANAGER = "<authentication-manager>"
-			+ "  <authentication-provider>"
-			+ "    <user-service id='us'>"
-			+ "      <user name='bob' password='bobspassword' authorities='ROLE_A' />"
-			+ "    </user-service>"
-			+ "  </authentication-provider>"
-			+ "</authentication-manager>";
++ "  <authentication-provider>"
++ "    <user-service id='us'>"
++ "      <user name='bob' password='bobspassword' authorities='ROLE_A' />"
++ "    </user-service>"
++ "  </authentication-provider>"
++ "</authentication-manager>";
 	// @formatter:on
 
 	private static final String XML_HTTP_BLOCK = "<http auto-config='true'/>";
@@ -74,10 +74,10 @@ public class SecurityNamespaceHandlerTests {
 	@Test
 	public void pre32SchemaAreNotSupported() {
 		assertThatExceptionOfType(BeanDefinitionParsingException.class)
-				.isThrownBy(() -> new InMemoryXmlApplicationContext(
-						"<user-service id='us'><user name='bob' password='bobspassword' authorities='ROLE_A' /></user-service>",
-						"3.0.3", null))
-				.withMessageContaining("You cannot use a spring-security-2.0.xsd");
+	.isThrownBy(() -> new InMemoryXmlApplicationContext(
+"<user-service id='us'><user name='bob' password='bobspassword' authorities='ROLE_A' /></user-service>",
+"3.0.3", null))
+	.withMessageContaining("You cannot use a spring-security-2.0.xsd");
 	}
 
 	// SEC-1868
@@ -97,8 +97,8 @@ public class SecurityNamespaceHandlerTests {
 		String className = "jakarta.servlet.Filter";
 		expectClassUtilsForNameThrowsNoClassDefFoundError(className);
 		assertThatExceptionOfType(BeanDefinitionParsingException.class)
-				.isThrownBy(() -> new InMemoryXmlApplicationContext(XML_AUTHENTICATION_MANAGER + XML_HTTP_BLOCK))
-				.havingRootCause().isInstanceOf(NoClassDefFoundError.class).withMessage(className);
+	.isThrownBy(() -> new InMemoryXmlApplicationContext(XML_AUTHENTICATION_MANAGER + XML_HTTP_BLOCK))
+	.havingRootCause().isInstanceOf(NoClassDefFoundError.class).withMessage(className);
 	}
 
 	@Test
@@ -114,8 +114,8 @@ public class SecurityNamespaceHandlerTests {
 		String className = FILTER_CHAIN_PROXY_CLASSNAME;
 		expectClassUtilsForNameThrowsClassNotFoundException(className);
 		assertThatExceptionOfType(BeanDefinitionParsingException.class)
-				.isThrownBy(() -> new InMemoryXmlApplicationContext(XML_AUTHENTICATION_MANAGER + XML_HTTP_BLOCK))
-				.havingRootCause().isInstanceOf(ClassNotFoundException.class).withMessage(className);
+	.isThrownBy(() -> new InMemoryXmlApplicationContext(XML_AUTHENTICATION_MANAGER + XML_HTTP_BLOCK))
+	.havingRootCause().isInstanceOf(ClassNotFoundException.class).withMessage(className);
 	}
 
 	@Test
@@ -137,18 +137,18 @@ public class SecurityNamespaceHandlerTests {
 	@Test
 	public void configureWhenOldVersionThenErrorMessageContainsCorrectVersion() {
 		assertThatExceptionOfType(BeanDefinitionParsingException.class)
-				.isThrownBy(() -> new InMemoryXmlApplicationContext(XML_AUTHENTICATION_MANAGER, "3.0", null))
-				.withMessageContaining(SpringSecurityVersions.getCurrentXsdVersionFromSpringSchemas());
+	.isThrownBy(() -> new InMemoryXmlApplicationContext(XML_AUTHENTICATION_MANAGER, "3.0", null))
+	.withMessageContaining(SpringSecurityVersions.getCurrentXsdVersionFromSpringSchemas());
 	}
 
 	private void expectClassUtilsForNameThrowsNoClassDefFoundError(String className) {
 		this.classUtils.when(() -> ClassUtils.forName(eq(FILTER_CHAIN_PROXY_CLASSNAME), any()))
-				.thenThrow(new NoClassDefFoundError(className));
+	.thenThrow(new NoClassDefFoundError(className));
 	}
 
 	private void expectClassUtilsForNameThrowsClassNotFoundException(String className) {
 		this.classUtils.when(() -> ClassUtils.forName(eq(FILTER_CHAIN_PROXY_CLASSNAME), any()))
-				.thenThrow(new ClassNotFoundException(className));
+	.thenThrow(new ClassNotFoundException(className));
 	}
 
 }

@@ -57,7 +57,7 @@ public class SecurityMockMvcConfigurersTests {
 	@Test
 	public void applySpringSecurityWhenAddFilterFirstThenFilterFirst() throws Exception {
 		MockMvc mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).addFilters(this.noOpFilter)
-				.apply(springSecurity()).build();
+	.apply(springSecurity()).build();
 		mockMvc.perform(get("/")).andExpect(status().isOk());
 	}
 
@@ -70,7 +70,7 @@ public class SecurityMockMvcConfigurersTests {
 	@Test
 	public void applySpringSecurityWhenAddFilterSecondThenSecurityFirst() throws Exception {
 		MockMvc mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).apply(springSecurity())
-				.addFilters(this.noOpFilter).build();
+	.addFilters(this.noOpFilter).build();
 		mockMvc.perform(get("/")).andExpect(status().is4xxClientError());
 	}
 

@@ -95,7 +95,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  *
  * @author Eleftheria Stein
  */
-@ExtendWith({ MockitoExtension.class, SpringTestContextExtension.class })
+@ExtendWith({MockitoExtension.class, SpringTestContextExtension.class})
 public class HttpSecurityConfigurationTests {
 
 	public final SpringTestContext spring = new SpringTestContext(this);
@@ -118,20 +118,20 @@ public class HttpSecurityConfigurationTests {
 		this.spring.register(DefaultWithFilterChainConfig.class).autowire();
 		// @formatter:off
 		MvcResult mvcResult = this.mockMvc.perform(get("/").secure(true))
-				.andExpect(header().string(HttpHeaders.X_CONTENT_TYPE_OPTIONS, "nosniff"))
-				.andExpect(header().string(HttpHeaders.X_FRAME_OPTIONS,
-						XFrameOptionsHeaderWriter.XFrameOptionsMode.DENY.name()))
-				.andExpect(
-						header().string(HttpHeaders.STRICT_TRANSPORT_SECURITY, "max-age=31536000 ; includeSubDomains"))
-				.andExpect(header().string(HttpHeaders.CACHE_CONTROL, "no-cache, no-store, max-age=0, must-revalidate"))
-				.andExpect(header().string(HttpHeaders.EXPIRES, "0"))
-				.andExpect(header().string(HttpHeaders.PRAGMA, "no-cache"))
-				.andExpect(header().string(HttpHeaders.X_XSS_PROTECTION, "0"))
-				.andReturn();
+	.andExpect(header().string(HttpHeaders.X_CONTENT_TYPE_OPTIONS, "nosniff"))
+	.andExpect(header().string(HttpHeaders.X_FRAME_OPTIONS,
+XFrameOptionsHeaderWriter.XFrameOptionsMode.DENY.name()))
+	.andExpect(
+header().string(HttpHeaders.STRICT_TRANSPORT_SECURITY, "max-age=31536000 ; includeSubDomains"))
+	.andExpect(header().string(HttpHeaders.CACHE_CONTROL, "no-cache, no-store, max-age=0, must-revalidate"))
+	.andExpect(header().string(HttpHeaders.EXPIRES, "0"))
+	.andExpect(header().string(HttpHeaders.PRAGMA, "no-cache"))
+	.andExpect(header().string(HttpHeaders.X_XSS_PROTECTION, "0"))
+	.andReturn();
 		// @formatter:on
 		assertThat(mvcResult.getResponse().getHeaderNames()).containsExactlyInAnyOrder(
-				HttpHeaders.X_CONTENT_TYPE_OPTIONS, HttpHeaders.X_FRAME_OPTIONS, HttpHeaders.STRICT_TRANSPORT_SECURITY,
-				HttpHeaders.CACHE_CONTROL, HttpHeaders.EXPIRES, HttpHeaders.PRAGMA, HttpHeaders.X_XSS_PROTECTION);
+	HttpHeaders.X_CONTENT_TYPE_OPTIONS, HttpHeaders.X_FRAME_OPTIONS, HttpHeaders.STRICT_TRANSPORT_SECURITY,
+	HttpHeaders.CACHE_CONTROL, HttpHeaders.EXPIRES, HttpHeaders.PRAGMA, HttpHeaders.X_XSS_PROTECTION);
 	}
 
 	@Test
@@ -139,7 +139,7 @@ public class HttpSecurityConfigurationTests {
 		this.spring.register(DefaultWithFilterChainConfig.class).autowire();
 		// @formatter:off
 		this.mockMvc.perform(post("/logout").with(csrf()))
-				.andExpect(redirectedUrl("/login?logout"));
+	.andExpect(redirectedUrl("/login?logout"));
 		// @formatter:on
 	}
 
@@ -149,26 +149,26 @@ public class HttpSecurityConfigurationTests {
 		// @formatter:off
 		MockHttpServletRequestBuilder requestWithBob = get("/name").with(user("Bob"));
 		MvcResult mvcResult = this.mockMvc.perform(requestWithBob)
-				.andExpect(request().asyncStarted())
-				.andReturn();
+	.andExpect(request().asyncStarted())
+	.andReturn();
 		this.mockMvc.perform(asyncDispatch(mvcResult))
-				.andExpect(status().isOk())
-				.andExpect(content().string("Bob"));
+	.andExpect(status().isOk())
+	.andExpect(content().string("Bob"));
 		// @formatter:on
 	}
 
 	@Test
 	public void asyncDispatchWhenCustomSecurityContextHolderStrategyThenUses() throws Exception {
 		this.spring.register(DefaultWithFilterChainConfig.class, SecurityContextChangedListenerConfig.class,
-				NameController.class).autowire();
+	NameController.class).autowire();
 		// @formatter:off
 		MockHttpServletRequestBuilder requestWithBob = get("/name").with(user("Bob"));
 		MvcResult mvcResult = this.mockMvc.perform(requestWithBob)
-				.andExpect(request().asyncStarted())
-				.andReturn();
+	.andExpect(request().asyncStarted())
+	.andReturn();
 		this.mockMvc.perform(asyncDispatch(mvcResult))
-				.andExpect(status().isOk())
-				.andExpect(content().string("Bob"));
+	.andExpect(status().isOk())
+	.andExpect(content().string("Bob"));
 		// @formatter:on
 		verify(this.spring.getContext().getBean(SecurityContextHolderStrategy.class), atLeastOnce()).getContext();
 	}
@@ -178,7 +178,7 @@ public class HttpSecurityConfigurationTests {
 		this.spring.register(AuthorizeRequestsConfig.class, UserDetailsConfig.class, BaseController.class).autowire();
 		// @formatter:off
 		this.mockMvc.perform(get("/"))
-				.andExpect(status().isOk());
+	.andExpect(status().isOk());
 		// @formatter:on
 	}
 
@@ -189,10 +189,10 @@ public class HttpSecurityConfigurationTests {
 		String sessionId = session.getId();
 		// @formatter:off
 		MockHttpServletRequestBuilder loginRequest = post("/login")
-				.param("username", "user")
-				.param("password", "password")
-				.session(session)
-				.with(csrf());
+	.param("username", "user")
+	.param("password", "password")
+	.session(session)
+	.with(csrf());
 		// @formatter:on
 		MvcResult result = this.mockMvc.perform(loginRequest).andReturn();
 		assertThat(result.getRequest().getSession(false).getId()).isNotEqualTo(sessionId);
@@ -203,21 +203,21 @@ public class HttpSecurityConfigurationTests {
 		this.spring.register(SecurityEnabledConfig.class, UserDetailsConfig.class).autowire();
 		// @formatter:off
 		MvcResult mvcResult = this.mockMvc.perform(get("/messages"))
-				.andReturn();
+	.andReturn();
 		HttpServletRequest request = mvcResult.getRequest();
 		HttpServletResponse response = mvcResult.getResponse();
 		MockHttpSession session = (MockHttpSession) mvcResult
-				.getRequest()
-				.getSession();
+	.getRequest()
+	.getSession();
 		// @formatter:on
 		// @formatter:off
 		MockHttpServletRequestBuilder loginRequest = post("/login")
-				.param("username", "user")
-				.param("password", "password")
-				.session(session)
-				.with(csrf());
+	.param("username", "user")
+	.param("password", "password")
+	.session(session)
+	.with(csrf());
 		this.mockMvc.perform(loginRequest)
-				.andExpect(RequestCacheResultMatcher.redirectToCachedRequest());
+	.andExpect(RequestCacheResultMatcher.redirectToCachedRequest());
 		// @formatter:on
 	}
 
@@ -227,8 +227,8 @@ public class HttpSecurityConfigurationTests {
 		TestingAuthenticationToken user = new TestingAuthenticationToken("user", "password", "ROLE_USER");
 		// @formatter:off
 		this.mockMvc
-				.perform(get("/user").with(authentication(user)))
-				.andExpect(status().isOk());
+	.perform(get("/user").with(authentication(user)))
+	.andExpect(status().isOk());
 		// @formatter:on
 	}
 
@@ -253,8 +253,8 @@ public class HttpSecurityConfigurationTests {
 	@Test
 	public void loginWhenUsingDefaultThenAuthenticationEventPublished() throws Exception {
 		this.spring
-				.register(SecurityEnabledConfig.class, UserDetailsConfig.class, AuthenticationEventListenerConfig.class)
-				.autowire();
+	.register(SecurityEnabledConfig.class, UserDetailsConfig.class, AuthenticationEventListenerConfig.class)
+	.autowire();
 		AuthenticationEventListenerConfig.clearEvents();
 		this.mockMvc.perform(formLogin()).andExpect(status().is3xxRedirection());
 		assertThat(AuthenticationEventListenerConfig.EVENTS).isNotEmpty();
@@ -264,8 +264,8 @@ public class HttpSecurityConfigurationTests {
 	@Test
 	public void loginWhenUsingDefaultAndNoUserDetailsServiceThenAuthenticationEventPublished() throws Exception {
 		this.spring
-				.register(SecurityEnabledConfig.class, UserDetailsConfig.class, AuthenticationEventListenerConfig.class)
-				.autowire();
+	.register(SecurityEnabledConfig.class, UserDetailsConfig.class, AuthenticationEventListenerConfig.class)
+	.autowire();
 		AuthenticationEventListenerConfig.clearEvents();
 		this.mockMvc.perform(formLogin()).andExpect(status().is3xxRedirection());
 		assertThat(AuthenticationEventListenerConfig.EVENTS).isNotEmpty();
@@ -275,7 +275,7 @@ public class HttpSecurityConfigurationTests {
 	@Test
 	public void loginWhenUsingCustomAuthenticationEventPublisherThenAuthenticationEventPublished() throws Exception {
 		this.spring.register(SecurityEnabledConfig.class, UserDetailsConfig.class,
-				CustomAuthenticationEventPublisherConfig.class).autowire();
+	CustomAuthenticationEventPublisherConfig.class).autowire();
 		CustomAuthenticationEventPublisherConfig.clearEvents();
 		this.mockMvc.perform(formLogin()).andExpect(status().is3xxRedirection());
 		assertThat(CustomAuthenticationEventPublisherConfig.EVENTS).isNotEmpty();
@@ -284,7 +284,7 @@ public class HttpSecurityConfigurationTests {
 
 	@Test
 	public void loginWhenUsingCustomAuthenticationEventPublisherAndNoUserDetailsServiceThenAuthenticationEventPublished()
-			throws Exception {
+throws Exception {
 		this.spring.register(SecurityEnabledConfig.class, CustomAuthenticationEventPublisherConfig.class).autowire();
 		CustomAuthenticationEventPublisherConfig.clearEvents();
 		this.mockMvc.perform(formLogin()).andExpect(status().is3xxRedirection());
@@ -295,27 +295,27 @@ public class HttpSecurityConfigurationTests {
 	@Test
 	public void configureWhenAuthorizeHttpRequestsBeforeAuthorizeRequestThenException() {
 		assertThatExceptionOfType(BeanCreationException.class)
-				.isThrownBy(
-						() -> this.spring.register(AuthorizeHttpRequestsBeforeAuthorizeRequestsConfig.class).autowire())
-				.withMessageContaining(
-						"authorizeHttpRequests cannot be used in conjunction with authorizeRequests. Please select just one.");
+	.isThrownBy(
+() -> this.spring.register(AuthorizeHttpRequestsBeforeAuthorizeRequestsConfig.class).autowire())
+	.withMessageContaining(
+"authorizeHttpRequests cannot be used in conjunction with authorizeRequests. Please select just one.");
 	}
 
 	@Test
 	public void configureWhenAuthorizeHttpRequestsAfterAuthorizeRequestThenException() {
 		assertThatExceptionOfType(BeanCreationException.class)
-				.isThrownBy(
-						() -> this.spring.register(AuthorizeHttpRequestsAfterAuthorizeRequestsConfig.class).autowire())
-				.withMessageContaining(
-						"authorizeHttpRequests cannot be used in conjunction with authorizeRequests. Please select just one.");
+	.isThrownBy(
+() -> this.spring.register(AuthorizeHttpRequestsAfterAuthorizeRequestsConfig.class).autowire())
+	.withMessageContaining(
+"authorizeHttpRequests cannot be used in conjunction with authorizeRequests. Please select just one.");
 	}
 
 	@Test
 	public void configureWhenDefaultConfigurerAsSpringFactoryThenDefaultConfigurerApplied() {
 		DefaultConfigurer configurer = new DefaultConfigurer();
 		this.springFactoriesLoader.when(
-				() -> SpringFactoriesLoader.loadFactories(AbstractHttpConfigurer.class, getClass().getClassLoader()))
-				.thenReturn(Arrays.asList(configurer));
+	() -> SpringFactoriesLoader.loadFactories(AbstractHttpConfigurer.class, getClass().getClassLoader()))
+	.thenReturn(Arrays.asList(configurer));
 		this.spring.register(DefaultWithFilterChainConfig.class).autowire();
 		assertThat(configurer.init).isTrue();
 		assertThat(configurer.configure).isTrue();
@@ -326,7 +326,7 @@ public class HttpSecurityConfigurationTests {
 		this.spring.register(CustomContentNegotiationStrategyConfig.class).autowire();
 		this.mockMvc.perform(get("/"));
 		verify(CustomContentNegotiationStrategyConfig.CNS, atLeastOnce())
-				.resolveMediaTypes(any(NativeWebRequest.class));
+	.resolveMediaTypes(any(NativeWebRequest.class));
 	}
 
 	// gh-13084
@@ -365,10 +365,10 @@ public class HttpSecurityConfigurationTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			return http
-					.authorizeRequests((authorize) -> authorize
-						.anyRequest().permitAll()
-					)
-					.build();
+		.authorizeRequests((authorize) -> authorize
+.anyRequest().permitAll()
+		)
+		.build();
 			// @formatter:on
 		}
 
@@ -382,11 +382,11 @@ public class HttpSecurityConfigurationTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			return http
-					.authorizeRequests((authorize) -> authorize
-						.anyRequest().authenticated()
-					)
-					.formLogin(withDefaults())
-					.build();
+		.authorizeRequests((authorize) -> authorize
+.anyRequest().authenticated()
+		)
+		.formLogin(withDefaults())
+		.build();
 			// @formatter:on
 		}
 
@@ -399,10 +399,10 @@ public class HttpSecurityConfigurationTests {
 		UserDetailsService userDetailsService() {
 			// @formatter:off
 			UserDetails user = User.withDefaultPasswordEncoder()
-					.username("user")
-					.password("password")
-					.roles("USER")
-					.build();
+		.username("user")
+		.password("password")
+		.roles("USER")
+		.build();
 			// @formatter:on
 			return new InMemoryUserDetailsManager(user);
 		}
@@ -417,13 +417,13 @@ public class HttpSecurityConfigurationTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			return http
-					.authorizeHttpRequests((requests) -> requests
-							.anyRequest().authenticated()
-					)
-					.authorizeRequests((requests) -> requests
-							.anyRequest().authenticated()
-					)
-					.build();
+		.authorizeHttpRequests((requests) -> requests
+.anyRequest().authenticated()
+		)
+		.authorizeRequests((requests) -> requests
+.anyRequest().authenticated()
+		)
+		.build();
 			// @formatter:on
 		}
 
@@ -437,13 +437,13 @@ public class HttpSecurityConfigurationTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			return http
-					.authorizeRequests((requests) -> requests
-							.anyRequest().authenticated()
-					)
-					.authorizeHttpRequests((requests) -> requests
-							.anyRequest().authenticated()
-					)
-					.build();
+		.authorizeRequests((requests) -> requests
+.anyRequest().authenticated()
+		)
+		.authorizeHttpRequests((requests) -> requests
+.anyRequest().authenticated()
+		)
+		.build();
 			// @formatter:on
 		}
 
@@ -469,7 +469,7 @@ public class HttpSecurityConfigurationTests {
 
 				@Override
 				public void publishAuthenticationFailure(AuthenticationException exception,
-						Authentication authentication) {
+			Authentication authentication) {
 					EVENTS.add(authentication);
 				}
 			};
@@ -527,9 +527,9 @@ public class HttpSecurityConfigurationTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-					.authorizeHttpRequests((requests) -> requests
-							.anyRequest().authenticated()
-					);
+		.authorizeHttpRequests((requests) -> requests
+.anyRequest().authenticated()
+		);
 			// @formatter:on
 			return http.build();
 		}

@@ -52,7 +52,7 @@ public class LdapServerBeanDefinitionParserTests {
 		this.appCtx = new InMemoryXmlApplicationContext("<ldap-server ldif='classpath:test-server.ldif' port='0'/>");
 
 		DefaultSpringSecurityContextSource contextSource = (DefaultSpringSecurityContextSource) this.appCtx
-				.getBean(BeanIds.CONTEXT_SOURCE);
+	.getBean(BeanIds.CONTEXT_SOURCE);
 
 		// Check data is loaded
 		LdapTemplate template = new LdapTemplate(contextSource);
@@ -64,14 +64,14 @@ public class LdapServerBeanDefinitionParserTests {
 		int port = getDefaultPort();
 		// Create second "server" with a url pointing at embedded one
 		this.appCtx = new InMemoryXmlApplicationContext("<ldap-server ldif='classpath:test-server.ldif' port='" + port
-				+ "'/>" + "<ldap-server ldif='classpath:test-server.ldif' id='blah' url='ldap://127.0.0.1:" + port
-				+ "/dc=springframework,dc=org' />");
+	+ "'/>" + "<ldap-server ldif='classpath:test-server.ldif' id='blah' url='ldap://127.0.0.1:" + port
+	+ "/dc=springframework,dc=org' />");
 
 		// Check the default context source is still there.
 		this.appCtx.getBean(BeanIds.CONTEXT_SOURCE);
 
 		DefaultSpringSecurityContextSource contextSource = (DefaultSpringSecurityContextSource) this.appCtx
-				.getBean("blah");
+	.getBean("blah");
 
 		// Check data is loaded as before
 		LdapTemplate template = new LdapTemplate(contextSource);
@@ -81,9 +81,9 @@ public class LdapServerBeanDefinitionParserTests {
 	@Test
 	public void loadingSpecificLdifFileIsSuccessful() {
 		this.appCtx = new InMemoryXmlApplicationContext(
-				"<ldap-server ldif='classpath*:test-server2.xldif' root='dc=monkeymachine,dc=co,dc=uk' port='0'/>");
+	"<ldap-server ldif='classpath*:test-server2.xldif' root='dc=monkeymachine,dc=co,dc=uk' port='0'/>");
 		DefaultSpringSecurityContextSource contextSource = (DefaultSpringSecurityContextSource) this.appCtx
-				.getBean(BeanIds.CONTEXT_SOURCE);
+	.getBean(BeanIds.CONTEXT_SOURCE);
 
 		LdapTemplate template = new LdapTemplate(contextSource);
 		template.lookup("uid=pg,ou=gorillas");

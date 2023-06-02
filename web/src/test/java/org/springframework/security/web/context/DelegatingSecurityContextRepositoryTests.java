@@ -64,10 +64,10 @@ public class DelegatingSecurityContextRepositoryTests {
 	}
 
 	@ParameterizedTest
-	@CsvSource({ "0,false", "1,false", "2,false", "-1,true" })
+	@CsvSource({"0,false", "1,false", "2,false", "-1,true"})
 	public void loadDeferredContextWhenIsGeneratedThenReturnsSecurityContext(int expectedIndex, boolean isGenerated) {
 		SecurityContext actualSecurityContext = new SecurityContextImpl(
-				new TestingAuthenticationToken("user", "password"));
+	new TestingAuthenticationToken("user", "password"));
 		SecurityContext emptySecurityContext = new SecurityContextImpl();
 		given(this.strategy.createEmptyContext()).willReturn(emptySecurityContext);
 		List<SecurityContextRepository> delegates = new ArrayList<>();
@@ -75,7 +75,7 @@ public class DelegatingSecurityContextRepositoryTests {
 			SecurityContext context = (i == expectedIndex) ? actualSecurityContext : null;
 			SecurityContextRepository repository = mock(SecurityContextRepository.class);
 			SupplierDeferredSecurityContext supplier = new SupplierDeferredSecurityContext(() -> context,
-					this.strategy);
+		this.strategy);
 			given(repository.loadDeferredContext(this.request)).willReturn(supplier);
 			delegates.add(repository);
 		}

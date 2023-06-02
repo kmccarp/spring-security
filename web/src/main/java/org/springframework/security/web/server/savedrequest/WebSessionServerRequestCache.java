@@ -74,18 +74,18 @@ public class WebSessionServerRequestCache implements ServerRequestCache {
 	@Override
 	public Mono<Void> saveRequest(ServerWebExchange exchange) {
 		return this.saveRequestMatcher.matches(exchange).filter(MatchResult::isMatch)
-				.flatMap((m) -> exchange.getSession()).map(WebSession::getAttributes).doOnNext((attrs) -> {
-					String requestPath = pathInApplication(exchange.getRequest());
-					attrs.put(this.sessionAttrName, requestPath);
-					logger.debug(LogMessage.format("Request added to WebSession: '%s'", requestPath));
-				}).then();
+	.flatMap((m) -> exchange.getSession()).map(WebSession::getAttributes).doOnNext((attrs) -> {
+			String requestPath = pathInApplication(exchange.getRequest());
+			attrs.put(this.sessionAttrName, requestPath);
+			logger.debug(LogMessage.format("Request added to WebSession: '%s'", requestPath));
+		}).then();
 	}
 
 	@Override
 	public Mono<URI> getRedirectUri(ServerWebExchange exchange) {
 		return exchange.getSession()
-				.flatMap((session) -> Mono.justOrEmpty(session.<String>getAttribute(this.sessionAttrName)))
-				.map(this::createRedirectUri);
+	.flatMap((session) -> Mono.justOrEmpty(session.<String>getAttribute(this.sessionAttrName)))
+	.map(this::createRedirectUri);
 	}
 
 	@Override
@@ -93,7 +93,7 @@ public class WebSessionServerRequestCache implements ServerRequestCache {
 		MultiValueMap<String, String> queryParams = exchange.getRequest().getQueryParams();
 		if (this.matchingRequestParameterName != null && !queryParams.containsKey(this.matchingRequestParameterName)) {
 			this.logger.trace(
-					"matchingRequestParameterName is required for getMatchingRequest to lookup a value, but not provided");
+		"matchingRequestParameterName is required for getMatchingRequest to lookup a value, but not provided");
 			return Mono.empty();
 		}
 		ServerHttpRequest request = stripMatchingRequestParameterName(exchange.getRequest());
@@ -125,12 +125,12 @@ public class WebSessionServerRequestCache implements ServerRequestCache {
 		}
 		// @formatter:off
 		URI uri = UriComponentsBuilder.fromUri(request.getURI())
-				.replaceQueryParam(this.matchingRequestParameterName)
-				.build()
-				.toUri();
+	.replaceQueryParam(this.matchingRequestParameterName)
+	.build()
+	.toUri();
 		return request.mutate()
-				.uri(uri)
-				.build();
+	.uri(uri)
+	.build();
 		// @formatter:on
 	}
 
@@ -146,16 +146,16 @@ public class WebSessionServerRequestCache implements ServerRequestCache {
 		}
 		// @formatter:off
 		return UriComponentsBuilder.fromUriString(uri)
-				.queryParam(this.matchingRequestParameterName)
-				.build()
-				.toUri();
+	.queryParam(this.matchingRequestParameterName)
+	.build()
+	.toUri();
 		// @formatter:on
 	}
 
 	private static ServerWebExchangeMatcher createDefaultRequestMacher() {
 		ServerWebExchangeMatcher get = ServerWebExchangeMatchers.pathMatchers(HttpMethod.GET, "/**");
 		ServerWebExchangeMatcher notFavicon = new NegatedServerWebExchangeMatcher(
-				ServerWebExchangeMatchers.pathMatchers("/favicon.*"));
+	ServerWebExchangeMatchers.pathMatchers("/favicon.*"));
 		MediaTypeServerWebExchangeMatcher html = new MediaTypeServerWebExchangeMatcher(MediaType.TEXT_HTML);
 		html.setIgnoredMediaTypes(Collections.singleton(MediaType.ALL));
 		return new AndServerWebExchangeMatcher(get, notFavicon, html);

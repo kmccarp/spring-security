@@ -58,12 +58,12 @@ public final class OidcClientInitiatedLogoutSuccessHandler extends SimpleUrlLogo
 
 	@Override
 	protected String determineTargetUrl(HttpServletRequest request, HttpServletResponse response,
-			Authentication authentication) {
+Authentication authentication) {
 		String targetUrl = null;
 		if (authentication instanceof OAuth2AuthenticationToken && authentication.getPrincipal() instanceof OidcUser) {
 			String registrationId = ((OAuth2AuthenticationToken) authentication).getAuthorizedClientRegistrationId();
 			ClientRegistration clientRegistration = this.clientRegistrationRepository
-					.findByRegistrationId(registrationId);
+		.findByRegistrationId(registrationId);
 			URI endSessionEndpoint = this.endSessionEndpoint(clientRegistration);
 			if (endSessionEndpoint != null) {
 				String idToken = idToken(authentication);
@@ -95,11 +95,11 @@ public final class OidcClientInitiatedLogoutSuccessHandler extends SimpleUrlLogo
 		}
 		// @formatter:off
 		UriComponents uriComponents = UriComponentsBuilder
-				.fromHttpUrl(UrlUtils.buildFullRequestUrl(request))
-				.replacePath(request.getContextPath())
-				.replaceQuery(null)
-				.fragment(null)
-				.build();
+	.fromHttpUrl(UrlUtils.buildFullRequestUrl(request))
+	.replacePath(request.getContextPath())
+	.replaceQuery(null)
+	.fragment(null)
+	.build();
 
 		Map<String, String> uriVariables = new HashMap<>();
 		String scheme = uriComponents.getScheme();
@@ -118,8 +118,8 @@ public final class OidcClientInitiatedLogoutSuccessHandler extends SimpleUrlLogo
 		uriVariables.put("registrationId", clientRegistration.getRegistrationId());
 
 		return UriComponentsBuilder.fromUriString(this.postLogoutRedirectUri)
-				.buildAndExpand(uriVariables)
-				.toUriString();
+	.buildAndExpand(uriVariables)
+	.toUriString();
 		// @formatter:on
 	}
 
@@ -131,8 +131,8 @@ public final class OidcClientInitiatedLogoutSuccessHandler extends SimpleUrlLogo
 		}
 		// @formatter:off
 		return builder.encode(StandardCharsets.UTF_8)
-				.build()
-				.toUriString();
+	.build()
+	.toUriString();
 		// @formatter:on
 	}
 

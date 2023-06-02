@@ -28,7 +28,7 @@ public final class NullRoleHierarchy implements RoleHierarchy {
 
 	@Override
 	public Collection<? extends GrantedAuthority> getReachableGrantedAuthorities(
-			Collection<? extends GrantedAuthority> authorities) {
+Collection<? extends GrantedAuthority> authorities) {
 		return authorities;
 	}
 

@@ -86,7 +86,7 @@ public class AbstractConfiguredSecurityBuilderTests {
 	@Test
 	public void getConfigurerWhenMultipleConfigurersThenThrowIllegalStateException() throws Exception {
 		TestConfiguredSecurityBuilder builder = new TestConfiguredSecurityBuilder(mock(ObjectPostProcessor.class),
-				true);
+	true);
 		builder.apply(new DelegateSecurityConfigurer());
 		builder.apply(new DelegateSecurityConfigurer());
 		assertThatIllegalStateException().isThrownBy(() -> builder.getConfigurer(DelegateSecurityConfigurer.class));
@@ -95,7 +95,7 @@ public class AbstractConfiguredSecurityBuilderTests {
 	@Test
 	public void removeConfigurerWhenMultipleConfigurersThenThrowIllegalStateException() throws Exception {
 		TestConfiguredSecurityBuilder builder = new TestConfiguredSecurityBuilder(mock(ObjectPostProcessor.class),
-				true);
+	true);
 		builder.apply(new DelegateSecurityConfigurer());
 		builder.apply(new DelegateSecurityConfigurer());
 		assertThatIllegalStateException().isThrownBy(() -> builder.removeConfigurer(DelegateSecurityConfigurer.class));
@@ -106,11 +106,11 @@ public class AbstractConfiguredSecurityBuilderTests {
 		DelegateSecurityConfigurer configurer1 = new DelegateSecurityConfigurer();
 		DelegateSecurityConfigurer configurer2 = new DelegateSecurityConfigurer();
 		TestConfiguredSecurityBuilder builder = new TestConfiguredSecurityBuilder(mock(ObjectPostProcessor.class),
-				true);
+	true);
 		builder.apply(configurer1);
 		builder.apply(configurer2);
 		List<DelegateSecurityConfigurer> removedConfigurers = builder
-				.removeConfigurers(DelegateSecurityConfigurer.class);
+	.removeConfigurers(DelegateSecurityConfigurer.class);
 		assertThat(removedConfigurers).hasSize(2);
 		assertThat(removedConfigurers).containsExactly(configurer1, configurer2);
 		assertThat(builder.getConfigurers(DelegateSecurityConfigurer.class)).isEmpty();
@@ -121,7 +121,7 @@ public class AbstractConfiguredSecurityBuilderTests {
 		DelegateSecurityConfigurer configurer1 = new DelegateSecurityConfigurer();
 		DelegateSecurityConfigurer configurer2 = new DelegateSecurityConfigurer();
 		TestConfiguredSecurityBuilder builder = new TestConfiguredSecurityBuilder(mock(ObjectPostProcessor.class),
-				true);
+	true);
 		builder.apply(configurer1);
 		builder.apply(configurer2);
 		List<DelegateSecurityConfigurer> configurers = builder.getConfigurers(DelegateSecurityConfigurer.class);
@@ -131,7 +131,7 @@ public class AbstractConfiguredSecurityBuilderTests {
 	}
 
 	private static class DelegateSecurityConfigurer
-			extends SecurityConfigurerAdapter<Object, TestConfiguredSecurityBuilder> {
+extends SecurityConfigurerAdapter<Object, TestConfiguredSecurityBuilder> {
 
 		private static SecurityConfigurer<Object, TestConfiguredSecurityBuilder> CONFIGURER;
 
@@ -143,19 +143,19 @@ public class AbstractConfiguredSecurityBuilderTests {
 	}
 
 	private static class TestSecurityConfigurer
-			extends SecurityConfigurerAdapter<Object, TestConfiguredSecurityBuilder> {
+extends SecurityConfigurerAdapter<Object, TestConfiguredSecurityBuilder> {
 
 	}
 
 	private static final class TestConfiguredSecurityBuilder
-			extends AbstractConfiguredSecurityBuilder<Object, TestConfiguredSecurityBuilder> {
+extends AbstractConfiguredSecurityBuilder<Object, TestConfiguredSecurityBuilder> {
 
 		private TestConfiguredSecurityBuilder(ObjectPostProcessor<Object> objectPostProcessor) {
 			super(objectPostProcessor);
 		}
 
 		private TestConfiguredSecurityBuilder(ObjectPostProcessor<Object> objectPostProcessor,
-				boolean allowConfigurersOfSameType) {
+	boolean allowConfigurersOfSameType) {
 			super(objectPostProcessor, allowConfigurersOfSameType);
 		}
 

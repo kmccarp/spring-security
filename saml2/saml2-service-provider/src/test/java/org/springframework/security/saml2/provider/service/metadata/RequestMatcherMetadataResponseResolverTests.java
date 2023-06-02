@@ -48,7 +48,7 @@ public final class RequestMatcherMetadataResponseResolverTests {
 		RelyingPartyRegistration registration = TestRelyingPartyRegistrations.relyingPartyRegistration().build();
 		RelyingPartyRegistrationRepository registrations = new InMemoryRelyingPartyRegistrationRepository(registration);
 		RequestMatcherMetadataResponseResolver resolver = new RequestMatcherMetadataResponseResolver(registrations,
-				this.metadataFactory);
+	this.metadataFactory);
 		String registrationId = registration.getRegistrationId();
 		given(this.metadataFactory.resolve(any(Collection.class))).willReturn("metadata");
 		MockHttpServletRequest request = get("/saml2/metadata/" + registrationId);
@@ -62,7 +62,7 @@ public final class RequestMatcherMetadataResponseResolverTests {
 	void saml2MetadataResolveWhenNoMatchingRegistrationThenNull() {
 		RelyingPartyRegistrationRepository registrations = mock(RelyingPartyRegistrationRepository.class);
 		RequestMatcherMetadataResponseResolver resolver = new RequestMatcherMetadataResponseResolver(registrations,
-				this.metadataFactory);
+	this.metadataFactory);
 		MockHttpServletRequest request = get("/saml2/metadata");
 		Saml2MetadataResponse response = resolver.resolve(request);
 		assertThat(response).isNull();
@@ -72,7 +72,7 @@ public final class RequestMatcherMetadataResponseResolverTests {
 	void saml2MetadataRegistrationIdResolveWhenNoMatchingRegistrationThenException() {
 		RelyingPartyRegistrationRepository registrations = mock(RelyingPartyRegistrationRepository.class);
 		RequestMatcherMetadataResponseResolver resolver = new RequestMatcherMetadataResponseResolver(registrations,
-				this.metadataFactory);
+	this.metadataFactory);
 		MockHttpServletRequest request = get("/saml2/metadata/id");
 		assertThatExceptionOfType(Saml2Exception.class).isThrownBy(() -> resolver.resolve(request));
 	}
@@ -83,13 +83,13 @@ public final class RequestMatcherMetadataResponseResolverTests {
 		RelyingPartyRegistration two = withEntityId("two");
 		RelyingPartyRegistrationRepository registrations = new InMemoryRelyingPartyRegistrationRepository(one, two);
 		RequestMatcherMetadataResponseResolver resolver = new RequestMatcherMetadataResponseResolver(registrations,
-				this.metadataFactory);
+	this.metadataFactory);
 		given(this.metadataFactory.resolve(any(Collection.class))).willReturn("metadata");
 		MockHttpServletRequest request = get("/saml2/metadata");
 		Saml2MetadataResponse response = resolver.resolve(request);
 		assertThat(response.getMetadata()).isEqualTo("metadata");
 		assertThat(response.getFileName()).doesNotContain(one.getRegistrationId()).contains("saml")
-				.contains("metadata.xml");
+	.contains("metadata.xml");
 		verify(this.metadataFactory).resolve(any(Collection.class));
 	}
 
@@ -97,7 +97,7 @@ public final class RequestMatcherMetadataResponseResolverTests {
 	void resolveWhenRequestDoesNotMatchThenNull() {
 		RelyingPartyRegistrationRepository registrations = mock(RelyingPartyRegistrationRepository.class);
 		RequestMatcherMetadataResponseResolver resolver = new RequestMatcherMetadataResponseResolver(registrations,
-				this.metadataFactory);
+	this.metadataFactory);
 		assertThat(resolver.resolve(new MockHttpServletRequest())).isNull();
 	}
 
@@ -109,7 +109,7 @@ public final class RequestMatcherMetadataResponseResolverTests {
 
 	private RelyingPartyRegistration withEntityId(String entityId) {
 		return TestRelyingPartyRegistrations.relyingPartyRegistration().registrationId(entityId).entityId(entityId)
-				.build();
+	.build();
 	}
 
 }

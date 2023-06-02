@@ -107,7 +107,7 @@ public class SCryptPasswordEncoder implements PasswordEncoder {
 		int maxParallel = Integer.MAX_VALUE / (128 * memoryCost * 8);
 		if (parallelization < 1 || parallelization > maxParallel) {
 			throw new IllegalArgumentException("Parallelisation parameter p must be >= 1 and <= " + maxParallel
-					+ " (based on block size r of " + memoryCost + ")");
+		+ " (based on block size r of " + memoryCost + ")");
 		}
 		if (keyLength < 1 || keyLength > Integer.MAX_VALUE) {
 			throw new IllegalArgumentException("Key length must be >= 1 and <= " + Integer.MAX_VALUE);
@@ -142,7 +142,7 @@ public class SCryptPasswordEncoder implements PasswordEncoder {
 	 */
 	public static SCryptPasswordEncoder defaultsForSpringSecurity_v5_8() {
 		return new SCryptPasswordEncoder(DEFAULT_CPU_COST, DEFAULT_MEMORY_COST, DEFAULT_PARALLELISM, DEFAULT_KEY_LENGTH,
-				DEFAULT_SALT_LENGTH);
+	DEFAULT_SALT_LENGTH);
 	}
 
 	@Override
@@ -187,16 +187,16 @@ public class SCryptPasswordEncoder implements PasswordEncoder {
 		int memoryCost = (int) params >> 8 & 0xff;
 		int parallelization = (int) params & 0xff;
 		byte[] generated = SCrypt.generate(Utf8.encode(rawPassword), salt, cpuCost, memoryCost, parallelization,
-				this.keyLength);
+	this.keyLength);
 		return MessageDigest.isEqual(derived, generated);
 	}
 
 	private String digest(CharSequence rawPassword, byte[] salt) {
 		byte[] derived = SCrypt.generate(Utf8.encode(rawPassword), salt, this.cpuCost, this.memoryCost,
-				this.parallelization, this.keyLength);
+	this.parallelization, this.keyLength);
 		String params = Long.toString(
-				((int) (Math.log(this.cpuCost) / Math.log(2)) << 16L) | this.memoryCost << 8 | this.parallelization,
-				16);
+	((int) (Math.log(this.cpuCost) / Math.log(2)) << 16L) | this.memoryCost << 8 | this.parallelization,
+	16);
 		StringBuilder sb = new StringBuilder((salt.length + derived.length) * 2);
 		sb.append("$").append(params).append('$');
 		sb.append(encodePart(salt)).append('$');

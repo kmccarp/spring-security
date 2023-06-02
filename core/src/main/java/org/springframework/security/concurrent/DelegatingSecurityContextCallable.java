@@ -49,7 +49,7 @@ public final class DelegatingSecurityContextCallable<V> implements Callable<V> {
 	private SecurityContext delegateSecurityContext;
 
 	private SecurityContextHolderStrategy securityContextHolderStrategy = SecurityContextHolder
-			.getContextHolderStrategy();
+.getContextHolderStrategy();
 
 	/**
 	 * The {@link SecurityContext} that was on the {@link SecurityContextHolder} prior to
@@ -80,7 +80,7 @@ public final class DelegatingSecurityContextCallable<V> implements Callable<V> {
 	}
 
 	private DelegatingSecurityContextCallable(Callable<V> delegate, SecurityContext securityContext,
-			boolean explicitSecurityContextProvided) {
+boolean explicitSecurityContextProvided) {
 		Assert.notNull(delegate, "delegate cannot be null");
 		Assert.notNull(securityContext, "securityContext cannot be null");
 		this.delegate = delegate;
@@ -139,16 +139,16 @@ public final class DelegatingSecurityContextCallable<V> implements Callable<V> {
 	 */
 	public static <V> Callable<V> create(Callable<V> delegate, SecurityContext securityContext) {
 		return (securityContext != null) ? new DelegatingSecurityContextCallable<>(delegate, securityContext)
-				: new DelegatingSecurityContextCallable<>(delegate);
+	: new DelegatingSecurityContextCallable<>(delegate);
 	}
 
 	static <V> Callable<V> create(Callable<V> delegate, SecurityContext securityContext,
-			SecurityContextHolderStrategy securityContextHolderStrategy) {
+SecurityContextHolderStrategy securityContextHolderStrategy) {
 		Assert.notNull(delegate, "delegate cannot be null");
 		Assert.notNull(securityContextHolderStrategy, "securityContextHolderStrategy cannot be null");
 		DelegatingSecurityContextCallable<V> callable = (securityContext != null)
-				? new DelegatingSecurityContextCallable<>(delegate, securityContext)
-				: new DelegatingSecurityContextCallable<>(delegate);
+	? new DelegatingSecurityContextCallable<>(delegate, securityContext)
+	: new DelegatingSecurityContextCallable<>(delegate);
 		callable.setSecurityContextHolderStrategy(securityContextHolderStrategy);
 		return callable;
 	}

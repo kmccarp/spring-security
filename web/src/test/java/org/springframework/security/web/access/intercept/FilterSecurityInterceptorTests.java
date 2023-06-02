@@ -132,7 +132,7 @@ public class FilterSecurityInterceptorTests {
 		FilterInvocation fi = createinvocation();
 		FilterChain chain = fi.getChain();
 		willThrow(new RuntimeException()).given(chain).doFilter(any(HttpServletRequest.class),
-				any(HttpServletResponse.class));
+	any(HttpServletResponse.class));
 		given(this.ods.getAttributes(fi)).willReturn(SecurityConfig.createList("MOCK_OK"));
 		AfterInvocationManager aim = mock(AfterInvocationManager.class);
 		this.interceptor.setAfterInvocationManager(aim);
@@ -150,12 +150,12 @@ public class FilterSecurityInterceptorTests {
 		ctx.setAuthentication(token);
 		RunAsManager runAsManager = mock(RunAsManager.class);
 		given(runAsManager.buildRunAs(eq(token), any(), anyCollection()))
-				.willReturn(new RunAsUserToken("key", "someone", "creds", token.getAuthorities(), token.getClass()));
+	.willReturn(new RunAsUserToken("key", "someone", "creds", token.getAuthorities(), token.getClass()));
 		this.interceptor.setRunAsManager(runAsManager);
 		FilterInvocation fi = createinvocation();
 		FilterChain chain = fi.getChain();
 		willThrow(new RuntimeException()).given(chain).doFilter(any(HttpServletRequest.class),
-				any(HttpServletResponse.class));
+	any(HttpServletResponse.class));
 		given(this.ods.getAttributes(fi)).willReturn(SecurityConfig.createList("MOCK_OK"));
 		AfterInvocationManager aim = mock(AfterInvocationManager.class);
 		this.interceptor.setAfterInvocationManager(aim);

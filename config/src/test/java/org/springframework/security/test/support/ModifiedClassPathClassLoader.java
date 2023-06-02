@@ -78,7 +78,7 @@ final class ModifiedClassPathClassLoader extends URLClassLoader {
 	@Override
 	public Class<?> loadClass(String name) throws ClassNotFoundException {
 		if (name.startsWith("org.junit") || name.startsWith("org.hamcrest")
-				|| name.startsWith("io.netty.internal.tcnative")) {
+	|| name.startsWith("io.netty.internal.tcnative")) {
 			return Class.forName(name, false, this.junitLoader);
 		}
 		return super.loadClass(name);
@@ -91,14 +91,14 @@ final class ModifiedClassPathClassLoader extends URLClassLoader {
 	private static ModifiedClassPathClassLoader compute(Class<?> testClass) {
 		ClassLoader classLoader = testClass.getClassLoader();
 		MergedAnnotations annotations = MergedAnnotations.from(testClass,
-				MergedAnnotations.SearchStrategy.TYPE_HIERARCHY);
+	MergedAnnotations.SearchStrategy.TYPE_HIERARCHY);
 		if (annotations.isPresent(ForkedClassPath.class) && (annotations.isPresent(ClassPathOverrides.class)
-				|| annotations.isPresent(ClassPathExclusions.class))) {
+	|| annotations.isPresent(ClassPathExclusions.class))) {
 			throw new IllegalStateException("@ForkedClassPath is redundant in combination with either "
-					+ "@ClassPathOverrides or @ClassPathExclusions");
+		+ "@ClassPathOverrides or @ClassPathExclusions");
 		}
 		return new ModifiedClassPathClassLoader(processUrls(extractUrls(classLoader), annotations),
-				classLoader.getParent(), classLoader);
+	classLoader.getParent(), classLoader);
 	}
 
 	private static URL[] extractUrls(ClassLoader classLoader) {
@@ -119,7 +119,7 @@ final class ModifiedClassPathClassLoader extends URLClassLoader {
 			return Stream.of(urlClassLoader.getURLs());
 		}
 		return Stream.of(ManagementFactory.getRuntimeMXBean().getClassPath().split(File.pathSeparator))
-				.map(ModifiedClassPathClassLoader::toURL);
+	.map(ModifiedClassPathClassLoader::toURL);
 	}
 
 	private static URL toURL(String entry) {
@@ -202,7 +202,7 @@ final class ModifiedClassPathClassLoader extends URLClassLoader {
 		DefaultRepositorySystemSession session = MavenRepositorySystemUtils.newSession();
 		LocalRepository localRepository = new LocalRepository(System.getProperty("user.home") + "/.m2/repository");
 		RemoteRepository remoteRepository = new RemoteRepository.Builder("central", "default",
-				"https://repo.maven.apache.org/maven2").build();
+	"https://repo.maven.apache.org/maven2").build();
 		session.setLocalRepositoryManager(repositorySystem.newLocalRepositoryManager(session, localRepository));
 		for (int i = 0; i < MAX_RESOLUTION_ATTEMPTS; i++) {
 			CollectRequest collectRequest = new CollectRequest(null, Arrays.asList(remoteRepository));
@@ -221,7 +221,7 @@ final class ModifiedClassPathClassLoader extends URLClassLoader {
 			}
 		}
 		throw new IllegalStateException("Resolution failed after " + MAX_RESOLUTION_ATTEMPTS + " attempts",
-				latestFailure);
+	latestFailure);
 	}
 
 	private static List<Dependency> createDependencies(String[] allCoordinates) {
@@ -243,7 +243,7 @@ final class ModifiedClassPathClassLoader extends URLClassLoader {
 
 		private ClassPathEntryFilter(MergedAnnotation<ClassPathExclusions> annotation) {
 			this.exclusions = annotation.getValue(MergedAnnotation.VALUE, String[].class).map(Arrays::asList)
-					.orElse(Collections.emptyList());
+		.orElse(Collections.emptyList());
 		}
 
 		private boolean isExcluded(URL url) {

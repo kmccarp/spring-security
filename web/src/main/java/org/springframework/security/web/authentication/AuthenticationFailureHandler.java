@@ -47,6 +47,6 @@ public interface AuthenticationFailureHandler {
 	 * request.
 	 */
 	void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
-			AuthenticationException exception) throws IOException, ServletException;
+AuthenticationException exception) throws IOException, ServletException;
 
 }

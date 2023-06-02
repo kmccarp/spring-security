@@ -40,8 +40,7 @@ import org.springframework.web.reactive.function.client.WebClient;
  * @see <a target="_blank" href="https://tools.ietf.org/html/rfc6749#section-6">Section 6
  * Refreshing an Access Token</a>
  */
-public final class WebClientReactiveRefreshTokenTokenResponseClient
-		extends AbstractWebClientReactiveOAuth2AccessTokenResponseClient<OAuth2RefreshTokenGrantRequest> {
+public final class WebClientReactiveRefreshTokenTokenResponseClientextends AbstractWebClientReactiveOAuth2AccessTokenResponseClient<OAuth2RefreshTokenGrantRequest> {
 
 	@Override
 	ClientRegistration clientRegistration(OAuth2RefreshTokenGrantRequest grantRequest) {
@@ -60,20 +59,20 @@ public final class WebClientReactiveRefreshTokenTokenResponseClient
 
 	@Override
 	BodyInserters.FormInserter<String> populateTokenRequestBody(OAuth2RefreshTokenGrantRequest grantRequest,
-			BodyInserters.FormInserter<String> body) {
+BodyInserters.FormInserter<String> body) {
 		return super.populateTokenRequestBody(grantRequest, body).with(OAuth2ParameterNames.REFRESH_TOKEN,
-				grantRequest.getRefreshToken().getTokenValue());
+	grantRequest.getRefreshToken().getTokenValue());
 	}
 
 	@Override
 	OAuth2AccessTokenResponse populateTokenResponse(OAuth2RefreshTokenGrantRequest grantRequest,
-			OAuth2AccessTokenResponse accessTokenResponse) {
+OAuth2AccessTokenResponse accessTokenResponse) {
 		if (!CollectionUtils.isEmpty(accessTokenResponse.getAccessToken().getScopes())
-				&& accessTokenResponse.getRefreshToken() != null) {
+	&& accessTokenResponse.getRefreshToken() != null) {
 			return accessTokenResponse;
 		}
 		OAuth2AccessTokenResponse.Builder tokenResponseBuilder = OAuth2AccessTokenResponse
-				.withResponse(accessTokenResponse);
+	.withResponse(accessTokenResponse);
 		if (CollectionUtils.isEmpty(accessTokenResponse.getAccessToken().getScopes())) {
 			tokenResponseBuilder.scopes(defaultScopes(grantRequest));
 		}

@@ -106,16 +106,16 @@ public class OAuth2LoginAuthenticationFilterTests {
 		this.registration1 = TestClientRegistrations.clientRegistration().build();
 		this.registration2 = TestClientRegistrations.clientRegistration2().build();
 		this.clientRegistrationRepository = new InMemoryClientRegistrationRepository(this.registration1,
-				this.registration2);
+	this.registration2);
 		this.authorizedClientService = new InMemoryOAuth2AuthorizedClientService(this.clientRegistrationRepository);
 		this.authorizedClientRepository = new AuthenticatedPrincipalOAuth2AuthorizedClientRepository(
-				this.authorizedClientService);
+	this.authorizedClientService);
 		this.authorizationRequestRepository = new HttpSessionOAuth2AuthorizationRequestRepository();
 		this.failureHandler = mock(AuthenticationFailureHandler.class);
 		this.authenticationManager = mock(AuthenticationManager.class);
 		this.authenticationDetailsSource = mock(AuthenticationDetailsSource.class);
 		this.filter = spy(new OAuth2LoginAuthenticationFilter(this.clientRegistrationRepository,
-				this.authorizedClientRepository, OAuth2LoginAuthenticationFilter.DEFAULT_FILTER_PROCESSES_URI));
+	this.authorizedClientRepository, OAuth2LoginAuthenticationFilter.DEFAULT_FILTER_PROCESSES_URI));
 		this.filter.setAuthorizationRequestRepository(this.authorizationRequestRepository);
 		this.filter.setAuthenticationFailureHandler(this.failureHandler);
 		this.filter.setAuthenticationManager(this.authenticationManager);
@@ -125,28 +125,28 @@ public class OAuth2LoginAuthenticationFilterTests {
 	@Test
 	public void constructorWhenClientRegistrationRepositoryIsNullThenThrowIllegalArgumentException() {
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new OAuth2LoginAuthenticationFilter(null, this.authorizedClientService));
+	.isThrownBy(() -> new OAuth2LoginAuthenticationFilter(null, this.authorizedClientService));
 	}
 
 	@Test
 	public void constructorWhenAuthorizedClientServiceIsNullThenThrowIllegalArgumentException() {
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new OAuth2LoginAuthenticationFilter(this.clientRegistrationRepository, null));
+	.isThrownBy(() -> new OAuth2LoginAuthenticationFilter(this.clientRegistrationRepository, null));
 	}
 
 	@Test
 	public void constructorWhenAuthorizedClientRepositoryIsNullThenThrowIllegalArgumentException() {
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new OAuth2LoginAuthenticationFilter(this.clientRegistrationRepository,
-						(OAuth2AuthorizedClientRepository) null,
-						OAuth2LoginAuthenticationFilter.DEFAULT_FILTER_PROCESSES_URI));
+	.isThrownBy(() -> new OAuth2LoginAuthenticationFilter(this.clientRegistrationRepository,
+(OAuth2AuthorizedClientRepository) null,
+OAuth2LoginAuthenticationFilter.DEFAULT_FILTER_PROCESSES_URI));
 	}
 
 	@Test
 	public void constructorWhenFilterProcessesUrlIsNullThenThrowIllegalArgumentException() {
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new OAuth2LoginAuthenticationFilter(this.clientRegistrationRepository,
-						this.authorizedClientRepository, null));
+	.isThrownBy(() -> new OAuth2LoginAuthenticationFilter(this.clientRegistrationRepository,
+this.authorizedClientRepository, null));
 	}
 
 	@Test
@@ -170,7 +170,7 @@ public class OAuth2LoginAuthenticationFilterTests {
 		this.filter.doFilter(request, response, filterChain);
 		verify(filterChain).doFilter(any(HttpServletRequest.class), any(HttpServletResponse.class));
 		verify(this.filter, never()).attemptAuthentication(any(HttpServletRequest.class),
-				any(HttpServletResponse.class));
+	any(HttpServletResponse.class));
 	}
 
 	@Test
@@ -185,18 +185,18 @@ public class OAuth2LoginAuthenticationFilterTests {
 		FilterChain filterChain = mock(FilterChain.class);
 		this.filter.doFilter(request, response, filterChain);
 		ArgumentCaptor<AuthenticationException> authenticationExceptionArgCaptor = ArgumentCaptor
-				.forClass(AuthenticationException.class);
+	.forClass(AuthenticationException.class);
 		verify(this.failureHandler).onAuthenticationFailure(any(HttpServletRequest.class),
-				any(HttpServletResponse.class), authenticationExceptionArgCaptor.capture());
+	any(HttpServletResponse.class), authenticationExceptionArgCaptor.capture());
 		assertThat(authenticationExceptionArgCaptor.getValue()).isInstanceOf(OAuth2AuthenticationException.class);
 		OAuth2AuthenticationException authenticationException = (OAuth2AuthenticationException) authenticationExceptionArgCaptor
-				.getValue();
+	.getValue();
 		assertThat(authenticationException.getError().getErrorCode()).isEqualTo(OAuth2ErrorCodes.INVALID_REQUEST);
 	}
 
 	@Test
 	public void doFilterWhenAuthorizationResponseAuthorizationRequestNotFoundThenAuthorizationRequestNotFoundError()
-			throws Exception {
+throws Exception {
 		String requestUri = "/login/oauth2/code/" + this.registration2.getRegistrationId();
 		MockHttpServletRequest request = new MockHttpServletRequest("GET", requestUri);
 		request.setServletPath(requestUri);
@@ -206,19 +206,19 @@ public class OAuth2LoginAuthenticationFilterTests {
 		FilterChain filterChain = mock(FilterChain.class);
 		this.filter.doFilter(request, response, filterChain);
 		ArgumentCaptor<AuthenticationException> authenticationExceptionArgCaptor = ArgumentCaptor
-				.forClass(AuthenticationException.class);
+	.forClass(AuthenticationException.class);
 		verify(this.failureHandler).onAuthenticationFailure(any(HttpServletRequest.class),
-				any(HttpServletResponse.class), authenticationExceptionArgCaptor.capture());
+	any(HttpServletResponse.class), authenticationExceptionArgCaptor.capture());
 		assertThat(authenticationExceptionArgCaptor.getValue()).isInstanceOf(OAuth2AuthenticationException.class);
 		OAuth2AuthenticationException authenticationException = (OAuth2AuthenticationException) authenticationExceptionArgCaptor
-				.getValue();
+	.getValue();
 		assertThat(authenticationException.getError().getErrorCode()).isEqualTo("authorization_request_not_found");
 	}
 
 	// gh-5251
 	@Test
 	public void doFilterWhenAuthorizationResponseClientRegistrationNotFoundThenClientRegistrationNotFoundError()
-			throws Exception {
+throws Exception {
 		String requestUri = "/login/oauth2/code/" + this.registration2.getRegistrationId();
 		String state = "state";
 		MockHttpServletRequest request = new MockHttpServletRequest("GET", requestUri);
@@ -229,28 +229,28 @@ public class OAuth2LoginAuthenticationFilterTests {
 		FilterChain filterChain = mock(FilterChain.class);
 		// @formatter:off
 		ClientRegistration registrationNotFound = ClientRegistration.withRegistrationId("registration-not-found")
-				.clientId("client-1")
-				.clientSecret("secret")
-				.clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
-				.authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
-				.redirectUri("{baseUrl}/login/oauth2/code/{registrationId}")
-				.scope("user")
-				.authorizationUri("https://provider.com/oauth2/authorize")
-				.tokenUri("https://provider.com/oauth2/token")
-				.userInfoUri("https://provider.com/oauth2/user")
-				.userNameAttributeName("id")
-				.clientName("client-1")
-				.build();
+	.clientId("client-1")
+	.clientSecret("secret")
+	.clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
+	.authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
+	.redirectUri("{baseUrl}/login/oauth2/code/{registrationId}")
+	.scope("user")
+	.authorizationUri("https://provider.com/oauth2/authorize")
+	.tokenUri("https://provider.com/oauth2/token")
+	.userInfoUri("https://provider.com/oauth2/user")
+	.userNameAttributeName("id")
+	.clientName("client-1")
+	.build();
 		// @formatter:on
 		this.setUpAuthorizationRequest(request, response, registrationNotFound, state);
 		this.filter.doFilter(request, response, filterChain);
 		ArgumentCaptor<AuthenticationException> authenticationExceptionArgCaptor = ArgumentCaptor
-				.forClass(AuthenticationException.class);
+	.forClass(AuthenticationException.class);
 		verify(this.failureHandler).onAuthenticationFailure(any(HttpServletRequest.class),
-				any(HttpServletResponse.class), authenticationExceptionArgCaptor.capture());
+	any(HttpServletResponse.class), authenticationExceptionArgCaptor.capture());
 		assertThat(authenticationExceptionArgCaptor.getValue()).isInstanceOf(OAuth2AuthenticationException.class);
 		OAuth2AuthenticationException authenticationException = (OAuth2AuthenticationException) authenticationExceptionArgCaptor
-				.getValue();
+	.getValue();
 		assertThat(authenticationException.getError().getErrorCode()).isEqualTo("client_registration_not_found");
 	}
 
@@ -284,7 +284,7 @@ public class OAuth2LoginAuthenticationFilterTests {
 		this.setUpAuthenticationResult(this.registration1);
 		this.filter.doFilter(request, response, filterChain);
 		OAuth2AuthorizedClient authorizedClient = this.authorizedClientRepository
-				.loadAuthorizedClient(this.registration1.getRegistrationId(), this.loginAuthentication, request);
+	.loadAuthorizedClient(this.registration1.getRegistrationId(), this.loginAuthentication, request);
 		assertThat(authorizedClient).isNotNull();
 		assertThat(authorizedClient.getClientRegistration()).isEqualTo(this.registration1);
 		assertThat(authorizedClient.getPrincipalName()).isEqualTo(this.principalName1);
@@ -296,7 +296,7 @@ public class OAuth2LoginAuthenticationFilterTests {
 	public void doFilterWhenCustomFilterProcessesUrlThenFilterProcesses() throws Exception {
 		String filterProcessesUrl = "/login/oauth2/custom/*";
 		this.filter = spy(new OAuth2LoginAuthenticationFilter(this.clientRegistrationRepository,
-				this.authorizedClientRepository, filterProcessesUrl));
+	this.authorizedClientRepository, filterProcessesUrl));
 		this.filter.setAuthenticationManager(this.authenticationManager);
 		String requestUri = "/login/oauth2/custom/" + this.registration2.getRegistrationId();
 		String state = "state";
@@ -316,7 +316,7 @@ public class OAuth2LoginAuthenticationFilterTests {
 	// gh-5890
 	@Test
 	public void doFilterWhenAuthorizationResponseHasDefaultPort80ThenRedirectUriMatchingExcludesPort()
-			throws Exception {
+throws Exception {
 		String requestUri = "/login/oauth2/code/" + this.registration2.getRegistrationId();
 		String state = "state";
 		MockHttpServletRequest request = new MockHttpServletRequest("GET", requestUri);
@@ -334,11 +334,11 @@ public class OAuth2LoginAuthenticationFilterTests {
 		ArgumentCaptor<Authentication> authenticationArgCaptor = ArgumentCaptor.forClass(Authentication.class);
 		verify(this.authenticationManager).authenticate(authenticationArgCaptor.capture());
 		OAuth2LoginAuthenticationToken authentication = (OAuth2LoginAuthenticationToken) authenticationArgCaptor
-				.getValue();
+	.getValue();
 		OAuth2AuthorizationRequest authorizationRequest = authentication.getAuthorizationExchange()
-				.getAuthorizationRequest();
+	.getAuthorizationRequest();
 		OAuth2AuthorizationResponse authorizationResponse = authentication.getAuthorizationExchange()
-				.getAuthorizationResponse();
+	.getAuthorizationResponse();
 		String expectedRedirectUri = "http://localhost/login/oauth2/code/registration-id-2";
 		assertThat(authorizationRequest.getRedirectUri()).isEqualTo(expectedRedirectUri);
 		assertThat(authorizationResponse.getRedirectUri()).isEqualTo(expectedRedirectUri);
@@ -347,7 +347,7 @@ public class OAuth2LoginAuthenticationFilterTests {
 	// gh-5890
 	@Test
 	public void doFilterWhenAuthorizationResponseHasDefaultPort443ThenRedirectUriMatchingExcludesPort()
-			throws Exception {
+throws Exception {
 		String requestUri = "/login/oauth2/code/" + this.registration2.getRegistrationId();
 		String state = "state";
 		MockHttpServletRequest request = new MockHttpServletRequest("GET", requestUri);
@@ -365,11 +365,11 @@ public class OAuth2LoginAuthenticationFilterTests {
 		ArgumentCaptor<Authentication> authenticationArgCaptor = ArgumentCaptor.forClass(Authentication.class);
 		verify(this.authenticationManager).authenticate(authenticationArgCaptor.capture());
 		OAuth2LoginAuthenticationToken authentication = (OAuth2LoginAuthenticationToken) authenticationArgCaptor
-				.getValue();
+	.getValue();
 		OAuth2AuthorizationRequest authorizationRequest = authentication.getAuthorizationExchange()
-				.getAuthorizationRequest();
+	.getAuthorizationRequest();
 		OAuth2AuthorizationResponse authorizationResponse = authentication.getAuthorizationExchange()
-				.getAuthorizationResponse();
+	.getAuthorizationResponse();
 		String expectedRedirectUri = "https://example.com/login/oauth2/code/registration-id-2";
 		assertThat(authorizationRequest.getRedirectUri()).isEqualTo(expectedRedirectUri);
 		assertThat(authorizationResponse.getRedirectUri()).isEqualTo(expectedRedirectUri);
@@ -378,7 +378,7 @@ public class OAuth2LoginAuthenticationFilterTests {
 	// gh-5890
 	@Test
 	public void doFilterWhenAuthorizationResponseHasNonDefaultPortThenRedirectUriMatchingIncludesPort()
-			throws Exception {
+throws Exception {
 		String requestUri = "/login/oauth2/code/" + this.registration2.getRegistrationId();
 		String state = "state";
 		MockHttpServletRequest request = new MockHttpServletRequest("GET", requestUri);
@@ -396,11 +396,11 @@ public class OAuth2LoginAuthenticationFilterTests {
 		ArgumentCaptor<Authentication> authenticationArgCaptor = ArgumentCaptor.forClass(Authentication.class);
 		verify(this.authenticationManager).authenticate(authenticationArgCaptor.capture());
 		OAuth2LoginAuthenticationToken authentication = (OAuth2LoginAuthenticationToken) authenticationArgCaptor
-				.getValue();
+	.getValue();
 		OAuth2AuthorizationRequest authorizationRequest = authentication.getAuthorizationExchange()
-				.getAuthorizationRequest();
+	.getAuthorizationRequest();
 		OAuth2AuthorizationResponse authorizationResponse = authentication.getAuthorizationExchange()
-				.getAuthorizationResponse();
+	.getAuthorizationResponse();
 		String expectedRedirectUri = "https://example.com:9090/login/oauth2/code/registration-id-2";
 		assertThat(authorizationRequest.getRedirectUri()).isEqualTo(expectedRedirectUri);
 		assertThat(authorizationResponse.getRedirectUri()).isEqualTo(expectedRedirectUri);
@@ -444,8 +444,8 @@ public class OAuth2LoginAuthenticationFilterTests {
 	@Test
 	public void attemptAuthenticationWhenAuthenticationResultConverterSetThenUsed() {
 		this.filter.setAuthenticationResultConverter(
-				(authentication) -> new CustomOAuth2AuthenticationToken(authentication.getPrincipal(),
-						authentication.getAuthorities(), authentication.getClientRegistration().getRegistrationId()));
+	(authentication) -> new CustomOAuth2AuthenticationToken(authentication.getPrincipal(),
+authentication.getAuthorities(), authentication.getClientRegistration().getRegistrationId()));
 		String requestUri = "/login/oauth2/code/" + this.registration1.getRegistrationId();
 		String state = "state";
 		MockHttpServletRequest request = new MockHttpServletRequest("GET", requestUri);
@@ -460,25 +460,25 @@ public class OAuth2LoginAuthenticationFilterTests {
 	}
 
 	private void setUpAuthorizationRequest(HttpServletRequest request, HttpServletResponse response,
-			ClientRegistration registration, String state) {
+ClientRegistration registration, String state) {
 		Map<String, Object> attributes = new HashMap<>();
 		attributes.put(OAuth2ParameterNames.REGISTRATION_ID, registration.getRegistrationId());
 		OAuth2AuthorizationRequest authorizationRequest = OAuth2AuthorizationRequest.authorizationCode()
-				.authorizationUri(registration.getProviderDetails().getAuthorizationUri())
-				.clientId(registration.getClientId()).redirectUri(expandRedirectUri(request, registration))
-				.scopes(registration.getScopes()).state(state).attributes(attributes).build();
+	.authorizationUri(registration.getProviderDetails().getAuthorizationUri())
+	.clientId(registration.getClientId()).redirectUri(expandRedirectUri(request, registration))
+	.scopes(registration.getScopes()).state(state).attributes(attributes).build();
 		this.authorizationRequestRepository.saveAuthorizationRequest(authorizationRequest, request, response);
 	}
 
 	private String expandRedirectUri(HttpServletRequest request, ClientRegistration clientRegistration) {
 		String baseUrl = UriComponentsBuilder.fromHttpUrl(UrlUtils.buildFullRequestUrl(request)).replaceQuery(null)
-				.replacePath(request.getContextPath()).build().toUriString();
+	.replacePath(request.getContextPath()).build().toUriString();
 		Map<String, String> uriVariables = new HashMap<>();
 		uriVariables.put("baseUrl", baseUrl);
 		uriVariables.put("action", "login");
 		uriVariables.put("registrationId", clientRegistration.getRegistrationId());
 		return UriComponentsBuilder.fromUriString(clientRegistration.getRedirectUri()).buildAndExpand(uriVariables)
-				.toUriString();
+	.toUriString();
 	}
 
 	private void setUpAuthenticationResult(ClientRegistration registration) {
@@ -490,7 +490,7 @@ public class OAuth2LoginAuthenticationFilterTests {
 		given(this.loginAuthentication.getAuthorities()).willReturn(AuthorityUtils.createAuthorityList("ROLE_USER"));
 		given(this.loginAuthentication.getClientRegistration()).willReturn(registration);
 		given(this.loginAuthentication.getAuthorizationExchange())
-				.willReturn(TestOAuth2AuthorizationExchanges.success());
+	.willReturn(TestOAuth2AuthorizationExchanges.success());
 		given(this.loginAuthentication.getAccessToken()).willReturn(mock(OAuth2AccessToken.class));
 		given(this.loginAuthentication.getRefreshToken()).willReturn(mock(OAuth2RefreshToken.class));
 		given(this.loginAuthentication.isAuthenticated()).willReturn(true);
@@ -500,7 +500,7 @@ public class OAuth2LoginAuthenticationFilterTests {
 	private static final class CustomOAuth2AuthenticationToken extends OAuth2AuthenticationToken {
 
 		CustomOAuth2AuthenticationToken(OAuth2User principal, Collection<? extends GrantedAuthority> authorities,
-				String authorizedClientRegistrationId) {
+	String authorizedClientRegistrationId) {
 			super(principal, authorities, authorizedClientRegistrationId);
 		}
 

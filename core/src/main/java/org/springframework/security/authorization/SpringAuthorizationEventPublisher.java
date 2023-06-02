@@ -54,7 +54,7 @@ public final class SpringAuthorizationEventPublisher implements AuthorizationEve
 	 */
 	@Override
 	public <T> void publishAuthorizationEvent(Supplier<Authentication> authentication, T object,
-			AuthorizationDecision decision) {
+AuthorizationDecision decision) {
 		if (decision == null || decision.isGranted()) {
 			return;
 		}

@@ -34,22 +34,22 @@ public class AuthenticationTrustResolverImplTests {
 	public void testCorrectOperationIsAnonymous() {
 		AuthenticationTrustResolverImpl trustResolver = new AuthenticationTrustResolverImpl();
 		assertThat(trustResolver.isAnonymous(
-				new AnonymousAuthenticationToken("ignored", "ignored", AuthorityUtils.createAuthorityList("ignored"))))
-						.isTrue();
+	new AnonymousAuthenticationToken("ignored", "ignored", AuthorityUtils.createAuthorityList("ignored"))))
+	.isTrue();
 		assertThat(trustResolver.isAnonymous(
-				new TestingAuthenticationToken("ignored", "ignored", AuthorityUtils.createAuthorityList("ignored"))))
-						.isFalse();
+	new TestingAuthenticationToken("ignored", "ignored", AuthorityUtils.createAuthorityList("ignored"))))
+	.isFalse();
 	}
 
 	@Test
 	public void testCorrectOperationIsRememberMe() {
 		AuthenticationTrustResolverImpl trustResolver = new AuthenticationTrustResolverImpl();
 		assertThat(trustResolver.isRememberMe(
-				new RememberMeAuthenticationToken("ignored", "ignored", AuthorityUtils.createAuthorityList("ignored"))))
-						.isTrue();
+	new RememberMeAuthenticationToken("ignored", "ignored", AuthorityUtils.createAuthorityList("ignored"))))
+	.isTrue();
 		assertThat(trustResolver.isAnonymous(
-				new TestingAuthenticationToken("ignored", "ignored", AuthorityUtils.createAuthorityList("ignored"))))
-						.isFalse();
+	new TestingAuthenticationToken("ignored", "ignored", AuthorityUtils.createAuthorityList("ignored"))))
+	.isFalse();
 	}
 
 	@Test

@@ -49,8 +49,8 @@ public class AuthenticationManagerFactoryBean implements FactoryBean<Authenticat
 	private ObservationRegistry observationRegistry = ObservationRegistry.NOOP;
 
 	public static final String MISSING_BEAN_ERROR_MESSAGE = "Did you forget to add a global <authentication-manager> element "
-			+ "to your configuration (with child <authentication-provider> elements)? Alternatively you can use the "
-			+ "authentication-manager-ref attribute on your <http> and <global-method-security> elements.";
++ "to your configuration (with child <authentication-provider> elements)? Alternatively you can use the "
++ "authentication-manager-ref attribute on your <http> and <global-method-security> elements.";
 
 	@Override
 	public AuthenticationManager getObject() throws Exception {

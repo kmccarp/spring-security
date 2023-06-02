@@ -112,15 +112,15 @@ public class SessionManagementConfigurerTests {
 		this.spring.register(SessionManagementRequestCacheConfig.class).autowire();
 		this.mvc.perform(get("/"));
 		verify(SessionManagementRequestCacheConfig.REQUEST_CACHE).getMatchingRequest(any(HttpServletRequest.class),
-				any(HttpServletResponse.class));
+	any(HttpServletResponse.class));
 	}
 
 	@Test
 	public void sessionManagementWhenConfiguredThenDoesNotOverrideSecurityContextRepository() throws Exception {
 		SessionManagementSecurityContextRepositoryConfig.SECURITY_CONTEXT_REPO = mock(SecurityContextRepository.class);
 		given(SessionManagementSecurityContextRepositoryConfig.SECURITY_CONTEXT_REPO
-				.loadDeferredContext(any(HttpServletRequest.class)))
-						.willReturn(new TestDeferredSecurityContext(mock(SecurityContext.class), false));
+	.loadDeferredContext(any(HttpServletRequest.class)))
+	.willReturn(new TestDeferredSecurityContext(mock(SecurityContext.class), false));
 		this.spring.register(SessionManagementSecurityContextRepositoryConfig.class).autowire();
 		this.mvc.perform(get("/"));
 	}
@@ -129,12 +129,12 @@ public class SessionManagementConfigurerTests {
 	public void sessionManagementWhenSecurityContextRepositoryIsConfiguredThenUseIt() throws Exception {
 		SessionManagementSecurityContextRepositoryConfig.SECURITY_CONTEXT_REPO = mock(SecurityContextRepository.class);
 		given(SessionManagementSecurityContextRepositoryConfig.SECURITY_CONTEXT_REPO
-				.loadDeferredContext(any(HttpServletRequest.class)))
-						.willReturn(new TestDeferredSecurityContext(mock(SecurityContext.class), false));
+	.loadDeferredContext(any(HttpServletRequest.class)))
+	.willReturn(new TestDeferredSecurityContext(mock(SecurityContext.class), false));
 		this.spring.register(SessionManagementSecurityContextRepositoryConfig.class).autowire();
 		this.mvc.perform(get("/"));
 		verify(SessionManagementSecurityContextRepositoryConfig.SECURITY_CONTEXT_REPO)
-				.containsContext(any(HttpServletRequest.class));
+	.containsContext(any(HttpServletRequest.class));
 	}
 
 	@Test
@@ -148,17 +148,17 @@ public class SessionManagementConfigurerTests {
 	// SEC-2137
 	@Test
 	public void getWhenSessionFixationDisabledAndConcurrencyControlEnabledThenSessionIsNotInvalidated()
-			throws Exception {
+throws Exception {
 		this.spring.register(DisableSessionFixationEnableConcurrencyControlConfig.class).autowire();
 		MockHttpSession session = new MockHttpSession();
 		String sessionId = session.getId();
 		// @formatter:off
 		MockHttpServletRequestBuilder request = get("/")
-				.with(httpBasic("user", "password"))
-				.session(session);
+	.with(httpBasic("user", "password"))
+	.session(session);
 		MvcResult mvcResult = this.mvc.perform(request)
-				.andExpect(status().isNotFound())
-				.andReturn();
+	.andExpect(status().isNotFound())
+	.andReturn();
 		// @formatter:on
 		assertThat(mvcResult.getRequest().getSession().getId()).isEqualTo(sessionId);
 	}
@@ -171,13 +171,13 @@ public class SessionManagementConfigurerTests {
 		givenSession.setAttribute("name", "value");
 		// @formatter:off
 		MockHttpServletRequestBuilder request = get("/auth")
-				.session(givenSession)
-				.with(httpBasic("user", "password"));
+	.session(givenSession)
+	.with(httpBasic("user", "password"));
 		MockHttpSession resultingSession = (MockHttpSession) this.mvc.perform(request)
-				.andExpect(status().isNotFound())
-				.andReturn()
-				.getRequest()
-				.getSession(false);
+	.andExpect(status().isNotFound())
+	.andReturn()
+	.getRequest()
+	.getSession(false);
 		// @formatter:on
 		assertThat(givenSessionId).isNotEqualTo(resultingSession.getId());
 		assertThat(resultingSession.getAttribute("name")).isNull();
@@ -188,17 +188,17 @@ public class SessionManagementConfigurerTests {
 		this.spring.register(ConcurrencyControlConfig.class).autowire();
 		// @formatter:off
 		MockHttpServletRequestBuilder firstRequest = post("/login")
-				.with(csrf())
-				.param("username", "user")
-				.param("password", "password");
+	.with(csrf())
+	.param("username", "user")
+	.param("password", "password");
 		this.mvc.perform(firstRequest);
 		MockHttpServletRequestBuilder secondRequest = post("/login")
-				.with(csrf())
-				.param("username", "user")
-				.param("password", "password");
+	.with(csrf())
+	.param("username", "user")
+	.param("password", "password");
 		this.mvc.perform(secondRequest)
-				.andExpect(status().isFound())
-				.andExpect(redirectedUrl("/login?error"));
+	.andExpect(status().isFound())
+	.andExpect(redirectedUrl("/login?error"));
 		// @formatter:on
 	}
 
@@ -207,22 +207,22 @@ public class SessionManagementConfigurerTests {
 		this.spring.register(ConcurrencyControlConfig.class).autowire();
 		// @formatter:off
 		MockHttpServletRequestBuilder firstRequest = post("/login")
-				.with(csrf())
-				.param("username", "user")
-				.param("password", "password");
+	.with(csrf())
+	.param("username", "user")
+	.param("password", "password");
 		MvcResult mvcResult = this.mvc.perform(firstRequest)
-				.andReturn();
+	.andReturn();
 		// @formatter:on
 		HttpSession authenticatedSession = mvcResult.getRequest().getSession();
 		this.spring.getContext().publishEvent(new HttpSessionDestroyedEvent(authenticatedSession));
 		// @formatter:off
 		MockHttpServletRequestBuilder secondRequest = post("/login")
-				.with(csrf())
-				.param("username", "user")
-				.param("password", "password");
+	.with(csrf())
+	.param("username", "user")
+	.param("password", "password");
 		this.mvc.perform(secondRequest)
-				.andExpect(status().isFound())
-				.andExpect(redirectedUrl("/"));
+	.andExpect(status().isFound())
+	.andExpect(redirectedUrl("/"));
 		// @formatter:on
 	}
 
@@ -231,19 +231,19 @@ public class SessionManagementConfigurerTests {
 		this.spring.register(ConcurrencyControlInLambdaConfig.class).autowire();
 		// @formatter:off
 		MockHttpServletRequestBuilder firstRequest = post("/login")
-				.with(csrf())
-				.param("username", "user")
-				.param("password", "password");
+	.with(csrf())
+	.param("username", "user")
+	.param("password", "password");
 		// @formatter:on
 		this.mvc.perform(firstRequest);
 		// @formatter:off
 		MockHttpServletRequestBuilder secondRequest = post("/login")
-				.with(csrf())
-				.param("username", "user")
-				.param("password", "password");
+	.with(csrf())
+	.param("username", "user")
+	.param("password", "password");
 		this.mvc.perform(secondRequest)
-				.andExpect(status().isFound())
-				.andExpect(redirectedUrl("/login?error"));
+	.andExpect(status().isFound())
+	.andExpect(redirectedUrl("/login?error"));
 		// @formatter:on
 	}
 
@@ -274,7 +274,7 @@ public class SessionManagementConfigurerTests {
 		ObjectPostProcessorConfig.objectPostProcessor = spy(ReflectingObjectPostProcessor.class);
 		this.spring.register(ObjectPostProcessorConfig.class).autowire();
 		verify(ObjectPostProcessorConfig.objectPostProcessor)
-				.postProcess(any(ConcurrentSessionControlAuthenticationStrategy.class));
+	.postProcess(any(ConcurrentSessionControlAuthenticationStrategy.class));
 	}
 
 	@Test
@@ -282,7 +282,7 @@ public class SessionManagementConfigurerTests {
 		ObjectPostProcessorConfig.objectPostProcessor = spy(ReflectingObjectPostProcessor.class);
 		this.spring.register(ObjectPostProcessorConfig.class).autowire();
 		verify(ObjectPostProcessorConfig.objectPostProcessor)
-				.postProcess(any(CompositeSessionAuthenticationStrategy.class));
+	.postProcess(any(CompositeSessionAuthenticationStrategy.class));
 	}
 
 	@Test
@@ -290,7 +290,7 @@ public class SessionManagementConfigurerTests {
 		ObjectPostProcessorConfig.objectPostProcessor = spy(ReflectingObjectPostProcessor.class);
 		this.spring.register(ObjectPostProcessorConfig.class).autowire();
 		verify(ObjectPostProcessorConfig.objectPostProcessor)
-				.postProcess(any(RegisterSessionAuthenticationStrategy.class));
+	.postProcess(any(RegisterSessionAuthenticationStrategy.class));
 	}
 
 	@Test
@@ -298,12 +298,12 @@ public class SessionManagementConfigurerTests {
 		ObjectPostProcessorConfig.objectPostProcessor = spy(ReflectingObjectPostProcessor.class);
 		this.spring.register(ObjectPostProcessorConfig.class).autowire();
 		verify(ObjectPostProcessorConfig.objectPostProcessor)
-				.postProcess(any(ChangeSessionIdAuthenticationStrategy.class));
+	.postProcess(any(ChangeSessionIdAuthenticationStrategy.class));
 	}
 
 	@Test
 	public void getWhenAnonymousRequestAndTrustResolverSharedObjectReturnsAnonymousFalseThenSessionIsSaved()
-			throws Exception {
+throws Exception {
 		SharedTrustResolverConfig.TR = mock(AuthenticationTrustResolver.class);
 		given(SharedTrustResolverConfig.TR.isAnonymous(any())).willReturn(false);
 		this.spring.register(SharedTrustResolverConfig.class).autowire();
@@ -336,14 +336,14 @@ public class SessionManagementConfigurerTests {
 		this.spring.register(EnableUrlRewriteConfig.class).autowire();
 		// @formatter:off
 		this.mvc = MockMvcBuilders.webAppContextSetup(this.spring.getContext())
-			.addFilters((request, response, chain) -> {
-				HttpServletResponse responseToSpy = spy((HttpServletResponse) response);
-				chain.doFilter(request, responseToSpy);
-				verify(responseToSpy, atLeastOnce()).encodeRedirectURL(any());
-				verify(responseToSpy, atLeastOnce()).encodeURL(any());
-			})
-			.apply(springSecurity())
-			.build();
+	.addFilters((request, response, chain) -> {
+		HttpServletResponse responseToSpy = spy((HttpServletResponse) response);
+		chain.doFilter(request, responseToSpy);
+		verify(responseToSpy, atLeastOnce()).encodeRedirectURL(any());
+		verify(responseToSpy, atLeastOnce()).encodeURL(any());
+	})
+	.apply(springSecurity())
+	.build();
 		// @formatter:on
 
 		this.mvc.perform(get("/")).andExpect(content().string("encoded"));
@@ -354,14 +354,14 @@ public class SessionManagementConfigurerTests {
 		this.spring.register(DefaultUrlRewriteConfig.class).autowire();
 		// @formatter:off
 		this.mvc = MockMvcBuilders.webAppContextSetup(this.spring.getContext())
-			.addFilters((request, response, chain) -> {
-				HttpServletResponse responseToSpy = spy((HttpServletResponse) response);
-				chain.doFilter(request, responseToSpy);
-				verify(responseToSpy, never()).encodeRedirectURL(any());
-				verify(responseToSpy, never()).encodeURL(any());
-			})
-			.apply(springSecurity())
-			.build();
+	.addFilters((request, response, chain) -> {
+		HttpServletResponse responseToSpy = spy((HttpServletResponse) response);
+		chain.doFilter(request, responseToSpy);
+		verify(responseToSpy, never()).encodeRedirectURL(any());
+		verify(responseToSpy, never()).encodeURL(any());
+	})
+	.apply(springSecurity())
+	.build();
 		// @formatter:on
 
 		this.mvc.perform(get("/")).andExpect(content().string("encoded"));
@@ -369,17 +369,17 @@ public class SessionManagementConfigurerTests {
 
 	@Test
 	public void loginWhenSessionCreationPolicyStatelessThenSecurityContextIsAvailableInRequestAttributes()
-			throws Exception {
+throws Exception {
 		this.spring.register(HttpBasicSessionCreationPolicyStatelessConfig.class).autowire();
 		// @formatter:off
 		MvcResult mvcResult = this.mvc.perform(get("/").with(httpBasic("user", "password")))
-				.andExpect(status().isOk())
-				.andReturn();
+	.andExpect(status().isOk())
+	.andReturn();
 		// @formatter:on
 		HttpSession session = mvcResult.getRequest().getSession(false);
 		assertThat(session).isNull();
 		SecurityContext securityContext = (SecurityContext) mvcResult.getRequest()
-				.getAttribute(RequestAttributeSecurityContextRepository.DEFAULT_REQUEST_ATTR_NAME);
+	.getAttribute(RequestAttributeSecurityContextRepository.DEFAULT_REQUEST_ATTR_NAME);
 		assertThat(securityContext).isNotNull();
 	}
 
@@ -394,7 +394,7 @@ public class SessionManagementConfigurerTests {
 		Filter errorDispatchFilter = new Filter() {
 			@Override
 			public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
-					throws IOException, ServletException {
+		throws IOException, ServletException {
 				try {
 					chain.doFilter(request, response);
 				}
@@ -403,7 +403,7 @@ public class SessionManagementConfigurerTests {
 						throw ex;
 					}
 					MockHttpServletRequest httpRequest = WebUtils.getNativeRequest(request,
-							MockHttpServletRequest.class);
+				MockHttpServletRequest.class);
 					httpRequest.setDispatcherType(DispatcherType.ERROR);
 					// necessary to prevent HttpBasicFilter from invoking again
 					httpRequest.setAttribute(WebUtils.ERROR_REQUEST_URI_ATTRIBUTE, "/error");
@@ -418,7 +418,7 @@ public class SessionManagementConfigurerTests {
 
 		// @formatter:off
 		this.mvc.perform(get("/500").with(httpBasic("user", "password")))
-				.andExpect(status().isInternalServerError());
+	.andExpect(status().isInternalServerError());
 		// @formatter:on
 	}
 
@@ -430,11 +430,11 @@ public class SessionManagementConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeHttpRequests((authorize) -> authorize
-					.anyRequest().authenticated()
-				)
-				.httpBasic(Customizer.withDefaults())
-				.formLogin(Customizer.withDefaults());
+		.authorizeHttpRequests((authorize) -> authorize
+.anyRequest().authenticated()
+		)
+		.httpBasic(Customizer.withDefaults())
+		.formLogin(Customizer.withDefaults());
 			return http.build();
 			// @formatter:on
 		}
@@ -471,11 +471,11 @@ public class SessionManagementConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.requestCache()
-					.requestCache(REQUEST_CACHE)
-					.and()
-				.sessionManagement()
-					.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+		.requestCache()
+		.requestCache(REQUEST_CACHE)
+		.and()
+		.sessionManagement()
+		.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 			return http.build();
 			// @formatter:on
 		}
@@ -492,11 +492,11 @@ public class SessionManagementConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.securityContext()
-					.securityContextRepository(SECURITY_CONTEXT_REPO)
-					.and()
-				.sessionManagement()
-					.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+		.securityContext()
+		.securityContextRepository(SECURITY_CONTEXT_REPO)
+		.and()
+		.sessionManagement()
+		.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 			return http.build();
 			// @formatter:on
 		}
@@ -511,10 +511,10 @@ public class SessionManagementConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.sessionManagement()
-					.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-					.and()
-				.sessionManagement();
+		.sessionManagement()
+		.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+		.and()
+		.sessionManagement();
 			return http.build();
 			// @formatter:on
 		}
@@ -529,11 +529,11 @@ public class SessionManagementConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.httpBasic()
-					.and()
-				.sessionManagement()
-					.sessionFixation().none()
-					.maximumSessions(1);
+		.httpBasic()
+		.and()
+		.sessionManagement()
+		.sessionFixation().none()
+		.maximumSessions(1);
 			// @formatter:on
 			return http.build();
 		}
@@ -553,14 +553,13 @@ public class SessionManagementConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.sessionManagement((sessionManagement) ->
-					sessionManagement
-						.requireExplicitAuthenticationStrategy(false)
-						.sessionFixation((sessionFixation) ->
-							sessionFixation.newSession()
-						)
-				)
-				.httpBasic(withDefaults());
+		.sessionManagement((sessionManagement) ->
+	sessionManagement
+.requireExplicitAuthenticationStrategy(false)
+.sessionFixation((sessionFixation) ->sessionFixation.newSession()
+)
+		)
+		.httpBasic(withDefaults());
 			// @formatter:on
 			return http.build();
 		}
@@ -580,11 +579,11 @@ public class SessionManagementConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.formLogin()
-					.and()
-				.sessionManagement()
-					.maximumSessions(1)
-					.maxSessionsPreventsLogin(true);
+		.formLogin()
+		.and()
+		.sessionManagement()
+		.maximumSessions(1)
+		.maxSessionsPreventsLogin(true);
 			// @formatter:on
 			return http.build();
 		}
@@ -604,15 +603,14 @@ public class SessionManagementConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.formLogin(withDefaults())
-				.sessionManagement((sessionManagement) ->
-					sessionManagement
-						.sessionConcurrency((sessionConcurrency) ->
-							sessionConcurrency
+		.formLogin(withDefaults())
+		.sessionManagement((sessionManagement) ->
+	sessionManagement
+.sessionConcurrency((sessionConcurrency) ->sessionConcurrency
 								.maximumSessions(1)
 								.maxSessionsPreventsLogin(true)
-						)
-				);
+)
+		);
 			// @formatter:on
 			return http.build();
 		}
@@ -632,10 +630,10 @@ public class SessionManagementConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.sessionManagement((sessionManagement) ->
-					sessionManagement
-						.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-				);
+		.sessionManagement((sessionManagement) ->
+	sessionManagement
+.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+		);
 			return http.build();
 			// @formatter:on
 		}
@@ -652,8 +650,8 @@ public class SessionManagementConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.sessionManagement()
-					.maximumSessions(1);
+		.sessionManagement()
+		.maximumSessions(1);
 			return http.build();
 			// @formatter:on
 		}
@@ -684,10 +682,10 @@ public class SessionManagementConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.sessionManagement((sessions) -> sessions
-					.requireExplicitAuthenticationStrategy(false)
-				)
-				.setSharedObject(AuthenticationTrustResolver.class, TR);
+		.sessionManagement((sessions) -> sessions
+.requireExplicitAuthenticationStrategy(false)
+		)
+		.setSharedObject(AuthenticationTrustResolver.class, TR);
 			return http.build();
 			// @formatter:on
 		}
@@ -704,8 +702,8 @@ public class SessionManagementConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.sessionManagement()
-				.maximumSessions(1);
+		.sessionManagement()
+		.maximumSessions(1);
 			return http.build();
 			// @formatter:on
 		}
@@ -729,8 +727,8 @@ public class SessionManagementConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.sessionManagement()
-				.maximumSessions(1);
+		.sessionManagement()
+		.maximumSessions(1);
 			return http.build();
 			// @formatter:on
 		}
@@ -788,11 +786,11 @@ public class SessionManagementConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.sessionManagement((sessionManagement) ->
-					sessionManagement
-						.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-				)
-				.httpBasic(withDefaults());
+		.sessionManagement((sessionManagement) ->
+	sessionManagement
+.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+		)
+		.httpBasic(withDefaults());
 			// @formatter:on
 			return http.build();
 		}

@@ -48,15 +48,15 @@ import static org.mockito.Mockito.verify;
 /**
  * @author Luke Taylor
  */
-@SuppressWarnings({ "unchecked" })
+@SuppressWarnings({"unchecked"})
 public class AclEntryAfterInvocationProviderTests {
 
 	@Test
 	public void rejectsMissingPermissions() {
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new AclEntryAfterInvocationProvider(mock(AclService.class), null));
+	.isThrownBy(() -> new AclEntryAfterInvocationProvider(mock(AclService.class), null));
 		assertThatIllegalArgumentException().isThrownBy(
-				() -> new AclEntryAfterInvocationProvider(mock(AclService.class), Collections.<Permission>emptyList()));
+	() -> new AclEntryAfterInvocationProvider(mock(AclService.class), Collections.<Permission>emptyList()));
 	}
 
 	@Test
@@ -66,34 +66,34 @@ public class AclEntryAfterInvocationProviderTests {
 		given(acl.isGranted(any(List.class), any(List.class), anyBoolean())).willReturn(true);
 		given(service.readAclById(any(), any())).willReturn(acl);
 		AclEntryAfterInvocationProvider provider = new AclEntryAfterInvocationProvider(service,
-				Arrays.asList(mock(Permission.class)));
+	Arrays.asList(mock(Permission.class)));
 		provider.setMessageSource(new SpringSecurityMessageSource());
 		provider.setObjectIdentityRetrievalStrategy(mock(ObjectIdentityRetrievalStrategy.class));
 		provider.setProcessDomainObjectClass(Object.class);
 		provider.setSidRetrievalStrategy(mock(SidRetrievalStrategy.class));
 		Object returned = new Object();
 		assertThat(returned).isSameAs(provider.decide(mock(Authentication.class), new Object(),
-				SecurityConfig.createList("AFTER_ACL_READ"), returned));
+	SecurityConfig.createList("AFTER_ACL_READ"), returned));
 	}
 
 	@Test
 	public void accessIsGrantedIfNoAttributesDefined() {
 		AclEntryAfterInvocationProvider provider = new AclEntryAfterInvocationProvider(mock(AclService.class),
-				Arrays.asList(mock(Permission.class)));
+	Arrays.asList(mock(Permission.class)));
 		Object returned = new Object();
 		assertThat(returned).isSameAs(provider.decide(mock(Authentication.class), new Object(),
-				Collections.<ConfigAttribute>emptyList(), returned));
+	Collections.<ConfigAttribute>emptyList(), returned));
 	}
 
 	@Test
 	public void accessIsGrantedIfObjectTypeNotSupported() {
 		AclEntryAfterInvocationProvider provider = new AclEntryAfterInvocationProvider(mock(AclService.class),
-				Arrays.asList(mock(Permission.class)));
+	Arrays.asList(mock(Permission.class)));
 		provider.setProcessDomainObjectClass(String.class);
 		// Not a String
 		Object returned = new Object();
 		assertThat(returned).isSameAs(provider.decide(mock(Authentication.class), new Object(),
-				SecurityConfig.createList("AFTER_ACL_READ"), returned));
+	SecurityConfig.createList("AFTER_ACL_READ"), returned));
 	}
 
 	@Test
@@ -105,28 +105,28 @@ public class AclEntryAfterInvocationProviderTests {
 		given(acl.isGranted(any(), any(List.class), anyBoolean())).willThrow(new NotFoundException(""));
 		given(service.readAclById(any(), any())).willReturn(acl);
 		AclEntryAfterInvocationProvider provider = new AclEntryAfterInvocationProvider(service,
-				Arrays.asList(mock(Permission.class)));
+	Arrays.asList(mock(Permission.class)));
 		provider.setProcessConfigAttribute("MY_ATTRIBUTE");
 		provider.setMessageSource(new SpringSecurityMessageSource());
 		provider.setObjectIdentityRetrievalStrategy(mock(ObjectIdentityRetrievalStrategy.class));
 		provider.setProcessDomainObjectClass(Object.class);
 		provider.setSidRetrievalStrategy(mock(SidRetrievalStrategy.class));
 		assertThatExceptionOfType(AccessDeniedException.class)
-				.isThrownBy(() -> provider.decide(mock(Authentication.class), new Object(),
-						SecurityConfig.createList("UNSUPPORTED", "MY_ATTRIBUTE"), new Object()));
+	.isThrownBy(() -> provider.decide(mock(Authentication.class), new Object(),
+SecurityConfig.createList("UNSUPPORTED", "MY_ATTRIBUTE"), new Object()));
 		// Second scenario with no acls found
 		assertThatExceptionOfType(AccessDeniedException.class)
-				.isThrownBy(() -> provider.decide(mock(Authentication.class), new Object(),
-						SecurityConfig.createList("UNSUPPORTED", "MY_ATTRIBUTE"), new Object()));
+	.isThrownBy(() -> provider.decide(mock(Authentication.class), new Object(),
+SecurityConfig.createList("UNSUPPORTED", "MY_ATTRIBUTE"), new Object()));
 	}
 
 	@Test
 	public void nullReturnObjectIsIgnored() {
 		AclService service = mock(AclService.class);
 		AclEntryAfterInvocationProvider provider = new AclEntryAfterInvocationProvider(service,
-				Arrays.asList(mock(Permission.class)));
+	Arrays.asList(mock(Permission.class)));
 		assertThat(provider.decide(mock(Authentication.class), new Object(),
-				SecurityConfig.createList("AFTER_ACL_COLLECTION_READ"), null)).isNull();
+	SecurityConfig.createList("AFTER_ACL_COLLECTION_READ"), null)).isNull();
 		verify(service, never()).readAclById(any(ObjectIdentity.class), any(List.class));
 	}
 

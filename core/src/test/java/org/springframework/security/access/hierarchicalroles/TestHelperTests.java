@@ -78,20 +78,20 @@ public class TestHelperTests {
 		authoritiesStrings5.add("ROLE_A");
 		authoritiesStrings5.add("ROLE_A");
 		assertThat(CollectionUtils.isEqualCollection(
-				HierarchicalRolesTestHelper.toCollectionOfAuthorityStrings(authorities1), authoritiesStrings1))
-						.isTrue();
+	HierarchicalRolesTestHelper.toCollectionOfAuthorityStrings(authorities1), authoritiesStrings1))
+	.isTrue();
 		assertThat(CollectionUtils.isEqualCollection(
-				HierarchicalRolesTestHelper.toCollectionOfAuthorityStrings(authorities2), authoritiesStrings2))
-						.isTrue();
+	HierarchicalRolesTestHelper.toCollectionOfAuthorityStrings(authorities2), authoritiesStrings2))
+	.isTrue();
 		assertThat(CollectionUtils.isEqualCollection(
-				HierarchicalRolesTestHelper.toCollectionOfAuthorityStrings(authorities3), authoritiesStrings3))
-						.isTrue();
+	HierarchicalRolesTestHelper.toCollectionOfAuthorityStrings(authorities3), authoritiesStrings3))
+	.isTrue();
 		assertThat(CollectionUtils.isEqualCollection(
-				HierarchicalRolesTestHelper.toCollectionOfAuthorityStrings(authorities4), authoritiesStrings4))
-						.isTrue();
+	HierarchicalRolesTestHelper.toCollectionOfAuthorityStrings(authorities4), authoritiesStrings4))
+	.isTrue();
 		assertThat(CollectionUtils.isEqualCollection(
-				HierarchicalRolesTestHelper.toCollectionOfAuthorityStrings(authorities5), authoritiesStrings5))
-						.isTrue();
+	HierarchicalRolesTestHelper.toCollectionOfAuthorityStrings(authorities5), authoritiesStrings5))
+	.isTrue();
 	}
 
 	// SEC-863
@@ -121,7 +121,7 @@ public class TestHelperTests {
 		List<GrantedAuthority> authorities1 = HierarchicalRolesTestHelper.createAuthorityList("ROLE_A", "ROLE_B");
 		List<GrantedAuthority> authorities2 = AuthorityUtils.createAuthorityList("ROLE_A", "ROLE_B");
 		assertThat(HierarchicalRolesTestHelper.containTheSameGrantedAuthoritiesCompareByAuthorityString(authorities1,
-				authorities2)).isTrue();
+	authorities2)).isTrue();
 	}
 
 	// SEC-863

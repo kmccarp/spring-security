@@ -51,7 +51,7 @@ public class AnonymousAuthenticationProvider implements AuthenticationProvider, 
 		}
 		if (this.key.hashCode() != ((AnonymousAuthenticationToken) authentication).getKeyHash()) {
 			throw new BadCredentialsException(this.messages.getMessage("AnonymousAuthenticationProvider.incorrectKey",
-					"The presented AnonymousAuthenticationToken does not contain the expected key"));
+		"The presented AnonymousAuthenticationToken does not contain the expected key"));
 		}
 		return authentication;
 	}

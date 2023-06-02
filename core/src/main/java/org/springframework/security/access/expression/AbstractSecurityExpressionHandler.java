@@ -38,8 +38,7 @@ import org.springframework.util.Assert;
  * @author Evgeniy Cheban
  * @since 3.1
  */
-public abstract class AbstractSecurityExpressionHandler<T>
-		implements SecurityExpressionHandler<T>, ApplicationContextAware {
+public abstract class AbstractSecurityExpressionHandler<T>implements SecurityExpressionHandler<T>, ApplicationContextAware {
 
 	private ExpressionParser expressionParser = new SpelExpressionParser();
 
@@ -99,7 +98,7 @@ public abstract class AbstractSecurityExpressionHandler<T>
 	 * @return the object
 	 */
 	protected abstract SecurityExpressionOperations createSecurityExpressionRoot(Authentication authentication,
-			T invocation);
+T invocation);
 
 	protected RoleHierarchy getRoleHierarchy() {
 		return this.roleHierarchy;

@@ -52,9 +52,9 @@ public class MessageSecurityMetadataSourceRegistryTests {
 		this.messages = new MessageSecurityMetadataSourceRegistry();
 		// @formatter:off
 		this.message = MessageBuilder.withPayload("Hi")
-				.setHeader(SimpMessageHeaderAccessor.DESTINATION_HEADER, "location")
-				.setHeader(SimpMessageHeaderAccessor.MESSAGE_TYPE_HEADER, SimpMessageType.MESSAGE)
-				.build();
+	.setHeader(SimpMessageHeaderAccessor.DESTINATION_HEADER, "location")
+	.setHeader(SimpMessageHeaderAccessor.MESSAGE_TYPE_HEADER, SimpMessageType.MESSAGE)
+	.build();
 		// @formatter:on
 	}
 
@@ -65,15 +65,15 @@ public class MessageSecurityMetadataSourceRegistryTests {
 	public void simpDestMatchersCustom() {
 		// @formatter:off
 		this.message = MessageBuilder.withPayload("Hi")
-				.setHeader(SimpMessageHeaderAccessor.DESTINATION_HEADER, "price.stock.1.2")
-				.build();
+	.setHeader(SimpMessageHeaderAccessor.DESTINATION_HEADER, "price.stock.1.2")
+	.build();
 		// @formatter:on
 		this.messages.simpDestPathMatcher(new AntPathMatcher(".")).simpDestMatchers("price.stock.*").permitAll();
 		assertThat(getAttribute()).isNull();
 		// @formatter:off
 		this.message = MessageBuilder.withPayload("Hi")
-				.setHeader(SimpMessageHeaderAccessor.DESTINATION_HEADER, "price.stock.1.2")
-				.build();
+	.setHeader(SimpMessageHeaderAccessor.DESTINATION_HEADER, "price.stock.1.2")
+	.build();
 		// @formatter:on
 		this.messages.simpDestPathMatcher(new AntPathMatcher(".")).simpDestMatchers("price.stock.**").permitAll();
 		assertThat(getAttribute()).isEqualTo("permitAll");
@@ -83,15 +83,15 @@ public class MessageSecurityMetadataSourceRegistryTests {
 	public void simpDestMatchersCustomSetAfterMatchersDoesNotMatter() {
 		// @formatter:off
 		this.message = MessageBuilder.withPayload("Hi")
-				.setHeader(SimpMessageHeaderAccessor.DESTINATION_HEADER, "price.stock.1.2")
-				.build();
+	.setHeader(SimpMessageHeaderAccessor.DESTINATION_HEADER, "price.stock.1.2")
+	.build();
 		// @formatter:on
 		this.messages.simpDestMatchers("price.stock.*").permitAll().simpDestPathMatcher(new AntPathMatcher("."));
 		assertThat(getAttribute()).isNull();
 		// @formatter:off
 		this.message = MessageBuilder.withPayload("Hi")
-				.setHeader(SimpMessageHeaderAccessor.DESTINATION_HEADER, "price.stock.1.2")
-				.build();
+	.setHeader(SimpMessageHeaderAccessor.DESTINATION_HEADER, "price.stock.1.2")
+	.build();
 		// @formatter:on
 		this.messages.simpDestMatchers("price.stock.**").permitAll().simpDestPathMatcher(new AntPathMatcher("."));
 		assertThat(getAttribute()).isEqualTo("permitAll");
@@ -125,8 +125,8 @@ public class MessageSecurityMetadataSourceRegistryTests {
 	public void simpDestMatchersMulti() {
 		// @formatter:off
 		this.messages
-				.simpDestMatchers("admin/**", "api/**").hasRole("ADMIN")
-				.simpDestMatchers("location").permitAll();
+	.simpDestMatchers("admin/**", "api/**").hasRole("ADMIN")
+	.simpDestMatchers("location").permitAll();
 		// @formatter:on
 		assertThat(getAttribute()).isEqualTo("permitAll");
 	}
@@ -135,8 +135,8 @@ public class MessageSecurityMetadataSourceRegistryTests {
 	public void simpDestMatchersRole() {
 		// @formatter:off
 		this.messages
-				.simpDestMatchers("admin/**", "location/**").hasRole("ADMIN")
-				.anyMessage().denyAll();
+	.simpDestMatchers("admin/**", "location/**").hasRole("ADMIN")
+	.anyMessage().denyAll();
 		// @formatter:on
 		assertThat(getAttribute()).isEqualTo("hasRole('ROLE_ADMIN')");
 	}
@@ -145,8 +145,8 @@ public class MessageSecurityMetadataSourceRegistryTests {
 	public void simpDestMatchersAnyRole() {
 		// @formatter:off
 		this.messages
-				.simpDestMatchers("admin/**", "location/**").hasAnyRole("ADMIN", "ROOT")
-				.anyMessage().denyAll();
+	.simpDestMatchers("admin/**", "location/**").hasAnyRole("ADMIN", "ROOT")
+	.anyMessage().denyAll();
 		// @formatter:on
 		assertThat(getAttribute()).isEqualTo("hasAnyRole('ROLE_ADMIN','ROLE_ROOT')");
 	}
@@ -155,8 +155,8 @@ public class MessageSecurityMetadataSourceRegistryTests {
 	public void simpDestMatchersAuthority() {
 		// @formatter:off
 		this.messages
-				.simpDestMatchers("admin/**", "location/**").hasAuthority("ROLE_ADMIN")
-				.anyMessage().fullyAuthenticated();
+	.simpDestMatchers("admin/**", "location/**").hasAuthority("ROLE_ADMIN")
+	.anyMessage().fullyAuthenticated();
 		// @formatter:on
 		assertThat(getAttribute()).isEqualTo("hasAuthority('ROLE_ADMIN')");
 	}
@@ -172,8 +172,8 @@ public class MessageSecurityMetadataSourceRegistryTests {
 	public void simpDestMatchersAnyAuthority() {
 		// @formatter:off
 		this.messages
-				.simpDestMatchers("admin/**", "location/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_ROOT")
-				.anyMessage().denyAll();
+	.simpDestMatchers("admin/**", "location/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_ROOT")
+	.anyMessage().denyAll();
 		// @formatter:on
 		assertThat(getAttribute()).isEqualTo("hasAnyAuthority('ROLE_ADMIN','ROLE_ROOT')");
 	}
@@ -182,8 +182,8 @@ public class MessageSecurityMetadataSourceRegistryTests {
 	public void simpDestMatchersRememberMe() {
 		// @formatter:off
 		this.messages
-				.simpDestMatchers("admin/**", "location/**").rememberMe()
-				.anyMessage().denyAll();
+	.simpDestMatchers("admin/**", "location/**").rememberMe()
+	.anyMessage().denyAll();
 		// @formatter:on
 		assertThat(getAttribute()).isEqualTo("rememberMe");
 	}
@@ -192,8 +192,8 @@ public class MessageSecurityMetadataSourceRegistryTests {
 	public void simpDestMatchersAnonymous() {
 		// @formatter:off
 		this.messages
-				.simpDestMatchers("admin/**", "location/**").anonymous()
-				.anyMessage().denyAll();
+	.simpDestMatchers("admin/**", "location/**").anonymous()
+	.anyMessage().denyAll();
 		// @formatter:on
 		assertThat(getAttribute()).isEqualTo("anonymous");
 	}
@@ -202,8 +202,8 @@ public class MessageSecurityMetadataSourceRegistryTests {
 	public void simpDestMatchersFullyAuthenticated() {
 		// @formatter:off
 		this.messages
-				.simpDestMatchers("admin/**", "location/**").fullyAuthenticated()
-				.anyMessage().denyAll();
+	.simpDestMatchers("admin/**", "location/**").fullyAuthenticated()
+	.anyMessage().denyAll();
 		// @formatter:on
 		assertThat(getAttribute()).isEqualTo("fullyAuthenticated");
 	}
@@ -212,8 +212,8 @@ public class MessageSecurityMetadataSourceRegistryTests {
 	public void simpDestMatchersDenyAll() {
 		// @formatter:off
 		this.messages
-				.simpDestMatchers("admin/**", "location/**").denyAll()
-				.anyMessage().permitAll();
+	.simpDestMatchers("admin/**", "location/**").denyAll()
+	.anyMessage().permitAll();
 		// @formatter:on
 		assertThat(getAttribute()).isEqualTo("denyAll");
 	}
@@ -222,8 +222,8 @@ public class MessageSecurityMetadataSourceRegistryTests {
 	public void simpDestMessageMatchersNotMatch() {
 		// @formatter:off
 		this.messages.
-				simpMessageDestMatchers("admin/**").denyAll()
-				.anyMessage().permitAll();
+	simpMessageDestMatchers("admin/**").denyAll()
+	.anyMessage().permitAll();
 		// @formatter:on
 		assertThat(getAttribute()).isEqualTo("permitAll");
 	}
@@ -232,8 +232,8 @@ public class MessageSecurityMetadataSourceRegistryTests {
 	public void simpDestMessageMatchersMatch() {
 		// @formatter:off
 		this.messages
-				.simpMessageDestMatchers("location/**").denyAll()
-				.anyMessage().permitAll();
+	.simpMessageDestMatchers("location/**").denyAll()
+	.anyMessage().permitAll();
 		// @formatter:on
 		assertThat(getAttribute()).isEqualTo("denyAll");
 	}
@@ -242,8 +242,8 @@ public class MessageSecurityMetadataSourceRegistryTests {
 	public void simpDestSubscribeMatchersNotMatch() {
 		// @formatter:off
 		this.messages
-				.simpSubscribeDestMatchers("location/**").denyAll()
-				.anyMessage().permitAll();
+	.simpSubscribeDestMatchers("location/**").denyAll()
+	.anyMessage().permitAll();
 		// @formatter:on
 		assertThat(getAttribute()).isEqualTo("permitAll");
 	}
@@ -252,11 +252,11 @@ public class MessageSecurityMetadataSourceRegistryTests {
 	public void simpDestSubscribeMatchersMatch() {
 		// @formatter:off
 		this.message = MessageBuilder.fromMessage(this.message)
-				.setHeader(SimpMessageHeaderAccessor.MESSAGE_TYPE_HEADER, SimpMessageType.SUBSCRIBE)
-				.build();
+	.setHeader(SimpMessageHeaderAccessor.MESSAGE_TYPE_HEADER, SimpMessageType.SUBSCRIBE)
+	.build();
 		this.messages
-				.simpSubscribeDestMatchers("location/**").denyAll()
-				.anyMessage().permitAll();
+	.simpSubscribeDestMatchers("location/**").denyAll()
+	.anyMessage().permitAll();
 		// @formatter:on
 		assertThat(getAttribute()).isEqualTo("denyAll");
 	}
@@ -265,8 +265,8 @@ public class MessageSecurityMetadataSourceRegistryTests {
 	public void nullDestMatcherNotMatches() {
 		// @formatter:off
 		this.messages
-				.nullDestMatcher().denyAll()
-				.anyMessage().permitAll();
+	.nullDestMatcher().denyAll()
+	.anyMessage().permitAll();
 		// @formatter:on
 		assertThat(getAttribute()).isEqualTo("permitAll");
 	}
@@ -275,11 +275,11 @@ public class MessageSecurityMetadataSourceRegistryTests {
 	public void nullDestMatcherMatch() {
 		// @formatter:off
 		this.message = MessageBuilder.withPayload("Hi")
-				.setHeader(SimpMessageHeaderAccessor.MESSAGE_TYPE_HEADER, SimpMessageType.CONNECT)
-				.build();
+	.setHeader(SimpMessageHeaderAccessor.MESSAGE_TYPE_HEADER, SimpMessageType.CONNECT)
+	.build();
 		this.messages
-				.nullDestMatcher().denyAll()
-				.anyMessage().permitAll();
+	.nullDestMatcher().denyAll()
+	.anyMessage().permitAll();
 		// @formatter:on
 		assertThat(getAttribute()).isEqualTo("denyAll");
 	}
@@ -288,8 +288,8 @@ public class MessageSecurityMetadataSourceRegistryTests {
 	public void simpTypeMatchersMatch() {
 		// @formatter:off
 		this.messages
-				.simpTypeMatchers(SimpMessageType.MESSAGE).denyAll()
-				.anyMessage().permitAll();
+	.simpTypeMatchers(SimpMessageType.MESSAGE).denyAll()
+	.anyMessage().permitAll();
 		// @formatter:on
 		assertThat(getAttribute()).isEqualTo("denyAll");
 	}
@@ -298,8 +298,8 @@ public class MessageSecurityMetadataSourceRegistryTests {
 	public void simpTypeMatchersMatchMulti() {
 		// @formatter:off
 		this.messages
-				.simpTypeMatchers(SimpMessageType.CONNECT, SimpMessageType.MESSAGE).denyAll()
-				.anyMessage().permitAll();
+	.simpTypeMatchers(SimpMessageType.CONNECT, SimpMessageType.MESSAGE).denyAll()
+	.anyMessage().permitAll();
 		// @formatter:on
 		assertThat(getAttribute()).isEqualTo("denyAll");
 	}
@@ -308,8 +308,8 @@ public class MessageSecurityMetadataSourceRegistryTests {
 	public void simpTypeMatchersNotMatch() {
 		// @formatter:off
 		this.messages
-				.simpTypeMatchers(SimpMessageType.CONNECT).denyAll()
-				.anyMessage().permitAll();
+	.simpTypeMatchers(SimpMessageType.CONNECT).denyAll()
+	.anyMessage().permitAll();
 		// @formatter:on
 		assertThat(getAttribute()).isEqualTo("permitAll");
 	}
@@ -318,8 +318,8 @@ public class MessageSecurityMetadataSourceRegistryTests {
 	public void simpTypeMatchersNotMatchMulti() {
 		// @formatter:off
 		this.messages
-				.simpTypeMatchers(SimpMessageType.CONNECT, SimpMessageType.DISCONNECT).denyAll()
-				.anyMessage().permitAll();
+	.simpTypeMatchers(SimpMessageType.CONNECT, SimpMessageType.DISCONNECT).denyAll()
+	.anyMessage().permitAll();
 		// @formatter:on
 		assertThat(getAttribute()).isEqualTo("permitAll");
 	}

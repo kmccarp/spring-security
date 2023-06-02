@@ -37,7 +37,7 @@ public class RunAsImplAuthenticationProviderTests {
 	@Test
 	public void testAuthenticationFailDueToWrongKey() {
 		RunAsUserToken token = new RunAsUserToken("wrong_key", "Test", "Password",
-				AuthorityUtils.createAuthorityList("ROLE_ONE", "ROLE_TWO"), UsernamePasswordAuthenticationToken.class);
+	AuthorityUtils.createAuthorityList("ROLE_ONE", "ROLE_TWO"), UsernamePasswordAuthenticationToken.class);
 		RunAsImplAuthenticationProvider provider = new RunAsImplAuthenticationProvider();
 		provider.setKey("hello_world");
 		assertThatExceptionOfType(BadCredentialsException.class).isThrownBy(() -> provider.authenticate(token));
@@ -46,7 +46,7 @@ public class RunAsImplAuthenticationProviderTests {
 	@Test
 	public void testAuthenticationSuccess() {
 		RunAsUserToken token = new RunAsUserToken("my_password", "Test", "Password",
-				AuthorityUtils.createAuthorityList("ROLE_ONE", "ROLE_TWO"), UsernamePasswordAuthenticationToken.class);
+	AuthorityUtils.createAuthorityList("ROLE_ONE", "ROLE_TWO"), UsernamePasswordAuthenticationToken.class);
 		RunAsImplAuthenticationProvider provider = new RunAsImplAuthenticationProvider();
 		provider.setKey("my_password");
 		Authentication result = provider.authenticate(token);

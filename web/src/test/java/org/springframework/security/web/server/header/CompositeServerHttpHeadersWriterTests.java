@@ -91,7 +91,7 @@ public class CompositeServerHttpHeadersWriterTests {
 		AtomicBoolean slowDone = new AtomicBoolean();
 		CountDownLatch latch = new CountDownLatch(1);
 		ServerHttpHeadersWriter slow = (exchange) -> Mono.delay(Duration.ofMillis(100))
-				.doOnSuccess((__) -> slowDone.set(true)).then();
+	.doOnSuccess((__) -> slowDone.set(true)).then();
 		ServerHttpHeadersWriter second = (exchange) -> Mono.fromRunnable(() -> {
 			latch.countDown();
 			assertThat(slowDone.get()).describedAs("ServerLogoutHandler should be executed sequentially").isTrue();

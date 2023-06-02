@@ -73,13 +73,13 @@ public class PortMapperConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.requiresChannel()
-					.anyRequest().requiresSecure()
-					.and()
-				.portMapper()
-					.http(543).mapsTo(123)
-					.and()
-				.portMapper();
+		.requiresChannel()
+		.anyRequest().requiresSecure()
+		.and()
+		.portMapper()
+		.http(543).mapsTo(123)
+		.and()
+		.portMapper();
 			return http.build();
 			// @formatter:on
 		}
@@ -94,14 +94,14 @@ public class PortMapperConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.requiresChannel((requiresChannel) ->
-					requiresChannel
-					.anyRequest().requiresSecure()
-				)
-				.portMapper((portMapper) ->
-					portMapper
-						.http(543).mapsTo(123)
-				);
+		.requiresChannel((requiresChannel) ->
+	requiresChannel
+.anyRequest().requiresSecure()
+		)
+		.portMapper((portMapper) ->
+	portMapper
+.http(543).mapsTo(123)
+		);
 			return http.build();
 			// @formatter:on
 		}
@@ -118,14 +118,14 @@ public class PortMapperConfigurerTests {
 			customPortMapper.setPortMappings(Collections.singletonMap("543", "123"));
 			// @formatter:off
 			http
-				.requiresChannel((requiresChannel) ->
-					requiresChannel
-						.anyRequest().requiresSecure()
-				)
-				.portMapper((portMapper) ->
-					portMapper
-						.portMapper(customPortMapper)
-				);
+		.requiresChannel((requiresChannel) ->
+	requiresChannel
+.anyRequest().requiresSecure()
+		)
+		.portMapper((portMapper) ->
+	portMapper
+.portMapper(customPortMapper)
+		);
 			return http.build();
 			// @formatter:on
 		}

@@ -34,7 +34,7 @@ public final class ObservationMarkingRequestRejectedHandler implements RequestRe
 
 	@Override
 	public void handle(HttpServletRequest request, HttpServletResponse response, RequestRejectedException exception)
-			throws IOException, ServletException {
+throws IOException, ServletException {
 		Observation observation = this.registry.getCurrentObservation();
 		if (observation != null) {
 			observation.error(exception);

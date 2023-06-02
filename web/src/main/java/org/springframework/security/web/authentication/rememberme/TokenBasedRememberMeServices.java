@@ -115,7 +115,7 @@ public class TokenBasedRememberMeServices extends AbstractRememberMeServices {
 	 * @since 5.8
 	 */
 	public TokenBasedRememberMeServices(String key, UserDetailsService userDetailsService,
-			RememberMeTokenAlgorithm encodingAlgorithm) {
+RememberMeTokenAlgorithm encodingAlgorithm) {
 		super(key, userDetailsService);
 		Assert.notNull(encodingAlgorithm, "encodingAlgorithm cannot be null");
 		this.encodingAlgorithm = encodingAlgorithm;
@@ -123,21 +123,21 @@ public class TokenBasedRememberMeServices extends AbstractRememberMeServices {
 
 	@Override
 	protected UserDetails processAutoLoginCookie(String[] cookieTokens, HttpServletRequest request,
-			HttpServletResponse response) {
+HttpServletResponse response) {
 		if (!isValidCookieTokensLength(cookieTokens)) {
 			throw new InvalidCookieException(
-					"Cookie token did not contain 3 or 4 tokens, but contained '" + Arrays.asList(cookieTokens) + "'");
+		"Cookie token did not contain 3 or 4 tokens, but contained '" + Arrays.asList(cookieTokens) + "'");
 		}
 		long tokenExpiryTime = getTokenExpiryTime(cookieTokens);
 		if (isTokenExpired(tokenExpiryTime)) {
 			throw new InvalidCookieException("Cookie token[1] has expired (expired on '" + new Date(tokenExpiryTime)
-					+ "'; current time is '" + new Date() + "')");
+		+ "'; current time is '" + new Date() + "')");
 		}
 		// Check the user exists. Defer lookup until after expiry time checked, to
 		// possibly avoid expensive database call.
 		UserDetails userDetails = getUserDetailsService().loadUserByUsername(cookieTokens[0]);
 		Assert.notNull(userDetails, () -> "UserDetailsService " + getUserDetailsService()
-				+ " returned null for username " + cookieTokens[0] + ". " + "This is an interface contract violation");
+	+ " returned null for username " + cookieTokens[0] + ". " + "This is an interface contract violation");
 		// Check signature of token matches remaining details. Must do this after user
 		// lookup, as we need the DAO-derived password. If efficiency was a major issue,
 		// just add in a UserCache implementation, but recall that this method is usually
@@ -153,10 +153,10 @@ public class TokenBasedRememberMeServices extends AbstractRememberMeServices {
 			actualAlgorithm = RememberMeTokenAlgorithm.valueOf(cookieTokens[2]);
 		}
 		String expectedTokenSignature = makeTokenSignature(tokenExpiryTime, userDetails.getUsername(),
-				userDetails.getPassword(), actualAlgorithm);
+	userDetails.getPassword(), actualAlgorithm);
 		if (!equals(expectedTokenSignature, actualTokenSignature)) {
 			throw new InvalidCookieException("Cookie contained signature '" + actualTokenSignature + "' but expected '"
-					+ expectedTokenSignature + "'");
+		+ expectedTokenSignature + "'");
 		}
 		return userDetails;
 	}
@@ -171,7 +171,7 @@ public class TokenBasedRememberMeServices extends AbstractRememberMeServices {
 		}
 		catch (NumberFormatException nfe) {
 			throw new InvalidCookieException(
-					"Cookie token[1] did not contain a valid number (contained '" + cookieTokens[1] + "')");
+		"Cookie token[1] did not contain a valid number (contained '" + cookieTokens[1] + "')");
 		}
 	}
 
@@ -195,7 +195,7 @@ public class TokenBasedRememberMeServices extends AbstractRememberMeServices {
 	 * @since 5.8
 	 */
 	protected String makeTokenSignature(long tokenExpiryTime, String username, String password,
-			RememberMeTokenAlgorithm algorithm) {
+RememberMeTokenAlgorithm algorithm) {
 		String data = username + ":" + tokenExpiryTime + ":" + password + ":" + getKey();
 		try {
 			MessageDigest digest = MessageDigest.getInstance(algorithm.getDigestAlgorithm());
@@ -212,7 +212,7 @@ public class TokenBasedRememberMeServices extends AbstractRememberMeServices {
 
 	@Override
 	public void onLoginSuccess(HttpServletRequest request, HttpServletResponse response,
-			Authentication successfulAuthentication) {
+Authentication successfulAuthentication) {
 		String username = retrieveUserName(successfulAuthentication);
 		String password = retrievePassword(successfulAuthentication);
 		// If unable to find a username and password, just abort as
@@ -235,11 +235,11 @@ public class TokenBasedRememberMeServices extends AbstractRememberMeServices {
 		// SEC-949
 		expiryTime += 1000L * ((tokenLifetime < 0) ? TWO_WEEKS_S : tokenLifetime);
 		String signatureValue = makeTokenSignature(expiryTime, username, password, this.encodingAlgorithm);
-		setCookie(new String[] { username, Long.toString(expiryTime), this.encodingAlgorithm.name(), signatureValue },
-				tokenLifetime, request, response);
+		setCookie(new String[]{username, Long.toString(expiryTime), this.encodingAlgorithm.name(), signatureValue},
+	tokenLifetime, request, response);
 		if (this.logger.isDebugEnabled()) {
 			this.logger.debug(
-					"Added remember-me cookie for user '" + username + "', expiry: '" + new Date(expiryTime) + "'");
+		"Added remember-me cookie for user '" + username + "', expiry: '" + new Date(expiryTime) + "'");
 		}
 	}
 

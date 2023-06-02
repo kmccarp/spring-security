@@ -82,7 +82,7 @@ public class JdbcUserDetailsManager extends JdbcDaoImpl implements UserDetailsMa
 	public static final String DEF_FIND_GROUPS_SQL = "select group_name from groups";
 
 	public static final String DEF_FIND_USERS_IN_GROUP_SQL = "select username from group_members gm, groups g "
-			+ "where gm.group_id = g.id and g.group_name = ?";
++ "where gm.group_id = g.id and g.group_name = ?";
 
 	public static final String DEF_INSERT_GROUP_SQL = "insert into groups (group_name) values (?)";
 
@@ -103,14 +103,14 @@ public class JdbcUserDetailsManager extends JdbcDaoImpl implements UserDetailsMa
 	public static final String DEF_DELETE_GROUP_MEMBER_SQL = "delete from group_members where group_id = ? and username = ?";
 
 	public static final String DEF_GROUP_AUTHORITIES_QUERY_SQL = "select g.id, g.group_name, ga.authority "
-			+ "from groups g, group_authorities ga " + "where g.group_name = ? " + "and g.id = ga.group_id ";
++ "from groups g, group_authorities ga " + "where g.group_name = ? " + "and g.id = ga.group_id ";
 
 	public static final String DEF_DELETE_GROUP_AUTHORITY_SQL = "delete from group_authorities where group_id = ? and authority = ?";
 
 	protected final Log logger = LogFactory.getLog(getClass());
 
 	private SecurityContextHolderStrategy securityContextHolderStrategy = SecurityContextHolder
-			.getContextHolderStrategy();
+.getContextHolderStrategy();
 
 	private String createUserSql = DEF_CREATE_USER_SQL;
 
@@ -167,7 +167,7 @@ public class JdbcUserDetailsManager extends JdbcDaoImpl implements UserDetailsMa
 	protected void initDao() throws ApplicationContextException {
 		if (this.authenticationManager == null) {
 			this.logger.info(
-					"No authentication manager set. Reauthentication of users when changing passwords will not be performed.");
+		"No authentication manager set. Reauthentication of users when changing passwords will not be performed.");
 		}
 		super.initDao();
 	}
@@ -195,7 +195,7 @@ public class JdbcUserDetailsManager extends JdbcDaoImpl implements UserDetailsMa
 			credsExpired = rs.getBoolean(6);
 		}
 		return new User(userName, password, enabled, !accExpired, !credsExpired, !accLocked,
-				AuthorityUtils.NO_AUTHORITIES);
+	AuthorityUtils.NO_AUTHORITIES);
 	}
 
 	@Override
@@ -268,7 +268,7 @@ public class JdbcUserDetailsManager extends JdbcDaoImpl implements UserDetailsMa
 		if (currentUser == null) {
 			// This would indicate bad coding somewhere
 			throw new AccessDeniedException(
-					"Can't change password as no Authentication object found in context " + "for current user.");
+		"Can't change password as no Authentication object found in context " + "for current user.");
 		}
 		String username = currentUser.getName();
 		// If an authentication manager has been set, re-authenticate the user with the
@@ -276,7 +276,7 @@ public class JdbcUserDetailsManager extends JdbcDaoImpl implements UserDetailsMa
 		if (this.authenticationManager != null) {
 			this.logger.debug(LogMessage.format("Reauthenticating user '%s' for password change request.", username));
 			this.authenticationManager
-					.authenticate(UsernamePasswordAuthenticationToken.unauthenticated(username, oldPassword));
+		.authenticate(UsernamePasswordAuthenticationToken.unauthenticated(username, oldPassword));
 		}
 		else {
 			this.logger.debug("No authentication manager set. Password won't be re-checked.");
@@ -293,18 +293,18 @@ public class JdbcUserDetailsManager extends JdbcDaoImpl implements UserDetailsMa
 	protected Authentication createNewAuthentication(Authentication currentAuth, String newPassword) {
 		UserDetails user = loadUserByUsername(currentAuth.getName());
 		UsernamePasswordAuthenticationToken newAuthentication = UsernamePasswordAuthenticationToken.authenticated(user,
-				null, user.getAuthorities());
+	null, user.getAuthorities());
 		newAuthentication.setDetails(currentAuth.getDetails());
 		return newAuthentication;
 	}
 
 	@Override
 	public boolean userExists(String username) {
-		List<String> users = getJdbcTemplate().queryForList(this.userExistsSql, new String[] { username },
-				String.class);
+		List<String> users = getJdbcTemplate().queryForList(this.userExistsSql, new String[]{username},
+	String.class);
 		if (users.size() > 1) {
 			throw new IncorrectResultSizeDataAccessException("More than one user found with name '" + username + "'",
-					1);
+		1);
 		}
 		return users.size() == 1;
 	}
@@ -317,7 +317,7 @@ public class JdbcUserDetailsManager extends JdbcDaoImpl implements UserDetailsMa
 	@Override
 	public List<String> findUsersInGroup(String groupName) {
 		Assert.hasText(groupName, "groupName should have text");
-		return getJdbcTemplate().queryForList(this.findUsersInGroupSql, new String[] { groupName }, String.class);
+		return getJdbcTemplate().queryForList(this.findUsersInGroupSql, new String[]{groupName}, String.class);
 	}
 
 	@Override
@@ -325,7 +325,7 @@ public class JdbcUserDetailsManager extends JdbcDaoImpl implements UserDetailsMa
 		Assert.hasText(groupName, "groupName should have text");
 		Assert.notNull(authorities, "authorities cannot be null");
 		this.logger.debug("Creating new group '" + groupName + "' with authorities "
-				+ AuthorityUtils.authorityListToSet(authorities));
+	+ AuthorityUtils.authorityListToSet(authorities));
 		getJdbcTemplate().update(this.insertGroupSql, groupName);
 		int groupId = findGroupId(groupName);
 		for (GrantedAuthority a : authorities) {
@@ -386,8 +386,8 @@ public class JdbcUserDetailsManager extends JdbcDaoImpl implements UserDetailsMa
 	public List<GrantedAuthority> findGroupAuthorities(String groupName) {
 		this.logger.debug("Loading authorities for group '" + groupName + "'");
 		Assert.hasText(groupName, "groupName should have text");
-		return getJdbcTemplate().query(this.groupAuthoritiesSql, new String[] { groupName },
-				this::mapToGrantedAuthority);
+		return getJdbcTemplate().query(this.groupAuthoritiesSql, new String[]{groupName},
+	this::mapToGrantedAuthority);
 	}
 
 	private GrantedAuthority mapToGrantedAuthority(ResultSet rs, int rowNum) throws SQLException {

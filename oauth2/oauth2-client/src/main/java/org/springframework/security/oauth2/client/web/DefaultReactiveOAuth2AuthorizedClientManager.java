@@ -95,17 +95,17 @@ public final class DefaultReactiveOAuth2AuthorizedClientManager implements React
 
 	// @formatter:off
 	private static final ReactiveOAuth2AuthorizedClientProvider DEFAULT_AUTHORIZED_CLIENT_PROVIDER = ReactiveOAuth2AuthorizedClientProviderBuilder.builder()
-			.authorizationCode()
-			.refreshToken()
-			.clientCredentials()
-			.password()
-			.build();
+.authorizationCode()
+.refreshToken()
+.clientCredentials()
+.password()
+.build();
 	// @formatter:on
 
 	// @formatter:off
 	private static final Mono<ServerWebExchange> currentServerWebExchangeMono = Mono.deferContextual(Mono::just)
-			.filter((c) -> c.hasKey(ServerWebExchange.class))
-			.map((c) -> c.get(ServerWebExchange.class));
+.filter((c) -> c.hasKey(ServerWebExchange.class))
+.map((c) -> c.get(ServerWebExchange.class));
 	// @formatter:on
 
 	private final ReactiveClientRegistrationRepository clientRegistrationRepository;
@@ -127,19 +127,19 @@ public final class DefaultReactiveOAuth2AuthorizedClientManager implements React
 	 * @param authorizedClientRepository the repository of authorized clients
 	 */
 	public DefaultReactiveOAuth2AuthorizedClientManager(
-			ReactiveClientRegistrationRepository clientRegistrationRepository,
-			ServerOAuth2AuthorizedClientRepository authorizedClientRepository) {
+ReactiveClientRegistrationRepository clientRegistrationRepository,
+ServerOAuth2AuthorizedClientRepository authorizedClientRepository) {
 		Assert.notNull(clientRegistrationRepository, "clientRegistrationRepository cannot be null");
 		Assert.notNull(authorizedClientRepository, "authorizedClientRepository cannot be null");
 		this.clientRegistrationRepository = clientRegistrationRepository;
 		this.authorizedClientRepository = authorizedClientRepository;
 		this.authorizationSuccessHandler = (authorizedClient, principal, attributes) -> authorizedClientRepository
-				.saveAuthorizedClient(authorizedClient, principal,
-						(ServerWebExchange) attributes.get(ServerWebExchange.class.getName()));
+	.saveAuthorizedClient(authorizedClient, principal,
+(ServerWebExchange) attributes.get(ServerWebExchange.class.getName()));
 		this.authorizationFailureHandler = new RemoveAuthorizedClientReactiveOAuth2AuthorizationFailureHandler(
-				(clientRegistrationId, principal, attributes) -> authorizedClientRepository.removeAuthorizedClient(
-						clientRegistrationId, principal,
-						(ServerWebExchange) attributes.get(ServerWebExchange.class.getName())));
+	(clientRegistrationId, principal, attributes) -> authorizedClientRepository.removeAuthorizedClient(
+clientRegistrationId, principal,
+(ServerWebExchange) attributes.get(ServerWebExchange.class.getName())));
 	}
 
 	@Override
@@ -149,20 +149,15 @@ public final class DefaultReactiveOAuth2AuthorizedClientManager implements React
 		Authentication principal = authorizeRequest.getPrincipal();
 		// @formatter:off
 		return Mono.justOrEmpty(authorizeRequest.<ServerWebExchange>getAttribute(ServerWebExchange.class.getName()))
-				.switchIfEmpty(currentServerWebExchangeMono)
-				.switchIfEmpty(Mono.error(() -> new IllegalArgumentException("serverWebExchange cannot be null")))
-				.flatMap((serverWebExchange) -> Mono
-						.justOrEmpty(authorizeRequest.getAuthorizedClient())
-						.switchIfEmpty(Mono.defer(() -> loadAuthorizedClient(clientRegistrationId, principal, serverWebExchange)))
-						.flatMap((authorizedClient) -> // Re-authorize
+	.switchIfEmpty(currentServerWebExchangeMono)
+	.switchIfEmpty(Mono.error(() -> new IllegalArgumentException("serverWebExchange cannot be null")))
+	.flatMap((serverWebExchange) -> Mono.justOrEmpty(authorizeRequest.getAuthorizedClient()).switchIfEmpty(Mono.defer(() -> loadAuthorizedClient(clientRegistrationId, principal, serverWebExchange))).flatMap((authorizedClient) -> // Re-authorize
 							authorizationContext(authorizeRequest, authorizedClient)
 									.flatMap((authorizationContext) -> authorize(authorizationContext, principal, serverWebExchange))
 									// Default to the existing authorizedClient if the
 									// client was not re-authorized
 									.defaultIfEmpty((authorizeRequest.getAuthorizedClient() != null)
-											? authorizeRequest.getAuthorizedClient() : authorizedClient)
-						)
-						.switchIfEmpty(Mono.defer(() ->
+											? authorizeRequest.getAuthorizedClient() : authorizedClient)).switchIfEmpty(Mono.defer(() ->
 							// Authorize
 							this.clientRegistrationRepository.findByRegistrationId(clientRegistrationId)
 									.switchIfEmpty(Mono.error(() -> new IllegalArgumentException(
@@ -171,12 +166,12 @@ public final class DefaultReactiveOAuth2AuthorizedClientManager implements React
 											clientRegistration))
 									.flatMap((authorizationContext) -> authorize(authorizationContext, principal,
 											serverWebExchange))))
-						);
+	);
 		// @formatter:on
 	}
 
 	private Mono<OAuth2AuthorizedClient> loadAuthorizedClient(String clientRegistrationId, Authentication principal,
-			ServerWebExchange serverWebExchange) {
+ServerWebExchange serverWebExchange) {
 		return this.authorizedClientRepository.loadAuthorizedClient(clientRegistrationId, principal, serverWebExchange);
 	}
 
@@ -193,22 +188,18 @@ public final class DefaultReactiveOAuth2AuthorizedClientManager implements React
 	 * {@link #authorizationFailureHandler} has completed
 	 */
 	private Mono<OAuth2AuthorizedClient> authorize(OAuth2AuthorizationContext authorizationContext,
-			Authentication principal, ServerWebExchange serverWebExchange) {
+Authentication principal, ServerWebExchange serverWebExchange) {
 		// @formatter:off
 		return this.authorizedClientProvider.authorize(authorizationContext)
-				// Delegate to the authorizationSuccessHandler of the successful
-				// authorization
-				.flatMap((authorizedClient) ->
-						this.authorizationSuccessHandler
-							.onAuthorizationSuccess(authorizedClient, principal, createAttributes(serverWebExchange))
-							.thenReturn(authorizedClient)
-				)
-				// Delegate to the authorizationFailureHandler of the failed authorization
-				.onErrorResume(OAuth2AuthorizationException.class, (authorizationException) ->
-						this.authorizationFailureHandler
-								.onAuthorizationFailure(authorizationException, principal, createAttributes(serverWebExchange))
-								.then(Mono.error(authorizationException))
-				);
+	// Delegate to the authorizationSuccessHandler of the successful
+	// authorization
+	.flatMap((authorizedClient) ->
+this.authorizationSuccessHandler.onAuthorizationSuccess(authorizedClient, principal, createAttributes(serverWebExchange)).thenReturn(authorizedClient)
+	)
+	// Delegate to the authorizationFailureHandler of the failed authorization
+	.onErrorResume(OAuth2AuthorizationException.class, (authorizationException) ->
+this.authorizationFailureHandler.onAuthorizationFailure(authorizationException, principal, createAttributes(serverWebExchange)).then(Mono.error(authorizationException))
+	);
 		// @formatter:on
 	}
 
@@ -217,36 +208,32 @@ public final class DefaultReactiveOAuth2AuthorizedClientManager implements React
 	}
 
 	private Mono<OAuth2AuthorizationContext> authorizationContext(OAuth2AuthorizeRequest authorizeRequest,
-			OAuth2AuthorizedClient authorizedClient) {
+OAuth2AuthorizedClient authorizedClient) {
 		// @formatter:off
 		return Mono.just(authorizeRequest)
-				.flatMap(this.contextAttributesMapper)
-				.map((attrs) -> OAuth2AuthorizationContext
-						.withAuthorizedClient(authorizedClient)
-						.principal(authorizeRequest.getPrincipal())
-						.attributes((attributes) -> {
-							if (!CollectionUtils.isEmpty(attrs)) {
-								attributes.putAll(attrs);
-							}
-						})
-						.build());
+	.flatMap(this.contextAttributesMapper)
+	.map((attrs) -> OAuth2AuthorizationContext
+.withAuthorizedClient(authorizedClient)
+.principal(authorizeRequest.getPrincipal())
+.attributes((attributes) -> {
+	if (!CollectionUtils.isEmpty(attrs)) {
+		attributes.putAll(attrs);
+	}
+})
+.build());
 		// @formatter:on
 	}
 
 	private Mono<OAuth2AuthorizationContext> authorizationContext(OAuth2AuthorizeRequest authorizeRequest,
-			ClientRegistration clientRegistration) {
+ClientRegistration clientRegistration) {
 		// @formatter:off
 		return Mono.just(authorizeRequest)
-				.flatMap(this.contextAttributesMapper)
-				.map((attrs) -> OAuth2AuthorizationContext.withClientRegistration(clientRegistration)
-						.principal(authorizeRequest.getPrincipal())
-						.attributes((attributes) -> {
-							if (!CollectionUtils.isEmpty(attrs)) {
-								attributes.putAll(attrs);
-							}
-						})
-						.build()
-				);
+	.flatMap(this.contextAttributesMapper)
+	.map((attrs) -> OAuth2AuthorizationContext.withClientRegistration(clientRegistration).principal(authorizeRequest.getPrincipal()).attributes((attributes) -> {
+if (!CollectionUtils.isEmpty(attrs)) {
+	attributes.putAll(attrs);
+}}).build()
+	);
 		// @formatter:on
 	}
 
@@ -270,7 +257,7 @@ public final class DefaultReactiveOAuth2AuthorizedClientManager implements React
 	 * authorization context}
 	 */
 	public void setContextAttributesMapper(
-			Function<OAuth2AuthorizeRequest, Mono<Map<String, Object>>> contextAttributesMapper) {
+Function<OAuth2AuthorizeRequest, Mono<Map<String, Object>>> contextAttributesMapper) {
 		Assert.notNull(contextAttributesMapper, "contextAttributesMapper cannot be null");
 		this.contextAttributesMapper = contextAttributesMapper;
 	}
@@ -310,25 +297,25 @@ public final class DefaultReactiveOAuth2AuthorizedClientManager implements React
 	 * contextAttributesMapper}.
 	 */
 	public static class DefaultContextAttributesMapper
-			implements Function<OAuth2AuthorizeRequest, Mono<Map<String, Object>>> {
+implements Function<OAuth2AuthorizeRequest, Mono<Map<String, Object>>> {
 
 		@Override
 		public Mono<Map<String, Object>> apply(OAuth2AuthorizeRequest authorizeRequest) {
 			ServerWebExchange serverWebExchange = authorizeRequest.getAttribute(ServerWebExchange.class.getName());
 			// @formatter:off
 			return Mono.justOrEmpty(serverWebExchange)
-					.switchIfEmpty(currentServerWebExchangeMono)
-					.flatMap((exchange) -> {
-						Map<String, Object> contextAttributes = Collections.emptyMap();
-						String scope = exchange.getRequest().getQueryParams().getFirst(OAuth2ParameterNames.SCOPE);
-						if (StringUtils.hasText(scope)) {
-							contextAttributes = new HashMap<>();
-							contextAttributes.put(OAuth2AuthorizationContext.REQUEST_SCOPE_ATTRIBUTE_NAME,
-									StringUtils.delimitedListToStringArray(scope, " "));
-						}
-						return Mono.just(contextAttributes);
-					})
-					.defaultIfEmpty(Collections.emptyMap());
+		.switchIfEmpty(currentServerWebExchangeMono)
+		.flatMap((exchange) -> {
+			Map<String, Object> contextAttributes = Collections.emptyMap();
+			String scope = exchange.getRequest().getQueryParams().getFirst(OAuth2ParameterNames.SCOPE);
+			if (StringUtils.hasText(scope)) {
+				contextAttributes = new HashMap<>();
+				contextAttributes.put(OAuth2AuthorizationContext.REQUEST_SCOPE_ATTRIBUTE_NAME,
+			StringUtils.delimitedListToStringArray(scope, " "));
+			}
+			return Mono.just(contextAttributes);
+		})
+		.defaultIfEmpty(Collections.emptyMap());
 			// @formatter:on
 		}
 

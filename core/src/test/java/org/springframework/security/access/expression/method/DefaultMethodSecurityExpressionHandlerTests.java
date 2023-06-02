@@ -138,7 +138,7 @@ public class DefaultMethodSecurityExpressionHandlerTests {
 		map.put("key2", "value2");
 		map.put("key3", "value3");
 		Expression expression = this.handler.getExpressionParser()
-				.parseExpression("(filterObject.key eq 'key1') or (filterObject.value eq 'value2')");
+	.parseExpression("(filterObject.key eq 'key1') or (filterObject.value eq 'value2')");
 		EvaluationContext context = this.handler.createEvaluationContext(this.authentication, this.methodInvocation);
 		Object filtered = this.handler.filter(map, expression, context);
 		assertThat(filtered == map);
@@ -178,11 +178,11 @@ public class DefaultMethodSecurityExpressionHandlerTests {
 		Supplier<Authentication> mockAuthenticationSupplier = mock(Supplier.class);
 		given(mockAuthenticationSupplier.get()).willReturn(this.authentication);
 		EvaluationContext context = this.handler.createEvaluationContext(mockAuthenticationSupplier,
-				this.methodInvocation);
+	this.methodInvocation);
 		verifyNoInteractions(mockAuthenticationSupplier);
 		assertThat(context.getRootObject()).extracting(TypedValue::getValue)
-				.asInstanceOf(InstanceOfAssertFactories.type(MethodSecurityExpressionRoot.class))
-				.extracting(SecurityExpressionRoot::getAuthentication).isEqualTo(this.authentication);
+	.asInstanceOf(InstanceOfAssertFactories.type(MethodSecurityExpressionRoot.class))
+	.extracting(SecurityExpressionRoot::getAuthentication).isEqualTo(this.authentication);
 		verify(mockAuthenticationSupplier).get();
 	}
 

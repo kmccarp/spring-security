@@ -62,7 +62,7 @@ public class SecurityMockMvcRequestPostProcessorsUserDetailsTests {
 	public void setup() {
 		this.request = new MockHttpServletRequest();
 		this.webTestUtils.when(() -> WebTestUtils.getSecurityContextRepository(this.request))
-				.thenReturn(this.repository);
+	.thenReturn(this.repository);
 	}
 
 	@AfterEach
@@ -74,7 +74,7 @@ public class SecurityMockMvcRequestPostProcessorsUserDetailsTests {
 	public void userDetails() {
 		user(this.userDetails).postProcessRequest(this.request);
 		verify(this.repository).saveContext(this.contextCaptor.capture(), eq(this.request),
-				any(HttpServletResponse.class));
+	any(HttpServletResponse.class));
 		SecurityContext context = this.contextCaptor.getValue();
 		assertThat(context.getAuthentication()).isInstanceOf(UsernamePasswordAuthenticationToken.class);
 		assertThat(context.getAuthentication().getPrincipal()).isSameAs(this.userDetails);

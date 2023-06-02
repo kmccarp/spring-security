@@ -46,7 +46,7 @@ public class MapBasedAttributes2GrantedAuthoritiesMapperTests {
 	public void testAfterPropertiesSetEmptyMap() throws Exception {
 		MapBasedAttributes2GrantedAuthoritiesMapper mapper = new MapBasedAttributes2GrantedAuthoritiesMapper();
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> mapper.setAttributes2grantedAuthoritiesMap(new HashMap()));
+	.isThrownBy(() -> mapper.setAttributes2grantedAuthoritiesMap(new HashMap()));
 	}
 
 	@Test
@@ -69,7 +69,7 @@ public class MapBasedAttributes2GrantedAuthoritiesMapperTests {
 	public void testAfterPropertiesSetInvalidValueTypeMap2() throws Exception {
 		MapBasedAttributes2GrantedAuthoritiesMapper mapper = new MapBasedAttributes2GrantedAuthoritiesMapper();
 		HashMap m = new HashMap();
-		m.put("role1", new Object[] { new String[] { "ga1", "ga2" }, new Object() });
+		m.put("role1", new Object[]{new String[]{"ga1", "ga2"}, new Object()});
 		assertThatIllegalArgumentException().isThrownBy(() -> mapper.setAttributes2grantedAuthoritiesMap(m));
 	}
 
@@ -83,94 +83,94 @@ public class MapBasedAttributes2GrantedAuthoritiesMapperTests {
 
 	@Test
 	public void testMapping1() throws Exception {
-		String[] roles = { "role1" };
-		String[] expectedGas = { "ga1" };
+		String[] roles = {"role1"};
+		String[] expectedGas = {"ga1"};
 		testGetGrantedAuthorities(getDefaultMapper(), roles, expectedGas);
 	}
 
 	@Test
 	public void testMapping2() throws Exception {
-		String[] roles = { "role2" };
-		String[] expectedGas = { "ga2" };
+		String[] roles = {"role2"};
+		String[] expectedGas = {"ga2"};
 		testGetGrantedAuthorities(getDefaultMapper(), roles, expectedGas);
 	}
 
 	@Test
 	public void testMapping3() throws Exception {
-		String[] roles = { "role3" };
-		String[] expectedGas = { "ga3", "ga4" };
+		String[] roles = {"role3"};
+		String[] expectedGas = {"ga3", "ga4"};
 		testGetGrantedAuthorities(getDefaultMapper(), roles, expectedGas);
 	}
 
 	@Test
 	public void testMapping4() throws Exception {
-		String[] roles = { "role4" };
-		String[] expectedGas = { "ga5", "ga6" };
+		String[] roles = {"role4"};
+		String[] expectedGas = {"ga5", "ga6"};
 		testGetGrantedAuthorities(getDefaultMapper(), roles, expectedGas);
 	}
 
 	@Test
 	public void testMapping5() throws Exception {
-		String[] roles = { "role5" };
-		String[] expectedGas = { "ga7", "ga8", "ga9" };
+		String[] roles = {"role5"};
+		String[] expectedGas = {"ga7", "ga8", "ga9"};
 		testGetGrantedAuthorities(getDefaultMapper(), roles, expectedGas);
 	}
 
 	@Test
 	public void testMapping6() throws Exception {
-		String[] roles = { "role6" };
-		String[] expectedGas = { "ga10", "ga11", "ga12" };
+		String[] roles = {"role6"};
+		String[] expectedGas = {"ga10", "ga11", "ga12"};
 		testGetGrantedAuthorities(getDefaultMapper(), roles, expectedGas);
 	}
 
 	@Test
 	public void testMapping7() throws Exception {
-		String[] roles = { "role7" };
-		String[] expectedGas = { "ga13", "ga14" };
+		String[] roles = {"role7"};
+		String[] expectedGas = {"ga13", "ga14"};
 		testGetGrantedAuthorities(getDefaultMapper(), roles, expectedGas);
 	}
 
 	@Test
 	public void testMapping8() throws Exception {
-		String[] roles = { "role8" };
-		String[] expectedGas = { "ga13", "ga14" };
+		String[] roles = {"role8"};
+		String[] expectedGas = {"ga13", "ga14"};
 		testGetGrantedAuthorities(getDefaultMapper(), roles, expectedGas);
 	}
 
 	@Test
 	public void testMapping9() throws Exception {
-		String[] roles = { "role9" };
+		String[] roles = {"role9"};
 		String[] expectedGas = {};
 		testGetGrantedAuthorities(getDefaultMapper(), roles, expectedGas);
 	}
 
 	@Test
 	public void testMapping10() throws Exception {
-		String[] roles = { "role10" };
+		String[] roles = {"role10"};
 		String[] expectedGas = {};
 		testGetGrantedAuthorities(getDefaultMapper(), roles, expectedGas);
 	}
 
 	@Test
 	public void testMapping11() throws Exception {
-		String[] roles = { "role11" };
+		String[] roles = {"role11"};
 		String[] expectedGas = {};
 		testGetGrantedAuthorities(getDefaultMapper(), roles, expectedGas);
 	}
 
 	@Test
 	public void testNonExistingMapping() throws Exception {
-		String[] roles = { "nonExisting" };
+		String[] roles = {"nonExisting"};
 		String[] expectedGas = {};
 		testGetGrantedAuthorities(getDefaultMapper(), roles, expectedGas);
 	}
 
 	@Test
 	public void testMappingCombination() throws Exception {
-		String[] roles = { "role1", "role2", "role3", "role4", "role5", "role6", "role7", "role8", "role9", "role10",
-				"role11" };
-		String[] expectedGas = { "ga1", "ga2", "ga3", "ga4", "ga5", "ga6", "ga7", "ga8", "ga9", "ga10", "ga11", "ga12",
-				"ga13", "ga14" };
+		String[] roles = {"role1", "role2", "role3", "role4", "role5", "role6", "role7", "role8", "role9", "role10",
+	"role11"};
+		String[] expectedGas = {"ga1", "ga2", "ga3", "ga4", "ga5", "ga6", "ga7", "ga8", "ga9", "ga10", "ga11", "ga12",
+	"ga13", "ga14"};
 		testGetGrantedAuthorities(getDefaultMapper(), roles, expectedGas);
 	}
 
@@ -180,13 +180,13 @@ public class MapBasedAttributes2GrantedAuthoritiesMapperTests {
 		m.put("role2", new SimpleGrantedAuthority("ga2"));
 		m.put("role3", Arrays.asList("ga3", new SimpleGrantedAuthority("ga4")));
 		m.put("role4", "ga5,ga6");
-		m.put("role5", Arrays.asList("ga7", "ga8", new Object[] { new SimpleGrantedAuthority("ga9") }));
-		m.put("role6", new Object[] { "ga10", "ga11", new Object[] { new SimpleGrantedAuthority("ga12") } });
-		m.put("role7", new String[] { "ga13", "ga14" });
-		m.put("role8", new String[] { "ga13", "ga14", null });
+		m.put("role5", Arrays.asList("ga7", "ga8", new Object[]{new SimpleGrantedAuthority("ga9")}));
+		m.put("role6", new Object[]{"ga10", "ga11", new Object[]{new SimpleGrantedAuthority("ga12")}});
+		m.put("role7", new String[]{"ga13", "ga14"});
+		m.put("role8", new String[]{"ga13", "ga14", null});
 		m.put("role9", null);
-		m.put("role10", new Object[] {});
-		m.put("role11", Arrays.asList(new Object[] { null }));
+		m.put("role10", new Object[]{});
+		m.put("role11", Arrays.asList(new Object[]{null}));
 		return m;
 	}
 
@@ -198,7 +198,7 @@ public class MapBasedAttributes2GrantedAuthoritiesMapperTests {
 	}
 
 	private void testGetGrantedAuthorities(MapBasedAttributes2GrantedAuthoritiesMapper mapper, String[] roles,
-			String[] expectedGas) {
+String[] expectedGas) {
 		List<GrantedAuthority> result = mapper.getGrantedAuthorities(Arrays.asList(roles));
 		Collection resultColl = new ArrayList(result.size());
 		for (GrantedAuthority auth : result) {
@@ -206,8 +206,8 @@ public class MapBasedAttributes2GrantedAuthoritiesMapperTests {
 		}
 		Collection expectedColl = Arrays.asList(expectedGas);
 		assertThat(resultColl.containsAll(expectedColl))
-				.withFailMessage("Role collections should match; result: " + resultColl + ", expected: " + expectedColl)
-				.isTrue();
+	.withFailMessage("Role collections should match; result: " + resultColl + ", expected: " + expectedColl)
+	.isTrue();
 	}
 
 }

@@ -46,7 +46,7 @@ public final class SimpleAuthorityMapper implements GrantedAuthoritiesMapper, In
 	@Override
 	public void afterPropertiesSet() {
 		Assert.isTrue(!(this.convertToUpperCase && this.convertToLowerCase),
-				"Either convertToUpperCase or convertToLowerCase can be set to true, but not both");
+	"Either convertToUpperCase or convertToLowerCase can be set to true, but not both");
 	}
 
 	/**

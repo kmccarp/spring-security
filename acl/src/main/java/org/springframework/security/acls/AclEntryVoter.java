@@ -224,17 +224,17 @@ public class AclEntryVoter extends AbstractAclVoter {
 		}
 		catch (NoSuchMethodException ex) {
 			throw new AuthorizationServiceException("Object of class '" + domainObject.getClass()
-					+ "' does not provide the requested internalMethod: " + this.internalMethod);
+		+ "' does not provide the requested internalMethod: " + this.internalMethod);
 		}
 		catch (IllegalAccessException ex) {
 			logger.debug("IllegalAccessException", ex);
 			throw new AuthorizationServiceException(
-					"Problem invoking internalMethod: " + this.internalMethod + " for object: " + domainObject);
+		"Problem invoking internalMethod: " + this.internalMethod + " for object: " + domainObject);
 		}
 		catch (InvocationTargetException ex) {
 			logger.debug("InvocationTargetException", ex);
 			throw new AuthorizationServiceException(
-					"Problem invoking internalMethod: " + this.internalMethod + " for object: " + domainObject);
+		"Problem invoking internalMethod: " + this.internalMethod + " for object: " + domainObject);
 		}
 	}
 

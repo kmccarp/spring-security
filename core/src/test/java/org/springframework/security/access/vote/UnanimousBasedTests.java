@@ -72,7 +72,7 @@ public class UnanimousBasedTests {
 	public void testOneAffirmativeVoteOneDenyVoteOneAbstainVoteDeniesAccess() {
 		TestingAuthenticationToken auth = makeTestToken();
 		UnanimousBased mgr = makeDecisionManager();
-		List<ConfigAttribute> config = SecurityConfig.createList(new String[] { "ROLE_1", "DENY_FOR_SURE" });
+		List<ConfigAttribute> config = SecurityConfig.createList(new String[]{"ROLE_1", "DENY_FOR_SURE"});
 		assertThatExceptionOfType(AccessDeniedException.class).isThrownBy(() -> mgr.decide(auth, new Object(), config));
 	}
 
@@ -96,7 +96,7 @@ public class UnanimousBasedTests {
 	public void testRoleVoterPrefixObserved() {
 		TestingAuthenticationToken auth = makeTestTokenWithFooBarPrefix();
 		UnanimousBased mgr = makeDecisionManagerWithFooBarPrefix();
-		List<ConfigAttribute> config = SecurityConfig.createList(new String[] { "FOOBAR_1", "FOOBAR_2" });
+		List<ConfigAttribute> config = SecurityConfig.createList(new String[]{"FOOBAR_1", "FOOBAR_2"});
 		mgr.decide(auth, new Object(), config);
 	}
 
@@ -123,7 +123,7 @@ public class UnanimousBasedTests {
 	public void testTwoAffirmativeVotesTwoAbstainVotesGrantsAccess() {
 		TestingAuthenticationToken auth = makeTestToken();
 		UnanimousBased mgr = makeDecisionManager();
-		List<ConfigAttribute> config = SecurityConfig.createList(new String[] { "ROLE_1", "ROLE_2" });
+		List<ConfigAttribute> config = SecurityConfig.createList(new String[]{"ROLE_1", "ROLE_2"});
 		mgr.decide(auth, new Object(), config);
 	}
 

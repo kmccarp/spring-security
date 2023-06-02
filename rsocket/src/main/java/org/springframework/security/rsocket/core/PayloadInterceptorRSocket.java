@@ -47,12 +47,12 @@ class PayloadInterceptorRSocket extends RSocketProxy {
 	private final Context context;
 
 	PayloadInterceptorRSocket(RSocket delegate, List<PayloadInterceptor> interceptors, MimeType metadataMimeType,
-			MimeType dataMimeType) {
+MimeType dataMimeType) {
 		this(delegate, interceptors, metadataMimeType, dataMimeType, Context.empty());
 	}
 
 	PayloadInterceptorRSocket(RSocket delegate, List<PayloadInterceptor> interceptors, MimeType metadataMimeType,
-			MimeType dataMimeType, Context context) {
+MimeType dataMimeType, Context context) {
 		super(delegate);
 		this.metadataMimeType = metadataMimeType;
 		this.dataMimeType = dataMimeType;
@@ -72,19 +72,19 @@ class PayloadInterceptorRSocket extends RSocketProxy {
 	@Override
 	public Mono<Void> fireAndForget(Payload payload) {
 		return intercept(PayloadExchangeType.FIRE_AND_FORGET, payload)
-				.flatMap((context) -> this.source.fireAndForget(payload).contextWrite(context));
+	.flatMap((context) -> this.source.fireAndForget(payload).contextWrite(context));
 	}
 
 	@Override
 	public Mono<Payload> requestResponse(Payload payload) {
 		return intercept(PayloadExchangeType.REQUEST_RESPONSE, payload)
-				.flatMap((context) -> this.source.requestResponse(payload).contextWrite(context));
+	.flatMap((context) -> this.source.requestResponse(payload).contextWrite(context));
 	}
 
 	@Override
 	public Flux<Payload> requestStream(Payload payload) {
 		return intercept(PayloadExchangeType.REQUEST_STREAM, payload)
-				.flatMapMany((context) -> this.source.requestStream(payload).contextWrite(context));
+	.flatMapMany((context) -> this.source.requestStream(payload).contextWrite(context));
 	}
 
 	@Override
@@ -92,8 +92,8 @@ class PayloadInterceptorRSocket extends RSocketProxy {
 		return Flux.from(payloads).switchOnFirst((signal, innerFlux) -> {
 			Payload firstPayload = signal.get();
 			return intercept(PayloadExchangeType.REQUEST_CHANNEL, firstPayload).flatMapMany((context) -> innerFlux
-					.index().concatMap((tuple) -> justOrIntercept(tuple.getT1(), tuple.getT2()))
-					.transform((securedPayloads) -> this.source.requestChannel(securedPayloads)).contextWrite(context));
+		.index().concatMap((tuple) -> justOrIntercept(tuple.getT1(), tuple.getT2()))
+		.transform((securedPayloads) -> this.source.requestChannel(securedPayloads)).contextWrite(context));
 		});
 	}
 
@@ -104,16 +104,16 @@ class PayloadInterceptorRSocket extends RSocketProxy {
 	@Override
 	public Mono<Void> metadataPush(Payload payload) {
 		return intercept(PayloadExchangeType.METADATA_PUSH, payload)
-				.flatMap((c) -> this.source.metadataPush(payload).contextWrite(c));
+	.flatMap((c) -> this.source.metadataPush(payload).contextWrite(c));
 	}
 
 	private Mono<Context> intercept(PayloadExchangeType type, Payload payload) {
 		return Mono.defer(() -> {
 			ContextPayloadInterceptorChain chain = new ContextPayloadInterceptorChain(this.interceptors);
 			DefaultPayloadExchange exchange = new DefaultPayloadExchange(type, payload, this.metadataMimeType,
-					this.dataMimeType);
+		this.dataMimeType);
 			return chain.next(exchange).then(Mono.fromCallable(() -> chain.getContext()))
-					.defaultIfEmpty(Context.empty()).contextWrite(this.context);
+		.defaultIfEmpty(Context.empty()).contextWrite(this.context);
 		});
 	}
 

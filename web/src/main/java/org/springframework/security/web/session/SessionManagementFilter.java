@@ -55,7 +55,7 @@ public class SessionManagementFilter extends GenericFilterBean {
 	static final String FILTER_APPLIED = "__spring_security_session_mgmt_filter_applied";
 
 	private SecurityContextHolderStrategy securityContextHolderStrategy = SecurityContextHolder
-			.getContextHolderStrategy();
+.getContextHolderStrategy();
 
 	private final SecurityContextRepository securityContextRepository;
 
@@ -72,7 +72,7 @@ public class SessionManagementFilter extends GenericFilterBean {
 	}
 
 	public SessionManagementFilter(SecurityContextRepository securityContextRepository,
-			SessionAuthenticationStrategy sessionStrategy) {
+SessionAuthenticationStrategy sessionStrategy) {
 		Assert.notNull(securityContextRepository, "SecurityContextRepository cannot be null");
 		Assert.notNull(sessionStrategy, "SessionAuthenticationStrategy cannot be null");
 		this.securityContextRepository = securityContextRepository;
@@ -81,12 +81,12 @@ public class SessionManagementFilter extends GenericFilterBean {
 
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
-			throws IOException, ServletException {
+throws IOException, ServletException {
 		doFilter((HttpServletRequest) request, (HttpServletResponse) response, chain);
 	}
 
 	private void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
-			throws IOException, ServletException {
+throws IOException, ServletException {
 		if (request.getAttribute(FILTER_APPLIED) != null) {
 			chain.doFilter(request, response);
 			return;
@@ -111,7 +111,7 @@ public class SessionManagementFilter extends GenericFilterBean {
 				// re-entrant requests which may occur before the current request
 				// completes. SEC-1396.
 				this.securityContextRepository.saveContext(this.securityContextHolderStrategy.getContext(), request,
-						response);
+			response);
 			}
 			else {
 				// No security context or authentication present. Check for a session
@@ -119,7 +119,7 @@ public class SessionManagementFilter extends GenericFilterBean {
 				if (request.getRequestedSessionId() != null && !request.isRequestedSessionIdValid()) {
 					if (this.logger.isDebugEnabled()) {
 						this.logger.debug(LogMessage.format("Request requested invalid session id %s",
-								request.getRequestedSessionId()));
+					request.getRequestedSessionId()));
 					}
 					if (this.invalidSessionStrategy != null) {
 						this.invalidSessionStrategy.onInvalidSessionDetected(request, response);

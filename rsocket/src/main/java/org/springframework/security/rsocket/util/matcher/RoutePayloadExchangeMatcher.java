@@ -50,11 +50,11 @@ public class RoutePayloadExchangeMatcher implements PayloadExchangeMatcher {
 	@Override
 	public Mono<MatchResult> matches(PayloadExchange exchange) {
 		Map<String, Object> metadata = this.metadataExtractor.extract(exchange.getPayload(),
-				exchange.getMetadataMimeType());
+	exchange.getMetadataMimeType());
 		return Optional.ofNullable((String) metadata.get(MetadataExtractor.ROUTE_KEY))
-				.map((routeValue) -> this.routeMatcher.parseRoute(routeValue))
-				.map((route) -> this.routeMatcher.matchAndExtract(this.pattern, route)).map((v) -> MatchResult.match(v))
-				.orElse(MatchResult.notMatch());
+	.map((routeValue) -> this.routeMatcher.parseRoute(routeValue))
+	.map((route) -> this.routeMatcher.matchAndExtract(this.pattern, route)).map((v) -> MatchResult.match(v))
+	.orElse(MatchResult.notMatch());
 	}
 
 }

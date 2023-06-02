@@ -61,13 +61,13 @@ public final class AuthorizationGrantType implements Serializable {
 	 * @since 5.5
 	 */
 	public static final AuthorizationGrantType JWT_BEARER = new AuthorizationGrantType(
-			"urn:ietf:params:oauth:grant-type:jwt-bearer");
+"urn:ietf:params:oauth:grant-type:jwt-bearer");
 
 	/**
 	 * @since 6.1
 	 */
 	public static final AuthorizationGrantType DEVICE_CODE = new AuthorizationGrantType(
-			"urn:ietf:params:oauth:grant-type:device_code");
+"urn:ietf:params:oauth:grant-type:device_code");
 
 	private final String value;
 

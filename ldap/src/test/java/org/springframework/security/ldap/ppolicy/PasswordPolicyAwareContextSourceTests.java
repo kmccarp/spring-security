@@ -72,16 +72,16 @@ public class PasswordPolicyAwareContextSourceTests {
 	public void standardExceptionIsPropagatedWhenExceptionRaisedAndNoControlsAreSet() throws Exception {
 		willThrow(new NamingException("some LDAP exception")).given(this.ctx).reconnect(any(Control[].class));
 		assertThatExceptionOfType(UncategorizedLdapException.class)
-				.isThrownBy(() -> this.ctxSource.getContext("user", "ignored"));
+	.isThrownBy(() -> this.ctxSource.getContext("user", "ignored"));
 	}
 
 	@Test
 	public void lockedPasswordPolicyControlRaisesPasswordPolicyException() throws Exception {
-		given(this.ctx.getResponseControls()).willReturn(new Control[] {
-				new PasswordPolicyResponseControl(PasswordPolicyResponseControlTests.OPENLDAP_LOCKED_CTRL) });
+		given(this.ctx.getResponseControls()).willReturn(new Control[]{
+	new PasswordPolicyResponseControl(PasswordPolicyResponseControlTests.OPENLDAP_LOCKED_CTRL)});
 		willThrow(new NamingException("locked message")).given(this.ctx).reconnect(any(Control[].class));
 		assertThatExceptionOfType(PasswordPolicyException.class)
-				.isThrownBy(() -> this.ctxSource.getContext("user", "ignored"));
+	.isThrownBy(() -> this.ctxSource.getContext("user", "ignored"));
 	}
 
 }

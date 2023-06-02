@@ -67,8 +67,7 @@ import org.springframework.util.Assert;
  * @since 3.2
  * @see CompositeSessionAuthenticationStrategy
  */
-public class ConcurrentSessionControlAuthenticationStrategy
-		implements MessageSourceAware, SessionAuthenticationStrategy {
+public class ConcurrentSessionControlAuthenticationStrategyimplements MessageSourceAware, SessionAuthenticationStrategy {
 
 	protected MessageSourceAccessor messages = SpringSecurityMessageSource.getAccessor();
 
@@ -93,7 +92,7 @@ public class ConcurrentSessionControlAuthenticationStrategy
 	 */
 	@Override
 	public void onAuthentication(Authentication authentication, HttpServletRequest request,
-			HttpServletResponse response) {
+HttpServletResponse response) {
 		int allowedSessions = getMaximumSessionsForThisUser(authentication);
 		if (allowedSessions == -1) {
 			// We permit unlimited logins
@@ -143,11 +142,11 @@ public class ConcurrentSessionControlAuthenticationStrategy
 	 *
 	 */
 	protected void allowableSessionsExceeded(List<SessionInformation> sessions, int allowableSessions,
-			SessionRegistry registry) throws SessionAuthenticationException {
+SessionRegistry registry) throws SessionAuthenticationException {
 		if (this.exceptionIfMaximumExceeded || (sessions == null)) {
 			throw new SessionAuthenticationException(
-					this.messages.getMessage("ConcurrentSessionControlAuthenticationStrategy.exceededAllowed",
-							new Object[] { allowableSessions }, "Maximum sessions of {0} for this principal exceeded"));
+		this.messages.getMessage("ConcurrentSessionControlAuthenticationStrategy.exceededAllowed",
+	new Object[]{allowableSessions}, "Maximum sessions of {0} for this principal exceeded"));
 		}
 		// Determine least recently used sessions, and mark them for invalidation
 		sessions.sort(Comparator.comparing(SessionInformation::getLastRequest));
@@ -179,7 +178,7 @@ public class ConcurrentSessionControlAuthenticationStrategy
 	 */
 	public void setMaximumSessions(int maximumSessions) {
 		Assert.isTrue(maximumSessions != 0,
-				"MaximumLogins must be either -1 to allow unlimited logins, or a positive integer to specify a maximum");
+	"MaximumLogins must be either -1 to allow unlimited logins, or a positive integer to specify a maximum");
 		this.maximumSessions = maximumSessions;
 	}
 

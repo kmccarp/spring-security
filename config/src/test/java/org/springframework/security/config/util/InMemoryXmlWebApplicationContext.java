@@ -41,7 +41,7 @@ public class InMemoryXmlWebApplicationContext extends AbstractRefreshableWebAppl
 
 	public InMemoryXmlWebApplicationContext(String xml, String secVersion, ApplicationContext parent) {
 		String fullXml = InMemoryXmlApplicationContext.BEANS_OPENING + secVersion + ".xsd'>\n" + xml
-				+ InMemoryXmlApplicationContext.BEANS_CLOSE;
+	+ InMemoryXmlApplicationContext.BEANS_CLOSE;
 		this.inMemoryXml = new InMemoryResource(fullXml);
 		setAllowBeanDefinitionOverriding(true);
 		setParent(parent);
@@ -50,7 +50,7 @@ public class InMemoryXmlWebApplicationContext extends AbstractRefreshableWebAppl
 	@Override
 	protected void loadBeanDefinitions(DefaultListableBeanFactory beanFactory) throws BeansException {
 		XmlBeanDefinitionReader reader = new XmlBeanDefinitionReader(beanFactory);
-		reader.loadBeanDefinitions(new Resource[] { this.inMemoryXml });
+		reader.loadBeanDefinitions(new Resource[]{this.inMemoryXml});
 	}
 
 }

@@ -28,8 +28,7 @@ import org.springframework.security.core.context.SecurityContext;
  * @since 3.2
  *
  */
-public class CurrentSecurityContextSchedulingTaskExecutorTests
-		extends AbstractSecurityContextSchedulingTaskExecutorTests {
+public class CurrentSecurityContextSchedulingTaskExecutorTestsextends AbstractSecurityContextSchedulingTaskExecutorTests {
 
 	@BeforeEach
 	public void setUp() throws Exception {

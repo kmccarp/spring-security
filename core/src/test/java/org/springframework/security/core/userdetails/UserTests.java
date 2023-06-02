@@ -61,14 +61,14 @@ public class UserTests {
 		users.add(user1);
 		assertThat(users).contains(new User("rod", "koala", true, true, true, true, ROLE_12));
 		assertThat(users).contains(new User("rod", "anotherpass", false, false, false, false,
-				AuthorityUtils.createAuthorityList("ROLE_X")));
+	AuthorityUtils.createAuthorityList("ROLE_X")));
 		assertThat(users).doesNotContain(new User("bod", "koala", true, true, true, true, ROLE_12));
 	}
 
 	@Test
 	public void testNoArgConstructorDoesntExist() {
 		assertThatExceptionOfType(NoSuchMethodException.class)
-				.isThrownBy(() -> User.class.getDeclaredConstructor((Class[]) null));
+	.isThrownBy(() -> User.class.getDeclaredConstructor((Class[]) null));
 	}
 
 	@Test
@@ -80,22 +80,22 @@ public class UserTests {
 	@Test
 	public void testNullWithinUserAuthoritiesIsRejected() {
 		assertThatIllegalArgumentException().isThrownBy(() -> User.builder().username("user").password("password")
-				.authorities((Collection<? extends GrantedAuthority>) null).build());
+	.authorities((Collection<? extends GrantedAuthority>) null).build());
 		List<GrantedAuthority> authorities = new ArrayList<>();
 		authorities.add(null);
 		authorities.add(null);
 		assertThatIllegalArgumentException().isThrownBy(
-				() -> User.builder().username("user").password("password").authorities(authorities).build());
+	() -> User.builder().username("user").password("password").authorities(authorities).build());
 
 		assertThatIllegalArgumentException().isThrownBy(() -> User.builder().username("user").password("password")
-				.authorities((GrantedAuthority[]) null).build());
+	.authorities((GrantedAuthority[]) null).build());
 		assertThatIllegalArgumentException().isThrownBy(() -> User.builder().username("user").password("password")
-				.authorities(new GrantedAuthority[] { null, null }).build());
+	.authorities(new GrantedAuthority[]{null, null}).build());
 
 		assertThatIllegalArgumentException().isThrownBy(
-				() -> User.builder().username("user").password("password").authorities((String[]) null).build());
+	() -> User.builder().username("user").password("password").authorities((String[]) null).build());
 		assertThatIllegalArgumentException().isThrownBy(() -> User.builder().username("user").password("password")
-				.authorities(new String[] { null, null }).build());
+	.authorities(new String[]{null, null}).build());
 	}
 
 	@Test
@@ -118,7 +118,7 @@ public class UserTests {
 	@Test
 	public void testUserGettersSetter() {
 		UserDetails user = new User("rod", "koala", true, true, true, true,
-				AuthorityUtils.createAuthorityList("ROLE_TWO", "ROLE_ONE"));
+	AuthorityUtils.createAuthorityList("ROLE_TWO", "ROLE_ONE"));
 		assertThat(user.getUsername()).isEqualTo("rod");
 		assertThat(user.getPassword()).isEqualTo("koala");
 		assertThat(user.isEnabled()).isTrue();
@@ -173,14 +173,14 @@ public class UserTests {
 	public void withUserWhenDetailsPasswordEncoderThenEncodes() {
 		UserDetails userDetails = User.withUsername("user").password("password").roles("USER").build();
 		UserDetails withEncodedPassword = User.withUserDetails(userDetails).passwordEncoder((p) -> p + "encoded")
-				.build();
+	.build();
 		assertThat(withEncodedPassword.getPassword()).isEqualTo("passwordencoded");
 	}
 
 	@Test
 	public void withUsernameWhenPasswordEncoderAndPasswordThenEncodes() {
 		UserDetails withEncodedPassword = User.withUsername("user").password("password")
-				.passwordEncoder((p) -> p + "encoded").roles("USER").build();
+	.passwordEncoder((p) -> p + "encoded").roles("USER").build();
 		assertThat(withEncodedPassword.getPassword()).isEqualTo("passwordencoded");
 	}
 
@@ -188,10 +188,10 @@ public class UserTests {
 	public void withUsernameWhenPasswordAndPasswordEncoderThenEncodes() {
 		// @formatter:off
 		UserDetails withEncodedPassword = User.withUsername("user")
-			.passwordEncoder((p) -> p + "encoded")
-			.password("password")
-			.roles("USER")
-			.build();
+	.passwordEncoder((p) -> p + "encoded")
+	.password("password")
+	.roles("USER")
+	.build();
 		// @formatter:on
 		assertThat(withEncodedPassword.getPassword()).isEqualTo("passwordencoded");
 	}
@@ -201,11 +201,11 @@ public class UserTests {
 		Function<String, String> encoder = (p) -> p + "encoded";
 		// @formatter:off
 		UserDetails withEncodedPassword = User.withUsername("user")
-			.passwordEncoder(encoder)
-			.password("password")
-			.passwordEncoder(encoder)
-			.roles("USER")
-			.build();
+	.passwordEncoder(encoder)
+	.password("password")
+	.passwordEncoder(encoder)
+	.roles("USER")
+	.build();
 		// @formatter:on
 		assertThat(withEncodedPassword.getPassword()).isEqualTo("passwordencoded");
 	}

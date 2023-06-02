@@ -37,7 +37,7 @@ public class WebConfigUtilsTests {
 	@Test
 	public void validateHttpRedirectSpELNoParserWarning() {
 		WebConfigUtils.validateHttpRedirect("#{T(org.springframework.security.config.http.WebConfigUtilsTest).URL}",
-				this.parserContext, "fakeSource");
+	this.parserContext, "fakeSource");
 		verifyNoMoreInteractions(this.parserContext);
 	}
 

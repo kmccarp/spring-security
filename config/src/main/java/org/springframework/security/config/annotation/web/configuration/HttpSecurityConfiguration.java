@@ -70,7 +70,7 @@ class HttpSecurityConfiguration {
 	private ApplicationContext context;
 
 	private SecurityContextHolderStrategy securityContextHolderStrategy = SecurityContextHolder
-			.getContextHolderStrategy();
+.getContextHolderStrategy();
 
 	private ContentNegotiationStrategy contentNegotiationStrategy = new HeaderContentNegotiationStrategy();
 
@@ -104,7 +104,7 @@ class HttpSecurityConfiguration {
 	HttpSecurity httpSecurity() throws Exception {
 		LazyPasswordEncoder passwordEncoder = new LazyPasswordEncoder(this.context);
 		AuthenticationManagerBuilder authenticationBuilder = new DefaultPasswordEncoderAuthenticationManagerBuilder(
-				this.objectPostProcessor, passwordEncoder);
+	this.objectPostProcessor, passwordEncoder);
 		authenticationBuilder.parentAuthenticationManager(authenticationManager());
 		authenticationBuilder.authenticationEventPublisher(getAuthenticationEventPublisher());
 		HttpSecurity http = new HttpSecurity(this.objectPostProcessor, authenticationBuilder, createSharedObjects());
@@ -112,16 +112,16 @@ class HttpSecurityConfiguration {
 		webAsyncManagerIntegrationFilter.setSecurityContextHolderStrategy(this.securityContextHolderStrategy);
 		// @formatter:off
 		http
-			.csrf(withDefaults())
-			.addFilter(webAsyncManagerIntegrationFilter)
-			.exceptionHandling(withDefaults())
-			.headers(withDefaults())
-			.sessionManagement(withDefaults())
-			.securityContext(withDefaults())
-			.requestCache(withDefaults())
-			.anonymous(withDefaults())
-			.servletApi(withDefaults())
-			.apply(new DefaultLoginPageConfigurer<>());
+	.csrf(withDefaults())
+	.addFilter(webAsyncManagerIntegrationFilter)
+	.exceptionHandling(withDefaults())
+	.headers(withDefaults())
+	.sessionManagement(withDefaults())
+	.securityContext(withDefaults())
+	.requestCache(withDefaults())
+	.anonymous(withDefaults())
+	.servletApi(withDefaults())
+	.apply(new DefaultLoginPageConfigurer<>());
 		http.logout(withDefaults());
 		// @formatter:on
 		applyDefaultConfigurers(http);
@@ -142,7 +142,7 @@ class HttpSecurityConfiguration {
 	private void applyDefaultConfigurers(HttpSecurity http) throws Exception {
 		ClassLoader classLoader = this.context.getClassLoader();
 		List<AbstractHttpConfigurer> defaultHttpConfigurers = SpringFactoriesLoader
-				.loadFactories(AbstractHttpConfigurer.class, classLoader);
+	.loadFactories(AbstractHttpConfigurer.class, classLoader);
 		for (AbstractHttpConfigurer configurer : defaultHttpConfigurers) {
 			http.apply(configurer);
 		}
@@ -164,14 +164,14 @@ class HttpSecurityConfiguration {
 		 * @param objectPostProcessor the {@link ObjectPostProcessor} instance to use.
 		 */
 		DefaultPasswordEncoderAuthenticationManagerBuilder(ObjectPostProcessor<Object> objectPostProcessor,
-				PasswordEncoder defaultPasswordEncoder) {
+	PasswordEncoder defaultPasswordEncoder) {
 			super(objectPostProcessor);
 			this.defaultPasswordEncoder = defaultPasswordEncoder;
 		}
 
 		@Override
 		public InMemoryUserDetailsManagerConfigurer<AuthenticationManagerBuilder> inMemoryAuthentication()
-				throws Exception {
+	throws Exception {
 			return super.inMemoryAuthentication().passwordEncoder(this.defaultPasswordEncoder);
 		}
 
@@ -182,7 +182,7 @@ class HttpSecurityConfiguration {
 
 		@Override
 		public <T extends UserDetailsService> DaoAuthenticationConfigurer<AuthenticationManagerBuilder, T> userDetailsService(
-				T userDetailsService) throws Exception {
+	T userDetailsService) throws Exception {
 			return super.userDetailsService(userDetailsService).passwordEncoder(this.defaultPasswordEncoder);
 		}
 

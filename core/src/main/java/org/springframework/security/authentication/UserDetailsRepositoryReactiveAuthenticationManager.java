@@ -30,8 +30,7 @@ import org.springframework.util.Assert;
  * @author Eddú Meléndez
  * @since 5.0
  */
-public class UserDetailsRepositoryReactiveAuthenticationManager
-		extends AbstractUserDetailsReactiveAuthenticationManager {
+public class UserDetailsRepositoryReactiveAuthenticationManagerextends AbstractUserDetailsReactiveAuthenticationManager {
 
 	private ReactiveUserDetailsService userDetailsService;
 

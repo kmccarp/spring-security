@@ -60,14 +60,14 @@ final class MockWebResponseBuilder {
 		List<NameValuePair> responseHeaders = responseHeaders();
 		HttpStatus status = HttpStatus.resolve(this.exchangeResult.getStatus().value());
 		return new WebResponseData(this.exchangeResult.getResponseBodyContent(), status.value(),
-				status.getReasonPhrase(), responseHeaders);
+	status.getReasonPhrase(), responseHeaders);
 	}
 
 	private List<NameValuePair> responseHeaders() {
 		HttpHeaders responseHeaders = this.exchangeResult.getResponseHeaders();
 		List<NameValuePair> result = new ArrayList<>(responseHeaders.size());
 		responseHeaders.forEach((headerName, headerValues) -> headerValues
-				.forEach((headerValue) -> result.add(new NameValuePair(headerName, headerValue))));
+	.forEach((headerValue) -> result.add(new NameValuePair(headerName, headerValue))));
 		return result;
 	}
 

@@ -73,9 +73,9 @@ public final class Saml2AuthenticationTokenConverter implements AuthenticationCo
 	public Saml2AuthenticationToken convert(HttpServletRequest request) {
 		AbstractSaml2AuthenticationRequest authenticationRequest = loadAuthenticationRequest(request);
 		String relyingPartyRegistrationId = (authenticationRequest != null)
-				? authenticationRequest.getRelyingPartyRegistrationId() : null;
+	? authenticationRequest.getRelyingPartyRegistrationId() : null;
 		RelyingPartyRegistration relyingPartyRegistration = this.relyingPartyRegistrationResolver.resolve(request,
-				relyingPartyRegistrationId);
+	relyingPartyRegistrationId);
 		if (relyingPartyRegistration == null) {
 			return null;
 		}
@@ -96,7 +96,7 @@ public final class Saml2AuthenticationTokenConverter implements AuthenticationCo
 	 * @since 5.6
 	 */
 	public void setAuthenticationRequestRepository(
-			Saml2AuthenticationRequestRepository<AbstractSaml2AuthenticationRequest> authenticationRequestRepository) {
+Saml2AuthenticationRequestRepository<AbstractSaml2AuthenticationRequest> authenticationRequestRepository) {
 		Assert.notNull(authenticationRequestRepository, "authenticationRequestRepository cannot be null");
 		this.loader = authenticationRequestRepository::loadAuthenticationRequest;
 	}
@@ -119,7 +119,7 @@ public final class Saml2AuthenticationTokenConverter implements AuthenticationCo
 		}
 		catch (Exception ex) {
 			throw new Saml2AuthenticationException(
-					new Saml2Error(Saml2ErrorCodes.INVALID_RESPONSE, "Failed to decode SAMLResponse"), ex);
+		new Saml2Error(Saml2ErrorCodes.INVALID_RESPONSE, "Failed to decode SAMLResponse"), ex);
 		}
 	}
 
@@ -133,7 +133,7 @@ public final class Saml2AuthenticationTokenConverter implements AuthenticationCo
 		}
 		catch (Exception ex) {
 			throw new Saml2AuthenticationException(
-					new Saml2Error(Saml2ErrorCodes.INVALID_RESPONSE, "Unable to inflate string"), ex);
+		new Saml2Error(Saml2ErrorCodes.INVALID_RESPONSE, "Unable to inflate string"), ex);
 		}
 	}
 
@@ -147,7 +147,7 @@ public final class Saml2AuthenticationTokenConverter implements AuthenticationCo
 
 		private static int[] genValueMapping() {
 			byte[] alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
-					.getBytes(StandardCharsets.ISO_8859_1);
+		.getBytes(StandardCharsets.ISO_8859_1);
 
 			int[] values = new int[256];
 			Arrays.fill(values, -1);
@@ -172,14 +172,14 @@ public final class Saml2AuthenticationTokenConverter implements AuthenticationCo
 
 			// in cases of an incomplete final chunk, ensure the unused bits are zero
 			switch (goodChars % 4) {
-			case 0:
-				return true;
-			case 2:
-				return (lastGoodCharVal & 0b1111) == 0;
-			case 3:
-				return (lastGoodCharVal & 0b11) == 0;
-			default:
-				return false;
+				case 0:
+					return true;
+				case 2:
+					return (lastGoodCharVal & 0b1111) == 0;
+				case 3:
+					return (lastGoodCharVal & 0b11) == 0;
+				default:
+					return false;
 			}
 		}
 

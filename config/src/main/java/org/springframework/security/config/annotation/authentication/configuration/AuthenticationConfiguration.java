@@ -78,11 +78,11 @@ public class AuthenticationConfiguration {
 
 	@Bean
 	public AuthenticationManagerBuilder authenticationManagerBuilder(ObjectPostProcessor<Object> objectPostProcessor,
-			ApplicationContext context) {
+ApplicationContext context) {
 		LazyPasswordEncoder defaultPasswordEncoder = new LazyPasswordEncoder(context);
 		AuthenticationEventPublisher authenticationEventPublisher = getAuthenticationEventPublisher(context);
 		DefaultPasswordEncoderAuthenticationManagerBuilder result = new DefaultPasswordEncoderAuthenticationManagerBuilder(
-				objectPostProcessor, defaultPasswordEncoder);
+	objectPostProcessor, defaultPasswordEncoder);
 		if (authenticationEventPublisher != null) {
 			result.authenticationEventPublisher(authenticationEventPublisher);
 		}
@@ -91,19 +91,19 @@ public class AuthenticationConfiguration {
 
 	@Bean
 	public static GlobalAuthenticationConfigurerAdapter enableGlobalAuthenticationAutowiredConfigurer(
-			ApplicationContext context) {
+ApplicationContext context) {
 		return new EnableGlobalAuthenticationAutowiredConfigurer(context);
 	}
 
 	@Bean
 	public static InitializeUserDetailsBeanManagerConfigurer initializeUserDetailsBeanManagerConfigurer(
-			ApplicationContext context) {
+ApplicationContext context) {
 		return new InitializeUserDetailsBeanManagerConfigurer(context);
 	}
 
 	@Bean
 	public static InitializeAuthenticationProviderBeanManagerConfigurer initializeAuthenticationProviderBeanManagerConfigurer(
-			ApplicationContext context) {
+ApplicationContext context) {
 		return new InitializeAuthenticationProviderBeanManagerConfigurer(context);
 	}
 
@@ -153,7 +153,7 @@ public class AuthenticationConfiguration {
 	private <T> T lazyBean(Class<T> interfaceName) {
 		LazyInitTargetSource lazyTargetSource = new LazyInitTargetSource();
 		String[] beanNamesForType = BeanFactoryUtils.beanNamesForTypeIncludingAncestors(this.applicationContext,
-				interfaceName);
+	interfaceName);
 		if (beanNamesForType.length == 0) {
 			return null;
 		}
@@ -172,9 +172,9 @@ public class AuthenticationConfiguration {
 		}
 		List<String> primaryBeanNames = getPrimaryBeanNames(beanNamesForType);
 		Assert.isTrue(primaryBeanNames.size() != 0, () -> "Found " + beanNamesForType.length + " beans for type "
-				+ interfaceName + ", but none marked as primary");
+	+ interfaceName + ", but none marked as primary");
 		Assert.isTrue(primaryBeanNames.size() == 1,
-				() -> "Found " + primaryBeanNames.size() + " beans for type " + interfaceName + " marked as primary");
+	() -> "Found " + primaryBeanNames.size() + " beans for type " + interfaceName + " marked as primary");
 		return primaryBeanNames.get(0);
 	}
 
@@ -185,7 +185,7 @@ public class AuthenticationConfiguration {
 		}
 		for (String beanName : beanNamesForType) {
 			if (((ConfigurableApplicationContext) this.applicationContext).getBeanFactory().getBeanDefinition(beanName)
-					.isPrimary()) {
+		.isPrimary()) {
 				list.add(beanName);
 			}
 		}
@@ -218,7 +218,7 @@ public class AuthenticationConfiguration {
 		@Override
 		public void init(AuthenticationManagerBuilder auth) {
 			Map<String, Object> beansWithAnnotation = this.context
-					.getBeansWithAnnotation(EnableGlobalAuthentication.class);
+		.getBeansWithAnnotation(EnableGlobalAuthentication.class);
 			if (logger.isTraceEnabled()) {
 				logger.trace(LogMessage.format("Eagerly initializing %s", beansWithAnnotation));
 			}
@@ -276,14 +276,14 @@ public class AuthenticationConfiguration {
 		 * @param objectPostProcessor the {@link ObjectPostProcessor} instance to use.
 		 */
 		DefaultPasswordEncoderAuthenticationManagerBuilder(ObjectPostProcessor<Object> objectPostProcessor,
-				PasswordEncoder defaultPasswordEncoder) {
+	PasswordEncoder defaultPasswordEncoder) {
 			super(objectPostProcessor);
 			this.defaultPasswordEncoder = defaultPasswordEncoder;
 		}
 
 		@Override
 		public InMemoryUserDetailsManagerConfigurer<AuthenticationManagerBuilder> inMemoryAuthentication()
-				throws Exception {
+	throws Exception {
 			return super.inMemoryAuthentication().passwordEncoder(this.defaultPasswordEncoder);
 		}
 
@@ -294,7 +294,7 @@ public class AuthenticationConfiguration {
 
 		@Override
 		public <T extends UserDetailsService> DaoAuthenticationConfigurer<AuthenticationManagerBuilder, T> userDetailsService(
-				T userDetailsService) throws Exception {
+	T userDetailsService) throws Exception {
 			return super.userDetailsService(userDetailsService).passwordEncoder(this.defaultPasswordEncoder);
 		}
 

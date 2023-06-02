@@ -58,8 +58,8 @@ public abstract class AbstractWebServerIntegrationTests {
 
 		// @formatter:off
 		return MockMvcBuilders.webAppContextSetup(context)
-				.apply(springSecurity())
-				.build();
+	.apply(springSecurity())
+	.build();
 		// @formatter:on
 	}
 

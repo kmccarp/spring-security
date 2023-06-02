@@ -34,8 +34,8 @@ public class InvalidCsrfTokenException extends CsrfException {
 	 */
 	public InvalidCsrfTokenException(CsrfToken expectedAccessToken, String actualAccessToken) {
 		super("Invalid CSRF Token '" + actualAccessToken + "' was found on the request parameter '"
-				+ expectedAccessToken.getParameterName() + "' or header '" + expectedAccessToken.getHeaderName()
-				+ "'.");
+	+ expectedAccessToken.getParameterName() + "' or header '" + expectedAccessToken.getHeaderName()
+	+ "'.");
 	}
 
 }

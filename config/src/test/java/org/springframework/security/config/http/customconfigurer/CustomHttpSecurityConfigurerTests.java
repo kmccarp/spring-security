@@ -118,8 +118,8 @@ public class CustomHttpSecurityConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.apply(CustomConfigurer.customConfigurer())
-					.loginPage("/custom");
+		.apply(CustomConfigurer.customConfigurer())
+		.loginPage("/custom");
 			return http.build();
 			// @formatter:on
 		}
@@ -144,11 +144,11 @@ public class CustomHttpSecurityConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.apply(CustomConfigurer.customConfigurer())
-					.and()
-				.csrf().disable()
-				.formLogin()
-					.loginPage("/other");
+		.apply(CustomConfigurer.customConfigurer())
+		.and()
+		.csrf().disable()
+		.formLogin()
+		.loginPage("/other");
 			return http.build();
 			// @formatter:on
 		}

@@ -45,8 +45,7 @@ import org.springframework.util.Assert;
  * @author Josh Cummings
  * @since 5.8
  */
-public final class AuthorizationManagerBeforeReactiveMethodInterceptor
-		implements Ordered, MethodInterceptor, PointcutAdvisor, AopInfrastructureBean {
+public final class AuthorizationManagerBeforeReactiveMethodInterceptorimplements Ordered, MethodInterceptor, PointcutAdvisor, AopInfrastructureBean {
 
 	private final Pointcut pointcut;
 
@@ -68,9 +67,9 @@ public final class AuthorizationManagerBeforeReactiveMethodInterceptor
 	 * @return the {@link AuthorizationManagerBeforeReactiveMethodInterceptor} to use
 	 */
 	public static AuthorizationManagerBeforeReactiveMethodInterceptor preAuthorize(
-			ReactiveAuthorizationManager<MethodInvocation> authorizationManager) {
+ReactiveAuthorizationManager<MethodInvocation> authorizationManager) {
 		AuthorizationManagerBeforeReactiveMethodInterceptor interceptor = new AuthorizationManagerBeforeReactiveMethodInterceptor(
-				AuthorizationMethodPointcuts.forAnnotations(PreAuthorize.class), authorizationManager);
+	AuthorizationMethodPointcuts.forAnnotations(PreAuthorize.class), authorizationManager);
 		interceptor.setOrder(AuthorizationInterceptorsOrder.PRE_AUTHORIZE.getOrder());
 		return interceptor;
 	}
@@ -81,7 +80,7 @@ public final class AuthorizationManagerBeforeReactiveMethodInterceptor
 	 * @param authorizationManager the {@link ReactiveAuthorizationManager} to use
 	 */
 	public AuthorizationManagerBeforeReactiveMethodInterceptor(Pointcut pointcut,
-			ReactiveAuthorizationManager<MethodInvocation> authorizationManager) {
+ReactiveAuthorizationManager<MethodInvocation> authorizationManager) {
 		Assert.notNull(pointcut, "pointcut cannot be null");
 		Assert.notNull(authorizationManager, "authorizationManager cannot be null");
 		this.pointcut = pointcut;
@@ -100,8 +99,8 @@ public final class AuthorizationManagerBeforeReactiveMethodInterceptor
 		Method method = mi.getMethod();
 		Class<?> type = method.getReturnType();
 		Assert.state(Publisher.class.isAssignableFrom(type),
-				() -> String.format("The returnType %s on %s must return an instance of org.reactivestreams.Publisher "
-						+ "(for example, a Mono or Flux) in order to support Reactor Context", type, method));
+	() -> String.format("The returnType %s on %s must return an instance of org.reactivestreams.Publisher "
++ "(for example, a Mono or Flux) in order to support Reactor Context", type, method));
 		Mono<Authentication> authentication = ReactiveAuthenticationUtils.getAuthentication();
 		ReactiveAdapter adapter = ReactiveAdapterRegistry.getSharedInstance().getAdapter(type);
 		Mono<Void> preAuthorize = this.authorizationManager.verify(authentication, mi);

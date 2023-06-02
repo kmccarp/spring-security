@@ -43,7 +43,7 @@ public interface UserDetailsContextMapper {
 	 * @return the user object.
 	 */
 	UserDetails mapUserFromContext(DirContextOperations ctx, String username,
-			Collection<? extends GrantedAuthority> authorities);
+Collection<? extends GrantedAuthority> authorities);
 
 	/**
 	 * Reverse of the above operation. Populates a context object from the supplied user

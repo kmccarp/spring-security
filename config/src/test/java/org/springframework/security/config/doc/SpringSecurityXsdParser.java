@@ -126,16 +126,16 @@ public class SpringSecurityXsdParser {
 		}
 		// @formatter:off
 		return expand(root)
-				.filter((node) -> name.equals(node.attribute("name")))
-				.findFirst()
-				.orElseThrow(IllegalArgumentException::new);
+	.filter((node) -> name.equals(node.attribute("name")))
+	.findFirst()
+	.orElseThrow(IllegalArgumentException::new);
 		// @formatter:on
 	}
 
 	private Stream<XmlNode> expand(XmlNode root) {
 		// @formatter:off
 		return Stream.concat(Stream.of(root), root.children()
-				.flatMap(this::expand));
+	.flatMap(this::expand));
 		// @formatter:on
 	}
 
@@ -159,7 +159,7 @@ public class SpringSecurityXsdParser {
 	 */
 	private String desc(XmlNode element) {
 		return element.child("annotation").flatMap((annotation) -> annotation.child("documentation"))
-				.map((documentation) -> documentation.text()).orElse(null);
+	.map((documentation) -> documentation.text()).orElse(null);
 	}
 
 	/**

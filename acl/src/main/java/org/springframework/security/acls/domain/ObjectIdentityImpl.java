@@ -77,7 +77,7 @@ public class ObjectIdentityImpl implements ObjectIdentity {
 
 	private Object invokeGetIdMethod(Object object, Class<?> typeClass) {
 		try {
-			Method method = typeClass.getMethod("getId", new Class[] {});
+			Method method = typeClass.getMethod("getId", new Class[]{});
 			return method.invoke(object);
 		}
 		catch (Exception ex) {

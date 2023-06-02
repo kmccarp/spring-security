@@ -139,7 +139,7 @@ public class HeadersBeanDefinitionParser implements BeanDefinitionParser {
 		BeanDefinitionBuilder builder = BeanDefinitionBuilder.rootBeanDefinition(HeaderWriterFilter.class);
 		boolean disabled = element != null && "true".equals(resolveAttribute(parserContext, element, "disabled"));
 		boolean defaultsDisabled = element != null
-				&& "true".equals(resolveAttribute(parserContext, element, "defaults-disabled"));
+	&& "true".equals(resolveAttribute(parserContext, element, "defaults-disabled"));
 		boolean addIfNotPresent = element == null || !disabled && !defaultsDisabled;
 		parseCacheControlElement(addIfNotPresent, element);
 		parseHstsElement(addIfNotPresent, element, parserContext);
@@ -158,7 +158,7 @@ public class HeadersBeanDefinitionParser implements BeanDefinitionParser {
 		boolean noWriters = this.headerWriters.isEmpty();
 		if (disabled && !noWriters) {
 			parserContext.getReaderContext().error("Cannot specify <headers disabled=\"true\"> with child elements.",
-					element);
+		element);
 		}
 		else if (noWriters) {
 			return null;
@@ -180,7 +180,7 @@ public class HeadersBeanDefinitionParser implements BeanDefinitionParser {
 
 	private void parseCacheControlElement(boolean addIfNotPresent, Element element) {
 		Element cacheControlElement = (element != null)
-				? DomUtils.getChildElementByTagName(element, CACHE_CONTROL_ELEMENT) : null;
+	? DomUtils.getChildElementByTagName(element, CACHE_CONTROL_ELEMENT) : null;
 		boolean disabled = "true".equals(getAttribute(cacheControlElement, ATT_DISABLED, "false"));
 		if (disabled) {
 			return;
@@ -192,7 +192,7 @@ public class HeadersBeanDefinitionParser implements BeanDefinitionParser {
 
 	private void addCacheControl() {
 		BeanDefinitionBuilder headersWriter = BeanDefinitionBuilder
-				.genericBeanDefinition(CacheControlHeadersWriter.class);
+	.genericBeanDefinition(CacheControlHeadersWriter.class);
 		this.headerWriters.add(headersWriter.getBeanDefinition());
 	}
 
@@ -301,7 +301,7 @@ public class HeadersBeanDefinitionParser implements BeanDefinitionParser {
 
 	private void parseContentSecurityPolicyElement(boolean elementDisabled, Element element, ParserContext context) {
 		Element contentSecurityPolicyElement = (elementDisabled || element == null) ? null
-				: DomUtils.getChildElementByTagName(element, CONTENT_SECURITY_POLICY_ELEMENT);
+	: DomUtils.getChildElementByTagName(element, CONTENT_SECURITY_POLICY_ELEMENT);
 		if (contentSecurityPolicyElement != null) {
 			addContentSecurityPolicy(contentSecurityPolicyElement, context);
 		}
@@ -309,11 +309,11 @@ public class HeadersBeanDefinitionParser implements BeanDefinitionParser {
 
 	private void addContentSecurityPolicy(Element contentSecurityPolicyElement, ParserContext context) {
 		BeanDefinitionBuilder headersWriter = BeanDefinitionBuilder
-				.genericBeanDefinition(ContentSecurityPolicyHeaderWriter.class);
+	.genericBeanDefinition(ContentSecurityPolicyHeaderWriter.class);
 		String policyDirectives = contentSecurityPolicyElement.getAttribute(ATT_POLICY_DIRECTIVES);
 		if (!StringUtils.hasText(policyDirectives)) {
 			context.getReaderContext().error(ATT_POLICY_DIRECTIVES + " requires a 'value' to be set.",
-					contentSecurityPolicyElement);
+		contentSecurityPolicyElement);
 		}
 		else {
 			headersWriter.addConstructorArgValue(policyDirectives);
@@ -327,7 +327,7 @@ public class HeadersBeanDefinitionParser implements BeanDefinitionParser {
 
 	private void parseReferrerPolicyElement(Element element, ParserContext context) {
 		Element referrerPolicyElement = (element != null)
-				? DomUtils.getChildElementByTagName(element, REFERRER_POLICY_ELEMENT) : null;
+	? DomUtils.getChildElementByTagName(element, REFERRER_POLICY_ELEMENT) : null;
 		if (referrerPolicyElement != null) {
 			addReferrerPolicy(referrerPolicyElement, context);
 		}
@@ -335,7 +335,7 @@ public class HeadersBeanDefinitionParser implements BeanDefinitionParser {
 
 	private void addReferrerPolicy(Element referrerPolicyElement, ParserContext context) {
 		BeanDefinitionBuilder headersWriter = BeanDefinitionBuilder
-				.genericBeanDefinition(ReferrerPolicyHeaderWriter.class);
+	.genericBeanDefinition(ReferrerPolicyHeaderWriter.class);
 		String policy = referrerPolicyElement.getAttribute(ATT_POLICY);
 		if (StringUtils.hasLength(policy)) {
 			headersWriter.addConstructorArgValue(ReferrerPolicy.get(policy));
@@ -345,7 +345,7 @@ public class HeadersBeanDefinitionParser implements BeanDefinitionParser {
 
 	private void parseFeaturePolicyElement(Element element, ParserContext context) {
 		Element featurePolicyElement = (element != null)
-				? DomUtils.getChildElementByTagName(element, FEATURE_POLICY_ELEMENT) : null;
+	? DomUtils.getChildElementByTagName(element, FEATURE_POLICY_ELEMENT) : null;
 		if (featurePolicyElement != null) {
 			addFeaturePolicy(featurePolicyElement, context);
 		}
@@ -353,11 +353,11 @@ public class HeadersBeanDefinitionParser implements BeanDefinitionParser {
 
 	private void addFeaturePolicy(Element featurePolicyElement, ParserContext context) {
 		BeanDefinitionBuilder headersWriter = BeanDefinitionBuilder
-				.genericBeanDefinition(FeaturePolicyHeaderWriter.class);
+	.genericBeanDefinition(FeaturePolicyHeaderWriter.class);
 		String policyDirectives = featurePolicyElement.getAttribute(ATT_POLICY_DIRECTIVES);
 		if (!StringUtils.hasText(policyDirectives)) {
 			context.getReaderContext().error(ATT_POLICY_DIRECTIVES + " requires a 'value' to be set.",
-					featurePolicyElement);
+		featurePolicyElement);
 		}
 		else {
 			headersWriter.addConstructorArgValue(policyDirectives);
@@ -367,7 +367,7 @@ public class HeadersBeanDefinitionParser implements BeanDefinitionParser {
 
 	private void parsePermissionsPolicyElement(Element element, ParserContext context) {
 		Element permissionsPolicyElement = (element != null)
-				? DomUtils.getChildElementByTagName(element, PERMISSIONS_POLICY_ELEMENT) : null;
+	? DomUtils.getChildElementByTagName(element, PERMISSIONS_POLICY_ELEMENT) : null;
 		if (permissionsPolicyElement != null) {
 			addPermissionsPolicy(permissionsPolicyElement, context);
 		}
@@ -375,7 +375,7 @@ public class HeadersBeanDefinitionParser implements BeanDefinitionParser {
 
 	private void addPermissionsPolicy(Element permissionsPolicyElement, ParserContext context) {
 		BeanDefinitionBuilder headersWriter = BeanDefinitionBuilder
-				.genericBeanDefinition(PermissionsPolicyHeaderWriter.class);
+	.genericBeanDefinition(PermissionsPolicyHeaderWriter.class);
 		String policyDirectives = permissionsPolicyElement.getAttribute(ATT_POLICY);
 		if (!StringUtils.hasText(policyDirectives)) {
 			context.getReaderContext().error(ATT_POLICY + " requires a 'value' to be set.", permissionsPolicyElement);
@@ -392,12 +392,12 @@ public class HeadersBeanDefinitionParser implements BeanDefinitionParser {
 		}
 		CrossOriginOpenerPolicyHeaderWriter writer = new CrossOriginOpenerPolicyHeaderWriter();
 		Element crossOriginOpenerPolicyElement = DomUtils.getChildElementByTagName(element,
-				CROSS_ORIGIN_OPENER_POLICY_ELEMENT);
+	CROSS_ORIGIN_OPENER_POLICY_ELEMENT);
 		if (crossOriginOpenerPolicyElement != null) {
 			addCrossOriginOpenerPolicy(crossOriginOpenerPolicyElement, writer);
 		}
 		BeanDefinitionBuilder builder = BeanDefinitionBuilder
-				.genericBeanDefinition(CrossOriginOpenerPolicyHeaderWriter.class, () -> writer);
+	.genericBeanDefinition(CrossOriginOpenerPolicyHeaderWriter.class, () -> writer);
 		this.headerWriters.add(builder.getBeanDefinition());
 	}
 
@@ -407,12 +407,12 @@ public class HeadersBeanDefinitionParser implements BeanDefinitionParser {
 		}
 		CrossOriginEmbedderPolicyHeaderWriter writer = new CrossOriginEmbedderPolicyHeaderWriter();
 		Element crossOriginEmbedderPolicyElement = DomUtils.getChildElementByTagName(element,
-				CROSS_ORIGIN_EMBEDDER_POLICY_ELEMENT);
+	CROSS_ORIGIN_EMBEDDER_POLICY_ELEMENT);
 		if (crossOriginEmbedderPolicyElement != null) {
 			addCrossOriginEmbedderPolicy(crossOriginEmbedderPolicyElement, writer);
 		}
 		BeanDefinitionBuilder builder = BeanDefinitionBuilder
-				.genericBeanDefinition(CrossOriginEmbedderPolicyHeaderWriter.class, () -> writer);
+	.genericBeanDefinition(CrossOriginEmbedderPolicyHeaderWriter.class, () -> writer);
 		this.headerWriters.add(builder.getBeanDefinition());
 	}
 
@@ -422,17 +422,17 @@ public class HeadersBeanDefinitionParser implements BeanDefinitionParser {
 		}
 		CrossOriginResourcePolicyHeaderWriter writer = new CrossOriginResourcePolicyHeaderWriter();
 		Element crossOriginResourcePolicyElement = DomUtils.getChildElementByTagName(element,
-				CROSS_ORIGIN_RESOURCE_POLICY_ELEMENT);
+	CROSS_ORIGIN_RESOURCE_POLICY_ELEMENT);
 		if (crossOriginResourcePolicyElement != null) {
 			addCrossOriginResourcePolicy(crossOriginResourcePolicyElement, writer);
 		}
 		BeanDefinitionBuilder builder = BeanDefinitionBuilder
-				.genericBeanDefinition(CrossOriginResourcePolicyHeaderWriter.class, () -> writer);
+	.genericBeanDefinition(CrossOriginResourcePolicyHeaderWriter.class, () -> writer);
 		this.headerWriters.add(builder.getBeanDefinition());
 	}
 
 	private void addCrossOriginResourcePolicy(Element crossOriginResourcePolicyElement,
-			CrossOriginResourcePolicyHeaderWriter writer) {
+CrossOriginResourcePolicyHeaderWriter writer) {
 		String policy = crossOriginResourcePolicyElement.getAttribute(ATT_POLICY);
 		if (StringUtils.hasText(policy)) {
 			writer.setPolicy(CrossOriginResourcePolicyHeaderWriter.CrossOriginResourcePolicy.from(policy));
@@ -440,7 +440,7 @@ public class HeadersBeanDefinitionParser implements BeanDefinitionParser {
 	}
 
 	private void addCrossOriginEmbedderPolicy(Element crossOriginEmbedderPolicyElement,
-			CrossOriginEmbedderPolicyHeaderWriter writer) {
+CrossOriginEmbedderPolicyHeaderWriter writer) {
 		String policy = crossOriginEmbedderPolicyElement.getAttribute(ATT_POLICY);
 		if (StringUtils.hasText(policy)) {
 			writer.setPolicy(CrossOriginEmbedderPolicyHeaderWriter.CrossOriginEmbedderPolicy.from(policy));
@@ -448,7 +448,7 @@ public class HeadersBeanDefinitionParser implements BeanDefinitionParser {
 	}
 
 	private void addCrossOriginOpenerPolicy(Element crossOriginOpenerPolicyElement,
-			CrossOriginOpenerPolicyHeaderWriter writer) {
+CrossOriginOpenerPolicyHeaderWriter writer) {
 		String policy = crossOriginOpenerPolicyElement.getAttribute(ATT_POLICY);
 		if (StringUtils.hasText(policy)) {
 			writer.setPolicy(CrossOriginOpenerPolicyHeaderWriter.CrossOriginOpenerPolicy.from(policy));
@@ -457,12 +457,12 @@ public class HeadersBeanDefinitionParser implements BeanDefinitionParser {
 
 	private void attrNotAllowed(ParserContext context, String attrName, String otherAttrName, Element element) {
 		context.getReaderContext().error("Only one of '" + attrName + "' or '" + otherAttrName + "' can be set.",
-				element);
+	element);
 	}
 
 	private void parseHeaderElements(Element element) {
 		List<Element> headerElts = (element != null)
-				? DomUtils.getChildElementsByTagName(element, GENERIC_HEADER_ELEMENT) : Collections.emptyList();
+	? DomUtils.getChildElementsByTagName(element, GENERIC_HEADER_ELEMENT) : Collections.emptyList();
 		for (Element headerElt : headerElts) {
 			String headerFactoryRef = headerElt.getAttribute(ATT_REF);
 			if (StringUtils.hasText(headerFactoryRef)) {
@@ -479,7 +479,7 @@ public class HeadersBeanDefinitionParser implements BeanDefinitionParser {
 
 	private void parseContentTypeOptionsElement(boolean addIfNotPresent, Element element) {
 		Element contentTypeElt = (element != null) ? DomUtils.getChildElementByTagName(element, CONTENT_TYPE_ELEMENT)
-				: null;
+	: null;
 		boolean disabled = "true".equals(getAttribute(contentTypeElt, ATT_DISABLED, "false"));
 		if (disabled) {
 			return;
@@ -491,14 +491,14 @@ public class HeadersBeanDefinitionParser implements BeanDefinitionParser {
 
 	private void addContentTypeOptions() {
 		BeanDefinitionBuilder builder = BeanDefinitionBuilder
-				.genericBeanDefinition(XContentTypeOptionsHeaderWriter.class);
+	.genericBeanDefinition(XContentTypeOptionsHeaderWriter.class);
 		this.headerWriters.add(builder.getBeanDefinition());
 	}
 
 	private void parseFrameOptionsElement(boolean addIfNotPresent, Element element, ParserContext parserContext) {
 		BeanDefinitionBuilder builder = BeanDefinitionBuilder.genericBeanDefinition(XFrameOptionsHeaderWriter.class);
 		Element frameElement = (element != null) ? DomUtils.getChildElementByTagName(element, FRAME_OPTIONS_ELEMENT)
-				: null;
+	: null;
 		if (frameElement == null) {
 			if (addIfNotPresent) {
 				this.headerWriters.add(builder.getBeanDefinition());
@@ -523,12 +523,12 @@ public class HeadersBeanDefinitionParser implements BeanDefinitionParser {
 	}
 
 	private void parseAllowFromFrameOptionsElement(ParserContext parserContext, BeanDefinitionBuilder builder,
-			Element frameElement) {
+Element frameElement) {
 		String strategyRef = getAttribute(frameElement, ATT_REF, null);
 		String strategy = getAttribute(frameElement, ATT_STRATEGY, null);
 		if (StringUtils.hasText(strategy) && StringUtils.hasText(strategyRef)) {
 			parserContext.getReaderContext().error("Only one of 'strategy' or 'strategy-ref' can be set.",
-					frameElement);
+		frameElement);
 			return;
 		}
 		if (strategyRef != null) {
@@ -551,7 +551,7 @@ public class HeadersBeanDefinitionParser implements BeanDefinitionParser {
 			}
 			catch (URISyntaxException ex) {
 				parserContext.getReaderContext().error("'value' attribute doesn't represent a valid URI.", frameElement,
-						ex);
+			ex);
 			}
 			return;
 		}
@@ -564,7 +564,7 @@ public class HeadersBeanDefinitionParser implements BeanDefinitionParser {
 	private BeanDefinitionBuilder getAllowFromStrategy(String strategy, String value) {
 		if ("whitelist".equals(strategy)) {
 			BeanDefinitionBuilder allowFromStrategy = BeanDefinitionBuilder
-					.rootBeanDefinition(WhiteListedAllowFromStrategy.class);
+		.rootBeanDefinition(WhiteListedAllowFromStrategy.class);
 			allowFromStrategy.addConstructorArgValue(StringUtils.commaDelimitedListToSet(value));
 			return allowFromStrategy;
 		}
@@ -580,7 +580,7 @@ public class HeadersBeanDefinitionParser implements BeanDefinitionParser {
 		if (xssElt != null) {
 			boolean disabled = "true".equals(getAttribute(xssElt, ATT_DISABLED, "false"));
 			XXssProtectionHeaderWriter.HeaderValue headerValue = XXssProtectionHeaderWriter.HeaderValue
-					.from(xssElt.getAttribute(ATT_HEADER_VALUE));
+		.from(xssElt.getAttribute(ATT_HEADER_VALUE));
 			if (headerValue != null) {
 				if (disabled) {
 					attrNotAllowed(parserContext, ATT_HEADER_VALUE, ATT_DISABLED, xssElt);

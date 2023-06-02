@@ -40,7 +40,7 @@ public class RememberMeAuthenticationProviderTests {
 	public void testDetectsAnInvalidKey() {
 		RememberMeAuthenticationProvider aap = new RememberMeAuthenticationProvider("qwerty");
 		RememberMeAuthenticationToken token = new RememberMeAuthenticationToken("WRONG_KEY", "Test",
-				AuthorityUtils.createAuthorityList("ROLE_ONE", "ROLE_TWO"));
+	AuthorityUtils.createAuthorityList("ROLE_ONE", "ROLE_TWO"));
 		assertThatExceptionOfType(BadCredentialsException.class).isThrownBy(() -> aap.authenticate(token));
 	}
 
@@ -69,7 +69,7 @@ public class RememberMeAuthenticationProviderTests {
 	public void testNormalOperation() {
 		RememberMeAuthenticationProvider aap = new RememberMeAuthenticationProvider("qwerty");
 		RememberMeAuthenticationToken token = new RememberMeAuthenticationToken("qwerty", "Test",
-				AuthorityUtils.createAuthorityList("ROLE_ONE", "ROLE_TWO"));
+	AuthorityUtils.createAuthorityList("ROLE_ONE", "ROLE_TWO"));
 		Authentication result = aap.authenticate(token);
 		assertThat(token).isEqualTo(result);
 	}

@@ -51,7 +51,7 @@ public class OAuth2PasswordGrantRequest extends AbstractOAuth2AuthorizationGrant
 	public OAuth2PasswordGrantRequest(ClientRegistration clientRegistration, String username, String password) {
 		super(AuthorizationGrantType.PASSWORD, clientRegistration);
 		Assert.isTrue(AuthorizationGrantType.PASSWORD.equals(clientRegistration.getAuthorizationGrantType()),
-				"clientRegistration.authorizationGrantType must be AuthorizationGrantType.PASSWORD");
+	"clientRegistration.authorizationGrantType must be AuthorizationGrantType.PASSWORD");
 		Assert.hasText(username, "username cannot be empty");
 		Assert.hasText(password, "password cannot be empty");
 		this.username = username;

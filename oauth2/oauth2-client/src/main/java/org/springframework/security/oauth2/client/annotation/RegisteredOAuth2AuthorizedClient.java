@@ -45,7 +45,7 @@ import org.springframework.security.oauth2.client.web.method.annotation.OAuth2Au
  * @since 5.1
  * @see OAuth2AuthorizedClientArgumentResolver
  */
-@Target({ ElementType.PARAMETER, ElementType.ANNOTATION_TYPE })
+@Target({ElementType.PARAMETER, ElementType.ANNOTATION_TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface RegisteredOAuth2AuthorizedClient {

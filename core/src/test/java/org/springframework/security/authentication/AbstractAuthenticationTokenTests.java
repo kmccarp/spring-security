@@ -53,7 +53,7 @@ public class AbstractAuthenticationTokenTests {
 		List<GrantedAuthority> gotAuthorities = (List<GrantedAuthority>) token.getAuthorities();
 		assertThat(gotAuthorities).isNotSameAs(this.authorities);
 		assertThatExceptionOfType(UnsupportedOperationException.class)
-				.isThrownBy(() -> gotAuthorities.set(0, new SimpleGrantedAuthority("ROLE_SUPER_USER")));
+	.isThrownBy(() -> gotAuthorities.set(0, new SimpleGrantedAuthority("ROLE_SUPER_USER")));
 	}
 
 	@Test
@@ -85,10 +85,10 @@ public class AbstractAuthenticationTokenTests {
 		MockAuthenticationImpl token4 = new MockAuthenticationImpl("Test_Changed", "Password", this.authorities);
 		assertThat(!token1.equals(token4)).isTrue();
 		MockAuthenticationImpl token5 = new MockAuthenticationImpl("Test", "Password",
-				AuthorityUtils.createAuthorityList("ROLE_ONE", "ROLE_TWO_CHANGED"));
+	AuthorityUtils.createAuthorityList("ROLE_ONE", "ROLE_TWO_CHANGED"));
 		assertThat(!token1.equals(token5)).isTrue();
 		MockAuthenticationImpl token6 = new MockAuthenticationImpl("Test", "Password",
-				AuthorityUtils.createAuthorityList("ROLE_ONE"));
+	AuthorityUtils.createAuthorityList("ROLE_ONE"));
 		assertThat(!token1.equals(token6)).isTrue();
 		MockAuthenticationImpl token7 = new MockAuthenticationImpl("Test", "Password", null);
 		assertThat(!token1.equals(token7)).isTrue();

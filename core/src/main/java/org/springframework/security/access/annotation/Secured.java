@@ -45,7 +45,7 @@ import java.lang.annotation.Target;
  * </pre>
  * @author Mark St.Godard
  */
-@Target({ ElementType.METHOD, ElementType.TYPE })
+@Target({ElementType.METHOD, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
 @Documented

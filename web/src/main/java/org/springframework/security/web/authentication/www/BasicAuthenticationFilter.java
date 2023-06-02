@@ -95,7 +95,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 public class BasicAuthenticationFilter extends OncePerRequestFilter {
 
 	private SecurityContextHolderStrategy securityContextHolderStrategy = SecurityContextHolder
-			.getContextHolderStrategy();
+.getContextHolderStrategy();
 
 	private AuthenticationEntryPoint authenticationEntryPoint;
 
@@ -132,7 +132,7 @@ public class BasicAuthenticationFilter extends OncePerRequestFilter {
 	 * Typically an instance of {@link BasicAuthenticationEntryPoint}.
 	 */
 	public BasicAuthenticationFilter(AuthenticationManager authenticationManager,
-			AuthenticationEntryPoint authenticationEntryPoint) {
+AuthenticationEntryPoint authenticationEntryPoint) {
 		Assert.notNull(authenticationManager, "authenticationManager cannot be null");
 		Assert.notNull(authenticationEntryPoint, "authenticationEntryPoint cannot be null");
 		this.authenticationManager = authenticationManager;
@@ -161,12 +161,12 @@ public class BasicAuthenticationFilter extends OncePerRequestFilter {
 
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
-			throws IOException, ServletException {
+throws IOException, ServletException {
 		try {
 			UsernamePasswordAuthenticationToken authRequest = this.authenticationConverter.convert(request);
 			if (authRequest == null) {
 				this.logger.trace("Did not process authentication request since failed to find "
-						+ "username and password in Basic Authorization header");
+			+ "username and password in Basic Authorization header");
 				chain.doFilter(request, response);
 				return;
 			}
@@ -222,11 +222,11 @@ public class BasicAuthenticationFilter extends OncePerRequestFilter {
 	}
 
 	protected void onSuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response,
-			Authentication authResult) throws IOException {
+Authentication authResult) throws IOException {
 	}
 
 	protected void onUnsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response,
-			AuthenticationException failed) throws IOException {
+AuthenticationException failed) throws IOException {
 	}
 
 	protected AuthenticationEntryPoint getAuthenticationEntryPoint() {
@@ -253,7 +253,7 @@ public class BasicAuthenticationFilter extends OncePerRequestFilter {
 	}
 
 	public void setAuthenticationDetailsSource(
-			AuthenticationDetailsSource<HttpServletRequest, ?> authenticationDetailsSource) {
+AuthenticationDetailsSource<HttpServletRequest, ?> authenticationDetailsSource) {
 		this.authenticationConverter.setAuthenticationDetailsSource(authenticationDetailsSource);
 	}
 

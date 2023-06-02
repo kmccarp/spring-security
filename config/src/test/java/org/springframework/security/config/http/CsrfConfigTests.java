@@ -76,7 +76,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @author Rob Winch
  * @author Josh Cummings
  */
-@ExtendWith({ SpringExtension.class, SpringTestContextExtension.class })
+@ExtendWith({SpringExtension.class, SpringTestContextExtension.class})
 @SecurityTestExecutionListeners
 public class CsrfConfigTests {
 
@@ -92,8 +92,8 @@ public class CsrfConfigTests {
 		this.spring.configLocations(this.xml("AutoConfig")).autowire();
 		// @formatter:off
 		this.mvc.perform(post("/csrf"))
-				.andExpect(status().isForbidden())
-				.andExpect(csrfCreated());
+	.andExpect(status().isForbidden())
+	.andExpect(csrfCreated());
 		// @formatter:on
 	}
 
@@ -102,8 +102,8 @@ public class CsrfConfigTests {
 		this.spring.configLocations(this.xml("AutoConfig")).autowire();
 		// @formatter:off
 		this.mvc.perform(put("/csrf"))
-				.andExpect(status().isForbidden())
-				.andExpect(csrfCreated());
+	.andExpect(status().isForbidden())
+	.andExpect(csrfCreated());
 		// @formatter:on
 	}
 
@@ -112,8 +112,8 @@ public class CsrfConfigTests {
 		this.spring.configLocations(this.xml("AutoConfig")).autowire();
 		// @formatter:off
 		this.mvc.perform(patch("/csrf"))
-				.andExpect(status().isForbidden())
-				.andExpect(csrfCreated());
+	.andExpect(status().isForbidden())
+	.andExpect(csrfCreated());
 		// @formatter:on
 	}
 
@@ -122,8 +122,8 @@ public class CsrfConfigTests {
 		this.spring.configLocations(this.xml("AutoConfig")).autowire();
 		// @formatter:off
 		this.mvc.perform(delete("/csrf"))
-				.andExpect(status().isForbidden())
-				.andExpect(csrfCreated());
+	.andExpect(status().isForbidden())
+	.andExpect(csrfCreated());
 		// @formatter:on
 	}
 
@@ -132,8 +132,8 @@ public class CsrfConfigTests {
 		this.spring.configLocations(this.xml("AutoConfig")).autowire();
 		// @formatter:off
 		this.mvc.perform(request("INVALID", new URI("/csrf")))
-				.andExpect(status().isForbidden())
-				.andExpect(csrfCreated());
+	.andExpect(status().isForbidden())
+	.andExpect(csrfCreated());
 		// @formatter:on
 	}
 
@@ -142,7 +142,7 @@ public class CsrfConfigTests {
 		this.spring.configLocations(this.xml("shared-controllers"), this.xml("AutoConfig")).autowire();
 		// @formatter:off
 		this.mvc.perform(get("/csrf"))
-				.andExpect(csrfInBody());
+	.andExpect(csrfInBody());
 		// @formatter:on
 	}
 
@@ -151,7 +151,7 @@ public class CsrfConfigTests {
 		this.spring.configLocations(this.xml("shared-controllers"), this.xml("AutoConfig")).autowire();
 		// @formatter:off
 		this.mvc.perform(head("/csrf-in-header"))
-				.andExpect(csrfInHeader());
+	.andExpect(csrfInHeader());
 		// @formatter:on
 	}
 
@@ -160,11 +160,11 @@ public class CsrfConfigTests {
 		this.spring.configLocations(this.xml("shared-controllers"), this.xml("AutoConfig")).autowire();
 		// @formatter:off
 		MockMvc traceEnabled = MockMvcBuilders.webAppContextSetup(this.spring.getContext())
-				.apply(springSecurity())
-				.addDispatcherServletCustomizer((dispatcherServlet) -> dispatcherServlet.setDispatchTraceRequest(true))
-				.build();
+	.apply(springSecurity())
+	.addDispatcherServletCustomizer((dispatcherServlet) -> dispatcherServlet.setDispatchTraceRequest(true))
+	.build();
 		traceEnabled.perform(request(HttpMethod.TRACE, "/csrf-in-header"))
-				.andExpect(csrfInHeader());
+	.andExpect(csrfInHeader());
 		// @formatter:on
 	}
 
@@ -173,7 +173,7 @@ public class CsrfConfigTests {
 		this.spring.configLocations(this.xml("shared-controllers"), this.xml("AutoConfig")).autowire();
 		// @formatter:off
 		this.mvc.perform(options("/csrf-in-header"))
-				.andExpect(csrfInHeader());
+	.andExpect(csrfInHeader());
 		// @formatter:on
 	}
 
@@ -182,7 +182,7 @@ public class CsrfConfigTests {
 		this.spring.configLocations(this.xml("shared-controllers"), this.xml("CsrfDisabled")).autowire();
 		// @formatter:off
 		this.mvc.perform(post("/ok"))
-				.andExpect(status().isOk());
+	.andExpect(status().isOk());
 		// @formatter:on
 		assertThat(getFilter(this.spring, CsrfFilter.class)).isNull();
 	}
@@ -192,8 +192,8 @@ public class CsrfConfigTests {
 		this.spring.configLocations(this.xml("CsrfEnabled")).autowire();
 		// @formatter:off
 		this.mvc.perform(post("/csrf"))
-				.andExpect(status().isForbidden())
-				.andExpect(csrfCreated());
+	.andExpect(status().isForbidden())
+	.andExpect(csrfCreated());
 		// @formatter:on
 	}
 
@@ -202,8 +202,8 @@ public class CsrfConfigTests {
 		this.spring.configLocations(this.xml("CsrfEnabled")).autowire();
 		// @formatter:off
 		this.mvc.perform(put("/csrf"))
-				.andExpect(status().isForbidden())
-				.andExpect(csrfCreated());
+	.andExpect(status().isForbidden())
+	.andExpect(csrfCreated());
 		// @formatter:on
 	}
 
@@ -212,8 +212,8 @@ public class CsrfConfigTests {
 		this.spring.configLocations(this.xml("CsrfEnabled")).autowire();
 		// @formatter:off
 		this.mvc.perform(patch("/csrf"))
-				.andExpect(status().isForbidden())
-				.andExpect(csrfCreated());
+	.andExpect(status().isForbidden())
+	.andExpect(csrfCreated());
 		// @formatter:on
 	}
 
@@ -222,8 +222,8 @@ public class CsrfConfigTests {
 		this.spring.configLocations(this.xml("CsrfEnabled")).autowire();
 		// @formatter:off
 		this.mvc.perform(delete("/csrf"))
-				.andExpect(status().isForbidden())
-				.andExpect(csrfCreated());
+	.andExpect(status().isForbidden())
+	.andExpect(csrfCreated());
 		// @formatter:on
 	}
 
@@ -232,8 +232,8 @@ public class CsrfConfigTests {
 		this.spring.configLocations(this.xml("CsrfEnabled")).autowire();
 		// @formatter:off
 		this.mvc.perform(request("INVALID", new URI("/csrf")))
-				.andExpect(status().isForbidden())
-				.andExpect(csrfCreated());
+	.andExpect(status().isForbidden())
+	.andExpect(csrfCreated());
 		// @formatter:on
 	}
 
@@ -242,7 +242,7 @@ public class CsrfConfigTests {
 		this.spring.configLocations(this.xml("shared-controllers"), this.xml("CsrfEnabled")).autowire();
 		// @formatter:off
 		this.mvc.perform(get("/csrf"))
-				.andExpect(csrfInBody());
+	.andExpect(csrfInBody());
 		// @formatter:on
 	}
 
@@ -251,7 +251,7 @@ public class CsrfConfigTests {
 		this.spring.configLocations(this.xml("shared-controllers"), this.xml("CsrfEnabled")).autowire();
 		// @formatter:off
 		this.mvc.perform(head("/csrf-in-header"))
-				.andExpect(csrfInHeader());
+	.andExpect(csrfInHeader());
 		// @formatter:on
 	}
 
@@ -260,9 +260,9 @@ public class CsrfConfigTests {
 		this.spring.configLocations(this.xml("shared-controllers"), this.xml("CsrfEnabled")).autowire();
 		// @formatter:off
 		MockMvc traceEnabled = MockMvcBuilders.webAppContextSetup(this.spring.getContext())
-				.apply(springSecurity())
-				.addDispatcherServletCustomizer((dispatcherServlet) -> dispatcherServlet.setDispatchTraceRequest(true))
-				.build();
+	.apply(springSecurity())
+	.addDispatcherServletCustomizer((dispatcherServlet) -> dispatcherServlet.setDispatchTraceRequest(true))
+	.build();
 		// @formatter:on
 		traceEnabled.perform(request(HttpMethod.TRACE, "/csrf-in-header")).andExpect(csrfInHeader());
 	}
@@ -272,7 +272,7 @@ public class CsrfConfigTests {
 		this.spring.configLocations(this.xml("shared-controllers"), this.xml("CsrfEnabled")).autowire();
 		// @formatter:off
 		this.mvc.perform(options("/csrf-in-header"))
-				.andExpect(csrfInHeader());
+	.andExpect(csrfInHeader());
 		// @formatter:on
 	}
 
@@ -285,10 +285,10 @@ public class CsrfConfigTests {
 	@Test
 	public void postWhenUsingCsrfAndCustomAccessDeniedHandlerThenTheHandlerIsAppropriatelyEngaged() throws Exception {
 		this.spring.configLocations(this.xml("WithAccessDeniedHandler"), this.xml("shared-access-denied-handler"))
-				.autowire();
+	.autowire();
 		// @formatter:off
 		this.mvc.perform(post("/ok"))
-				.andExpect(status().isIAmATeapot());
+	.andExpect(status().isIAmATeapot());
 		// @formatter:on
 	}
 
@@ -304,15 +304,15 @@ public class CsrfConfigTests {
 	@Test
 	public void postWhenUsingCsrfAndXorCsrfTokenRequestAttributeHandlerThenOk() throws Exception {
 		this.spring.configLocations(this.xml("WithXorCsrfTokenRequestAttributeHandler"), this.xml("shared-controllers"))
-				.autowire();
+	.autowire();
 		// @formatter:off
 		MvcResult mvcResult = this.mvc.perform(get("/ok"))
-				.andExpect(status().isOk())
-				.andReturn();
+	.andExpect(status().isOk())
+	.andReturn();
 		MockHttpSession session = (MockHttpSession) mvcResult.getRequest().getSession();
 		MockHttpServletRequestBuilder ok = post("/ok")
-				.with(csrf())
-				.session(session);
+	.with(csrf())
+	.session(session);
 		this.mvc.perform(ok).andExpect(status().isOk());
 		// @formatter:on
 	}
@@ -320,61 +320,61 @@ public class CsrfConfigTests {
 	@Test
 	public void postWhenUsingCsrfAndXorCsrfTokenRequestAttributeHandlerWithRawTokenThenForbidden() throws Exception {
 		this.spring.configLocations(this.xml("WithXorCsrfTokenRequestAttributeHandler"), this.xml("shared-controllers"))
-				.autowire();
+	.autowire();
 		// @formatter:off
 		MvcResult mvcResult = this.mvc.perform(get("/csrf"))
-				.andExpect(status().isOk())
-				.andReturn();
+	.andExpect(status().isOk())
+	.andReturn();
 		MockHttpServletRequest request = mvcResult.getRequest();
 		MockHttpSession session = (MockHttpSession) request.getSession();
 		CsrfTokenRepository repository = WebTestUtils.getCsrfTokenRepository(request);
 		CsrfToken csrfToken = repository.loadToken(request);
 		MockHttpServletRequestBuilder ok = post("/ok")
-				.header(csrfToken.getHeaderName(), csrfToken.getToken())
-				.session(session);
+	.header(csrfToken.getHeaderName(), csrfToken.getToken())
+	.session(session);
 		this.mvc.perform(ok).andExpect(status().isForbidden());
 		// @formatter:on
 	}
 
 	@Test
 	public void postWhenHasCsrfTokenButSessionExpiresThenRequestIsCancelledAfterSuccessfulAuthentication()
-			throws Exception {
+throws Exception {
 		this.spring.configLocations(this.xml("CsrfEnabled")).autowire();
 		// simulates a request that has no authentication (e.g. session time-out)
 		MvcResult result = this.mvc.perform(post("/authenticated").with(csrf()))
-				.andExpect(redirectedUrl("http://localhost/login")).andReturn();
+	.andExpect(redirectedUrl("http://localhost/login")).andReturn();
 		MockHttpSession session = (MockHttpSession) result.getRequest().getSession();
 		// if the request cache is consulted, then it will redirect back to /some-url,
 		// which we don't want
 		// @formatter:off
 		MockHttpServletRequestBuilder login = post("/login")
-				.param("username", "user")
-				.param("password", "password")
-				.session(session)
-				.with(csrf());
+	.param("username", "user")
+	.param("password", "password")
+	.session(session)
+	.with(csrf());
 		this.mvc.perform(login)
-				.andExpect(redirectedUrl("/"));
+	.andExpect(redirectedUrl("/"));
 		// @formatter:on
 	}
 
 	@Test
 	public void getWhenHasCsrfTokenButSessionExpiresThenRequestIsRememeberedAfterSuccessfulAuthentication()
-			throws Exception {
+throws Exception {
 		this.spring.configLocations(this.xml("CsrfEnabled")).autowire();
 		// simulates a request that has no authentication (e.g. session time-out)
 		MvcResult result = this.mvc.perform(get("/authenticated")).andExpect(redirectedUrl("http://localhost/login"))
-				.andReturn();
+	.andReturn();
 		MockHttpSession session = (MockHttpSession) result.getRequest().getSession();
 		// if the request cache is consulted, then it will redirect back to /some-url,
 		// which we do want
 		// @formatter:off
 		MockHttpServletRequestBuilder login = post("/login")
-				.param("username", "user")
-				.param("password", "password")
-				.session(session)
-				.with(csrf());
+	.param("username", "user")
+	.param("password", "password")
+	.session(session)
+	.with(csrf());
 		this.mvc.perform(login)
-				.andExpect(RequestCacheResultMatcher.redirectToCachedRequest());
+	.andExpect(RequestCacheResultMatcher.redirectToCachedRequest());
 		// @formatter:on
 	}
 
@@ -383,35 +383,35 @@ public class CsrfConfigTests {
 	 */
 	@Test
 	public void postWhenUsingCsrfAndCustomSessionManagementAndNoSessionThenStillRedirectsToInvalidSessionUrl()
-			throws Exception {
+throws Exception {
 		this.spring.configLocations(this.xml("WithSessionManagement")).autowire();
 		// @formatter:off
 		MockHttpServletRequestBuilder postToOk = post("/ok")
-				.param("_csrf", "abc");
+	.param("_csrf", "abc");
 		MvcResult result = this.mvc.perform(postToOk)
-				.andExpect(redirectedUrl("/error/sessionError"))
-				.andReturn();
+	.andExpect(redirectedUrl("/error/sessionError"))
+	.andReturn();
 		MockHttpSession session = (MockHttpSession) result.getRequest().getSession();
 		this.mvc.perform(post("/csrf").session(session))
-				.andExpect(status().isForbidden());
+	.andExpect(status().isForbidden());
 		// @formatter:on
 	}
 
 	@Test
 	public void requestWhenUsingCustomRequestMatcherConfiguredThenAppliesAccordingly() throws Exception {
 		SpringTestContext context = this.spring.configLocations(this.xml("shared-controllers"),
-				this.xml("WithRequestMatcher"), this.xml("mock-request-matcher"));
+	this.xml("WithRequestMatcher"), this.xml("mock-request-matcher"));
 		context.autowire();
 		RequestMatcher matcher = context.getContext().getBean(RequestMatcher.class);
 		given(matcher.matches(any(HttpServletRequest.class))).willReturn(false);
 		// @formatter:off
 		this.mvc.perform(post("/ok"))
-				.andExpect(status().isOk());
+	.andExpect(status().isOk());
 		// @formatter:on
 		given(matcher.matches(any(HttpServletRequest.class))).willReturn(true);
 		// @formatter:off
 		this.mvc.perform(get("/ok"))
-				.andExpect(status().isForbidden());
+	.andExpect(status().isForbidden());
 		// @formatter:on
 	}
 
@@ -420,7 +420,7 @@ public class CsrfConfigTests {
 		this.spring.configLocations(this.xml("shared-controllers"), this.xml("AutoConfig")).autowire();
 		// @formatter:off
 		MvcResult result = this.mvc.perform(get("/ok"))
-				.andExpect(status().isOk()).andReturn();
+	.andExpect(status().isOk()).andReturn();
 		// @formatter:on
 		assertThat(result.getRequest().getSession(false)).isNull();
 	}
@@ -433,10 +433,10 @@ public class CsrfConfigTests {
 		MockHttpSession session = (MockHttpSession) result.getRequest().getSession();
 		// @formatter:off
 		MockHttpServletRequestBuilder postOk = post("/ok")
-				.session(session)
-				.with(csrf().useInvalidToken());
+	.session(session)
+	.with(csrf().useInvalidToken());
 		this.mvc.perform(postOk)
-				.andExpect(status().isForbidden());
+	.andExpect(status().isForbidden());
 		// @formatter:on
 	}
 
@@ -447,14 +447,14 @@ public class CsrfConfigTests {
 		MockHttpSession session = (MockHttpSession) result.getRequest().getSession();
 		// @formatter:off
 		MockHttpServletRequestBuilder loginRequest = post("/login")
-				.param("username", "user")
-				.param("password", "password")
-				.session(session)
-				.with(csrf());
+	.param("username", "user")
+	.param("password", "password")
+	.session(session)
+	.with(csrf());
 		this.mvc.perform(loginRequest)
-				.andExpect(status().isFound());
+	.andExpect(status().isFound());
 		this.mvc.perform(get("/csrf").session(session))
-				.andExpect(csrfChanged(result));
+	.andExpect(csrfChanged(result));
 		// @formatter:on
 	}
 
@@ -465,9 +465,9 @@ public class CsrfConfigTests {
 		MockHttpSession session = (MockHttpSession) result.getRequest().getSession();
 		// @formatter:off
 		this.mvc.perform(post("/logout").session(session).with(csrf()))
-				.andExpect(status().isFound());
+	.andExpect(status().isFound());
 		this.mvc.perform(get("/csrf").session(session))
-				.andExpect(csrfChanged(result));
+	.andExpect(csrfChanged(result));
 		// @formatter:on
 	}
 
@@ -481,12 +481,12 @@ public class CsrfConfigTests {
 		// renders form to log out but does not perform a redirect
 		// @formatter:off
 		this.mvc.perform(get("/logout"))
-				.andExpect(status().isOk());
+	.andExpect(status().isOk());
 		// @formatter:on
 		// still logged in
 		// @formatter:off
 		this.mvc.perform(get("/authenticated"))
-				.andExpect(status().isOk());
+	.andExpect(status().isOk());
 		// @formatter:on
 	}
 
@@ -510,7 +510,7 @@ public class CsrfConfigTests {
 			assertThat(first).isNotNull();
 			assertThat(second).isNotNull();
 			assertThat(first.getResponse().getContentAsString())
-					.isNotEqualTo(second.getResponse().getContentAsString());
+		.isNotEqualTo(second.getResponse().getContentAsString());
 		};
 	}
 
@@ -530,21 +530,21 @@ public class CsrfConfigTests {
 	public static class RootController {
 
 		@RequestMapping(value = "/csrf-in-header",
-				method = { RequestMethod.HEAD, RequestMethod.TRACE, RequestMethod.OPTIONS })
+	method = {RequestMethod.HEAD, RequestMethod.TRACE, RequestMethod.OPTIONS})
 		@ResponseBody
 		String csrfInHeaderAndBody(CsrfToken token, HttpServletResponse response) {
 			response.setHeader(token.getHeaderName(), token.getToken());
 			return csrfInBody(token);
 		}
 
-		@RequestMapping(value = "/csrf", method = { RequestMethod.POST, RequestMethod.PUT, RequestMethod.PATCH,
-				RequestMethod.DELETE, RequestMethod.GET })
+		@RequestMapping(value = "/csrf", method = {RequestMethod.POST, RequestMethod.PUT, RequestMethod.PATCH,
+	RequestMethod.DELETE, RequestMethod.GET})
 		@ResponseBody
 		String csrfInBody(CsrfToken token) {
 			return token.getToken();
 		}
 
-		@RequestMapping(value = "/ok", method = { RequestMethod.POST, RequestMethod.GET })
+		@RequestMapping(value = "/ok", method = {RequestMethod.POST, RequestMethod.GET})
 		@ResponseBody
 		String ok() {
 			return "ok";
@@ -562,7 +562,7 @@ public class CsrfConfigTests {
 
 		@Override
 		public void handle(HttpServletRequest request, HttpServletResponse response,
-				AccessDeniedException accessDeniedException) {
+	AccessDeniedException accessDeniedException) {
 			response.setStatus(HttpStatus.IM_A_TEAPOT_418);
 		}
 

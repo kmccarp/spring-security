@@ -93,7 +93,7 @@ final class OpenSamlSigningUtils {
 	}
 
 	private static SignatureSigningParameters resolveSigningParameters(
-			RelyingPartyRegistration relyingPartyRegistration) {
+RelyingPartyRegistration relyingPartyRegistration) {
 		List<Credential> credentials = resolveSigningCredentials(relyingPartyRegistration);
 		List<String> algorithms = relyingPartyRegistration.getAssertingPartyDetails().getSigningAlgorithms();
 		List<String> digests = Collections.singletonList(SignatureConstants.ALGO_ID_DIGEST_SHA256);
@@ -173,12 +173,12 @@ final class OpenSamlSigningUtils {
 			UriComponentsBuilder builder = UriComponentsBuilder.newInstance();
 			for (Map.Entry<String, String> component : this.components.entrySet()) {
 				builder.queryParam(component.getKey(),
-						UriUtils.encode(component.getValue(), StandardCharsets.ISO_8859_1));
+			UriUtils.encode(component.getValue(), StandardCharsets.ISO_8859_1));
 			}
 			String queryString = builder.build(true).toString().substring(1);
 			try {
 				byte[] rawSignature = XMLSigningUtil.signWithURI(credential, algorithmUri,
-						queryString.getBytes(StandardCharsets.UTF_8));
+			queryString.getBytes(StandardCharsets.UTF_8));
 				String b64Signature = Saml2Utils.samlEncode(rawSignature);
 				this.components.put("Signature", b64Signature);
 			}

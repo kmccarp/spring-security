@@ -33,15 +33,14 @@ import org.springframework.web.context.ServletContextAware;
  * @author Marcus Da Coregio
  * @since 5.5.5
  */
-public final class AuthorizationManagerWebInvocationPrivilegeEvaluator
-		implements WebInvocationPrivilegeEvaluator, ServletContextAware {
+public final class AuthorizationManagerWebInvocationPrivilegeEvaluatorimplements WebInvocationPrivilegeEvaluator, ServletContextAware {
 
 	private final AuthorizationManager<HttpServletRequest> authorizationManager;
 
 	private ServletContext servletContext;
 
 	public AuthorizationManagerWebInvocationPrivilegeEvaluator(
-			AuthorizationManager<HttpServletRequest> authorizationManager) {
+AuthorizationManager<HttpServletRequest> authorizationManager) {
 		Assert.notNull(authorizationManager, "authorizationManager cannot be null");
 		this.authorizationManager = authorizationManager;
 	}
@@ -55,7 +54,7 @@ public final class AuthorizationManagerWebInvocationPrivilegeEvaluator
 	public boolean isAllowed(String contextPath, String uri, String method, Authentication authentication) {
 		FilterInvocation filterInvocation = new FilterInvocation(contextPath, uri, method, this.servletContext);
 		AuthorizationDecision decision = this.authorizationManager.check(() -> authentication,
-				filterInvocation.getHttpRequest());
+	filterInvocation.getHttpRequest());
 		return decision == null || decision.isGranted();
 	}
 

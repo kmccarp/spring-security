@@ -52,8 +52,8 @@ class RequestAttributeSecurityContextRepositoryTests {
 	void setSecurityContextHolderStrategyWhenNullThenThrowsIllegalArgumentException() {
 		// @formatter:off
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> this.repository.setSecurityContextHolderStrategy(null))
-				.withMessage("securityContextHolderStrategy cannot be null");
+	.isThrownBy(() -> this.repository.setSecurityContextHolderStrategy(null))
+	.withMessage("securityContextHolderStrategy cannot be null");
 		// @formatter:on
 	}
 
@@ -61,7 +61,7 @@ class RequestAttributeSecurityContextRepositoryTests {
 	void saveContextAndLoadContextThenFound() {
 		this.repository.saveContext(this.expectedSecurityContext, this.request, this.response);
 		SecurityContext securityContext = this.repository
-				.loadContext(new HttpRequestResponseHolder(this.request, this.response));
+	.loadContext(new HttpRequestResponseHolder(this.request, this.response));
 		assertThat(securityContext).isEqualTo(this.expectedSecurityContext);
 	}
 
@@ -69,7 +69,7 @@ class RequestAttributeSecurityContextRepositoryTests {
 	void saveContextWhenLoadContextAndNewRequestThenNotFound() {
 		this.repository.saveContext(this.expectedSecurityContext, this.request, this.response);
 		SecurityContext securityContext = this.repository.loadContext(
-				new HttpRequestResponseHolder(new MockHttpServletRequest(), new MockHttpServletResponse()));
+	new HttpRequestResponseHolder(new MockHttpServletRequest(), new MockHttpServletResponse()));
 		assertThat(securityContext).isEqualTo(SecurityContextHolder.createEmptyContext());
 	}
 
@@ -93,7 +93,7 @@ class RequestAttributeSecurityContextRepositoryTests {
 	@Test
 	void loadContextWhenNotPresentThenEmptyContext() {
 		SecurityContext context = this.repository
-				.loadContext(new HttpRequestResponseHolder(this.request, this.response));
+	.loadContext(new HttpRequestResponseHolder(this.request, this.response));
 		assertThat(context).isEqualTo(SecurityContextHolder.createEmptyContext());
 	}
 

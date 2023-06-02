@@ -70,13 +70,13 @@ public final class DefaultOAuth2AuthorizationRequestResolver implements OAuth2Au
 	private static final char PATH_DELIMITER = '/';
 
 	private static final StringKeyGenerator DEFAULT_STATE_GENERATOR = new Base64StringKeyGenerator(
-			Base64.getUrlEncoder());
+Base64.getUrlEncoder());
 
 	private static final StringKeyGenerator DEFAULT_SECURE_KEY_GENERATOR = new Base64StringKeyGenerator(
-			Base64.getUrlEncoder().withoutPadding(), 96);
+Base64.getUrlEncoder().withoutPadding(), 96);
 
 	private static final Consumer<OAuth2AuthorizationRequest.Builder> DEFAULT_PKCE_APPLIER = OAuth2AuthorizationRequestCustomizers
-			.withPkce();
+.withPkce();
 
 	private final ClientRegistrationRepository clientRegistrationRepository;
 
@@ -93,12 +93,12 @@ public final class DefaultOAuth2AuthorizationRequestResolver implements OAuth2Au
 	 * authorization requests
 	 */
 	public DefaultOAuth2AuthorizationRequestResolver(ClientRegistrationRepository clientRegistrationRepository,
-			String authorizationRequestBaseUri) {
+String authorizationRequestBaseUri) {
 		Assert.notNull(clientRegistrationRepository, "clientRegistrationRepository cannot be null");
 		Assert.hasText(authorizationRequestBaseUri, "authorizationRequestBaseUri cannot be empty");
 		this.clientRegistrationRepository = clientRegistrationRepository;
 		this.authorizationRequestMatcher = new AntPathRequestMatcher(
-				authorizationRequestBaseUri + "/{" + REGISTRATION_ID_URI_VARIABLE_NAME + "}");
+	authorizationRequestBaseUri + "/{" + REGISTRATION_ID_URI_VARIABLE_NAME + "}");
 	}
 
 	@Override
@@ -129,7 +129,7 @@ public final class DefaultOAuth2AuthorizationRequestResolver implements OAuth2Au
 	 * @see OAuth2AuthorizationRequestCustomizers
 	 */
 	public void setAuthorizationRequestCustomizer(
-			Consumer<OAuth2AuthorizationRequest.Builder> authorizationRequestCustomizer) {
+Consumer<OAuth2AuthorizationRequest.Builder> authorizationRequestCustomizer) {
 		Assert.notNull(authorizationRequestCustomizer, "authorizationRequestCustomizer cannot be null");
 		this.authorizationRequestCustomizer = authorizationRequestCustomizer;
 	}
@@ -143,7 +143,7 @@ public final class DefaultOAuth2AuthorizationRequestResolver implements OAuth2Au
 	}
 
 	private OAuth2AuthorizationRequest resolve(HttpServletRequest request, String registrationId,
-			String redirectUriAction) {
+String redirectUriAction) {
 		if (registrationId == null) {
 			return null;
 		}
@@ -157,10 +157,10 @@ public final class DefaultOAuth2AuthorizationRequestResolver implements OAuth2Au
 
 		// @formatter:off
 		builder.clientId(clientRegistration.getClientId())
-				.authorizationUri(clientRegistration.getProviderDetails().getAuthorizationUri())
-				.redirectUri(redirectUriStr)
-				.scopes(clientRegistration.getScopes())
-				.state(DEFAULT_STATE_GENERATOR.generateKey());
+	.authorizationUri(clientRegistration.getProviderDetails().getAuthorizationUri())
+	.redirectUri(redirectUriStr)
+	.scopes(clientRegistration.getScopes())
+	.state(DEFAULT_STATE_GENERATOR.generateKey());
 		// @formatter:on
 
 		this.authorizationRequestCustomizer.accept(builder);
@@ -172,11 +172,11 @@ public final class DefaultOAuth2AuthorizationRequestResolver implements OAuth2Au
 		if (AuthorizationGrantType.AUTHORIZATION_CODE.equals(clientRegistration.getAuthorizationGrantType())) {
 			// @formatter:off
 			OAuth2AuthorizationRequest.Builder builder = OAuth2AuthorizationRequest.authorizationCode()
-					.attributes((attrs) ->
-							attrs.put(OAuth2ParameterNames.REGISTRATION_ID, clientRegistration.getRegistrationId()));
+		.attributes((attrs) ->
+	attrs.put(OAuth2ParameterNames.REGISTRATION_ID, clientRegistration.getRegistrationId()));
 			// @formatter:on
 			if (!CollectionUtils.isEmpty(clientRegistration.getScopes())
-					&& clientRegistration.getScopes().contains(OidcScopes.OPENID)) {
+		&& clientRegistration.getScopes().contains(OidcScopes.OPENID)) {
 				// Section 3.1.2.1 Authentication Request -
 				// https://openid.net/specs/openid-connect-core-1_0.html#AuthRequest scope
 				// REQUIRED. OpenID Connect requests MUST contain the "openid" scope
@@ -189,14 +189,14 @@ public final class DefaultOAuth2AuthorizationRequestResolver implements OAuth2Au
 			return builder;
 		}
 		throw new IllegalArgumentException(
-				"Invalid Authorization Grant Type (" + clientRegistration.getAuthorizationGrantType().getValue()
-						+ ") for Client Registration with Id: " + clientRegistration.getRegistrationId());
+	"Invalid Authorization Grant Type (" + clientRegistration.getAuthorizationGrantType().getValue()
++ ") for Client Registration with Id: " + clientRegistration.getRegistrationId());
 	}
 
 	private String resolveRegistrationId(HttpServletRequest request) {
 		if (this.authorizationRequestMatcher.matches(request)) {
 			return this.authorizationRequestMatcher.matcher(request).getVariables()
-					.get(REGISTRATION_ID_URI_VARIABLE_NAME);
+		.get(REGISTRATION_ID_URI_VARIABLE_NAME);
 		}
 		return null;
 	}
@@ -219,15 +219,15 @@ public final class DefaultOAuth2AuthorizationRequestResolver implements OAuth2Au
 	 * @return expanded URI
 	 */
 	private static String expandRedirectUri(HttpServletRequest request, ClientRegistration clientRegistration,
-			String action) {
+String action) {
 		Map<String, String> uriVariables = new HashMap<>();
 		uriVariables.put("registrationId", clientRegistration.getRegistrationId());
 		// @formatter:off
 		UriComponents uriComponents = UriComponentsBuilder.fromHttpUrl(UrlUtils.buildFullRequestUrl(request))
-				.replacePath(request.getContextPath())
-				.replaceQuery(null)
-				.fragment(null)
-				.build();
+	.replacePath(request.getContextPath())
+	.replaceQuery(null)
+	.fragment(null)
+	.build();
 		// @formatter:on
 		String scheme = uriComponents.getScheme();
 		uriVariables.put("baseScheme", (scheme != null) ? scheme : "");
@@ -246,7 +246,7 @@ public final class DefaultOAuth2AuthorizationRequestResolver implements OAuth2Au
 		uriVariables.put("baseUrl", uriComponents.toUriString());
 		uriVariables.put("action", (action != null) ? action : "");
 		return UriComponentsBuilder.fromUriString(clientRegistration.getRedirectUri()).buildAndExpand(uriVariables)
-				.toUriString();
+	.toUriString();
 	}
 
 	/**

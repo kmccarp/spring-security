@@ -55,8 +55,7 @@ import org.springframework.util.Assert;
  * @author Luke Taylor
  * @since 2.0
  */
-public class WebXmlMappableAttributesRetriever
-		implements ResourceLoaderAware, MappableAttributesRetriever, InitializingBean {
+public class WebXmlMappableAttributesRetrieverimplements ResourceLoaderAware, MappableAttributesRetriever, InitializingBean {
 
 	protected final Log logger = LogFactory.getLog(getClass());
 

@@ -70,7 +70,7 @@ public class DelegatingSecurityContextTaskSchedulerTests {
 		MockitoAnnotations.initMocks(this);
 		this.originalSecurityContext = SecurityContextHolder.createEmptyContext();
 		this.delegatingSecurityContextTaskScheduler = new DelegatingSecurityContextTaskScheduler(this.scheduler,
-				this.securityContext);
+	this.securityContext);
 	}
 
 	@AfterEach
@@ -103,7 +103,7 @@ public class DelegatingSecurityContextTaskSchedulerTests {
 		}).given(this.runnable).run();
 		TaskScheduler delegateTaskScheduler = new ConcurrentTaskScheduler();
 		this.delegatingSecurityContextTaskScheduler = new DelegatingSecurityContextTaskScheduler(delegateTaskScheduler,
-				this.securityContext);
+	this.securityContext);
 		assertWrapped(this.runnable);
 	}
 

@@ -87,8 +87,8 @@ public class WebSessionServerSecurityContextRepository implements ServerSecurity
 		Mono<SecurityContext> result = exchange.getSession().flatMap((session) -> {
 			SecurityContext context = (SecurityContext) session.getAttribute(this.springSecurityContextAttrName);
 			logger.debug((context != null)
-					? LogMessage.format("Found SecurityContext '%s' in WebSession: '%s'", context, session)
-					: LogMessage.format("No SecurityContext found in WebSession: '%s'", session));
+		? LogMessage.format("Found SecurityContext '%s' in WebSession: '%s'", context, session)
+		: LogMessage.format("No SecurityContext found in WebSession: '%s'", session));
 			return Mono.justOrEmpty(context);
 		});
 		return (this.cacheSecurityContext) ? result.cache() : result;

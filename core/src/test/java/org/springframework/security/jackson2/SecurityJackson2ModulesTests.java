@@ -53,8 +53,8 @@ public class SecurityJackson2ModulesTests {
 		String content = "{\"@class\":\"org.springframework.security.jackson2.SecurityJackson2ModulesTests$NotAllowlisted\",\"property\":\"bar\"}";
 		// @formatter:off
 		assertThatExceptionOfType(Exception.class)
-				.isThrownBy(() -> this.mapper.readValue(content, Object.class))
-				.withStackTraceContaining("allowlist");
+	.isThrownBy(() -> this.mapper.readValue(content, Object.class))
+	.withStackTraceContaining("allowlist");
 		// @formatter:on
 	}
 
@@ -94,7 +94,7 @@ public class SecurityJackson2ModulesTests {
 		assertThat(this.mapper.readValue(content, Object.class)).isInstanceOf(HashMap.class);
 	}
 
-	@Target({ ElementType.TYPE, ElementType.ANNOTATION_TYPE })
+	@Target({ElementType.TYPE, ElementType.ANNOTATION_TYPE})
 	@Retention(RetentionPolicy.RUNTIME)
 	@Documented
 	public @interface NotJacksonAnnotation {
@@ -131,7 +131,7 @@ public class SecurityJackson2ModulesTests {
 
 	@JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.PROPERTY)
 	@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY, getterVisibility = JsonAutoDetect.Visibility.NONE,
-			isGetterVisibility = JsonAutoDetect.Visibility.NONE)
+isGetterVisibility = JsonAutoDetect.Visibility.NONE)
 	@JsonIgnoreProperties(ignoreUnknown = true)
 	abstract class NotAllowlistedMixin {
 

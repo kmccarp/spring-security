@@ -63,24 +63,24 @@ public class BindAuthenticatorTests {
 	@Test
 	public void emptyPasswordIsRejected() {
 		assertThatExceptionOfType(BadCredentialsException.class).isThrownBy(
-				() -> this.authenticator.authenticate(UsernamePasswordAuthenticationToken.unauthenticated("jen", "")));
+	() -> this.authenticator.authenticate(UsernamePasswordAuthenticationToken.unauthenticated("jen", "")));
 	}
 
 	@Test
 	public void testAuthenticationWithCorrectPasswordSucceeds() {
-		this.authenticator.setUserDnPatterns(new String[] { "uid={0},ou=people", "cn={0},ou=people" });
+		this.authenticator.setUserDnPatterns(new String[]{"uid={0},ou=people", "cn={0},ou=people"});
 
 		DirContextOperations user = this.authenticator.authenticate(this.bob);
 		assertThat(user.getStringAttribute("uid")).isEqualTo("bob");
 		this.authenticator
-				.authenticate(UsernamePasswordAuthenticationToken.unauthenticated("mouse, jerry", "jerryspassword"));
+	.authenticate(UsernamePasswordAuthenticationToken.unauthenticated("mouse, jerry", "jerryspassword"));
 	}
 
 	@Test
 	public void testAuthenticationWithInvalidUserNameFails() {
-		this.authenticator.setUserDnPatterns(new String[] { "uid={0},ou=people" });
+		this.authenticator.setUserDnPatterns(new String[]{"uid={0},ou=people"});
 		assertThatExceptionOfType(BadCredentialsException.class).isThrownBy(() -> this.authenticator
-				.authenticate(UsernamePasswordAuthenticationToken.unauthenticated("nonexistentsuser", "password")));
+	.authenticate(UsernamePasswordAuthenticationToken.unauthenticated("nonexistentsuser", "password")));
 	}
 
 	@Test
@@ -95,17 +95,17 @@ public class BindAuthenticatorTests {
 		// SEC-1444
 		this.authenticator.setUserSearch(new FilterBasedLdapUserSearch("ou=people", "(cn={0})", this.contextSource));
 		this.authenticator
-				.authenticate(UsernamePasswordAuthenticationToken.unauthenticated("mouse, jerry", "jerryspassword"));
+	.authenticate(UsernamePasswordAuthenticationToken.unauthenticated("mouse, jerry", "jerryspassword"));
 		this.authenticator
-				.authenticate(UsernamePasswordAuthenticationToken.unauthenticated("slash/guy", "slashguyspassword"));
+	.authenticate(UsernamePasswordAuthenticationToken.unauthenticated("slash/guy", "slashguyspassword"));
 		// SEC-1661
 		this.authenticator.setUserSearch(
-				new FilterBasedLdapUserSearch("ou=\\\"quoted people\\\"", "(cn={0})", this.contextSource));
+	new FilterBasedLdapUserSearch("ou=\\\"quoted people\\\"", "(cn={0})", this.contextSource));
 		this.authenticator
-				.authenticate(UsernamePasswordAuthenticationToken.unauthenticated("quote\"guy", "quoteguyspassword"));
+	.authenticate(UsernamePasswordAuthenticationToken.unauthenticated("quote\"guy", "quoteguyspassword"));
 		this.authenticator.setUserSearch(new FilterBasedLdapUserSearch("", "(cn={0})", this.contextSource));
 		this.authenticator
-				.authenticate(UsernamePasswordAuthenticationToken.unauthenticated("quote\"guy", "quoteguyspassword"));
+	.authenticate(UsernamePasswordAuthenticationToken.unauthenticated("quote\"guy", "quoteguyspassword"));
 	}
 
 	/*
@@ -131,14 +131,14 @@ public class BindAuthenticatorTests {
 	 */
 	@Test
 	public void testAuthenticationWithWrongPasswordFails() {
-		this.authenticator.setUserDnPatterns(new String[] { "uid={0},ou=people" });
+		this.authenticator.setUserDnPatterns(new String[]{"uid={0},ou=people"});
 		assertThatExceptionOfType(BadCredentialsException.class).isThrownBy(() -> this.authenticator
-				.authenticate(UsernamePasswordAuthenticationToken.unauthenticated("bob", "wrongpassword")));
+	.authenticate(UsernamePasswordAuthenticationToken.unauthenticated("bob", "wrongpassword")));
 	}
 
 	@Test
 	public void testUserDnPatternReturnsCorrectDn() {
-		this.authenticator.setUserDnPatterns(new String[] { "cn={0},ou=people" });
+		this.authenticator.setUserDnPatterns(new String[]{"cn={0},ou=people"});
 		assertThat(this.authenticator.getUserDns("Joe").get(0)).isEqualTo("cn=Joe,ou=people");
 	}
 

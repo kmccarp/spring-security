@@ -190,10 +190,10 @@ public abstract class AbstractSecurityWebApplicationInitializer implements WebAp
 	 * @param filter
 	 */
 	private void registerFilter(ServletContext servletContext, boolean insertBeforeOtherFilters, String filterName,
-			Filter filter) {
+Filter filter) {
 		Dynamic registration = servletContext.addFilter(filterName, filter);
 		Assert.state(registration != null, () -> "Duplicate Filter registration for '" + filterName
-				+ "'. Check to ensure the Filter is only configured once.");
+	+ "'. Check to ensure the Filter is only configured once.");
 		registration.setAsyncSupported(isAsyncSecuritySupported());
 		EnumSet<DispatcherType> dispatcherTypes = getSecurityDispatcherTypes();
 		registration.addMappingForUrlPatterns(dispatcherTypes, !insertBeforeOtherFilters, "/*");
@@ -281,7 +281,7 @@ public abstract class AbstractSecurityWebApplicationInitializer implements WebAp
 	 */
 	protected EnumSet<DispatcherType> getSecurityDispatcherTypes() {
 		return EnumSet.of(DispatcherType.REQUEST, DispatcherType.ERROR, DispatcherType.ASYNC, DispatcherType.FORWARD,
-				DispatcherType.INCLUDE);
+	DispatcherType.INCLUDE);
 	}
 
 	/**

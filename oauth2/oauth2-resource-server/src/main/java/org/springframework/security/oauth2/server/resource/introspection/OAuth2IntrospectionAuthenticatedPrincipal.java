@@ -33,8 +33,7 @@ import org.springframework.security.oauth2.core.OAuth2TokenIntrospectionClaimAcc
  * @see <a target="_blank" href=
  * "https://tools.ietf.org/html/rfc7662#section-2.2">Introspection Response</a>
  */
-public final class OAuth2IntrospectionAuthenticatedPrincipal
-		implements OAuth2TokenIntrospectionClaimAccessor, OAuth2AuthenticatedPrincipal, Serializable {
+public final class OAuth2IntrospectionAuthenticatedPrincipalimplements OAuth2TokenIntrospectionClaimAccessor, OAuth2AuthenticatedPrincipal, Serializable {
 
 	private final OAuth2AuthenticatedPrincipal delegate;
 
@@ -45,7 +44,7 @@ public final class OAuth2IntrospectionAuthenticatedPrincipal
 	 * @param authorities the authorities of the OAuth 2.0 Token Introspection
 	 */
 	public OAuth2IntrospectionAuthenticatedPrincipal(Map<String, Object> attributes,
-			Collection<GrantedAuthority> authorities) {
+Collection<GrantedAuthority> authorities) {
 		this.delegate = new DefaultOAuth2AuthenticatedPrincipal(attributes, authorities);
 	}
 
@@ -57,7 +56,7 @@ public final class OAuth2IntrospectionAuthenticatedPrincipal
 	 * @param authorities the authorities of the OAuth 2.0 Token Introspection
 	 */
 	public OAuth2IntrospectionAuthenticatedPrincipal(String name, Map<String, Object> attributes,
-			Collection<GrantedAuthority> authorities) {
+Collection<GrantedAuthority> authorities) {
 		this.delegate = new DefaultOAuth2AuthenticatedPrincipal(name, attributes, authorities);
 	}
 

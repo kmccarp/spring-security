@@ -61,7 +61,7 @@ public class NamespaceHttpAnonymousTests {
 
 	@Test
 	public void anonymousRequestWhenUsingDefaultAnonymousConfigurationThenUsesAnonymousAuthentication()
-			throws Exception {
+throws Exception {
 		this.spring.register(AnonymousConfig.class, AnonymousController.class).autowire();
 		this.mvc.perform(get("/type")).andExpect(content().string(AnonymousAuthenticationToken.class.getSimpleName()));
 	}
@@ -99,9 +99,9 @@ public class NamespaceHttpAnonymousTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests()
-					.requestMatchers("/type").anonymous()
-					.anyRequest().denyAll();
+		.authorizeRequests()
+		.requestMatchers("/type").anonymous()
+		.anyRequest().denyAll();
 			return http.build();
 			// @formatter:on
 		}
@@ -116,10 +116,10 @@ public class NamespaceHttpAnonymousTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests()
-					.anyRequest().permitAll()
-					.and()
-				.anonymous().disable();
+		.authorizeRequests()
+		.anyRequest().permitAll()
+		.and()
+		.anonymous().disable();
 			// @formatter:on
 			return http.build();
 		}
@@ -140,12 +140,12 @@ public class NamespaceHttpAnonymousTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests()
-					.requestMatchers("/type").hasRole("ANON")
-					.anyRequest().denyAll()
-					.and()
-				.anonymous()
-					.authorities("ROLE_ANON");
+		.authorizeRequests()
+		.requestMatchers("/type").hasRole("ANON")
+		.anyRequest().denyAll()
+		.and()
+		.anonymous()
+		.authorities("ROLE_ANON");
 			return http.build();
 			// @formatter:on
 		}
@@ -161,11 +161,11 @@ public class NamespaceHttpAnonymousTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests()
-					.requestMatchers("/key").anonymous()
-					.anyRequest().denyAll()
-					.and()
-				.anonymous().key("AnonymousKeyConfig");
+		.authorizeRequests()
+		.requestMatchers("/key").anonymous()
+		.anyRequest().denyAll()
+		.and()
+		.anonymous().key("AnonymousKeyConfig");
 			return http.build();
 			// @formatter:on
 		}
@@ -181,11 +181,11 @@ public class NamespaceHttpAnonymousTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests()
-					.requestMatchers("/principal").anonymous()
-					.anyRequest().denyAll()
-					.and()
-				.anonymous().principal("AnonymousUsernameConfig");
+		.authorizeRequests()
+		.requestMatchers("/principal").anonymous()
+		.anyRequest().denyAll()
+		.and()
+		.anonymous().principal("AnonymousUsernameConfig");
 			return http.build();
 			// @formatter:on
 		}
@@ -212,8 +212,8 @@ public class NamespaceHttpAnonymousTests {
 
 		Optional<AnonymousAuthenticationToken> anonymousToken() {
 			return Optional.of(SecurityContextHolder.getContext()).map(SecurityContext::getAuthentication)
-					.filter((a) -> a instanceof AnonymousAuthenticationToken)
-					.map(AnonymousAuthenticationToken.class::cast);
+		.filter((a) -> a instanceof AnonymousAuthenticationToken)
+		.map(AnonymousAuthenticationToken.class::cast);
 		}
 
 	}

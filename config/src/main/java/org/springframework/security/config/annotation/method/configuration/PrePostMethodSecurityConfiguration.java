@@ -53,29 +53,29 @@ final class PrePostMethodSecurityConfiguration {
 	@Bean
 	@Role(BeanDefinition.ROLE_INFRASTRUCTURE)
 	static MethodInterceptor preFilterAuthorizationMethodInterceptor(
-			ObjectProvider<GrantedAuthorityDefaults> defaultsProvider,
-			ObjectProvider<MethodSecurityExpressionHandler> expressionHandlerProvider,
-			ObjectProvider<SecurityContextHolderStrategy> strategyProvider, ApplicationContext context) {
+ObjectProvider<GrantedAuthorityDefaults> defaultsProvider,
+ObjectProvider<MethodSecurityExpressionHandler> expressionHandlerProvider,
+ObjectProvider<SecurityContextHolderStrategy> strategyProvider, ApplicationContext context) {
 		PreFilterAuthorizationMethodInterceptor preFilter = new PreFilterAuthorizationMethodInterceptor();
 		strategyProvider.ifAvailable(preFilter::setSecurityContextHolderStrategy);
 		preFilter.setExpressionHandler(
-				expressionHandlerProvider.getIfAvailable(() -> defaultExpressionHandler(defaultsProvider, context)));
+	expressionHandlerProvider.getIfAvailable(() -> defaultExpressionHandler(defaultsProvider, context)));
 		return preFilter;
 	}
 
 	@Bean
 	@Role(BeanDefinition.ROLE_INFRASTRUCTURE)
 	static MethodInterceptor preAuthorizeAuthorizationMethodInterceptor(
-			ObjectProvider<GrantedAuthorityDefaults> defaultsProvider,
-			ObjectProvider<MethodSecurityExpressionHandler> expressionHandlerProvider,
-			ObjectProvider<SecurityContextHolderStrategy> strategyProvider,
-			ObjectProvider<AuthorizationEventPublisher> eventPublisherProvider,
-			ObjectProvider<ObservationRegistry> registryProvider, ApplicationContext context) {
+ObjectProvider<GrantedAuthorityDefaults> defaultsProvider,
+ObjectProvider<MethodSecurityExpressionHandler> expressionHandlerProvider,
+ObjectProvider<SecurityContextHolderStrategy> strategyProvider,
+ObjectProvider<AuthorizationEventPublisher> eventPublisherProvider,
+ObjectProvider<ObservationRegistry> registryProvider, ApplicationContext context) {
 		PreAuthorizeAuthorizationManager manager = new PreAuthorizeAuthorizationManager();
 		manager.setExpressionHandler(
-				expressionHandlerProvider.getIfAvailable(() -> defaultExpressionHandler(defaultsProvider, context)));
+	expressionHandlerProvider.getIfAvailable(() -> defaultExpressionHandler(defaultsProvider, context)));
 		AuthorizationManagerBeforeMethodInterceptor preAuthorize = AuthorizationManagerBeforeMethodInterceptor
-				.preAuthorize(manager(manager, registryProvider));
+	.preAuthorize(manager(manager, registryProvider));
 		strategyProvider.ifAvailable(preAuthorize::setSecurityContextHolderStrategy);
 		eventPublisherProvider.ifAvailable(preAuthorize::setAuthorizationEventPublisher);
 		return preAuthorize;
@@ -84,16 +84,16 @@ final class PrePostMethodSecurityConfiguration {
 	@Bean
 	@Role(BeanDefinition.ROLE_INFRASTRUCTURE)
 	static MethodInterceptor postAuthorizeAuthorizationMethodInterceptor(
-			ObjectProvider<GrantedAuthorityDefaults> defaultsProvider,
-			ObjectProvider<MethodSecurityExpressionHandler> expressionHandlerProvider,
-			ObjectProvider<SecurityContextHolderStrategy> strategyProvider,
-			ObjectProvider<AuthorizationEventPublisher> eventPublisherProvider,
-			ObjectProvider<ObservationRegistry> registryProvider, ApplicationContext context) {
+ObjectProvider<GrantedAuthorityDefaults> defaultsProvider,
+ObjectProvider<MethodSecurityExpressionHandler> expressionHandlerProvider,
+ObjectProvider<SecurityContextHolderStrategy> strategyProvider,
+ObjectProvider<AuthorizationEventPublisher> eventPublisherProvider,
+ObjectProvider<ObservationRegistry> registryProvider, ApplicationContext context) {
 		PostAuthorizeAuthorizationManager manager = new PostAuthorizeAuthorizationManager();
 		manager.setExpressionHandler(
-				expressionHandlerProvider.getIfAvailable(() -> defaultExpressionHandler(defaultsProvider, context)));
+	expressionHandlerProvider.getIfAvailable(() -> defaultExpressionHandler(defaultsProvider, context)));
 		AuthorizationManagerAfterMethodInterceptor postAuthorize = AuthorizationManagerAfterMethodInterceptor
-				.postAuthorize(manager(manager, registryProvider));
+	.postAuthorize(manager(manager, registryProvider));
 		strategyProvider.ifAvailable(postAuthorize::setSecurityContextHolderStrategy);
 		eventPublisherProvider.ifAvailable(postAuthorize::setAuthorizationEventPublisher);
 		return postAuthorize;
@@ -102,18 +102,18 @@ final class PrePostMethodSecurityConfiguration {
 	@Bean
 	@Role(BeanDefinition.ROLE_INFRASTRUCTURE)
 	static MethodInterceptor postFilterAuthorizationMethodInterceptor(
-			ObjectProvider<GrantedAuthorityDefaults> defaultsProvider,
-			ObjectProvider<MethodSecurityExpressionHandler> expressionHandlerProvider,
-			ObjectProvider<SecurityContextHolderStrategy> strategyProvider, ApplicationContext context) {
+ObjectProvider<GrantedAuthorityDefaults> defaultsProvider,
+ObjectProvider<MethodSecurityExpressionHandler> expressionHandlerProvider,
+ObjectProvider<SecurityContextHolderStrategy> strategyProvider, ApplicationContext context) {
 		PostFilterAuthorizationMethodInterceptor postFilter = new PostFilterAuthorizationMethodInterceptor();
 		strategyProvider.ifAvailable(postFilter::setSecurityContextHolderStrategy);
 		postFilter.setExpressionHandler(
-				expressionHandlerProvider.getIfAvailable(() -> defaultExpressionHandler(defaultsProvider, context)));
+	expressionHandlerProvider.getIfAvailable(() -> defaultExpressionHandler(defaultsProvider, context)));
 		return postFilter;
 	}
 
 	private static MethodSecurityExpressionHandler defaultExpressionHandler(
-			ObjectProvider<GrantedAuthorityDefaults> defaultsProvider, ApplicationContext context) {
+ObjectProvider<GrantedAuthorityDefaults> defaultsProvider, ApplicationContext context) {
 		DefaultMethodSecurityExpressionHandler handler = new DefaultMethodSecurityExpressionHandler();
 		defaultsProvider.ifAvailable((d) -> handler.setDefaultRolePrefix(d.getRolePrefix()));
 		handler.setApplicationContext(context);
@@ -121,7 +121,7 @@ final class PrePostMethodSecurityConfiguration {
 	}
 
 	static <T> AuthorizationManager<T> manager(AuthorizationManager<T> delegate,
-			ObjectProvider<ObservationRegistry> registryProvider) {
+ObjectProvider<ObservationRegistry> registryProvider) {
 		return new DeferringObservationAuthorizationManager<>(registryProvider, delegate);
 	}
 

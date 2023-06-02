@@ -122,9 +122,9 @@ public class SessionManagementConfigurerServlet31Tests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.formLogin()
-					.and()
-				.sessionManagement();
+		.formLogin()
+		.and()
+		.sessionManagement();
 			// @formatter:on
 			return http.build();
 		}

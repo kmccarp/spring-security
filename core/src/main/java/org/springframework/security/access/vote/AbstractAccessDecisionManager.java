@@ -44,8 +44,7 @@ import org.springframework.util.Assert;
  * @deprecated Use {@link AuthorizationManager} instead
  */
 @Deprecated
-public abstract class AbstractAccessDecisionManager
-		implements AccessDecisionManager, InitializingBean, MessageSourceAware {
+public abstract class AbstractAccessDecisionManagerimplements AccessDecisionManager, InitializingBean, MessageSourceAware {
 
 	protected final Log logger = LogFactory.getLog(getClass());
 
@@ -69,7 +68,7 @@ public abstract class AbstractAccessDecisionManager
 	protected final void checkAllowIfAllAbstainDecisions() {
 		if (!this.isAllowIfAllAbstainDecisions()) {
 			throw new AccessDeniedException(
-					this.messages.getMessage("AbstractAccessDecisionManager.accessDenied", "Access is denied"));
+		this.messages.getMessage("AbstractAccessDecisionManager.accessDenied", "Access is denied"));
 		}
 	}
 
@@ -122,7 +121,7 @@ public abstract class AbstractAccessDecisionManager
 	@Override
 	public String toString() {
 		return this.getClass().getSimpleName() + " [DecisionVoters=" + this.decisionVoters
-				+ ", AllowIfAllAbstainDecisions=" + this.allowIfAllAbstainDecisions + "]";
+	+ ", AllowIfAllAbstainDecisions=" + this.allowIfAllAbstainDecisions + "]";
 	}
 
 }

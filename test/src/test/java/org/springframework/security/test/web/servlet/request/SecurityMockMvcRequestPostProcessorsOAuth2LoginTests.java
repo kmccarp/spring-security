@@ -81,9 +81,9 @@ public class SecurityMockMvcRequestPostProcessorsOAuth2LoginTests {
 	public void setup() {
 		// @formatter:off
 		this.mvc = MockMvcBuilders
-			.webAppContextSetup(this.context)
-			.apply(springSecurity())
-			.build();
+	.webAppContextSetup(this.context)
+	.apply(springSecurity())
+	.build();
 		// @formatter:on
 	}
 
@@ -101,46 +101,46 @@ public class SecurityMockMvcRequestPostProcessorsOAuth2LoginTests {
 	@Test
 	public void oauth2LoginWhenAuthoritiesSpecifiedThenGrantsAccess() throws Exception {
 		this.mvc.perform(
-				get("/admin/scopes").with(oauth2Login().authorities(new SimpleGrantedAuthority("SCOPE_admin"))))
-				.andExpect(content().string("[\"SCOPE_admin\"]"));
+	get("/admin/scopes").with(oauth2Login().authorities(new SimpleGrantedAuthority("SCOPE_admin"))))
+	.andExpect(content().string("[\"SCOPE_admin\"]"));
 	}
 
 	@Test
 	public void oauth2LoginWhenAttributeSpecifiedThenUserHasAttribute() throws Exception {
 		this.mvc.perform(
-				get("/attributes/iss").with(oauth2Login().attributes((a) -> a.put("iss", "https://idp.example.org"))))
-				.andExpect(content().string("https://idp.example.org"));
+	get("/attributes/iss").with(oauth2Login().attributes((a) -> a.put("iss", "https://idp.example.org"))))
+	.andExpect(content().string("https://idp.example.org"));
 	}
 
 	@Test
 	public void oauth2LoginWhenNameSpecifiedThenUserHasName() throws Exception {
 		OAuth2User oauth2User = new DefaultOAuth2User(AuthorityUtils.commaSeparatedStringToAuthorityList("SCOPE_read"),
-				Collections.singletonMap("custom-attribute", "test-subject"), "custom-attribute");
+	Collections.singletonMap("custom-attribute", "test-subject"), "custom-attribute");
 		this.mvc.perform(get("/attributes/custom-attribute").with(oauth2Login().oauth2User(oauth2User)))
-				.andExpect(content().string("test-subject"));
+	.andExpect(content().string("test-subject"));
 		this.mvc.perform(get("/name").with(oauth2Login().oauth2User(oauth2User)))
-				.andExpect(content().string("test-subject"));
+	.andExpect(content().string("test-subject"));
 		this.mvc.perform(get("/client-name").with(oauth2Login().oauth2User(oauth2User)))
-				.andExpect(content().string("test-subject"));
+	.andExpect(content().string("test-subject"));
 	}
 
 	@Test
 	public void oauth2LoginWhenClientRegistrationSpecifiedThenUses() throws Exception {
 		this.mvc.perform(get("/client-id")
-				.with(oauth2Login().clientRegistration(TestClientRegistrations.clientRegistration().build())))
-				.andExpect(content().string("client-id"));
+	.with(oauth2Login().clientRegistration(TestClientRegistrations.clientRegistration().build())))
+	.andExpect(content().string("client-id"));
 	}
 
 	@Test
 	public void oauth2LoginWhenOAuth2UserSpecifiedThenLastCalledTakesPrecedence() throws Exception {
 		OAuth2User oauth2User = new DefaultOAuth2User(AuthorityUtils.createAuthorityList("SCOPE_read"),
-				Collections.singletonMap("username", "user"), "username");
+	Collections.singletonMap("username", "user"), "username");
 		this.mvc.perform(get("/attributes/sub")
-				.with(oauth2Login().attributes((a) -> a.put("sub", "bar")).oauth2User(oauth2User)))
-				.andExpect(status().isOk()).andExpect(content().string("no-attribute"));
+	.with(oauth2Login().attributes((a) -> a.put("sub", "bar")).oauth2User(oauth2User)))
+	.andExpect(status().isOk()).andExpect(content().string("no-attribute"));
 		this.mvc.perform(get("/attributes/sub")
-				.with(oauth2Login().oauth2User(oauth2User).attributes((a) -> a.put("sub", "bar"))))
-				.andExpect(content().string("bar"));
+	.with(oauth2Login().oauth2User(oauth2User).attributes((a) -> a.put("sub", "bar"))))
+	.andExpect(content().string("bar"));
 	}
 
 	@Configuration
@@ -152,10 +152,10 @@ public class SecurityMockMvcRequestPostProcessorsOAuth2LoginTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests((authorize) -> authorize
-					.requestMatchers("/admin/**").hasAuthority("SCOPE_admin")
-					.anyRequest().hasAuthority("SCOPE_read")
-				).oauth2Login();
+		.authorizeRequests((authorize) -> authorize
+.requestMatchers("/admin/**").hasAuthority("SCOPE_admin")
+.anyRequest().hasAuthority("SCOPE_read")
+		).oauth2Login();
 			return http.build();
 			// @formatter:on
 		}
@@ -190,13 +190,13 @@ public class SecurityMockMvcRequestPostProcessorsOAuth2LoginTests {
 
 			@GetMapping("/attributes/{attribute}")
 			String attributes(@AuthenticationPrincipal OAuth2User oauth2User,
-					@PathVariable("attribute") String attribute) {
+		@PathVariable("attribute") String attribute) {
 				return Optional.ofNullable((String) oauth2User.getAttribute(attribute)).orElse("no-attribute");
 			}
 
 			@GetMapping("/admin/scopes")
 			List<String> scopes(
-					@AuthenticationPrincipal(expression = "authorities") Collection<GrantedAuthority> authorities) {
+		@AuthenticationPrincipal(expression = "authorities") Collection<GrantedAuthority> authorities) {
 				return authorities.stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList());
 			}
 

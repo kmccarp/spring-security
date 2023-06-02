@@ -39,13 +39,12 @@ import org.springframework.util.Assert;
  * @author Rob Winch
  * @since 5.2
  */
-public final class PayloadExchangeMatcherReactiveAuthorizationManager
-		implements ReactiveAuthorizationManager<PayloadExchange> {
+public final class PayloadExchangeMatcherReactiveAuthorizationManagerimplements ReactiveAuthorizationManager<PayloadExchange> {
 
 	private final List<PayloadExchangeMatcherEntry<ReactiveAuthorizationManager<PayloadExchangeAuthorizationContext>>> mappings;
 
 	private PayloadExchangeMatcherReactiveAuthorizationManager(
-			List<PayloadExchangeMatcherEntry<ReactiveAuthorizationManager<PayloadExchangeAuthorizationContext>>> mappings) {
+List<PayloadExchangeMatcherEntry<ReactiveAuthorizationManager<PayloadExchangeAuthorizationContext>>> mappings) {
 		Assert.notEmpty(mappings, "mappings cannot be null");
 		this.mappings = mappings;
 	}
@@ -53,11 +52,10 @@ public final class PayloadExchangeMatcherReactiveAuthorizationManager
 	@Override
 	public Mono<AuthorizationDecision> check(Mono<Authentication> authentication, PayloadExchange exchange) {
 		return Flux.fromIterable(this.mappings)
-				.concatMap((mapping) -> mapping.getMatcher().matches(exchange)
-						.filter(PayloadExchangeMatcher.MatchResult::isMatch).map(MatchResult::getVariables)
-						.flatMap((variables) -> mapping.getEntry().check(authentication,
-								new PayloadExchangeAuthorizationContext(exchange, variables))))
-				.next().switchIfEmpty(Mono.fromCallable(() -> new AuthorizationDecision(false)));
+	.concatMap((mapping) -> mapping.getMatcher().matches(exchange)
+.filter(PayloadExchangeMatcher.MatchResult::isMatch).map(MatchResult::getVariables)
+.flatMap((variables) -> mapping.getEntry().check(authentication,new PayloadExchangeAuthorizationContext(exchange, variables))))
+	.next().switchIfEmpty(Mono.fromCallable(() -> new AuthorizationDecision(false)));
 	}
 
 	public static PayloadExchangeMatcherReactiveAuthorizationManager.Builder builder() {
@@ -72,7 +70,7 @@ public final class PayloadExchangeMatcherReactiveAuthorizationManager
 		}
 
 		public PayloadExchangeMatcherReactiveAuthorizationManager.Builder add(
-				PayloadExchangeMatcherEntry<ReactiveAuthorizationManager<PayloadExchangeAuthorizationContext>> entry) {
+	PayloadExchangeMatcherEntry<ReactiveAuthorizationManager<PayloadExchangeAuthorizationContext>> entry) {
 			this.mappings.add(entry);
 			return this;
 		}

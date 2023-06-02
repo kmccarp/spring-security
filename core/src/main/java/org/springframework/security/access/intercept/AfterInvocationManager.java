@@ -66,7 +66,7 @@ public interface AfterInvocationManager {
 	 * @throws AccessDeniedException if access is denied
 	 */
 	Object decide(Authentication authentication, Object object, Collection<ConfigAttribute> attributes,
-			Object returnedObject) throws AccessDeniedException;
+Object returnedObject) throws AccessDeniedException;
 
 	/**
 	 * Indicates whether this <code>AfterInvocationManager</code> is able to process

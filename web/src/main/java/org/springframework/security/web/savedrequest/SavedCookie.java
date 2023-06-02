@@ -54,7 +54,7 @@ public class SavedCookie implements Serializable {
 	 */
 	@Deprecated(forRemoval = true, since = "6.1")
 	public SavedCookie(String name, String value, String comment, String domain, int maxAge, String path,
-			boolean secure, int version) {
+boolean secure, int version) {
 		this.name = name;
 		this.value = value;
 		this.comment = comment;
@@ -71,7 +71,7 @@ public class SavedCookie implements Serializable {
 
 	public SavedCookie(Cookie cookie) {
 		this(cookie.getName(), cookie.getValue(), cookie.getDomain(), cookie.getMaxAge(), cookie.getPath(),
-				cookie.getSecure());
+	cookie.getSecure());
 	}
 
 	public String getName() {

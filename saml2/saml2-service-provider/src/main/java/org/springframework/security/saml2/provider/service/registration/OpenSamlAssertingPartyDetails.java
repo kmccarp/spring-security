@@ -37,10 +37,10 @@ public final class OpenSamlAssertingPartyDetails extends RelyingPartyRegistratio
 
 	OpenSamlAssertingPartyDetails(RelyingPartyRegistration.AssertingPartyDetails details, EntityDescriptor descriptor) {
 		super(details.getEntityId(), details.getWantAuthnRequestsSigned(), details.getSigningAlgorithms(),
-				details.getVerificationX509Credentials(), details.getEncryptionX509Credentials(),
-				details.getSingleSignOnServiceLocation(), details.getSingleSignOnServiceBinding(),
-				details.getSingleLogoutServiceLocation(), details.getSingleLogoutServiceResponseLocation(),
-				details.getSingleLogoutServiceBinding());
+	details.getVerificationX509Credentials(), details.getEncryptionX509Credentials(),
+	details.getSingleSignOnServiceLocation(), details.getSingleSignOnServiceBinding(),
+	details.getSingleLogoutServiceLocation(), details.getSingleLogoutServiceResponseLocation(),
+	details.getSingleLogoutServiceBinding());
 		this.descriptor = descriptor;
 	}
 

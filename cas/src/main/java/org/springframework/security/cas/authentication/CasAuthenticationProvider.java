@@ -84,7 +84,7 @@ public class CasAuthenticationProvider implements AuthenticationProvider, Initia
 		Assert.notNull(this.ticketValidator, "A ticketValidator must be set");
 		Assert.notNull(this.statelessTicketCache, "A statelessTicketCache must be set");
 		Assert.hasText(this.key,
-				"A Key is required so CasAuthenticationProvider can identify tokens it previously authenticated");
+	"A Key is required so CasAuthenticationProvider can identify tokens it previously authenticated");
 		Assert.notNull(this.messages, "A message source must be set");
 	}
 
@@ -97,7 +97,7 @@ public class CasAuthenticationProvider implements AuthenticationProvider, Initia
 		if (authentication instanceof CasAuthenticationToken) {
 			if (this.key.hashCode() != ((CasAuthenticationToken) authentication).getKeyHash()) {
 				throw new BadCredentialsException(this.messages.getMessage("CasAuthenticationProvider.incorrectKey",
-						"The presented CasAuthenticationToken does not contain the expected key"));
+			"The presented CasAuthenticationToken does not contain the expected key"));
 			}
 			return authentication;
 		}
@@ -105,7 +105,7 @@ public class CasAuthenticationProvider implements AuthenticationProvider, Initia
 		// Ensure credentials are presented
 		if ((authentication.getCredentials() == null) || "".equals(authentication.getCredentials())) {
 			throw new BadCredentialsException(this.messages.getMessage("CasAuthenticationProvider.noServiceTicket",
-					"Failed to provide a CAS service ticket to validate"));
+		"Failed to provide a CAS service ticket to validate"));
 		}
 
 		boolean stateless = (authentication instanceof CasServiceTicketAuthenticationToken token && token.isStateless());
@@ -129,11 +129,11 @@ public class CasAuthenticationProvider implements AuthenticationProvider, Initia
 	private CasAuthenticationToken authenticateNow(final Authentication authentication) throws AuthenticationException {
 		try {
 			Assertion assertion = this.ticketValidator.validate(authentication.getCredentials().toString(),
-					getServiceUrl(authentication));
+		getServiceUrl(authentication));
 			UserDetails userDetails = loadUserByAssertion(assertion);
 			this.userDetailsChecker.check(userDetails);
 			return new CasAuthenticationToken(this.key, userDetails, authentication.getCredentials(),
-					this.authoritiesMapper.mapAuthorities(userDetails.getAuthorities()), userDetails, assertion);
+		this.authoritiesMapper.mapAuthorities(userDetails.getAuthorities()), userDetails, assertion);
 		}
 		catch (TicketValidationException ex) {
 			throw new BadCredentialsException(ex.getMessage(), ex);
@@ -154,9 +154,9 @@ public class CasAuthenticationProvider implements AuthenticationProvider, Initia
 			return ((ServiceAuthenticationDetails) authentication.getDetails()).getServiceUrl();
 		}
 		Assert.state(this.serviceProperties != null,
-				"serviceProperties cannot be null unless Authentication.getDetails() implements ServiceAuthenticationDetails.");
+	"serviceProperties cannot be null unless Authentication.getDetails() implements ServiceAuthenticationDetails.");
 		Assert.state(this.serviceProperties.getService() != null,
-				"serviceProperties.getService() cannot be null unless Authentication.getDetails() implements ServiceAuthenticationDetails.");
+	"serviceProperties.getService() cannot be null unless Authentication.getDetails() implements ServiceAuthenticationDetails.");
 		serviceUrl = this.serviceProperties.getService();
 		logger.debug(LogMessage.format("serviceUrl = %s", serviceUrl));
 		return serviceUrl;
@@ -183,7 +183,7 @@ public class CasAuthenticationProvider implements AuthenticationProvider, Initia
 	}
 
 	public void setAuthenticationUserDetailsService(
-			final AuthenticationUserDetailsService<CasAssertionAuthenticationToken> authenticationUserDetailsService) {
+final AuthenticationUserDetailsService<CasAssertionAuthenticationToken> authenticationUserDetailsService) {
 		this.authenticationUserDetailsService = authenticationUserDetailsService;
 	}
 
@@ -227,8 +227,8 @@ public class CasAuthenticationProvider implements AuthenticationProvider, Initia
 	@Override
 	public boolean supports(final Class<?> authentication) {
 		return (CasServiceTicketAuthenticationToken.class.isAssignableFrom(authentication))
-				|| (CasAuthenticationToken.class.isAssignableFrom(authentication))
-				|| (CasAssertionAuthenticationToken.class.isAssignableFrom(authentication));
+	|| (CasAuthenticationToken.class.isAssignableFrom(authentication))
+	|| (CasAssertionAuthenticationToken.class.isAssignableFrom(authentication));
 	}
 
 }

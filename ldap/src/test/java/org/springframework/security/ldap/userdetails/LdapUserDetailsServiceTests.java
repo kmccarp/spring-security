@@ -43,7 +43,7 @@ public class LdapUserDetailsServiceTests {
 	@Test
 	public void rejectsNullSearchObject() {
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new LdapUserDetailsService(null, new NullLdapAuthoritiesPopulator()));
+	.isThrownBy(() -> new LdapUserDetailsService(null, new NullLdapAuthoritiesPopulator()));
 	}
 
 	@Test
@@ -55,7 +55,7 @@ public class LdapUserDetailsServiceTests {
 	public void correctAuthoritiesAreReturned() {
 		DirContextAdapter userData = new DirContextAdapter(new DistinguishedName("uid=joe"));
 		LdapUserDetailsService service = new LdapUserDetailsService(new MockUserSearch(userData),
-				new MockAuthoritiesPopulator());
+	new MockAuthoritiesPopulator());
 		service.setUserDetailsMapper(new LdapUserDetailsMapper());
 		UserDetails user = service.loadUserByUsername("doesntmatterwegetjoeanyway");
 		Set<String> authorities = AuthorityUtils.authorityListToSet(user.getAuthorities());

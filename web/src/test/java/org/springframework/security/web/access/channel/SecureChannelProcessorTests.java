@@ -65,7 +65,7 @@ public class SecureChannelProcessorTests {
 		FilterInvocation fi = new FilterInvocation(request, response, mock(FilterChain.class));
 		SecureChannelProcessor processor = new SecureChannelProcessor();
 		processor.decide(fi,
-				SecurityConfig.createList(new String[] { "SOME_IGNORED_ATTRIBUTE", "REQUIRES_SECURE_CHANNEL" }));
+	SecurityConfig.createList(new String[]{"SOME_IGNORED_ATTRIBUTE", "REQUIRES_SECURE_CHANNEL"}));
 		assertThat(fi.getResponse().isCommitted()).isTrue();
 	}
 
@@ -92,7 +92,7 @@ public class SecureChannelProcessorTests {
 		SecureChannelProcessor processor = new SecureChannelProcessor();
 		processor.setEntryPoint(null);
 		assertThatIllegalArgumentException().isThrownBy(processor::afterPropertiesSet)
-				.withMessage("entryPoint required");
+	.withMessage("entryPoint required");
 	}
 
 	@Test
@@ -100,10 +100,10 @@ public class SecureChannelProcessorTests {
 		SecureChannelProcessor processor = new SecureChannelProcessor();
 		processor.setSecureKeyword(null);
 		assertThatIllegalArgumentException().isThrownBy(processor::afterPropertiesSet)
-				.withMessage("secureKeyword required");
+	.withMessage("secureKeyword required");
 		processor.setSecureKeyword("");
 		assertThatIllegalArgumentException().isThrownBy(() -> processor.afterPropertiesSet())
-				.withMessage("secureKeyword required");
+	.withMessage("secureKeyword required");
 	}
 
 	@Test

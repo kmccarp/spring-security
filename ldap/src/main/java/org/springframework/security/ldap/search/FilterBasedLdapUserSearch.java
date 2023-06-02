@@ -80,7 +80,7 @@ public class FilterBasedLdapUserSearch implements LdapUserSearch {
 		setSearchSubtree(true);
 		if (searchBase.length() == 0) {
 			logger.info(LogMessage.format("Searches will be performed from the root %s since SearchBase not set",
-					contextSource.getBaseLdapPath()));
+		contextSource.getBaseLdapPath()));
 		}
 	}
 
@@ -98,7 +98,7 @@ public class FilterBasedLdapUserSearch implements LdapUserSearch {
 		template.setSearchControls(this.searchControls);
 		try {
 			DirContextOperations operations = template.searchForSingleEntry(this.searchBase, this.searchFilter,
-					new String[] { username });
+		new String[]{username});
 			logger.debug(LogMessage.of(() -> "Found user '" + username + "', with " + this));
 			return operations;
 		}
@@ -128,7 +128,7 @@ public class FilterBasedLdapUserSearch implements LdapUserSearch {
 	 */
 	public void setSearchSubtree(boolean searchSubtree) {
 		this.searchControls
-				.setSearchScope(searchSubtree ? SearchControls.SUBTREE_SCOPE : SearchControls.ONELEVEL_SCOPE);
+	.setSearchScope(searchSubtree ? SearchControls.SUBTREE_SCOPE : SearchControls.ONELEVEL_SCOPE);
 	}
 
 	/**
@@ -158,8 +158,8 @@ public class FilterBasedLdapUserSearch implements LdapUserSearch {
 		sb.append("searchFilter=").append(this.searchFilter).append("; ");
 		sb.append("searchBase=").append(this.searchBase).append("; ");
 		sb.append("scope=").append(
-				(this.searchControls.getSearchScope() != SearchControls.SUBTREE_SCOPE) ? "single-level" : "subtree")
-				.append("; ");
+	(this.searchControls.getSearchScope() != SearchControls.SUBTREE_SCOPE) ? "single-level" : "subtree")
+	.append("; ");
 		sb.append("searchTimeLimit=").append(this.searchControls.getTimeLimit()).append("; ");
 		sb.append("derefLinkFlag=").append(this.searchControls.getDerefLinkFlag()).append(" ]");
 		return sb.toString();

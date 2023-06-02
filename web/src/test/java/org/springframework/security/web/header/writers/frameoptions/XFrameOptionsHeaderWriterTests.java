@@ -50,7 +50,7 @@ public class XFrameOptionsHeaderWriterTests {
 	@Test
 	public void writeHeaderWhenNotPresent() {
 		WhiteListedAllowFromStrategy whitelist = new WhiteListedAllowFromStrategy(
-				Collections.singletonList("example.com"));
+	Collections.singletonList("example.com"));
 		XFrameOptionsHeaderWriter writer = new XFrameOptionsHeaderWriter(whitelist);
 		String value = new String("value");
 		this.response.setHeader(XFRAME_OPTIONS_HEADER, value);

@@ -52,7 +52,7 @@ public class DelegatingReactiveAuthenticationManagerTests {
 		given(this.delegate1.authenticate(any())).willReturn(Mono.empty());
 		given(this.delegate2.authenticate(any())).willReturn(Mono.just(this.authentication));
 		DelegatingReactiveAuthenticationManager manager = new DelegatingReactiveAuthenticationManager(this.delegate1,
-				this.delegate2);
+	this.delegate2);
 		assertThat(manager.authenticate(this.authentication).block()).isEqualTo(this.authentication);
 	}
 
@@ -61,9 +61,9 @@ public class DelegatingReactiveAuthenticationManagerTests {
 		// delay to try and force delegate2 to finish (i.e. make sure we didn't use
 		// flatMap)
 		given(this.delegate1.authenticate(any()))
-				.willReturn(Mono.just(this.authentication).delayElement(Duration.ofMillis(100)));
+	.willReturn(Mono.just(this.authentication).delayElement(Duration.ofMillis(100)));
 		DelegatingReactiveAuthenticationManager manager = new DelegatingReactiveAuthenticationManager(this.delegate1,
-				this.delegate2);
+	this.delegate2);
 		StepVerifier.create(manager.authenticate(this.authentication)).expectNext(this.authentication).verifyComplete();
 	}
 
@@ -71,9 +71,9 @@ public class DelegatingReactiveAuthenticationManagerTests {
 	public void authenticateWhenBadCredentialsThenDelegate2NotInvokedAndError() {
 		given(this.delegate1.authenticate(any())).willReturn(Mono.error(new BadCredentialsException("Test")));
 		DelegatingReactiveAuthenticationManager manager = new DelegatingReactiveAuthenticationManager(this.delegate1,
-				this.delegate2);
+	this.delegate2);
 		StepVerifier.create(manager.authenticate(this.authentication)).expectError(BadCredentialsException.class)
-				.verify();
+	.verify();
 	}
 
 }

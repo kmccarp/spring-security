@@ -67,7 +67,7 @@ public class WebMvcSecurityConfigurationTests {
 	public void setup() {
 		this.mockMvc = MockMvcBuilders.webAppContextSetup(this.context).build();
 		this.authentication = new TestingAuthenticationToken("user", "password",
-				AuthorityUtils.createAuthorityList("ROLE_USER"));
+	AuthorityUtils.createAuthorityList("ROLE_USER"));
 		SecurityContextHolder.getContext().setAuthentication(this.authentication);
 	}
 
@@ -79,15 +79,15 @@ public class WebMvcSecurityConfigurationTests {
 	@Test
 	public void authenticationPrincipalResolved() throws Exception {
 		this.mockMvc.perform(get("/authentication-principal"))
-				.andExpect(assertResult(this.authentication.getPrincipal()))
-				.andExpect(view().name("authentication-principal-view"));
+	.andExpect(assertResult(this.authentication.getPrincipal()))
+	.andExpect(view().name("authentication-principal-view"));
 	}
 
 	@Test
 	public void deprecatedAuthenticationPrincipalResolved() throws Exception {
 		this.mockMvc.perform(get("/deprecated-authentication-principal"))
-				.andExpect(assertResult(this.authentication.getPrincipal()))
-				.andExpect(view().name("deprecated-authentication-principal-view"));
+	.andExpect(assertResult(this.authentication.getPrincipal()))
+	.andExpect(view().name("deprecated-authentication-principal-view"));
 	}
 
 	@Test
@@ -111,7 +111,7 @@ public class WebMvcSecurityConfigurationTests {
 
 		@RequestMapping("/deprecated-authentication-principal")
 		ModelAndView deprecatedAuthenticationPrincipal(
-				@org.springframework.security.web.bind.annotation.AuthenticationPrincipal String principal) {
+	@org.springframework.security.web.bind.annotation.AuthenticationPrincipal String principal) {
 			return new ModelAndView("deprecated-authentication-principal-view", "result", principal);
 		}
 

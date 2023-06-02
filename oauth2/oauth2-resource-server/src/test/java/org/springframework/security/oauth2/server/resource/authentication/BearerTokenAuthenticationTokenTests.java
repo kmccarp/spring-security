@@ -32,8 +32,8 @@ public class BearerTokenAuthenticationTokenTests {
 	public void constructorWhenTokenIsNullThenThrowsException() {
 		// @formatter:off
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new BearerTokenAuthenticationToken(null))
-				.withMessageContaining("token cannot be empty");
+	.isThrownBy(() -> new BearerTokenAuthenticationToken(null))
+	.withMessageContaining("token cannot be empty");
 		// @formatter:on
 	}
 
@@ -41,8 +41,8 @@ public class BearerTokenAuthenticationTokenTests {
 	public void constructorWhenTokenIsEmptyThenThrowsException() {
 		// @formatter:off
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new BearerTokenAuthenticationToken(""))
-				.withMessageContaining("token cannot be empty");
+	.isThrownBy(() -> new BearerTokenAuthenticationToken(""))
+	.withMessageContaining("token cannot be empty");
 		// @formatter:on
 	}
 

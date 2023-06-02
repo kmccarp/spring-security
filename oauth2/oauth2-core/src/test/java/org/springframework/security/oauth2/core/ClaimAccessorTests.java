@@ -55,7 +55,7 @@ public class ClaimAccessorTests {
 		String claimName = "date";
 		this.claims.put(claimName, Date.from(expectedClaimValue));
 		assertThat(this.claimAccessor.getClaimAsInstant(claimName)).isBetween(expectedClaimValue.minusSeconds(1),
-				expectedClaimValue.plusSeconds(1));
+	expectedClaimValue.plusSeconds(1));
 	}
 
 	// gh-5191
@@ -65,7 +65,7 @@ public class ClaimAccessorTests {
 		String claimName = "longSeconds";
 		this.claims.put(claimName, expectedClaimValue.getEpochSecond());
 		assertThat(this.claimAccessor.getClaimAsInstant(claimName)).isBetween(expectedClaimValue.minusSeconds(1),
-				expectedClaimValue.plusSeconds(1));
+	expectedClaimValue.plusSeconds(1));
 	}
 
 	@Test
@@ -74,7 +74,7 @@ public class ClaimAccessorTests {
 		String claimName = "instant";
 		this.claims.put(claimName, expectedClaimValue);
 		assertThat(this.claimAccessor.getClaimAsInstant(claimName)).isBetween(expectedClaimValue.minusSeconds(1),
-				expectedClaimValue.plusSeconds(1));
+	expectedClaimValue.plusSeconds(1));
 	}
 
 	// gh-5250
@@ -84,7 +84,7 @@ public class ClaimAccessorTests {
 		String claimName = "integerSeconds";
 		this.claims.put(claimName, Long.valueOf(expectedClaimValue.getEpochSecond()).intValue());
 		assertThat(this.claimAccessor.getClaimAsInstant(claimName)).isBetween(expectedClaimValue.minusSeconds(1),
-				expectedClaimValue.plusSeconds(1));
+	expectedClaimValue.plusSeconds(1));
 	}
 
 	// gh-5250
@@ -94,7 +94,7 @@ public class ClaimAccessorTests {
 		String claimName = "doubleSeconds";
 		this.claims.put(claimName, Long.valueOf(expectedClaimValue.getEpochSecond()).doubleValue());
 		assertThat(this.claimAccessor.getClaimAsInstant(claimName)).isBetween(expectedClaimValue.minusSeconds(1),
-				expectedClaimValue.plusSeconds(1));
+	expectedClaimValue.plusSeconds(1));
 	}
 
 	// gh-5608
@@ -128,8 +128,8 @@ public class ClaimAccessorTests {
 		Map<Object, Object> claimValue = new HashMap<>();
 		this.claims.put(claimName, claimValue);
 		assertThatIllegalArgumentException().isThrownBy(() -> this.claimAccessor.getClaimAsBoolean(claimName))
-				.withMessage("Unable to convert claim '" + claimName + "' of type '" + claimValue.getClass()
-						+ "' to Boolean.");
+	.withMessage("Unable to convert claim '" + claimName + "' of type '" + claimValue.getClass()
++ "' to Boolean.");
 	}
 
 	@Test

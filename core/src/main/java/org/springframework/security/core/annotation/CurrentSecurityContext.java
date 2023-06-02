@@ -41,7 +41,7 @@ import java.lang.annotation.Target;
  * > CurrentSecurityContextArgumentResolver</a> For WebFlux
  * </p>
  */
-@Target({ ElementType.PARAMETER, ElementType.ANNOTATION_TYPE })
+@Target({ElementType.PARAMETER, ElementType.ANNOTATION_TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface CurrentSecurityContext {

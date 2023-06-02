@@ -42,7 +42,7 @@ public final class DelegatingSecurityContextRunnable implements Runnable {
 	private final boolean explicitSecurityContextProvided;
 
 	private SecurityContextHolderStrategy securityContextHolderStrategy = SecurityContextHolder
-			.getContextHolderStrategy();
+.getContextHolderStrategy();
 
 	/**
 	 * The {@link SecurityContext} that the delegate {@link Runnable} will be ran as.
@@ -78,7 +78,7 @@ public final class DelegatingSecurityContextRunnable implements Runnable {
 	}
 
 	private DelegatingSecurityContextRunnable(Runnable delegate, SecurityContext securityContext,
-			boolean explicitSecurityContextProvided) {
+boolean explicitSecurityContextProvided) {
 		Assert.notNull(delegate, "delegate cannot be null");
 		Assert.notNull(securityContext, "securityContext cannot be null");
 		this.delegate = delegate;
@@ -137,16 +137,16 @@ public final class DelegatingSecurityContextRunnable implements Runnable {
 	public static Runnable create(Runnable delegate, SecurityContext securityContext) {
 		Assert.notNull(delegate, "delegate cannot be  null");
 		return (securityContext != null) ? new DelegatingSecurityContextRunnable(delegate, securityContext)
-				: new DelegatingSecurityContextRunnable(delegate);
+	: new DelegatingSecurityContextRunnable(delegate);
 	}
 
 	static Runnable create(Runnable delegate, SecurityContext securityContext,
-			SecurityContextHolderStrategy securityContextHolderStrategy) {
+SecurityContextHolderStrategy securityContextHolderStrategy) {
 		Assert.notNull(delegate, "delegate cannot be  null");
 		Assert.notNull(securityContextHolderStrategy, "securityContextHolderStrategy cannot be null");
 		DelegatingSecurityContextRunnable runnable = (securityContext != null)
-				? new DelegatingSecurityContextRunnable(delegate, securityContext)
-				: new DelegatingSecurityContextRunnable(delegate);
+	? new DelegatingSecurityContextRunnable(delegate, securityContext)
+	: new DelegatingSecurityContextRunnable(delegate);
 		runnable.setSecurityContextHolderStrategy(securityContextHolderStrategy);
 		return runnable;
 	}

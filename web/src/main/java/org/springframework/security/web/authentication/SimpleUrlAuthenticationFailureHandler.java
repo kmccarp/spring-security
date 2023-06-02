@@ -74,7 +74,7 @@ public class SimpleUrlAuthenticationFailureHandler implements AuthenticationFail
 	 */
 	@Override
 	public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
-			AuthenticationException exception) throws IOException, ServletException {
+AuthenticationException exception) throws IOException, ServletException {
 		if (this.defaultFailureUrl == null) {
 			if (this.logger.isTraceEnabled()) {
 				this.logger.trace("Sending 401 Unauthorized error since no failure URL is set");
@@ -120,7 +120,7 @@ public class SimpleUrlAuthenticationFailureHandler implements AuthenticationFail
 	 */
 	public void setDefaultFailureUrl(String defaultFailureUrl) {
 		Assert.isTrue(UrlUtils.isValidRedirectUrl(defaultFailureUrl),
-				() -> "'" + defaultFailureUrl + "' is not a valid redirect URL");
+	() -> "'" + defaultFailureUrl + "' is not a valid redirect URL");
 		this.defaultFailureUrl = defaultFailureUrl;
 	}
 

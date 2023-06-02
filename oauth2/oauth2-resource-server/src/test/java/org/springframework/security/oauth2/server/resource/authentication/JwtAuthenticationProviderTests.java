@@ -79,8 +79,8 @@ public class JwtAuthenticationProviderTests {
 		given(this.jwtDecoder.decode("token")).willThrow(BadJwtException.class);
 		// @formatter:off
 		assertThatExceptionOfType(OAuth2AuthenticationException.class)
-				.isThrownBy(() -> this.provider.authenticate(token))
-				.matches(errorCode(BearerTokenErrorCodes.INVALID_TOKEN));
+	.isThrownBy(() -> this.provider.authenticate(token))
+	.matches(errorCode(BearerTokenErrorCodes.INVALID_TOKEN));
 		// @formatter:on
 	}
 
@@ -90,8 +90,8 @@ public class JwtAuthenticationProviderTests {
 		given(this.jwtDecoder.decode(token.getToken())).willThrow(new BadJwtException("with \"invalid\" chars"));
 		// @formatter:off
 		assertThatExceptionOfType(OAuth2AuthenticationException.class)
-				.isThrownBy(() -> this.provider.authenticate(token))
-				.satisfies((ex) -> assertThat(ex).hasFieldOrPropertyWithValue("error.description", "Invalid token"));
+	.isThrownBy(() -> this.provider.authenticate(token))
+	.satisfies((ex) -> assertThat(ex).hasFieldOrPropertyWithValue("error.description", "Invalid token"));
 		// @formatter:on
 	}
 
@@ -102,8 +102,8 @@ public class JwtAuthenticationProviderTests {
 		given(this.jwtDecoder.decode(token.getToken())).willThrow(new JwtException("no jwk set"));
 		// @formatter:off
 		assertThatExceptionOfType(AuthenticationException.class)
-				.isThrownBy(() -> this.provider.authenticate(token))
-				.isNotInstanceOf(OAuth2AuthenticationException.class);
+	.isThrownBy(() -> this.provider.authenticate(token))
+	.isNotInstanceOf(OAuth2AuthenticationException.class);
 		// @formatter:on
 	}
 
@@ -129,8 +129,8 @@ public class JwtAuthenticationProviderTests {
 		given(this.jwtAuthenticationConverter.convert(jwt)).willReturn(authentication);
 		// @formatter:off
 		assertThat(this.provider.authenticate(token))
-				.isEqualTo(authentication).hasFieldOrPropertyWithValue("details",
-						details);
+	.isEqualTo(authentication).hasFieldOrPropertyWithValue("details",
+	details);
 		// @formatter:on
 	}
 
@@ -147,8 +147,8 @@ public class JwtAuthenticationProviderTests {
 		given(this.jwtAuthenticationConverter.convert(jwt)).willReturn(authentication);
 		// @formatter:off
 		assertThat(this.provider.authenticate(token))
-				.isEqualTo(authentication).hasFieldOrPropertyWithValue("details",
-						expectedDetails);
+	.isEqualTo(authentication).hasFieldOrPropertyWithValue("details",
+	expectedDetails);
 		// @formatter:on
 	}
 

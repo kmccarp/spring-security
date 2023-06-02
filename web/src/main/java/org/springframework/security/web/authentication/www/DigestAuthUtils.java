@@ -101,11 +101,11 @@ final class DigestAuthUtils {
 	 * @throws IllegalArgumentException if the supplied qop value is unsupported.
 	 */
 	static String generateDigest(boolean passwordAlreadyEncoded, String username, String realm, String password,
-			String httpMethod, String uri, String qop, String nonce, String nc, String cnonce)
-			throws IllegalArgumentException {
+String httpMethod, String uri, String qop, String nonce, String nc, String cnonce)
+throws IllegalArgumentException {
 		String a2 = httpMethod + ":" + uri;
 		String a1Md5 = (!passwordAlreadyEncoded) ? DigestAuthUtils.encodePasswordInA1Format(username, realm, password)
-				: password;
+	: password;
 		String a2Md5 = md5Hex(a2);
 		if (qop == null) {
 			// as per RFC 2069 compliant clients (also reaffirmed by RFC 2617)
@@ -135,7 +135,7 @@ final class DigestAuthUtils {
 	 * the array to process was null or empty
 	 */
 	static Map<String, String> splitEachArrayElementAndCreateMap(String[] array, String delimiter,
-			String removeCharacters) {
+String removeCharacters) {
 		if ((array == null) || (array.length == 0)) {
 			return null;
 		}
@@ -172,7 +172,7 @@ final class DigestAuthUtils {
 		}
 		String beforeDelimiter = toSplit.substring(0, offset);
 		String afterDelimiter = toSplit.substring(offset + 1);
-		return new String[] { beforeDelimiter, afterDelimiter };
+		return new String[]{beforeDelimiter, afterDelimiter};
 	}
 
 	static String md5Hex(String data) {

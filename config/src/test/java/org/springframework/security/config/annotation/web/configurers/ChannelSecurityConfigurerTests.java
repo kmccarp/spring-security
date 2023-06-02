@@ -138,8 +138,8 @@ public class ChannelSecurityConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.requiresChannel()
-					.anyRequest().requiresSecure();
+		.requiresChannel()
+		.anyRequest().requiresSecure();
 			return http.build();
 			// @formatter:on
 		}
@@ -168,10 +168,10 @@ public class ChannelSecurityConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.requiresChannel()
-					.anyRequest().requiresSecure()
-					.and()
-				.requiresChannel();
+		.requiresChannel()
+		.anyRequest().requiresSecure()
+		.and()
+		.requiresChannel();
 			return http.build();
 			// @formatter:on
 		}
@@ -186,10 +186,10 @@ public class ChannelSecurityConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.requiresChannel((requiresChannel) ->
-					requiresChannel
-						.anyRequest().requiresSecure()
-			);
+		.requiresChannel((requiresChannel) ->
+	requiresChannel
+.anyRequest().requiresSecure()
+		);
 			return http.build();
 			// @formatter:on
 		}
@@ -204,13 +204,13 @@ public class ChannelSecurityConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.portMapper()
-					.portMapper(new PortMapperImpl())
-					.and()
-				.requiresChannel()
-					.redirectStrategy(new TestUrlRedirectStrategy())
-					.anyRequest()
-					.requiresSecure();
+		.portMapper()
+		.portMapper(new PortMapperImpl())
+		.and()
+		.requiresChannel()
+		.redirectStrategy(new TestUrlRedirectStrategy())
+		.anyRequest()
+		.requiresSecure();
 			return http.build();
 			// @formatter:on
 		}
@@ -221,7 +221,7 @@ public class ChannelSecurityConfigurerTests {
 
 		@Override
 		public void sendRedirect(HttpServletRequest request, HttpServletResponse response, String url)
-				throws IOException {
+	throws IOException {
 			String redirectUrl = url + "test";
 			redirectUrl = response.encodeRedirectURL(redirectUrl);
 			response.sendRedirect(redirectUrl);
@@ -239,18 +239,18 @@ public class ChannelSecurityConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.portMapper()
-					.portMapper(new PortMapperImpl())
-					.and()
-				.requiresChannel()
-					.requestMatchers("/test-1")
-						.requiresSecure()
-					.requestMatchers("/test-2")
-						.requiresSecure()
-					.requestMatchers("/test-3")
-						.requiresSecure()
-					.anyRequest()
-						.requiresInsecure();
+		.portMapper()
+		.portMapper(new PortMapperImpl())
+		.and()
+		.requiresChannel()
+		.requestMatchers("/test-1")
+		.requiresSecure()
+		.requestMatchers("/test-2")
+		.requiresSecure()
+		.requestMatchers("/test-3")
+		.requiresSecure()
+		.anyRequest()
+		.requiresInsecure();
 			// @formatter:on
 			return http.build();
 		}
@@ -267,19 +267,19 @@ public class ChannelSecurityConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.portMapper((port) -> port
-					.portMapper(new PortMapperImpl())
-				)
-				.requiresChannel((channel) -> channel
-					.requestMatchers("/test-1")
-						.requiresSecure()
-					.requestMatchers("/test-2")
-						.requiresSecure()
-					.requestMatchers("/test-3")
-						.requiresSecure()
-					.anyRequest()
-						.requiresInsecure()
-				);
+		.portMapper((port) -> port
+.portMapper(new PortMapperImpl())
+		)
+		.requiresChannel((channel) -> channel
+.requestMatchers("/test-1")
+.requiresSecure()
+.requestMatchers("/test-2")
+.requiresSecure()
+.requestMatchers("/test-3")
+.requiresSecure()
+.anyRequest()
+.requiresInsecure()
+		);
 			// @formatter:on
 			return http.build();
 		}

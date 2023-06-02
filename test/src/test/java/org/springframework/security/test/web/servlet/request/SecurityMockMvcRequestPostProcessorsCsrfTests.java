@@ -83,9 +83,9 @@ public class SecurityMockMvcRequestPostProcessorsCsrfTests {
 	public void setup() {
 		// @formatter:off
 		this.mockMvc = MockMvcBuilders
-			.webAppContextSetup(this.wac)
-			.apply(springSecurity())
-			.build();
+	.webAppContextSetup(this.wac)
+	.apply(springSecurity())
+	.build();
 		// @formatter:on
 	}
 
@@ -94,12 +94,12 @@ public class SecurityMockMvcRequestPostProcessorsCsrfTests {
 	public void csrfWithStandalone() throws Exception {
 		// @formatter:off
 		this.mockMvc = MockMvcBuilders
-				.standaloneSetup(this.controller)
-				.apply(springSecurity(this.springSecurityFilterChain))
-				.build();
+	.standaloneSetup(this.controller)
+	.apply(springSecurity(this.springSecurityFilterChain))
+	.build();
 		this.mockMvc.perform(post("/").with(csrf()))
-			.andExpect(status().is2xxSuccessful())
-			.andExpect(csrfAsParam());
+	.andExpect(status().is2xxSuccessful())
+	.andExpect(csrfAsParam());
 		// @formatter:on
 	}
 
@@ -107,8 +107,8 @@ public class SecurityMockMvcRequestPostProcessorsCsrfTests {
 	public void csrfWithParam() throws Exception {
 		// @formatter:off
 		this.mockMvc.perform(post("/").with(csrf()))
-			.andExpect(status().is2xxSuccessful())
-			.andExpect(csrfAsParam());
+	.andExpect(status().is2xxSuccessful())
+	.andExpect(csrfAsParam());
 		// @formatter:on
 	}
 
@@ -116,8 +116,8 @@ public class SecurityMockMvcRequestPostProcessorsCsrfTests {
 	public void csrfWithHeader() throws Exception {
 		// @formatter:off
 		this.mockMvc.perform(post("/").with(csrf().asHeader()))
-			.andExpect(status().is2xxSuccessful())
-			.andExpect(csrfAsHeader());
+	.andExpect(status().is2xxSuccessful())
+	.andExpect(csrfAsHeader());
 		// @formatter:on
 	}
 
@@ -125,8 +125,8 @@ public class SecurityMockMvcRequestPostProcessorsCsrfTests {
 	public void csrfWithInvalidParam() throws Exception {
 		// @formatter:off
 		this.mockMvc.perform(post("/").with(csrf().useInvalidToken()))
-			.andExpect(status().isForbidden())
-			.andExpect(csrfAsParam());
+	.andExpect(status().isForbidden())
+	.andExpect(csrfAsParam());
 		// @formatter:on
 	}
 
@@ -134,8 +134,8 @@ public class SecurityMockMvcRequestPostProcessorsCsrfTests {
 	public void csrfWithInvalidHeader() throws Exception {
 		// @formatter:off
 		this.mockMvc.perform(post("/").with(csrf().asHeader().useInvalidToken()))
-			.andExpect(status().isForbidden())
-			.andExpect(csrfAsHeader());
+	.andExpect(status().isForbidden())
+	.andExpect(csrfAsHeader());
 		// @formatter:on
 	}
 
@@ -144,13 +144,13 @@ public class SecurityMockMvcRequestPostProcessorsCsrfTests {
 	public void csrfWithWrappedRequest() throws Exception {
 		// @formatter:off
 		this.mockMvc = MockMvcBuilders
-				.webAppContextSetup(this.wac)
-				.addFilter(new SessionRepositoryFilter())
-				.apply(springSecurity())
-				.build();
+	.webAppContextSetup(this.wac)
+	.addFilter(new SessionRepositoryFilter())
+	.apply(springSecurity())
+	.build();
 		this.mockMvc.perform(post("/").with(csrf()))
-				.andExpect(status().is2xxSuccessful())
-				.andExpect(csrfAsParam());
+	.andExpect(status().is2xxSuccessful())
+	.andExpect(csrfAsParam());
 		// @formatter:on
 	}
 
@@ -167,10 +167,10 @@ public class SecurityMockMvcRequestPostProcessorsCsrfTests {
 		handler.handle(request, response, deferredCsrfToken::get);
 		CsrfToken token = (CsrfToken) request.getAttribute(CsrfToken.class.getName());
 		MockHttpServletRequestBuilder requestWithCsrf = post("/")
-			.param(token.getParameterName(), token.getToken())
-			.session((MockHttpSession) request.getSession());
+	.param(token.getParameterName(), token.getToken())
+	.session((MockHttpSession) request.getSession());
 		this.mockMvc.perform(requestWithCsrf)
-			.andExpect(status().isOk());
+	.andExpect(status().isOk());
 		// @formatter:on
 	}
 
@@ -208,7 +208,7 @@ public class SecurityMockMvcRequestPostProcessorsCsrfTests {
 
 		@Override
 		protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
-				FilterChain filterChain) throws ServletException, IOException {
+	FilterChain filterChain) throws ServletException, IOException {
 			filterChain.doFilter(new SessionRequestWrapper(request), response);
 		}
 

@@ -30,8 +30,7 @@ import org.springframework.util.Assert;
  * @author Eddú Meléndez
  * @since 3.0
  */
-public class DefaultWebSecurityExpressionHandler extends AbstractSecurityExpressionHandler<FilterInvocation>
-		implements SecurityExpressionHandler<FilterInvocation> {
+public class DefaultWebSecurityExpressionHandler extends AbstractSecurityExpressionHandler<FilterInvocation>implements SecurityExpressionHandler<FilterInvocation> {
 
 	private AuthenticationTrustResolver trustResolver = new AuthenticationTrustResolverImpl();
 
@@ -39,7 +38,7 @@ public class DefaultWebSecurityExpressionHandler extends AbstractSecurityExpress
 
 	@Override
 	protected SecurityExpressionOperations createSecurityExpressionRoot(Authentication authentication,
-			FilterInvocation fi) {
+FilterInvocation fi) {
 		WebSecurityExpressionRoot root = new WebSecurityExpressionRoot(authentication, fi);
 		root.setPermissionEvaluator(getPermissionEvaluator());
 		root.setTrustResolver(this.trustResolver);

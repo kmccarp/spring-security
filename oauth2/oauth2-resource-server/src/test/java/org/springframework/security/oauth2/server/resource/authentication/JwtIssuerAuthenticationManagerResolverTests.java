@@ -53,7 +53,7 @@ import static org.mockito.BDDMockito.verify;
 public class JwtIssuerAuthenticationManagerResolverTests {
 
 	private static final String DEFAULT_RESPONSE_TEMPLATE = "{\n" + "    \"issuer\": \"%s\", \n"
-			+ "    \"jwks_uri\": \"%s/.well-known/jwks.json\" \n" + "}";
++ "    \"jwks_uri\": \"%s/.well-known/jwks.json\" \n" + "}";
 
 	private static final String JWK_SET = "{\"keys\":[{\"kty\":\"RSA\",\"e\":\"AQAB\",\"use\":\"sig\",\"kid\":\"one\",\"n\":\"3FlqJr5TRskIQIgdE3Dd7D9lboWdcTUT8a-fJR7MAvQm7XXNoYkm3v7MQL1NYtDvL2l8CAnc0WdSTINU6IRvc5Kqo2Q4csNX9SHOmEfzoROjQqahEcve1jBXluoCXdYuYpx4_1tfRgG6ii4Uhxh6iI8qNMJQX-fLfqhbfYfxBQVRPywBkAbIP4x1EAsbC6FSNmkhCxiMNqEgxaIpY8C2kJdJ_ZIV-WW4noDdzpKqHcwmB8FsrumlVY_DNVvUSDIipiq9PbP4H99TXN1o746oRaNa07rq1hoCgMSSy-85SagCoxlmyE-D-of9SsMY8Ol9t0rdzpobBuhyJ_o5dfvjKw\"}]}";
 
@@ -70,23 +70,23 @@ public class JwtIssuerAuthenticationManagerResolverTests {
 			String issuer = server.url("").toString();
 			// @formatter:off
 			server.enqueue(new MockResponse().setResponseCode(200)
-					.setHeader("Content-Type", "application/json")
-					.setBody(String.format(DEFAULT_RESPONSE_TEMPLATE, issuer, issuer)
-			));
+		.setHeader("Content-Type", "application/json")
+		.setBody(String.format(DEFAULT_RESPONSE_TEMPLATE, issuer, issuer)
+		));
 			server.enqueue(new MockResponse().setResponseCode(200)
-					.setHeader("Content-Type", "application/json")
-					.setBody(JWK_SET)
+		.setHeader("Content-Type", "application/json")
+		.setBody(JWK_SET)
 			);
 			server.enqueue(new MockResponse().setResponseCode(200)
-					.setHeader("Content-Type", "application/json")
-					.setBody(JWK_SET)
+		.setHeader("Content-Type", "application/json")
+		.setBody(JWK_SET)
 			);
 			// @formatter:on
 			JWSObject jws = new JWSObject(new JWSHeader(JWSAlgorithm.RS256),
-					new Payload(new JSONObject(Collections.singletonMap(JwtClaimNames.ISS, issuer))));
+		new Payload(new JSONObject(Collections.singletonMap(JwtClaimNames.ISS, issuer))));
 			jws.sign(new RSASSASigner(TestKeys.DEFAULT_PRIVATE_KEY));
 			JwtIssuerAuthenticationManagerResolver authenticationManagerResolver = new JwtIssuerAuthenticationManagerResolver(
-					issuer);
+		issuer);
 			Authentication token = withBearerToken(jws.serialize());
 			AuthenticationManager authenticationManager = authenticationManagerResolver.resolve(null);
 			assertThat(authenticationManager).isNotNull();
@@ -102,28 +102,28 @@ public class JwtIssuerAuthenticationManagerResolverTests {
 			String issuer = server.url("").toString();
 			// @formatter:off
 			server.enqueue(new MockResponse().setResponseCode(500)
-					.setHeader("Content-Type", "application/json")
-					.setBody(String.format(DEFAULT_RESPONSE_TEMPLATE, issuer, issuer))
+		.setHeader("Content-Type", "application/json")
+		.setBody(String.format(DEFAULT_RESPONSE_TEMPLATE, issuer, issuer))
 			);
 			server.enqueue(new MockResponse().setResponseCode(200)
-					.setHeader("Content-Type", "application/json")
-					.setBody(String.format(DEFAULT_RESPONSE_TEMPLATE, issuer, issuer))
+		.setHeader("Content-Type", "application/json")
+		.setBody(String.format(DEFAULT_RESPONSE_TEMPLATE, issuer, issuer))
 			);
 			server.enqueue(new MockResponse().setResponseCode(200)
-					.setHeader("Content-Type", "application/json")
-					.setBody(JWK_SET)
+		.setHeader("Content-Type", "application/json")
+		.setBody(JWK_SET)
 			);
 			// @formatter:on
 			JWSObject jws = new JWSObject(new JWSHeader(JWSAlgorithm.RS256),
-					new Payload(new JSONObject(Collections.singletonMap(JwtClaimNames.ISS, issuer))));
+		new Payload(new JSONObject(Collections.singletonMap(JwtClaimNames.ISS, issuer))));
 			jws.sign(new RSASSASigner(TestKeys.DEFAULT_PRIVATE_KEY));
 			JwtIssuerAuthenticationManagerResolver authenticationManagerResolver = new JwtIssuerAuthenticationManagerResolver(
-					issuer);
+		issuer);
 			Authentication token = withBearerToken(jws.serialize());
 			AuthenticationManager authenticationManager = authenticationManagerResolver.resolve(null);
 			assertThat(authenticationManager).isNotNull();
 			assertThatExceptionOfType(IllegalArgumentException.class)
-					.isThrownBy(() -> authenticationManager.authenticate(token));
+		.isThrownBy(() -> authenticationManager.authenticate(token));
 			Authentication authentication = authenticationManager.authenticate(token);
 			assertThat(authentication.isAuthenticated()).isTrue();
 		}
@@ -134,11 +134,11 @@ public class JwtIssuerAuthenticationManagerResolverTests {
 		try (MockWebServer server = new MockWebServer()) {
 			String issuer = server.url("").toString();
 			server.enqueue(new MockResponse().setResponseCode(200).setHeader("Content-Type", "application/json")
-					.setBody(String.format(DEFAULT_RESPONSE_TEMPLATE, issuer, issuer)));
+		.setBody(String.format(DEFAULT_RESPONSE_TEMPLATE, issuer, issuer)));
 			server.enqueue(new MockResponse().setResponseCode(200).setHeader("Content-Type", "application/json")
-					.setBody(JWK_SET));
+		.setBody(JWK_SET));
 			TrustedIssuerJwtAuthenticationManagerResolver resolver = new TrustedIssuerJwtAuthenticationManagerResolver(
-					(iss) -> iss.equals(issuer));
+		(iss) -> iss.equals(issuer));
 			AuthenticationManager authenticationManager = resolver.resolve(issuer);
 			AuthenticationManager cachedAuthenticationManager = resolver.resolve(issuer);
 			assertThat(authenticationManager).isSameAs(cachedAuthenticationManager);
@@ -148,12 +148,12 @@ public class JwtIssuerAuthenticationManagerResolverTests {
 	@Test
 	public void resolveWhenUsingUntrustedIssuerThenException() {
 		JwtIssuerAuthenticationManagerResolver authenticationManagerResolver = new JwtIssuerAuthenticationManagerResolver(
-				"other", "issuers");
+	"other", "issuers");
 		Authentication token = withBearerToken(this.jwt);
 		// @formatter:off
 		assertThatExceptionOfType(OAuth2AuthenticationException.class)
-				.isThrownBy(() -> authenticationManagerResolver.resolve(null).authenticate(token))
-				.withMessageContaining("Invalid issuer");
+	.isThrownBy(() -> authenticationManagerResolver.resolve(null).authenticate(token))
+	.withMessageContaining("Invalid issuer");
 		// @formatter:on
 	}
 
@@ -161,7 +161,7 @@ public class JwtIssuerAuthenticationManagerResolverTests {
 	public void resolveWhenUsingCustomIssuerAuthenticationManagerResolverThenUses() {
 		AuthenticationManager authenticationManager = mock(AuthenticationManager.class);
 		JwtIssuerAuthenticationManagerResolver authenticationManagerResolver = new JwtIssuerAuthenticationManagerResolver(
-				(issuer) -> authenticationManager);
+	(issuer) -> authenticationManager);
 		Authentication token = withBearerToken(this.jwt);
 		authenticationManagerResolver.resolve(null).authenticate(token);
 		verify(authenticationManager).authenticate(token);
@@ -172,11 +172,11 @@ public class JwtIssuerAuthenticationManagerResolverTests {
 		Authentication token = withBearerToken(this.jwt);
 		Map<String, AuthenticationManager> authenticationManagers = new HashMap<>();
 		JwtIssuerAuthenticationManagerResolver authenticationManagerResolver = new JwtIssuerAuthenticationManagerResolver(
-				authenticationManagers::get);
+	authenticationManagers::get);
 		// @formatter:off
 		assertThatExceptionOfType(OAuth2AuthenticationException.class)
-				.isThrownBy(() -> authenticationManagerResolver.resolve(null).authenticate(token))
-				.withMessageContaining("Invalid issuer");
+	.isThrownBy(() -> authenticationManagerResolver.resolve(null).authenticate(token))
+	.withMessageContaining("Invalid issuer");
 		// @formatter:on
 		AuthenticationManager authenticationManager = mock(AuthenticationManager.class);
 		authenticationManagers.put("trusted", authenticationManager);
@@ -185,61 +185,60 @@ public class JwtIssuerAuthenticationManagerResolverTests {
 		authenticationManagers.clear();
 		// @formatter:off
 		assertThatExceptionOfType(OAuth2AuthenticationException.class)
-				.isThrownBy(() -> authenticationManagerResolver.resolve(null).authenticate(token))
-				.withMessageContaining("Invalid issuer");
+	.isThrownBy(() -> authenticationManagerResolver.resolve(null).authenticate(token))
+	.withMessageContaining("Invalid issuer");
 		// @formatter:on
 	}
 
 	@Test
 	public void resolveWhenBearerTokenMalformedThenException() {
 		JwtIssuerAuthenticationManagerResolver authenticationManagerResolver = new JwtIssuerAuthenticationManagerResolver(
-				"trusted");
+	"trusted");
 		Authentication token = withBearerToken("jwt");
 		// @formatter:off
 		assertThatExceptionOfType(OAuth2AuthenticationException.class)
-				.isThrownBy(() -> authenticationManagerResolver.resolve(null).authenticate(token))
-				.withMessageNotContaining("Invalid issuer");
+	.isThrownBy(() -> authenticationManagerResolver.resolve(null).authenticate(token))
+	.withMessageNotContaining("Invalid issuer");
 		// @formatter:on
 	}
 
 	@Test
 	public void resolveWhenBearerTokenNoIssuerThenException() {
 		JwtIssuerAuthenticationManagerResolver authenticationManagerResolver = new JwtIssuerAuthenticationManagerResolver(
-				"trusted");
+	"trusted");
 		Authentication token = withBearerToken(this.noIssuer);
 		// @formatter:off
 		assertThatExceptionOfType(OAuth2AuthenticationException.class)
-				.isThrownBy(() -> authenticationManagerResolver.resolve(null).authenticate(token))
-				.withMessageContaining("Missing issuer");
+	.isThrownBy(() -> authenticationManagerResolver.resolve(null).authenticate(token))
+	.withMessageContaining("Missing issuer");
 		// @formatter:on
 	}
 
 	@Test
 	public void resolveWhenBearerTokenEvilThenGenericException() {
 		JwtIssuerAuthenticationManagerResolver authenticationManagerResolver = new JwtIssuerAuthenticationManagerResolver(
-				"trusted");
+	"trusted");
 		Authentication token = withBearerToken(this.evil);
 		// @formatter:off
 		assertThatExceptionOfType(OAuth2AuthenticationException.class)
-				.isThrownBy(() -> authenticationManagerResolver
-						.resolve(null).authenticate(token)
-				)
-				.withMessage("Invalid issuer");
+	.isThrownBy(() -> authenticationManagerResolver.resolve(null).authenticate(token)
+	)
+	.withMessage("Invalid issuer");
 		// @formatter:on
 	}
 
 	@Test
 	public void constructorWhenNullOrEmptyIssuersThenException() {
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new JwtIssuerAuthenticationManagerResolver((Collection) null));
+	.isThrownBy(() -> new JwtIssuerAuthenticationManagerResolver((Collection) null));
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new JwtIssuerAuthenticationManagerResolver(Collections.emptyList()));
+	.isThrownBy(() -> new JwtIssuerAuthenticationManagerResolver(Collections.emptyList()));
 	}
 
 	@Test
 	public void constructorWhenNullAuthenticationManagerResolverThenException() {
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new JwtIssuerAuthenticationManagerResolver((AuthenticationManagerResolver) null));
+	.isThrownBy(() -> new JwtIssuerAuthenticationManagerResolver((AuthenticationManagerResolver) null));
 	}
 
 	private Authentication withBearerToken(String token) {

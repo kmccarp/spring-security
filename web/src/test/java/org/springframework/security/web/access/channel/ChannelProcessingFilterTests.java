@@ -60,7 +60,7 @@ public class ChannelProcessingFilterTests {
 		ChannelProcessingFilter filter = new ChannelProcessingFilter();
 		filter.setChannelDecisionManager(new MockChannelDecisionManager(false, "SUPPORTS_MOCK_ONLY"));
 		MockFilterInvocationDefinitionMap fids = new MockFilterInvocationDefinitionMap("/path", true,
-				"SUPPORTS_MOCK_ONLY");
+	"SUPPORTS_MOCK_ONLY");
 		filter.setSecurityMetadataSource(fids);
 		filter.afterPropertiesSet();
 	}
@@ -70,7 +70,7 @@ public class ChannelProcessingFilterTests {
 		ChannelProcessingFilter filter = new ChannelProcessingFilter();
 		filter.setChannelDecisionManager(new MockChannelDecisionManager(false, "SUPPORTS_MOCK_ONLY"));
 		MockFilterInvocationDefinitionMap fids = new MockFilterInvocationDefinitionMap("/path", true,
-				"SUPPORTS_MOCK_ONLY", "INVALID_ATTRIBUTE");
+	"SUPPORTS_MOCK_ONLY", "INVALID_ATTRIBUTE");
 		filter.setSecurityMetadataSource(fids);
 		assertThatIllegalArgumentException().isThrownBy(filter::afterPropertiesSet);
 	}

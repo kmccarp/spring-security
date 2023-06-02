@@ -50,12 +50,12 @@ public final class XorCsrfChannelInterceptor implements ChannelInterceptor {
 		}
 		Map<String, Object> sessionAttributes = SimpMessageHeaderAccessor.getSessionAttributes(message.getHeaders());
 		CsrfToken expectedToken = (sessionAttributes != null)
-				? (CsrfToken) sessionAttributes.get(CsrfToken.class.getName()) : null;
+	? (CsrfToken) sessionAttributes.get(CsrfToken.class.getName()) : null;
 		if (expectedToken == null) {
 			throw new MissingCsrfTokenException(null);
 		}
 		String actualToken = SimpMessageHeaderAccessor.wrap(message)
-				.getFirstNativeHeader(expectedToken.getHeaderName());
+	.getFirstNativeHeader(expectedToken.getHeaderName());
 		String actualTokenValue = XorCsrfTokenUtils.getTokenValue(actualToken, expectedToken.getToken());
 		boolean csrfCheckPassed = equalsConstantTime(expectedToken.getToken(), actualTokenValue);
 		if (!csrfCheckPassed) {

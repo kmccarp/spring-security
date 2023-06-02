@@ -36,15 +36,14 @@ import org.springframework.security.web.authentication.WebAuthenticationDetails;
  * @author Luke Taylor
  * @since 2.0
  */
-public class PreAuthenticatedGrantedAuthoritiesWebAuthenticationDetails extends WebAuthenticationDetails
-		implements GrantedAuthoritiesContainer {
+public class PreAuthenticatedGrantedAuthoritiesWebAuthenticationDetails extends WebAuthenticationDetailsimplements GrantedAuthoritiesContainer {
 
 	private static final long serialVersionUID = SpringSecurityCoreVersion.SERIAL_VERSION_UID;
 
 	private final List<GrantedAuthority> authorities;
 
 	public PreAuthenticatedGrantedAuthoritiesWebAuthenticationDetails(HttpServletRequest request,
-			Collection<? extends GrantedAuthority> authorities) {
+Collection<? extends GrantedAuthority> authorities) {
 		super(request);
 		List<GrantedAuthority> temp = new ArrayList<>(authorities.size());
 		temp.addAll(authorities);

@@ -50,19 +50,19 @@ public class OAuth2UserRequestTests {
 	public void setUp() {
 		// @formatter:off
 		this.clientRegistration = ClientRegistration.withRegistrationId("registration-1")
-				.clientId("client-1")
-				.clientSecret("secret")
-				.clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
-				.authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
-				.redirectUri("https://client.com")
-				.scope(new LinkedHashSet<>(Arrays.asList("scope1", "scope2")))
-				.authorizationUri("https://provider.com/oauth2/authorization")
-				.tokenUri("https://provider.com/oauth2/token")
-				.clientName("Client 1")
-				.build();
+	.clientId("client-1")
+	.clientSecret("secret")
+	.clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
+	.authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
+	.redirectUri("https://client.com")
+	.scope(new LinkedHashSet<>(Arrays.asList("scope1", "scope2")))
+	.authorizationUri("https://provider.com/oauth2/authorization")
+	.tokenUri("https://provider.com/oauth2/token")
+	.clientName("Client 1")
+	.build();
 		// @formatter:on
 		this.accessToken = new OAuth2AccessToken(OAuth2AccessToken.TokenType.BEARER, "access-token-1234", Instant.now(),
-				Instant.now().plusSeconds(60), new LinkedHashSet<>(Arrays.asList("scope1", "scope2")));
+	Instant.now().plusSeconds(60), new LinkedHashSet<>(Arrays.asList("scope1", "scope2")));
 		this.additionalParameters = new HashMap<>();
 		this.additionalParameters.put("param1", "value1");
 		this.additionalParameters.put("param2", "value2");
@@ -81,7 +81,7 @@ public class OAuth2UserRequestTests {
 	@Test
 	public void constructorWhenAllParametersProvidedAndValidThenCreated() {
 		OAuth2UserRequest userRequest = new OAuth2UserRequest(this.clientRegistration, this.accessToken,
-				this.additionalParameters);
+	this.additionalParameters);
 		assertThat(userRequest.getClientRegistration()).isEqualTo(this.clientRegistration);
 		assertThat(userRequest.getAccessToken()).isEqualTo(this.accessToken);
 		assertThat(userRequest.getAdditionalParameters()).containsAllEntriesOf(this.additionalParameters);

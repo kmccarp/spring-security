@@ -30,22 +30,22 @@ public class MapReactiveUserDetailsServiceTests {
 
 	// @formatter:off
 	private static final UserDetails USER_DETAILS = User.withUsername("user")
-			.password("password")
-			.roles("USER")
-			.build();
+.password("password")
+.roles("USER")
+.build();
 	// @formatter:on
 	private MapReactiveUserDetailsService users = new MapReactiveUserDetailsService(Arrays.asList(USER_DETAILS));
 
 	@Test
 	public void constructorNullUsers() {
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new MapReactiveUserDetailsService((Collection<UserDetails>) null));
+	.isThrownBy(() -> new MapReactiveUserDetailsService((Collection<UserDetails>) null));
 	}
 
 	@Test
 	public void constructorEmptyUsers() {
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new MapReactiveUserDetailsService(Collections.emptyList()));
+	.isThrownBy(() -> new MapReactiveUserDetailsService(Collections.emptyList()));
 	}
 
 	@Test

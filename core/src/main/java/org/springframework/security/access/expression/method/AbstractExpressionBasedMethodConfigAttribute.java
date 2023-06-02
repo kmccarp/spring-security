@@ -46,18 +46,18 @@ abstract class AbstractExpressionBasedMethodConfigAttribute implements ConfigAtt
 	 * Parses the supplied expressions as Spring-EL.
 	 */
 	AbstractExpressionBasedMethodConfigAttribute(String filterExpression, String authorizeExpression)
-			throws ParseException {
+throws ParseException {
 		Assert.isTrue(filterExpression != null || authorizeExpression != null,
-				"Filter and authorization Expressions cannot both be null");
+	"Filter and authorization Expressions cannot both be null");
 		SpelExpressionParser parser = new SpelExpressionParser();
 		this.filterExpression = (filterExpression != null) ? parser.parseExpression(filterExpression) : null;
 		this.authorizeExpression = (authorizeExpression != null) ? parser.parseExpression(authorizeExpression) : null;
 	}
 
 	AbstractExpressionBasedMethodConfigAttribute(Expression filterExpression, Expression authorizeExpression)
-			throws ParseException {
+throws ParseException {
 		Assert.isTrue(filterExpression != null || authorizeExpression != null,
-				"Filter and authorization Expressions cannot both be null");
+	"Filter and authorization Expressions cannot both be null");
 		this.filterExpression = (filterExpression != null) ? filterExpression : null;
 		this.authorizeExpression = (authorizeExpression != null) ? authorizeExpression : null;
 	}

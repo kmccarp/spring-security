@@ -66,10 +66,10 @@ import org.springframework.web.method.support.ModelAndViewContainer;
 public final class OAuth2AuthorizedClientArgumentResolver implements HandlerMethodArgumentResolver {
 
 	private static final Authentication ANONYMOUS_AUTHENTICATION = new AnonymousAuthenticationToken("anonymous",
-			"anonymousUser", AuthorityUtils.createAuthorityList("ROLE_ANONYMOUS"));
+"anonymousUser", AuthorityUtils.createAuthorityList("ROLE_ANONYMOUS"));
 
 	private SecurityContextHolderStrategy securityContextHolderStrategy = SecurityContextHolder
-			.getContextHolderStrategy();
+.getContextHolderStrategy();
 
 	private OAuth2AuthorizedClientManager authorizedClientManager;
 
@@ -92,29 +92,29 @@ public final class OAuth2AuthorizedClientArgumentResolver implements HandlerMeth
 	 * @param authorizedClientRepository the repository of authorized clients
 	 */
 	public OAuth2AuthorizedClientArgumentResolver(ClientRegistrationRepository clientRegistrationRepository,
-			OAuth2AuthorizedClientRepository authorizedClientRepository) {
+OAuth2AuthorizedClientRepository authorizedClientRepository) {
 		Assert.notNull(clientRegistrationRepository, "clientRegistrationRepository cannot be null");
 		Assert.notNull(authorizedClientRepository, "authorizedClientRepository cannot be null");
 		this.authorizedClientManager = new DefaultOAuth2AuthorizedClientManager(clientRegistrationRepository,
-				authorizedClientRepository);
+	authorizedClientRepository);
 	}
 
 	@Override
 	public boolean supportsParameter(MethodParameter parameter) {
 		Class<?> parameterType = parameter.getParameterType();
 		return (OAuth2AuthorizedClient.class.isAssignableFrom(parameterType) && (AnnotatedElementUtils
-				.findMergedAnnotation(parameter.getParameter(), RegisteredOAuth2AuthorizedClient.class) != null));
+	.findMergedAnnotation(parameter.getParameter(), RegisteredOAuth2AuthorizedClient.class) != null));
 	}
 
 	@NonNull
 	@Override
 	public Object resolveArgument(MethodParameter parameter, @Nullable ModelAndViewContainer mavContainer,
-			NativeWebRequest webRequest, @Nullable WebDataBinderFactory binderFactory) {
+NativeWebRequest webRequest, @Nullable WebDataBinderFactory binderFactory) {
 		String clientRegistrationId = this.resolveClientRegistrationId(parameter);
 		if (StringUtils.isEmpty(clientRegistrationId)) {
 			throw new IllegalArgumentException("Unable to resolve the Client Registration Identifier. "
-					+ "It must be provided via @RegisteredOAuth2AuthorizedClient(\"client1\") or "
-					+ "@RegisteredOAuth2AuthorizedClient(registrationId = \"client1\").");
+		+ "It must be provided via @RegisteredOAuth2AuthorizedClient(\"client1\") or "
+		+ "@RegisteredOAuth2AuthorizedClient(registrationId = \"client1\").");
 		}
 		Authentication principal = this.securityContextHolderStrategy.getContext().getAuthentication();
 		if (principal == null) {
@@ -124,18 +124,18 @@ public final class OAuth2AuthorizedClientArgumentResolver implements HandlerMeth
 		HttpServletResponse servletResponse = webRequest.getNativeResponse(HttpServletResponse.class);
 		// @formatter:off
 		OAuth2AuthorizeRequest authorizeRequest = OAuth2AuthorizeRequest
-				.withClientRegistrationId(clientRegistrationId)
-				.principal(principal)
-				.attribute(HttpServletRequest.class.getName(), servletRequest)
-				.attribute(HttpServletResponse.class.getName(), servletResponse)
-				.build();
+	.withClientRegistrationId(clientRegistrationId)
+	.principal(principal)
+	.attribute(HttpServletRequest.class.getName(), servletRequest)
+	.attribute(HttpServletResponse.class.getName(), servletResponse)
+	.build();
 		// @formatter:on
 		return this.authorizedClientManager.authorize(authorizeRequest);
 	}
 
 	private String resolveClientRegistrationId(MethodParameter parameter) {
 		RegisteredOAuth2AuthorizedClient authorizedClientAnnotation = AnnotatedElementUtils
-				.findMergedAnnotation(parameter.getParameter(), RegisteredOAuth2AuthorizedClient.class);
+	.findMergedAnnotation(parameter.getParameter(), RegisteredOAuth2AuthorizedClient.class);
 		Authentication principal = this.securityContextHolderStrategy.getContext().getAuthentication();
 		if (!StringUtils.isEmpty(authorizedClientAnnotation.registrationId())) {
 			return authorizedClientAnnotation.registrationId();

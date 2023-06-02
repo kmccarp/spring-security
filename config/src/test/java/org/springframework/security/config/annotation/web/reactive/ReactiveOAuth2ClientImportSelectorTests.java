@@ -63,8 +63,8 @@ public class ReactiveOAuth2ClientImportSelectorTests {
 	public void setApplicationContext(ApplicationContext context) {
 		// @formatter:off
 		this.client = WebTestClient
-				.bindToApplicationContext(context)
-				.build();
+	.bindToApplicationContext(context)
+	.build();
 		// @formatter:on
 	}
 
@@ -73,15 +73,15 @@ public class ReactiveOAuth2ClientImportSelectorTests {
 		String clientRegistrationId = "client";
 		String principalName = "user";
 		ReactiveClientRegistrationRepository clientRegistrationRepository = mock(
-				ReactiveClientRegistrationRepository.class);
+	ReactiveClientRegistrationRepository.class);
 		ServerOAuth2AuthorizedClientRepository authorizedClientRepository = mock(
-				ServerOAuth2AuthorizedClientRepository.class);
+	ServerOAuth2AuthorizedClientRepository.class);
 		ReactiveOAuth2AuthorizedClientManager authorizedClientManager = mock(
-				ReactiveOAuth2AuthorizedClientManager.class);
+	ReactiveOAuth2AuthorizedClientManager.class);
 		ClientRegistration clientRegistration = TestClientRegistrations.clientCredentials()
-				.registrationId(clientRegistrationId).build();
+	.registrationId(clientRegistrationId).build();
 		OAuth2AuthorizedClient authorizedClient = new OAuth2AuthorizedClient(clientRegistration, principalName,
-				TestOAuth2AccessTokens.noScopes());
+	TestOAuth2AccessTokens.noScopes());
 		given(authorizedClientManager.authorize(any())).willReturn(Mono.just(authorizedClient));
 		OAuth2AuthorizedClientManagerRegisteredConfig.CLIENT_REGISTRATION_REPOSITORY = clientRegistrationRepository;
 		OAuth2AuthorizedClientManagerRegisteredConfig.AUTHORIZED_CLIENT_REPOSITORY = authorizedClientRepository;
@@ -89,10 +89,10 @@ public class ReactiveOAuth2ClientImportSelectorTests {
 		this.spring.register(OAuth2AuthorizedClientManagerRegisteredConfig.class).autowire();
 		// @formatter:off
 		this.client
-				.get()
-				.uri("http://localhost/authorized-client")
-				.headers((headers) -> headers.setBasicAuth("user", "password")).exchange().expectStatus().isOk()
-				.expectBody(String.class).isEqualTo("resolved");
+	.get()
+	.uri("http://localhost/authorized-client")
+	.headers((headers) -> headers.setBasicAuth("user", "password")).exchange().expectStatus().isOk()
+	.expectBody(String.class).isEqualTo("resolved");
 		// @formatter:on
 		verify(authorizedClientManager).authorize(any());
 		verifyNoInteractions(clientRegistrationRepository);
@@ -104,25 +104,25 @@ public class ReactiveOAuth2ClientImportSelectorTests {
 		String clientRegistrationId = "client";
 		String principalName = "user";
 		ReactiveClientRegistrationRepository clientRegistrationRepository = mock(
-				ReactiveClientRegistrationRepository.class);
+	ReactiveClientRegistrationRepository.class);
 		ServerOAuth2AuthorizedClientRepository authorizedClientRepository = mock(
-				ServerOAuth2AuthorizedClientRepository.class);
+	ServerOAuth2AuthorizedClientRepository.class);
 		ClientRegistration clientRegistration = TestClientRegistrations.clientCredentials()
-				.registrationId(clientRegistrationId).build();
+	.registrationId(clientRegistrationId).build();
 		OAuth2AuthorizedClient authorizedClient = new OAuth2AuthorizedClient(clientRegistration, principalName,
-				TestOAuth2AccessTokens.noScopes());
+	TestOAuth2AccessTokens.noScopes());
 		OAuth2AuthorizedClientManagerRegisteredConfig.CLIENT_REGISTRATION_REPOSITORY = clientRegistrationRepository;
 		OAuth2AuthorizedClientManagerRegisteredConfig.AUTHORIZED_CLIENT_REPOSITORY = authorizedClientRepository;
 		OAuth2AuthorizedClientManagerRegisteredConfig.AUTHORIZED_CLIENT_MANAGER = null;
 		given(authorizedClientRepository.loadAuthorizedClient(any(), any(), any()))
-				.willReturn(Mono.just(authorizedClient));
+	.willReturn(Mono.just(authorizedClient));
 		this.spring.register(OAuth2AuthorizedClientManagerRegisteredConfig.class).autowire();
 		// @formatter:off
 		this.client
-				.get()
-				.uri("http://localhost/authorized-client")
-				.headers((headers) -> headers.setBasicAuth("user", "password")).exchange().expectStatus().isOk()
-				.expectBody(String.class).isEqualTo("resolved");
+	.get()
+	.uri("http://localhost/authorized-client")
+	.headers((headers) -> headers.setBasicAuth("user", "password")).exchange().expectStatus().isOk()
+	.expectBody(String.class).isEqualTo("resolved");
 		// @formatter:on
 	}
 
@@ -160,7 +160,7 @@ public class ReactiveOAuth2ClientImportSelectorTests {
 
 			@GetMapping("/authorized-client")
 			String authorizedClient(
-					@RegisteredOAuth2AuthorizedClient("client1") OAuth2AuthorizedClient authorizedClient) {
+		@RegisteredOAuth2AuthorizedClient("client1") OAuth2AuthorizedClient authorizedClient) {
 				return (authorizedClient != null) ? "resolved" : "not-resolved";
 			}
 

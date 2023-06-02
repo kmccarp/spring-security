@@ -32,7 +32,7 @@ public final class TestSaml2Authentications {
 
 	public static Saml2Authentication authentication() {
 		DefaultSaml2AuthenticatedPrincipal principal = new DefaultSaml2AuthenticatedPrincipal("user",
-				Collections.emptyMap());
+	Collections.emptyMap());
 		principal.setRelyingPartyRegistrationId("simplesamlphp");
 		return new Saml2Authentication(principal, "response", AuthorityUtils.createAuthorityList("ROLE_USER"));
 	}

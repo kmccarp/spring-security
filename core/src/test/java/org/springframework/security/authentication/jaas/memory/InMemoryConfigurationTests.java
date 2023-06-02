@@ -44,11 +44,11 @@ public class InMemoryConfigurationTests {
 
 	@BeforeEach
 	public void setUp() {
-		this.defaultEntries = new AppConfigurationEntry[] { new AppConfigurationEntry(TestLoginModule.class.getName(),
-				LoginModuleControlFlag.REQUIRED, Collections.<String, Object>emptyMap()) };
+		this.defaultEntries = new AppConfigurationEntry[]{new AppConfigurationEntry(TestLoginModule.class.getName(),
+	LoginModuleControlFlag.REQUIRED, Collections.<String, Object>emptyMap())};
 		this.mappedEntries = Collections.<String, AppConfigurationEntry[]>singletonMap("name",
-				new AppConfigurationEntry[] { new AppConfigurationEntry(TestLoginModule.class.getName(),
-						LoginModuleControlFlag.OPTIONAL, Collections.<String, Object>emptyMap()) });
+	new AppConfigurationEntry[]{new AppConfigurationEntry(TestLoginModule.class.getName(),
+LoginModuleControlFlag.OPTIONAL, Collections.<String, Object>emptyMap())});
 	}
 
 	@Test
@@ -59,19 +59,19 @@ public class InMemoryConfigurationTests {
 	@Test
 	public void constructorNullMapped() {
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new InMemoryConfiguration((Map<String, AppConfigurationEntry[]>) null));
+	.isThrownBy(() -> new InMemoryConfiguration((Map<String, AppConfigurationEntry[]>) null));
 	}
 
 	@Test
 	public void constructorEmptyMap() {
 		assertThat(new InMemoryConfiguration(Collections.<String, AppConfigurationEntry[]>emptyMap())
-				.getAppConfigurationEntry("name")).isNull();
+	.getAppConfigurationEntry("name")).isNull();
 	}
 
 	@Test
 	public void constructorEmptyMapNullDefault() {
 		assertThat(new InMemoryConfiguration(Collections.<String, AppConfigurationEntry[]>emptyMap(), null)
-				.getAppConfigurationEntry("name")).isNull();
+	.getAppConfigurationEntry("name")).isNull();
 	}
 
 	@Test

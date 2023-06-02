@@ -169,7 +169,7 @@ public interface Acl extends Serializable {
 	 * one or more of the <tt>Sid</tt>s passed as arguments
 	 */
 	boolean isGranted(List<Permission> permission, List<Sid> sids, boolean administrativeMode)
-			throws NotFoundException, UnloadedSidException;
+throws NotFoundException, UnloadedSidException;
 
 	/**
 	 * For efficiency reasons an <tt>Acl</tt> may be loaded and <em>not</em> contain

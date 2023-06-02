@@ -82,7 +82,7 @@ public abstract class AbstractAuthenticationTargetUrlRequestHandler {
 	 * The redirect will not be performed if the response has already been committed.
 	 */
 	protected void handle(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
-			throws IOException, ServletException {
+throws IOException, ServletException {
 		String targetUrl = determineTargetUrl(request, response, authentication);
 		if (response.isCommitted()) {
 			this.logger.debug(LogMessage.format("Did not redirect to %s since response already committed.", targetUrl));
@@ -96,7 +96,7 @@ public abstract class AbstractAuthenticationTargetUrlRequestHandler {
 	 * @since 5.2
 	 */
 	protected String determineTargetUrl(HttpServletRequest request, HttpServletResponse response,
-			Authentication authentication) {
+Authentication authentication) {
 		return determineTargetUrl(request, response);
 	}
 
@@ -160,7 +160,7 @@ public abstract class AbstractAuthenticationTargetUrlRequestHandler {
 	 */
 	public void setDefaultTargetUrl(String defaultTargetUrl) {
 		Assert.isTrue(UrlUtils.isValidRedirectUrl(defaultTargetUrl),
-				"defaultTarget must start with '/' or with 'http(s)'");
+	"defaultTarget must start with '/' or with 'http(s)'");
 		this.defaultTargetUrl = defaultTargetUrl;
 	}
 

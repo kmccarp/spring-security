@@ -72,11 +72,11 @@ public class ClaimTypeConverterTests {
 		Converter<Object, ?> instantConverter = getConverter(TypeDescriptor.valueOf(Instant.class));
 		Converter<Object, ?> urlConverter = getConverter(TypeDescriptor.valueOf(URL.class));
 		Converter<Object, ?> collectionStringConverter = getConverter(
-				TypeDescriptor.collection(Collection.class, TypeDescriptor.valueOf(String.class)));
+	TypeDescriptor.collection(Collection.class, TypeDescriptor.valueOf(String.class)));
 		Converter<Object, ?> listStringConverter = getConverter(
-				TypeDescriptor.collection(List.class, TypeDescriptor.valueOf(String.class)));
+	TypeDescriptor.collection(List.class, TypeDescriptor.valueOf(String.class)));
 		Converter<Object, ?> mapStringObjectConverter = getConverter(TypeDescriptor.map(Map.class,
-				TypeDescriptor.valueOf(String.class), TypeDescriptor.valueOf(Object.class)));
+	TypeDescriptor.valueOf(String.class), TypeDescriptor.valueOf(Object.class)));
 		Map<String, Converter<Object, ?>> claimTypeConverters = new HashMap<>();
 		claimTypeConverters.put(STRING_CLAIM, stringConverter);
 		claimTypeConverters.put(BOOLEAN_CLAIM, booleanConverter);
@@ -91,7 +91,7 @@ public class ClaimTypeConverterTests {
 	private static Converter<Object, ?> getConverter(TypeDescriptor targetDescriptor) {
 		final TypeDescriptor sourceDescriptor = TypeDescriptor.valueOf(Object.class);
 		return (source) -> ClaimConversionService.getSharedInstance().convert(source, sourceDescriptor,
-				targetDescriptor);
+	targetDescriptor);
 	}
 
 	@Test

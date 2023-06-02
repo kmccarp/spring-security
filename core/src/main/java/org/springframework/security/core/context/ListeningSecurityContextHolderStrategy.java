@@ -98,7 +98,7 @@ public final class ListeningSecurityContextHolderStrategy implements SecurityCon
 	 * @param delegate the underlying {@link SecurityContextHolderStrategy}
 	 */
 	public ListeningSecurityContextHolderStrategy(SecurityContextHolderStrategy delegate,
-			Collection<SecurityContextChangedListener> listeners) {
+Collection<SecurityContextChangedListener> listeners) {
 		Assert.notNull(delegate, "securityContextHolderStrategy cannot be null");
 		Assert.notNull(listeners, "securityContextChangedListeners cannot be null");
 		Assert.notEmpty(listeners, "securityContextChangedListeners cannot be empty");
@@ -115,7 +115,7 @@ public final class ListeningSecurityContextHolderStrategy implements SecurityCon
 	 * @param delegate the underlying {@link SecurityContextHolderStrategy}
 	 */
 	public ListeningSecurityContextHolderStrategy(SecurityContextHolderStrategy delegate,
-			SecurityContextChangedListener... listeners) {
+SecurityContextChangedListener... listeners) {
 		Assert.notNull(delegate, "securityContextHolderStrategy cannot be null");
 		Assert.notNull(listeners, "securityContextChangedListeners cannot be null");
 		Assert.notEmpty(listeners, "securityContextChangedListeners cannot be empty");

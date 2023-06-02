@@ -47,14 +47,14 @@ public class BasicAuthenticationEncoder extends AbstractEncoder<UsernamePassword
 
 	@Override
 	public Flux<DataBuffer> encode(Publisher<? extends UsernamePasswordMetadata> inputStream,
-			DataBufferFactory bufferFactory, ResolvableType elementType, MimeType mimeType, Map<String, Object> hints) {
+DataBufferFactory bufferFactory, ResolvableType elementType, MimeType mimeType, Map<String, Object> hints) {
 		return Flux.from(inputStream)
-				.map((credentials) -> encodeValue(credentials, bufferFactory, elementType, mimeType, hints));
+	.map((credentials) -> encodeValue(credentials, bufferFactory, elementType, mimeType, hints));
 	}
 
 	@Override
 	public DataBuffer encodeValue(UsernamePasswordMetadata credentials, DataBufferFactory bufferFactory,
-			ResolvableType valueType, MimeType mimeType, Map<String, Object> hints) {
+ResolvableType valueType, MimeType mimeType, Map<String, Object> hints) {
 		String username = credentials.getUsername();
 		String password = credentials.getPassword();
 		byte[] usernameBytes = username.getBytes(StandardCharsets.UTF_8);

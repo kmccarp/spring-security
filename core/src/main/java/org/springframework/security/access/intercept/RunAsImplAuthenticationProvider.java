@@ -61,7 +61,7 @@ public class RunAsImplAuthenticationProvider implements InitializingBean, Authen
 		RunAsUserToken token = (RunAsUserToken) authentication;
 		if (token.getKeyHash() != this.key.hashCode()) {
 			throw new BadCredentialsException(this.messages.getMessage("RunAsImplAuthenticationProvider.incorrectKey",
-					"The presented RunAsUserToken does not contain the expected key"));
+		"The presented RunAsUserToken does not contain the expected key"));
 		}
 		return authentication;
 	}

@@ -52,7 +52,7 @@ public class UnboundIdContainerLdifTests {
 		this.appCtx = new AnnotationConfigApplicationContext(CustomLdifConfig.class);
 
 		DefaultSpringSecurityContextSource contextSource = (DefaultSpringSecurityContextSource) this.appCtx
-				.getBean(ContextSource.class);
+	.getBean(ContextSource.class);
 
 		SpringSecurityLdapTemplate template = new SpringSecurityLdapTemplate(contextSource);
 		assertThat(template.compare("uid=bob,ou=people", "uid", "bob")).isTrue();
@@ -63,7 +63,7 @@ public class UnboundIdContainerLdifTests {
 		this.appCtx = new AnnotationConfigApplicationContext(WildcardLdifConfig.class);
 
 		DefaultSpringSecurityContextSource contextSource = (DefaultSpringSecurityContextSource) this.appCtx
-				.getBean(ContextSource.class);
+	.getBean(ContextSource.class);
 
 		SpringSecurityLdapTemplate template = new SpringSecurityLdapTemplate(contextSource);
 		assertThat(template.compare("uid=bob,ou=people", "uid", "bob")).isTrue();
@@ -72,17 +72,17 @@ public class UnboundIdContainerLdifTests {
 	@Test
 	public void unboundIdContainerWhenMalformedLdifThenException() {
 		assertThatExceptionOfType(Exception.class)
-				.isThrownBy(() -> this.appCtx = new AnnotationConfigApplicationContext(MalformedLdifConfig.class))
-				.withCauseInstanceOf(IllegalStateException.class)
-				.withMessageContaining("Unable to load LDIF classpath:test-server-malformed.txt");
+	.isThrownBy(() -> this.appCtx = new AnnotationConfigApplicationContext(MalformedLdifConfig.class))
+	.withCauseInstanceOf(IllegalStateException.class)
+	.withMessageContaining("Unable to load LDIF classpath:test-server-malformed.txt");
 	}
 
 	@Test
 	public void unboundIdContainerWhenMissingLdifThenException() {
 		assertThatExceptionOfType(Exception.class)
-				.isThrownBy(() -> this.appCtx = new AnnotationConfigApplicationContext(MissingLdifConfig.class))
-				.withCauseInstanceOf(IllegalStateException.class)
-				.withMessageContaining("Unable to load LDIF classpath:does-not-exist.ldif");
+	.isThrownBy(() -> this.appCtx = new AnnotationConfigApplicationContext(MissingLdifConfig.class))
+	.withCauseInstanceOf(IllegalStateException.class)
+	.withMessageContaining("Unable to load LDIF classpath:does-not-exist.ldif");
 	}
 
 	@Test
@@ -94,7 +94,7 @@ public class UnboundIdContainerLdifTests {
 	static class CustomLdifConfig implements DisposableBean {
 
 		private UnboundIdContainer container = new UnboundIdContainer("dc=springframework,dc=org",
-				"classpath:test-server.ldif");
+	"classpath:test-server.ldif");
 
 		@Bean
 		UnboundIdContainer ldapContainer() {
@@ -105,7 +105,7 @@ public class UnboundIdContainerLdifTests {
 		@Bean
 		ContextSource contextSource(UnboundIdContainer container) {
 			return new DefaultSpringSecurityContextSource(
-					"ldap://127.0.0.1:" + container.getPort() + "/dc=springframework,dc=org");
+		"ldap://127.0.0.1:" + container.getPort() + "/dc=springframework,dc=org");
 		}
 
 		@Override
@@ -119,7 +119,7 @@ public class UnboundIdContainerLdifTests {
 	static class WildcardLdifConfig implements DisposableBean {
 
 		private UnboundIdContainer container = new UnboundIdContainer("dc=springframework,dc=org",
-				"classpath*:test-server.ldif");
+	"classpath*:test-server.ldif");
 
 		@Bean
 		UnboundIdContainer ldapContainer() {
@@ -130,7 +130,7 @@ public class UnboundIdContainerLdifTests {
 		@Bean
 		ContextSource contextSource(UnboundIdContainer container) {
 			return new DefaultSpringSecurityContextSource(
-					"ldap://127.0.0.1:" + container.getPort() + "/dc=springframework,dc=org");
+		"ldap://127.0.0.1:" + container.getPort() + "/dc=springframework,dc=org");
 		}
 
 		@Override
@@ -144,7 +144,7 @@ public class UnboundIdContainerLdifTests {
 	static class MalformedLdifConfig implements DisposableBean {
 
 		private UnboundIdContainer container = new UnboundIdContainer("dc=springframework,dc=org",
-				"classpath:test-server-malformed.txt");
+	"classpath:test-server-malformed.txt");
 
 		@Bean
 		UnboundIdContainer ldapContainer() {
@@ -163,7 +163,7 @@ public class UnboundIdContainerLdifTests {
 	static class MissingLdifConfig implements DisposableBean {
 
 		private UnboundIdContainer container = new UnboundIdContainer("dc=springframework,dc=org",
-				"classpath:does-not-exist.ldif");
+	"classpath:does-not-exist.ldif");
 
 		@Bean
 		UnboundIdContainer ldapContainer() {
@@ -182,7 +182,7 @@ public class UnboundIdContainerLdifTests {
 	static class WildcardNoLdifConfig implements DisposableBean {
 
 		private UnboundIdContainer container = new UnboundIdContainer("dc=springframework,dc=org",
-				"classpath*:*.test.ldif");
+	"classpath*:*.test.ldif");
 
 		@Bean
 		UnboundIdContainer ldapContainer() {

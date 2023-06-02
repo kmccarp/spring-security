@@ -32,7 +32,7 @@ public class Pbkdf2PasswordEncoderTests {
 
 	private Pbkdf2PasswordEncoder encoderSalt16 = new Pbkdf2PasswordEncoder("", 16, 185000, 256);
 
-	private Pbkdf2PasswordEncoder[] encoders = new Pbkdf2PasswordEncoder[] { this.encoder, this.encoderSalt16 };
+	private Pbkdf2PasswordEncoder[] encoders = new Pbkdf2PasswordEncoder[]{this.encoder, this.encoderSalt16};
 
 	@Test
 	public void encodedLengthSuccess() {
@@ -155,7 +155,7 @@ public class Pbkdf2PasswordEncoderTests {
 		String encodedPassword = "3FOwOMcDgxP+z1x/sv184LFY2WVD+ZGMgYP3LPOSmCcDmk1XPYvcCQ==";
 		assertThat(this.encoder.matches(rawPassword, encodedPassword)).isTrue();
 		java.util.Base64.getDecoder().decode(encodedPassword); // validate can decode as
-																// Base64
+		// Base64
 	}
 
 	@Test

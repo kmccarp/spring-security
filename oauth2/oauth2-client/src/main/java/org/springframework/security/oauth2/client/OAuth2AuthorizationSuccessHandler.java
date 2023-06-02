@@ -45,6 +45,6 @@ public interface OAuth2AuthorizationSuccessHandler {
 	 * within the context of a {@code jakarta.servlet.ServletContext}.
 	 */
 	void onAuthorizationSuccess(OAuth2AuthorizedClient authorizedClient, Authentication principal,
-			Map<String, Object> attributes);
+Map<String, Object> attributes);
 
 }

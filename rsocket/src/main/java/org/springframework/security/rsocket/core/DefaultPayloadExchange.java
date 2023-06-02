@@ -40,7 +40,7 @@ public class DefaultPayloadExchange implements PayloadExchange {
 	private final MimeType dataMimeType;
 
 	public DefaultPayloadExchange(PayloadExchangeType type, Payload payload, MimeType metadataMimeType,
-			MimeType dataMimeType) {
+MimeType dataMimeType) {
 		Assert.notNull(type, "type cannot be null");
 		Assert.notNull(payload, "payload cannot be null");
 		Assert.notNull(metadataMimeType, "metadataMimeType cannot be null");

@@ -49,7 +49,7 @@ public abstract class AbstractServerWebExchangeMatcherRegistry<T> {
 	 * {@link ServerWebExchangeMatcher}
 	 */
 	public T pathMatchers(HttpMethod method) {
-		return pathMatchers(method, new String[] { "/**" });
+		return pathMatchers(method, new String[]{"/**"});
 	}
 
 	/**

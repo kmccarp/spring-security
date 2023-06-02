@@ -58,7 +58,7 @@ public final class Saml2LogoutResponse {
 	private final Function<Map<String, String>, String> encoder;
 
 	private Saml2LogoutResponse(String location, Saml2MessageBinding binding, Map<String, String> parameters,
-			Function<Map<String, String>, String> encoder) {
+Function<Map<String, String>, String> encoder) {
 		this.location = location;
 		this.binding = binding;
 		this.parameters = Collections.unmodifiableMap(new LinkedHashMap<>(parameters));

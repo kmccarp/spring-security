@@ -98,7 +98,7 @@ public final class PasswordReactiveOAuth2AuthorizedClientProvider implements Rea
 			return Mono.empty();
 		}
 		if (authorizedClient != null && hasTokenExpired(authorizedClient.getAccessToken())
-				&& authorizedClient.getRefreshToken() != null) {
+	&& authorizedClient.getRefreshToken() != null) {
 			// If client is already authorized and access token is expired and a refresh
 			// token is available,
 			// than return and allow RefreshTokenReactiveOAuth2AuthorizedClientProvider to
@@ -106,13 +106,12 @@ public final class PasswordReactiveOAuth2AuthorizedClientProvider implements Rea
 			return Mono.empty();
 		}
 		OAuth2PasswordGrantRequest passwordGrantRequest = new OAuth2PasswordGrantRequest(clientRegistration, username,
-				password);
+	password);
 		return Mono.just(passwordGrantRequest).flatMap(this.accessTokenResponseClient::getTokenResponse)
-				.onErrorMap(OAuth2AuthorizationException.class,
-						(e) -> new ClientAuthorizationException(e.getError(), clientRegistration.getRegistrationId(),
-								e))
-				.map((tokenResponse) -> new OAuth2AuthorizedClient(clientRegistration, context.getPrincipal().getName(),
-						tokenResponse.getAccessToken(), tokenResponse.getRefreshToken()));
+	.onErrorMap(OAuth2AuthorizationException.class,
+(e) -> new ClientAuthorizationException(e.getError(), clientRegistration.getRegistrationId(),e))
+	.map((tokenResponse) -> new OAuth2AuthorizedClient(clientRegistration, context.getPrincipal().getName(),
+tokenResponse.getAccessToken(), tokenResponse.getRefreshToken()));
 	}
 
 	private boolean hasTokenExpired(OAuth2Token token) {
@@ -126,7 +125,7 @@ public final class PasswordReactiveOAuth2AuthorizedClientProvider implements Rea
 	 * credential at the Token Endpoint for the {@code password} grant
 	 */
 	public void setAccessTokenResponseClient(
-			ReactiveOAuth2AccessTokenResponseClient<OAuth2PasswordGrantRequest> accessTokenResponseClient) {
+ReactiveOAuth2AccessTokenResponseClient<OAuth2PasswordGrantRequest> accessTokenResponseClient) {
 		Assert.notNull(accessTokenResponseClient, "accessTokenResponseClient cannot be null");
 		this.accessTokenResponseClient = accessTokenResponseClient;
 	}

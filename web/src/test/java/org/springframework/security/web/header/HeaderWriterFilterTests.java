@@ -77,10 +77,10 @@ public class HeaderWriterFilterTests {
 		verify(this.writer1).writeHeaders(request, response);
 		verify(this.writer2).writeHeaders(request, response);
 		HeaderWriterFilter.HeaderWriterRequest wrappedRequest = (HeaderWriterFilter.HeaderWriterRequest) filterChain
-				.getRequest();
+	.getRequest();
 		assertThat(wrappedRequest.getRequest()).isEqualTo(request); // verify the
-																	// filterChain
-																	// continued
+		// filterChain
+		// continued
 	}
 
 	// gh-2953
@@ -93,7 +93,7 @@ public class HeaderWriterFilterTests {
 			verifyNoMoreInteractions(HeaderWriterFilterTests.this.writer1);
 			response1.flushBuffer();
 			verify(HeaderWriterFilterTests.this.writer1).writeHeaders(any(HttpServletRequest.class),
-					any(HttpServletResponse.class));
+		any(HttpServletResponse.class));
 		});
 		verifyNoMoreInteractions(this.writer1);
 	}
@@ -108,7 +108,7 @@ public class HeaderWriterFilterTests {
 			verifyNoMoreInteractions(HeaderWriterFilterTests.this.writer1);
 			request.getRequestDispatcher("/").include(request, response);
 			verify(HeaderWriterFilterTests.this.writer1).writeHeaders(any(HttpServletRequest.class),
-					any(HttpServletResponse.class));
+		any(HttpServletResponse.class));
 		});
 		verifyNoMoreInteractions(this.writer1);
 	}
@@ -120,7 +120,7 @@ public class HeaderWriterFilterTests {
 		MockHttpServletRequest request = new MockHttpServletRequest();
 		MockHttpServletResponse response = new MockHttpServletResponse();
 		filter.doFilter(request, response, (request1, response1) -> verify(HeaderWriterFilterTests.this.writer1)
-				.writeHeaders(any(HttpServletRequest.class), any(HttpServletResponse.class)));
+	.writeHeaders(any(HttpServletRequest.class), any(HttpServletResponse.class)));
 		verifyNoMoreInteractions(this.writer1);
 	}
 

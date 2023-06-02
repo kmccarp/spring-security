@@ -70,20 +70,20 @@ public final class ObservationSecurityContextChangedListener implements Security
 		}
 		if (oldAuthentication == null) {
 			observation.event(Observation.Event.of(SECURITY_CONTEXT_CREATED, "%s [%s]").format(SECURITY_CONTEXT_CREATED,
-					newAuthentication.getClass().getSimpleName()));
+		newAuthentication.getClass().getSimpleName()));
 			return;
 		}
 		if (newAuthentication == null) {
 			observation.event(Observation.Event.of(SECURITY_CONTEXT_CLEARED, "%s [%s]").format(SECURITY_CONTEXT_CLEARED,
-					oldAuthentication.getClass().getSimpleName()));
+		oldAuthentication.getClass().getSimpleName()));
 			return;
 		}
 		if (oldAuthentication.equals(newAuthentication)) {
 			return;
 		}
 		observation.event(
-				Observation.Event.of(SECURITY_CONTEXT_CHANGED, "%s [%s] -> [%s]").format(SECURITY_CONTEXT_CHANGED,
-						oldAuthentication.getClass().getSimpleName(), newAuthentication.getClass().getSimpleName()));
+	Observation.Event.of(SECURITY_CONTEXT_CHANGED, "%s [%s] -> [%s]").format(SECURITY_CONTEXT_CHANGED,
+oldAuthentication.getClass().getSimpleName(), newAuthentication.getClass().getSimpleName()));
 	}
 
 	private static Authentication getAuthentication(SecurityContext context) {

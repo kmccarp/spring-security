@@ -65,9 +65,9 @@ public class PasswordEncoderConfigurerTests {
 			BCryptPasswordEncoder encoder = passwordEncoder();
 			// @formatter:off
 			auth
-					.inMemoryAuthentication()
-					.withUser("user").password(encoder.encode("password")).roles("USER").and()
-					.passwordEncoder(encoder);
+		.inMemoryAuthentication()
+		.withUser("user").password(encoder.encode("password")).roles("USER").and()
+		.passwordEncoder(encoder);
 			// @formatter:on
 		}
 
@@ -92,9 +92,9 @@ public class PasswordEncoderConfigurerTests {
 			BCryptPasswordEncoder encoder = passwordEncoder();
 			// @formatter:off
 			auth
-				.inMemoryAuthentication()
-					.withUser("user").password(encoder.encode("password")).roles("USER").and()
-					.passwordEncoder(encoder);
+		.inMemoryAuthentication()
+		.withUser("user").password(encoder.encode("password")).roles("USER").and()
+		.passwordEncoder(encoder);
 			// @formatter:on
 		}
 

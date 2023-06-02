@@ -61,7 +61,7 @@ public class RequestAttributeAuthenticationFilter extends AbstractPreAuthenticat
 		String principal = (String) request.getAttribute(this.principalEnvironmentVariable);
 		if (principal == null && this.exceptionIfVariableMissing) {
 			throw new PreAuthenticatedCredentialsNotFoundException(
-					this.principalEnvironmentVariable + " variable not found in request.");
+		this.principalEnvironmentVariable + " variable not found in request.");
 		}
 		return principal;
 	}

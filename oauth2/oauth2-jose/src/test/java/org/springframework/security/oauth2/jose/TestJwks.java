@@ -35,25 +35,21 @@ public final class TestJwks {
 
 	// @formatter:off
 	public static final RSAKey DEFAULT_RSA_JWK =
-			jwk(
-					TestKeys.DEFAULT_PUBLIC_KEY,
-					TestKeys.DEFAULT_PRIVATE_KEY
-			).build();
+jwk(TestKeys.DEFAULT_PUBLIC_KEY,TestKeys.DEFAULT_PRIVATE_KEY
+).build();
 	// @formatter:on
 
 	// @formatter:off
 	public static final ECKey DEFAULT_EC_JWK =
-			jwk(
-					(ECPublicKey) TestKeys.DEFAULT_EC_KEY_PAIR.getPublic(),
-					(ECPrivateKey) TestKeys.DEFAULT_EC_KEY_PAIR.getPrivate()
-			).build();
+jwk((ECPublicKey) TestKeys.DEFAULT_EC_KEY_PAIR.getPublic(),(ECPrivateKey) TestKeys.DEFAULT_EC_KEY_PAIR.getPrivate()
+).build();
 	// @formatter:on
 
 	// @formatter:off
 	public static final OctetSequenceKey DEFAULT_SECRET_JWK =
-			jwk(
-					TestKeys.DEFAULT_SECRET_KEY
-			).build();
+jwk(TestKeys.DEFAULT_SECRET_KEY
+).build();
+
 	// @formatter:on
 
 	private TestJwks() {
@@ -62,8 +58,8 @@ public final class TestJwks {
 	public static RSAKey.Builder jwk(RSAPublicKey publicKey, RSAPrivateKey privateKey) {
 		// @formatter:off
 		return new RSAKey.Builder(publicKey)
-				.privateKey(privateKey)
-				.keyID("rsa-jwk-kid");
+	.privateKey(privateKey)
+	.keyID("rsa-jwk-kid");
 		// @formatter:on
 	}
 
@@ -71,15 +67,15 @@ public final class TestJwks {
 		// @formatter:off
 		Curve curve = Curve.forECParameterSpec(publicKey.getParams());
 		return new ECKey.Builder(curve, publicKey)
-				.privateKey(privateKey)
-				.keyID("ec-jwk-kid");
+	.privateKey(privateKey)
+	.keyID("ec-jwk-kid");
 		// @formatter:on
 	}
 
 	public static OctetSequenceKey.Builder jwk(SecretKey secretKey) {
 		// @formatter:off
 		return new OctetSequenceKey.Builder(secretKey)
-				.keyID("secret-jwk-kid");
+	.keyID("secret-jwk-kid");
 		// @formatter:on
 	}
 

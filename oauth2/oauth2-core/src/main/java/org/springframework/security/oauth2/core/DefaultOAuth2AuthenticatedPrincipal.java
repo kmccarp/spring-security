@@ -47,7 +47,7 @@ public final class DefaultOAuth2AuthenticatedPrincipal implements OAuth2Authenti
 	 * @param authorities the authorities of the OAuth 2.0 token
 	 */
 	public DefaultOAuth2AuthenticatedPrincipal(Map<String, Object> attributes,
-			Collection<GrantedAuthority> authorities) {
+Collection<GrantedAuthority> authorities) {
 		this(null, attributes, authorities);
 	}
 
@@ -59,11 +59,11 @@ public final class DefaultOAuth2AuthenticatedPrincipal implements OAuth2Authenti
 	 * @param authorities the authorities of the OAuth 2.0 token
 	 */
 	public DefaultOAuth2AuthenticatedPrincipal(String name, Map<String, Object> attributes,
-			Collection<GrantedAuthority> authorities) {
+Collection<GrantedAuthority> authorities) {
 		Assert.notEmpty(attributes, "attributes cannot be empty");
 		this.attributes = Collections.unmodifiableMap(attributes);
 		this.authorities = (authorities != null) ? Collections.unmodifiableCollection(authorities)
-				: AuthorityUtils.NO_AUTHORITIES;
+	: AuthorityUtils.NO_AUTHORITIES;
 		this.name = (name != null) ? name : (String) this.attributes.get("sub");
 	}
 

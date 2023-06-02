@@ -88,7 +88,7 @@ public class MethodInvocationPrivilegeEvaluatorTests {
 	@Test
 	public void allowsAccessUsingCreateFromClass() {
 		final MethodInvocation mi = MethodInvocationUtils.createFromClass(new OtherTargetObject(), ITargetObject.class,
-				"makeLowerCase", new Class[] { String.class }, new Object[] { "Hello world" });
+	"makeLowerCase", new Class[]{String.class}, new Object[]{"Hello world"});
 		MethodInvocationPrivilegeEvaluator mipe = new MethodInvocationPrivilegeEvaluator();
 		mipe.setSecurityInterceptor(this.interceptor);
 		given(this.mds.getAttributes(mi)).willReturn(this.role);
@@ -109,7 +109,7 @@ public class MethodInvocationPrivilegeEvaluatorTests {
 	@Test
 	public void declinesAccessUsingCreateFromClass() {
 		final MethodInvocation mi = MethodInvocationUtils.createFromClass(new OtherTargetObject(), ITargetObject.class,
-				"makeLowerCase", new Class[] { String.class }, new Object[] { "helloWorld" });
+	"makeLowerCase", new Class[]{String.class}, new Object[]{"helloWorld"});
 		MethodInvocationPrivilegeEvaluator mipe = new MethodInvocationPrivilegeEvaluator();
 		mipe.setSecurityInterceptor(this.interceptor);
 		given(this.mds.getAttributes(mi)).willReturn(this.role);

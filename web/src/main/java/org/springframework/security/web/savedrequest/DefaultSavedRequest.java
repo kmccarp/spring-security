@@ -105,7 +105,7 @@ public class DefaultSavedRequest implements SavedRequest {
 
 	@SuppressWarnings("unchecked")
 	public DefaultSavedRequest(HttpServletRequest request, PortResolver portResolver,
-			String matchingRequestParameterName) {
+String matchingRequestParameterName) {
 		Assert.notNull(request, "Request required");
 		Assert.notNull(portResolver, "PortResolver required");
 		// Cookies
@@ -226,7 +226,7 @@ public class DefaultSavedRequest implements SavedRequest {
 			return false;
 		}
 		if (!propertyEquals(createQueryString(this.queryString, this.matchingRequestParameterName),
-				request.getQueryString())) {
+	request.getQueryString())) {
 			return false;
 		}
 		if (!propertyEquals(this.requestURI, request.getRequestURI())) {
@@ -276,7 +276,7 @@ public class DefaultSavedRequest implements SavedRequest {
 	public String getRedirectUrl() {
 		String queryString = createQueryString(this.queryString, this.matchingRequestParameterName);
 		return UrlUtils.buildFullRequestUrl(this.scheme, this.serverName, this.serverPort, this.requestURI,
-				queryString);
+	queryString);
 	}
 
 	@Override

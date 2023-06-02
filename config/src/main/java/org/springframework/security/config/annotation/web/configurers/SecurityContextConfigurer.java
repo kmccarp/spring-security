@@ -63,8 +63,7 @@ import org.springframework.security.web.session.ForceEagerSessionCreationFilter;
  * @author Rob Winch
  * @since 3.2
  */
-public final class SecurityContextConfigurer<H extends HttpSecurityBuilder<H>>
-		extends AbstractHttpConfigurer<SecurityContextConfigurer<H>, H> {
+public final class SecurityContextConfigurer<H extends HttpSecurityBuilder<H>>extends AbstractHttpConfigurer<SecurityContextConfigurer<H>, H> {
 
 	private boolean requireExplicitSave = true;
 
@@ -96,10 +95,10 @@ public final class SecurityContextConfigurer<H extends HttpSecurityBuilder<H>>
 
 	SecurityContextRepository getSecurityContextRepository() {
 		SecurityContextRepository securityContextRepository = getBuilder()
-				.getSharedObject(SecurityContextRepository.class);
+	.getSharedObject(SecurityContextRepository.class);
 		if (securityContextRepository == null) {
 			securityContextRepository = new DelegatingSecurityContextRepository(
-					new RequestAttributeSecurityContextRepository(), new HttpSessionSecurityContextRepository());
+		new RequestAttributeSecurityContextRepository(), new HttpSessionSecurityContextRepository());
 		}
 		return securityContextRepository;
 	}
@@ -110,17 +109,17 @@ public final class SecurityContextConfigurer<H extends HttpSecurityBuilder<H>>
 		SecurityContextRepository securityContextRepository = getSecurityContextRepository();
 		if (this.requireExplicitSave) {
 			SecurityContextHolderFilter securityContextHolderFilter = postProcess(
-					new SecurityContextHolderFilter(securityContextRepository));
+		new SecurityContextHolderFilter(securityContextRepository));
 			securityContextHolderFilter.setSecurityContextHolderStrategy(getSecurityContextHolderStrategy());
 			http.addFilter(securityContextHolderFilter);
 		}
 		else {
 			SecurityContextPersistenceFilter securityContextFilter = new SecurityContextPersistenceFilter(
-					securityContextRepository);
+		securityContextRepository);
 			securityContextFilter.setSecurityContextHolderStrategy(getSecurityContextHolderStrategy());
 			SessionManagementConfigurer<?> sessionManagement = http.getConfigurer(SessionManagementConfigurer.class);
 			SessionCreationPolicy sessionCreationPolicy = (sessionManagement != null)
-					? sessionManagement.getSessionCreationPolicy() : null;
+		? sessionManagement.getSessionCreationPolicy() : null;
 			if (SessionCreationPolicy.ALWAYS == sessionCreationPolicy) {
 				securityContextFilter.setForceEagerSessionCreation(true);
 				http.addFilter(postProcess(new ForceEagerSessionCreationFilter()));

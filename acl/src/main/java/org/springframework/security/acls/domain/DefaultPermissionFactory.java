@@ -100,9 +100,9 @@ public class DefaultPermissionFactory implements PermissionFactory {
 
 		// Ensure no existing Permission uses this integer or code
 		Assert.isTrue(!this.registeredPermissionsByInteger.containsKey(mask),
-				() -> "An existing Permission already provides mask " + mask);
+	() -> "An existing Permission already provides mask " + mask);
 		Assert.isTrue(!this.registeredPermissionsByName.containsKey(permissionName),
-				() -> "An existing Permission already provides name '" + permissionName + "'");
+	() -> "An existing Permission already provides name '" + permissionName + "'");
 
 		// Register the new Permission
 		this.registeredPermissionsByInteger.put(mask, perm);
@@ -124,7 +124,7 @@ public class DefaultPermissionFactory implements PermissionFactory {
 			if ((mask & permissionToCheck) == permissionToCheck) {
 				Permission p = this.registeredPermissionsByInteger.get(permissionToCheck);
 				Assert.state(p != null,
-						() -> "Mask '" + permissionToCheck + "' does not have a corresponding static Permission");
+			() -> "Mask '" + permissionToCheck + "' does not have a corresponding static Permission");
 				permission.set(p);
 			}
 		}

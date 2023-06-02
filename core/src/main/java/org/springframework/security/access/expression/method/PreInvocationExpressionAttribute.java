@@ -28,19 +28,18 @@ import org.springframework.security.access.prepost.PreInvocationAttribute;
  * instead
  */
 @Deprecated
-class PreInvocationExpressionAttribute extends AbstractExpressionBasedMethodConfigAttribute
-		implements PreInvocationAttribute {
+class PreInvocationExpressionAttribute extends AbstractExpressionBasedMethodConfigAttributeimplements PreInvocationAttribute {
 
 	private final String filterTarget;
 
 	PreInvocationExpressionAttribute(String filterExpression, String filterTarget, String authorizeExpression)
-			throws ParseException {
+throws ParseException {
 		super(filterExpression, authorizeExpression);
 		this.filterTarget = filterTarget;
 	}
 
 	PreInvocationExpressionAttribute(Expression filterExpression, String filterTarget, Expression authorizeExpression)
-			throws ParseException {
+throws ParseException {
 		super(filterExpression, authorizeExpression);
 		this.filterTarget = filterTarget;
 	}

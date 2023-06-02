@@ -70,6 +70,7 @@ public class JwtTests {
 	private static final Map<String, Object> CLAIMS;
 
 	private static final String JWT_TOKEN_VALUE = "jwt-token-value";
+
 	static {
 		HEADERS = new HashMap<>();
 		HEADERS.put("alg", JwsAlgorithms.RS256);
@@ -86,25 +87,25 @@ public class JwtTests {
 	@Test
 	public void constructorWhenTokenValueIsNullThenThrowIllegalArgumentException() {
 		assertThatIllegalArgumentException().isThrownBy(
-				() -> new Jwt(null, Instant.ofEpochMilli(IAT_VALUE), Instant.ofEpochMilli(EXP_VALUE), HEADERS, CLAIMS));
+	() -> new Jwt(null, Instant.ofEpochMilli(IAT_VALUE), Instant.ofEpochMilli(EXP_VALUE), HEADERS, CLAIMS));
 	}
 
 	@Test
 	public void constructorWhenHeadersIsEmptyThenThrowIllegalArgumentException() {
 		assertThatIllegalArgumentException().isThrownBy(() -> new Jwt(JWT_TOKEN_VALUE, Instant.ofEpochMilli(IAT_VALUE),
-				Instant.ofEpochMilli(EXP_VALUE), Collections.emptyMap(), CLAIMS));
+	Instant.ofEpochMilli(EXP_VALUE), Collections.emptyMap(), CLAIMS));
 	}
 
 	@Test
 	public void constructorWhenClaimsIsEmptyThenThrowIllegalArgumentException() {
 		assertThatIllegalArgumentException().isThrownBy(() -> new Jwt(JWT_TOKEN_VALUE, Instant.ofEpochMilli(IAT_VALUE),
-				Instant.ofEpochMilli(EXP_VALUE), HEADERS, Collections.emptyMap()));
+	Instant.ofEpochMilli(EXP_VALUE), HEADERS, Collections.emptyMap()));
 	}
 
 	@Test
 	public void constructorWhenParametersProvidedAndValidThenCreated() {
 		Jwt jwt = new Jwt(JWT_TOKEN_VALUE, Instant.ofEpochMilli(IAT_VALUE), Instant.ofEpochMilli(EXP_VALUE), HEADERS,
-				CLAIMS);
+	CLAIMS);
 		assertThat(jwt.getTokenValue()).isEqualTo(JWT_TOKEN_VALUE);
 		assertThat(jwt.getHeaders()).isEqualTo(HEADERS);
 		assertThat(jwt.getClaims()).isEqualTo(CLAIMS);

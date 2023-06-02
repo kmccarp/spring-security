@@ -104,7 +104,7 @@ public class Argon2PasswordEncoder implements PasswordEncoder {
 	 */
 	public static Argon2PasswordEncoder defaultsForSpringSecurity_v5_8() {
 		return new Argon2PasswordEncoder(DEFAULT_SALT_LENGTH, DEFAULT_HASH_LENGTH, DEFAULT_PARALLELISM, DEFAULT_MEMORY,
-				DEFAULT_ITERATIONS);
+	DEFAULT_ITERATIONS);
 	}
 
 	@Override
@@ -113,12 +113,12 @@ public class Argon2PasswordEncoder implements PasswordEncoder {
 		byte[] hash = new byte[this.hashLength];
 		// @formatter:off
 		Argon2Parameters params = new Argon2Parameters
-				.Builder(Argon2Parameters.ARGON2_id)
-				.withSalt(salt)
-				.withParallelism(this.parallelism)
-				.withMemoryAsKB(this.memory)
-				.withIterations(this.iterations)
-				.build();
+	.Builder(Argon2Parameters.ARGON2_id)
+	.withSalt(salt)
+	.withParallelism(this.parallelism)
+	.withMemoryAsKB(this.memory)
+	.withIterations(this.iterations)
+	.build();
 		// @formatter:on
 		Argon2BytesGenerator generator = new Argon2BytesGenerator();
 		generator.init(params);

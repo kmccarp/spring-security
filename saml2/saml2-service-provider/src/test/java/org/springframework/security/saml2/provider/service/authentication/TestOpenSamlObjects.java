@@ -97,6 +97,7 @@ public final class TestOpenSamlObjects {
 	static {
 		OpenSamlInitializationService.initialize();
 	}
+
 	private static String USERNAME = "test@saml.user";
 
 	private static String DESTINATION = "https://localhost/login/saml2/sso/idp-alias";
@@ -108,7 +109,7 @@ public final class TestOpenSamlObjects {
 	public static String ASSERTING_PARTY_ENTITY_ID = "https://some.idp.test/saml2/idp";
 
 	private static SecretKey SECRET_KEY = new SecretKeySpec(
-			Base64.getDecoder().decode("shOnwNMoCv88HKMEa91+FlYoD5RNvzMTAL5LGxZKIFk="), "AES");
+Base64.getDecoder().decode("shOnwNMoCv88HKMEa91+FlYoD5RNvzMTAL5LGxZKIFk="), "AES");
 
 	private TestOpenSamlObjects() {
 	}
@@ -230,7 +231,7 @@ public final class TestOpenSamlObjects {
 	}
 
 	static <T extends SignableSAMLObject> T signed(T signable, Saml2X509Credential credential, String entityId,
-			String signAlgorithmUri) {
+String signAlgorithmUri) {
 		SignatureSigningParameters parameters = new SignatureSigningParameters();
 		Credential signingCredential = getSigningCredential(credential, entityId);
 		parameters.setSigningCredential(signingCredential);
@@ -370,7 +371,7 @@ public final class TestOpenSamlObjects {
 		Attribute registeredAttr = attributeBuilder.buildObject();
 		registeredAttr.setName("registered");
 		XSBoolean registered = new XSBooleanBuilder().buildObject(AttributeValue.DEFAULT_ELEMENT_NAME,
-				XSBoolean.TYPE_NAME);
+	XSBoolean.TYPE_NAME);
 		registered.setValue(new XSBooleanValue(true, false));
 		registeredAttr.getAttributeValues().add(registered);
 		attrStmt2.getAttributes().add(registeredAttr);
@@ -415,7 +416,7 @@ public final class TestOpenSamlObjects {
 		nameId.setValue("user");
 		logoutRequest.setNameID(null);
 		Saml2X509Credential credential = registration.getAssertingPartyDetails().getEncryptionX509Credentials()
-				.iterator().next();
+	.iterator().next();
 		EncryptedID encrypted = encrypted(nameId, credential);
 		logoutRequest.setEncryptedID(encrypted);
 		IssuerBuilder issuerBuilder = new IssuerBuilder();

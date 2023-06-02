@@ -66,39 +66,39 @@ public class OAuth2AccessTokenResponseHttpMessageConverterTests {
 	@Test
 	public void setAccessTokenResponseConverterWhenConverterIsNullThenThrowIllegalArgumentException() {
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> this.messageConverter.setAccessTokenResponseConverter(null));
+	.isThrownBy(() -> this.messageConverter.setAccessTokenResponseConverter(null));
 	}
 
 	@Test
 	public void setAccessTokenResponseParametersConverterWhenConverterIsNullThenThrowIllegalArgumentException() {
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> this.messageConverter.setAccessTokenResponseParametersConverter(null));
+	.isThrownBy(() -> this.messageConverter.setAccessTokenResponseParametersConverter(null));
 	}
 
 	@Test
 	public void readInternalWhenSuccessfulTokenResponseThenReadOAuth2AccessTokenResponse() throws Exception {
 		// @formatter:off
 		String tokenResponse = "{\n"
-			+ "   \"access_token\": \"access-token-1234\",\n"
-			+ "   \"token_type\": \"bearer\",\n"
-			+ "   \"expires_in\": \"3600\",\n"
-			+ "   \"scope\": \"read write\",\n"
-			+ "   \"refresh_token\": \"refresh-token-1234\",\n"
-			+ "   \"custom_parameter_1\": \"custom-value-1\",\n"
-			+ "   \"custom_parameter_2\": \"custom-value-2\"\n"
-			+ "}\n";
+	+ "   \"access_token\": \"access-token-1234\",\n"
+	+ "   \"token_type\": \"bearer\",\n"
+	+ "   \"expires_in\": \"3600\",\n"
+	+ "   \"scope\": \"read write\",\n"
+	+ "   \"refresh_token\": \"refresh-token-1234\",\n"
+	+ "   \"custom_parameter_1\": \"custom-value-1\",\n"
+	+ "   \"custom_parameter_2\": \"custom-value-2\"\n"
+	+ "}\n";
 		// @formatter:on
 		MockClientHttpResponse response = new MockClientHttpResponse(tokenResponse.getBytes(), HttpStatus.OK);
 		OAuth2AccessTokenResponse accessTokenResponse = this.messageConverter
-				.readInternal(OAuth2AccessTokenResponse.class, response);
+	.readInternal(OAuth2AccessTokenResponse.class, response);
 		assertThat(accessTokenResponse.getAccessToken().getTokenValue()).isEqualTo("access-token-1234");
 		assertThat(accessTokenResponse.getAccessToken().getTokenType()).isEqualTo(OAuth2AccessToken.TokenType.BEARER);
 		assertThat(accessTokenResponse.getAccessToken().getExpiresAt())
-				.isBeforeOrEqualTo(Instant.now().plusSeconds(3600));
+	.isBeforeOrEqualTo(Instant.now().plusSeconds(3600));
 		assertThat(accessTokenResponse.getAccessToken().getScopes()).containsExactly("read", "write");
 		assertThat(accessTokenResponse.getRefreshToken().getTokenValue()).isEqualTo("refresh-token-1234");
 		assertThat(accessTokenResponse.getAdditionalParameters()).containsExactly(
-				entry("custom_parameter_1", "custom-value-1"), entry("custom_parameter_2", "custom-value-2"));
+	entry("custom_parameter_1", "custom-value-1"), entry("custom_parameter_2", "custom-value-2"));
 	}
 
 	// gh-6463
@@ -106,31 +106,31 @@ public class OAuth2AccessTokenResponseHttpMessageConverterTests {
 	public void readInternalWhenSuccessfulTokenResponseWithObjectThenReadOAuth2AccessTokenResponse() {
 		// @formatter:off
 		String tokenResponse = "{\n"
-			+ "   \"access_token\": \"access-token-1234\",\n"
-			+ "   \"token_type\": \"bearer\",\n"
-			+ "   \"expires_in\": 3600,\n"
-			+ "   \"scope\": \"read write\",\n"
-			+ "   \"refresh_token\": \"refresh-token-1234\",\n"
-			+ "   \"custom_object_1\": {\"name1\": \"value1\"},\n"
-			+ "   \"custom_object_2\": [\"value1\", \"value2\"],\n"
-			+ "   \"custom_parameter_1\": \"custom-value-1\",\n"
-			+ "   \"custom_parameter_2\": \"custom-value-2\"\n"
-			+ "}\n";
+	+ "   \"access_token\": \"access-token-1234\",\n"
+	+ "   \"token_type\": \"bearer\",\n"
+	+ "   \"expires_in\": 3600,\n"
+	+ "   \"scope\": \"read write\",\n"
+	+ "   \"refresh_token\": \"refresh-token-1234\",\n"
+	+ "   \"custom_object_1\": {\"name1\": \"value1\"},\n"
+	+ "   \"custom_object_2\": [\"value1\", \"value2\"],\n"
+	+ "   \"custom_parameter_1\": \"custom-value-1\",\n"
+	+ "   \"custom_parameter_2\": \"custom-value-2\"\n"
+	+ "}\n";
 		// @formatter:on
 		MockClientHttpResponse response = new MockClientHttpResponse(tokenResponse.getBytes(), HttpStatus.OK);
 		OAuth2AccessTokenResponse accessTokenResponse = this.messageConverter
-				.readInternal(OAuth2AccessTokenResponse.class, response);
+	.readInternal(OAuth2AccessTokenResponse.class, response);
 		assertThat(accessTokenResponse.getAccessToken().getTokenValue()).isEqualTo("access-token-1234");
 		assertThat(accessTokenResponse.getAccessToken().getTokenType()).isEqualTo(OAuth2AccessToken.TokenType.BEARER);
 		assertThat(accessTokenResponse.getAccessToken().getExpiresAt())
-				.isBeforeOrEqualTo(Instant.now().plusSeconds(3600));
+	.isBeforeOrEqualTo(Instant.now().plusSeconds(3600));
 		assertThat(accessTokenResponse.getAccessToken().getScopes()).containsExactly("read", "write");
 		assertThat(accessTokenResponse.getRefreshToken().getTokenValue()).isEqualTo("refresh-token-1234");
 		Map<String, String> additionalParameters = accessTokenResponse.getAdditionalParameters().entrySet().stream()
-				.collect(Collectors.toMap(Map.Entry::getKey, (entry) -> String.valueOf(entry.getValue())));
+	.collect(Collectors.toMap(Map.Entry::getKey, (entry) -> String.valueOf(entry.getValue())));
 		assertThat(additionalParameters).containsExactly(entry("custom_object_1", "{name1=value1}"),
-				entry("custom_object_2", "[value1, value2]"), entry("custom_parameter_1", "custom-value-1"),
-				entry("custom_parameter_2", "custom-value-2"));
+	entry("custom_object_2", "[value1, value2]"), entry("custom_parameter_1", "custom-value-1"),
+	entry("custom_parameter_2", "custom-value-2"));
 	}
 
 	// gh-8108
@@ -138,20 +138,20 @@ public class OAuth2AccessTokenResponseHttpMessageConverterTests {
 	public void readInternalWhenSuccessfulTokenResponseWithNullValueThenReadOAuth2AccessTokenResponse() {
 		// @formatter:off
 		String tokenResponse = "{\n"
-			+ "   \"access_token\": \"access-token-1234\",\n"
-			+ "   \"token_type\": \"bearer\",\n"
-			+ "   \"expires_in\": 3600,\n"
-			+ "   \"scope\": null,\n"
-			+ "   \"refresh_token\": \"refresh-token-1234\"\n"
-			+ "}\n";
+	+ "   \"access_token\": \"access-token-1234\",\n"
+	+ "   \"token_type\": \"bearer\",\n"
+	+ "   \"expires_in\": 3600,\n"
+	+ "   \"scope\": null,\n"
+	+ "   \"refresh_token\": \"refresh-token-1234\"\n"
+	+ "}\n";
 		// @formatter:on
 		MockClientHttpResponse response = new MockClientHttpResponse(tokenResponse.getBytes(), HttpStatus.OK);
 		OAuth2AccessTokenResponse accessTokenResponse = this.messageConverter
-				.readInternal(OAuth2AccessTokenResponse.class, response);
+	.readInternal(OAuth2AccessTokenResponse.class, response);
 		assertThat(accessTokenResponse.getAccessToken().getTokenValue()).isEqualTo("access-token-1234");
 		assertThat(accessTokenResponse.getAccessToken().getTokenType()).isEqualTo(OAuth2AccessToken.TokenType.BEARER);
 		assertThat(accessTokenResponse.getAccessToken().getExpiresAt())
-				.isBeforeOrEqualTo(Instant.now().plusSeconds(3600));
+	.isBeforeOrEqualTo(Instant.now().plusSeconds(3600));
 		assertThat(accessTokenResponse.getAccessToken().getScopes()).isEmpty();
 		assertThat(accessTokenResponse.getRefreshToken().getTokenValue()).isEqualTo("refresh-token-1234");
 	}
@@ -164,8 +164,8 @@ public class OAuth2AccessTokenResponseHttpMessageConverterTests {
 		String tokenResponse = "{}";
 		MockClientHttpResponse response = new MockClientHttpResponse(tokenResponse.getBytes(), HttpStatus.OK);
 		assertThatExceptionOfType(HttpMessageNotReadableException.class)
-				.isThrownBy(() -> this.messageConverter.readInternal(OAuth2AccessTokenResponse.class, response))
-				.withMessageContaining("An error occurred reading the OAuth 2.0 Access Token Response");
+	.isThrownBy(() -> this.messageConverter.readInternal(OAuth2AccessTokenResponse.class, response))
+	.withMessageContaining("An error occurred reading the OAuth 2.0 Access Token Response");
 	}
 
 	@Test
@@ -177,12 +177,12 @@ public class OAuth2AccessTokenResponseHttpMessageConverterTests {
 		additionalParameters.put("custom_parameter_2", "custom-value-2");
 		// @formatter:off
 		OAuth2AccessTokenResponse accessTokenResponse = OAuth2AccessTokenResponse.withToken("access-token-1234")
-				.tokenType(OAuth2AccessToken.TokenType.BEARER)
-				.expiresIn(expiresAt.toEpochMilli())
-				.scopes(scopes)
-				.refreshToken("refresh-token-1234")
-				.additionalParameters(additionalParameters)
-				.build();
+	.tokenType(OAuth2AccessToken.TokenType.BEARER)
+	.expiresIn(expiresAt.toEpochMilli())
+	.scopes(scopes)
+	.refreshToken("refresh-token-1234")
+	.additionalParameters(additionalParameters)
+	.build();
 		// @formatter:on
 		MockHttpOutputMessage outputMessage = new MockHttpOutputMessage();
 		this.messageConverter.writeInternal(accessTokenResponse, outputMessage);
@@ -203,16 +203,16 @@ public class OAuth2AccessTokenResponseHttpMessageConverterTests {
 		this.messageConverter.setAccessTokenResponseParametersConverter(tokenResponseParametersConverter);
 		// @formatter:off
 		OAuth2AccessTokenResponse accessTokenResponse = OAuth2AccessTokenResponse
-				.withToken("access-token-1234")
-				.tokenType(OAuth2AccessToken.TokenType.BEARER)
-				.expiresIn(Instant.now().plusSeconds(3600)
-				.toEpochMilli())
-				.build();
+	.withToken("access-token-1234")
+	.tokenType(OAuth2AccessToken.TokenType.BEARER)
+	.expiresIn(Instant.now().plusSeconds(3600)
+.toEpochMilli())
+	.build();
 		// @formatter:on
 		MockHttpOutputMessage outputMessage = new MockHttpOutputMessage();
 		assertThatExceptionOfType(HttpMessageNotWritableException.class)
-				.isThrownBy(() -> this.messageConverter.writeInternal(accessTokenResponse, outputMessage))
-				.withMessageContaining("An error occurred writing the OAuth 2.0 Access Token Response");
+	.isThrownBy(() -> this.messageConverter.writeInternal(accessTokenResponse, outputMessage))
+	.withMessageContaining("An error occurred writing the OAuth 2.0 Access Token Response");
 	}
 
 }

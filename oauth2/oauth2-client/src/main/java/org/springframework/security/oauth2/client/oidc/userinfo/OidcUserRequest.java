@@ -59,7 +59,7 @@ public class OidcUserRequest extends OAuth2UserRequest {
 	 * @since 5.1
 	 */
 	public OidcUserRequest(ClientRegistration clientRegistration, OAuth2AccessToken accessToken, OidcIdToken idToken,
-			Map<String, Object> additionalParameters) {
+Map<String, Object> additionalParameters) {
 		super(clientRegistration, accessToken, additionalParameters);
 		Assert.notNull(idToken, "idToken cannot be null");
 		this.idToken = idToken;

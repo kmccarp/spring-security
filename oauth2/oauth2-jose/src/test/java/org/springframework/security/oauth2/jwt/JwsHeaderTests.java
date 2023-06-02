@@ -33,13 +33,13 @@ public class JwsHeaderTests {
 	@Test
 	public void withWhenNullThenThrowIllegalArgumentException() {
 		assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> JwsHeader.with(null))
-				.withMessage("jwsAlgorithm cannot be null");
+	.withMessage("jwsAlgorithm cannot be null");
 	}
 
 	@Test
 	public void fromWhenNullThenThrowIllegalArgumentException() {
 		assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> JwsHeader.from(null))
-				.withMessage("headers cannot be null");
+	.withMessage("headers cannot be null");
 	}
 
 	@Test
@@ -55,19 +55,19 @@ public class JwsHeaderTests {
 
 		// @formatter:off
 		JwsHeader jwsHeader = JwsHeader.with(expectedJwsHeader.getAlgorithm())
-				.jwkSetUrl(expectedJwsHeader.getJwkSetUrl().toExternalForm())
-				.jwk(expectedJwsHeader.getJwk())
-				.keyId(expectedJwsHeader.getKeyId())
-				.x509Url(expectedJwsHeader.getX509Url().toExternalForm())
-				.x509CertificateChain(expectedJwsHeader.getX509CertificateChain())
-				.x509SHA1Thumbprint(expectedJwsHeader.getX509SHA1Thumbprint())
-				.x509SHA256Thumbprint(expectedJwsHeader.getX509SHA256Thumbprint())
-				.type(expectedJwsHeader.getType())
-				.contentType(expectedJwsHeader.getContentType())
-				.criticalHeader("critical-header1-name", "critical-header1-value")
-				.criticalHeader("critical-header2-name", "critical-header2-value")
-				.headers((headers) -> headers.put("custom-header-name", "custom-header-value"))
-				.build();
+	.jwkSetUrl(expectedJwsHeader.getJwkSetUrl().toExternalForm())
+	.jwk(expectedJwsHeader.getJwk())
+	.keyId(expectedJwsHeader.getKeyId())
+	.x509Url(expectedJwsHeader.getX509Url().toExternalForm())
+	.x509CertificateChain(expectedJwsHeader.getX509CertificateChain())
+	.x509SHA1Thumbprint(expectedJwsHeader.getX509SHA1Thumbprint())
+	.x509SHA256Thumbprint(expectedJwsHeader.getX509SHA256Thumbprint())
+	.type(expectedJwsHeader.getType())
+	.contentType(expectedJwsHeader.getContentType())
+	.criticalHeader("critical-header1-name", "critical-header1-value")
+	.criticalHeader("critical-header2-name", "critical-header2-value")
+	.headers((headers) -> headers.put("custom-header-name", "custom-header-value"))
+	.build();
 		// @formatter:on
 
 		assertThat(jwsHeader.getAlgorithm()).isEqualTo(expectedJwsHeader.getAlgorithm());
@@ -89,15 +89,15 @@ public class JwsHeaderTests {
 	@Test
 	public void headerWhenNameNullThenThrowIllegalArgumentException() {
 		assertThatExceptionOfType(IllegalArgumentException.class)
-				.isThrownBy(() -> JwsHeader.with(SignatureAlgorithm.RS256).header(null, "value"))
-				.withMessage("name cannot be empty");
+	.isThrownBy(() -> JwsHeader.with(SignatureAlgorithm.RS256).header(null, "value"))
+	.withMessage("name cannot be empty");
 	}
 
 	@Test
 	public void headerWhenValueNullThenThrowIllegalArgumentException() {
 		assertThatExceptionOfType(IllegalArgumentException.class)
-				.isThrownBy(() -> JwsHeader.with(SignatureAlgorithm.RS256).header("name", null))
-				.withMessage("value cannot be null");
+	.isThrownBy(() -> JwsHeader.with(SignatureAlgorithm.RS256).header("name", null))
+	.withMessage("value cannot be null");
 	}
 
 	@Test
@@ -105,7 +105,7 @@ public class JwsHeaderTests {
 		JwsHeader jwsHeader = TestJwsHeaders.jwsHeader().build();
 
 		assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> jwsHeader.getHeader(null))
-				.withMessage("name cannot be empty");
+	.withMessage("name cannot be empty");
 	}
 
 }

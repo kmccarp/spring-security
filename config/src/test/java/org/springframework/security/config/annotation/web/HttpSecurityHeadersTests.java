@@ -70,10 +70,10 @@ public class HttpSecurityHeadersTests {
 	public void headerWhenSpringMvcResourceThenCacheRelatedHeadersReset() throws Exception {
 		// @formatter:off
 		this.mockMvc.perform(get("/resources/file.js"))
-				.andExpect(status().isOk())
-				.andExpect(header().string(HttpHeaders.CACHE_CONTROL, "max-age=12345"))
-				.andExpect(header().doesNotExist(HttpHeaders.PRAGMA))
-				.andExpect(header().doesNotExist(HttpHeaders.EXPIRES));
+	.andExpect(status().isOk())
+	.andExpect(header().string(HttpHeaders.CACHE_CONTROL, "max-age=12345"))
+	.andExpect(header().doesNotExist(HttpHeaders.PRAGMA))
+	.andExpect(header().doesNotExist(HttpHeaders.EXPIRES));
 		// @formatter:on
 	}
 
@@ -81,9 +81,9 @@ public class HttpSecurityHeadersTests {
 	public void headerWhenNotSpringResourceThenCacheRelatedHeadersSet() throws Exception {
 		// @formatter:off
 		this.mockMvc.perform(get("/notresource"))
-				.andExpect(header().string(HttpHeaders.CACHE_CONTROL, "no-cache, no-store, max-age=0, must-revalidate"))
-				.andExpect(header().string(HttpHeaders.PRAGMA, "no-cache"))
-				.andExpect(header().string(HttpHeaders.EXPIRES, "0"));
+	.andExpect(header().string(HttpHeaders.CACHE_CONTROL, "no-cache, no-store, max-age=0, must-revalidate"))
+	.andExpect(header().string(HttpHeaders.PRAGMA, "no-cache"))
+	.andExpect(header().string(HttpHeaders.EXPIRES, "0"));
 		// @formatter:on
 	}
 
@@ -106,8 +106,8 @@ public class HttpSecurityHeadersTests {
 		public void addResourceHandlers(ResourceHandlerRegistry registry) {
 			// @formatter:off
 			registry.addResourceHandler("/resources/**")
-					.addResourceLocations("classpath:/resources/")
-					.setCachePeriod(12345);
+		.addResourceLocations("classpath:/resources/")
+		.setCachePeriod(12345);
 			// @formatter:on
 		}
 

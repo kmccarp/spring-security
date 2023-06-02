@@ -36,8 +36,7 @@ import org.springframework.security.web.FilterInvocation;
  * @author Rob Winch
  * @since 4.1
  */
-abstract class AbstractVariableEvaluationContextPostProcessor
-		implements EvaluationContextPostProcessor<FilterInvocation> {
+abstract class AbstractVariableEvaluationContextPostProcessorimplements EvaluationContextPostProcessor<FilterInvocation> {
 
 	@Override
 	public final EvaluationContext postProcess(EvaluationContext context, FilterInvocation invocation) {

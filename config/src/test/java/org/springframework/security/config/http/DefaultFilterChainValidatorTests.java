@@ -88,10 +88,10 @@ public class DefaultFilterChainValidatorTests {
 		AuthenticationEntryPoint authenticationEntryPoint = new LoginUrlAuthenticationEntryPoint("/login");
 		ExceptionTranslationFilter etf = new ExceptionTranslationFilter(authenticationEntryPoint);
 		DefaultSecurityFilterChain securityChain = new DefaultSecurityFilterChain(AnyRequestMatcher.INSTANCE, aaf, etf,
-				this.authorizationInterceptor);
+	this.authorizationInterceptor);
 		this.chain = new FilterChainProxy(securityChain);
 		DefaultSecurityFilterChain securityChainAuthorizationFilter = new DefaultSecurityFilterChain(
-				AnyRequestMatcher.INSTANCE, aaf, etf, this.authorizationFilter);
+	AnyRequestMatcher.INSTANCE, aaf, etf, this.authorizationFilter);
 		this.chainAuthorizationFilter = new FilterChainProxy(securityChainAuthorizationFilter);
 		this.validator = new DefaultFilterChainValidator();
 		ReflectionTestUtils.setField(this.validator, "logger", this.logger);
@@ -103,11 +103,11 @@ public class DefaultFilterChainValidatorTests {
 	public void validateCheckLoginPageIsntProtectedThrowsIllegalArgumentException() {
 		IllegalArgumentException toBeThrown = new IllegalArgumentException("failed to eval expression");
 		willThrow(toBeThrown).given(this.accessDecisionManager).decide(any(Authentication.class), any(),
-				any(Collection.class));
+	any(Collection.class));
 		this.validator.validate(this.chain);
 		verify(this.logger).info(
-				"Unable to check access to the login page to determine if anonymous access is allowed. This might be an error, but can happen under normal circumstances.",
-				toBeThrown);
+	"Unable to check access to the login page to determine if anonymous access is allowed. This might be an error, but can happen under normal circumstances.",
+	toBeThrown);
 	}
 
 	@Test
@@ -115,15 +115,15 @@ public class DefaultFilterChainValidatorTests {
 		given(this.authorizationManager.check(any(), any())).willReturn(new AuthorizationDecision(false));
 		this.validator.validate(this.chainAuthorizationFilter);
 		verify(this.logger).warn("Anonymous access to the login page doesn't appear to be enabled. "
-				+ "This is almost certainly an error. Please check your configuration allows unauthenticated "
-				+ "access to the configured login page. (Simulated access was rejected)");
+	+ "This is almost certainly an error. Please check your configuration allows unauthenticated "
+	+ "access to the configured login page. (Simulated access was rejected)");
 	}
 
 	// SEC-1957
 	@Test
 	public void validateCustomMetadataSource() {
 		FilterInvocationSecurityMetadataSource customMetaDataSource = mock(
-				FilterInvocationSecurityMetadataSource.class);
+	FilterInvocationSecurityMetadataSource.class);
 		this.authorizationInterceptor.setSecurityMetadataSource(customMetaDataSource);
 		this.validator.validate(this.chain);
 		verify(customMetaDataSource, atLeastOnce()).getAttributes(any());

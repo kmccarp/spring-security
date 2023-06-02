@@ -78,7 +78,7 @@ public class GrantedAuthorityDefaultsXmlTests {
 	public void doFilter() throws Exception {
 		SecurityContext context = SecurityContextHolder.getContext();
 		this.request.getSession().setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY,
-				context);
+	context);
 		this.springSecurityFilterChain.doFilter(this.request, this.response, this.chain);
 		assertThat(this.response.getStatus()).isEqualTo(HttpServletResponse.SC_OK);
 	}
@@ -88,7 +88,7 @@ public class GrantedAuthorityDefaultsXmlTests {
 		setup("DENIED");
 		SecurityContext context = SecurityContextHolder.getContext();
 		this.request.getSession().setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY,
-				context);
+	context);
 		this.springSecurityFilterChain.doFilter(this.request, this.response, this.chain);
 		assertThat(this.response.getStatus()).isEqualTo(HttpServletResponse.SC_FORBIDDEN);
 	}
@@ -120,11 +120,11 @@ public class GrantedAuthorityDefaultsXmlTests {
 	public void doFilterIsUserInRole() throws Exception {
 		SecurityContext context = SecurityContextHolder.getContext();
 		this.request.getSession().setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY,
-				context);
+	context);
 		this.chain = new MockFilterChain() {
 			@Override
 			public void doFilter(ServletRequest request, ServletResponse response)
-					throws IOException, ServletException {
+		throws IOException, ServletException {
 				HttpServletRequest httpRequest = (HttpServletRequest) request;
 				assertThat(httpRequest.isUserInRole("USER")).isTrue();
 				assertThat(httpRequest.isUserInRole("INVALID")).isFalse();

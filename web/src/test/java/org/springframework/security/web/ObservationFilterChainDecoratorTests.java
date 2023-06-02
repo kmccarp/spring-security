@@ -128,14 +128,14 @@ public class ObservationFilterChainDecoratorTests {
 		willThrow(IllegalArgumentException.class).given(filter).doFilter(any(), any(), any());
 		FilterChain decorated = decorator.decorate(chain, List.of(filter));
 		assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(
-				() -> decorated.doFilter(new MockHttpServletRequest("GET", "/"), new MockHttpServletResponse()));
+	() -> decorated.doFilter(new MockHttpServletRequest("GET", "/"), new MockHttpServletResponse()));
 		verify(handler).onScopeClosed(any());
 	}
 
 	@ParameterizedTest
 	@MethodSource("decorateFiltersWhenCompletesThenHasSpringSecurityReachedFilterNameTag")
 	void decorateFiltersWhenCompletesThenHasSpringSecurityReachedFilterNameTag(Filter filter,
-			String expectedFilterNameTag) throws Exception {
+String expectedFilterNameTag) throws Exception {
 		ObservationHandler<Observation.Context> handler = mock(ObservationHandler.class);
 		given(handler.supportsContext(any())).willReturn(true);
 		ObservationRegistry registry = ObservationRegistry.create();
@@ -147,7 +147,7 @@ public class ObservationFilterChainDecoratorTests {
 		ArgumentCaptor<Observation.Context> context = ArgumentCaptor.forClass(Observation.Context.class);
 		verify(handler, times(3)).onScopeClosed(context.capture());
 		assertThat(context.getValue().getLowCardinalityKeyValue("spring.security.reached.filter.name").getValue())
-				.isEqualTo(expectedFilterNameTag);
+	.isEqualTo(expectedFilterNameTag);
 	}
 
 	static Stream<Arguments> decorateFiltersWhenCompletesThenHasSpringSecurityReachedFilterNameTag() {
@@ -157,20 +157,20 @@ public class ObservationFilterChainDecoratorTests {
 		Filter filterWithoutName = new Filter() {
 			@Override
 			public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
-					throws IOException, ServletException {
+		throws IOException, ServletException {
 				chain.doFilter(request, response);
 			}
 		};
 
 		return Stream.of(Arguments.of(filterWithName, "BasicAuthenticationFilter"),
-				Arguments.of(filterWithoutName, "none"));
+	Arguments.of(filterWithoutName, "none"));
 	}
 
 	private static class BasicAuthenticationFilter implements Filter {
 
 		@Override
 		public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
-				throws IOException, ServletException {
+	throws IOException, ServletException {
 			chain.doFilter(request, response);
 		}
 

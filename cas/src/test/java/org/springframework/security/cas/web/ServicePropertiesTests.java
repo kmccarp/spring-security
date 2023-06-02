@@ -48,7 +48,7 @@ public class ServicePropertiesTests {
 
 	@Test
 	public void testGettersSetters() throws Exception {
-		ServiceProperties[] sps = { new ServiceProperties(), new SamlServiceProperties() };
+		ServiceProperties[] sps = {new ServiceProperties(), new SamlServiceProperties()};
 		for (ServiceProperties sp : sps) {
 			sp.setSendRenew(false);
 			assertThat(sp.isSendRenew()).isFalse();

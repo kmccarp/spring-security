@@ -46,7 +46,7 @@ abstract class JsonNodeUtils {
 	}
 
 	static <T> T findValue(JsonNode jsonNode, String fieldName, TypeReference<T> valueTypeReference,
-			ObjectMapper mapper) {
+ObjectMapper mapper) {
 		if (jsonNode == null) {
 			return null;
 		}

@@ -37,8 +37,7 @@ import org.springframework.util.ClassUtils;
  * @author Eleftheria Stein
  * @since 5.7
  */
-public class EmbeddedLdapServerContextSourceFactoryBean
-		implements FactoryBean<DefaultSpringSecurityContextSource>, DisposableBean, ApplicationContextAware {
+public class EmbeddedLdapServerContextSourceFactoryBeanimplements FactoryBean<DefaultSpringSecurityContextSource>, DisposableBean, ApplicationContextAware {
 
 	private static final String UNBOUNDID_CLASSNAME = "com.unboundid.ldap.listener.InMemoryDirectoryServer";
 
@@ -133,7 +132,7 @@ public class EmbeddedLdapServerContextSourceFactoryBean
 		this.container = getContainer();
 		this.port = this.container.getPort();
 		DefaultSpringSecurityContextSource contextSourceFromProviderUrl = new DefaultSpringSecurityContextSource(
-				"ldap://127.0.0.1:" + this.port + "/" + this.root);
+	"ldap://127.0.0.1:" + this.port + "/" + this.root);
 		if (this.managerDn != null) {
 			contextSourceFromProviderUrl.setUserDn(this.managerDn);
 			if (this.managerPassword == null) {

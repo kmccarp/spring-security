@@ -119,7 +119,7 @@ public class SwitchUserFilter extends GenericFilterBean implements ApplicationEv
 	public static final String ROLE_PREVIOUS_ADMINISTRATOR = "ROLE_PREVIOUS_ADMINISTRATOR";
 
 	private SecurityContextHolderStrategy securityContextHolderStrategy = SecurityContextHolder
-			.getContextHolderStrategy();
+.getContextHolderStrategy();
 
 	private ApplicationEventPublisher eventPublisher;
 
@@ -155,15 +155,15 @@ public class SwitchUserFilter extends GenericFilterBean implements ApplicationEv
 	public void afterPropertiesSet() {
 		Assert.notNull(this.userDetailsService, "userDetailsService must be specified");
 		Assert.isTrue(this.successHandler != null || this.targetUrl != null,
-				"You must set either a successHandler or the targetUrl");
+	"You must set either a successHandler or the targetUrl");
 		if (this.targetUrl != null) {
 			Assert.isNull(this.successHandler, "You cannot set both successHandler and targetUrl");
 			this.successHandler = new SimpleUrlAuthenticationSuccessHandler(this.targetUrl);
 		}
 		if (this.failureHandler == null) {
 			this.failureHandler = (this.switchFailureUrl != null)
-					? new SimpleUrlAuthenticationFailureHandler(this.switchFailureUrl)
-					: new SimpleUrlAuthenticationFailureHandler();
+		? new SimpleUrlAuthenticationFailureHandler(this.switchFailureUrl)
+		: new SimpleUrlAuthenticationFailureHandler();
 		}
 		else {
 			Assert.isNull(this.switchFailureUrl, "You cannot set both a switchFailureUrl and a failureHandler");
@@ -172,12 +172,12 @@ public class SwitchUserFilter extends GenericFilterBean implements ApplicationEv
 
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
-			throws IOException, ServletException {
+throws IOException, ServletException {
 		doFilter((HttpServletRequest) request, (HttpServletResponse) response, chain);
 	}
 
 	private void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
-			throws IOException, ServletException {
+throws IOException, ServletException {
 		// check for switch or exit request
 		if (requiresSwitchUser(request)) {
 			// if set, attempt switch and store original
@@ -212,7 +212,7 @@ public class SwitchUserFilter extends GenericFilterBean implements ApplicationEv
 			return;
 		}
 		this.logger.trace(LogMessage.format("Did not attempt to switch user since request did not match [%s] or [%s]",
-				this.switchUserMatcher, this.exitUserMatcher));
+	this.switchUserMatcher, this.exitUserMatcher));
 		chain.doFilter(request, response);
 	}
 
@@ -239,7 +239,7 @@ public class SwitchUserFilter extends GenericFilterBean implements ApplicationEv
 		// publish event
 		if (this.eventPublisher != null) {
 			this.eventPublisher.publishEvent(new AuthenticationSwitchUserEvent(
-					this.securityContextHolderStrategy.getContext().getAuthentication(), targetUser));
+		this.securityContextHolderStrategy.getContext().getAuthentication(), targetUser));
 		}
 		return targetUserRequest;
 	}
@@ -253,12 +253,12 @@ public class SwitchUserFilter extends GenericFilterBean implements ApplicationEv
 	 * <code>Authentication</code> associated with this request.
 	 */
 	protected Authentication attemptExitUser(HttpServletRequest request)
-			throws AuthenticationCredentialsNotFoundException {
+throws AuthenticationCredentialsNotFoundException {
 		// need to check to see if the current user has a SwitchUserGrantedAuthority
 		Authentication current = this.securityContextHolderStrategy.getContext().getAuthentication();
 		if (current == null) {
 			throw new AuthenticationCredentialsNotFoundException(this.messages
-					.getMessage("SwitchUserFilter.noCurrentUser", "No current user associated with this request"));
+		.getMessage("SwitchUserFilter.noCurrentUser", "No current user associated with this request"));
 		}
 		// check to see if the current user did actual switch to another user
 		// if so, get the original source user so we can switch back
@@ -266,7 +266,7 @@ public class SwitchUserFilter extends GenericFilterBean implements ApplicationEv
 		if (original == null) {
 			this.logger.debug("Failed to find original user");
 			throw new AuthenticationCredentialsNotFoundException(this.messages
-					.getMessage("SwitchUserFilter.noOriginalAuthentication", "Failed to find original user"));
+		.getMessage("SwitchUserFilter.noOriginalAuthentication", "Failed to find original user"));
 		}
 		// get the source user details
 		UserDetails originalUser = null;
@@ -291,13 +291,13 @@ public class SwitchUserFilter extends GenericFilterBean implements ApplicationEv
 	 * @see SwitchUserGrantedAuthority
 	 */
 	private UsernamePasswordAuthenticationToken createSwitchUserToken(HttpServletRequest request,
-			UserDetails targetUser) {
+UserDetails targetUser) {
 		UsernamePasswordAuthenticationToken targetUserRequest;
 		// grant an additional authority that contains the original Authentication object
 		// which will be used to 'exit' from the current switched user.
 		Authentication currentAuthentication = getCurrentAuthentication(request);
 		GrantedAuthority switchAuthority = new SwitchUserGrantedAuthority(this.switchAuthorityRole,
-				currentAuthentication);
+	currentAuthentication);
 		// get the original authorities
 		Collection<? extends GrantedAuthority> orig = targetUser.getAuthorities();
 		// Allow subclasses to change the authorities to be granted
@@ -309,7 +309,7 @@ public class SwitchUserFilter extends GenericFilterBean implements ApplicationEv
 		newAuths.add(switchAuthority);
 		// create the new authentication token
 		targetUserRequest = UsernamePasswordAuthenticationToken.authenticated(targetUser, targetUser.getPassword(),
-				newAuths);
+	newAuths);
 		// set details
 		targetUserRequest.setDetails(this.authenticationDetailsSource.buildDetails(request));
 		return targetUserRequest;
@@ -378,7 +378,7 @@ public class SwitchUserFilter extends GenericFilterBean implements ApplicationEv
 	}
 
 	public void setAuthenticationDetailsSource(
-			AuthenticationDetailsSource<HttpServletRequest, ?> authenticationDetailsSource) {
+AuthenticationDetailsSource<HttpServletRequest, ?> authenticationDetailsSource) {
 		Assert.notNull(authenticationDetailsSource, "AuthenticationDetailsSource required");
 		this.authenticationDetailsSource = authenticationDetailsSource;
 	}
@@ -405,7 +405,7 @@ public class SwitchUserFilter extends GenericFilterBean implements ApplicationEv
 	 */
 	public void setExitUserUrl(String exitUserUrl) {
 		Assert.isTrue(UrlUtils.isValidRedirectUrl(exitUserUrl),
-				"exitUserUrl cannot be empty and must be a valid redirect URL");
+	"exitUserUrl cannot be empty and must be a valid redirect URL");
 		this.exitUserMatcher = createMatcher(exitUserUrl);
 	}
 
@@ -425,7 +425,7 @@ public class SwitchUserFilter extends GenericFilterBean implements ApplicationEv
 	 */
 	public void setSwitchUserUrl(String switchUserUrl) {
 		Assert.isTrue(UrlUtils.isValidRedirectUrl(switchUserUrl),
-				"switchUserUrl cannot be empty and must be a valid redirect URL");
+	"switchUserUrl cannot be empty and must be a valid redirect URL");
 		this.switchUserMatcher = createMatcher(switchUserUrl);
 	}
 

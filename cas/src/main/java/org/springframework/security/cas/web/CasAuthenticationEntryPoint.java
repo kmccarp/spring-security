@@ -69,7 +69,7 @@ public class CasAuthenticationEntryPoint implements AuthenticationEntryPoint, In
 
 	@Override
 	public final void commence(final HttpServletRequest servletRequest, HttpServletResponse response,
-			AuthenticationException authenticationException) throws IOException {
+AuthenticationException authenticationException) throws IOException {
 		String urlEncodedService = createServiceUrl(servletRequest, response);
 		String redirectUrl = createRedirectUrl(urlEncodedService);
 		preCommence(servletRequest, response);
@@ -86,7 +86,7 @@ public class CasAuthenticationEntryPoint implements AuthenticationEntryPoint, In
 	 */
 	protected String createServiceUrl(HttpServletRequest request, HttpServletResponse response) {
 		return CommonUtils.constructServiceUrl(null, response, this.serviceProperties.getService(), null,
-				this.serviceProperties.getArtifactParameter(), this.encodeServiceUrlWithSessionId);
+	this.serviceProperties.getArtifactParameter(), this.encodeServiceUrlWithSessionId);
 	}
 
 	/**
@@ -97,7 +97,7 @@ public class CasAuthenticationEntryPoint implements AuthenticationEntryPoint, In
 	 */
 	protected String createRedirectUrl(String serviceUrl) {
 		return CommonUtils.constructRedirectUrl(this.loginUrl, this.serviceProperties.getServiceParameter(), serviceUrl,
-				this.serviceProperties.isSendRenew(), false);
+	this.serviceProperties.isSendRenew(), false);
 	}
 
 	/**

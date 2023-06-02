@@ -74,8 +74,8 @@ public class FilterBasedLdapUserSearchTests {
 	@Test
 	public void extraFilterPartToExcludeBob() {
 		FilterBasedLdapUserSearch locator = new FilterBasedLdapUserSearch("ou=people",
-				"(&(cn=*)(!(|(uid={0})(uid=rod)(uid=jerry)(uid=slashguy)(uid=javadude)(uid=groovydude)(uid=closuredude)(uid=scaladude))))",
-				this.contextSource);
+	"(&(cn=*)(!(|(uid={0})(uid=rod)(uid=jerry)(uid=slashguy)(uid=javadude)(uid=groovydude)(uid=closuredude)(uid=scaladude))))",
+	this.contextSource);
 
 		// Search for bob, get back ben...
 		DirContextOperations ben = locator.searchForUser("bob");
@@ -86,7 +86,7 @@ public class FilterBasedLdapUserSearchTests {
 	public void searchFailsOnMultipleMatches() {
 		FilterBasedLdapUserSearch locator = new FilterBasedLdapUserSearch("ou=people", "(cn=*)", this.contextSource);
 		assertThatExceptionOfType(IncorrectResultSizeDataAccessException.class)
-				.isThrownBy(() -> locator.searchForUser("Ignored"));
+	.isThrownBy(() -> locator.searchForUser("Ignored"));
 	}
 
 	@Test
@@ -110,7 +110,7 @@ public class FilterBasedLdapUserSearchTests {
 	@Test
 	public void searchWithDifferentSearchBaseIsSuccessful() {
 		FilterBasedLdapUserSearch locator = new FilterBasedLdapUserSearch("ou=otherpeople", "(cn={0})",
-				this.contextSource);
+	this.contextSource);
 		DirContextOperations joe = locator.searchForUser("Joe Smeth");
 		assertThat(joe.getStringAttribute("cn")).isEqualTo("Joe Smeth");
 	}

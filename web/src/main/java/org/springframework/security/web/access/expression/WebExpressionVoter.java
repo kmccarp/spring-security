@@ -46,18 +46,18 @@ public class WebExpressionVoter implements AccessDecisionVoter<FilterInvocation>
 
 	@Override
 	public int vote(Authentication authentication, FilterInvocation filterInvocation,
-			Collection<ConfigAttribute> attributes) {
+Collection<ConfigAttribute> attributes) {
 		Assert.notNull(authentication, "authentication must not be null");
 		Assert.notNull(filterInvocation, "filterInvocation must not be null");
 		Assert.notNull(attributes, "attributes must not be null");
 		WebExpressionConfigAttribute webExpressionConfigAttribute = findConfigAttribute(attributes);
 		if (webExpressionConfigAttribute == null) {
 			this.logger
-					.trace("Abstained since did not find a config attribute of instance WebExpressionConfigAttribute");
+		.trace("Abstained since did not find a config attribute of instance WebExpressionConfigAttribute");
 			return ACCESS_ABSTAIN;
 		}
 		EvaluationContext ctx = webExpressionConfigAttribute.postProcess(
-				this.expressionHandler.createEvaluationContext(authentication, filterInvocation), filterInvocation);
+	this.expressionHandler.createEvaluationContext(authentication, filterInvocation), filterInvocation);
 		boolean granted = ExpressionUtils.evaluateAsBoolean(webExpressionConfigAttribute.getAuthorizeExpression(), ctx);
 		if (granted) {
 			return ACCESS_GRANTED;

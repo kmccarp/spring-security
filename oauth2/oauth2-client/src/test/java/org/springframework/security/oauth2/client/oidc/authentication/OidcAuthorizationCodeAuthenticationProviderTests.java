@@ -95,7 +95,7 @@ public class OidcAuthorizationCodeAuthenticationProviderTests {
 	private OidcAuthorizationCodeAuthenticationProvider authenticationProvider;
 
 	private StringKeyGenerator secureKeyGenerator = new Base64StringKeyGenerator(
-			Base64.getUrlEncoder().withoutPadding(), 96);
+Base64.getUrlEncoder().withoutPadding(), 96);
 
 	private String nonceHash;
 
@@ -115,33 +115,33 @@ public class OidcAuthorizationCodeAuthenticationProviderTests {
 		}
 		// @formatter:off
 		this.authorizationRequest = TestOAuth2AuthorizationRequests.request()
-				.scope("openid", "profile", "email")
-				.attributes(attributes)
-				.additionalParameters(additionalParameters)
-				.build();
+	.scope("openid", "profile", "email")
+	.attributes(attributes)
+	.additionalParameters(additionalParameters)
+	.build();
 		this.authorizationResponse = TestOAuth2AuthorizationResponses.success()
-				.build();
+	.build();
 		// @formatter:on
 		this.authorizationExchange = new OAuth2AuthorizationExchange(this.authorizationRequest,
-				this.authorizationResponse);
+	this.authorizationResponse);
 		this.accessTokenResponseClient = mock(OAuth2AccessTokenResponseClient.class);
 		this.accessTokenResponse = this.accessTokenSuccessResponse();
 		this.userService = mock(OAuth2UserService.class);
 		this.authenticationProvider = new OidcAuthorizationCodeAuthenticationProvider(this.accessTokenResponseClient,
-				this.userService);
+	this.userService);
 		given(this.accessTokenResponseClient.getTokenResponse(any())).willReturn(this.accessTokenResponse);
 	}
 
 	@Test
 	public void constructorWhenAccessTokenResponseClientIsNullThenThrowIllegalArgumentException() {
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new OidcAuthorizationCodeAuthenticationProvider(null, this.userService));
+	.isThrownBy(() -> new OidcAuthorizationCodeAuthenticationProvider(null, this.userService));
 	}
 
 	@Test
 	public void constructorWhenUserServiceIsNullThenThrowIllegalArgumentException() {
 		assertThatIllegalArgumentException().isThrownBy(
-				() -> new OidcAuthorizationCodeAuthenticationProvider(this.accessTokenResponseClient, null));
+	() -> new OidcAuthorizationCodeAuthenticationProvider(this.accessTokenResponseClient, null));
 	}
 
 	@Test
@@ -163,13 +163,13 @@ public class OidcAuthorizationCodeAuthenticationProviderTests {
 	public void authenticateWhenAuthorizationRequestDoesNotContainOpenidScopeThenReturnNull() {
 		// @formatter:off
 		OAuth2AuthorizationRequest authorizationRequest = TestOAuth2AuthorizationRequests.request()
-				.scope("scope1")
-				.build();
+	.scope("scope1")
+	.build();
 		// @formatter:on
 		OAuth2AuthorizationExchange authorizationExchange = new OAuth2AuthorizationExchange(authorizationRequest,
-				this.authorizationResponse);
+	this.authorizationResponse);
 		OAuth2LoginAuthenticationToken authentication = (OAuth2LoginAuthenticationToken) this.authenticationProvider
-				.authenticate(new OAuth2LoginAuthenticationToken(this.clientRegistration, authorizationExchange));
+	.authenticate(new OAuth2LoginAuthenticationToken(this.clientRegistration, authorizationExchange));
 		assertThat(authentication).isNull();
 	}
 
@@ -177,58 +177,58 @@ public class OidcAuthorizationCodeAuthenticationProviderTests {
 	public void authenticateWhenAuthorizationErrorResponseThenThrowOAuth2AuthenticationException() {
 		// @formatter:off
 		OAuth2AuthorizationResponse authorizationResponse = TestOAuth2AuthorizationResponses.error()
-				.errorCode(OAuth2ErrorCodes.INVALID_SCOPE)
-				.build();
+	.errorCode(OAuth2ErrorCodes.INVALID_SCOPE)
+	.build();
 		// @formatter:on
 		OAuth2AuthorizationExchange authorizationExchange = new OAuth2AuthorizationExchange(this.authorizationRequest,
-				authorizationResponse);
+	authorizationResponse);
 		assertThatExceptionOfType(OAuth2AuthenticationException.class)
-				.isThrownBy(() -> this.authenticationProvider.authenticate(
-						new OAuth2LoginAuthenticationToken(this.clientRegistration, authorizationExchange)))
-				.withMessageContaining(OAuth2ErrorCodes.INVALID_SCOPE);
+	.isThrownBy(() -> this.authenticationProvider.authenticate(
+new OAuth2LoginAuthenticationToken(this.clientRegistration, authorizationExchange)))
+	.withMessageContaining(OAuth2ErrorCodes.INVALID_SCOPE);
 	}
 
 	@Test
 	public void authenticateWhenAuthorizationResponseStateNotEqualAuthorizationRequestStateThenThrowOAuth2AuthenticationException() {
 		// @formatter:off
 		OAuth2AuthorizationResponse authorizationResponse = TestOAuth2AuthorizationResponses.success()
-				.state("89012")
-				.build();
+	.state("89012")
+	.build();
 		// @formatter:on
 		OAuth2AuthorizationExchange authorizationExchange = new OAuth2AuthorizationExchange(this.authorizationRequest,
-				authorizationResponse);
+	authorizationResponse);
 		assertThatExceptionOfType(OAuth2AuthenticationException.class)
-				.isThrownBy(() -> this.authenticationProvider.authenticate(
-						new OAuth2LoginAuthenticationToken(this.clientRegistration, authorizationExchange)))
-				.withMessageContaining("invalid_state_parameter");
+	.isThrownBy(() -> this.authenticationProvider.authenticate(
+new OAuth2LoginAuthenticationToken(this.clientRegistration, authorizationExchange)))
+	.withMessageContaining("invalid_state_parameter");
 	}
 
 	@Test
 	public void authenticateWhenTokenResponseDoesNotContainIdTokenThenThrowOAuth2AuthenticationException() {
 		// @formatter:off
 		OAuth2AccessTokenResponse accessTokenResponse = OAuth2AccessTokenResponse
-				.withResponse(this.accessTokenSuccessResponse())
-				.additionalParameters(Collections.emptyMap())
-				.build();
+	.withResponse(this.accessTokenSuccessResponse())
+	.additionalParameters(Collections.emptyMap())
+	.build();
 		// @formatter:on
 		given(this.accessTokenResponseClient.getTokenResponse(any())).willReturn(accessTokenResponse);
 		assertThatExceptionOfType(OAuth2AuthenticationException.class)
-				.isThrownBy(() -> this.authenticationProvider.authenticate(
-						new OAuth2LoginAuthenticationToken(this.clientRegistration, this.authorizationExchange)))
-				.withMessageContaining("invalid_id_token");
+	.isThrownBy(() -> this.authenticationProvider.authenticate(
+new OAuth2LoginAuthenticationToken(this.clientRegistration, this.authorizationExchange)))
+	.withMessageContaining("invalid_id_token");
 	}
 
 	@Test
 	public void authenticateWhenJwkSetUriNotSetThenThrowOAuth2AuthenticationException() {
 		// @formatter:off
 		ClientRegistration clientRegistration = TestClientRegistrations.clientRegistration()
-				.jwkSetUri(null)
-				.build();
+	.jwkSetUri(null)
+	.build();
 		// @formatter:on
 		assertThatExceptionOfType(OAuth2AuthenticationException.class)
-				.isThrownBy(() -> this.authenticationProvider.authenticate(
-						new OAuth2LoginAuthenticationToken(clientRegistration, this.authorizationExchange)))
-				.withMessageContaining("missing_signature_verifier");
+	.isThrownBy(() -> this.authenticationProvider.authenticate(
+new OAuth2LoginAuthenticationToken(clientRegistration, this.authorizationExchange)))
+	.withMessageContaining("missing_signature_verifier");
 	}
 
 	@Test
@@ -237,9 +237,9 @@ public class OidcAuthorizationCodeAuthenticationProviderTests {
 		given(jwtDecoder.decode(anyString())).willThrow(new JwtException("ID Token Validation Error"));
 		this.authenticationProvider.setJwtDecoderFactory((registration) -> jwtDecoder);
 		assertThatExceptionOfType(OAuth2AuthenticationException.class)
-				.isThrownBy(() -> this.authenticationProvider.authenticate(
-						new OAuth2LoginAuthenticationToken(this.clientRegistration, this.authorizationExchange)))
-				.withMessageContaining("[invalid_id_token] ID Token Validation Error");
+	.isThrownBy(() -> this.authenticationProvider.authenticate(
+new OAuth2LoginAuthenticationToken(this.clientRegistration, this.authorizationExchange)))
+	.withMessageContaining("[invalid_id_token] ID Token Validation Error");
 	}
 
 	@Test
@@ -252,9 +252,9 @@ public class OidcAuthorizationCodeAuthenticationProviderTests {
 		claims.put(IdTokenClaimNames.NONCE, "invalid-nonce-hash");
 		this.setUpIdToken(claims);
 		assertThatExceptionOfType(OAuth2AuthenticationException.class)
-				.isThrownBy(() -> this.authenticationProvider.authenticate(
-						new OAuth2LoginAuthenticationToken(this.clientRegistration, this.authorizationExchange)))
-				.withMessageContaining("[invalid_nonce]");
+	.isThrownBy(() -> this.authenticationProvider.authenticate(
+new OAuth2LoginAuthenticationToken(this.clientRegistration, this.authorizationExchange)))
+	.withMessageContaining("[invalid_nonce]");
 	}
 
 	@Test
@@ -271,7 +271,7 @@ public class OidcAuthorizationCodeAuthenticationProviderTests {
 		given(principal.getAuthorities()).willAnswer((Answer<List<GrantedAuthority>>) (invocation) -> authorities);
 		given(this.userService.loadUser(any())).willReturn(principal);
 		OAuth2LoginAuthenticationToken authentication = (OAuth2LoginAuthenticationToken) this.authenticationProvider
-				.authenticate(new OAuth2LoginAuthenticationToken(this.clientRegistration, this.authorizationExchange));
+	.authenticate(new OAuth2LoginAuthenticationToken(this.clientRegistration, this.authorizationExchange));
 		assertThat(authentication.isAuthenticated()).isTrue();
 		assertThat(authentication.getPrincipal()).isEqualTo(principal);
 		assertThat(authentication.getCredentials()).isEqualTo("");
@@ -298,10 +298,10 @@ public class OidcAuthorizationCodeAuthenticationProviderTests {
 		List<GrantedAuthority> mappedAuthorities = AuthorityUtils.createAuthorityList("ROLE_OIDC_USER");
 		GrantedAuthoritiesMapper authoritiesMapper = mock(GrantedAuthoritiesMapper.class);
 		given(authoritiesMapper.mapAuthorities(anyCollection()))
-				.willAnswer((Answer<List<GrantedAuthority>>) (invocation) -> mappedAuthorities);
+	.willAnswer((Answer<List<GrantedAuthority>>) (invocation) -> mappedAuthorities);
 		this.authenticationProvider.setAuthoritiesMapper(authoritiesMapper);
 		OAuth2LoginAuthenticationToken authentication = (OAuth2LoginAuthenticationToken) this.authenticationProvider
-				.authenticate(new OAuth2LoginAuthenticationToken(this.clientRegistration, this.authorizationExchange));
+	.authenticate(new OAuth2LoginAuthenticationToken(this.clientRegistration, this.authorizationExchange));
 		assertThat(authentication.getAuthorities()).isEqualTo(mappedAuthorities);
 	}
 
@@ -321,9 +321,9 @@ public class OidcAuthorizationCodeAuthenticationProviderTests {
 		ArgumentCaptor<OidcUserRequest> userRequestArgCaptor = ArgumentCaptor.forClass(OidcUserRequest.class);
 		given(this.userService.loadUser(userRequestArgCaptor.capture())).willReturn(principal);
 		this.authenticationProvider
-				.authenticate(new OAuth2LoginAuthenticationToken(this.clientRegistration, this.authorizationExchange));
+	.authenticate(new OAuth2LoginAuthenticationToken(this.clientRegistration, this.authorizationExchange));
 		assertThat(userRequestArgCaptor.getValue().getAdditionalParameters())
-				.containsAllEntriesOf(this.accessTokenResponse.getAdditionalParameters());
+	.containsAllEntriesOf(this.accessTokenResponse.getAdditionalParameters());
 	}
 
 	private void setUpIdToken(Map<String, Object> claims) {
@@ -342,12 +342,12 @@ public class OidcAuthorizationCodeAuthenticationProviderTests {
 		additionalParameters.put(OidcParameterNames.ID_TOKEN, "id-token");
 		// @formatter:off
 		return OAuth2AccessTokenResponse.withToken("access-token-1234")
-				.tokenType(OAuth2AccessToken.TokenType.BEARER)
-				.expiresIn(expiresAt.getEpochSecond())
-				.scopes(scopes)
-				.refreshToken("refresh-token-1234")
-				.additionalParameters(additionalParameters)
-				.build();
+	.tokenType(OAuth2AccessToken.TokenType.BEARER)
+	.expiresIn(expiresAt.getEpochSecond())
+	.scopes(scopes)
+	.refreshToken("refresh-token-1234")
+	.additionalParameters(additionalParameters)
+	.build();
 		// @formatter:on
 	}
 

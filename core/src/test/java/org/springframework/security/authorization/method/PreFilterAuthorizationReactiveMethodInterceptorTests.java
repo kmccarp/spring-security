@@ -47,14 +47,14 @@ public class PreFilterAuthorizationReactiveMethodInterceptorTests {
 	public void setExpressionHandlerWhenNotNullThenSetsExpressionHandler() {
 		MethodSecurityExpressionHandler expressionHandler = new DefaultMethodSecurityExpressionHandler();
 		PreFilterAuthorizationReactiveMethodInterceptor interceptor = new PreFilterAuthorizationReactiveMethodInterceptor(
-				expressionHandler);
+	expressionHandler);
 		assertThat(interceptor).extracting("registry").extracting("expressionHandler").isEqualTo(expressionHandler);
 	}
 
 	@Test
 	public void setExpressionHandlerWhenNullThenException() {
 		assertThatIllegalArgumentException().isThrownBy(() -> new PreFilterAuthorizationReactiveMethodInterceptor(null))
-				.withMessage("expressionHandler cannot be null");
+	.withMessage("expressionHandler cannot be null");
 	}
 
 	@Test
@@ -69,47 +69,47 @@ public class PreFilterAuthorizationReactiveMethodInterceptorTests {
 	public void setParameterNameDiscovererWhenNullThenException() {
 		PreFilterAuthorizationReactiveMethodInterceptor interceptor = new PreFilterAuthorizationReactiveMethodInterceptor();
 		assertThatIllegalArgumentException().isThrownBy(() -> interceptor.setParameterNameDiscoverer(null))
-				.withMessage("parameterNameDiscoverer cannot be null");
+	.withMessage("parameterNameDiscoverer cannot be null");
 	}
 
 	@Test
 	public void methodMatcherWhenMethodHasNotPreFilterAnnotationThenNotMatches() throws Exception {
 		PreFilterAuthorizationReactiveMethodInterceptor interceptor = new PreFilterAuthorizationReactiveMethodInterceptor();
 		assertThat(interceptor.getPointcut().getMethodMatcher().matches(NoPreFilterClass.class.getMethod("doSomething"),
-				NoPreFilterClass.class)).isFalse();
+	NoPreFilterClass.class)).isFalse();
 	}
 
 	@Test
 	public void methodMatcherWhenMethodHasPreFilterAnnotationThenMatches() throws Exception {
 		PreFilterAuthorizationReactiveMethodInterceptor interceptor = new PreFilterAuthorizationReactiveMethodInterceptor();
 		assertThat(interceptor.getPointcut().getMethodMatcher()
-				.matches(TestClass.class.getMethod("doSomethingFluxFilterTargetMatch", Flux.class), TestClass.class))
-						.isTrue();
+	.matches(TestClass.class.getMethod("doSomethingFluxFilterTargetMatch", Flux.class), TestClass.class))
+	.isTrue();
 	}
 
 	@Test
 	public void findFilterTargetWhenNameProvidedAndNotMatchThenException() throws Exception {
 		MockMethodInvocation methodInvocation = new MockMethodInvocation(new TestClass(), TestClass.class,
-				"doSomethingFluxFilterTargetNotMatch", new Class[] { Flux.class }, new Object[] { Flux.empty() });
+	"doSomethingFluxFilterTargetNotMatch", new Class[]{Flux.class}, new Object[]{Flux.empty()});
 		PreFilterAuthorizationReactiveMethodInterceptor interceptor = new PreFilterAuthorizationReactiveMethodInterceptor();
 		assertThatIllegalArgumentException().isThrownBy(() -> interceptor.invoke(methodInvocation)).withMessage(
-				"Filter target was null, or no argument with name 'filterTargetNotMatch' found in method.");
+	"Filter target was null, or no argument with name 'filterTargetNotMatch' found in method.");
 	}
 
 	@Test
 	public void findFilterTargetWhenNameProvidedAndMatchAndNullThenException() throws Exception {
 		MockMethodInvocation methodInvocation = new MockMethodInvocation(new TestClass(), TestClass.class,
-				"doSomethingFluxFilterTargetMatch", new Class[] { Flux.class }, new Object[] { null });
+	"doSomethingFluxFilterTargetMatch", new Class[]{Flux.class}, new Object[]{null});
 		PreFilterAuthorizationReactiveMethodInterceptor interceptor = new PreFilterAuthorizationReactiveMethodInterceptor();
 		assertThatIllegalArgumentException().isThrownBy(() -> interceptor.invoke(methodInvocation))
-				.withMessage("Filter target was null, or no argument with name 'flux' found in method.");
+	.withMessage("Filter target was null, or no argument with name 'flux' found in method.");
 	}
 
 	@Test
 	public void findFilterTargetWhenNameNotProvidedAndSingleArgMonoThenFiltersMono() throws Throwable {
 		MockMethodInvocation methodInvocation = new MockMethodInvocation(new TestClass(), TestClass.class,
-				"doSomethingMonoFilterTargetNotProvided", new Class[] { Mono.class },
-				new Object[] { Mono.just("bob") }) {
+	"doSomethingMonoFilterTargetNotProvided", new Class[]{Mono.class},
+	new Object[]{Mono.just("bob")}) {
 			@Override
 			public Object proceed() {
 				return getArguments()[0];
@@ -123,8 +123,8 @@ public class PreFilterAuthorizationReactiveMethodInterceptorTests {
 	@Test
 	public void findFilterTargetWhenNameNotProvidedAndSingleArgFluxThenFiltersFlux() throws Throwable {
 		MockMethodInvocation methodInvocation = new MockMethodInvocation(new TestClass(), TestClass.class,
-				"doSomethingFluxFilterTargetNotProvided", new Class[] { Flux.class },
-				new Object[] { Flux.just("john", "bob") }) {
+	"doSomethingFluxFilterTargetNotProvided", new Class[]{Flux.class},
+	new Object[]{Flux.just("john", "bob")}) {
 			@Override
 			public Object proceed() {
 				return getArguments()[0];
@@ -133,25 +133,25 @@ public class PreFilterAuthorizationReactiveMethodInterceptorTests {
 		PreFilterAuthorizationReactiveMethodInterceptor interceptor = new PreFilterAuthorizationReactiveMethodInterceptor();
 		Object result = interceptor.invoke(methodInvocation);
 		assertThat(result).asInstanceOf(InstanceOfAssertFactories.type(Flux.class)).extracting(Flux::collectList)
-				.extracting(Mono::block, InstanceOfAssertFactories.list(String.class)).containsOnly("john");
+	.extracting(Mono::block, InstanceOfAssertFactories.list(String.class)).containsOnly("john");
 	}
 
 	@Test
 	public void checkInheritedAnnotationsWhenDuplicatedThenAnnotationConfigurationException() throws Exception {
 		MockMethodInvocation methodInvocation = new MockMethodInvocation(new TestClass(), TestClass.class,
-				"inheritedAnnotations");
+	"inheritedAnnotations");
 		PreFilterAuthorizationReactiveMethodInterceptor interceptor = new PreFilterAuthorizationReactiveMethodInterceptor();
 		assertThatExceptionOfType(AnnotationConfigurationException.class)
-				.isThrownBy(() -> interceptor.invoke(methodInvocation));
+	.isThrownBy(() -> interceptor.invoke(methodInvocation));
 	}
 
 	@Test
 	public void checkInheritedAnnotationsWhenConflictingThenAnnotationConfigurationException() throws Exception {
 		MockMethodInvocation methodInvocation = new MockMethodInvocation(new ConflictingAnnotations(),
-				ConflictingAnnotations.class, "inheritedAnnotations");
+	ConflictingAnnotations.class, "inheritedAnnotations");
 		PreFilterAuthorizationReactiveMethodInterceptor interceptor = new PreFilterAuthorizationReactiveMethodInterceptor();
 		assertThatExceptionOfType(AnnotationConfigurationException.class)
-				.isThrownBy(() -> interceptor.invoke(methodInvocation));
+	.isThrownBy(() -> interceptor.invoke(methodInvocation));
 	}
 
 	@PreFilter("filterObject == 'john'")

@@ -122,7 +122,7 @@ public class SessionRegistryImplTests {
 		assertThat(retrieved.after(currentDateTime)).isTrue();
 		// Check it retrieves correctly when looked up via principal
 		assertThat(this.sessionRegistry.getAllSessions(principal, false).get(0).getLastRequest()).isCloseTo(retrieved,
-				2000L);
+	2000L);
 		// Clear session information
 		this.sessionRegistry.removeSessionInformation(sessionId);
 		// Check attempts to retrieve cleared session return null

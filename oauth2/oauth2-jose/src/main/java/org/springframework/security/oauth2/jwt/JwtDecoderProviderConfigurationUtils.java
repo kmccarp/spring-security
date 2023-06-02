@@ -87,7 +87,7 @@ final class JwtDecoderProviderConfigurationUtils {
 	static void validateIssuer(Map<String, Object> configuration, String issuer) {
 		String metadataIssuer = getMetadataIssuer(configuration);
 		Assert.state(issuer.equals(metadataIssuer), () -> "The Issuer \"" + metadataIssuer
-				+ "\" provided in the configuration did not " + "match the requested issuer \"" + issuer + "\"");
+	+ "\" provided in the configuration did not " + "match the requested issuer \"" + issuer + "\"");
 	}
 
 	static <C extends SecurityContext> void addJWSAlgorithms(ConfigurableJWTProcessor<C> jwtProcessor) {
@@ -102,7 +102,7 @@ final class JwtDecoderProviderConfigurationUtils {
 
 	static <C extends SecurityContext> Set<JWSAlgorithm> getJWSAlgorithms(JWKSource<C> jwkSource) {
 		JWKMatcher jwkMatcher = new JWKMatcher.Builder().publicOnly(true).keyUses(KeyUse.SIGNATURE, null)
-				.keyTypes(KeyType.RSA, KeyType.EC).build();
+	.keyTypes(KeyType.RSA, KeyType.EC).build();
 		Set<JWSAlgorithm> jwsAlgorithms = new HashSet<>();
 		try {
 			List<? extends JWK> jwks = jwkSource.get(new JWKSelector(jwkMatcher), null);
@@ -162,7 +162,7 @@ final class JwtDecoderProviderConfigurationUtils {
 			}
 			catch (RuntimeException ex) {
 				if (!(ex instanceof HttpClientErrorException
-						&& ((HttpClientErrorException) ex).getStatusCode().is4xxClientError())) {
+			&& ((HttpClientErrorException) ex).getStatusCode().is4xxClientError())) {
 					throw new IllegalArgumentException(errorMessage, ex);
 				}
 				// else try another endpoint
@@ -174,24 +174,24 @@ final class JwtDecoderProviderConfigurationUtils {
 	private static URI oidc(URI issuer) {
 		// @formatter:off
 		return UriComponentsBuilder.fromUri(issuer)
-				.replacePath(issuer.getPath() + OIDC_METADATA_PATH)
-				.build(Collections.emptyMap());
+	.replacePath(issuer.getPath() + OIDC_METADATA_PATH)
+	.build(Collections.emptyMap());
 		// @formatter:on
 	}
 
 	private static URI oidcRfc8414(URI issuer) {
 		// @formatter:off
 		return UriComponentsBuilder.fromUri(issuer)
-				.replacePath(OIDC_METADATA_PATH + issuer.getPath())
-				.build(Collections.emptyMap());
+	.replacePath(OIDC_METADATA_PATH + issuer.getPath())
+	.build(Collections.emptyMap());
 		// @formatter:on
 	}
 
 	private static URI oauth(URI issuer) {
 		// @formatter:off
 		return UriComponentsBuilder.fromUri(issuer)
-				.replacePath(OAUTH_METADATA_PATH + issuer.getPath())
-				.build(Collections.emptyMap());
+	.replacePath(OAUTH_METADATA_PATH + issuer.getPath())
+	.build(Collections.emptyMap());
 		// @formatter:on
 	}
 

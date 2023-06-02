@@ -43,9 +43,7 @@ import org.springframework.util.Assert;
  * @author Ruud Senden
  * @since 2.0
  */
-public class J2eeBasedPreAuthenticatedWebAuthenticationDetailsSource implements
-		AuthenticationDetailsSource<HttpServletRequest, PreAuthenticatedGrantedAuthoritiesWebAuthenticationDetails>,
-		InitializingBean {
+public class J2eeBasedPreAuthenticatedWebAuthenticationDetailsSource implementsAuthenticationDetailsSource<HttpServletRequest, PreAuthenticatedGrantedAuthoritiesWebAuthenticationDetails>,InitializingBean {
 
 	protected final Log logger = LogFactory.getLog(getClass());
 
@@ -93,10 +91,10 @@ public class J2eeBasedPreAuthenticatedWebAuthenticationDetailsSource implements
 	public PreAuthenticatedGrantedAuthoritiesWebAuthenticationDetails buildDetails(HttpServletRequest context) {
 		Collection<String> j2eeUserRoles = getUserRoles(context);
 		Collection<? extends GrantedAuthority> userGrantedAuthorities = this.j2eeUserRoles2GrantedAuthoritiesMapper
-				.getGrantedAuthorities(j2eeUserRoles);
+	.getGrantedAuthorities(j2eeUserRoles);
 		if (this.logger.isDebugEnabled()) {
 			this.logger.debug(LogMessage.format("J2EE roles [%s] mapped to Granted Authorities: [%s]", j2eeUserRoles,
-					userGrantedAuthorities));
+		userGrantedAuthorities));
 		}
 		return new PreAuthenticatedGrantedAuthoritiesWebAuthenticationDetails(context, userGrantedAuthorities);
 	}

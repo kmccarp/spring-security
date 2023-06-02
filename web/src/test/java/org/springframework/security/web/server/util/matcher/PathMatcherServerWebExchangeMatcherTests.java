@@ -69,13 +69,13 @@ public class PathMatcherServerWebExchangeMatcherTests {
 	@Test
 	public void constructorPatternWhenPatternNullThenThrowsException() {
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new PathPatternParserServerWebExchangeMatcher((PathPattern) null));
+	.isThrownBy(() -> new PathPatternParserServerWebExchangeMatcher((PathPattern) null));
 	}
 
 	@Test
 	public void constructorPatternAndMethodWhenPatternNullThenThrowsException() {
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new PathPatternParserServerWebExchangeMatcher((PathPattern) null, HttpMethod.GET));
+	.isThrownBy(() -> new PathPatternParserServerWebExchangeMatcher((PathPattern) null, HttpMethod.GET));
 	}
 
 	@Test
@@ -95,7 +95,7 @@ public class PathMatcherServerWebExchangeMatcherTests {
 	@Test
 	public void matchesWhenPathMatcherTrueAndMethodTrueThenReturnTrue() {
 		this.matcher = new PathPatternParserServerWebExchangeMatcher(this.pattern,
-				this.exchange.getRequest().getMethod());
+	this.exchange.getRequest().getMethod());
 		given(this.pattern.matches(any())).willReturn(true);
 		given(this.pattern.matchAndExtract(any())).willReturn(this.pathMatchInfo);
 		given(this.pathMatchInfo.getUriVariables()).willReturn(new HashMap<>());

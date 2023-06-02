@@ -31,7 +31,7 @@ public class PersonContextMapper implements UserDetailsContextMapper {
 
 	@Override
 	public UserDetails mapUserFromContext(DirContextOperations ctx, String username,
-			Collection<? extends GrantedAuthority> authorities) {
+Collection<? extends GrantedAuthority> authorities) {
 		Person.Essence p = new Person.Essence(ctx);
 		p.setUsername(username);
 		p.setAuthorities(authorities);

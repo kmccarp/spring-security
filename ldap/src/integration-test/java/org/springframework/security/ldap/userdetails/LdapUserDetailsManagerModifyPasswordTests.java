@@ -63,7 +63,7 @@ public class LdapUserDetailsManagerModifyPasswordTests {
 	@WithMockUser(username = "bob", password = "bobspassword", authorities = "ROLE_USER")
 	public void changePasswordWhenOldPasswordIsIncorrectThenThrowsException() {
 		assertThatExceptionOfType(BadCredentialsException.class)
-				.isThrownBy(() -> this.userDetailsManager.changePassword("wrongoldpassword", "bobsnewpassword"));
+	.isThrownBy(() -> this.userDetailsManager.changePassword("wrongoldpassword", "bobsnewpassword"));
 	}
 
 	@Test
@@ -72,18 +72,18 @@ public class LdapUserDetailsManagerModifyPasswordTests {
 		SpringSecurityLdapTemplate template = new SpringSecurityLdapTemplate(this.contextSource);
 
 		this.userDetailsManager.changePassword("bobspassword",
-				"bobsshinynewandformidablylongandnearlyimpossibletorememberthoughdemonstrablyhardtocrackduetoitshighlevelofentropypasswordofjustice");
+	"bobsshinynewandformidablylongandnearlyimpossibletorememberthoughdemonstrablyhardtocrackduetoitshighlevelofentropypasswordofjustice");
 
 		assertThat(template.compare("uid=bob,ou=people", "userPassword",
-				"bobsshinynewandformidablylongandnearlyimpossibletorememberthoughdemonstrablyhardtocrackduetoitshighlevelofentropypasswordofjustice"))
-						.isTrue();
+	"bobsshinynewandformidablylongandnearlyimpossibletorememberthoughdemonstrablyhardtocrackduetoitshighlevelofentropypasswordofjustice"))
+	.isTrue();
 	}
 
 	@Configuration
 	static class UnboundIdContainerConfiguration implements DisposableBean {
 
 		private UnboundIdContainer container = new UnboundIdContainer("dc=springframework,dc=org",
-				"classpath:test-server.ldif");
+	"classpath:test-server.ldif");
 
 		@Bean
 		UnboundIdContainer ldapContainer() {
@@ -94,7 +94,7 @@ public class LdapUserDetailsManagerModifyPasswordTests {
 		@Bean
 		ContextSource contextSource(UnboundIdContainer container) {
 			return new DefaultSpringSecurityContextSource(
-					"ldap://127.0.0.1:" + container.getPort() + "/dc=springframework,dc=org");
+		"ldap://127.0.0.1:" + container.getPort() + "/dc=springframework,dc=org");
 		}
 
 		@Override

@@ -82,22 +82,22 @@ public final class DefaultAddressStandardClaim implements AddressStandardClaim {
 		}
 		AddressStandardClaim other = (AddressStandardClaim) obj;
 		if ((this.getFormatted() != null) ? !this.getFormatted().equals(other.getFormatted())
-				: other.getFormatted() != null) {
+	: other.getFormatted() != null) {
 			return false;
 		}
 		if ((this.getStreetAddress() != null) ? !this.getStreetAddress().equals(other.getStreetAddress())
-				: other.getStreetAddress() != null) {
+	: other.getStreetAddress() != null) {
 			return false;
 		}
 		if ((this.getLocality() != null) ? !this.getLocality().equals(other.getLocality())
-				: other.getLocality() != null) {
+	: other.getLocality() != null) {
 			return false;
 		}
 		if ((this.getRegion() != null) ? !this.getRegion().equals(other.getRegion()) : other.getRegion() != null) {
 			return false;
 		}
 		if ((this.getPostalCode() != null) ? !this.getPostalCode().equals(other.getPostalCode())
-				: other.getPostalCode() != null) {
+	: other.getPostalCode() != null) {
 			return false;
 		}
 		return (this.getCountry() != null) ? this.getCountry().equals(other.getCountry()) : other.getCountry() == null;

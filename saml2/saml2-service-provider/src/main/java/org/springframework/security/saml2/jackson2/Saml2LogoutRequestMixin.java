@@ -53,9 +53,9 @@ class Saml2LogoutRequestMixin {
 
 	@JsonCreator
 	Saml2LogoutRequestMixin(@JsonProperty("location") String location,
-			@JsonProperty("relayState") Saml2MessageBinding relayState,
-			@JsonProperty("parameters") Map<String, String> parameters, @JsonProperty("id") String id,
-			@JsonProperty("relyingPartyRegistrationId") String relyingPartyRegistrationId) {
+@JsonProperty("relayState") Saml2MessageBinding relayState,
+@JsonProperty("parameters") Map<String, String> parameters, @JsonProperty("id") String id,
+@JsonProperty("relyingPartyRegistrationId") String relyingPartyRegistrationId) {
 	}
 
 }

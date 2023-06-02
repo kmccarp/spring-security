@@ -48,12 +48,12 @@ public final class CsrfChannelInterceptor implements ChannelInterceptor {
 		}
 		Map<String, Object> sessionAttributes = SimpMessageHeaderAccessor.getSessionAttributes(message.getHeaders());
 		CsrfToken expectedToken = (sessionAttributes != null)
-				? (CsrfToken) sessionAttributes.get(CsrfToken.class.getName()) : null;
+	? (CsrfToken) sessionAttributes.get(CsrfToken.class.getName()) : null;
 		if (expectedToken == null) {
 			throw new MissingCsrfTokenException(null);
 		}
 		String actualTokenValue = SimpMessageHeaderAccessor.wrap(message)
-				.getFirstNativeHeader(expectedToken.getHeaderName());
+	.getFirstNativeHeader(expectedToken.getHeaderName());
 		boolean csrfCheckPassed = expectedToken.getToken().equals(actualTokenValue);
 		if (!csrfCheckPassed) {
 			throw new InvalidCsrfTokenException(expectedToken, actualTokenValue);

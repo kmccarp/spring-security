@@ -66,13 +66,12 @@ public class Saml2WebSsoAuthenticationFilter extends AbstractAuthenticationProce
 	 * variable. Required.
 	 */
 	public Saml2WebSsoAuthenticationFilter(RelyingPartyRegistrationRepository relyingPartyRegistrationRepository,
-			String filterProcessesUrl) {
+String filterProcessesUrl) {
 		this(new Saml2AuthenticationTokenConverter(
-				(RelyingPartyRegistrationResolver) new DefaultRelyingPartyRegistrationResolver(
-						relyingPartyRegistrationRepository)),
-				filterProcessesUrl);
+(RelyingPartyRegistrationResolver) new DefaultRelyingPartyRegistrationResolver(relyingPartyRegistrationRepository)),
+	filterProcessesUrl);
 		Assert.isTrue(filterProcessesUrl.contains("{registrationId}"),
-				"filterProcessesUrl must contain a {registrationId} match variable");
+	"filterProcessesUrl must contain a {registrationId} match variable");
 	}
 
 	/**
@@ -98,11 +97,11 @@ public class Saml2WebSsoAuthenticationFilter extends AbstractAuthenticationProce
 
 	@Override
 	public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
-			throws AuthenticationException {
+throws AuthenticationException {
 		Authentication authentication = this.authenticationConverter.convert(request);
 		if (authentication == null) {
 			Saml2Error saml2Error = new Saml2Error(Saml2ErrorCodes.RELYING_PARTY_REGISTRATION_NOT_FOUND,
-					"No relying party registration found");
+		"No relying party registration found");
 			throw new Saml2AuthenticationException(saml2Error);
 		}
 		setDetails(request, authentication);
@@ -121,14 +120,14 @@ public class Saml2WebSsoAuthenticationFilter extends AbstractAuthenticationProce
 	 * @since 5.6
 	 */
 	public void setAuthenticationRequestRepository(
-			Saml2AuthenticationRequestRepository<AbstractSaml2AuthenticationRequest> authenticationRequestRepository) {
+Saml2AuthenticationRequestRepository<AbstractSaml2AuthenticationRequest> authenticationRequestRepository) {
 		Assert.notNull(authenticationRequestRepository, "authenticationRequestRepository cannot be null");
 		this.authenticationRequestRepository = authenticationRequestRepository;
 		setAuthenticationRequestRepositoryIntoAuthenticationConverter(authenticationRequestRepository);
 	}
 
 	private void setAuthenticationRequestRepositoryIntoAuthenticationConverter(
-			Saml2AuthenticationRequestRepository<AbstractSaml2AuthenticationRequest> authenticationRequestRepository) {
+Saml2AuthenticationRequestRepository<AbstractSaml2AuthenticationRequest> authenticationRequestRepository) {
 		if (this.authenticationConverter instanceof Saml2AuthenticationTokenConverter) {
 			Saml2AuthenticationTokenConverter authenticationTokenConverter = (Saml2AuthenticationTokenConverter) this.authenticationConverter;
 			authenticationTokenConverter.setAuthenticationRequestRepository(authenticationRequestRepository);

@@ -30,13 +30,13 @@ public class Base64Tests {
 
 	@Test
 	public void isBase64ReturnsTrueForValidBase64() {
-		assertThat(Base64.isBase64(new byte[] { (byte) 'A', (byte) 'B', (byte) 'C', (byte) 'D' })).isTrue();
+		assertThat(Base64.isBase64(new byte[]{(byte) 'A', (byte) 'B', (byte) 'C', (byte) 'D'})).isTrue();
 	}
 
 	@Test
 	public void isBase64ReturnsFalseForInvalidBase64() {
 		// Include invalid '`' character
-		assertThat(Base64.isBase64(new byte[] { (byte) 'A', (byte) 'B', (byte) 'C', (byte) '`' })).isFalse();
+		assertThat(Base64.isBase64(new byte[]{(byte) 'A', (byte) 'B', (byte) 'C', (byte) '`'})).isFalse();
 	}
 
 	@Test
@@ -46,7 +46,7 @@ public class Base64Tests {
 
 	@Test
 	public void isBase64RejectsInvalidLength() {
-		assertThatIllegalArgumentException().isThrownBy(() -> Base64.isBase64(new byte[] { (byte) 'A' }));
+		assertThatIllegalArgumentException().isThrownBy(() -> Base64.isBase64(new byte[]{(byte) 'A'}));
 	}
 
 }

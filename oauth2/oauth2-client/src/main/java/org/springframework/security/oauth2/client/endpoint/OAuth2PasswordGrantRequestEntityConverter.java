@@ -37,8 +37,7 @@ import org.springframework.util.StringUtils;
  * @see OAuth2PasswordGrantRequest
  * @see RequestEntity
  */
-public class OAuth2PasswordGrantRequestEntityConverter
-		extends AbstractOAuth2AuthorizationGrantRequestEntityConverter<OAuth2PasswordGrantRequest> {
+public class OAuth2PasswordGrantRequestEntityConverterextends AbstractOAuth2AuthorizationGrantRequestEntityConverter<OAuth2PasswordGrantRequest> {
 
 	@Override
 	protected MultiValueMap<String, String> createParameters(OAuth2PasswordGrantRequest passwordGrantRequest) {
@@ -49,7 +48,7 @@ public class OAuth2PasswordGrantRequestEntityConverter
 		parameters.add(OAuth2ParameterNames.PASSWORD, passwordGrantRequest.getPassword());
 		if (!CollectionUtils.isEmpty(clientRegistration.getScopes())) {
 			parameters.add(OAuth2ParameterNames.SCOPE,
-					StringUtils.collectionToDelimitedString(clientRegistration.getScopes(), " "));
+		StringUtils.collectionToDelimitedString(clientRegistration.getScopes(), " "));
 		}
 		if (ClientAuthenticationMethod.CLIENT_SECRET_POST.equals(clientRegistration.getClientAuthenticationMethod())) {
 			parameters.add(OAuth2ParameterNames.CLIENT_ID, clientRegistration.getClientId());

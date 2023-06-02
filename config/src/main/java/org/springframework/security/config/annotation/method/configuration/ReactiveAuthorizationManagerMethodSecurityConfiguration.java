@@ -50,39 +50,39 @@ final class ReactiveAuthorizationManagerMethodSecurityConfiguration {
 	@Bean
 	@Role(BeanDefinition.ROLE_INFRASTRUCTURE)
 	static PreFilterAuthorizationReactiveMethodInterceptor preFilterInterceptor(
-			MethodSecurityExpressionHandler expressionHandler) {
+MethodSecurityExpressionHandler expressionHandler) {
 		return new PreFilterAuthorizationReactiveMethodInterceptor(expressionHandler);
 	}
 
 	@Bean
 	@Role(BeanDefinition.ROLE_INFRASTRUCTURE)
 	static AuthorizationManagerBeforeReactiveMethodInterceptor preAuthorizeInterceptor(
-			MethodSecurityExpressionHandler expressionHandler, ObjectProvider<ObservationRegistry> registryProvider) {
+MethodSecurityExpressionHandler expressionHandler, ObjectProvider<ObservationRegistry> registryProvider) {
 		ReactiveAuthorizationManager<MethodInvocation> authorizationManager = manager(
-				new PreAuthorizeReactiveAuthorizationManager(expressionHandler), registryProvider);
+	new PreAuthorizeReactiveAuthorizationManager(expressionHandler), registryProvider);
 		return AuthorizationManagerBeforeReactiveMethodInterceptor.preAuthorize(authorizationManager);
 	}
 
 	@Bean
 	@Role(BeanDefinition.ROLE_INFRASTRUCTURE)
 	static PostFilterAuthorizationReactiveMethodInterceptor postFilterInterceptor(
-			MethodSecurityExpressionHandler expressionHandler) {
+MethodSecurityExpressionHandler expressionHandler) {
 		return new PostFilterAuthorizationReactiveMethodInterceptor(expressionHandler);
 	}
 
 	@Bean
 	@Role(BeanDefinition.ROLE_INFRASTRUCTURE)
 	static AuthorizationManagerAfterReactiveMethodInterceptor postAuthorizeInterceptor(
-			MethodSecurityExpressionHandler expressionHandler, ObjectProvider<ObservationRegistry> registryProvider) {
+MethodSecurityExpressionHandler expressionHandler, ObjectProvider<ObservationRegistry> registryProvider) {
 		ReactiveAuthorizationManager<MethodInvocationResult> authorizationManager = manager(
-				new PostAuthorizeReactiveAuthorizationManager(expressionHandler), registryProvider);
+	new PostAuthorizeReactiveAuthorizationManager(expressionHandler), registryProvider);
 		return AuthorizationManagerAfterReactiveMethodInterceptor.postAuthorize(authorizationManager);
 	}
 
 	@Bean
 	@Role(BeanDefinition.ROLE_INFRASTRUCTURE)
 	static DefaultMethodSecurityExpressionHandler methodSecurityExpressionHandler(
-			@Autowired(required = false) GrantedAuthorityDefaults grantedAuthorityDefaults) {
+@Autowired(required = false) GrantedAuthorityDefaults grantedAuthorityDefaults) {
 		DefaultMethodSecurityExpressionHandler handler = new DefaultMethodSecurityExpressionHandler();
 		if (grantedAuthorityDefaults != null) {
 			handler.setDefaultRolePrefix(grantedAuthorityDefaults.getRolePrefix());
@@ -91,7 +91,7 @@ final class ReactiveAuthorizationManagerMethodSecurityConfiguration {
 	}
 
 	static <T> ReactiveAuthorizationManager<T> manager(ReactiveAuthorizationManager<T> delegate,
-			ObjectProvider<ObservationRegistry> registryProvider) {
+ObjectProvider<ObservationRegistry> registryProvider) {
 		return new DeferringObservationReactiveAuthorizationManager<>(registryProvider, delegate);
 	}
 

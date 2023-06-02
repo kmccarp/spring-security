@@ -37,16 +37,16 @@ public final class TestJwsHeaders {
 	public static JwsHeader.Builder jwsHeader(SignatureAlgorithm signatureAlgorithm) {
 		// @formatter:off
 		return JwsHeader.with(signatureAlgorithm)
-				.jwkSetUrl("https://provider.com/oauth2/jwks")
-				.jwk(rsaJwk())
-				.keyId("keyId")
-				.x509Url("https://provider.com/oauth2/x509")
-				.x509CertificateChain(Arrays.asList("x509Cert1", "x509Cert2"))
-				.x509SHA1Thumbprint("x509SHA1Thumbprint")
-				.x509SHA256Thumbprint("x509SHA256Thumbprint")
-				.type("JWT")
-				.contentType("jwt-content-type")
-				.header("custom-header-name", "custom-header-value");
+	.jwkSetUrl("https://provider.com/oauth2/jwks")
+	.jwk(rsaJwk())
+	.keyId("keyId")
+	.x509Url("https://provider.com/oauth2/x509")
+	.x509CertificateChain(Arrays.asList("x509Cert1", "x509Cert2"))
+	.x509SHA1Thumbprint("x509SHA1Thumbprint")
+	.x509SHA256Thumbprint("x509SHA256Thumbprint")
+	.type("JWT")
+	.contentType("jwt-content-type")
+	.header("custom-header-name", "custom-header-value");
 		// @formatter:on
 	}
 

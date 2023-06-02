@@ -51,7 +51,7 @@ public class WebJackson2Module extends SimpleModule {
 		SecurityJackson2Modules.enableDefaultTyping(context.getOwner());
 		context.setMixInAnnotations(DefaultCsrfToken.class, DefaultCsrfTokenMixin.class);
 		context.setMixInAnnotations(PreAuthenticatedAuthenticationToken.class,
-				PreAuthenticatedAuthenticationTokenMixin.class);
+	PreAuthenticatedAuthenticationTokenMixin.class);
 	}
 
 }

@@ -61,9 +61,9 @@ public final class ExchangeMatcherRedirectWebFilter implements WebFilter {
 	public Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain) {
 		// @formatter:off
 		return this.exchangeMatcher.matches(exchange)
-				.filter(MatchResult::isMatch)
-				.switchIfEmpty(chain.filter(exchange).then(Mono.empty()))
-				.flatMap((result) -> this.redirectStrategy.sendRedirect(exchange, this.redirectUri));
+	.filter(MatchResult::isMatch)
+	.switchIfEmpty(chain.filter(exchange).then(Mono.empty()))
+	.flatMap((result) -> this.redirectStrategy.sendRedirect(exchange, this.redirectUri));
 		// @formatter:on
 	}
 

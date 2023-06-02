@@ -62,19 +62,19 @@ public class WithUserDetailsClassLevelAuthenticationTests {
 	@Test
 	public void requestRootUrlWithAdmin() throws Exception {
 		this.mvc.perform(get("/"))
-				// Ensure we got past Security
-				.andExpect(status().isNotFound())
-				// Ensure it appears we are authenticated with user
-				.andExpect(authenticated().withUsername("admin").withRoles("ADMIN", "USER"));
+	// Ensure we got past Security
+	.andExpect(status().isNotFound())
+	// Ensure it appears we are authenticated with user
+	.andExpect(authenticated().withUsername("admin").withRoles("ADMIN", "USER"));
 	}
 
 	@Test
 	public void requestProtectedUrlWithAdmin() throws Exception {
 		this.mvc.perform(get("/admin"))
-				// Ensure we got past Security
-				.andExpect(status().isNotFound())
-				// Ensure it appears we are authenticated with user
-				.andExpect(authenticated().withUsername("admin").withRoles("ADMIN", "USER"));
+	// Ensure we got past Security
+	.andExpect(status().isNotFound())
+	// Ensure it appears we are authenticated with user
+	.andExpect(authenticated().withUsername("admin").withRoles("ADMIN", "USER"));
 	}
 
 	@Configuration
@@ -86,11 +86,11 @@ public class WithUserDetailsClassLevelAuthenticationTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests()
-					.requestMatchers("/admin/**").hasRole("ADMIN")
-					.anyRequest().authenticated()
-					.and()
-				.formLogin();
+		.authorizeRequests()
+		.requestMatchers("/admin/**").hasRole("ADMIN")
+		.anyRequest().authenticated()
+		.and()
+		.formLogin();
 			// @formatter:on
 			return http.build();
 		}

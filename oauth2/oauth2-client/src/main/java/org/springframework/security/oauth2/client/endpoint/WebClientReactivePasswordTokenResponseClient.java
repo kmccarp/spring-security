@@ -48,8 +48,7 @@ import org.springframework.web.reactive.function.client.WebClient;
  * 2.0 Security Best Current Practice.</a>
  */
 @Deprecated
-public final class WebClientReactivePasswordTokenResponseClient
-		extends AbstractWebClientReactiveOAuth2AccessTokenResponseClient<OAuth2PasswordGrantRequest> {
+public final class WebClientReactivePasswordTokenResponseClientextends AbstractWebClientReactiveOAuth2AccessTokenResponseClient<OAuth2PasswordGrantRequest> {
 
 	@Override
 	ClientRegistration clientRegistration(OAuth2PasswordGrantRequest grantRequest) {
@@ -63,10 +62,10 @@ public final class WebClientReactivePasswordTokenResponseClient
 
 	@Override
 	BodyInserters.FormInserter<String> populateTokenRequestBody(OAuth2PasswordGrantRequest grantRequest,
-			BodyInserters.FormInserter<String> body) {
+BodyInserters.FormInserter<String> body) {
 		return super.populateTokenRequestBody(grantRequest, body)
-				.with(OAuth2ParameterNames.USERNAME, grantRequest.getUsername())
-				.with(OAuth2ParameterNames.PASSWORD, grantRequest.getPassword());
+	.with(OAuth2ParameterNames.USERNAME, grantRequest.getUsername())
+	.with(OAuth2ParameterNames.PASSWORD, grantRequest.getPassword());
 	}
 
 }

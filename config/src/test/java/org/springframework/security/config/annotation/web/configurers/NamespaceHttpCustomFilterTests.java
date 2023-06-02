@@ -95,7 +95,7 @@ public class NamespaceHttpCustomFilterTests {
 	private ListAssert<Class<?>> assertThatFilters() {
 		FilterChainProxy filterChain = this.spring.getContext().getBean(FilterChainProxy.class);
 		List<Class<?>> filters = filterChain.getFilters("/").stream().map(Object::getClass)
-				.collect(Collectors.toList());
+	.collect(Collectors.toList());
 		return assertThat(filters);
 	}
 
@@ -107,8 +107,8 @@ public class NamespaceHttpCustomFilterTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.addFilterBefore(new CustomFilter(), UsernamePasswordAuthenticationFilter.class)
-				.formLogin();
+		.addFilterBefore(new CustomFilter(), UsernamePasswordAuthenticationFilter.class)
+		.formLogin();
 			return http.build();
 			// @formatter:on
 		}
@@ -123,8 +123,8 @@ public class NamespaceHttpCustomFilterTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.addFilterAfter(new CustomFilter(), UsernamePasswordAuthenticationFilter.class)
-				.formLogin();
+		.addFilterAfter(new CustomFilter(), UsernamePasswordAuthenticationFilter.class)
+		.formLogin();
 			return http.build();
 			// @formatter:on
 		}
@@ -140,9 +140,9 @@ public class NamespaceHttpCustomFilterTests {
 			// @formatter:off
 			TestHttpSecurity.disableDefaults(http);
 			http
-				// this works so long as the CustomFilter extends one of the standard filters
-				// if not, use addFilterBefore or addFilterAfter
-				.addFilter(new CustomFilter());
+		// this works so long as the CustomFilter extends one of the standard filters
+		// if not, use addFilterBefore or addFilterAfter
+		.addFilter(new CustomFilter());
 			return http.build();
 			// @formatter:on
 		}
@@ -158,7 +158,7 @@ public class NamespaceHttpCustomFilterTests {
 			// @formatter:off
 			TestHttpSecurity.disableDefaults(http);
 			http
-				.addFilterAt(new OtherCustomFilter(), UsernamePasswordAuthenticationFilter.class);
+		.addFilterAt(new OtherCustomFilter(), UsernamePasswordAuthenticationFilter.class);
 			return http.build();
 			// @formatter:on
 		}
@@ -179,10 +179,10 @@ public class NamespaceHttpCustomFilterTests {
 			// @formatter:off
 			TestHttpSecurity.disableDefaults(http);
 			http
-				.authorizeRequests()
-					.anyRequest().hasRole("USER")
-					.and()
-				.addFilterBefore(new CustomFilter(), UsernamePasswordAuthenticationFilter.class);
+		.authorizeRequests()
+		.anyRequest().hasRole("USER")
+		.and()
+		.addFilterBefore(new CustomFilter(), UsernamePasswordAuthenticationFilter.class);
 			return http.build();
 			// @formatter:on
 		}
@@ -196,10 +196,10 @@ public class NamespaceHttpCustomFilterTests {
 		UserDetailsService userDetailsService() {
 			// @formatter:off
 			UserDetails user = User.withDefaultPasswordEncoder()
-					.username("user")
-					.password("password")
-					.roles("USER")
-					.build();
+		.username("user")
+		.password("password")
+		.roles("USER")
+		.build();
 			// @formatter:on
 			return new InMemoryUserDetailsManager(user);
 		}
@@ -214,7 +214,7 @@ public class NamespaceHttpCustomFilterTests {
 
 		@Override
 		protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
-				FilterChain filterChain) throws ServletException, IOException {
+	FilterChain filterChain) throws ServletException, IOException {
 			filterChain.doFilter(request, response);
 		}
 

@@ -93,20 +93,20 @@ public class SpringReactiveOpaqueTokenIntrospector implements ReactiveOpaqueToke
 	public Mono<OAuth2AuthenticatedPrincipal> introspect(String token) {
 		// @formatter:off
 		return Mono.just(token)
-				.flatMap(this::makeRequest)
-				.flatMap(this::adaptToNimbusResponse)
-				.map(this::convertClaimsSet)
-				.onErrorMap((e) -> !(e instanceof OAuth2IntrospectionException), this::onError);
+	.flatMap(this::makeRequest)
+	.flatMap(this::adaptToNimbusResponse)
+	.map(this::convertClaimsSet)
+	.onErrorMap((e) -> !(e instanceof OAuth2IntrospectionException), this::onError);
 		// @formatter:on
 	}
 
 	private Mono<ClientResponse> makeRequest(String token) {
 		// @formatter:off
 		return this.webClient.post()
-				.uri(this.introspectionUri)
-				.header(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE)
-				.body(BodyInserters.fromFormData("token", token))
-				.exchange();
+	.uri(this.introspectionUri)
+	.header(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE)
+	.body(BodyInserters.fromFormData("token", token))
+	.exchange();
 		// @formatter:on
 	}
 
@@ -114,24 +114,24 @@ public class SpringReactiveOpaqueTokenIntrospector implements ReactiveOpaqueToke
 		if (responseEntity.statusCode() != HttpStatus.OK) {
 			// @formatter:off
 			return responseEntity.bodyToFlux(DataBuffer.class)
-					.map(DataBufferUtils::release)
-					.then(Mono.error(new OAuth2IntrospectionException(
-							"Introspection endpoint responded with " + responseEntity.statusCode()))
-					);
+		.map(DataBufferUtils::release)
+		.then(Mono.error(new OAuth2IntrospectionException(
+	"Introspection endpoint responded with " + responseEntity.statusCode()))
+		);
 			// @formatter:on
 		}
 		// relying solely on the authorization server to validate this token (not checking
 		// 'exp', for example)
 		return responseEntity.bodyToMono(STRING_OBJECT_MAP)
-				.filter((body) -> (boolean) body.compute(OAuth2TokenIntrospectionClaimNames.ACTIVE, (k, v) -> {
-					if (v instanceof String) {
-						return Boolean.parseBoolean((String) v);
-					}
-					if (v instanceof Boolean) {
-						return v;
-					}
-					return false;
-				})).switchIfEmpty(Mono.error(() -> new BadOpaqueTokenException("Provided token isn't active")));
+	.filter((body) -> (boolean) body.compute(OAuth2TokenIntrospectionClaimNames.ACTIVE, (k, v) -> {
+		if (v instanceof String) {
+			return Boolean.parseBoolean((String) v);
+		}
+		if (v instanceof Boolean) {
+			return v;
+		}
+		return false;
+	})).switchIfEmpty(Mono.error(() -> new BadOpaqueTokenException("Provided token isn't active")));
 	}
 
 	private OAuth2AuthenticatedPrincipal convertClaimsSet(Map<String, Object> claims) {
@@ -143,9 +143,9 @@ public class SpringReactiveOpaqueTokenIntrospector implements ReactiveOpaqueToke
 		});
 		claims.computeIfPresent(OAuth2TokenIntrospectionClaimNames.CLIENT_ID, (k, v) -> v.toString());
 		claims.computeIfPresent(OAuth2TokenIntrospectionClaimNames.EXP,
-				(k, v) -> Instant.ofEpochSecond(((Number) v).longValue()));
+	(k, v) -> Instant.ofEpochSecond(((Number) v).longValue()));
 		claims.computeIfPresent(OAuth2TokenIntrospectionClaimNames.IAT,
-				(k, v) -> Instant.ofEpochSecond(((Number) v).longValue()));
+	(k, v) -> Instant.ofEpochSecond(((Number) v).longValue()));
 		// RFC-7662 page 7 directs users to RFC-7519 for defining the values of these
 		// issuer fields.
 		// https://datatracker.ietf.org/doc/html/rfc7662#page-7
@@ -166,7 +166,7 @@ public class SpringReactiveOpaqueTokenIntrospector implements ReactiveOpaqueToke
 		// would *only* allow valid URLs, which is not what we wish to achieve here.
 		claims.computeIfPresent(OAuth2TokenIntrospectionClaimNames.ISS, (k, v) -> v.toString());
 		claims.computeIfPresent(OAuth2TokenIntrospectionClaimNames.NBF,
-				(k, v) -> Instant.ofEpochSecond(((Number) v).longValue()));
+	(k, v) -> Instant.ofEpochSecond(((Number) v).longValue()));
 		Collection<GrantedAuthority> authorities = new ArrayList<>();
 		claims.computeIfPresent(OAuth2TokenIntrospectionClaimNames.SCOPE, (k, v) -> {
 			if (v instanceof String) {

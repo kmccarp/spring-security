@@ -33,11 +33,11 @@ import org.springframework.security.core.context.SecurityContext;
 final class ReactiveAuthenticationUtils {
 
 	private static final Authentication ANONYMOUS = new AnonymousAuthenticationToken("key", "anonymous",
-			AuthorityUtils.createAuthorityList("ROLE_ANONYMOUS"));
+AuthorityUtils.createAuthorityList("ROLE_ANONYMOUS"));
 
 	static Mono<Authentication> getAuthentication() {
 		return ReactiveSecurityContextHolder.getContext().map(SecurityContext::getAuthentication)
-				.defaultIfEmpty(ANONYMOUS);
+	.defaultIfEmpty(ANONYMOUS);
 	}
 
 	private ReactiveAuthenticationUtils() {

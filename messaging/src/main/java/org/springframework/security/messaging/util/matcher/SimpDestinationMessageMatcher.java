@@ -108,7 +108,7 @@ public final class SimpDestinationMessageMatcher implements MessageMatcher<Objec
 		Assert.notNull(pattern, "pattern cannot be null");
 		Assert.notNull(pathMatcher, "pathMatcher cannot be null");
 		Assert.isTrue(isTypeWithDestination(type),
-				() -> "SimpMessageType " + type + " does not contain a destination and so cannot be matched on.");
+	() -> "SimpMessageType " + type + " does not contain a destination and so cannot be matched on.");
 		this.matcher = pathMatcher;
 		this.messageTypeMatcher = (type != null) ? new SimpMessageTypeMatcher(type) : ANY_MESSAGE;
 		this.pattern = pattern;
@@ -126,7 +126,7 @@ public final class SimpDestinationMessageMatcher implements MessageMatcher<Objec
 	public Map<String, String> extractPathVariables(Message<?> message) {
 		final String destination = SimpMessageHeaderAccessor.getDestination(message.getHeaders());
 		return (destination != null) ? this.matcher.extractUriTemplateVariables(this.pattern, destination)
-				: Collections.emptyMap();
+	: Collections.emptyMap();
 	}
 
 	public MessageMatcher<Object> getMessageTypeMatcher() {
@@ -136,7 +136,7 @@ public final class SimpDestinationMessageMatcher implements MessageMatcher<Objec
 	@Override
 	public String toString() {
 		return "SimpDestinationMessageMatcher [matcher=" + this.matcher + ", messageTypeMatcher="
-				+ this.messageTypeMatcher + ", pattern=" + this.pattern + "]";
+	+ this.messageTypeMatcher + ", pattern=" + this.pattern + "]";
 	}
 
 	private boolean isTypeWithDestination(SimpMessageType type) {

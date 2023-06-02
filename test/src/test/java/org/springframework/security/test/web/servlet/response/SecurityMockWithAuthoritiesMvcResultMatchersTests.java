@@ -75,7 +75,7 @@ public class SecurityMockWithAuthoritiesMvcResultMatchersTests {
 		List<SimpleGrantedAuthority> grantedAuthorities = new ArrayList<>();
 		grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
 		assertThatExceptionOfType(AssertionError.class).isThrownBy(
-				() -> this.mockMvc.perform(formLogin()).andExpect(authenticated().withAuthorities(grantedAuthorities)));
+	() -> this.mockMvc.perform(formLogin()).andExpect(authenticated().withAuthorities(grantedAuthorities)));
 	}
 
 	@Configuration

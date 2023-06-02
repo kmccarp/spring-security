@@ -61,7 +61,7 @@ class CollectionFilterer<T> implements Filterer<T> {
 			this.collection.remove(removeIter.next());
 		}
 		logger.debug(LogMessage.of(() -> "Original collection contained " + originalSize + " elements; now contains "
-				+ this.collection.size() + " elements"));
+	+ this.collection.size() + " elements"));
 		return this.collection;
 	}
 

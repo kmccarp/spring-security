@@ -29,15 +29,14 @@ import org.springframework.util.Assert;
  * @author Eleftheria Stein
  * @since 5.7
  */
-public class LdapPasswordComparisonAuthenticationManagerFactory
-		extends AbstractLdapAuthenticationManagerFactory<PasswordComparisonAuthenticator> {
+public class LdapPasswordComparisonAuthenticationManagerFactoryextends AbstractLdapAuthenticationManagerFactory<PasswordComparisonAuthenticator> {
 
 	private PasswordEncoder passwordEncoder;
 
 	private String passwordAttribute;
 
 	public LdapPasswordComparisonAuthenticationManagerFactory(BaseLdapPathContextSource contextSource,
-			PasswordEncoder passwordEncoder) {
+PasswordEncoder passwordEncoder) {
 		super(contextSource);
 		setPasswordEncoder(passwordEncoder);
 	}

@@ -49,8 +49,8 @@ public class AuthenticationTagTests {
 	private final MyAuthenticationTag authenticationTag = new MyAuthenticationTag();
 
 	private final Authentication auth = new TestingAuthenticationToken(
-			new User("rodUserDetails", "koala", true, true, true, true, AuthorityUtils.NO_AUTHORITIES), "koala",
-			AuthorityUtils.NO_AUTHORITIES);
+new User("rodUserDetails", "koala", true, true, true, true, AuthorityUtils.NO_AUTHORITIES), "koala",
+AuthorityUtils.NO_AUTHORITIES);
 
 	@AfterEach
 	public void tearDown() {
@@ -69,7 +69,7 @@ public class AuthenticationTagTests {
 	@Test
 	public void testOperationWhenPrincipalIsAString() throws JspException {
 		SecurityContextHolder.getContext().setAuthentication(
-				new TestingAuthenticationToken("rodAsString", "koala", AuthorityUtils.NO_AUTHORITIES));
+	new TestingAuthenticationToken("rodAsString", "koala", AuthorityUtils.NO_AUTHORITIES));
 		this.authenticationTag.setProperty("principal");
 		assertThat(this.authenticationTag.doStartTag()).isEqualTo(Tag.SKIP_BODY);
 		assertThat(this.authenticationTag.doEndTag()).isEqualTo(Tag.EVAL_PAGE);
@@ -88,7 +88,7 @@ public class AuthenticationTagTests {
 	@Test
 	public void testOperationWhenPrincipalIsNull() throws JspException {
 		SecurityContextHolder.getContext()
-				.setAuthentication(new TestingAuthenticationToken(null, "koala", AuthorityUtils.NO_AUTHORITIES));
+	.setAuthentication(new TestingAuthenticationToken(null, "koala", AuthorityUtils.NO_AUTHORITIES));
 		this.authenticationTag.setProperty("principal");
 		assertThat(this.authenticationTag.doStartTag()).isEqualTo(Tag.SKIP_BODY);
 		assertThat(this.authenticationTag.doEndTag()).isEqualTo(Tag.EVAL_PAGE);
@@ -143,7 +143,7 @@ public class AuthenticationTagTests {
 	public void setSecurityContextHolderStrategyThenUses() throws Exception {
 		SecurityContextHolderStrategy strategy = mock(SecurityContextHolderStrategy.class);
 		given(strategy.getContext()).willReturn(new SecurityContextImpl(
-				new TestingAuthenticationToken("rodAsString", "koala", AuthorityUtils.NO_AUTHORITIES)));
+	new TestingAuthenticationToken("rodAsString", "koala", AuthorityUtils.NO_AUTHORITIES)));
 		MockServletContext servletContext = new MockServletContext();
 		GenericWebApplicationContext applicationContext = new GenericWebApplicationContext();
 		applicationContext.registerBean(SecurityContextHolderStrategy.class, () -> strategy);

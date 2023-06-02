@@ -55,7 +55,7 @@ import org.springframework.test.web.servlet.MockMvc;
 public class WithSecurityContextTestExecutionListener extends AbstractTestExecutionListener {
 
 	static final String SECURITY_CONTEXT_ATTR_NAME = WithSecurityContextTestExecutionListener.class.getName()
-			.concat(".SECURITY_CONTEXT");
+.concat(".SECURITY_CONTEXT");
 
 	static final SecurityContextHolderStrategy DEFAULT_SECURITY_CONTEXT_HOLDER_STRATEGY = new TestSecurityContextHolderStrategyAdapter();
 
@@ -101,7 +101,7 @@ public class WithSecurityContextTestExecutionListener extends AbstractTestExecut
 	@Override
 	public void beforeTestExecution(TestContext testContext) {
 		Supplier<SecurityContext> supplier = (Supplier<SecurityContext>) testContext
-				.removeAttribute(SECURITY_CONTEXT_ATTR_NAME);
+	.removeAttribute(SECURITY_CONTEXT_ATTR_NAME);
 		if (supplier != null) {
 			this.securityContextHolderStrategyConverter.convert(testContext).setContext(supplier.get());
 		}
@@ -109,13 +109,13 @@ public class WithSecurityContextTestExecutionListener extends AbstractTestExecut
 
 	private TestSecurityContext createTestSecurityContext(AnnotatedElement annotated, TestContext context) {
 		WithSecurityContext withSecurityContext = AnnotatedElementUtils.findMergedAnnotation(annotated,
-				WithSecurityContext.class);
+	WithSecurityContext.class);
 		return createTestSecurityContext(annotated, withSecurityContext, context);
 	}
 
 	private TestSecurityContext createTestSecurityContext(Class<?> annotated, TestContext context) {
 		TestContextAnnotationUtils.AnnotationDescriptor<WithSecurityContext> withSecurityContextDescriptor = TestContextAnnotationUtils
-				.findAnnotationDescriptor(annotated, WithSecurityContext.class);
+	.findAnnotationDescriptor(annotated, WithSecurityContext.class);
 		if (withSecurityContextDescriptor == null) {
 			return null;
 		}
@@ -124,16 +124,16 @@ public class WithSecurityContextTestExecutionListener extends AbstractTestExecut
 		return createTestSecurityContext(rootDeclaringClass, withSecurityContext, context);
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@SuppressWarnings({"rawtypes", "unchecked"})
 	private TestSecurityContext createTestSecurityContext(AnnotatedElement annotated,
-			WithSecurityContext withSecurityContext, TestContext context) {
+WithSecurityContext withSecurityContext, TestContext context) {
 		if (withSecurityContext == null) {
 			return null;
 		}
 		withSecurityContext = AnnotationUtils.synthesizeAnnotation(withSecurityContext, annotated);
 		WithSecurityContextFactory factory = createFactory(withSecurityContext, context);
 		Class<? extends Annotation> type = (Class<? extends Annotation>) GenericTypeResolver
-				.resolveTypeArgument(factory.getClass(), WithSecurityContextFactory.class);
+	.resolveTypeArgument(factory.getClass(), WithSecurityContextFactory.class);
 		Annotation annotation = findAnnotation(annotated, type);
 		Supplier<SecurityContext> supplier = () -> {
 			try {
@@ -155,7 +155,7 @@ public class WithSecurityContextTestExecutionListener extends AbstractTestExecut
 		Annotation[] allAnnotations = AnnotationUtils.getAnnotations(annotated);
 		for (Annotation annotationToTest : allAnnotations) {
 			WithSecurityContext withSecurityContext = AnnotationUtils.findAnnotation(annotationToTest.annotationType(),
-					WithSecurityContext.class);
+		WithSecurityContext.class);
 			if (withSecurityContext != null) {
 				return annotationToTest;
 			}
@@ -164,7 +164,7 @@ public class WithSecurityContextTestExecutionListener extends AbstractTestExecut
 	}
 
 	private WithSecurityContextFactory<? extends Annotation> createFactory(WithSecurityContext withSecurityContext,
-			TestContext testContext) {
+TestContext testContext) {
 		Class<? extends WithSecurityContextFactory<? extends Annotation>> clazz = withSecurityContext.factory();
 		try {
 			return testContext.getApplicationContext().getAutowireCapableBeanFactory().createBean(clazz);

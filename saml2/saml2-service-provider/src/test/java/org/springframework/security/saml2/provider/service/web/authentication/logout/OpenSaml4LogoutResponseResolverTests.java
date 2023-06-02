@@ -49,18 +49,18 @@ public class OpenSaml4LogoutResponseResolverTests {
 	@Test
 	public void resolveWhenCustomParametersConsumerThenUses() {
 		OpenSaml4LogoutResponseResolver logoutResponseResolver = new OpenSaml4LogoutResponseResolver(
-				this.relyingPartyRegistrationResolver);
+	this.relyingPartyRegistrationResolver);
 		Consumer<LogoutResponseParameters> parametersConsumer = mock(Consumer.class);
 		logoutResponseResolver.setParametersConsumer(parametersConsumer);
 		MockHttpServletRequest request = new MockHttpServletRequest();
 		RelyingPartyRegistration registration = TestRelyingPartyRegistrations.relyingPartyRegistration()
-				.assertingPartyDetails(
-						(party) -> party.singleLogoutServiceResponseLocation("https://ap.example.com/logout"))
-				.build();
+	.assertingPartyDetails(
+(party) -> party.singleLogoutServiceResponseLocation("https://ap.example.com/logout"))
+	.build();
 		Authentication authentication = new TestingAuthenticationToken("user", "password");
 		LogoutRequest logoutRequest = TestOpenSamlObjects.assertingPartyLogoutRequest(registration);
 		request.setParameter(Saml2ParameterNames.SAML_REQUEST,
-				Saml2Utils.samlEncode(OpenSamlSigningUtils.serialize(logoutRequest).getBytes()));
+	Saml2Utils.samlEncode(OpenSamlSigningUtils.serialize(logoutRequest).getBytes()));
 		given(this.relyingPartyRegistrationResolver.resolve(any(), any())).willReturn(registration);
 		Saml2LogoutResponse logoutResponse = logoutResponseResolver.resolve(request, authentication);
 		assertThat(logoutResponse).isNotNull();
@@ -70,9 +70,9 @@ public class OpenSaml4LogoutResponseResolverTests {
 	@Test
 	public void setParametersConsumerWhenNullThenIllegalArgument() {
 		OpenSaml4LogoutRequestResolver logoutRequestResolver = new OpenSaml4LogoutRequestResolver(
-				this.relyingPartyRegistrationResolver);
+	this.relyingPartyRegistrationResolver);
 		assertThatExceptionOfType(IllegalArgumentException.class)
-				.isThrownBy(() -> logoutRequestResolver.setParametersConsumer(null));
+	.isThrownBy(() -> logoutRequestResolver.setParametersConsumer(null));
 	}
 
 }

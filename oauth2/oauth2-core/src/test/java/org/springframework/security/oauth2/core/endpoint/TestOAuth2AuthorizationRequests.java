@@ -35,11 +35,11 @@ public final class TestOAuth2AuthorizationRequests {
 		attributes.put(OAuth2ParameterNames.REGISTRATION_ID, registrationId);
 		// @formatter:off
 		return OAuth2AuthorizationRequest.authorizationCode()
-				.authorizationUri("https://example.com/login/oauth/authorize")
-				.clientId(clientId)
-				.redirectUri("https://example.com/authorize/oauth2/code/registration-id")
-				.state("state")
-				.attributes(attributes);
+	.authorizationUri("https://example.com/login/oauth/authorize")
+	.clientId(clientId)
+	.redirectUri("https://example.com/authorize/oauth2/code/registration-id")
+	.state("state")
+	.attributes(attributes);
 		// @formatter:on
 	}
 

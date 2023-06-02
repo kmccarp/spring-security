@@ -31,7 +31,7 @@ public class LoggerListenerTests {
 
 	private Authentication getAuthentication() {
 		UsernamePasswordAuthenticationToken authentication = UsernamePasswordAuthenticationToken
-				.unauthenticated("Principal", "Credentials");
+	.unauthenticated("Principal", "Credentials");
 		authentication.setDetails("127.0.0.1");
 		return authentication;
 	}
@@ -39,7 +39,7 @@ public class LoggerListenerTests {
 	@Test
 	public void testLogsEvents() {
 		AuthenticationFailureDisabledEvent event = new AuthenticationFailureDisabledEvent(getAuthentication(),
-				new LockedException("TEST"));
+	new LockedException("TEST"));
 		LoggerListener listener = new LoggerListener();
 		listener.onApplicationEvent(event);
 	}

@@ -35,8 +35,7 @@ import org.springframework.util.Assert;
  * @author Evgeniy Cheban
  * @since 5.8
  */
-public final class PostAuthorizeReactiveAuthorizationManager
-		implements ReactiveAuthorizationManager<MethodInvocationResult> {
+public final class PostAuthorizeReactiveAuthorizationManagerimplements ReactiveAuthorizationManager<MethodInvocationResult> {
 
 	private final PostAuthorizeExpressionAttributeRegistry registry;
 
@@ -68,10 +67,10 @@ public final class PostAuthorizeReactiveAuthorizationManager
 		MethodSecurityExpressionHandler expressionHandler = this.registry.getExpressionHandler();
 		// @formatter:off
 		return authentication
-				.map((auth) -> expressionHandler.createEvaluationContext(auth, mi))
-				.doOnNext((ctx) -> expressionHandler.setReturnObject(result.getResult(), ctx))
-				.flatMap((ctx) -> ReactiveExpressionUtils.evaluateAsBoolean(attribute.getExpression(), ctx))
-				.map((granted) -> new ExpressionAttributeAuthorizationDecision(granted, attribute));
+	.map((auth) -> expressionHandler.createEvaluationContext(auth, mi))
+	.doOnNext((ctx) -> expressionHandler.setReturnObject(result.getResult(), ctx))
+	.flatMap((ctx) -> ReactiveExpressionUtils.evaluateAsBoolean(attribute.getExpression(), ctx))
+	.map((granted) -> new ExpressionAttributeAuthorizationDecision(granted, attribute));
 		// @formatter:on
 	}
 

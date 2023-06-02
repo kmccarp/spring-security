@@ -63,7 +63,7 @@ public class SessionRegistryImpl implements SessionRegistry, ApplicationListener
 	}
 
 	public SessionRegistryImpl(ConcurrentMap<Object, Set<String>> principals,
-			Map<String, SessionInformation> sessionIds) {
+Map<String, SessionInformation> sessionIds) {
 		this.principals = principals;
 		this.sessionIds = sessionIds;
 	}
@@ -159,7 +159,7 @@ public class SessionRegistryImpl implements SessionRegistry, ApplicationListener
 		this.sessionIds.remove(sessionId);
 		this.principals.computeIfPresent(info.getPrincipal(), (key, sessionsUsedByPrincipal) -> {
 			this.logger.debug(
-					LogMessage.format("Removing session %s from principal's set of registered sessions", sessionId));
+		LogMessage.format("Removing session %s from principal's set of registered sessions", sessionId));
 			sessionsUsedByPrincipal.remove(sessionId);
 			if (sessionsUsedByPrincipal.isEmpty()) {
 				// No need to keep object in principals Map anymore
@@ -167,7 +167,7 @@ public class SessionRegistryImpl implements SessionRegistry, ApplicationListener
 				sessionsUsedByPrincipal = null;
 			}
 			this.logger.trace(
-					LogMessage.format("Sessions used by '%s' : %s", info.getPrincipal(), sessionsUsedByPrincipal));
+		LogMessage.format("Sessions used by '%s' : %s", info.getPrincipal(), sessionsUsedByPrincipal));
 			return sessionsUsedByPrincipal;
 		});
 	}

@@ -30,18 +30,18 @@ import org.springframework.security.util.InMemoryResource;
 public class InMemoryXmlApplicationContext extends AbstractXmlApplicationContext {
 
 	static final String BEANS_OPENING = "<b:beans xmlns='http://www.springframework.org/schema/security'\n"
-			+ "    xmlns:context='http://www.springframework.org/schema/context'\n"
-			+ "    xmlns:b='http://www.springframework.org/schema/beans'\n"
-			+ "    xmlns:aop='http://www.springframework.org/schema/aop'\n"
-			+ "    xmlns:mvc='http://www.springframework.org/schema/mvc'\n"
-			+ "    xmlns:websocket='http://www.springframework.org/schema/websocket'\n"
-			+ "    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'\n"
-			+ "    xsi:schemaLocation='http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans-2.5.xsd\n"
-			+ "http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop-2.5.xsd\n"
-			+ "http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd\n"
-			+ "http://www.springframework.org/schema/websocket https://www.springframework.org/schema/websocket/spring-websocket.xsd\n"
-			+ "http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context-2.5.xsd\n"
-			+ "http://www.springframework.org/schema/security https://www.springframework.org/schema/security/spring-security-";
++ "    xmlns:context='http://www.springframework.org/schema/context'\n"
++ "    xmlns:b='http://www.springframework.org/schema/beans'\n"
++ "    xmlns:aop='http://www.springframework.org/schema/aop'\n"
++ "    xmlns:mvc='http://www.springframework.org/schema/mvc'\n"
++ "    xmlns:websocket='http://www.springframework.org/schema/websocket'\n"
++ "    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'\n"
++ "    xsi:schemaLocation='http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans-2.5.xsd\n"
++ "http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop-2.5.xsd\n"
++ "http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd\n"
++ "http://www.springframework.org/schema/websocket https://www.springframework.org/schema/websocket/spring-websocket.xsd\n"
++ "http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context-2.5.xsd\n"
++ "http://www.springframework.org/schema/security https://www.springframework.org/schema/security/spring-security-";
 	static final String BEANS_CLOSE = "</b:beans>\n";
 	static final String SPRING_SECURITY_VERSION = SpringSecurityVersions.getCurrentXsdVersionFromSpringSchemas();
 
@@ -75,7 +75,7 @@ public class InMemoryXmlApplicationContext extends AbstractXmlApplicationContext
 
 	@Override
 	protected Resource[] getConfigResources() {
-		return new Resource[] { this.inMemoryXml };
+		return new Resource[]{this.inMemoryXml};
 	}
 
 }

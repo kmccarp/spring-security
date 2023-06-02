@@ -89,11 +89,11 @@ public final class DefaultOAuth2AuthorizedClientManager implements OAuth2Authori
 
 	// @formatter:off
 	private static final OAuth2AuthorizedClientProvider DEFAULT_AUTHORIZED_CLIENT_PROVIDER = OAuth2AuthorizedClientProviderBuilder.builder()
-			.authorizationCode()
-			.refreshToken()
-			.clientCredentials()
-			.password()
-			.build();
+.authorizationCode()
+.refreshToken()
+.clientCredentials()
+.password()
+.build();
 	// @formatter:on
 
 	private final ClientRegistrationRepository clientRegistrationRepository;
@@ -115,7 +115,7 @@ public final class DefaultOAuth2AuthorizedClientManager implements OAuth2Authori
 	 * @param authorizedClientRepository the repository of authorized clients
 	 */
 	public DefaultOAuth2AuthorizedClientManager(ClientRegistrationRepository clientRegistrationRepository,
-			OAuth2AuthorizedClientRepository authorizedClientRepository) {
+OAuth2AuthorizedClientRepository authorizedClientRepository) {
 		Assert.notNull(clientRegistrationRepository, "clientRegistrationRepository cannot be null");
 		Assert.notNull(authorizedClientRepository, "authorizedClientRepository cannot be null");
 		this.clientRegistrationRepository = clientRegistrationRepository;
@@ -123,14 +123,14 @@ public final class DefaultOAuth2AuthorizedClientManager implements OAuth2Authori
 		this.authorizedClientProvider = DEFAULT_AUTHORIZED_CLIENT_PROVIDER;
 		this.contextAttributesMapper = new DefaultContextAttributesMapper();
 		this.authorizationSuccessHandler = (authorizedClient, principal, attributes) -> authorizedClientRepository
-				.saveAuthorizedClient(authorizedClient, principal,
-						(HttpServletRequest) attributes.get(HttpServletRequest.class.getName()),
-						(HttpServletResponse) attributes.get(HttpServletResponse.class.getName()));
+	.saveAuthorizedClient(authorizedClient, principal,
+(HttpServletRequest) attributes.get(HttpServletRequest.class.getName()),
+(HttpServletResponse) attributes.get(HttpServletResponse.class.getName()));
 		this.authorizationFailureHandler = new RemoveAuthorizedClientOAuth2AuthorizationFailureHandler(
-				(clientRegistrationId, principal, attributes) -> authorizedClientRepository.removeAuthorizedClient(
-						clientRegistrationId, principal,
-						(HttpServletRequest) attributes.get(HttpServletRequest.class.getName()),
-						(HttpServletResponse) attributes.get(HttpServletResponse.class.getName())));
+	(clientRegistrationId, principal, attributes) -> authorizedClientRepository.removeAuthorizedClient(
+clientRegistrationId, principal,
+(HttpServletRequest) attributes.get(HttpServletRequest.class.getName()),
+(HttpServletResponse) attributes.get(HttpServletResponse.class.getName())));
 	}
 
 	@Nullable
@@ -150,39 +150,39 @@ public final class DefaultOAuth2AuthorizedClientManager implements OAuth2Authori
 		}
 		else {
 			authorizedClient = this.authorizedClientRepository.loadAuthorizedClient(clientRegistrationId, principal,
-					servletRequest);
+		servletRequest);
 			if (authorizedClient != null) {
 				contextBuilder = OAuth2AuthorizationContext.withAuthorizedClient(authorizedClient);
 			}
 			else {
 				ClientRegistration clientRegistration = this.clientRegistrationRepository
-						.findByRegistrationId(clientRegistrationId);
+			.findByRegistrationId(clientRegistrationId);
 				Assert.notNull(clientRegistration,
-						"Could not find ClientRegistration with id '" + clientRegistrationId + "'");
+			"Could not find ClientRegistration with id '" + clientRegistrationId + "'");
 				contextBuilder = OAuth2AuthorizationContext.withClientRegistration(clientRegistration);
 			}
 		}
 		// @formatter:off
 		OAuth2AuthorizationContext authorizationContext = contextBuilder.principal(principal)
-				.attributes((attributes) -> {
-					Map<String, Object> contextAttributes = this.contextAttributesMapper.apply(authorizeRequest);
-					if (!CollectionUtils.isEmpty(contextAttributes)) {
-						attributes.putAll(contextAttributes);
-					}
-				})
-				.build();
+	.attributes((attributes) -> {
+		Map<String, Object> contextAttributes = this.contextAttributesMapper.apply(authorizeRequest);
+		if (!CollectionUtils.isEmpty(contextAttributes)) {
+			attributes.putAll(contextAttributes);
+		}
+	})
+	.build();
 		// @formatter:on
 		try {
 			authorizedClient = this.authorizedClientProvider.authorize(authorizationContext);
 		}
 		catch (OAuth2AuthorizationException ex) {
 			this.authorizationFailureHandler.onAuthorizationFailure(ex, principal,
-					createAttributes(servletRequest, servletResponse));
+		createAttributes(servletRequest, servletResponse));
 			throw ex;
 		}
 		if (authorizedClient != null) {
 			this.authorizationSuccessHandler.onAuthorizationSuccess(authorizedClient, principal,
-					createAttributes(servletRequest, servletResponse));
+		createAttributes(servletRequest, servletResponse));
 		}
 		else {
 			// In the case of re-authorization, the returned `authorizedClient` may be
@@ -197,7 +197,7 @@ public final class DefaultOAuth2AuthorizedClientManager implements OAuth2Authori
 	}
 
 	private static Map<String, Object> createAttributes(HttpServletRequest servletRequest,
-			HttpServletResponse servletResponse) {
+HttpServletResponse servletResponse) {
 		Map<String, Object> attributes = new HashMap<>();
 		attributes.put(HttpServletRequest.class.getName(), servletRequest);
 		attributes.put(HttpServletResponse.class.getName(), servletResponse);
@@ -246,7 +246,7 @@ public final class DefaultOAuth2AuthorizedClientManager implements OAuth2Authori
 	 * authorization context}
 	 */
 	public void setContextAttributesMapper(
-			Function<OAuth2AuthorizeRequest, Map<String, Object>> contextAttributesMapper) {
+Function<OAuth2AuthorizeRequest, Map<String, Object>> contextAttributesMapper) {
 		Assert.notNull(contextAttributesMapper, "contextAttributesMapper cannot be null");
 		this.contextAttributesMapper = contextAttributesMapper;
 	}
@@ -289,7 +289,7 @@ public final class DefaultOAuth2AuthorizedClientManager implements OAuth2Authori
 	 * contextAttributesMapper}.
 	 */
 	public static class DefaultContextAttributesMapper
-			implements Function<OAuth2AuthorizeRequest, Map<String, Object>> {
+implements Function<OAuth2AuthorizeRequest, Map<String, Object>> {
 
 		@Override
 		public Map<String, Object> apply(OAuth2AuthorizeRequest authorizeRequest) {
@@ -299,7 +299,7 @@ public final class DefaultOAuth2AuthorizedClientManager implements OAuth2Authori
 			if (StringUtils.hasText(scope)) {
 				contextAttributes = new HashMap<>();
 				contextAttributes.put(OAuth2AuthorizationContext.REQUEST_SCOPE_ATTRIBUTE_NAME,
-						StringUtils.delimitedListToStringArray(scope, " "));
+			StringUtils.delimitedListToStringArray(scope, " "));
 			}
 			return contextAttributes;
 		}

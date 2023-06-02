@@ -144,11 +144,10 @@ import org.springframework.web.accept.HeaderContentNegotiationStrategy;
  * @see NimbusJwtDecoder
  * @see AbstractHttpConfigurer
  */
-public final class OAuth2ResourceServerConfigurer<H extends HttpSecurityBuilder<H>>
-		extends AbstractHttpConfigurer<OAuth2ResourceServerConfigurer<H>, H> {
+public final class OAuth2ResourceServerConfigurer<H extends HttpSecurityBuilder<H>>extends AbstractHttpConfigurer<OAuth2ResourceServerConfigurer<H>, H> {
 
 	private static final RequestHeaderRequestMatcher X_REQUESTED_WITH = new RequestHeaderRequestMatcher(
-			"X-Requested-With", "XMLHttpRequest");
+"X-Requested-With", "XMLHttpRequest");
 
 	private final ApplicationContext context;
 
@@ -161,8 +160,8 @@ public final class OAuth2ResourceServerConfigurer<H extends HttpSecurityBuilder<
 	private OpaqueTokenConfigurer opaqueTokenConfigurer;
 
 	private AccessDeniedHandler accessDeniedHandler = new DelegatingAccessDeniedHandler(
-			new LinkedHashMap<>(Map.of(CsrfException.class, new AccessDeniedHandlerImpl())),
-			new BearerTokenAccessDeniedHandler());
+new LinkedHashMap<>(Map.of(CsrfException.class, new AccessDeniedHandlerImpl())),
+new BearerTokenAccessDeniedHandler());
 
 	private AuthenticationEntryPoint authenticationEntryPoint = new BearerTokenAuthenticationEntryPoint();
 
@@ -186,7 +185,7 @@ public final class OAuth2ResourceServerConfigurer<H extends HttpSecurityBuilder<
 	}
 
 	public OAuth2ResourceServerConfigurer<H> authenticationManagerResolver(
-			AuthenticationManagerResolver<HttpServletRequest> authenticationManagerResolver) {
+AuthenticationManagerResolver<HttpServletRequest> authenticationManagerResolver) {
 		Assert.notNull(authenticationManagerResolver, "authenticationManagerResolver cannot be null");
 		this.authenticationManagerResolver = authenticationManagerResolver;
 		return this;
@@ -281,17 +280,17 @@ public final class OAuth2ResourceServerConfigurer<H extends HttpSecurityBuilder<
 	private void validateConfiguration() {
 		if (this.authenticationManagerResolver == null) {
 			Assert.state(this.jwtConfigurer != null || this.opaqueTokenConfigurer != null,
-					"Jwt and Opaque Token are the only supported formats for bearer tokens "
-							+ "in Spring Security and neither was found. Make sure to configure JWT "
-							+ "via http.oauth2ResourceServer().jwt() or Opaque Tokens via "
-							+ "http.oauth2ResourceServer().opaqueToken().");
+		"Jwt and Opaque Token are the only supported formats for bearer tokens "
+	+ "in Spring Security and neither was found. Make sure to configure JWT "
+	+ "via http.oauth2ResourceServer().jwt() or Opaque Tokens via "
+	+ "http.oauth2ResourceServer().opaqueToken().");
 			Assert.state(this.jwtConfigurer == null || this.opaqueTokenConfigurer == null,
-					"Spring Security only supports JWTs or Opaque Tokens, not both at the " + "same time.");
+		"Spring Security only supports JWTs or Opaque Tokens, not both at the " + "same time.");
 		}
 		else {
 			Assert.state(this.jwtConfigurer == null && this.opaqueTokenConfigurer == null,
-					"If an authenticationManagerResolver() is configured, then it takes "
-							+ "precedence over any jwt() or opaqueToken() configuration.");
+		"If an authenticationManagerResolver() is configured, then it takes "
+	+ "precedence over any jwt() or opaqueToken() configuration.");
 		}
 	}
 
@@ -306,23 +305,23 @@ public final class OAuth2ResourceServerConfigurer<H extends HttpSecurityBuilder<
 		ExceptionHandlingConfigurer<H> exceptionHandling = http.getConfigurer(ExceptionHandlingConfigurer.class);
 		if (exceptionHandling != null) {
 			ContentNegotiationStrategy contentNegotiationStrategy = http
-					.getSharedObject(ContentNegotiationStrategy.class);
+		.getSharedObject(ContentNegotiationStrategy.class);
 			if (contentNegotiationStrategy == null) {
 				contentNegotiationStrategy = new HeaderContentNegotiationStrategy();
 			}
 			MediaTypeRequestMatcher restMatcher = new MediaTypeRequestMatcher(contentNegotiationStrategy,
-					MediaType.APPLICATION_ATOM_XML, MediaType.APPLICATION_FORM_URLENCODED, MediaType.APPLICATION_JSON,
-					MediaType.APPLICATION_OCTET_STREAM, MediaType.APPLICATION_XML, MediaType.MULTIPART_FORM_DATA,
-					MediaType.TEXT_XML);
+		MediaType.APPLICATION_ATOM_XML, MediaType.APPLICATION_FORM_URLENCODED, MediaType.APPLICATION_JSON,
+		MediaType.APPLICATION_OCTET_STREAM, MediaType.APPLICATION_XML, MediaType.MULTIPART_FORM_DATA,
+		MediaType.TEXT_XML);
 			restMatcher.setIgnoredMediaTypes(Collections.singleton(MediaType.ALL));
 			MediaTypeRequestMatcher allMatcher = new MediaTypeRequestMatcher(contentNegotiationStrategy, MediaType.ALL);
 			allMatcher.setUseEquals(true);
 			RequestMatcher notHtmlMatcher = new NegatedRequestMatcher(
-					new MediaTypeRequestMatcher(contentNegotiationStrategy, MediaType.TEXT_HTML));
+		new MediaTypeRequestMatcher(contentNegotiationStrategy, MediaType.TEXT_HTML));
 			RequestMatcher restNotHtmlMatcher = new AndRequestMatcher(
-					Arrays.<RequestMatcher>asList(notHtmlMatcher, restMatcher));
+		Arrays.<RequestMatcher>asList(notHtmlMatcher, restMatcher));
 			RequestMatcher preferredMatcher = new OrRequestMatcher(
-					Arrays.asList(this.requestMatcher, X_REQUESTED_WITH, restNotHtmlMatcher, allMatcher));
+		Arrays.asList(this.requestMatcher, X_REQUESTED_WITH, restNotHtmlMatcher, allMatcher));
 			exceptionHandling.defaultAuthenticationEntryPointFor(this.authenticationEntryPoint, preferredMatcher);
 		}
 	}
@@ -397,7 +396,7 @@ public final class OAuth2ResourceServerConfigurer<H extends HttpSecurityBuilder<
 		}
 
 		public JwtConfigurer jwtAuthenticationConverter(
-				Converter<Jwt, ? extends AbstractAuthenticationToken> jwtAuthenticationConverter) {
+	Converter<Jwt, ? extends AbstractAuthenticationToken> jwtAuthenticationConverter) {
 			this.jwtAuthenticationConverter = jwtAuthenticationConverter;
 			return this;
 		}
@@ -479,7 +478,7 @@ public final class OAuth2ResourceServerConfigurer<H extends HttpSecurityBuilder<
 			Assert.notNull(introspectionUri, "introspectionUri cannot be null");
 			this.introspectionUri = introspectionUri;
 			this.introspector = () -> new SpringOpaqueTokenIntrospector(this.introspectionUri, this.clientId,
-					this.clientSecret);
+		this.clientSecret);
 			return this;
 		}
 
@@ -489,7 +488,7 @@ public final class OAuth2ResourceServerConfigurer<H extends HttpSecurityBuilder<
 			this.clientId = clientId;
 			this.clientSecret = clientSecret;
 			this.introspector = () -> new SpringOpaqueTokenIntrospector(this.introspectionUri, this.clientId,
-					this.clientSecret);
+		this.clientSecret);
 			return this;
 		}
 
@@ -500,7 +499,7 @@ public final class OAuth2ResourceServerConfigurer<H extends HttpSecurityBuilder<
 		}
 
 		public OpaqueTokenConfigurer authenticationConverter(
-				OpaqueTokenAuthenticationConverter authenticationConverter) {
+	OpaqueTokenAuthenticationConverter authenticationConverter) {
 			Assert.notNull(authenticationConverter, "authenticationConverter cannot be null");
 			this.authenticationConverter = authenticationConverter;
 			return this;
@@ -529,7 +528,7 @@ public final class OAuth2ResourceServerConfigurer<H extends HttpSecurityBuilder<
 			}
 			OpaqueTokenIntrospector introspector = getIntrospector();
 			OpaqueTokenAuthenticationProvider opaqueTokenAuthenticationProvider = new OpaqueTokenAuthenticationProvider(
-					introspector);
+		introspector);
 			OpaqueTokenAuthenticationConverter authenticationConverter = getAuthenticationConverter();
 			if (authenticationConverter != null) {
 				opaqueTokenAuthenticationProvider.setAuthenticationConverter(authenticationConverter);

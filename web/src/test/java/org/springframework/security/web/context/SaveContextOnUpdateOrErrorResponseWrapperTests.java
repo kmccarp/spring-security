@@ -177,7 +177,7 @@ public class SaveContextOnUpdateOrErrorResponseWrapperTests {
 	}
 
 	private static class SaveContextOnUpdateOrErrorResponseWrapperStub
-			extends SaveContextOnUpdateOrErrorResponseWrapper {
+extends SaveContextOnUpdateOrErrorResponseWrapper {
 
 		private SecurityContext securityContext;
 

@@ -59,7 +59,7 @@ public class SpringCacheBasedUserCacheTests {
 
 	private User getUser() {
 		return new User("john", "password", true, true, true, true,
-				AuthorityUtils.createAuthorityList("ROLE_ONE", "ROLE_TWO"));
+	AuthorityUtils.createAuthorityList("ROLE_ONE", "ROLE_TWO"));
 	}
 
 	@Test

@@ -41,17 +41,17 @@ public class PasswordManagementSpecTests {
 
 		WebTestClient client = buildClient();
 		client.get().uri("/.well-known/change-password").exchange().expectStatus().isFound().expectHeader()
-				.valueEquals(HttpHeaders.LOCATION, "/change-password");
+	.valueEquals(HttpHeaders.LOCATION, "/change-password");
 	}
 
 	@Test
 	public void whenChangePasswordPageSetThenSpecifiedChangePasswordPageUsed() {
 		this.http.passwordManagement(
-				(passwordManagement) -> passwordManagement.changePasswordPage("/custom-change-password-page"));
+	(passwordManagement) -> passwordManagement.changePasswordPage("/custom-change-password-page"));
 
 		WebTestClient client = buildClient();
 		client.get().uri("/.well-known/change-password").exchange().expectStatus().isFound().expectHeader()
-				.valueEquals(HttpHeaders.LOCATION, "/custom-change-password-page");
+	.valueEquals(HttpHeaders.LOCATION, "/custom-change-password-page");
 	}
 
 	private WebTestClient buildClient() {
@@ -61,19 +61,19 @@ public class PasswordManagementSpecTests {
 	@Test
 	public void whenSettingNullChangePasswordPage() {
 		assertThatIllegalArgumentException().isThrownBy(() -> this.http.passwordManagement().changePasswordPage(null))
-				.withMessage("changePasswordPage cannot be empty");
+	.withMessage("changePasswordPage cannot be empty");
 	}
 
 	@Test
 	public void whenSettingEmptyChangePasswordPage() {
 		assertThatIllegalArgumentException().isThrownBy(() -> this.http.passwordManagement().changePasswordPage(""))
-				.withMessage("changePasswordPage cannot be empty");
+	.withMessage("changePasswordPage cannot be empty");
 	}
 
 	@Test
 	public void whenSettingBlankChangePasswordPage() {
 		assertThatIllegalArgumentException().isThrownBy(() -> this.http.passwordManagement().changePasswordPage(" "))
-				.withMessage("changePasswordPage cannot be empty");
+	.withMessage("changePasswordPage cannot be empty");
 	}
 
 }

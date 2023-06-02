@@ -51,16 +51,16 @@ public class SimpleRoles2GrantedAuthoritiesMapperTests {
 
 	@Test
 	public final void testGetGrantedAuthoritiesNoConversion() {
-		String[] roles = { "Role1", "Role2" };
-		String[] expectedGas = { "Role1", "Role2" };
+		String[] roles = {"Role1", "Role2"};
+		String[] expectedGas = {"Role1", "Role2"};
 		SimpleAttributes2GrantedAuthoritiesMapper mapper = getDefaultMapper();
 		testGetGrantedAuthorities(mapper, roles, expectedGas);
 	}
 
 	@Test
 	public final void testGetGrantedAuthoritiesToUpperCase() {
-		String[] roles = { "Role1", "Role2" };
-		String[] expectedGas = { "ROLE1", "ROLE2" };
+		String[] roles = {"Role1", "Role2"};
+		String[] expectedGas = {"ROLE1", "ROLE2"};
 		SimpleAttributes2GrantedAuthoritiesMapper mapper = getDefaultMapper();
 		mapper.setConvertAttributeToUpperCase(true);
 		testGetGrantedAuthorities(mapper, roles, expectedGas);
@@ -68,8 +68,8 @@ public class SimpleRoles2GrantedAuthoritiesMapperTests {
 
 	@Test
 	public final void testGetGrantedAuthoritiesToLowerCase() {
-		String[] roles = { "Role1", "Role2" };
-		String[] expectedGas = { "role1", "role2" };
+		String[] roles = {"Role1", "Role2"};
+		String[] expectedGas = {"role1", "role2"};
 		SimpleAttributes2GrantedAuthoritiesMapper mapper = getDefaultMapper();
 		mapper.setConvertAttributeToLowerCase(true);
 		testGetGrantedAuthorities(mapper, roles, expectedGas);
@@ -77,8 +77,8 @@ public class SimpleRoles2GrantedAuthoritiesMapperTests {
 
 	@Test
 	public final void testGetGrantedAuthoritiesAddPrefixIfAlreadyExisting() {
-		String[] roles = { "Role1", "Role2", "ROLE_Role3" };
-		String[] expectedGas = { "ROLE_Role1", "ROLE_Role2", "ROLE_ROLE_Role3" };
+		String[] roles = {"Role1", "Role2", "ROLE_Role3"};
+		String[] expectedGas = {"ROLE_Role1", "ROLE_Role2", "ROLE_ROLE_Role3"};
 		SimpleAttributes2GrantedAuthoritiesMapper mapper = getDefaultMapper();
 		mapper.setAddPrefixIfAlreadyExisting(true);
 		mapper.setAttributePrefix("ROLE_");
@@ -87,8 +87,8 @@ public class SimpleRoles2GrantedAuthoritiesMapperTests {
 
 	@Test
 	public final void testGetGrantedAuthoritiesDontAddPrefixIfAlreadyExisting1() {
-		String[] roles = { "Role1", "Role2", "ROLE_Role3" };
-		String[] expectedGas = { "ROLE_Role1", "ROLE_Role2", "ROLE_Role3" };
+		String[] roles = {"Role1", "Role2", "ROLE_Role3"};
+		String[] expectedGas = {"ROLE_Role1", "ROLE_Role2", "ROLE_Role3"};
 		SimpleAttributes2GrantedAuthoritiesMapper mapper = getDefaultMapper();
 		mapper.setAddPrefixIfAlreadyExisting(false);
 		mapper.setAttributePrefix("ROLE_");
@@ -97,8 +97,8 @@ public class SimpleRoles2GrantedAuthoritiesMapperTests {
 
 	@Test
 	public final void testGetGrantedAuthoritiesDontAddPrefixIfAlreadyExisting2() {
-		String[] roles = { "Role1", "Role2", "role_Role3" };
-		String[] expectedGas = { "ROLE_Role1", "ROLE_Role2", "ROLE_role_Role3" };
+		String[] roles = {"Role1", "Role2", "role_Role3"};
+		String[] expectedGas = {"ROLE_Role1", "ROLE_Role2", "ROLE_role_Role3"};
 		SimpleAttributes2GrantedAuthoritiesMapper mapper = getDefaultMapper();
 		mapper.setAddPrefixIfAlreadyExisting(false);
 		mapper.setAttributePrefix("ROLE_");
@@ -107,8 +107,8 @@ public class SimpleRoles2GrantedAuthoritiesMapperTests {
 
 	@Test
 	public final void testGetGrantedAuthoritiesCombination1() {
-		String[] roles = { "Role1", "Role2", "role_Role3" };
-		String[] expectedGas = { "ROLE_ROLE1", "ROLE_ROLE2", "ROLE_ROLE3" };
+		String[] roles = {"Role1", "Role2", "role_Role3"};
+		String[] expectedGas = {"ROLE_ROLE1", "ROLE_ROLE2", "ROLE_ROLE3"};
 		SimpleAttributes2GrantedAuthoritiesMapper mapper = getDefaultMapper();
 		mapper.setAddPrefixIfAlreadyExisting(false);
 		mapper.setConvertAttributeToUpperCase(true);
@@ -117,7 +117,7 @@ public class SimpleRoles2GrantedAuthoritiesMapperTests {
 	}
 
 	private void testGetGrantedAuthorities(SimpleAttributes2GrantedAuthoritiesMapper mapper, String[] roles,
-			String[] expectedGas) {
+String[] expectedGas) {
 		List<GrantedAuthority> result = mapper.getGrantedAuthorities(Arrays.asList(roles));
 		Collection<String> resultColl = new ArrayList<>(result.size());
 		for (GrantedAuthority grantedAuthority : result) {
@@ -125,8 +125,8 @@ public class SimpleRoles2GrantedAuthoritiesMapperTests {
 		}
 		Collection<String> expectedColl = Arrays.asList(expectedGas);
 		assertThat(expectedColl.containsAll(resultColl) && resultColl.containsAll(expectedColl))
-				.withFailMessage("Role collections do not match; result: " + resultColl + ", expected: " + expectedColl)
-				.isTrue();
+	.withFailMessage("Role collections do not match; result: " + resultColl + ", expected: " + expectedColl)
+	.isTrue();
 	}
 
 	private SimpleAttributes2GrantedAuthoritiesMapper getDefaultMapper() {

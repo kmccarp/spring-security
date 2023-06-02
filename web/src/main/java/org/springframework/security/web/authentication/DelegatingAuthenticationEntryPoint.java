@@ -74,7 +74,7 @@ public class DelegatingAuthenticationEntryPoint implements AuthenticationEntryPo
 
 	@Override
 	public void commence(HttpServletRequest request, HttpServletResponse response,
-			AuthenticationException authException) throws IOException, ServletException {
+AuthenticationException authException) throws IOException, ServletException {
 		for (RequestMatcher requestMatcher : this.entryPoints.keySet()) {
 			logger.debug(LogMessage.format("Trying to match using %s", requestMatcher));
 			if (requestMatcher.matches(request)) {

@@ -69,7 +69,7 @@ public class DelegatingAccessDeniedHandlerTests {
 		AccessDeniedException accessDeniedException = new AccessDeniedException("");
 		this.handler.handle(this.request, this.response, accessDeniedException);
 		verify(this.handler1, never()).handle(any(HttpServletRequest.class), any(HttpServletResponse.class),
-				any(AccessDeniedException.class));
+	any(AccessDeniedException.class));
 		verify(this.handler3).handle(this.request, this.response, accessDeniedException);
 	}
 
@@ -81,10 +81,10 @@ public class DelegatingAccessDeniedHandlerTests {
 		AccessDeniedException accessDeniedException = new MissingCsrfTokenException("123");
 		this.handler.handle(this.request, this.response, accessDeniedException);
 		verify(this.handler1, never()).handle(any(HttpServletRequest.class), any(HttpServletResponse.class),
-				any(AccessDeniedException.class));
+	any(AccessDeniedException.class));
 		verify(this.handler2).handle(this.request, this.response, accessDeniedException);
 		verify(this.handler3, never()).handle(any(HttpServletRequest.class), any(HttpServletResponse.class),
-				any(AccessDeniedException.class));
+	any(AccessDeniedException.class));
 	}
 
 }

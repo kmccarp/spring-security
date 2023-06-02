@@ -39,9 +39,9 @@ public class Sec2196Tests {
 	@Test
 	public void genericMethodsProtected() {
 		loadContext("<global-method-security secured-annotations=\"enabled\" pre-post-annotations=\"enabled\"/>"
-				+ "<b:bean class='" + Service.class.getName() + "'/>");
+	+ "<b:bean class='" + Service.class.getName() + "'/>");
 		SecurityContextHolder.getContext()
-				.setAuthentication(new TestingAuthenticationToken("test", "pass", "ROLE_USER"));
+	.setAuthentication(new TestingAuthenticationToken("test", "pass", "ROLE_USER"));
 		Service service = this.context.getBean(Service.class);
 		assertThatExceptionOfType(AccessDeniedException.class).isThrownBy(() -> service.save(new User()));
 	}
@@ -49,9 +49,9 @@ public class Sec2196Tests {
 	@Test
 	public void genericMethodsAllowed() {
 		loadContext("<global-method-security secured-annotations=\"enabled\" pre-post-annotations=\"enabled\"/>"
-				+ "<b:bean class='" + Service.class.getName() + "'/>");
+	+ "<b:bean class='" + Service.class.getName() + "'/>");
 		SecurityContextHolder.getContext()
-				.setAuthentication(new TestingAuthenticationToken("test", "pass", "saveUsers"));
+	.setAuthentication(new TestingAuthenticationToken("test", "pass", "saveUsers"));
 		Service service = this.context.getBean(Service.class);
 		service.save(new User());
 	}

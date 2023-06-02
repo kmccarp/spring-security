@@ -27,7 +27,7 @@ public class PythonInterpreterPostInvocationAdvice implements PostInvocationAuth
 
 	@Override
 	public Object after(Authentication authentication, MethodInvocation mi, PostInvocationAttribute pia,
-			Object returnedObject) throws AccessDeniedException {
+Object returnedObject) throws AccessDeniedException {
 		return returnedObject;
 	}
 

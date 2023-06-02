@@ -63,7 +63,7 @@ public final class InMemoryOAuth2AuthorizedClientService implements OAuth2Author
 	 * @since 5.2
 	 */
 	public InMemoryOAuth2AuthorizedClientService(ClientRegistrationRepository clientRegistrationRepository,
-			Map<OAuth2AuthorizedClientId, OAuth2AuthorizedClient> authorizedClients) {
+Map<OAuth2AuthorizedClientId, OAuth2AuthorizedClient> authorizedClients) {
 		Assert.notNull(clientRegistrationRepository, "clientRegistrationRepository cannot be null");
 		Assert.notEmpty(authorizedClients, "authorizedClients cannot be empty");
 		this.clientRegistrationRepository = clientRegistrationRepository;
@@ -73,7 +73,7 @@ public final class InMemoryOAuth2AuthorizedClientService implements OAuth2Author
 	@Override
 	@SuppressWarnings("unchecked")
 	public <T extends OAuth2AuthorizedClient> T loadAuthorizedClient(String clientRegistrationId,
-			String principalName) {
+String principalName) {
 		Assert.hasText(clientRegistrationId, "clientRegistrationId cannot be empty");
 		Assert.hasText(principalName, "principalName cannot be empty");
 		ClientRegistration registration = this.clientRegistrationRepository.findByRegistrationId(clientRegistrationId);
@@ -88,7 +88,7 @@ public final class InMemoryOAuth2AuthorizedClientService implements OAuth2Author
 		Assert.notNull(authorizedClient, "authorizedClient cannot be null");
 		Assert.notNull(principal, "principal cannot be null");
 		this.authorizedClients.put(new OAuth2AuthorizedClientId(
-				authorizedClient.getClientRegistration().getRegistrationId(), principal.getName()), authorizedClient);
+	authorizedClient.getClientRegistration().getRegistrationId(), principal.getName()), authorizedClient);
 	}
 
 	@Override

@@ -81,8 +81,8 @@ public final class JwtIssuerAuthenticationManagerResolver implements Authenticat
 	public JwtIssuerAuthenticationManagerResolver(Collection<String> trustedIssuers) {
 		Assert.notEmpty(trustedIssuers, "trustedIssuers cannot be empty");
 		this.authenticationManager = new ResolvingAuthenticationManager(
-				new TrustedIssuerJwtAuthenticationManagerResolver(
-						Collections.unmodifiableCollection(trustedIssuers)::contains));
+	new TrustedIssuerJwtAuthenticationManagerResolver(
+Collections.unmodifiableCollection(trustedIssuers)::contains));
 	}
 
 	/**
@@ -107,7 +107,7 @@ public final class JwtIssuerAuthenticationManagerResolver implements Authenticat
 	 * {@link AuthenticationManager} by the issuer
 	 */
 	public JwtIssuerAuthenticationManagerResolver(
-			AuthenticationManagerResolver<String> issuerAuthenticationManagerResolver) {
+AuthenticationManagerResolver<String> issuerAuthenticationManagerResolver) {
 		Assert.notNull(issuerAuthenticationManagerResolver, "issuerAuthenticationManagerResolver cannot be null");
 		this.authenticationManager = new ResolvingAuthenticationManager(issuerAuthenticationManagerResolver);
 	}
@@ -136,7 +136,7 @@ public final class JwtIssuerAuthenticationManagerResolver implements Authenticat
 		@Override
 		public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 			Assert.isTrue(authentication instanceof BearerTokenAuthenticationToken,
-					"Authentication must be of type BearerTokenAuthenticationToken");
+		"Authentication must be of type BearerTokenAuthenticationToken");
 			BearerTokenAuthenticationToken token = (BearerTokenAuthenticationToken) authentication;
 			String issuer = this.issuerConverter.convert(token);
 			AuthenticationManager authenticationManager = this.issuerAuthenticationManagerResolver.resolve(issuer);
@@ -183,11 +183,11 @@ public final class JwtIssuerAuthenticationManagerResolver implements Authenticat
 		public AuthenticationManager resolve(String issuer) {
 			if (this.trustedIssuer.test(issuer)) {
 				AuthenticationManager authenticationManager = this.authenticationManagers.computeIfAbsent(issuer,
-						(k) -> {
-							this.logger.debug("Constructing AuthenticationManager");
-							JwtDecoder jwtDecoder = JwtDecoders.fromIssuerLocation(issuer);
-							return new JwtAuthenticationProvider(jwtDecoder)::authenticate;
-						});
+			(k) -> {
+				this.logger.debug("Constructing AuthenticationManager");
+				JwtDecoder jwtDecoder = JwtDecoders.fromIssuerLocation(issuer);
+				return new JwtAuthenticationProvider(jwtDecoder)::authenticate;
+			});
 				this.logger.debug(LogMessage.format("Resolved AuthenticationManager for issuer '%s'", issuer));
 				return authenticationManager;
 			}

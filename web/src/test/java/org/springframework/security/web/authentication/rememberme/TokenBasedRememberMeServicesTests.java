@@ -56,7 +56,7 @@ public class TokenBasedRememberMeServicesTests {
 	private UserDetailsService uds;
 
 	private UserDetails user = new User("someone", "password", true, true, true, true,
-			AuthorityUtils.createAuthorityList("ROLE_ABC"));
+AuthorityUtils.createAuthorityList("ROLE_ABC"));
 
 	private TokenBasedRememberMeServices services;
 
@@ -109,30 +109,30 @@ public class TokenBasedRememberMeServicesTests {
 	}
 
 	private String generateCorrectCookieContentForTokenNoAlgorithmName(long expiryTime, String username,
-			String password, String key) {
+String password, String key) {
 		return generateCorrectCookieContentForTokenWithAlgorithmName(expiryTime, username, password, key,
-				RememberMeTokenAlgorithm.MD5);
+	RememberMeTokenAlgorithm.MD5);
 	}
 
 	private String generateCorrectCookieContentForTokenNoAlgorithmName(long expiryTime, String username,
-			String password, String key, RememberMeTokenAlgorithm algorithm) {
+String password, String key, RememberMeTokenAlgorithm algorithm) {
 		// format is:
 		// username + ":" + expiryTime + ":" + Md5Hex(username + ":" + expiryTime + ":" +
 		// password + ":" + key)
 		String signatureValue = CodecTestUtils.algorithmHex(algorithm.getDigestAlgorithm(),
-				username + ":" + expiryTime + ":" + password + ":" + key);
+	username + ":" + expiryTime + ":" + password + ":" + key);
 		String tokenValue = username + ":" + expiryTime + ":" + signatureValue;
 		return CodecTestUtils.encodeBase64(tokenValue);
 	}
 
 	private String generateCorrectCookieContentForTokenWithAlgorithmName(long expiryTime, String username,
-			String password, String key, RememberMeTokenAlgorithm algorithm) {
+String password, String key, RememberMeTokenAlgorithm algorithm) {
 		// format is:
 		// username + ":" + expiryTime + ":" + algorithmName + ":" + algorithmHex(username
 		// + ":" + expiryTime + ":" +
 		// password + ":" + key)
 		String signatureValue = CodecTestUtils.algorithmHex(algorithm.getDigestAlgorithm(),
-				username + ":" + expiryTime + ":" + password + ":" + key);
+	username + ":" + expiryTime + ":" + password + ":" + key);
 		String tokenValue = username + ":" + expiryTime + ":" + algorithm.name() + ":" + signatureValue;
 		return CodecTestUtils.encodeBase64(tokenValue);
 	}
@@ -160,8 +160,8 @@ public class TokenBasedRememberMeServicesTests {
 	@Test
 	public void autoLoginReturnsNullForExpiredCookieAndClearsCookie() {
 		Cookie cookie = new Cookie(AbstractRememberMeServices.SPRING_SECURITY_REMEMBER_ME_COOKIE_KEY,
-				generateCorrectCookieContentForTokenNoAlgorithmName(System.currentTimeMillis() - 1000000, "someone",
-						"password", "key"));
+	generateCorrectCookieContentForTokenNoAlgorithmName(System.currentTimeMillis() - 1000000, "someone",
+"password", "key"));
 		MockHttpServletRequest request = new MockHttpServletRequest();
 		request.setCookies(cookie);
 		MockHttpServletResponse response = new MockHttpServletResponse();
@@ -174,7 +174,7 @@ public class TokenBasedRememberMeServicesTests {
 	@Test
 	public void autoLoginReturnsNullAndClearsCookieIfMissingThreeTokensInCookieValue() {
 		Cookie cookie = new Cookie(AbstractRememberMeServices.SPRING_SECURITY_REMEMBER_ME_COOKIE_KEY,
-				CodecTestUtils.encodeBase64("x"));
+	CodecTestUtils.encodeBase64("x"));
 		MockHttpServletRequest request = new MockHttpServletRequest();
 		request.setCookies(cookie);
 		MockHttpServletResponse response = new MockHttpServletResponse();
@@ -187,7 +187,7 @@ public class TokenBasedRememberMeServicesTests {
 	@Test
 	public void autoLoginClearsNonBase64EncodedCookie() {
 		Cookie cookie = new Cookie(AbstractRememberMeServices.SPRING_SECURITY_REMEMBER_ME_COOKIE_KEY,
-				"NOT_BASE_64_ENCODED");
+	"NOT_BASE_64_ENCODED");
 		MockHttpServletRequest request = new MockHttpServletRequest();
 		request.setCookies(cookie);
 		MockHttpServletResponse response = new MockHttpServletResponse();
@@ -201,8 +201,8 @@ public class TokenBasedRememberMeServicesTests {
 	public void autoLoginClearsCookieIfSignatureBlocksDoesNotMatchExpectedValue() {
 		udsWillReturnUser();
 		Cookie cookie = new Cookie(AbstractRememberMeServices.SPRING_SECURITY_REMEMBER_ME_COOKIE_KEY,
-				generateCorrectCookieContentForTokenNoAlgorithmName(System.currentTimeMillis() + 1000000, "someone",
-						"password", "WRONG_KEY"));
+	generateCorrectCookieContentForTokenNoAlgorithmName(System.currentTimeMillis() + 1000000, "someone",
+"password", "WRONG_KEY"));
 		MockHttpServletRequest request = new MockHttpServletRequest();
 		request.setCookies(cookie);
 		MockHttpServletResponse response = new MockHttpServletResponse();
@@ -215,7 +215,7 @@ public class TokenBasedRememberMeServicesTests {
 	@Test
 	public void autoLoginClearsCookieIfTokenDoesNotContainANumberInCookieValue() {
 		Cookie cookie = new Cookie(AbstractRememberMeServices.SPRING_SECURITY_REMEMBER_ME_COOKIE_KEY,
-				CodecTestUtils.encodeBase64("username:NOT_A_NUMBER:signature"));
+	CodecTestUtils.encodeBase64("username:NOT_A_NUMBER:signature"));
 		MockHttpServletRequest request = new MockHttpServletRequest();
 		request.setCookies(cookie);
 		MockHttpServletResponse response = new MockHttpServletResponse();
@@ -229,8 +229,8 @@ public class TokenBasedRememberMeServicesTests {
 	public void autoLoginClearsCookieIfUserNotFound() {
 		udsWillThrowNotFound();
 		Cookie cookie = new Cookie(AbstractRememberMeServices.SPRING_SECURITY_REMEMBER_ME_COOKIE_KEY,
-				generateCorrectCookieContentForTokenNoAlgorithmName(System.currentTimeMillis() + 1000000, "someone",
-						"password", "key"));
+	generateCorrectCookieContentForTokenNoAlgorithmName(System.currentTimeMillis() + 1000000, "someone",
+"password", "key"));
 		MockHttpServletRequest request = new MockHttpServletRequest();
 		request.setCookies(cookie);
 		MockHttpServletResponse response = new MockHttpServletResponse();
@@ -244,8 +244,8 @@ public class TokenBasedRememberMeServicesTests {
 	public void autoLoginClearsCookieIfUserServiceMisconfigured() {
 		udsWillReturnNull();
 		Cookie cookie = new Cookie(AbstractRememberMeServices.SPRING_SECURITY_REMEMBER_ME_COOKIE_KEY,
-				generateCorrectCookieContentForTokenNoAlgorithmName(System.currentTimeMillis() + 1000000, "someone",
-						"password", "key"));
+	generateCorrectCookieContentForTokenNoAlgorithmName(System.currentTimeMillis() + 1000000, "someone",
+"password", "key"));
 		MockHttpServletRequest request = new MockHttpServletRequest();
 		request.setCookies(cookie);
 		MockHttpServletResponse response = new MockHttpServletResponse();
@@ -256,8 +256,8 @@ public class TokenBasedRememberMeServicesTests {
 	public void autoLoginWithValidTokenAndUserSucceeds() {
 		udsWillReturnUser();
 		Cookie cookie = new Cookie(AbstractRememberMeServices.SPRING_SECURITY_REMEMBER_ME_COOKIE_KEY,
-				generateCorrectCookieContentForTokenNoAlgorithmName(System.currentTimeMillis() + 1000000, "someone",
-						"password", "key"));
+	generateCorrectCookieContentForTokenNoAlgorithmName(System.currentTimeMillis() + 1000000, "someone",
+"password", "key"));
 		MockHttpServletRequest request = new MockHttpServletRequest();
 		request.setCookies(cookie);
 		MockHttpServletResponse response = new MockHttpServletResponse();
@@ -270,8 +270,8 @@ public class TokenBasedRememberMeServicesTests {
 	public void autoLoginWhenTokenNoAlgorithmAndDifferentMatchingAlgorithmThenReturnsNullAndClearCookie() {
 		udsWillReturnUser();
 		Cookie cookie = new Cookie(AbstractRememberMeServices.SPRING_SECURITY_REMEMBER_ME_COOKIE_KEY,
-				generateCorrectCookieContentForTokenNoAlgorithmName(System.currentTimeMillis() + 1000000, "someone",
-						"password", "key", RememberMeTokenAlgorithm.MD5));
+	generateCorrectCookieContentForTokenNoAlgorithmName(System.currentTimeMillis() + 1000000, "someone",
+"password", "key", RememberMeTokenAlgorithm.MD5));
 		MockHttpServletRequest request = new MockHttpServletRequest();
 		request.setCookies(cookie);
 		MockHttpServletResponse response = new MockHttpServletResponse();
@@ -287,8 +287,8 @@ public class TokenBasedRememberMeServicesTests {
 	public void autoLoginWhenTokenNoAlgorithmAndSameMatchingAlgorithmThenSucceeds() {
 		udsWillReturnUser();
 		Cookie cookie = new Cookie(AbstractRememberMeServices.SPRING_SECURITY_REMEMBER_ME_COOKIE_KEY,
-				generateCorrectCookieContentForTokenNoAlgorithmName(System.currentTimeMillis() + 1000000, "someone",
-						"password", "key", RememberMeTokenAlgorithm.SHA256));
+	generateCorrectCookieContentForTokenNoAlgorithmName(System.currentTimeMillis() + 1000000, "someone",
+"password", "key", RememberMeTokenAlgorithm.SHA256));
 		MockHttpServletRequest request = new MockHttpServletRequest();
 		request.setCookies(cookie);
 		MockHttpServletResponse response = new MockHttpServletResponse();
@@ -302,8 +302,8 @@ public class TokenBasedRememberMeServicesTests {
 	public void autoLoginWhenTokenHasAlgorithmAndSameMatchingAlgorithmThenUsesTokenAlgorithmAndSucceeds() {
 		udsWillReturnUser();
 		Cookie cookie = new Cookie(AbstractRememberMeServices.SPRING_SECURITY_REMEMBER_ME_COOKIE_KEY,
-				generateCorrectCookieContentForTokenWithAlgorithmName(System.currentTimeMillis() + 1000000, "someone",
-						"password", "key", RememberMeTokenAlgorithm.SHA256));
+	generateCorrectCookieContentForTokenWithAlgorithmName(System.currentTimeMillis() + 1000000, "someone",
+"password", "key", RememberMeTokenAlgorithm.SHA256));
 		MockHttpServletRequest request = new MockHttpServletRequest();
 		request.setCookies(cookie);
 		MockHttpServletResponse response = new MockHttpServletResponse();
@@ -317,8 +317,8 @@ public class TokenBasedRememberMeServicesTests {
 	public void autoLoginWhenTokenHasAlgorithmAndDifferentMatchingAlgorithmThenUsesTokenAlgorithmAndSucceeds() {
 		udsWillReturnUser();
 		Cookie cookie = new Cookie(AbstractRememberMeServices.SPRING_SECURITY_REMEMBER_ME_COOKIE_KEY,
-				generateCorrectCookieContentForTokenWithAlgorithmName(System.currentTimeMillis() + 1000000, "someone",
-						"password", "key", RememberMeTokenAlgorithm.SHA256));
+	generateCorrectCookieContentForTokenWithAlgorithmName(System.currentTimeMillis() + 1000000, "someone",
+"password", "key", RememberMeTokenAlgorithm.SHA256));
 		MockHttpServletRequest request = new MockHttpServletRequest();
 		request.setCookies(cookie);
 		MockHttpServletResponse response = new MockHttpServletResponse();
@@ -352,7 +352,7 @@ public class TokenBasedRememberMeServicesTests {
 	@Test
 	public void loginSuccessIgnoredIfParameterNotSetOrFalse() {
 		TokenBasedRememberMeServices services = new TokenBasedRememberMeServices("key",
-				new AbstractRememberMeServicesTests.MockUserDetailsService(null, false));
+	new AbstractRememberMeServicesTests.MockUserDetailsService(null, false));
 		MockHttpServletRequest request = new MockHttpServletRequest();
 		request.addParameter(AbstractRememberMeServices.DEFAULT_PARAMETER, "false");
 		MockHttpServletResponse response = new MockHttpServletResponse();
@@ -369,7 +369,7 @@ public class TokenBasedRememberMeServicesTests {
 		request.addParameter(AbstractRememberMeServices.DEFAULT_PARAMETER, "true");
 		MockHttpServletResponse response = new MockHttpServletResponse();
 		this.services.loginSuccess(request, response,
-				new TestingAuthenticationToken("someone", "password", "ROLE_ABC"));
+	new TestingAuthenticationToken("someone", "password", "ROLE_ABC"));
 		Cookie cookie = response.getCookie(AbstractRememberMeServices.SPRING_SECURITY_REMEMBER_ME_COOKIE_KEY);
 		String expiryTime = this.services.decodeCookie(cookie.getValue())[1];
 		long expectedExpiryTime = 1000L * 500000000;
@@ -387,7 +387,7 @@ public class TokenBasedRememberMeServicesTests {
 		request.addParameter(AbstractRememberMeServices.DEFAULT_PARAMETER, "true");
 		MockHttpServletResponse response = new MockHttpServletResponse();
 		this.services.loginSuccess(request, response,
-				new TestingAuthenticationToken("someone", "password", "ROLE_ABC"));
+	new TestingAuthenticationToken("someone", "password", "ROLE_ABC"));
 		Cookie cookie = response.getCookie(AbstractRememberMeServices.SPRING_SECURITY_REMEMBER_ME_COOKIE_KEY);
 		assertThat(cookie).isNotNull();
 		assertThat(cookie.getMaxAge()).isEqualTo(this.services.getTokenValiditySeconds());
@@ -401,7 +401,7 @@ public class TokenBasedRememberMeServicesTests {
 		request.addParameter(AbstractRememberMeServices.DEFAULT_PARAMETER, "true");
 		MockHttpServletResponse response = new MockHttpServletResponse();
 		this.services.loginSuccess(request, response,
-				new TestingAuthenticationToken("someone", "password", "ROLE_ABC"));
+	new TestingAuthenticationToken("someone", "password", "ROLE_ABC"));
 		Cookie cookie = response.getCookie(AbstractRememberMeServices.SPRING_SECURITY_REMEMBER_ME_COOKIE_KEY);
 		assertThat(cookie).isNotNull();
 		assertThat(cookie.getMaxAge()).isEqualTo(this.services.getTokenValiditySeconds());
@@ -417,7 +417,7 @@ public class TokenBasedRememberMeServicesTests {
 		MockHttpServletResponse response = new MockHttpServletResponse();
 		this.services = new TokenBasedRememberMeServices("key", this.uds, RememberMeTokenAlgorithm.SHA256);
 		this.services.loginSuccess(request, response,
-				new TestingAuthenticationToken("someone", "password", "ROLE_ABC"));
+	new TestingAuthenticationToken("someone", "password", "ROLE_ABC"));
 		Cookie cookie = response.getCookie(AbstractRememberMeServices.SPRING_SECURITY_REMEMBER_ME_COOKIE_KEY);
 		assertThat(cookie).isNotNull();
 		assertThat(cookie.getMaxAge()).isEqualTo(this.services.getTokenValiditySeconds());
@@ -441,12 +441,12 @@ public class TokenBasedRememberMeServicesTests {
 		MockHttpServletResponse response = new MockHttpServletResponse();
 		this.services.setTokenValiditySeconds(-1);
 		this.services.loginSuccess(request, response,
-				new TestingAuthenticationToken("someone", "password", "ROLE_ABC"));
+	new TestingAuthenticationToken("someone", "password", "ROLE_ABC"));
 		Cookie cookie = response.getCookie(AbstractRememberMeServices.SPRING_SECURITY_REMEMBER_ME_COOKIE_KEY);
 		assertThat(cookie).isNotNull();
 		// Check the expiry time is within 50ms of two weeks from current time
 		assertThat(determineExpiryTimeFromBased64EncodedToken(cookie.getValue())
-				- System.currentTimeMillis() > AbstractRememberMeServices.TWO_WEEKS_S - 50).isTrue();
+	- System.currentTimeMillis() > AbstractRememberMeServices.TWO_WEEKS_S - 50).isTrue();
 		assertThat(cookie.getMaxAge()).isEqualTo(-1);
 		assertThat(CodecTestUtils.isBase64(cookie.getValue().getBytes())).isTrue();
 	}
@@ -454,15 +454,15 @@ public class TokenBasedRememberMeServicesTests {
 	@Test
 	public void constructorWhenEncodingAlgorithmNullThenException() {
 		assertThatExceptionOfType(IllegalArgumentException.class)
-				.isThrownBy(() -> new TokenBasedRememberMeServices("key", this.uds, null))
-				.withMessage("encodingAlgorithm cannot be null");
+	.isThrownBy(() -> new TokenBasedRememberMeServices("key", this.uds, null))
+	.withMessage("encodingAlgorithm cannot be null");
 	}
 
 	@Test
 	public void constructorWhenNoEncodingAlgorithmSpecifiedThenSha256() {
 		TokenBasedRememberMeServices rememberMeServices = new TokenBasedRememberMeServices("key", this.uds);
 		RememberMeTokenAlgorithm encodingAlgorithm = (RememberMeTokenAlgorithm) ReflectionTestUtils
-				.getField(rememberMeServices, "encodingAlgorithm");
+	.getField(rememberMeServices, "encodingAlgorithm");
 		assertThat(encodingAlgorithm).isSameAs(RememberMeTokenAlgorithm.SHA256);
 	}
 

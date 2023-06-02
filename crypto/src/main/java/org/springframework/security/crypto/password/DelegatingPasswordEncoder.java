@@ -164,7 +164,7 @@ public class DelegatingPasswordEncoder implements PasswordEncoder {
 	 * {@link #matches(CharSequence, String)}
 	 */
 	public DelegatingPasswordEncoder(String idForEncode, Map<String, PasswordEncoder> idToPasswordEncoder,
-			String idPrefix, String idSuffix) {
+String idPrefix, String idSuffix) {
 		if (idForEncode == null) {
 			throw new IllegalArgumentException("idForEncode cannot be null");
 		}
@@ -180,7 +180,7 @@ public class DelegatingPasswordEncoder implements PasswordEncoder {
 
 		if (!idToPasswordEncoder.containsKey(idForEncode)) {
 			throw new IllegalArgumentException(
-					"idForEncode " + idForEncode + "is not found in idToPasswordEncoder " + idToPasswordEncoder);
+		"idForEncode " + idForEncode + "is not found in idToPasswordEncoder " + idToPasswordEncoder);
 		}
 		for (String id : idToPasswordEncoder.keySet()) {
 			if (id == null) {

@@ -82,31 +82,31 @@ public class OAuth2AuthorizedClientArgumentResolverTests {
 	public void setUp() {
 		// @formatter:off
 		ReactiveOAuth2AuthorizedClientProvider authorizedClientProvider = ReactiveOAuth2AuthorizedClientProviderBuilder
-				.builder()
-				.authorizationCode()
-				.refreshToken()
-				.clientCredentials()
-				.build();
+	.builder()
+	.authorizationCode()
+	.refreshToken()
+	.clientCredentials()
+	.build();
 		// @formatter:on
 		DefaultReactiveOAuth2AuthorizedClientManager authorizedClientManager = new DefaultReactiveOAuth2AuthorizedClientManager(
-				this.clientRegistrationRepository, this.authorizedClientRepository);
+	this.clientRegistrationRepository, this.authorizedClientRepository);
 		authorizedClientManager.setAuthorizedClientProvider(authorizedClientProvider);
 		this.argumentResolver = new OAuth2AuthorizedClientArgumentResolver(authorizedClientManager);
 		this.clientRegistration = TestClientRegistrations.clientRegistration().build();
 		this.authorizedClient = new OAuth2AuthorizedClient(this.clientRegistration, this.authentication.getName(),
-				TestOAuth2AccessTokens.noScopes());
+	TestOAuth2AccessTokens.noScopes());
 	}
 
 	@Test
 	public void constructorWhenClientRegistrationRepositoryIsNullThenThrowIllegalArgumentException() {
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new OAuth2AuthorizedClientArgumentResolver(null, this.authorizedClientRepository));
+	.isThrownBy(() -> new OAuth2AuthorizedClientArgumentResolver(null, this.authorizedClientRepository));
 	}
 
 	@Test
 	public void constructorWhenOAuth2AuthorizedClientRepositoryIsNullThenThrowIllegalArgumentException() {
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new OAuth2AuthorizedClientArgumentResolver(this.clientRegistrationRepository, null));
+	.isThrownBy(() -> new OAuth2AuthorizedClientArgumentResolver(this.clientRegistrationRepository, null));
 	}
 
 	@Test
@@ -117,21 +117,21 @@ public class OAuth2AuthorizedClientArgumentResolverTests {
 	@Test
 	public void supportsParameterWhenParameterTypeOAuth2AuthorizedClientThenTrue() {
 		MethodParameter methodParameter = this.getMethodParameter("paramTypeAuthorizedClient",
-				OAuth2AuthorizedClient.class);
+	OAuth2AuthorizedClient.class);
 		assertThat(this.argumentResolver.supportsParameter(methodParameter)).isTrue();
 	}
 
 	@Test
 	public void supportsParameterWhenParameterTypeOAuth2AuthorizedClientWithoutAnnotationThenFalse() {
 		MethodParameter methodParameter = this.getMethodParameter("paramTypeAuthorizedClientWithoutAnnotation",
-				OAuth2AuthorizedClient.class);
+	OAuth2AuthorizedClient.class);
 		assertThat(this.argumentResolver.supportsParameter(methodParameter)).isFalse();
 	}
 
 	@Test
 	public void supportsParameterWhenParameterTypeUnsupportedWithoutAnnotationThenFalse() {
 		MethodParameter methodParameter = this.getMethodParameter("paramTypeUnsupportedWithoutAnnotation",
-				String.class);
+	String.class);
 		assertThat(this.argumentResolver.supportsParameter(methodParameter)).isFalse();
 	}
 
@@ -139,16 +139,16 @@ public class OAuth2AuthorizedClientArgumentResolverTests {
 	public void resolveArgumentWhenRegistrationIdEmptyAndNotOAuth2AuthenticationThenThrowIllegalArgumentException() {
 		MethodParameter methodParameter = this.getMethodParameter("registrationIdEmpty", OAuth2AuthorizedClient.class);
 		assertThatIllegalArgumentException().isThrownBy(() -> resolveArgument(methodParameter))
-				.withMessage("The clientRegistrationId could not be resolved. Please provide one");
+	.withMessage("The clientRegistrationId could not be resolved. Please provide one");
 	}
 
 	@Test
 	public void resolveArgumentWhenRegistrationIdEmptyAndOAuth2AuthenticationThenResolves() {
 		given(this.authorizedClientRepository.loadAuthorizedClient(anyString(), any(), any()))
-				.willReturn(Mono.just(this.authorizedClient));
+	.willReturn(Mono.just(this.authorizedClient));
 		this.authentication = mock(OAuth2AuthenticationToken.class);
 		given(((OAuth2AuthenticationToken) this.authentication).getAuthorizedClientRegistrationId())
-				.willReturn("client1");
+	.willReturn("client1");
 		MethodParameter methodParameter = this.getMethodParameter("registrationIdEmpty", OAuth2AuthorizedClient.class);
 		resolveArgument(methodParameter);
 	}
@@ -156,40 +156,40 @@ public class OAuth2AuthorizedClientArgumentResolverTests {
 	@Test
 	public void resolveArgumentWhenParameterTypeOAuth2AuthorizedClientAndCurrentAuthenticationNullThenResolves() {
 		given(this.authorizedClientRepository.loadAuthorizedClient(anyString(), any(), any()))
-				.willReturn(Mono.just(this.authorizedClient));
+	.willReturn(Mono.just(this.authorizedClient));
 		this.authentication = null;
 		MethodParameter methodParameter = this.getMethodParameter("paramTypeAuthorizedClient",
-				OAuth2AuthorizedClient.class);
+	OAuth2AuthorizedClient.class);
 		assertThat(resolveArgument(methodParameter)).isSameAs(this.authorizedClient);
 	}
 
 	@Test
 	public void resolveArgumentWhenOAuth2AuthorizedClientFoundThenResolves() {
 		given(this.authorizedClientRepository.loadAuthorizedClient(anyString(), any(), any()))
-				.willReturn(Mono.just(this.authorizedClient));
+	.willReturn(Mono.just(this.authorizedClient));
 		given(this.authorizedClientRepository.loadAuthorizedClient(anyString(), any(), any()))
-				.willReturn(Mono.just(this.authorizedClient));
+	.willReturn(Mono.just(this.authorizedClient));
 		MethodParameter methodParameter = this.getMethodParameter("paramTypeAuthorizedClient",
-				OAuth2AuthorizedClient.class);
+	OAuth2AuthorizedClient.class);
 		assertThat(resolveArgument(methodParameter)).isSameAs(this.authorizedClient);
 	}
 
 	@Test
 	public void resolveArgumentWhenOAuth2AuthorizedClientNotFoundThenThrowClientAuthorizationRequiredException() {
 		given(this.clientRegistrationRepository.findByRegistrationId(any()))
-				.willReturn(Mono.just(this.clientRegistration));
+	.willReturn(Mono.just(this.clientRegistration));
 		given(this.authorizedClientRepository.loadAuthorizedClient(anyString(), any(), any())).willReturn(Mono.empty());
 		MethodParameter methodParameter = this.getMethodParameter("paramTypeAuthorizedClient",
-				OAuth2AuthorizedClient.class);
+	OAuth2AuthorizedClient.class);
 		assertThatExceptionOfType(ClientAuthorizationRequiredException.class)
-				.isThrownBy(() -> resolveArgument(methodParameter));
+	.isThrownBy(() -> resolveArgument(methodParameter));
 	}
 
 	private Object resolveArgument(MethodParameter methodParameter) {
 		return this.argumentResolver.resolveArgument(methodParameter, null, null)
-				.contextWrite((this.authentication != null)
-						? ReactiveSecurityContextHolder.withAuthentication(this.authentication) : Context.empty())
-				.contextWrite(serverWebExchange()).block();
+	.contextWrite((this.authentication != null)
+? ReactiveSecurityContextHolder.withAuthentication(this.authentication) : Context.empty())
+	.contextWrite(serverWebExchange()).block();
 	}
 
 	private Context serverWebExchange() {
@@ -204,7 +204,7 @@ public class OAuth2AuthorizedClientArgumentResolverTests {
 	static class TestController {
 
 		void paramTypeAuthorizedClient(
-				@RegisteredOAuth2AuthorizedClient("client1") OAuth2AuthorizedClient authorizedClient) {
+	@RegisteredOAuth2AuthorizedClient("client1") OAuth2AuthorizedClient authorizedClient) {
 		}
 
 		void paramTypeAuthorizedClientWithoutAnnotation(OAuth2AuthorizedClient authorizedClient) {

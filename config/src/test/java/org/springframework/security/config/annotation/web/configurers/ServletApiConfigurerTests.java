@@ -94,7 +94,7 @@ public class ServletApiConfigurerTests {
 	public void configureWhenRegisteringObjectPostProcessorThenInvokedOnSecurityContextHolderAwareRequestFilter() {
 		this.spring.register(ObjectPostProcessorConfig.class).autowire();
 		verify(ObjectPostProcessorConfig.objectPostProcessor)
-				.postProcess(any(SecurityContextHolderAwareRequestFilter.class));
+	.postProcess(any(SecurityContextHolderAwareRequestFilter.class));
 	}
 
 	// SEC-2215
@@ -124,7 +124,7 @@ public class ServletApiConfigurerTests {
 		this.spring.register(CustomEntryPointConfig.class).autowire();
 		this.mvc.perform(get("/"));
 		verify(CustomEntryPointConfig.ENTRYPOINT).commence(any(HttpServletRequest.class),
-				any(HttpServletResponse.class), any(AuthenticationException.class));
+	any(HttpServletResponse.class), any(AuthenticationException.class));
 	}
 
 	@Test
@@ -132,15 +132,15 @@ public class ServletApiConfigurerTests {
 		this.spring.register(DuplicateInvocationsDoesNotOverrideConfig.class, AdminController.class).autowire();
 		// @formatter:off
 		MockHttpServletRequestBuilder request = get("/admin")
-				.with(user("user").authorities(AuthorityUtils.createAuthorityList("PERMISSION_ADMIN")));
+	.with(user("user").authorities(AuthorityUtils.createAuthorityList("PERMISSION_ADMIN")));
 		this.mvc.perform(request)
-				.andExpect(status().isOk());
+	.andExpect(status().isOk());
 		SecurityMockMvcRequestPostProcessors.UserRequestPostProcessor userWithRoleAdmin = user("user")
-				.authorities(AuthorityUtils.createAuthorityList("ROLE_ADMIN"));
+	.authorities(AuthorityUtils.createAuthorityList("ROLE_ADMIN"));
 		MockHttpServletRequestBuilder requestWithRoleAdmin = get("/admin")
-				.with(userWithRoleAdmin);
+	.with(userWithRoleAdmin);
 		this.mvc.perform(requestWithRoleAdmin)
-				.andExpect(status().isForbidden());
+	.andExpect(status().isForbidden());
 		// @formatter:on
 	}
 
@@ -155,7 +155,7 @@ public class ServletApiConfigurerTests {
 	public void requestWhenServletApiWithDefaultsInLambdaThenUsesDefaultRolePrefix() throws Exception {
 		this.spring.register(ServletApiWithDefaultsInLambdaConfig.class, AdminController.class).autowire();
 		MockHttpServletRequestBuilder request = get("/admin")
-				.with(user("user").authorities(AuthorityUtils.createAuthorityList("ROLE_ADMIN")));
+	.with(user("user").authorities(AuthorityUtils.createAuthorityList("ROLE_ADMIN")));
 		this.mvc.perform(request).andExpect(status().isOk());
 	}
 
@@ -164,13 +164,13 @@ public class ServletApiConfigurerTests {
 		this.spring.register(RolePrefixInLambdaConfig.class, AdminController.class).autowire();
 		// @formatter:off
 		MockHttpServletRequestBuilder requestWithAdminPermission = get("/admin")
-				.with(user("user").authorities(AuthorityUtils.createAuthorityList("PERMISSION_ADMIN")));
+	.with(user("user").authorities(AuthorityUtils.createAuthorityList("PERMISSION_ADMIN")));
 		this.mvc.perform(requestWithAdminPermission)
-				.andExpect(status().isOk());
+	.andExpect(status().isOk());
 		MockHttpServletRequestBuilder requestWithAdminRole = get("/admin")
-				.with(user("user").authorities(AuthorityUtils.createAuthorityList("ROLE_ADMIN")));
+	.with(user("user").authorities(AuthorityUtils.createAuthorityList("ROLE_ADMIN")));
 		this.mvc.perform(requestWithAdminRole)
-				.andExpect(status().isForbidden());
+	.andExpect(status().isForbidden());
 		// @formatter:on
 	}
 
@@ -224,7 +224,7 @@ public class ServletApiConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.servletApi();
+		.servletApi();
 			return http.build();
 			// @formatter:on
 		}
@@ -253,11 +253,11 @@ public class ServletApiConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-					.authorizeHttpRequests((requests) -> requests
-							.anyRequest().authenticated()
-					)
-					.httpBasic(Customizer.withDefaults())
-					.formLogin(Customizer.withDefaults());
+		.authorizeHttpRequests((requests) -> requests
+.anyRequest().authenticated()
+		)
+		.httpBasic(Customizer.withDefaults())
+		.formLogin(Customizer.withDefaults());
 			// @formatter:on
 			return http.build();
 		}
@@ -286,13 +286,13 @@ public class ServletApiConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests()
-					.anyRequest().authenticated()
-					.and()
-				.exceptionHandling()
-					.authenticationEntryPoint(ENTRYPOINT)
-					.and()
-				.formLogin();
+		.authorizeRequests()
+		.anyRequest().authenticated()
+		.and()
+		.exceptionHandling()
+		.authenticationEntryPoint(ENTRYPOINT)
+		.and()
+		.formLogin();
 			// @formatter:on
 			return http.build();
 		}
@@ -312,10 +312,10 @@ public class ServletApiConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.servletApi()
-					.rolePrefix("PERMISSION_")
-					.and()
-				.servletApi();
+		.servletApi()
+		.rolePrefix("PERMISSION_")
+		.and()
+		.servletApi();
 			return http.build();
 			// @formatter:on
 		}
@@ -332,7 +332,7 @@ public class ServletApiConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.setSharedObject(AuthenticationTrustResolver.class, TR);
+		.setSharedObject(AuthenticationTrustResolver.class, TR);
 			return http.build();
 			// @formatter:on
 		}
@@ -347,7 +347,7 @@ public class ServletApiConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.servletApi(withDefaults());
+		.servletApi(withDefaults());
 			return http.build();
 			// @formatter:on
 		}
@@ -362,10 +362,10 @@ public class ServletApiConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.servletApi((servletApi) ->
-					servletApi
-						.rolePrefix("PERMISSION_")
-				);
+		.servletApi((servletApi) ->
+	servletApi
+.rolePrefix("PERMISSION_")
+		);
 			return http.build();
 			// @formatter:on
 		}
@@ -392,8 +392,8 @@ public class ServletApiConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.servletApi().and()
-				.logout();
+		.servletApi().and()
+		.logout();
 			return http.build();
 			// @formatter:on
 		}
@@ -408,7 +408,7 @@ public class ServletApiConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.csrf().disable();
+		.csrf().disable();
 			return http.build();
 			// @formatter:on
 		}

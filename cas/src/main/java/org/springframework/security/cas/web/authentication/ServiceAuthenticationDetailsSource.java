@@ -35,8 +35,7 @@ import org.springframework.util.Assert;
  *
  * @author Rob Winch
  */
-public class ServiceAuthenticationDetailsSource
-		implements AuthenticationDetailsSource<HttpServletRequest, ServiceAuthenticationDetails> {
+public class ServiceAuthenticationDetailsSourceimplements AuthenticationDetailsSource<HttpServletRequest, ServiceAuthenticationDetails> {
 
 	private final Pattern artifactPattern;
 
@@ -73,7 +72,7 @@ public class ServiceAuthenticationDetailsSource
 	public ServiceAuthenticationDetails buildDetails(HttpServletRequest context) {
 		try {
 			return new DefaultServiceAuthenticationDetails(this.serviceProperties.getService(), context,
-					this.artifactPattern);
+		this.artifactPattern);
 		}
 		catch (MalformedURLException ex) {
 			throw new RuntimeException(ex);

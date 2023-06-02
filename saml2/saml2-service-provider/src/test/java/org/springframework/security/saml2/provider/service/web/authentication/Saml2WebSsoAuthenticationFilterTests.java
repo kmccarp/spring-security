@@ -75,8 +75,8 @@ public class Saml2WebSsoAuthenticationFilterTests {
 	@Test
 	public void constructingFilterWithMissingRegistrationIdVariableThenThrowsException() {
 		assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(
-				() -> this.filter = new Saml2WebSsoAuthenticationFilter(this.repository, "/url/missing/variable"))
-				.withMessage("filterProcessesUrl must contain a {registrationId} match variable");
+	() -> this.filter = new Saml2WebSsoAuthenticationFilter(this.repository, "/url/missing/variable"))
+	.withMessage("filterProcessesUrl must contain a {registrationId} match variable");
 	}
 
 	@Test
@@ -110,14 +110,14 @@ public class Saml2WebSsoAuthenticationFilterTests {
 		this.request.setPathInfo("/some/other/path/non-existent-id");
 		this.request.setParameter(Saml2ParameterNames.SAML_RESPONSE, "response");
 		assertThatExceptionOfType(Saml2AuthenticationException.class)
-				.isThrownBy(() -> this.filter.attemptAuthentication(this.request, this.response))
-				.withMessage("No relying party registration found");
+	.isThrownBy(() -> this.filter.attemptAuthentication(this.request, this.response))
+	.withMessage("No relying party registration found");
 	}
 
 	@Test
 	public void attemptAuthenticationWhenSavedAuthnRequestThenRemovesAuthnRequest() {
 		Saml2AuthenticationRequestRepository<AbstractSaml2AuthenticationRequest> authenticationRequestRepository = mock(
-				Saml2AuthenticationRequestRepository.class);
+	Saml2AuthenticationRequestRepository.class);
 		AuthenticationConverter authenticationConverter = mock(AuthenticationConverter.class);
 		given(authenticationConverter.convert(this.request)).willReturn(TestSaml2AuthenticationTokens.token());
 		this.filter = new Saml2WebSsoAuthenticationFilter(authenticationConverter, "/some/other/path/{registrationId}");
@@ -161,14 +161,14 @@ public class Saml2WebSsoAuthenticationFilterTests {
 	@Test
 	public void setAuthenticationRequestRepositoryWhenNullThenThrowsIllegalArgument() {
 		assertThatIllegalArgumentException().isThrownBy(() -> this.filter.setAuthenticationRequestRepository(null))
-				.withMessage("authenticationRequestRepository cannot be null");
+	.withMessage("authenticationRequestRepository cannot be null");
 	}
 
 	@Test
 	public void setAuthenticationRequestRepositoryWhenExpectedAuthenticationConverterTypeThenSetLoaderIntoConverter() {
 		Saml2AuthenticationTokenConverter authenticationConverter = mock(Saml2AuthenticationTokenConverter.class);
 		Saml2AuthenticationRequestRepository<AbstractSaml2AuthenticationRequest> authenticationRequestRepository = mock(
-				Saml2AuthenticationRequestRepository.class);
+	Saml2AuthenticationRequestRepository.class);
 		this.filter = new Saml2WebSsoAuthenticationFilter(authenticationConverter, "/some/other/path/{registrationId}");
 		this.filter.setAuthenticationRequestRepository(authenticationRequestRepository);
 		verify(authenticationConverter).setAuthenticationRequestRepository(authenticationRequestRepository);
@@ -178,7 +178,7 @@ public class Saml2WebSsoAuthenticationFilterTests {
 	public void setAuthenticationRequestRepositoryWhenNotExpectedAuthenticationConverterTypeThenDoNotSet() {
 		AuthenticationConverter authenticationConverter = mock(AuthenticationConverter.class);
 		Saml2AuthenticationRequestRepository<AbstractSaml2AuthenticationRequest> authenticationRequestRepository = mock(
-				Saml2AuthenticationRequestRepository.class);
+	Saml2AuthenticationRequestRepository.class);
 		this.filter = new Saml2WebSsoAuthenticationFilter(authenticationConverter, "/some/other/path/{registrationId}");
 		this.filter.setAuthenticationRequestRepository(authenticationRequestRepository);
 		verifyNoInteractions(authenticationConverter);

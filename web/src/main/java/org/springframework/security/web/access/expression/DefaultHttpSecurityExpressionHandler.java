@@ -36,8 +36,7 @@ import org.springframework.util.Assert;
  * @author Evgeniy Cheban
  * @since 5.8
  */
-public class DefaultHttpSecurityExpressionHandler extends AbstractSecurityExpressionHandler<RequestAuthorizationContext>
-		implements SecurityExpressionHandler<RequestAuthorizationContext> {
+public class DefaultHttpSecurityExpressionHandler extends AbstractSecurityExpressionHandler<RequestAuthorizationContext>implements SecurityExpressionHandler<RequestAuthorizationContext> {
 
 	private AuthenticationTrustResolver trustResolver = new AuthenticationTrustResolverImpl();
 
@@ -45,7 +44,7 @@ public class DefaultHttpSecurityExpressionHandler extends AbstractSecurityExpres
 
 	@Override
 	public EvaluationContext createEvaluationContext(Supplier<Authentication> authentication,
-			RequestAuthorizationContext context) {
+RequestAuthorizationContext context) {
 		WebSecurityExpressionRoot root = createSecurityExpressionRoot(authentication, context);
 		StandardEvaluationContext ctx = new StandardEvaluationContext(root);
 		ctx.setBeanResolver(getBeanResolver());
@@ -55,12 +54,12 @@ public class DefaultHttpSecurityExpressionHandler extends AbstractSecurityExpres
 
 	@Override
 	protected SecurityExpressionOperations createSecurityExpressionRoot(Authentication authentication,
-			RequestAuthorizationContext context) {
+RequestAuthorizationContext context) {
 		return createSecurityExpressionRoot(() -> authentication, context);
 	}
 
 	private WebSecurityExpressionRoot createSecurityExpressionRoot(Supplier<Authentication> authentication,
-			RequestAuthorizationContext context) {
+RequestAuthorizationContext context) {
 		WebSecurityExpressionRoot root = new WebSecurityExpressionRoot(authentication, context.getRequest());
 		root.setRoleHierarchy(getRoleHierarchy());
 		root.setPermissionEvaluator(getPermissionEvaluator());

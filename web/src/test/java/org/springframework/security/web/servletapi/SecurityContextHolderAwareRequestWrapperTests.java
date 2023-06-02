@@ -65,15 +65,15 @@ public class SecurityContextHolderAwareRequestWrapperTests {
 		MockHttpServletRequest request = new MockHttpServletRequest();
 		request.setRequestURI("/");
 		SecurityContextHolderAwareRequestWrapper wrapper = new SecurityContextHolderAwareRequestWrapper(request,
-				"ROLE_");
+	"ROLE_");
 		assertThat(wrapper.isUserInRole("FOO")).isTrue();
 	}
 
 	@Test
 	public void testCorrectOperationWithUserDetailsBasedPrincipal() {
 		Authentication auth = new TestingAuthenticationToken(
-				new User("rodAsUserDetails", "koala", true, true, true, true, AuthorityUtils.NO_AUTHORITIES), "koala",
-				"ROLE_HELLO", "ROLE_FOOBAR");
+	new User("rodAsUserDetails", "koala", true, true, true, true, AuthorityUtils.NO_AUTHORITIES), "koala",
+	"ROLE_HELLO", "ROLE_FOOBAR");
 		SecurityContextHolder.getContext().setAuthentication(auth);
 		MockHttpServletRequest request = new MockHttpServletRequest();
 		request.setRequestURI("/");
@@ -106,9 +106,9 @@ public class SecurityContextHolderAwareRequestWrapperTests {
 		SecurityContextHolderAwareRequestWrapper wrapper = new SecurityContextHolderAwareRequestWrapper(request, "");
 		assertThat(wrapper.getRemoteUser()).isNull();
 		assertThat(wrapper.isUserInRole("ROLE_HELLO")).isFalse(); // principal is null, so
-																	// reject
+		// reject
 		assertThat(wrapper.isUserInRole("ROLE_FOOBAR")).isFalse(); // principal is null,
-																	// so reject
+		// so reject
 		assertThat(wrapper.getUserPrincipal()).isNull();
 	}
 
@@ -118,7 +118,7 @@ public class SecurityContextHolderAwareRequestWrapperTests {
 		SecurityContextHolder.getContext().setAuthentication(auth);
 		MockHttpServletRequest request = new MockHttpServletRequest();
 		SecurityContextHolderAwareRequestWrapper wrapper = new SecurityContextHolderAwareRequestWrapper(request,
-				"ROLE_");
+	"ROLE_");
 		assertThat(wrapper.isUserInRole("HELLO")).isTrue();
 		assertThat(wrapper.isUserInRole("FOOBAR")).isTrue();
 	}
@@ -130,7 +130,7 @@ public class SecurityContextHolderAwareRequestWrapperTests {
 		SecurityContextHolder.getContext().setAuthentication(auth);
 		MockHttpServletRequest request = new MockHttpServletRequest();
 		SecurityContextHolderAwareRequestWrapper wrapper = new SecurityContextHolderAwareRequestWrapper(request,
-				"ROLE_");
+	"ROLE_");
 		assertThat(wrapper.isUserInRole("ROLE_HELLO")).isTrue();
 		assertThat(wrapper.isUserInRole("ROLE_FOOBAR")).isTrue();
 	}

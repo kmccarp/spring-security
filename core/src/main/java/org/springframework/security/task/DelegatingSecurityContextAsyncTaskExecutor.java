@@ -32,8 +32,7 @@ import org.springframework.security.core.context.SecurityContext;
  * @author Rob Winch
  * @since 3.2
  */
-public class DelegatingSecurityContextAsyncTaskExecutor extends DelegatingSecurityContextTaskExecutor
-		implements AsyncTaskExecutor {
+public class DelegatingSecurityContextAsyncTaskExecutor extends DelegatingSecurityContextTaskExecutorimplements AsyncTaskExecutor {
 
 	/**
 	 * Creates a new {@link DelegatingSecurityContextAsyncTaskExecutor} that uses the
@@ -45,7 +44,7 @@ public class DelegatingSecurityContextAsyncTaskExecutor extends DelegatingSecuri
 	 * {@link DelegatingSecurityContextCallable}
 	 */
 	public DelegatingSecurityContextAsyncTaskExecutor(AsyncTaskExecutor delegateAsyncTaskExecutor,
-			SecurityContext securityContext) {
+SecurityContext securityContext) {
 		super(delegateAsyncTaskExecutor, securityContext);
 	}
 

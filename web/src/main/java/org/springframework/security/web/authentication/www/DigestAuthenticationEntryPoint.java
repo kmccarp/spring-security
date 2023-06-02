@@ -75,7 +75,7 @@ public class DigestAuthenticationEntryPoint implements AuthenticationEntryPoint,
 
 	@Override
 	public void commence(HttpServletRequest request, HttpServletResponse response,
-			AuthenticationException authException) throws IOException {
+AuthenticationException authException) throws IOException {
 		// compute a nonce (do not use remote IP address due to proxy farms) format of
 		// nonce is: base64(expirationTime + ":" + md5Hex(expirationTime + ":" + key))
 		long expiryTime = System.currentTimeMillis() + (this.nonceValiditySeconds * 1000);
@@ -86,7 +86,7 @@ public class DigestAuthenticationEntryPoint implements AuthenticationEntryPoint,
 		// to IE violation of RFC 2617 in not representing opaque on subsequent requests
 		// in same session.
 		String authenticateHeader = "Digest realm=\"" + this.realmName + "\", " + "qop=\"auth\", nonce=\""
-				+ nonceValueBase64 + "\"";
+	+ nonceValueBase64 + "\"";
 		if (authException instanceof NonceExpiredException) {
 			authenticateHeader = authenticateHeader + ", stale=\"true\"";
 		}

@@ -44,8 +44,7 @@ import org.springframework.util.Assert;
  * @see ReactiveOAuth2AuthorizedClientProvider
  * @see WebClientReactiveRefreshTokenTokenResponseClient
  */
-public final class RefreshTokenReactiveOAuth2AuthorizedClientProvider
-		implements ReactiveOAuth2AuthorizedClientProvider {
+public final class RefreshTokenReactiveOAuth2AuthorizedClientProviderimplements ReactiveOAuth2AuthorizedClientProvider {
 
 	private ReactiveOAuth2AccessTokenResponseClient<OAuth2RefreshTokenGrantRequest> accessTokenResponseClient = new WebClientReactiveRefreshTokenTokenResponseClient();
 
@@ -79,25 +78,24 @@ public final class RefreshTokenReactiveOAuth2AuthorizedClientProvider
 		Assert.notNull(context, "context cannot be null");
 		OAuth2AuthorizedClient authorizedClient = context.getAuthorizedClient();
 		if (authorizedClient == null || authorizedClient.getRefreshToken() == null
-				|| !hasTokenExpired(authorizedClient.getAccessToken())) {
+	|| !hasTokenExpired(authorizedClient.getAccessToken())) {
 			return Mono.empty();
 		}
 		Object requestScope = context.getAttribute(OAuth2AuthorizationContext.REQUEST_SCOPE_ATTRIBUTE_NAME);
 		Set<String> scopes = Collections.emptySet();
 		if (requestScope != null) {
 			Assert.isInstanceOf(String[].class, requestScope, "The context attribute must be of type String[] '"
-					+ OAuth2AuthorizationContext.REQUEST_SCOPE_ATTRIBUTE_NAME + "'");
+		+ OAuth2AuthorizationContext.REQUEST_SCOPE_ATTRIBUTE_NAME + "'");
 			scopes = new HashSet<>(Arrays.asList((String[]) requestScope));
 		}
 		ClientRegistration clientRegistration = context.getClientRegistration();
 		OAuth2RefreshTokenGrantRequest refreshTokenGrantRequest = new OAuth2RefreshTokenGrantRequest(clientRegistration,
-				authorizedClient.getAccessToken(), authorizedClient.getRefreshToken(), scopes);
+	authorizedClient.getAccessToken(), authorizedClient.getRefreshToken(), scopes);
 		return Mono.just(refreshTokenGrantRequest).flatMap(this.accessTokenResponseClient::getTokenResponse)
-				.onErrorMap(OAuth2AuthorizationException.class,
-						(e) -> new ClientAuthorizationException(e.getError(), clientRegistration.getRegistrationId(),
-								e))
-				.map((tokenResponse) -> new OAuth2AuthorizedClient(clientRegistration, context.getPrincipal().getName(),
-						tokenResponse.getAccessToken(), tokenResponse.getRefreshToken()));
+	.onErrorMap(OAuth2AuthorizationException.class,
+(e) -> new ClientAuthorizationException(e.getError(), clientRegistration.getRegistrationId(),e))
+	.map((tokenResponse) -> new OAuth2AuthorizedClient(clientRegistration, context.getPrincipal().getName(),
+tokenResponse.getAccessToken(), tokenResponse.getRefreshToken()));
 	}
 
 	private boolean hasTokenExpired(OAuth2Token token) {
@@ -111,7 +109,7 @@ public final class RefreshTokenReactiveOAuth2AuthorizedClientProvider
 	 * credential at the Token Endpoint for the {@code refresh_token} grant
 	 */
 	public void setAccessTokenResponseClient(
-			ReactiveOAuth2AccessTokenResponseClient<OAuth2RefreshTokenGrantRequest> accessTokenResponseClient) {
+ReactiveOAuth2AccessTokenResponseClient<OAuth2RefreshTokenGrantRequest> accessTokenResponseClient) {
 		Assert.notNull(accessTokenResponseClient, "accessTokenResponseClient cannot be null");
 		this.accessTokenResponseClient = accessTokenResponseClient;
 	}

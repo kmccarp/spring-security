@@ -38,19 +38,19 @@ class MethodExpressionAuthorizationManagerTests {
 	@Test
 	void instantiateWhenExpressionStringNullThenIllegalArgumentException() {
 		assertThatIllegalArgumentException().isThrownBy(() -> new MethodExpressionAuthorizationManager(null))
-				.withMessage("expressionString cannot be empty");
+	.withMessage("expressionString cannot be empty");
 	}
 
 	@Test
 	void instantiateWhenExpressionStringEmptyThenIllegalArgumentException() {
 		assertThatIllegalArgumentException().isThrownBy(() -> new MethodExpressionAuthorizationManager(""))
-				.withMessage("expressionString cannot be empty");
+	.withMessage("expressionString cannot be empty");
 	}
 
 	@Test
 	void instantiateWhenExpressionStringBlankThenIllegalArgumentException() {
 		assertThatIllegalArgumentException().isThrownBy(() -> new MethodExpressionAuthorizationManager(" "))
-				.withMessage("expressionString cannot be empty");
+	.withMessage("expressionString cannot be empty");
 	}
 
 	@Test
@@ -63,7 +63,7 @@ class MethodExpressionAuthorizationManagerTests {
 	void setExpressionHandlerWhenNullThenIllegalArgumentException() {
 		MethodExpressionAuthorizationManager manager = new MethodExpressionAuthorizationManager("hasRole('ADMIN')");
 		assertThatIllegalArgumentException().isThrownBy(() -> manager.setExpressionHandler(null))
-				.withMessage("expressionHandler cannot be null");
+	.withMessage("expressionHandler cannot be null");
 	}
 
 	@Test
@@ -85,8 +85,8 @@ class MethodExpressionAuthorizationManagerTests {
 	void checkWhenExpressionHasRoleAdminConfiguredAndRoleAdminThenGrantedDecision() {
 		MethodExpressionAuthorizationManager manager = new MethodExpressionAuthorizationManager("hasRole('ADMIN')");
 		AuthorizationDecision decision = manager.check(TestAuthentication::authenticatedAdmin,
-				new SimpleMethodInvocation(new Object(),
-						ReflectionUtils.getRequiredMethod(BusinessService.class, "someAdminMethod")));
+	new SimpleMethodInvocation(new Object(),
+ReflectionUtils.getRequiredMethod(BusinessService.class, "someAdminMethod")));
 		assertThat(decision).isNotNull();
 		assertThat(decision.isGranted()).isTrue();
 	}
@@ -95,8 +95,8 @@ class MethodExpressionAuthorizationManagerTests {
 	void checkWhenExpressionHasRoleAdminConfiguredAndRoleUserThenDeniedDecision() {
 		MethodExpressionAuthorizationManager manager = new MethodExpressionAuthorizationManager("hasRole('ADMIN')");
 		AuthorizationDecision decision = manager.check(TestAuthentication::authenticatedUser,
-				new SimpleMethodInvocation(new Object(),
-						ReflectionUtils.getRequiredMethod(BusinessService.class, "someAdminMethod")));
+	new SimpleMethodInvocation(new Object(),
+ReflectionUtils.getRequiredMethod(BusinessService.class, "someAdminMethod")));
 		assertThat(decision).isNotNull();
 		assertThat(decision.isGranted()).isFalse();
 	}

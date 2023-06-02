@@ -61,13 +61,13 @@ public class BindAuthenticator extends AbstractLdapAuthenticator {
 	public DirContextOperations authenticate(Authentication authentication) {
 		DirContextOperations user = null;
 		Assert.isInstanceOf(UsernamePasswordAuthenticationToken.class, authentication,
-				"Can only process UsernamePasswordAuthenticationToken objects");
+	"Can only process UsernamePasswordAuthenticationToken objects");
 		String username = authentication.getName();
 		String password = (String) authentication.getCredentials();
 		if (!StringUtils.hasLength(password)) {
 			logger.debug(LogMessage.format("Failed to authenticate since no credentials provided"));
 			throw new BadCredentialsException(
-					this.messages.getMessage("BindAuthenticator.emptyPassword", "Empty Password"));
+		this.messages.getMessage("BindAuthenticator.emptyPassword", "Empty Password"));
 		}
 		// If DN patterns are configured, try authenticating with them directly
 		for (String dn : getUserDns(username)) {
@@ -91,7 +91,7 @@ public class BindAuthenticator extends AbstractLdapAuthenticator {
 		}
 		if (user == null) {
 			throw new BadCredentialsException(
-					this.messages.getMessage("BindAuthenticator.badCredentials", "Bad credentials"));
+		this.messages.getMessage("BindAuthenticator.badCredentials", "Bad credentials"));
 		}
 		return user;
 	}
@@ -126,7 +126,7 @@ public class BindAuthenticator extends AbstractLdapAuthenticator {
 			// be called multiple times to try different names, so we trap the exception
 			// unless a subclass wishes to implement more specialized behaviour.
 			if ((ex instanceof org.springframework.ldap.AuthenticationException)
-					|| (ex instanceof org.springframework.ldap.OperationNotSupportedException)) {
+		|| (ex instanceof org.springframework.ldap.OperationNotSupportedException)) {
 				handleBindException(userDnStr, username, ex);
 			}
 			else {

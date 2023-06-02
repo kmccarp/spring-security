@@ -47,6 +47,6 @@ public interface AuthenticationEntryPoint {
 	 * @param authException that caused the invocation
 	 */
 	void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException)
-			throws IOException, ServletException;
+throws IOException, ServletException;
 
 }

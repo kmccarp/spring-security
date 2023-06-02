@@ -146,10 +146,11 @@ public final class OpenSaml4AuthenticationProvider implements AuthenticationProv
 	private final ResponseUnmarshaller responseUnmarshaller;
 
 	private static final AuthnRequestUnmarshaller authnRequestUnmarshaller;
+
 	static {
 		XMLObjectProviderRegistry registry = ConfigurationService.get(XMLObjectProviderRegistry.class);
 		authnRequestUnmarshaller = (AuthnRequestUnmarshaller) registry.getUnmarshallerFactory()
-				.getUnmarshaller(AuthnRequest.DEFAULT_ELEMENT_NAME);
+	.getUnmarshaller(AuthnRequest.DEFAULT_ELEMENT_NAME);
 	}
 
 	private final ParserPool parserPool;
@@ -174,7 +175,7 @@ public final class OpenSaml4AuthenticationProvider implements AuthenticationProv
 	public OpenSaml4AuthenticationProvider() {
 		XMLObjectProviderRegistry registry = ConfigurationService.get(XMLObjectProviderRegistry.class);
 		this.responseUnmarshaller = (ResponseUnmarshaller) registry.getUnmarshallerFactory()
-				.getUnmarshaller(Response.DEFAULT_ELEMENT_NAME);
+	.getUnmarshaller(Response.DEFAULT_ELEMENT_NAME);
 		this.parserPool = registry.getParserPool();
 	}
 
@@ -356,7 +357,7 @@ public final class OpenSaml4AuthenticationProvider implements AuthenticationProv
 	 * @since 5.4
 	 */
 	public void setResponseAuthenticationConverter(
-			Converter<ResponseToken, ? extends AbstractAuthenticationToken> responseAuthenticationConverter) {
+Converter<ResponseToken, ? extends AbstractAuthenticationToken> responseAuthenticationConverter) {
 		Assert.notNull(responseAuthenticationConverter, "responseAuthenticationConverter cannot be null");
 		this.responseAuthenticationConverter = responseAuthenticationConverter;
 	}
@@ -374,7 +375,7 @@ public final class OpenSaml4AuthenticationProvider implements AuthenticationProv
 			String statusCode = getStatusCode(response);
 			if (!StatusCode.SUCCESS.equals(statusCode)) {
 				String message = String.format("Invalid status [%s] for SAML response [%s]", statusCode,
-						response.getID());
+			response.getID());
 				result = result.concat(new Saml2Error(Saml2ErrorCodes.INVALID_RESPONSE, message));
 			}
 
@@ -386,39 +387,39 @@ public final class OpenSaml4AuthenticationProvider implements AuthenticationProv
 			String location = token.getRelyingPartyRegistration().getAssertionConsumerServiceLocation();
 			if (StringUtils.hasText(destination) && !destination.equals(location)) {
 				String message = "Invalid destination [" + destination + "] for SAML response [" + response.getID()
-						+ "]";
+			+ "]";
 				result = result.concat(new Saml2Error(Saml2ErrorCodes.INVALID_DESTINATION, message));
 			}
 			String assertingPartyEntityId = token.getRelyingPartyRegistration().getAssertingPartyDetails()
-					.getEntityId();
+		.getEntityId();
 			if (!StringUtils.hasText(issuer) || !issuer.equals(assertingPartyEntityId)) {
 				String message = String.format("Invalid issuer [%s] for SAML response [%s]", issuer, response.getID());
 				result = result.concat(new Saml2Error(Saml2ErrorCodes.INVALID_ISSUER, message));
 			}
 			if (response.getAssertions().isEmpty()) {
 				result = result.concat(
-						new Saml2Error(Saml2ErrorCodes.MALFORMED_RESPONSE_DATA, "No assertions found in response."));
+			new Saml2Error(Saml2ErrorCodes.MALFORMED_RESPONSE_DATA, "No assertions found in response."));
 			}
 			return result;
 		};
 	}
 
 	private static Saml2ResponseValidatorResult validateInResponseTo(AbstractSaml2AuthenticationRequest storedRequest,
-			String inResponseTo) {
+String inResponseTo) {
 		if (!StringUtils.hasText(inResponseTo)) {
 			return Saml2ResponseValidatorResult.success();
 		}
 		if (storedRequest == null) {
 			String message = "The response contained an InResponseTo attribute [" + inResponseTo + "]"
-					+ " but no saved authentication request was found";
+		+ " but no saved authentication request was found";
 			return Saml2ResponseValidatorResult
-					.failure(new Saml2Error(Saml2ErrorCodes.INVALID_IN_RESPONSE_TO, message));
+		.failure(new Saml2Error(Saml2ErrorCodes.INVALID_IN_RESPONSE_TO, message));
 		}
 		if (!inResponseTo.equals(storedRequest.getId())) {
 			String message = "The InResponseTo attribute [" + inResponseTo + "] does not match the ID of the "
-					+ "authentication request [" + storedRequest.getId() + "]";
+		+ "authentication request [" + storedRequest.getId() + "]";
 			return Saml2ResponseValidatorResult
-					.failure(new Saml2Error(Saml2ErrorCodes.INVALID_IN_RESPONSE_TO, message));
+		.failure(new Saml2Error(Saml2ErrorCodes.INVALID_IN_RESPONSE_TO, message));
 		}
 		return Saml2ResponseValidatorResult.success();
 	}
@@ -431,7 +432,7 @@ public final class OpenSaml4AuthenticationProvider implements AuthenticationProv
 	public static Converter<AssertionToken, Saml2ResponseValidatorResult> createDefaultAssertionValidator() {
 
 		return createDefaultAssertionValidatorWithParameters(
-				(params) -> params.put(SAML2AssertionValidationParameters.CLOCK_SKEW, Duration.ofMinutes(5)));
+	(params) -> params.put(SAML2AssertionValidationParameters.CLOCK_SKEW, Duration.ofMinutes(5)));
 	}
 
 	/**
@@ -444,10 +445,10 @@ public final class OpenSaml4AuthenticationProvider implements AuthenticationProv
 	 */
 	@Deprecated
 	public static Converter<AssertionToken, Saml2ResponseValidatorResult> createDefaultAssertionValidator(
-			Converter<AssertionToken, ValidationContext> contextConverter) {
+Converter<AssertionToken, ValidationContext> contextConverter) {
 
 		return createAssertionValidator(Saml2ErrorCodes.INVALID_ASSERTION,
-				(assertionToken) -> SAML20AssertionValidators.attributeValidator, contextConverter);
+	(assertionToken) -> SAML20AssertionValidators.attributeValidator, contextConverter);
 	}
 
 	/**
@@ -459,10 +460,10 @@ public final class OpenSaml4AuthenticationProvider implements AuthenticationProv
 	 * @since 5.8
 	 */
 	public static Converter<AssertionToken, Saml2ResponseValidatorResult> createDefaultAssertionValidatorWithParameters(
-			Consumer<Map<String, Object>> validationContextParameters) {
+Consumer<Map<String, Object>> validationContextParameters) {
 		return createAssertionValidator(Saml2ErrorCodes.INVALID_ASSERTION,
-				(assertionToken) -> SAML20AssertionValidators.attributeValidator,
-				(assertionToken) -> createValidationContext(assertionToken, validationContextParameters));
+	(assertionToken) -> SAML20AssertionValidators.attributeValidator,
+	(assertionToken) -> createValidationContext(assertionToken, validationContextParameters));
 	}
 
 	/**
@@ -479,11 +480,11 @@ public final class OpenSaml4AuthenticationProvider implements AuthenticationProv
 			Map<String, List<Object>> attributes = getAssertionAttributes(assertion);
 			List<String> sessionIndexes = getSessionIndexes(assertion);
 			DefaultSaml2AuthenticatedPrincipal principal = new DefaultSaml2AuthenticatedPrincipal(username, attributes,
-					sessionIndexes);
+		sessionIndexes);
 			String registrationId = responseToken.token.getRelyingPartyRegistration().getRegistrationId();
 			principal.setRelyingPartyRegistrationId(registrationId);
 			return new Saml2Authentication(principal, token.getSaml2Response(),
-					AuthorityUtils.createAuthorityList("ROLE_USER"));
+		AuthorityUtils.createAuthorityList("ROLE_USER"));
 		};
 	}
 
@@ -501,7 +502,7 @@ public final class OpenSaml4AuthenticationProvider implements AuthenticationProv
 			Response response = parseResponse(serializedResponse);
 			process(token, response);
 			AbstractAuthenticationToken authenticationResponse = this.responseAuthenticationConverter
-					.convert(new ResponseToken(response, token));
+		.convert(new ResponseToken(response, token));
 			if (authenticationResponse != null) {
 				authenticationResponse.setDetails(authentication.getDetails());
 			}
@@ -523,7 +524,7 @@ public final class OpenSaml4AuthenticationProvider implements AuthenticationProv
 	private Response parseResponse(String response) throws Saml2Exception, Saml2AuthenticationException {
 		try {
 			Document document = this.parserPool
-					.parse(new ByteArrayInputStream(response.getBytes(StandardCharsets.UTF_8)));
+		.parse(new ByteArrayInputStream(response.getBytes(StandardCharsets.UTF_8)));
 			Element element = document.getDocumentElement();
 			return (Response) this.responseUnmarshaller.unmarshall(element);
 		}
@@ -544,7 +545,7 @@ public final class OpenSaml4AuthenticationProvider implements AuthenticationProv
 		}
 		else if (!response.getEncryptedAssertions().isEmpty()) {
 			result = result.concat(new Saml2Error(Saml2ErrorCodes.INVALID_SIGNATURE,
-					"Did not decrypt response [" + response.getID() + "] since it is not signed"));
+		"Did not decrypt response [" + response.getID() + "] since it is not signed"));
 		}
 		result = result.concat(this.responseValidator.convert(responseToken));
 		boolean allAssertionsSigned = true;
@@ -559,13 +560,13 @@ public final class OpenSaml4AuthenticationProvider implements AuthenticationProv
 		}
 		if (!responseSigned && !allAssertionsSigned) {
 			String description = "Either the response or one of the assertions is unsigned. "
-					+ "Please either sign the response or all of the assertions.";
+		+ "Please either sign the response or all of the assertions.";
 			result = result.concat(new Saml2Error(Saml2ErrorCodes.INVALID_SIGNATURE, description));
 		}
 		Assertion firstAssertion = CollectionUtils.firstElement(response.getAssertions());
 		if (firstAssertion != null && !hasName(firstAssertion)) {
 			Saml2Error error = new Saml2Error(Saml2ErrorCodes.SUBJECT_NOT_FOUND,
-					"Assertion [" + firstAssertion.getID() + "] is missing a subject");
+		"Assertion [" + firstAssertion.getID() + "] is missing a subject");
 			result = result.concat(error);
 		}
 
@@ -573,11 +574,11 @@ public final class OpenSaml4AuthenticationProvider implements AuthenticationProv
 			Collection<Saml2Error> errors = result.getErrors();
 			if (this.logger.isTraceEnabled()) {
 				this.logger.debug("Found " + errors.size() + " validation errors in SAML response [" + response.getID()
-						+ "]: " + errors);
+			+ "]: " + errors);
 			}
 			else if (this.logger.isDebugEnabled()) {
 				this.logger.debug(
-						"Found " + errors.size() + " validation errors in SAML response [" + response.getID() + "]");
+			"Found " + errors.size() + " validation errors in SAML response [" + response.getID() + "]");
 			}
 			Saml2Error first = errors.iterator().next();
 			throw createAuthenticationException(first.getErrorCode(), first.getDescription(), null);
@@ -629,7 +630,7 @@ public final class OpenSaml4AuthenticationProvider implements AuthenticationProv
 			SignatureTrustEngine engine = OpenSamlVerificationUtils.trustEngine(registration);
 			return SAML20AssertionValidators.createSignatureValidator(engine);
 		}, (assertionToken) -> new ValidationContext(
-				Collections.singletonMap(SAML2AssertionValidationParameters.SIGNATURE_REQUIRED, false)));
+	Collections.singletonMap(SAML2AssertionValidationParameters.SIGNATURE_REQUIRED, false)));
 	}
 
 	private Consumer<AssertionToken> createDefaultAssertionElementsDecrypter() {
@@ -707,13 +708,13 @@ public final class OpenSaml4AuthenticationProvider implements AuthenticationProv
 	}
 
 	private static Saml2AuthenticationException createAuthenticationException(String code, String message,
-			Exception cause) {
+Exception cause) {
 		return new Saml2AuthenticationException(new Saml2Error(code, message), cause);
 	}
 
 	private static Converter<AssertionToken, Saml2ResponseValidatorResult> createAssertionValidator(String errorCode,
-			Converter<AssertionToken, SAML20AssertionValidator> validatorConverter,
-			Converter<AssertionToken, ValidationContext> contextConverter) {
+Converter<AssertionToken, SAML20AssertionValidator> validatorConverter,
+Converter<AssertionToken, ValidationContext> contextConverter) {
 
 		return (assertionToken) -> {
 			Assertion assertion = assertionToken.assertion;
@@ -727,17 +728,17 @@ public final class OpenSaml4AuthenticationProvider implements AuthenticationProv
 			}
 			catch (Exception ex) {
 				String message = String.format("Invalid assertion [%s] for SAML response [%s]: %s", assertion.getID(),
-						((Response) assertion.getParent()).getID(), ex.getMessage());
+			((Response) assertion.getParent()).getID(), ex.getMessage());
 				return Saml2ResponseValidatorResult.failure(new Saml2Error(errorCode, message));
 			}
 			String message = String.format("Invalid assertion [%s] for SAML response [%s]: %s", assertion.getID(),
-					((Response) assertion.getParent()).getID(), context.getValidationFailureMessage());
+		((Response) assertion.getParent()).getID(), context.getValidationFailureMessage());
 			return Saml2ResponseValidatorResult.failure(new Saml2Error(errorCode, message));
 		};
 	}
 
 	private static ValidationContext createValidationContext(AssertionToken assertionToken,
-			Consumer<Map<String, Object>> paramsConsumer) {
+Consumer<Map<String, Object>> paramsConsumer) {
 		Saml2AuthenticationToken token = assertionToken.token;
 		RelyingPartyRegistration relyingPartyRegistration = token.getRelyingPartyRegistration();
 		String audience = relyingPartyRegistration.getEntityId();
@@ -806,7 +807,7 @@ public final class OpenSaml4AuthenticationProvider implements AuthenticationProv
 			subjects.add(new BearerSubjectConfirmationValidator() {
 				@Override
 				protected ValidationResult validateAddress(SubjectConfirmation confirmation, Assertion assertion,
-						ValidationContext context, boolean required) {
+			ValidationContext context, boolean required) {
 					// applications should validate their own addresses - gh-7514
 					return ValidationResult.VALID;
 				}
@@ -814,7 +815,7 @@ public final class OpenSaml4AuthenticationProvider implements AuthenticationProv
 		}
 
 		private static final SAML20AssertionValidator attributeValidator = new SAML20AssertionValidator(conditions,
-				subjects, statements, null, null, null) {
+	subjects, statements, null, null, null) {
 			@Nonnull
 			@Override
 			protected ValidationResult validateSignature(Assertion token, ValidationContext context) {
@@ -824,7 +825,7 @@ public final class OpenSaml4AuthenticationProvider implements AuthenticationProv
 
 		static SAML20AssertionValidator createSignatureValidator(SignatureTrustEngine engine) {
 			return new SAML20AssertionValidator(new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), null, engine,
-					validator) {
+		validator) {
 				@Nonnull
 				@Override
 				protected ValidationResult validateConditions(Assertion assertion, ValidationContext context) {

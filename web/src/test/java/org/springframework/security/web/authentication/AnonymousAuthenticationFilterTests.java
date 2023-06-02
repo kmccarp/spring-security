@@ -59,7 +59,7 @@ import static org.mockito.Mockito.verify;
 public class AnonymousAuthenticationFilterTests {
 
 	private void executeFilterInContainerSimulator(FilterConfig filterConfig, Filter filter, ServletRequest request,
-			ServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+ServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 		filter.doFilter(request, response, filterChain);
 	}
 
@@ -86,11 +86,11 @@ public class AnonymousAuthenticationFilterTests {
 		SecurityContext originalContext = new SecurityContextImpl(originalAuth);
 		SecurityContextHolder.setContext(originalContext);
 		AnonymousAuthenticationFilter filter = new AnonymousAuthenticationFilter("qwerty", "anonymousUsername",
-				AuthorityUtils.createAuthorityList("ROLE_ANONYMOUS"));
+	AuthorityUtils.createAuthorityList("ROLE_ANONYMOUS"));
 		MockHttpServletRequest request = new MockHttpServletRequest();
 		request.setRequestURI("x");
 		executeFilterInContainerSimulator(mock(FilterConfig.class), filter, request, new MockHttpServletResponse(),
-				new MockFilterChain(true));
+	new MockFilterChain(true));
 		// Ensure getDeferredContext still
 		assertThat(SecurityContextHolder.getContext()).isEqualTo(originalContext);
 	}
@@ -98,17 +98,17 @@ public class AnonymousAuthenticationFilterTests {
 	@Test
 	public void testOperationWhenNoAuthenticationInSecurityContextHolder() throws Exception {
 		AnonymousAuthenticationFilter filter = new AnonymousAuthenticationFilter("qwerty", "anonymousUsername",
-				AuthorityUtils.createAuthorityList("ROLE_ANONYMOUS"));
+	AuthorityUtils.createAuthorityList("ROLE_ANONYMOUS"));
 		filter.afterPropertiesSet();
 		MockHttpServletRequest request = new MockHttpServletRequest();
 		request.setRequestURI("x");
 		executeFilterInContainerSimulator(mock(FilterConfig.class), filter, request, new MockHttpServletResponse(),
-				new MockFilterChain(true));
+	new MockFilterChain(true));
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		assertThat(auth.getPrincipal()).isEqualTo("anonymousUsername");
 		assertThat(AuthorityUtils.authorityListToSet(auth.getAuthorities())).contains("ROLE_ANONYMOUS");
 		SecurityContextHolder.getContext().setAuthentication(null); // so anonymous fires
-																	// again
+		// again
 	}
 
 	@Test
@@ -120,12 +120,12 @@ public class AnonymousAuthenticationFilterTests {
 		given(strategy.getDeferredContext()).willReturn(originalSupplier);
 		given(strategy.getContext()).willReturn(originalContext);
 		AnonymousAuthenticationFilter filter = new AnonymousAuthenticationFilter("qwerty", "anonymousUsername",
-				AuthorityUtils.createAuthorityList("ROLE_ANONYMOUS"));
+	AuthorityUtils.createAuthorityList("ROLE_ANONYMOUS"));
 		filter.setSecurityContextHolderStrategy(strategy);
 		filter.afterPropertiesSet();
 
 		executeFilterInContainerSimulator(mock(FilterConfig.class), filter, new MockHttpServletRequest(),
-				new MockHttpServletResponse(), new MockFilterChain(true));
+	new MockHttpServletResponse(), new MockFilterChain(true));
 		verify(strategy, never()).getContext();
 		verify(originalSupplier, never()).get();
 	}
@@ -138,11 +138,11 @@ public class AnonymousAuthenticationFilterTests {
 		SecurityContextHolderStrategy strategy = new MockSecurityContextHolderStrategy(originalSupplier);
 		given(originalSupplier.get()).willReturn(originalContext);
 		AnonymousAuthenticationFilter filter = new AnonymousAuthenticationFilter("qwerty", "anonymousUsername",
-				AuthorityUtils.createAuthorityList("ROLE_ANONYMOUS"));
+	AuthorityUtils.createAuthorityList("ROLE_ANONYMOUS"));
 		filter.setSecurityContextHolderStrategy(strategy);
 		filter.afterPropertiesSet();
 		executeFilterInContainerSimulator(mock(FilterConfig.class), filter, new MockHttpServletRequest(),
-				new MockHttpServletResponse(), new MockFilterChain(true));
+	new MockHttpServletResponse(), new MockFilterChain(true));
 		Supplier<SecurityContext> deferredContext = strategy.getDeferredContext();
 		deferredContext.get();
 		deferredContext.get();

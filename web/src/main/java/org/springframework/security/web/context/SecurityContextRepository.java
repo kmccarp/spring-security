@@ -80,7 +80,7 @@ public interface SecurityContextRepository {
 	default DeferredSecurityContext loadDeferredContext(HttpServletRequest request) {
 		Supplier<SecurityContext> supplier = () -> loadContext(new HttpRequestResponseHolder(request, null));
 		return new SupplierDeferredSecurityContext(SingletonSupplier.of(supplier),
-				SecurityContextHolder.getContextHolderStrategy());
+	SecurityContextHolder.getContextHolderStrategy());
 	}
 
 	/**

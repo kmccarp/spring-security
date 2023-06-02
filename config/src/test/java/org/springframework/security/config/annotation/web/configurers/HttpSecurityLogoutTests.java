@@ -78,7 +78,7 @@ public class HttpSecurityLogoutTests {
 		SecurityContext currentContext = SecurityContextHolder.createEmptyContext();
 		currentContext.setAuthentication(new TestingAuthenticationToken("user", "password", "ROLE_USER"));
 		this.request.getSession().setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY,
-				currentContext);
+	currentContext);
 		this.request.setMethod("POST");
 		this.request.setServletPath("/logout");
 		this.springSecurityFilterChain.doFilter(this.request, this.response, this.chain);
@@ -100,9 +100,9 @@ public class HttpSecurityLogoutTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.csrf().disable()
-				.logout()
-					.clearAuthentication(false);
+		.csrf().disable()
+		.logout()
+		.clearAuthentication(false);
 			// @formatter:on
 			return http.build();
 		}

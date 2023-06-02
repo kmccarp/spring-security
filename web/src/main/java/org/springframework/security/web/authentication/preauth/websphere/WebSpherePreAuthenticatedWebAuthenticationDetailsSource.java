@@ -37,8 +37,7 @@ import org.springframework.security.web.authentication.preauth.PreAuthenticatedG
  *
  * @author Ruud Senden
  */
-public class WebSpherePreAuthenticatedWebAuthenticationDetailsSource implements
-		AuthenticationDetailsSource<HttpServletRequest, PreAuthenticatedGrantedAuthoritiesWebAuthenticationDetails> {
+public class WebSpherePreAuthenticatedWebAuthenticationDetailsSource implementsAuthenticationDetailsSource<HttpServletRequest, PreAuthenticatedGrantedAuthoritiesWebAuthenticationDetails> {
 
 	private final Log logger = LogFactory.getLog(getClass());
 
@@ -57,7 +56,7 @@ public class WebSpherePreAuthenticatedWebAuthenticationDetailsSource implements
 	@Override
 	public PreAuthenticatedGrantedAuthoritiesWebAuthenticationDetails buildDetails(HttpServletRequest context) {
 		return new PreAuthenticatedGrantedAuthoritiesWebAuthenticationDetails(context,
-				getWebSphereGroupsBasedGrantedAuthorities());
+	getWebSphereGroupsBasedGrantedAuthorities());
 	}
 
 	/**
@@ -67,9 +66,9 @@ public class WebSpherePreAuthenticatedWebAuthenticationDetailsSource implements
 	private Collection<? extends GrantedAuthority> getWebSphereGroupsBasedGrantedAuthorities() {
 		List<String> webSphereGroups = this.wasHelper.getGroupsForCurrentUser();
 		Collection<? extends GrantedAuthority> userGas = this.webSphereGroups2GrantedAuthoritiesMapper
-				.getGrantedAuthorities(webSphereGroups);
+	.getGrantedAuthorities(webSphereGroups);
 		this.logger.debug(
-				LogMessage.format("WebSphere groups: %s mapped to Granted Authorities: %s", webSphereGroups, userGas));
+	LogMessage.format("WebSphere groups: %s mapped to Granted Authorities: %s", webSphereGroups, userGas));
 		return userGas;
 	}
 

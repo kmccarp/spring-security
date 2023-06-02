@@ -77,8 +77,8 @@ public final class ClearSiteDataHeaderWriter implements HeaderWriter {
 			}
 		}
 		this.logger.debug(
-				LogMessage.format("Not injecting Clear-Site-Data header since it did not match the requestMatcher %s",
-						this.requestMatcher));
+	LogMessage.format("Not injecting Clear-Site-Data header since it did not match the requestMatcher %s",
+this.requestMatcher));
 	}
 
 	private String transformToHeaderValue(Directive... directives) {

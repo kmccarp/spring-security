@@ -46,7 +46,7 @@ public class OAuth2AuthorizationCodeGrantRequest extends AbstractOAuth2Authoriza
 	 * @param authorizationExchange the authorization exchange
 	 */
 	public OAuth2AuthorizationCodeGrantRequest(ClientRegistration clientRegistration,
-			OAuth2AuthorizationExchange authorizationExchange) {
+OAuth2AuthorizationExchange authorizationExchange) {
 		super(AuthorizationGrantType.AUTHORIZATION_CODE, clientRegistration);
 		Assert.notNull(authorizationExchange, "authorizationExchange cannot be null");
 		this.authorizationExchange = authorizationExchange;

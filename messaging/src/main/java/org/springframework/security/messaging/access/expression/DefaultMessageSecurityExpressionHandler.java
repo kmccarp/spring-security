@@ -52,12 +52,12 @@ public class DefaultMessageSecurityExpressionHandler<T> extends AbstractSecurity
 
 	@Override
 	protected SecurityExpressionOperations createSecurityExpressionRoot(Authentication authentication,
-			Message<T> invocation) {
+Message<T> invocation) {
 		return createSecurityExpressionRoot(() -> authentication, invocation);
 	}
 
 	private MessageSecurityExpressionRoot createSecurityExpressionRoot(Supplier<Authentication> authentication,
-			Message<T> invocation) {
+Message<T> invocation) {
 		MessageSecurityExpressionRoot root = new MessageSecurityExpressionRoot(authentication, invocation);
 		root.setPermissionEvaluator(getPermissionEvaluator());
 		root.setTrustResolver(this.trustResolver);

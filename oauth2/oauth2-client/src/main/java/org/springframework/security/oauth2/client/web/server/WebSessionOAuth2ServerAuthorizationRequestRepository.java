@@ -38,11 +38,10 @@ import org.springframework.web.server.WebSession;
  * @see AuthorizationRequestRepository
  * @see OAuth2AuthorizationRequest
  */
-public final class WebSessionOAuth2ServerAuthorizationRequestRepository
-		implements ServerAuthorizationRequestRepository<OAuth2AuthorizationRequest> {
+public final class WebSessionOAuth2ServerAuthorizationRequestRepositoryimplements ServerAuthorizationRequestRepository<OAuth2AuthorizationRequest> {
 
 	private static final String DEFAULT_AUTHORIZATION_REQUEST_ATTR_NAME = WebSessionOAuth2ServerAuthorizationRequestRepository.class
-			.getName() + ".AUTHORIZATION_REQUEST";
+.getName() + ".AUTHORIZATION_REQUEST";
 
 	private final String sessionAttributeName = DEFAULT_AUTHORIZATION_REQUEST_ATTR_NAME;
 
@@ -54,24 +53,24 @@ public final class WebSessionOAuth2ServerAuthorizationRequestRepository
 		}
 		// @formatter:off
 		return getSessionAttributes(exchange)
-				.filter((sessionAttrs) -> sessionAttrs.containsKey(this.sessionAttributeName))
-				.map(this::getAuthorizationRequest)
-				.filter((authorizationRequest) -> state.equals(authorizationRequest.getState()));
+	.filter((sessionAttrs) -> sessionAttrs.containsKey(this.sessionAttributeName))
+	.map(this::getAuthorizationRequest)
+	.filter((authorizationRequest) -> state.equals(authorizationRequest.getState()));
 		// @formatter:on
 	}
 
 	@Override
 	public Mono<Void> saveAuthorizationRequest(OAuth2AuthorizationRequest authorizationRequest,
-			ServerWebExchange exchange) {
+ServerWebExchange exchange) {
 		Assert.notNull(authorizationRequest, "authorizationRequest cannot be null");
 		Assert.notNull(exchange, "exchange cannot be null");
 		// @formatter:off
 		return getSessionAttributes(exchange)
-				.doOnNext((sessionAttrs) -> {
-					Assert.hasText(authorizationRequest.getState(), "authorizationRequest.state cannot be empty");
-					sessionAttrs.put(this.sessionAttributeName, authorizationRequest);
-				})
-				.then();
+	.doOnNext((sessionAttrs) -> {
+		Assert.hasText(authorizationRequest.getState(), "authorizationRequest.state cannot be empty");
+		sessionAttrs.put(this.sessionAttributeName, authorizationRequest);
+	})
+	.then();
 		// @formatter:on
 	}
 
@@ -83,15 +82,15 @@ public final class WebSessionOAuth2ServerAuthorizationRequestRepository
 		}
 		// @formatter:off
 		return getSessionAttributes(exchange)
-				.filter((sessionAttrs) -> sessionAttrs.containsKey(this.sessionAttributeName))
-				.flatMap((sessionAttrs) -> {
-					OAuth2AuthorizationRequest authorizationRequest = (OAuth2AuthorizationRequest) sessionAttrs.get(this.sessionAttributeName);
-					if (state.equals(authorizationRequest.getState())) {
-						sessionAttrs.remove(this.sessionAttributeName);
-						return Mono.just(authorizationRequest);
-					}
-					return Mono.empty();
-				});
+	.filter((sessionAttrs) -> sessionAttrs.containsKey(this.sessionAttributeName))
+	.flatMap((sessionAttrs) -> {
+		OAuth2AuthorizationRequest authorizationRequest = (OAuth2AuthorizationRequest) sessionAttrs.get(this.sessionAttributeName);
+		if (state.equals(authorizationRequest.getState())) {
+			sessionAttrs.remove(this.sessionAttributeName);
+			return Mono.just(authorizationRequest);
+		}
+		return Mono.empty();
+	});
 		// @formatter:on
 	}
 

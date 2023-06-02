@@ -74,7 +74,7 @@ public final class DefaultSecurityFilterChain implements SecurityFilterChain {
 	@Override
 	public String toString() {
 		return this.getClass().getSimpleName() + " [RequestMatcher=" + this.requestMatcher + ", Filters=" + this.filters
-				+ "]";
+	+ "]";
 	}
 
 }

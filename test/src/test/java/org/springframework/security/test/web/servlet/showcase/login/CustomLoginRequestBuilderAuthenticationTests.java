@@ -64,13 +64,13 @@ public class CustomLoginRequestBuilderAuthenticationTests {
 	@Test
 	public void authenticationSuccess() throws Exception {
 		this.mvc.perform(login()).andExpect(status().isFound()).andExpect(redirectedUrl("/"))
-				.andExpect(authenticated().withUsername("user"));
+	.andExpect(authenticated().withUsername("user"));
 	}
 
 	@Test
 	public void authenticationFailed() throws Exception {
 		this.mvc.perform(login().user("notfound").password("invalid")).andExpect(status().isFound())
-				.andExpect(redirectedUrl("/authenticate?error")).andExpect(unauthenticated());
+	.andExpect(redirectedUrl("/authenticate?error")).andExpect(unauthenticated());
 	}
 
 	static FormLoginRequestBuilder login() {
@@ -86,13 +86,13 @@ public class CustomLoginRequestBuilderAuthenticationTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests()
-					.anyRequest().authenticated()
-					.and()
-				.formLogin()
-					.usernameParameter("user")
-					.passwordParameter("pass")
-					.loginPage("/authenticate");
+		.authorizeRequests()
+		.anyRequest().authenticated()
+		.and()
+		.formLogin()
+		.usernameParameter("user")
+		.passwordParameter("pass")
+		.loginPage("/authenticate");
 			return http.build();
 			// @formatter:on
 		}

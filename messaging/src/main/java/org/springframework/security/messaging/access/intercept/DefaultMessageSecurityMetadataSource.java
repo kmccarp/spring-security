@@ -48,12 +48,12 @@ public final class DefaultMessageSecurityMetadataSource implements MessageSecuri
 	private final Map<MessageMatcher<?>, Collection<ConfigAttribute>> messageMap;
 
 	public DefaultMessageSecurityMetadataSource(
-			LinkedHashMap<MessageMatcher<?>, Collection<ConfigAttribute>> messageMap) {
+LinkedHashMap<MessageMatcher<?>, Collection<ConfigAttribute>> messageMap) {
 		this.messageMap = messageMap;
 	}
 
 	@Override
-	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@SuppressWarnings({"rawtypes", "unchecked"})
 	public Collection<ConfigAttribute> getAttributes(Object object) throws IllegalArgumentException {
 		final Message message = (Message) object;
 		for (Map.Entry<MessageMatcher<?>, Collection<ConfigAttribute>> entry : this.messageMap.entrySet()) {

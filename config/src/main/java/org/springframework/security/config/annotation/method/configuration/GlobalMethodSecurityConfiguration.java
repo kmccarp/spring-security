@@ -102,13 +102,13 @@ public class GlobalMethodSecurityConfiguration implements ImportAware, SmartInit
 		@Override
 		public <T> T postProcess(T object) {
 			throw new IllegalStateException(ObjectPostProcessor.class.getName()
-					+ " is a required bean. Ensure you have used @" + EnableGlobalMethodSecurity.class.getName());
+		+ " is a required bean. Ensure you have used @" + EnableGlobalMethodSecurity.class.getName());
 		}
 
 	};
 
 	private SecurityContextHolderStrategy securityContextHolderStrategy = SecurityContextHolder
-			.getContextHolderStrategy();
+.getContextHolderStrategy();
 
 	private DefaultMethodSecurityExpressionHandler defaultMethodExpressionHandler = new DefaultMethodSecurityExpressionHandler();
 
@@ -148,7 +148,7 @@ public class GlobalMethodSecurityConfiguration implements ImportAware, SmartInit
 	@Bean
 	public MethodInterceptor methodSecurityInterceptor(MethodSecurityMetadataSource methodSecurityMetadataSource) {
 		this.methodSecurityInterceptor = isAspectJ() ? new AspectJMethodSecurityInterceptor()
-				: new MethodSecurityInterceptor();
+	: new MethodSecurityInterceptor();
 		this.methodSecurityInterceptor.setAccessDecisionManager(accessDecisionManager());
 		this.methodSecurityInterceptor.setAfterInvocationManager(afterInvocationManager());
 		this.methodSecurityInterceptor.setSecurityMetadataSource(methodSecurityMetadataSource);
@@ -220,7 +220,7 @@ public class GlobalMethodSecurityConfiguration implements ImportAware, SmartInit
 		if (prePostEnabled()) {
 			AfterInvocationProviderManager invocationProviderManager = new AfterInvocationProviderManager();
 			ExpressionBasedPostInvocationAdvice postAdvice = new ExpressionBasedPostInvocationAdvice(
-					getExpressionHandler());
+		getExpressionHandler());
 			PostInvocationAdviceProvider postInvocationAdviceProvider = new PostInvocationAdviceProvider(postAdvice);
 			List<AfterInvocationProvider> afterInvocationProviders = new ArrayList<>();
 			afterInvocationProviders.add(postInvocationAdviceProvider);
@@ -320,12 +320,12 @@ public class GlobalMethodSecurityConfiguration implements ImportAware, SmartInit
 	protected AuthenticationManager authenticationManager() throws Exception {
 		if (this.authenticationManager == null) {
 			DefaultAuthenticationEventPublisher eventPublisher = this.objectPostProcessor
-					.postProcess(new DefaultAuthenticationEventPublisher());
+		.postProcess(new DefaultAuthenticationEventPublisher());
 			this.auth = new AuthenticationManagerBuilder(this.objectPostProcessor);
 			this.auth.authenticationEventPublisher(eventPublisher);
 			configure(this.auth);
 			this.authenticationManager = (this.disableAuthenticationRegistry)
-					? getAuthenticationConfiguration().getAuthenticationManager() : this.auth.build();
+		? getAuthenticationConfiguration().getAuthenticationManager() : this.auth.build();
 		}
 		return this.authenticationManager;
 	}
@@ -354,7 +354,7 @@ public class GlobalMethodSecurityConfiguration implements ImportAware, SmartInit
 	public MethodSecurityMetadataSource methodSecurityMetadataSource() {
 		List<MethodSecurityMetadataSource> sources = new ArrayList<>();
 		ExpressionBasedAnnotationAttributeFactory attributeFactory = new ExpressionBasedAnnotationAttributeFactory(
-				getExpressionHandler());
+	getExpressionHandler());
 		MethodSecurityMetadataSource customMethodSecurityMetadataSource = customMethodSecurityMetadataSource();
 		if (customMethodSecurityMetadataSource != null) {
 			sources.add(customMethodSecurityMetadataSource);
@@ -364,8 +364,8 @@ public class GlobalMethodSecurityConfiguration implements ImportAware, SmartInit
 		boolean isSecuredEnabled = securedEnabled();
 		boolean isJsr250Enabled = jsr250Enabled();
 		Assert.state(isPrePostEnabled || isSecuredEnabled || isJsr250Enabled || hasCustom,
-				"In the composition of all global method configuration, "
-						+ "no annotation support was actually activated");
+	"In the composition of all global method configuration, "
++ "no annotation support was actually activated");
 		if (isPrePostEnabled) {
 			sources.add(new PrePostAnnotationSecurityMetadataSource(attributeFactory));
 		}
@@ -375,7 +375,7 @@ public class GlobalMethodSecurityConfiguration implements ImportAware, SmartInit
 		if (isJsr250Enabled) {
 			GrantedAuthorityDefaults grantedAuthorityDefaults = getSingleBeanOrNull(GrantedAuthorityDefaults.class);
 			Jsr250MethodSecurityMetadataSource jsr250MethodSecurityMetadataSource = this.context
-					.getBean(Jsr250MethodSecurityMetadataSource.class);
+		.getBean(Jsr250MethodSecurityMetadataSource.class);
 			if (grantedAuthorityDefaults != null) {
 				jsr250MethodSecurityMetadataSource.setDefaultRolePrefix(grantedAuthorityDefaults.getRolePrefix());
 			}
@@ -403,7 +403,7 @@ public class GlobalMethodSecurityConfiguration implements ImportAware, SmartInit
 	@Override
 	public final void setImportMetadata(AnnotationMetadata importMetadata) {
 		Map<String, Object> annotationAttributes = importMetadata
-				.getAnnotationAttributes(EnableGlobalMethodSecurity.class.getName());
+	.getAnnotationAttributes(EnableGlobalMethodSecurity.class.getName());
 		this.enableMethodSecurity = AnnotationAttributes.fromMap(annotationAttributes);
 	}
 
@@ -456,7 +456,7 @@ public class GlobalMethodSecurityConfiguration implements ImportAware, SmartInit
 		if (this.enableMethodSecurity == null) {
 			// if it is null look at this instance (i.e. a subclass was used)
 			EnableGlobalMethodSecurity methodSecurityAnnotation = AnnotationUtils.findAnnotation(getClass(),
-					EnableGlobalMethodSecurity.class);
+		EnableGlobalMethodSecurity.class);
 			Assert.notNull(methodSecurityAnnotation, () -> EnableGlobalMethodSecurity.class.getName() + " is required");
 			Map<String, Object> methodSecurityAttrs = AnnotationUtils.getAnnotationAttributes(methodSecurityAnnotation);
 			this.enableMethodSecurity = AnnotationAttributes.fromMap(methodSecurityAttrs);

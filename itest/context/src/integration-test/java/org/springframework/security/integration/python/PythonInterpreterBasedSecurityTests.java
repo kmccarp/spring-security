@@ -25,7 +25,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ContextConfiguration(locations = { "/python-method-access-app-context.xml" })
+@ContextConfiguration(locations = {"/python-method-access-app-context.xml"})
 @ExtendWith(SpringExtension.class)
 public class PythonInterpreterBasedSecurityTests {
 
@@ -35,7 +35,7 @@ public class PythonInterpreterBasedSecurityTests {
 	@Test
 	public void serviceMethod() {
 		SecurityContextHolder.getContext()
-				.setAuthentication(UsernamePasswordAuthenticationToken.unauthenticated("bob", "bobspassword"));
+	.setAuthentication(UsernamePasswordAuthenticationToken.unauthenticated("bob", "bobspassword"));
 
 		// for (int i=0; i < 1000; i++) {
 		this.service.someMethod();

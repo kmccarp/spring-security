@@ -75,7 +75,7 @@ public class CsrfConfigurerIgnoringRequestMatchersTests {
 
 	@Test
 	public void requestWhenIgnoringRequestMatcherInLambdaThenUnionsWithConfiguredIgnoringAntMatchers()
-			throws Exception {
+throws Exception {
 		this.spring.register(IgnoringPathsAndMatchersInLambdaConfig.class, BasicController.class).autowire();
 		this.mvc.perform(put("/csrf")).andExpect(status().isForbidden());
 		this.mvc.perform(post("/csrf")).andExpect(status().isOk());
@@ -108,9 +108,9 @@ public class CsrfConfigurerIgnoringRequestMatchersTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.csrf()
-					.requireCsrfProtectionMatcher(new AntPathRequestMatcher("/path"))
-					.ignoringRequestMatchers(this.requestMatcher);
+		.csrf()
+		.requireCsrfProtectionMatcher(new AntPathRequestMatcher("/path"))
+		.ignoringRequestMatchers(this.requestMatcher);
 			return http.build();
 			// @formatter:on
 		}
@@ -128,11 +128,11 @@ public class CsrfConfigurerIgnoringRequestMatchersTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.csrf((csrf) ->
-					csrf
-						.requireCsrfProtectionMatcher(new AntPathRequestMatcher("/path"))
-						.ignoringRequestMatchers(this.requestMatcher)
-				);
+		.csrf((csrf) ->
+	csrf
+.requireCsrfProtectionMatcher(new AntPathRequestMatcher("/path"))
+.ignoringRequestMatchers(this.requestMatcher)
+		);
 			return http.build();
 			// @formatter:on
 		}
@@ -149,9 +149,9 @@ public class CsrfConfigurerIgnoringRequestMatchersTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.csrf()
-					.ignoringRequestMatchers(new AntPathRequestMatcher("/no-csrf"))
-					.ignoringRequestMatchers(this.requestMatcher);
+		.csrf()
+		.ignoringRequestMatchers(new AntPathRequestMatcher("/no-csrf"))
+		.ignoringRequestMatchers(this.requestMatcher);
 			return http.build();
 			// @formatter:on
 		}
@@ -169,11 +169,11 @@ public class CsrfConfigurerIgnoringRequestMatchersTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.csrf((csrf) ->
-					csrf
-						.ignoringRequestMatchers(new AntPathRequestMatcher("/no-csrf"))
-						.ignoringRequestMatchers(this.requestMatcher)
-				);
+		.csrf((csrf) ->
+	csrf
+.ignoringRequestMatchers(new AntPathRequestMatcher("/no-csrf"))
+.ignoringRequestMatchers(this.requestMatcher)
+		);
 			return http.build();
 			// @formatter:on
 		}
@@ -189,8 +189,8 @@ public class CsrfConfigurerIgnoringRequestMatchersTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.csrf()
-					.ignoringRequestMatchers("/no-csrf");
+		.csrf()
+		.ignoringRequestMatchers("/no-csrf");
 			// @formatter:on
 			return http.build();
 		}
@@ -206,9 +206,9 @@ public class CsrfConfigurerIgnoringRequestMatchersTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.csrf((csrf) -> csrf
-					.ignoringRequestMatchers("/no-csrf")
-				);
+		.csrf((csrf) -> csrf
+.ignoringRequestMatchers("/no-csrf")
+		);
 			// @formatter:on
 			return http.build();
 		}

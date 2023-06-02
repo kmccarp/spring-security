@@ -44,8 +44,7 @@ import org.springframework.security.provisioning.JdbcUserDetailsManager;
  * @author Rob Winch
  * @since 3.2
  */
-public class JdbcUserDetailsManagerConfigurer<B extends ProviderManagerBuilder<B>>
-		extends UserDetailsManagerConfigurer<B, JdbcUserDetailsManagerConfigurer<B>> {
+public class JdbcUserDetailsManagerConfigurer<B extends ProviderManagerBuilder<B>>extends UserDetailsManagerConfigurer<B, JdbcUserDetailsManagerConfigurer<B>> {
 
 	private DataSource dataSource;
 

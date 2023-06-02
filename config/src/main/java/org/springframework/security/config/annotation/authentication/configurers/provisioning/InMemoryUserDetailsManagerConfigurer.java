@@ -31,8 +31,7 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
  * @author Rob Winch
  * @since 3.2
  */
-public class InMemoryUserDetailsManagerConfigurer<B extends ProviderManagerBuilder<B>>
-		extends UserDetailsManagerConfigurer<B, InMemoryUserDetailsManagerConfigurer<B>> {
+public class InMemoryUserDetailsManagerConfigurer<B extends ProviderManagerBuilder<B>>extends UserDetailsManagerConfigurer<B, InMemoryUserDetailsManagerConfigurer<B>> {
 
 	/**
 	 * Creates a new instance

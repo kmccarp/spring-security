@@ -121,7 +121,7 @@ public final class OAuth2AccessTokenResponse {
 			this.expiresAt = accessToken.getExpiresAt();
 			this.scopes = accessToken.getScopes();
 			this.refreshToken = (response.getRefreshToken() != null) ? response.getRefreshToken().getTokenValue()
-					: null;
+		: null;
 			this.additionalParameters = response.getAdditionalParameters();
 		}
 
@@ -189,13 +189,13 @@ public final class OAuth2AccessTokenResponse {
 			Instant expiresAt = getExpiresAt();
 			OAuth2AccessTokenResponse accessTokenResponse = new OAuth2AccessTokenResponse();
 			accessTokenResponse.accessToken = new OAuth2AccessToken(this.tokenType, this.tokenValue, issuedAt,
-					expiresAt, this.scopes);
+		expiresAt, this.scopes);
 			if (StringUtils.hasText(this.refreshToken)) {
 				accessTokenResponse.refreshToken = new OAuth2RefreshToken(this.refreshToken, issuedAt);
 			}
 			accessTokenResponse.additionalParameters = Collections
-					.unmodifiableMap(CollectionUtils.isEmpty(this.additionalParameters) ? Collections.emptyMap()
-							: this.additionalParameters);
+		.unmodifiableMap(CollectionUtils.isEmpty(this.additionalParameters) ? Collections.emptyMap()
+	: this.additionalParameters);
 			return accessTokenResponse;
 		}
 

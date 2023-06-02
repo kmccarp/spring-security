@@ -42,7 +42,7 @@ import org.springframework.util.StringUtils;
 final class WithMockUserSecurityContextFactory implements WithSecurityContextFactory<WithMockUser> {
 
 	private SecurityContextHolderStrategy securityContextHolderStrategy = SecurityContextHolder
-			.getContextHolderStrategy();
+.getContextHolderStrategy();
 
 	@Override
 	public SecurityContext createSecurityContext(WithMockUser withUser) {
@@ -60,11 +60,11 @@ final class WithMockUserSecurityContextFactory implements WithSecurityContextFac
 		}
 		else if (!(withUser.roles().length == 1 && "USER".equals(withUser.roles()[0]))) {
 			throw new IllegalStateException("You cannot define roles attribute " + Arrays.asList(withUser.roles())
-					+ " with authorities attribute " + Arrays.asList(withUser.authorities()));
+		+ " with authorities attribute " + Arrays.asList(withUser.authorities()));
 		}
 		User principal = new User(username, withUser.password(), true, true, true, true, grantedAuthorities);
 		Authentication authentication = UsernamePasswordAuthenticationToken.authenticated(principal,
-				principal.getPassword(), principal.getAuthorities());
+	principal.getPassword(), principal.getAuthorities());
 		SecurityContext context = this.securityContextHolderStrategy.createEmptyContext();
 		context.setAuthentication(authentication);
 		return context;

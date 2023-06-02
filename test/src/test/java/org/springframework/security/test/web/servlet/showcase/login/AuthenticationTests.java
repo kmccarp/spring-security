@@ -62,7 +62,7 @@ public class AuthenticationTests {
 	@BeforeEach
 	public void setup() {
 		this.mvc = MockMvcBuilders.webAppContextSetup(this.context).apply(springSecurity())
-				.defaultRequest(get("/").accept(MediaType.TEXT_HTML)).build();
+	.defaultRequest(get("/").accept(MediaType.TEXT_HTML)).build();
 	}
 
 	@Test
@@ -73,19 +73,19 @@ public class AuthenticationTests {
 	@Test
 	public void httpBasicAuthenticationSuccess() throws Exception {
 		this.mvc.perform(get("/secured/butnotfound").with(httpBasic("user", "password")))
-				.andExpect(status().isNotFound()).andExpect(authenticated().withUsername("user"));
+	.andExpect(status().isNotFound()).andExpect(authenticated().withUsername("user"));
 	}
 
 	@Test
 	public void authenticationSuccess() throws Exception {
 		this.mvc.perform(formLogin()).andExpect(status().isFound()).andExpect(redirectedUrl("/"))
-				.andExpect(authenticated().withUsername("user"));
+	.andExpect(authenticated().withUsername("user"));
 	}
 
 	@Test
 	public void authenticationFailed() throws Exception {
 		this.mvc.perform(formLogin().user("user").password("invalid")).andExpect(status().isFound())
-				.andExpect(redirectedUrl("/login?error")).andExpect(unauthenticated());
+	.andExpect(redirectedUrl("/login?error")).andExpect(unauthenticated());
 	}
 
 	@Configuration
@@ -97,14 +97,14 @@ public class AuthenticationTests {
 		DefaultSecurityFilterChain springSecurity(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeHttpRequests((requests) -> requests
-					.anyRequest().authenticated()
-				)
-				.sessionManagement((sessions) -> sessions
-					.requireExplicitAuthenticationStrategy(false)
-				)
-				.httpBasic(withDefaults())
-				.formLogin(withDefaults());
+		.authorizeHttpRequests((requests) -> requests
+.anyRequest().authenticated()
+		)
+		.sessionManagement((sessions) -> sessions
+.requireExplicitAuthenticationStrategy(false)
+		)
+		.httpBasic(withDefaults())
+		.formLogin(withDefaults());
 			// @formatter:on
 			return http.build();
 		}

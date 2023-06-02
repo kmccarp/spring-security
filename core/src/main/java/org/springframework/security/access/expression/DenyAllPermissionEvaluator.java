@@ -42,7 +42,7 @@ public class DenyAllPermissionEvaluator implements PermissionEvaluator {
 	@Override
 	public boolean hasPermission(Authentication authentication, Object target, Object permission) {
 		this.logger.warn(LogMessage.format("Denying user %s permission '%s' on object %s", authentication.getName(),
-				permission, target));
+	permission, target));
 		return false;
 	}
 
@@ -51,9 +51,9 @@ public class DenyAllPermissionEvaluator implements PermissionEvaluator {
 	 */
 	@Override
 	public boolean hasPermission(Authentication authentication, Serializable targetId, String targetType,
-			Object permission) {
+Object permission) {
 		this.logger.warn(LogMessage.format("Denying user %s permission '%s' on object with Id %s",
-				authentication.getName(), permission, targetId));
+	authentication.getName(), permission, targetId));
 		return false;
 	}
 

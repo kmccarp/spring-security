@@ -46,7 +46,7 @@ public class InMemoryTokenRepositoryImpl implements PersistentTokenRepository {
 	public synchronized void updateToken(String series, String tokenValue, Date lastUsed) {
 		PersistentRememberMeToken token = getTokenForSeries(series);
 		PersistentRememberMeToken newToken = new PersistentRememberMeToken(token.getUsername(), series, tokenValue,
-				new Date());
+	new Date());
 		// Store it, overwriting the existing one.
 		this.seriesTokens.put(series, newToken);
 	}

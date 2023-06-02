@@ -66,13 +66,13 @@ public class LdapBindAuthenticationManagerFactoryITests {
 		this.spring.register(FromContextSourceConfig.class).autowire();
 
 		this.mockMvc.perform(formLogin().user("bob").password("bobspassword"))
-				.andExpect(authenticated().withUsername("bob"));
+	.andExpect(authenticated().withUsername("bob"));
 	}
 
 	@Test
 	public void ldapAuthenticationProviderCustomLdapAuthoritiesPopulator() throws Exception {
 		CustomAuthoritiesPopulatorConfig.LAP = new DefaultLdapAuthoritiesPopulator(mock(LdapContextSource.class),
-				null) {
+	null) {
 			@Override
 			protected Set<GrantedAuthority> getAdditionalRoles(DirContextOperations user, String username) {
 				return new HashSet<>(AuthorityUtils.createAuthorityList("ROLE_EXTRA"));
@@ -82,18 +82,18 @@ public class LdapBindAuthenticationManagerFactoryITests {
 		this.spring.register(CustomAuthoritiesPopulatorConfig.class).autowire();
 
 		this.mockMvc.perform(formLogin().user("bob").password("bobspassword")).andExpect(
-				authenticated().withAuthorities(Collections.singleton(new SimpleGrantedAuthority("ROLE_EXTRA"))));
+	authenticated().withAuthorities(Collections.singleton(new SimpleGrantedAuthority("ROLE_EXTRA"))));
 	}
 
 	@Test
 	public void authenticationManagerFactoryWhenCustomAuthoritiesMapperThenUsed() throws Exception {
 		CustomAuthoritiesMapperConfig.AUTHORITIES_MAPPER = ((authorities) -> AuthorityUtils
-				.createAuthorityList("ROLE_CUSTOM"));
+	.createAuthorityList("ROLE_CUSTOM"));
 
 		this.spring.register(CustomAuthoritiesMapperConfig.class).autowire();
 
 		this.mockMvc.perform(formLogin().user("bob").password("bobspassword")).andExpect(
-				authenticated().withAuthorities(Collections.singleton(new SimpleGrantedAuthority("ROLE_CUSTOM"))));
+	authenticated().withAuthorities(Collections.singleton(new SimpleGrantedAuthority("ROLE_CUSTOM"))));
 	}
 
 	@Test
@@ -101,7 +101,7 @@ public class LdapBindAuthenticationManagerFactoryITests {
 		CustomUserDetailsContextMapperConfig.CONTEXT_MAPPER = new UserDetailsContextMapper() {
 			@Override
 			public UserDetails mapUserFromContext(DirContextOperations ctx, String username,
-					Collection<? extends GrantedAuthority> authorities) {
+		Collection<? extends GrantedAuthority> authorities) {
 				return User.withUsername("other").password("password").roles("USER").build();
 			}
 
@@ -113,7 +113,7 @@ public class LdapBindAuthenticationManagerFactoryITests {
 		this.spring.register(CustomUserDetailsContextMapperConfig.class).autowire();
 
 		this.mockMvc.perform(formLogin().user("bob").password("bobspassword"))
-				.andExpect(authenticated().withUsername("other"));
+	.andExpect(authenticated().withUsername("other"));
 	}
 
 	@Test
@@ -121,7 +121,7 @@ public class LdapBindAuthenticationManagerFactoryITests {
 		this.spring.register(CustomUserDnPatternsConfig.class).autowire();
 
 		this.mockMvc.perform(formLogin().user("bob").password("bobspassword"))
-				.andExpect(authenticated().withUsername("bob"));
+	.andExpect(authenticated().withUsername("bob"));
 	}
 
 	@Test
@@ -129,7 +129,7 @@ public class LdapBindAuthenticationManagerFactoryITests {
 		this.spring.register(CustomUserSearchConfig.class).autowire();
 
 		this.mockMvc.perform(formLogin().user("bob").password("bobspassword"))
-				.andExpect(authenticated().withUsername("bob"));
+	.andExpect(authenticated().withUsername("bob"));
 	}
 
 	@Configuration

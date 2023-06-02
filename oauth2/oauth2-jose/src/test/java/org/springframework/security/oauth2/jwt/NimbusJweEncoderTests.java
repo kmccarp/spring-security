@@ -69,7 +69,7 @@ public class NimbusJweEncoderTests {
 
 	// @formatter:off
 	private static final JweHeader DEFAULT_JWE_HEADER =
-			JweHeader.with(JweAlgorithm.RSA_OAEP_256, EncryptionMethod.A256GCM.getName()).build();
+JweHeader.with(JweAlgorithm.RSA_OAEP_256, EncryptionMethod.A256GCM.getName()).build();
 	// @formatter:on
 
 	private List<JWK> jwkList;
@@ -145,7 +145,7 @@ public class NimbusJweEncoderTests {
 		Jwt encodedJweNestedJws = this.jweEncoder.encode(JwtEncoderParameters.from(jwsHeader, jwtClaimsSet));
 
 		assertThat(encodedJweNestedJws.getHeaders().get(JoseHeaderNames.ALG))
-				.isEqualTo(DEFAULT_JWE_HEADER.getAlgorithm());
+	.isEqualTo(DEFAULT_JWE_HEADER.getAlgorithm());
 		assertThat(encodedJweNestedJws.getHeaders().get("enc")).isEqualTo(DEFAULT_JWE_HEADER.<String>getHeader("enc"));
 		assertThat(encodedJweNestedJws.getHeaders().get(JoseHeaderNames.JKU)).isNull();
 		assertThat(encodedJweNestedJws.getHeaders().get(JoseHeaderNames.JWK)).isNull();
@@ -260,7 +260,7 @@ public class NimbusJweEncoderTests {
 			// **********************
 			// @formatter:on
 			JweHeader jweHeader = DEFAULT_JWE_HEADER; // Assume this is accessed via
-														// JwtEncoderParameters.getJweHeader()
+			// JwtEncoderParameters.getJweHeader()
 
 			JwsHeader jwsHeader = parameters.getJwsHeader();
 			JwtClaimsSet claims = parameters.getClaims();
@@ -279,8 +279,8 @@ public class NimbusJweEncoderTests {
 
 				// @formatter:off
 				jweHeader = JweHeader.from(jweHeader)
-						.contentType("JWT")		// Indicates Nested JWT (REQUIRED)
-						.build();
+			.contentType("JWT")		// Indicates Nested JWT (REQUIRED)
+			.build();
 				// @formatter:on
 			}
 			else {
@@ -297,7 +297,7 @@ public class NimbusJweEncoderTests {
 			}
 			catch (JOSEException ex) {
 				throw new JwtEncodingException(String.format(ENCODING_ERROR_MESSAGE_TEMPLATE,
-						"Failed to encrypt the JWT -> " + ex.getMessage()), ex);
+			"Failed to encrypt the JWT -> " + ex.getMessage()), ex);
 			}
 			String jwe = jweObject.serialize();
 
@@ -306,7 +306,7 @@ public class NimbusJweEncoderTests {
 			// returned JWT.
 			// If this is needed, we can simply add the new method Jwt.getNestedHeaders().
 			return new Jwt(jwe, claims.getIssuedAt(), claims.getExpiresAt(), jweHeader.getHeaders(),
-					claims.getClaims());
+		claims.getClaims());
 		}
 
 		private JWK selectJwk(JweHeader headers) {
@@ -317,17 +317,17 @@ public class NimbusJweEncoderTests {
 			}
 			catch (Exception ex) {
 				throw new JwtEncodingException(String.format(ENCODING_ERROR_MESSAGE_TEMPLATE,
-						"Failed to select a JWK encryption key -> " + ex.getMessage()), ex);
+			"Failed to select a JWK encryption key -> " + ex.getMessage()), ex);
 			}
 
 			if (jwks.size() > 1) {
 				throw new JwtEncodingException(String.format(ENCODING_ERROR_MESSAGE_TEMPLATE,
-						"Found multiple JWK encryption keys for algorithm '" + headers.getAlgorithm().getName() + "'"));
+			"Found multiple JWK encryption keys for algorithm '" + headers.getAlgorithm().getName() + "'"));
 			}
 
 			if (jwks.isEmpty()) {
 				throw new JwtEncodingException(
-						String.format(ENCODING_ERROR_MESSAGE_TEMPLATE, "Failed to select a JWK encryption key"));
+			String.format(ENCODING_ERROR_MESSAGE_TEMPLATE, "Failed to select a JWK encryption key"));
 			}
 
 			return jwks.get(0);
@@ -338,12 +338,12 @@ public class NimbusJweEncoderTests {
 
 			// @formatter:off
 			return new JWKMatcher.Builder()
-					.keyType(KeyType.forAlgorithm(jweAlgorithm))
-					.keyID(headers.getKeyId())
-					.keyUses(KeyUse.ENCRYPTION, null)
-					.algorithms(jweAlgorithm, null)
-					.x509CertSHA256Thumbprint(Base64URL.from(headers.getX509SHA256Thumbprint()))
-					.build();
+		.keyType(KeyType.forAlgorithm(jweAlgorithm))
+		.keyID(headers.getKeyId())
+		.keyUses(KeyUse.ENCRYPTION, null)
+		.algorithms(jweAlgorithm, null)
+		.x509CertSHA256Thumbprint(Base64URL.from(headers.getX509SHA256Thumbprint()))
+		.build();
 			// @formatter:on
 		}
 
@@ -385,7 +385,7 @@ public class NimbusJweEncoderTests {
 				}
 				catch (Exception ex) {
 					throw new IllegalArgumentException(
-							"Unable to convert '" + JoseHeaderNames.JKU + "' JOSE header to a URI", ex);
+				"Unable to convert '" + JoseHeaderNames.JKU + "' JOSE header to a URI", ex);
 				}
 			}
 
@@ -396,7 +396,7 @@ public class NimbusJweEncoderTests {
 				}
 				catch (Exception ex) {
 					throw new IllegalArgumentException("Unable to convert '" + JoseHeaderNames.JWK + "' JOSE header",
-							ex);
+				ex);
 				}
 			}
 
@@ -412,7 +412,7 @@ public class NimbusJweEncoderTests {
 				}
 				catch (Exception ex) {
 					throw new IllegalArgumentException(
-							"Unable to convert '" + JoseHeaderNames.X5U + "' JOSE header to a URI", ex);
+				"Unable to convert '" + JoseHeaderNames.X5U + "' JOSE header to a URI", ex);
 				}
 			}
 
@@ -447,8 +447,8 @@ public class NimbusJweEncoderTests {
 			}
 
 			Map<String, Object> customHeaders = headers.getHeaders().entrySet().stream()
-					.filter((header) -> !JWEHeader.getRegisteredParameterNames().contains(header.getKey()))
-					.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+		.filter((header) -> !JWEHeader.getRegisteredParameterNames().contains(header.getKey()))
+		.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
 			if (!CollectionUtils.isEmpty(customHeaders)) {
 				builder.customParams(customHeaders);
 			}

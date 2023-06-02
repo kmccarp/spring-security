@@ -41,7 +41,7 @@ public class GrantedAuthorityFromAssertionAttributesUserDetailsServiceTests {
 	@Test
 	public void correctlyExtractsNamedAttributesFromAssertionAndConvertsThemToAuthorities() {
 		GrantedAuthorityFromAssertionAttributesUserDetailsService uds = new GrantedAuthorityFromAssertionAttributesUserDetailsService(
-				new String[] { "a", "b", "c", "d" });
+	new String[]{"a", "b", "c", "d"});
 		uds.setConvertToUpperCase(false);
 		Assertion assertion = mock(Assertion.class);
 		AttributePrincipal principal = mock(AttributePrincipal.class);

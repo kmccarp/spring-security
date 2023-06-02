@@ -51,8 +51,8 @@ class DefaultSaml2AuthenticatedPrincipalMixin {
 	String registrationId;
 
 	DefaultSaml2AuthenticatedPrincipalMixin(@JsonProperty("name") String name,
-			@JsonProperty("attributes") Map<String, List<Object>> attributes,
-			@JsonProperty("sessionIndexes") List<String> sessionIndexes) {
+@JsonProperty("attributes") Map<String, List<Object>> attributes,
+@JsonProperty("sessionIndexes") List<String> sessionIndexes) {
 
 	}
 

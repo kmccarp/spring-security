@@ -52,8 +52,7 @@ import org.springframework.security.core.userdetails.UserDetails;
  * @see org.springframework.security.jackson2.SecurityJackson2Modules
  */
 @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.PROPERTY)
-@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY, isGetterVisibility = JsonAutoDetect.Visibility.NONE,
-		getterVisibility = JsonAutoDetect.Visibility.NONE, creatorVisibility = JsonAutoDetect.Visibility.ANY)
+@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY, isGetterVisibility = JsonAutoDetect.Visibility.NONE,getterVisibility = JsonAutoDetect.Visibility.NONE, creatorVisibility = JsonAutoDetect.Visibility.ANY)
 @JsonIgnoreProperties(ignoreUnknown = true)
 class CasAuthenticationTokenMixin {
 
@@ -75,9 +74,9 @@ class CasAuthenticationTokenMixin {
 	 */
 	@JsonCreator
 	CasAuthenticationTokenMixin(@JsonProperty("keyHash") Integer keyHash, @JsonProperty("principal") Object principal,
-			@JsonProperty("credentials") Object credentials,
-			@JsonProperty("authorities") Collection<? extends GrantedAuthority> authorities,
-			@JsonProperty("userDetails") UserDetails userDetails, @JsonProperty("assertion") Assertion assertion) {
+@JsonProperty("credentials") Object credentials,
+@JsonProperty("authorities") Collection<? extends GrantedAuthority> authorities,
+@JsonProperty("userDetails") UserDetails userDetails, @JsonProperty("assertion") Assertion assertion) {
 	}
 
 }

@@ -82,8 +82,8 @@ public class SecurityMockMvcRequestPostProcessorsAuthenticationStatelessTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.sessionManagement()
-					.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+		.sessionManagement()
+		.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 			return http.build();
 			// @formatter:on
 		}

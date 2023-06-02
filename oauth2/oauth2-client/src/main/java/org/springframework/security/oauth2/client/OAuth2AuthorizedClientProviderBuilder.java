@@ -83,7 +83,7 @@ public final class OAuth2AuthorizedClientProviderBuilder {
 	 */
 	public OAuth2AuthorizedClientProviderBuilder authorizationCode() {
 		this.builders.computeIfAbsent(AuthorizationCodeOAuth2AuthorizedClientProvider.class,
-				(k) -> new AuthorizationCodeGrantBuilder());
+	(k) -> new AuthorizationCodeGrantBuilder());
 		return OAuth2AuthorizedClientProviderBuilder.this;
 	}
 
@@ -93,7 +93,7 @@ public final class OAuth2AuthorizedClientProviderBuilder {
 	 */
 	public OAuth2AuthorizedClientProviderBuilder refreshToken() {
 		this.builders.computeIfAbsent(RefreshTokenOAuth2AuthorizedClientProvider.class,
-				(k) -> new RefreshTokenGrantBuilder());
+	(k) -> new RefreshTokenGrantBuilder());
 		return OAuth2AuthorizedClientProviderBuilder.this;
 	}
 
@@ -105,7 +105,7 @@ public final class OAuth2AuthorizedClientProviderBuilder {
 	 */
 	public OAuth2AuthorizedClientProviderBuilder refreshToken(Consumer<RefreshTokenGrantBuilder> builderConsumer) {
 		RefreshTokenGrantBuilder builder = (RefreshTokenGrantBuilder) this.builders.computeIfAbsent(
-				RefreshTokenOAuth2AuthorizedClientProvider.class, (k) -> new RefreshTokenGrantBuilder());
+	RefreshTokenOAuth2AuthorizedClientProvider.class, (k) -> new RefreshTokenGrantBuilder());
 		builderConsumer.accept(builder);
 		return OAuth2AuthorizedClientProviderBuilder.this;
 	}
@@ -116,7 +116,7 @@ public final class OAuth2AuthorizedClientProviderBuilder {
 	 */
 	public OAuth2AuthorizedClientProviderBuilder clientCredentials() {
 		this.builders.computeIfAbsent(ClientCredentialsOAuth2AuthorizedClientProvider.class,
-				(k) -> new ClientCredentialsGrantBuilder());
+	(k) -> new ClientCredentialsGrantBuilder());
 		return OAuth2AuthorizedClientProviderBuilder.this;
 	}
 
@@ -127,9 +127,9 @@ public final class OAuth2AuthorizedClientProviderBuilder {
 	 * @return the {@link OAuth2AuthorizedClientProviderBuilder}
 	 */
 	public OAuth2AuthorizedClientProviderBuilder clientCredentials(
-			Consumer<ClientCredentialsGrantBuilder> builderConsumer) {
+Consumer<ClientCredentialsGrantBuilder> builderConsumer) {
 		ClientCredentialsGrantBuilder builder = (ClientCredentialsGrantBuilder) this.builders.computeIfAbsent(
-				ClientCredentialsOAuth2AuthorizedClientProvider.class, (k) -> new ClientCredentialsGrantBuilder());
+	ClientCredentialsOAuth2AuthorizedClientProvider.class, (k) -> new ClientCredentialsGrantBuilder());
 		builderConsumer.accept(builder);
 		return OAuth2AuthorizedClientProviderBuilder.this;
 	}
@@ -163,7 +163,7 @@ public final class OAuth2AuthorizedClientProviderBuilder {
 	@Deprecated
 	public OAuth2AuthorizedClientProviderBuilder password(Consumer<PasswordGrantBuilder> builderConsumer) {
 		PasswordGrantBuilder builder = (PasswordGrantBuilder) this.builders
-				.computeIfAbsent(PasswordOAuth2AuthorizedClientProvider.class, (k) -> new PasswordGrantBuilder());
+	.computeIfAbsent(PasswordOAuth2AuthorizedClientProvider.class, (k) -> new PasswordGrantBuilder());
 		builderConsumer.accept(builder);
 		return OAuth2AuthorizedClientProviderBuilder.this;
 	}
@@ -209,7 +209,7 @@ public final class OAuth2AuthorizedClientProviderBuilder {
 		 * @return the {@link PasswordGrantBuilder}
 		 */
 		public PasswordGrantBuilder accessTokenResponseClient(
-				OAuth2AccessTokenResponseClient<OAuth2PasswordGrantRequest> accessTokenResponseClient) {
+	OAuth2AccessTokenResponseClient<OAuth2PasswordGrantRequest> accessTokenResponseClient) {
 			this.accessTokenResponseClient = accessTokenResponseClient;
 			return this;
 		}
@@ -282,7 +282,7 @@ public final class OAuth2AuthorizedClientProviderBuilder {
 		 * @return the {@link ClientCredentialsGrantBuilder}
 		 */
 		public ClientCredentialsGrantBuilder accessTokenResponseClient(
-				OAuth2AccessTokenResponseClient<OAuth2ClientCredentialsGrantRequest> accessTokenResponseClient) {
+	OAuth2AccessTokenResponseClient<OAuth2ClientCredentialsGrantRequest> accessTokenResponseClient) {
 			this.accessTokenResponseClient = accessTokenResponseClient;
 			return this;
 		}
@@ -374,7 +374,7 @@ public final class OAuth2AuthorizedClientProviderBuilder {
 		 * @return the {@link RefreshTokenGrantBuilder}
 		 */
 		public RefreshTokenGrantBuilder accessTokenResponseClient(
-				OAuth2AccessTokenResponseClient<OAuth2RefreshTokenGrantRequest> accessTokenResponseClient) {
+	OAuth2AccessTokenResponseClient<OAuth2RefreshTokenGrantRequest> accessTokenResponseClient) {
 			this.accessTokenResponseClient = accessTokenResponseClient;
 			return this;
 		}

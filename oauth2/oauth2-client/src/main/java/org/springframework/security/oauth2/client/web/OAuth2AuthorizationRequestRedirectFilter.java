@@ -114,11 +114,11 @@ public class OAuth2AuthorizationRequestRedirectFilter extends OncePerRequestFilt
 	 * requests
 	 */
 	public OAuth2AuthorizationRequestRedirectFilter(ClientRegistrationRepository clientRegistrationRepository,
-			String authorizationRequestBaseUri) {
+String authorizationRequestBaseUri) {
 		Assert.notNull(clientRegistrationRepository, "clientRegistrationRepository cannot be null");
 		Assert.hasText(authorizationRequestBaseUri, "authorizationRequestBaseUri cannot be empty");
 		this.authorizationRequestResolver = new DefaultOAuth2AuthorizationRequestResolver(clientRegistrationRepository,
-				authorizationRequestBaseUri);
+	authorizationRequestBaseUri);
 	}
 
 	/**
@@ -148,7 +148,7 @@ public class OAuth2AuthorizationRequestRedirectFilter extends OncePerRequestFilt
 	 * {@link OAuth2AuthorizationRequest}'s
 	 */
 	public final void setAuthorizationRequestRepository(
-			AuthorizationRequestRepository<OAuth2AuthorizationRequest> authorizationRequestRepository) {
+AuthorizationRequestRepository<OAuth2AuthorizationRequest> authorizationRequestRepository) {
 		Assert.notNull(authorizationRequestRepository, "authorizationRequestRepository cannot be null");
 		this.authorizationRequestRepository = authorizationRequestRepository;
 	}
@@ -165,7 +165,7 @@ public class OAuth2AuthorizationRequestRedirectFilter extends OncePerRequestFilt
 
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
-			throws ServletException, IOException {
+throws ServletException, IOException {
 		try {
 			OAuth2AuthorizationRequest authorizationRequest = this.authorizationRequestResolver.resolve(request);
 			if (authorizationRequest != null) {
@@ -187,11 +187,11 @@ public class OAuth2AuthorizationRequestRedirectFilter extends OncePerRequestFilt
 			// Check to see if we need to handle ClientAuthorizationRequiredException
 			Throwable[] causeChain = this.throwableAnalyzer.determineCauseChain(ex);
 			ClientAuthorizationRequiredException authzEx = (ClientAuthorizationRequiredException) this.throwableAnalyzer
-					.getFirstThrowableOfType(ClientAuthorizationRequiredException.class, causeChain);
+		.getFirstThrowableOfType(ClientAuthorizationRequiredException.class, causeChain);
 			if (authzEx != null) {
 				try {
 					OAuth2AuthorizationRequest authorizationRequest = this.authorizationRequestResolver.resolve(request,
-							authzEx.getClientRegistrationId());
+				authzEx.getClientRegistrationId());
 					if (authorizationRequest == null) {
 						throw authzEx;
 					}
@@ -214,16 +214,16 @@ public class OAuth2AuthorizationRequestRedirectFilter extends OncePerRequestFilt
 	}
 
 	private void sendRedirectForAuthorization(HttpServletRequest request, HttpServletResponse response,
-			OAuth2AuthorizationRequest authorizationRequest) throws IOException {
+OAuth2AuthorizationRequest authorizationRequest) throws IOException {
 		if (AuthorizationGrantType.AUTHORIZATION_CODE.equals(authorizationRequest.getGrantType())) {
 			this.authorizationRequestRepository.saveAuthorizationRequest(authorizationRequest, request, response);
 		}
 		this.authorizationRedirectStrategy.sendRedirect(request, response,
-				authorizationRequest.getAuthorizationRequestUri());
+	authorizationRequest.getAuthorizationRequestUri());
 	}
 
 	private void unsuccessfulRedirectForAuthorization(HttpServletRequest request, HttpServletResponse response,
-			Exception ex) throws IOException {
+Exception ex) throws IOException {
 		LogMessage message = LogMessage.format("Authorization Request failed: %s", ex);
 		if (InvalidClientRegistrationIdException.class.isAssignableFrom(ex.getClass())) {
 			// Log an invalid registrationId at WARN level to allow these errors to be
@@ -234,7 +234,7 @@ public class OAuth2AuthorizationRequestRedirectFilter extends OncePerRequestFilt
 			this.logger.error(message, ex);
 		}
 		response.sendError(HttpStatus.INTERNAL_SERVER_ERROR.value(),
-				HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase());
+	HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase());
 	}
 
 	private static final class DefaultThrowableAnalyzer extends ThrowableAnalyzer {

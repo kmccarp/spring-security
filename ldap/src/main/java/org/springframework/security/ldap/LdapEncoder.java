@@ -34,6 +34,7 @@ final class LdapEncoder {
 	private static final int HEX = 16;
 
 	private static String[] NAME_ESCAPE_TABLE = new String[96];
+
 	static {
 		// all below 0x20 (control chars)
 		for (char c = 0; c < ' '; c++) {
@@ -168,7 +169,7 @@ final class LdapEncoder {
 				else {
 					if (value.length() <= i + 2) {
 						throw new BadLdapGrammarException(
-								"Unexpected end of value " + "expected special or hex, found '" + nextChar + "'");
+					"Unexpected end of value " + "expected special or hex, found '" + nextChar + "'");
 					}
 					// This should be a hex value
 					String hexString = "" + nextChar + value.charAt(i + 2);
@@ -189,7 +190,7 @@ final class LdapEncoder {
 
 	private static boolean isNormalBackslashEscape(char nextChar) {
 		return nextChar == ',' || nextChar == '=' || nextChar == '+' || nextChar == '<' || nextChar == '>'
-				|| nextChar == '#' || nextChar == ';' || nextChar == '\\' || nextChar == '\"' || nextChar == ' ';
+	|| nextChar == '#' || nextChar == ';' || nextChar == '\\' || nextChar == '\"' || nextChar == ' ';
 	}
 
 }

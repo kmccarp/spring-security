@@ -53,7 +53,7 @@ public interface MethodSecurityService {
 	@RolesAllowed("ADMIN")
 	String jsr250RolesAllowed();
 
-	@Secured({ "ROLE_USER", "RUN_AS_SUPER" })
+	@Secured({"ROLE_USER", "RUN_AS_SUPER"})
 	Authentication runAs();
 
 	@PreAuthorize("permitAll")

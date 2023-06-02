@@ -62,10 +62,10 @@ public class NamespaceLdapAuthenticationProviderTests {
 
 		// @formatter:off
 		SecurityMockMvcRequestBuilders.FormLoginRequestBuilder request = formLogin()
-				.user("bob")
-				.password("bobspassword");
+	.user("bob")
+	.password("bobspassword");
 		SecurityMockMvcResultMatchers.AuthenticatedMatcher user = authenticated()
-				.withUsername("bob");
+	.withUsername("bob");
 		// @formatter:on
 		this.mockMvc.perform(request).andExpect(user);
 	}
@@ -76,10 +76,10 @@ public class NamespaceLdapAuthenticationProviderTests {
 
 		// @formatter:off
 		SecurityMockMvcRequestBuilders.FormLoginRequestBuilder request = formLogin()
-				.user("bob")
-				.password("bobspassword");
+	.user("bob")
+	.password("bobspassword");
 		SecurityMockMvcResultMatchers.AuthenticatedMatcher user = authenticated()
-				.withAuthorities(Collections.singleton(new SimpleGrantedAuthority("PREFIX_DEVELOPERS")));
+	.withAuthorities(Collections.singleton(new SimpleGrantedAuthority("PREFIX_DEVELOPERS")));
 		// @formatter:on
 		this.mockMvc.perform(request).andExpect(user);
 	}
@@ -88,7 +88,7 @@ public class NamespaceLdapAuthenticationProviderTests {
 	@Test
 	public void ldapAuthenticationProviderCustomLdapAuthoritiesPopulator() throws Exception {
 		LdapContextSource contextSource = new DefaultSpringSecurityContextSource(
-				"ldap://blah.example.com:789/dc=springframework,dc=org");
+	"ldap://blah.example.com:789/dc=springframework,dc=org");
 		CustomAuthoritiesPopulatorConfig.LAP = new DefaultLdapAuthoritiesPopulator(contextSource, null) {
 			@Override
 			protected Set<GrantedAuthority> getAdditionalRoles(DirContextOperations user, String username) {
@@ -100,10 +100,10 @@ public class NamespaceLdapAuthenticationProviderTests {
 
 		// @formatter:off
 		SecurityMockMvcRequestBuilders.FormLoginRequestBuilder request = formLogin()
-				.user("bob")
-				.password("bobspassword");
+	.user("bob")
+	.password("bobspassword");
 		SecurityMockMvcResultMatchers.AuthenticatedMatcher user = authenticated()
-				.withAuthorities(Collections.singleton(new SimpleGrantedAuthority("ROLE_EXTRA")));
+	.withAuthorities(Collections.singleton(new SimpleGrantedAuthority("ROLE_EXTRA")));
 		// @formatter:on
 		this.mockMvc.perform(request).andExpect(user);
 	}
@@ -114,8 +114,8 @@ public class NamespaceLdapAuthenticationProviderTests {
 
 		// @formatter:off
 		SecurityMockMvcRequestBuilders.FormLoginRequestBuilder request = formLogin()
-				.user("bcrypt")
-				.password("password");
+	.user("bcrypt")
+	.password("password");
 		SecurityMockMvcResultMatchers.AuthenticatedMatcher user = authenticated().withUsername("bcrypt");
 		// @formatter:on
 		this.mockMvc.perform(request).andExpect(user);

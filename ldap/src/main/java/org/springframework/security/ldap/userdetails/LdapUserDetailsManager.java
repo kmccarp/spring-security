@@ -84,7 +84,7 @@ public class LdapUserDetailsManager implements UserDetailsManager {
 	private final Log logger = LogFactory.getLog(LdapUserDetailsManager.class);
 
 	private SecurityContextHolderStrategy securityContextHolderStrategy = SecurityContextHolder
-			.getContextHolderStrategy();
+.getContextHolderStrategy();
 
 	/**
 	 * The strategy for mapping usernames to LDAP distinguished names. This will be used
@@ -185,7 +185,7 @@ public class LdapUserDetailsManager implements UserDetailsManager {
 	public void changePassword(final String oldPassword, final String newPassword) {
 		Authentication authentication = this.securityContextHolderStrategy.getContext().getAuthentication();
 		Assert.notNull(authentication,
-				"No authentication object found in security context. Can't change current user's password!");
+	"No authentication object found in security context. Can't change current user's password!");
 		String username = authentication.getName();
 		this.logger.debug(LogMessage.format("Changing password for user '%s'", username));
 		DistinguishedName userDn = this.usernameMapper.buildDn(username);
@@ -208,9 +208,9 @@ public class LdapUserDetailsManager implements UserDetailsManager {
 		SearchExecutor se = (ctx) -> {
 			DistinguishedName fullDn = LdapUtils.getFullDn(dn, ctx);
 			SearchControls ctrls = new SearchControls();
-			ctrls.setReturningAttributes(new String[] { this.groupRoleAttributeName });
-			return ctx.search(this.groupSearchBase, this.groupSearchFilter, new String[] { fullDn.toUrl(), username },
-					ctrls);
+			ctrls.setReturningAttributes(new String[]{this.groupRoleAttributeName});
+			return ctx.search(this.groupSearchBase, this.groupSearchFilter, new String[]{fullDn.toUrl(), username},
+		ctrls);
 		};
 		AttributesMapperCallbackHandler roleCollector = new AttributesMapperCallbackHandler(this.roleMapper);
 		this.template.search(se, roleCollector);
@@ -304,14 +304,14 @@ public class LdapUserDetailsManager implements UserDetailsManager {
 	}
 
 	private void modifyAuthorities(final DistinguishedName userDn,
-			final Collection<? extends GrantedAuthority> authorities, final int modType) {
+final Collection<? extends GrantedAuthority> authorities, final int modType) {
 		this.template.executeReadWrite((ContextExecutor) (ctx) -> {
 			for (GrantedAuthority authority : authorities) {
 				String group = convertAuthorityToGroup(authority);
 				DistinguishedName fullDn = LdapUtils.getFullDn(userDn, ctx);
 				ModificationItem addGroup = new ModificationItem(modType,
-						new BasicAttribute(this.groupMemberAttributeName, fullDn.toUrl()));
-				ctx.modifyAttributes(buildGroupDn(group), new ModificationItem[] { addGroup });
+			new BasicAttribute(this.groupMemberAttributeName, fullDn.toUrl()));
+				ctx.modifyAttributes(buildGroupDn(group), new ModificationItem[]{addGroup});
 			}
 			return null;
 		});
@@ -404,9 +404,9 @@ public class LdapUserDetailsManager implements UserDetailsManager {
 	}
 
 	private void changePasswordUsingAttributeModification(DistinguishedName userDn, String oldPassword,
-			String newPassword) {
-		ModificationItem[] passwordChange = new ModificationItem[] { new ModificationItem(DirContext.REPLACE_ATTRIBUTE,
-				new BasicAttribute(this.passwordAttributeName, newPassword)) };
+String newPassword) {
+		ModificationItem[] passwordChange = new ModificationItem[]{new ModificationItem(DirContext.REPLACE_ATTRIBUTE,
+	new BasicAttribute(this.passwordAttributeName, newPassword))};
 		if (oldPassword == null) {
 			this.template.modifyAttributes(userDn, passwordChange);
 			return;
@@ -429,7 +429,7 @@ public class LdapUserDetailsManager implements UserDetailsManager {
 	}
 
 	private void changePasswordUsingExtensionOperation(DistinguishedName userDn, String oldPassword,
-			String newPassword) {
+String newPassword) {
 		this.template.executeReadWrite((dirCtx) -> {
 			LdapContext ctx = (LdapContext) dirCtx;
 			String userIdentity = LdapUtils.getFullDn(userDn, ctx).encode();

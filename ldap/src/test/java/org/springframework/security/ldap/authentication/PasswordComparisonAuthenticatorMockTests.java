@@ -44,7 +44,7 @@ public class PasswordComparisonAuthenticatorMockTests {
 		final BasicAttributes attrs = new BasicAttributes();
 		attrs.put(new BasicAttribute("uid", "bob"));
 		PasswordComparisonAuthenticator authenticator = new PasswordComparisonAuthenticator(source);
-		authenticator.setUserDnPatterns(new String[] { "cn={0},ou=people" });
+		authenticator.setUserDnPatterns(new String[]{"cn={0},ou=people"});
 		// Get the mock to return an empty attribute set
 		given(source.getReadOnlyContext()).willReturn(dirCtx);
 		given(dirCtx.getAttributes(eq("cn=Bob,ou=people"), any(String[].class))).willReturn(attrs);
@@ -52,7 +52,7 @@ public class PasswordComparisonAuthenticatorMockTests {
 		// Setup a single return value (i.e. success)
 		final NamingEnumeration searchResults = new BasicAttributes("", null).getAll();
 		given(dirCtx.search(eq("cn=Bob,ou=people"), eq("(userPassword={0})"), any(Object[].class),
-				any(SearchControls.class))).willReturn(searchResults);
+	any(SearchControls.class))).willReturn(searchResults);
 		authenticator.authenticate(UsernamePasswordAuthenticationToken.unauthenticated("Bob", "bobspassword"));
 	}
 

@@ -98,24 +98,24 @@ final class OpenSamlVerificationUtils {
 			RedirectSignature signature = new RedirectSignature(request, objectParameterName);
 			if (signature.getAlgorithm() == null) {
 				return Saml2ResponseValidatorResult.failure(new Saml2Error(Saml2ErrorCodes.INVALID_SIGNATURE,
-						"Missing signature algorithm for object [" + this.id + "]"));
+			"Missing signature algorithm for object [" + this.id + "]"));
 			}
 			if (!signature.hasSignature()) {
 				return Saml2ResponseValidatorResult.failure(new Saml2Error(Saml2ErrorCodes.INVALID_SIGNATURE,
-						"Missing signature for object [" + this.id + "]"));
+			"Missing signature for object [" + this.id + "]"));
 			}
 			Collection<Saml2Error> errors = new ArrayList<>();
 			String algorithmUri = signature.getAlgorithm();
 			try {
 				if (!this.trustEngine.validate(signature.getSignature(), signature.getContent(), algorithmUri,
-						this.criteria, null)) {
+			this.criteria, null)) {
 					errors.add(new Saml2Error(Saml2ErrorCodes.INVALID_SIGNATURE,
-							"Invalid signature for object [" + this.id + "]"));
+				"Invalid signature for object [" + this.id + "]"));
 				}
 			}
 			catch (Exception ex) {
 				errors.add(new Saml2Error(Saml2ErrorCodes.INVALID_SIGNATURE,
-						"Invalid signature for object [" + this.id + "]: "));
+			"Invalid signature for object [" + this.id + "]: "));
 			}
 			return Saml2ResponseValidatorResult.failure(errors);
 		}
@@ -128,18 +128,18 @@ final class OpenSamlVerificationUtils {
 			}
 			catch (Exception ex) {
 				errors.add(new Saml2Error(Saml2ErrorCodes.INVALID_SIGNATURE,
-						"Invalid signature for object [" + this.id + "]: "));
+			"Invalid signature for object [" + this.id + "]: "));
 			}
 
 			try {
 				if (!this.trustEngine.validate(signature, this.criteria)) {
 					errors.add(new Saml2Error(Saml2ErrorCodes.INVALID_SIGNATURE,
-							"Invalid signature for object [" + this.id + "]"));
+				"Invalid signature for object [" + this.id + "]"));
 				}
 			}
 			catch (Exception ex) {
 				errors.add(new Saml2Error(Saml2ErrorCodes.INVALID_SIGNATURE,
-						"Invalid signature for object [" + this.id + "]: "));
+			"Invalid signature for object [" + this.id + "]: "));
 			}
 
 			return Saml2ResponseValidatorResult.failure(errors);
@@ -156,7 +156,7 @@ final class OpenSamlVerificationUtils {
 		private SignatureTrustEngine trustEngine(RelyingPartyRegistration registration) {
 			Set<Credential> credentials = new HashSet<>();
 			Collection<Saml2X509Credential> keys = registration.getAssertingPartyDetails()
-					.getVerificationX509Credentials();
+		.getVerificationX509Credentials();
 			for (Saml2X509Credential key : keys) {
 				BasicX509Credential cred = new BasicX509Credential(key.getCertificate());
 				cred.setUsageType(UsageType.SIGNING);
@@ -165,7 +165,7 @@ final class OpenSamlVerificationUtils {
 			}
 			CredentialResolver credentialsResolver = new CollectionCredentialResolver(credentials);
 			return new ExplicitKeySignatureTrustEngine(credentialsResolver,
-					DefaultSecurityConfigurationBootstrap.buildBasicInlineKeyInfoCredentialResolver());
+		DefaultSecurityConfigurationBootstrap.buildBasicInlineKeyInfoCredentialResolver());
 		}
 
 		private static class RedirectSignature {
@@ -185,9 +185,9 @@ final class OpenSamlVerificationUtils {
 
 			byte[] getContent() {
 				String query = String.format("%s=%s&SigAlg=%s", this.objectParameterName,
-						UriUtils.encode(this.request.getParameter(this.objectParameterName),
-								StandardCharsets.ISO_8859_1),
-						UriUtils.encode(getAlgorithm(), StandardCharsets.ISO_8859_1));
+			UriUtils.encode(this.request.getParameter(this.objectParameterName),
+		StandardCharsets.ISO_8859_1),
+			UriUtils.encode(getAlgorithm(), StandardCharsets.ISO_8859_1));
 				return query.getBytes(StandardCharsets.UTF_8);
 			}
 

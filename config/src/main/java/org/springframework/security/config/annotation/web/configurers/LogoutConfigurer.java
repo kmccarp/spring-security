@@ -68,8 +68,7 @@ import org.springframework.util.Assert;
  * @since 3.2
  * @see RememberMeConfigurer
  */
-public final class LogoutConfigurer<H extends HttpSecurityBuilder<H>>
-		extends AbstractHttpConfigurer<LogoutConfigurer<H>, H> {
+public final class LogoutConfigurer<H extends HttpSecurityBuilder<H>>extends AbstractHttpConfigurer<LogoutConfigurer<H>, H> {
 
 	private List<LogoutHandler> logoutHandlers = new ArrayList<>();
 
@@ -229,7 +228,7 @@ public final class LogoutConfigurer<H extends HttpSecurityBuilder<H>>
 	 * @return the {@link LogoutConfigurer} for further customizations
 	 */
 	public LogoutConfigurer<H> defaultLogoutSuccessHandlerFor(LogoutSuccessHandler handler,
-			RequestMatcher preferredMatcher) {
+RequestMatcher preferredMatcher) {
 		Assert.notNull(handler, "handler cannot be null");
 		Assert.notNull(preferredMatcher, "preferredMatcher cannot be null");
 		this.defaultLogoutSuccessHandlerMappings.put(preferredMatcher, handler);
@@ -268,7 +267,7 @@ public final class LogoutConfigurer<H extends HttpSecurityBuilder<H>>
 			return urlLogoutHandler;
 		}
 		DelegatingLogoutSuccessHandler successHandler = new DelegatingLogoutSuccessHandler(
-				this.defaultLogoutSuccessHandlerMappings);
+	this.defaultLogoutSuccessHandlerMappings);
 		successHandler.setDefaultLogoutSuccessHandler(urlLogoutHandler);
 		return successHandler;
 	}
@@ -280,7 +279,7 @@ public final class LogoutConfigurer<H extends HttpSecurityBuilder<H>>
 			PermitAllSupport.permitAll(http, this.getLogoutRequestMatcher(http));
 		}
 		DefaultLoginPageGeneratingFilter loginPageGeneratingFilter = http
-				.getSharedObject(DefaultLoginPageGeneratingFilter.class);
+	.getSharedObject(DefaultLoginPageGeneratingFilter.class);
 		if (loginPageGeneratingFilter != null && !isCustomLogoutSuccess()) {
 			loginPageGeneratingFilter.setLogoutSuccessUrl(getLogoutSuccessUrl());
 		}

@@ -43,7 +43,7 @@ public class SpringSecurityAuthenticationSource implements AuthenticationSource 
 	private static final Log log = LogFactory.getLog(SpringSecurityAuthenticationSource.class);
 
 	private SecurityContextHolderStrategy securityContextHolderStrategy = SecurityContextHolder
-			.getContextHolderStrategy();
+.getContextHolderStrategy();
 
 	/**
 	 * Get the principals of the logged in user, in this case the distinguished name.
@@ -66,7 +66,7 @@ public class SpringSecurityAuthenticationSource implements AuthenticationSource 
 			return "";
 		}
 		throw new IllegalArgumentException(
-				"The principal property of the authentication object" + "needs to be an LdapUserDetails.");
+	"The principal property of the authentication object" + "needs to be an LdapUserDetails.");
 	}
 
 	/**

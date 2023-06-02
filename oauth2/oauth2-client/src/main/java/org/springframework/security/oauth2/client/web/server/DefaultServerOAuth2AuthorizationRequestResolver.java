@@ -75,18 +75,18 @@ public class DefaultServerOAuth2AuthorizationRequestResolver implements ServerOA
 	 * {@link ClientRegistration#getRegistrationId()}
 	 */
 	public static final String DEFAULT_AUTHORIZATION_REQUEST_PATTERN = "/oauth2/authorization/{"
-			+ DEFAULT_REGISTRATION_ID_URI_VARIABLE_NAME + "}";
++ DEFAULT_REGISTRATION_ID_URI_VARIABLE_NAME + "}";
 
 	private static final char PATH_DELIMITER = '/';
 
 	private static final StringKeyGenerator DEFAULT_STATE_GENERATOR = new Base64StringKeyGenerator(
-			Base64.getUrlEncoder());
+Base64.getUrlEncoder());
 
 	private static final StringKeyGenerator DEFAULT_SECURE_KEY_GENERATOR = new Base64StringKeyGenerator(
-			Base64.getUrlEncoder().withoutPadding(), 96);
+Base64.getUrlEncoder().withoutPadding(), 96);
 
 	private static final Consumer<OAuth2AuthorizationRequest.Builder> DEFAULT_PKCE_APPLIER = OAuth2AuthorizationRequestCustomizers
-			.withPkce();
+.withPkce();
 
 	private final ServerWebExchangeMatcher authorizationRequestMatcher;
 
@@ -101,9 +101,9 @@ public class DefaultServerOAuth2AuthorizationRequestResolver implements ServerOA
 	 * {@link ClientRegistration}
 	 */
 	public DefaultServerOAuth2AuthorizationRequestResolver(
-			ReactiveClientRegistrationRepository clientRegistrationRepository) {
+ReactiveClientRegistrationRepository clientRegistrationRepository) {
 		this(clientRegistrationRepository,
-				new PathPatternParserServerWebExchangeMatcher(DEFAULT_AUTHORIZATION_REQUEST_PATTERN));
+	new PathPatternParserServerWebExchangeMatcher(DEFAULT_AUTHORIZATION_REQUEST_PATTERN));
 	}
 
 	/**
@@ -115,8 +115,8 @@ public class DefaultServerOAuth2AuthorizationRequestResolver implements ServerOA
 	 * path variables.
 	 */
 	public DefaultServerOAuth2AuthorizationRequestResolver(
-			ReactiveClientRegistrationRepository clientRegistrationRepository,
-			ServerWebExchangeMatcher authorizationRequestMatcher) {
+ReactiveClientRegistrationRepository clientRegistrationRepository,
+ServerWebExchangeMatcher authorizationRequestMatcher) {
 		Assert.notNull(clientRegistrationRepository, "clientRegistrationRepository cannot be null");
 		Assert.notNull(authorizationRequestMatcher, "authorizationRequestMatcher cannot be null");
 		this.clientRegistrationRepository = clientRegistrationRepository;
@@ -127,19 +127,19 @@ public class DefaultServerOAuth2AuthorizationRequestResolver implements ServerOA
 	public Mono<OAuth2AuthorizationRequest> resolve(ServerWebExchange exchange) {
 		// @formatter:off
 		return this.authorizationRequestMatcher
-				.matches(exchange)
-				.filter((matchResult) -> matchResult.isMatch())
-				.map(ServerWebExchangeMatcher.MatchResult::getVariables)
-				.map((variables) -> variables.get(DEFAULT_REGISTRATION_ID_URI_VARIABLE_NAME))
-				.cast(String.class)
-				.flatMap((clientRegistrationId) -> resolve(exchange, clientRegistrationId));
+	.matches(exchange)
+	.filter((matchResult) -> matchResult.isMatch())
+	.map(ServerWebExchangeMatcher.MatchResult::getVariables)
+	.map((variables) -> variables.get(DEFAULT_REGISTRATION_ID_URI_VARIABLE_NAME))
+	.cast(String.class)
+	.flatMap((clientRegistrationId) -> resolve(exchange, clientRegistrationId));
 		// @formatter:on
 	}
 
 	@Override
 	public Mono<OAuth2AuthorizationRequest> resolve(ServerWebExchange exchange, String clientRegistrationId) {
 		return findByRegistrationId(exchange, clientRegistrationId)
-				.map((clientRegistration) -> authorizationRequest(exchange, clientRegistration));
+	.map((clientRegistration) -> authorizationRequest(exchange, clientRegistration));
 	}
 
 	/**
@@ -151,7 +151,7 @@ public class DefaultServerOAuth2AuthorizationRequestResolver implements ServerOA
 	 * @see OAuth2AuthorizationRequestCustomizers
 	 */
 	public final void setAuthorizationRequestCustomizer(
-			Consumer<OAuth2AuthorizationRequest.Builder> authorizationRequestCustomizer) {
+Consumer<OAuth2AuthorizationRequest.Builder> authorizationRequestCustomizer) {
 		Assert.notNull(authorizationRequestCustomizer, "authorizationRequestCustomizer cannot be null");
 		this.authorizationRequestCustomizer = authorizationRequestCustomizer;
 	}
@@ -159,20 +159,20 @@ public class DefaultServerOAuth2AuthorizationRequestResolver implements ServerOA
 	private Mono<ClientRegistration> findByRegistrationId(ServerWebExchange exchange, String clientRegistration) {
 		// @formatter:off
 		return this.clientRegistrationRepository.findByRegistrationId(clientRegistration)
-				.switchIfEmpty(Mono.error(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid client registration id")));
+	.switchIfEmpty(Mono.error(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid client registration id")));
 		// @formatter:on
 	}
 
 	private OAuth2AuthorizationRequest authorizationRequest(ServerWebExchange exchange,
-			ClientRegistration clientRegistration) {
+ClientRegistration clientRegistration) {
 		OAuth2AuthorizationRequest.Builder builder = getBuilder(clientRegistration);
 		String redirectUriStr = expandRedirectUri(exchange.getRequest(), clientRegistration);
 		// @formatter:off
 		builder.clientId(clientRegistration.getClientId())
-				.authorizationUri(clientRegistration.getProviderDetails().getAuthorizationUri())
-				.redirectUri(redirectUriStr)
-				.scopes(clientRegistration.getScopes())
-				.state(DEFAULT_STATE_GENERATOR.generateKey());
+	.authorizationUri(clientRegistration.getProviderDetails().getAuthorizationUri())
+	.redirectUri(redirectUriStr)
+	.scopes(clientRegistration.getScopes())
+	.state(DEFAULT_STATE_GENERATOR.generateKey());
 		// @formatter:on
 
 		this.authorizationRequestCustomizer.accept(builder);
@@ -184,11 +184,11 @@ public class DefaultServerOAuth2AuthorizationRequestResolver implements ServerOA
 		if (AuthorizationGrantType.AUTHORIZATION_CODE.equals(clientRegistration.getAuthorizationGrantType())) {
 			// @formatter:off
 			OAuth2AuthorizationRequest.Builder builder = OAuth2AuthorizationRequest.authorizationCode()
-					.attributes((attrs) ->
-							attrs.put(OAuth2ParameterNames.REGISTRATION_ID, clientRegistration.getRegistrationId()));
+		.attributes((attrs) ->
+	attrs.put(OAuth2ParameterNames.REGISTRATION_ID, clientRegistration.getRegistrationId()));
 			// @formatter:on
 			if (!CollectionUtils.isEmpty(clientRegistration.getScopes())
-					&& clientRegistration.getScopes().contains(OidcScopes.OPENID)) {
+		&& clientRegistration.getScopes().contains(OidcScopes.OPENID)) {
 				// Section 3.1.2.1 Authentication Request -
 				// https://openid.net/specs/openid-connect-core-1_0.html#AuthRequest
 				// scope
@@ -202,8 +202,8 @@ public class DefaultServerOAuth2AuthorizationRequestResolver implements ServerOA
 			return builder;
 		}
 		throw new IllegalArgumentException(
-				"Invalid Authorization Grant Type (" + clientRegistration.getAuthorizationGrantType().getValue()
-						+ ") for Client Registration with Id: " + clientRegistration.getRegistrationId());
+	"Invalid Authorization Grant Type (" + clientRegistration.getAuthorizationGrantType().getValue()
++ ") for Client Registration with Id: " + clientRegistration.getRegistrationId());
 	}
 
 	/**
@@ -228,10 +228,10 @@ public class DefaultServerOAuth2AuthorizationRequestResolver implements ServerOA
 		uriVariables.put("registrationId", clientRegistration.getRegistrationId());
 		// @formatter:off
 		UriComponents uriComponents = UriComponentsBuilder.fromUri(request.getURI())
-				.replacePath(request.getPath().contextPath().value())
-				.replaceQuery(null)
-				.fragment(null)
-				.build();
+	.replacePath(request.getPath().contextPath().value())
+	.replaceQuery(null)
+	.fragment(null)
+	.build();
 		// @formatter:on
 		String scheme = uriComponents.getScheme();
 		uriVariables.put("baseScheme", (scheme != null) ? scheme : "");
@@ -255,8 +255,8 @@ public class DefaultServerOAuth2AuthorizationRequestResolver implements ServerOA
 		uriVariables.put("action", action);
 		// @formatter:off
 		return UriComponentsBuilder.fromUriString(clientRegistration.getRedirectUri())
-				.buildAndExpand(uriVariables)
-				.toUriString();
+	.buildAndExpand(uriVariables)
+	.toUriString();
 		// @formatter:on
 	}
 

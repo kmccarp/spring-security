@@ -52,8 +52,7 @@ import org.springframework.web.reactive.function.BodyInserters;
  * @see <a target="_blank" href="https://tools.ietf.org/html/rfc7636#section-4.2">Section
  * 4.2 Client Creates the Code Challenge</a>
  */
-public class WebClientReactiveAuthorizationCodeTokenResponseClient
-		extends AbstractWebClientReactiveOAuth2AccessTokenResponseClient<OAuth2AuthorizationCodeGrantRequest> {
+public class WebClientReactiveAuthorizationCodeTokenResponseClientextends AbstractWebClientReactiveOAuth2AccessTokenResponseClient<OAuth2AuthorizationCodeGrantRequest> {
 
 	@Override
 	ClientRegistration clientRegistration(OAuth2AuthorizationCodeGrantRequest grantRequest) {
@@ -67,7 +66,7 @@ public class WebClientReactiveAuthorizationCodeTokenResponseClient
 
 	@Override
 	BodyInserters.FormInserter<String> populateTokenRequestBody(OAuth2AuthorizationCodeGrantRequest grantRequest,
-			BodyInserters.FormInserter<String> body) {
+BodyInserters.FormInserter<String> body) {
 		super.populateTokenRequestBody(grantRequest, body);
 		OAuth2AuthorizationExchange authorizationExchange = grantRequest.getAuthorizationExchange();
 		OAuth2AuthorizationResponse authorizationResponse = authorizationExchange.getAuthorizationResponse();
@@ -77,7 +76,7 @@ public class WebClientReactiveAuthorizationCodeTokenResponseClient
 			body.with(OAuth2ParameterNames.REDIRECT_URI, redirectUri);
 		}
 		String codeVerifier = authorizationExchange.getAuthorizationRequest()
-				.getAttribute(PkceParameterNames.CODE_VERIFIER);
+	.getAttribute(PkceParameterNames.CODE_VERIFIER);
 		if (codeVerifier != null) {
 			body.with(PkceParameterNames.CODE_VERIFIER, codeVerifier);
 		}

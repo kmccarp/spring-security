@@ -60,14 +60,14 @@ import static org.mockito.Mockito.verify;
 /**
  * @author Josh Cummings
  */
-@ExtendWith({ SpringExtension.class, SpringTestContextExtension.class })
+@ExtendWith({SpringExtension.class, SpringTestContextExtension.class})
 @SecurityTestExecutionListeners
 public class MethodSecurityBeanDefinitionParserTests {
 
 	private static final String CONFIG_LOCATION_PREFIX = "classpath:org/springframework/security/config/method/MethodSecurityBeanDefinitionParserTests";
 
 	private final UsernamePasswordAuthenticationToken bob = UsernamePasswordAuthenticationToken.unauthenticated("bob",
-			"bobspassword");
+"bobspassword");
 
 	@Autowired(required = false)
 	MethodSecurityService methodSecurityService;
@@ -82,7 +82,7 @@ public class MethodSecurityBeanDefinitionParserTests {
 	public void preAuthorizeWhenRoleAdminThenAccessDeniedException() {
 		this.spring.configLocations(xml("MethodSecurityService")).autowire();
 		assertThatExceptionOfType(AccessDeniedException.class).isThrownBy(this.methodSecurityService::preAuthorize)
-				.withMessage("Access Denied");
+	.withMessage("Access Denied");
 	}
 
 	@Test
@@ -109,7 +109,7 @@ public class MethodSecurityBeanDefinitionParserTests {
 	public void preAuthorizeNotAnonymousWhenRoleAnonymousThenAccessDeniedException() {
 		this.spring.configLocations(xml("MethodSecurityService")).autowire();
 		assertThatExceptionOfType(AccessDeniedException.class)
-				.isThrownBy(this.methodSecurityService::preAuthorizeNotAnonymous).withMessage("Access Denied");
+	.isThrownBy(this.methodSecurityService::preAuthorizeNotAnonymous).withMessage("Access Denied");
 	}
 
 	@WithMockUser
@@ -124,7 +124,7 @@ public class MethodSecurityBeanDefinitionParserTests {
 	public void securedWhenRoleUserThenAccessDeniedException() {
 		this.spring.configLocations(xml("MethodSecurityServiceEnabled")).autowire();
 		assertThatExceptionOfType(AccessDeniedException.class).isThrownBy(this.methodSecurityService::secured)
-				.withMessage("Access Denied");
+	.withMessage("Access Denied");
 	}
 
 	@WithMockUser(roles = "ADMIN")
@@ -142,7 +142,7 @@ public class MethodSecurityBeanDefinitionParserTests {
 		SecurityContext context = new SecurityContextImpl(new TestingAuthenticationToken("user", "pass"));
 		strategy.setContext(context);
 		assertThatExceptionOfType(AccessDeniedException.class).isThrownBy(this.methodSecurityService::secured)
-				.withMessage("Access Denied");
+	.withMessage("Access Denied");
 		verify(strategy).getContext();
 	}
 
@@ -151,7 +151,7 @@ public class MethodSecurityBeanDefinitionParserTests {
 	public void securedUserWhenRoleAdminThenAccessDeniedException() {
 		this.spring.configLocations(xml("MethodSecurityServiceEnabled")).autowire();
 		assertThatExceptionOfType(AccessDeniedException.class).isThrownBy(this.methodSecurityService::securedUser)
-				.withMessage("Access Denied");
+	.withMessage("Access Denied");
 	}
 
 	@WithMockUser
@@ -167,7 +167,7 @@ public class MethodSecurityBeanDefinitionParserTests {
 	public void preAuthorizeAdminWhenRoleUserThenAccessDeniedException() {
 		this.spring.configLocations(xml("MethodSecurityService")).autowire();
 		assertThatExceptionOfType(AccessDeniedException.class).isThrownBy(this.methodSecurityService::preAuthorizeAdmin)
-				.withMessage("Access Denied");
+	.withMessage("Access Denied");
 	}
 
 	@WithMockUser(roles = "ADMIN")
@@ -184,7 +184,7 @@ public class MethodSecurityBeanDefinitionParserTests {
 		SecurityContext context = new SecurityContextImpl(new TestingAuthenticationToken("user", "pass"));
 		strategy.setContext(context);
 		assertThatExceptionOfType(AccessDeniedException.class).isThrownBy(this.methodSecurityService::preAuthorizeAdmin)
-				.withMessage("Access Denied");
+	.withMessage("Access Denied");
 		verify(strategy).getContext();
 	}
 
@@ -200,7 +200,7 @@ public class MethodSecurityBeanDefinitionParserTests {
 	public void postHasPermissionWhenParameterIsNotGrantThenAccessDeniedException() {
 		this.spring.configLocations(xml("CustomPermissionEvaluator")).autowire();
 		assertThatExceptionOfType(AccessDeniedException.class)
-				.isThrownBy(() -> this.methodSecurityService.postHasPermission("deny")).withMessage("Access Denied");
+	.isThrownBy(() -> this.methodSecurityService.postHasPermission("deny")).withMessage("Access Denied");
 	}
 
 	@WithMockUser
@@ -216,7 +216,7 @@ public class MethodSecurityBeanDefinitionParserTests {
 	public void postAnnotationWhenParameterIsNotGrantThenAccessDeniedException() {
 		this.spring.configLocations(xml("MethodSecurityService")).autowire();
 		assertThatExceptionOfType(AccessDeniedException.class)
-				.isThrownBy(() -> this.methodSecurityService.postAnnotation("deny")).withMessage("Access Denied");
+	.isThrownBy(() -> this.methodSecurityService.postAnnotation("deny")).withMessage("Access Denied");
 	}
 
 	@WithMockUser
@@ -234,7 +234,7 @@ public class MethodSecurityBeanDefinitionParserTests {
 		SecurityContext context = new SecurityContextImpl(new TestingAuthenticationToken("user", "pass"));
 		strategy.setContext(context);
 		List<String> result = this.methodSecurityService
-				.preFilterByUsername(new ArrayList<>(Arrays.asList("user", "bob", "joe")));
+	.preFilterByUsername(new ArrayList<>(Arrays.asList("user", "bob", "joe")));
 		assertThat(result).containsExactly("user");
 		verify(strategy).getContext();
 	}
@@ -246,7 +246,7 @@ public class MethodSecurityBeanDefinitionParserTests {
 		SecurityContext context = new SecurityContextImpl(new TestingAuthenticationToken("user", "pass"));
 		strategy.setContext(context);
 		List<String> result = this.methodSecurityService
-				.postFilterByUsername(new ArrayList<>(Arrays.asList("user", "bob", "joe")));
+	.postFilterByUsername(new ArrayList<>(Arrays.asList("user", "bob", "joe")));
 		assertThat(result).containsExactly("user");
 		verify(strategy).getContext();
 	}
@@ -290,7 +290,7 @@ public class MethodSecurityBeanDefinitionParserTests {
 	public void securedUserWhenCustomBeforeAdviceConfiguredAndNameNotBobThenAccessDeniedException() {
 		this.spring.configLocations(xml("CustomAuthorizationManagerBeforeAdvice")).autowire();
 		assertThatExceptionOfType(AccessDeniedException.class).isThrownBy(this.methodSecurityService::securedUser)
-				.withMessage("Access Denied");
+	.withMessage("Access Denied");
 	}
 
 	@WithMockUser("bob")
@@ -306,7 +306,7 @@ public class MethodSecurityBeanDefinitionParserTests {
 	public void securedUserWhenCustomAfterAdviceConfiguredAndNameNotBobThenAccessDeniedException() {
 		this.spring.configLocations(xml("CustomAuthorizationManagerAfterAdvice")).autowire();
 		assertThatExceptionOfType(AccessDeniedException.class).isThrownBy(this.methodSecurityService::securedUser)
-				.withMessage("Access Denied for User 'joe'");
+	.withMessage("Access Denied for User 'joe'");
 	}
 
 	@WithMockUser(roles = "ADMIN")
@@ -314,7 +314,7 @@ public class MethodSecurityBeanDefinitionParserTests {
 	public void jsr250WhenRoleAdminThenAccessDeniedException() {
 		this.spring.configLocations(xml("MethodSecurityServiceEnabled")).autowire();
 		assertThatExceptionOfType(AccessDeniedException.class).isThrownBy(this.methodSecurityService::jsr250)
-				.withMessage("Access Denied");
+	.withMessage("Access Denied");
 	}
 
 	@Test
@@ -324,7 +324,7 @@ public class MethodSecurityBeanDefinitionParserTests {
 		SecurityContext context = new SecurityContextImpl(new TestingAuthenticationToken("user", "pass"));
 		strategy.setContext(context);
 		assertThatExceptionOfType(AccessDeniedException.class)
-				.isThrownBy(this.methodSecurityService::jsr250RolesAllowed).withMessage("Access Denied");
+	.isThrownBy(this.methodSecurityService::jsr250RolesAllowed).withMessage("Access Denied");
 		verify(strategy).getContext();
 	}
 
@@ -341,7 +341,7 @@ public class MethodSecurityBeanDefinitionParserTests {
 	public void rolesAllowedUserWhenRoleAdminThenAccessDeniedException() {
 		this.spring.configLocations(xml("BusinessService")).autowire();
 		assertThatExceptionOfType(AccessDeniedException.class).isThrownBy(this.businessService::rolesAllowedUser)
-				.withMessage("Access Denied");
+	.withMessage("Access Denied");
 	}
 
 	@WithMockUser
@@ -351,7 +351,7 @@ public class MethodSecurityBeanDefinitionParserTests {
 		this.businessService.rolesAllowedUser();
 	}
 
-	@WithMockUser(roles = { "ADMIN", "USER" })
+	@WithMockUser(roles = {"ADMIN", "USER"})
 	@Test
 	public void manyAnnotationsWhenMeetsConditionsThenReturnsFilteredList() throws Exception {
 		List<String> names = Arrays.asList("harold", "jonathan", "pete", "bo");
@@ -369,7 +369,7 @@ public class MethodSecurityBeanDefinitionParserTests {
 		List<String> names = Arrays.asList("harold", "jonathan", "pete", "bo");
 		this.spring.configLocations(xml("MethodSecurityServiceEnabled")).autowire();
 		assertThatExceptionOfType(AccessDeniedException.class)
-				.isThrownBy(() -> this.methodSecurityService.manyAnnotations(new ArrayList<>(names)));
+	.isThrownBy(() -> this.methodSecurityService.manyAnnotations(new ArrayList<>(names)));
 	}
 
 	@WithMockUser
@@ -378,7 +378,7 @@ public class MethodSecurityBeanDefinitionParserTests {
 		List<String> names = Arrays.asList("harold", "jonathan", "pete");
 		this.spring.configLocations(xml("MethodSecurityServiceEnabled")).autowire();
 		assertThatExceptionOfType(AccessDeniedException.class)
-				.isThrownBy(() -> this.methodSecurityService.manyAnnotations(new ArrayList<>(names)));
+	.isThrownBy(() -> this.methodSecurityService.manyAnnotations(new ArrayList<>(names)));
 	}
 
 	@WithMockUser(roles = "ADMIN")
@@ -387,7 +387,7 @@ public class MethodSecurityBeanDefinitionParserTests {
 		List<String> names = Arrays.asList("harold", "jonathan", "pete", "bo");
 		this.spring.configLocations(xml("MethodSecurityServiceEnabled")).autowire();
 		assertThatExceptionOfType(AccessDeniedException.class)
-				.isThrownBy(() -> this.methodSecurityService.manyAnnotations(new ArrayList<>(names)));
+	.isThrownBy(() -> this.methodSecurityService.manyAnnotations(new ArrayList<>(names)));
 	}
 
 	// gh-3183
@@ -395,7 +395,7 @@ public class MethodSecurityBeanDefinitionParserTests {
 	public void repeatedAnnotationsWhenPresentThenFails() {
 		this.spring.configLocations(xml("MethodSecurityService")).autowire();
 		assertThatExceptionOfType(AnnotationConfigurationException.class)
-				.isThrownBy(() -> this.methodSecurityService.repeatedAnnotations());
+	.isThrownBy(() -> this.methodSecurityService.repeatedAnnotations());
 	}
 
 	// gh-3183
@@ -403,7 +403,7 @@ public class MethodSecurityBeanDefinitionParserTests {
 	public void repeatedJsr250AnnotationsWhenPresentThenFails() {
 		this.spring.configLocations(xml("Jsr250")).autowire();
 		assertThatExceptionOfType(AnnotationConfigurationException.class)
-				.isThrownBy(() -> this.businessService.repeatedAnnotations());
+	.isThrownBy(() -> this.businessService.repeatedAnnotations());
 	}
 
 	// gh-3183
@@ -411,7 +411,7 @@ public class MethodSecurityBeanDefinitionParserTests {
 	public void repeatedSecuredAnnotationsWhenPresentThenFails() {
 		this.spring.configLocations(xml("Secured")).autowire();
 		assertThatExceptionOfType(AnnotationConfigurationException.class)
-				.isThrownBy(() -> this.businessService.repeatedAnnotations());
+	.isThrownBy(() -> this.businessService.repeatedAnnotations());
 	}
 
 	@WithMockUser
@@ -420,7 +420,7 @@ public class MethodSecurityBeanDefinitionParserTests {
 		this.spring.configLocations(xml("ProtectPointcut")).autowire();
 		this.businessService.someOther(0);
 		assertThatExceptionOfType(AccessDeniedException.class)
-				.isThrownBy(() -> this.businessService.someOther("somestring"));
+	.isThrownBy(() -> this.businessService.someOther("somestring"));
 	}
 
 	@Test
@@ -429,9 +429,9 @@ public class MethodSecurityBeanDefinitionParserTests {
 		this.businessService.someOther("somestring");
 		// All others should require ROLE_USER
 		assertThatExceptionOfType(AuthenticationCredentialsNotFoundException.class)
-				.isThrownBy(() -> this.businessService.someOther(0));
+	.isThrownBy(() -> this.businessService.someOther(0));
 		SecurityContextHolder.getContext().setAuthentication(
-				new TestingAuthenticationToken("user", "password", AuthorityUtils.createAuthorityList("ROLE_USER")));
+	new TestingAuthenticationToken("user", "password", AuthorityUtils.createAuthorityList("ROLE_USER")));
 		this.businessService.someOther(0);
 		SecurityContextHolder.clearContext();
 	}
@@ -449,7 +449,7 @@ public class MethodSecurityBeanDefinitionParserTests {
 
 		@Override
 		public boolean hasPermission(Authentication authentication, Serializable targetId, String targetType,
-				Object permission) {
+	Object permission) {
 			throw new UnsupportedOperationException();
 		}
 

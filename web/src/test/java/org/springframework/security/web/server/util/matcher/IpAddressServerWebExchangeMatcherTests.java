@@ -43,7 +43,7 @@ public class IpAddressServerWebExchangeMatcherTests {
 	public void matchesWhenIpv6RangeAndIpv6AddressThenTrue() throws UnknownHostException {
 		ServerWebExchange ipv6Exchange = exchange("fe80::21f:5bff:fe33:bd68");
 		ServerWebExchangeMatcher.MatchResult matches = new IpAddressServerWebExchangeMatcher("fe80::21f:5bff:fe33:bd68")
-				.matches(ipv6Exchange).block();
+	.matches(ipv6Exchange).block();
 		assertThat(matches.isMatch()).isTrue();
 	}
 
@@ -51,7 +51,7 @@ public class IpAddressServerWebExchangeMatcherTests {
 	public void matchesWhenIpv6RangeAndIpv4AddressThenFalse() throws UnknownHostException {
 		ServerWebExchange ipv4Exchange = exchange("192.168.1.104");
 		ServerWebExchangeMatcher.MatchResult matches = new IpAddressServerWebExchangeMatcher("fe80::21f:5bff:fe33:bd68")
-				.matches(ipv4Exchange).block();
+	.matches(ipv4Exchange).block();
 		assertThat(matches.isMatch()).isFalse();
 	}
 
@@ -59,7 +59,7 @@ public class IpAddressServerWebExchangeMatcherTests {
 	public void matchesWhenIpv4RangeAndIpv4AddressThenTrue() throws UnknownHostException {
 		ServerWebExchange ipv4Exchange = exchange("192.168.1.104");
 		ServerWebExchangeMatcher.MatchResult matches = new IpAddressServerWebExchangeMatcher("192.168.1.104")
-				.matches(ipv4Exchange).block();
+	.matches(ipv4Exchange).block();
 		assertThat(matches.isMatch()).isTrue();
 	}
 
@@ -105,7 +105,7 @@ public class IpAddressServerWebExchangeMatcherTests {
 	public void matchesWhenIpv4UnresolvedThenTrue() throws UnknownHostException {
 		ServerWebExchange ipv4Exchange = exchange("192.168.1.104", true);
 		ServerWebExchangeMatcher.MatchResult matches = new IpAddressServerWebExchangeMatcher("192.168.1.104")
-				.matches(ipv4Exchange).block();
+	.matches(ipv4Exchange).block();
 		assertThat(matches.isMatch()).isTrue();
 	}
 
@@ -113,7 +113,7 @@ public class IpAddressServerWebExchangeMatcherTests {
 	public void matchesWhenIpv6UnresolvedThenTrue() throws UnknownHostException {
 		ServerWebExchange ipv6Exchange = exchange("fe80::21f:5bff:fe33:bd68", true);
 		ServerWebExchangeMatcher.MatchResult matches = new IpAddressServerWebExchangeMatcher("fe80::21f:5bff:fe33:bd68")
-				.matches(ipv6Exchange).block();
+	.matches(ipv6Exchange).block();
 		assertThat(matches.isMatch()).isTrue();
 	}
 
@@ -121,17 +121,17 @@ public class IpAddressServerWebExchangeMatcherTests {
 	public void constructorWhenIpv4AddressMaskTooLongThenIllegalArgumentException() {
 		String ipv4AddressWithTooLongMask = "192.168.1.104/33";
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new IpAddressServerWebExchangeMatcher(ipv4AddressWithTooLongMask))
-				.withMessage(String.format("IP address %s is too short for bitmask of length %d", "192.168.1.104", 33));
+	.isThrownBy(() -> new IpAddressServerWebExchangeMatcher(ipv4AddressWithTooLongMask))
+	.withMessage(String.format("IP address %s is too short for bitmask of length %d", "192.168.1.104", 33));
 	}
 
 	@Test
 	public void constructorWhenIpv6AddressMaskTooLongThenIllegalArgumentException() {
 		String ipv6AddressWithTooLongMask = "fe80::21f:5bff:fe33:bd68/129";
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new IpAddressServerWebExchangeMatcher(ipv6AddressWithTooLongMask))
-				.withMessage(String.format("IP address %s is too short for bitmask of length %d",
-						"fe80::21f:5bff:fe33:bd68", 129));
+	.isThrownBy(() -> new IpAddressServerWebExchangeMatcher(ipv6AddressWithTooLongMask))
+	.withMessage(String.format("IP address %s is too short for bitmask of length %d",
+"fe80::21f:5bff:fe33:bd68", 129));
 	}
 
 	private static ServerWebExchange exchange(String ipAddress) throws UnknownHostException {
@@ -140,9 +140,9 @@ public class IpAddressServerWebExchangeMatcherTests {
 
 	private static ServerWebExchange exchange(String ipAddress, boolean unresolved) throws UnknownHostException {
 		return MockServerWebExchange.builder(MockServerHttpRequest.get("/")
-				.remoteAddress(unresolved ? InetSocketAddress.createUnresolved(ipAddress, 8080)
-						: new InetSocketAddress(InetAddress.getByName(ipAddress), 8080)))
-				.build();
+	.remoteAddress(unresolved ? InetSocketAddress.createUnresolved(ipAddress, 8080)
+: new InetSocketAddress(InetAddress.getByName(ipAddress), 8080)))
+	.build();
 	}
 
 }

@@ -37,10 +37,10 @@ public final class SupplierReactiveJwtDecoder implements ReactiveJwtDecoder {
 	public SupplierReactiveJwtDecoder(Supplier<ReactiveJwtDecoder> supplier) {
 		// @formatter:off
 		this.jwtDecoderMono = Mono.fromSupplier(supplier)
-				.subscribeOn(Schedulers.boundedElastic())
-				.publishOn(Schedulers.parallel())
-				.onErrorMap(this::wrapException)
-				.cache((delegate) -> FOREVER, (ex) -> Duration.ZERO, () -> Duration.ZERO);
+	.subscribeOn(Schedulers.boundedElastic())
+	.publishOn(Schedulers.parallel())
+	.onErrorMap(this::wrapException)
+	.cache((delegate) -> FOREVER, (ex) -> Duration.ZERO, () -> Duration.ZERO);
 		// @formatter:on
 	}
 

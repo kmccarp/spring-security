@@ -48,7 +48,7 @@ import org.springframework.security.config.annotation.authentication.configurati
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 @Documented
-@Import({ GlobalMethodSecuritySelector.class })
+@Import({GlobalMethodSecuritySelector.class})
 @EnableGlobalAuthentication
 public @interface EnableGlobalMethodSecurity {
 

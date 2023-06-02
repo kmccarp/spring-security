@@ -47,7 +47,7 @@ public final class BearerTokenErrors {
 	public static BearerTokenError invalidRequest(String message) {
 		try {
 			return new BearerTokenError(BearerTokenErrorCodes.INVALID_REQUEST, HttpStatus.BAD_REQUEST, message,
-					DEFAULT_URI);
+		DEFAULT_URI);
 		}
 		catch (IllegalArgumentException ex) {
 			// some third-party library error messages are not suitable for RFC 6750's
@@ -64,7 +64,7 @@ public final class BearerTokenErrors {
 	public static BearerTokenError invalidToken(String message) {
 		try {
 			return new BearerTokenError(BearerTokenErrorCodes.INVALID_TOKEN, HttpStatus.UNAUTHORIZED, message,
-					DEFAULT_URI);
+		DEFAULT_URI);
 		}
 		catch (IllegalArgumentException ex) {
 			// some third-party library error messages are not suitable for RFC 6750's
@@ -81,7 +81,7 @@ public final class BearerTokenErrors {
 	public static BearerTokenError insufficientScope(String message, String scope) {
 		try {
 			return new BearerTokenError(BearerTokenErrorCodes.INSUFFICIENT_SCOPE, HttpStatus.FORBIDDEN, message,
-					DEFAULT_URI, scope);
+		DEFAULT_URI, scope);
 		}
 		catch (IllegalArgumentException ex) {
 			// some third-party library error messages are not suitable for RFC 6750's

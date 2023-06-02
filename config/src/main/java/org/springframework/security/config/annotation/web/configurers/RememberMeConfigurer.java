@@ -80,8 +80,7 @@ import org.springframework.util.Assert;
  * @author Eddú Meléndez
  * @since 3.2
  */
-public final class RememberMeConfigurer<H extends HttpSecurityBuilder<H>>
-		extends AbstractHttpConfigurer<RememberMeConfigurer<H>, H> {
+public final class RememberMeConfigurer<H extends HttpSecurityBuilder<H>>extends AbstractHttpConfigurer<RememberMeConfigurer<H>, H> {
 
 	/**
 	 * The default name for remember me parameter name and remember me cookie name
@@ -234,7 +233,7 @@ public final class RememberMeConfigurer<H extends HttpSecurityBuilder<H>>
 	 * @see RememberMeAuthenticationFilter#setAuthenticationSuccessHandler(AuthenticationSuccessHandler)
 	 */
 	public RememberMeConfigurer<H> authenticationSuccessHandler(
-			AuthenticationSuccessHandler authenticationSuccessHandler) {
+AuthenticationSuccessHandler authenticationSuccessHandler) {
 		this.authenticationSuccessHandler = authenticationSuccessHandler;
 		return this;
 	}
@@ -285,14 +284,14 @@ public final class RememberMeConfigurer<H extends HttpSecurityBuilder<H>>
 	@Override
 	public void configure(H http) {
 		RememberMeAuthenticationFilter rememberMeFilter = new RememberMeAuthenticationFilter(
-				http.getSharedObject(AuthenticationManager.class), this.rememberMeServices);
+	http.getSharedObject(AuthenticationManager.class), this.rememberMeServices);
 		if (this.authenticationSuccessHandler != null) {
 			rememberMeFilter.setAuthenticationSuccessHandler(this.authenticationSuccessHandler);
 		}
 		SecurityContextConfigurer<?> securityContextConfigurer = http.getConfigurer(SecurityContextConfigurer.class);
 		if (securityContextConfigurer != null && securityContextConfigurer.isRequireExplicitSave()) {
 			SecurityContextRepository securityContextRepository = securityContextConfigurer
-					.getSecurityContextRepository();
+		.getSecurityContextRepository();
 			rememberMeFilter.setSecurityContextRepository(securityContextRepository);
 		}
 		rememberMeFilter.setSecurityContextHolderStrategy(getSecurityContextHolderStrategy());
@@ -325,7 +324,7 @@ public final class RememberMeConfigurer<H extends HttpSecurityBuilder<H>>
 	 */
 	private void initDefaultLoginFilter(H http) {
 		DefaultLoginPageGeneratingFilter loginPageGeneratingFilter = http
-				.getSharedObject(DefaultLoginPageGeneratingFilter.class);
+	.getSharedObject(DefaultLoginPageGeneratingFilter.class);
 		if (loginPageGeneratingFilter != null) {
 			loginPageGeneratingFilter.setRememberMeParameter(getRememberMeParameter());
 		}
@@ -376,7 +375,7 @@ public final class RememberMeConfigurer<H extends HttpSecurityBuilder<H>>
 	 */
 	private AbstractRememberMeServices createRememberMeServices(H http, String key) {
 		return (this.tokenRepository != null) ? createPersistentRememberMeServices(http, key)
-				: createTokenBasedRememberMeServices(http, key);
+	: createTokenBasedRememberMeServices(http, key);
 	}
 
 	/**
@@ -414,8 +413,8 @@ public final class RememberMeConfigurer<H extends HttpSecurityBuilder<H>>
 			this.userDetailsService = getSharedOrBean(http, UserDetailsService.class);
 		}
 		Assert.state(this.userDetailsService != null,
-				() -> "userDetailsService cannot be null. Invoke " + RememberMeConfigurer.class.getSimpleName()
-						+ "#userDetailsService(UserDetailsService) or see its javadoc for alternative approaches.");
+	() -> "userDetailsService cannot be null. Invoke " + RememberMeConfigurer.class.getSimpleName()
++ "#userDetailsService(UserDetailsService) or see its javadoc for alternative approaches.");
 		return this.userDetailsService;
 	}
 

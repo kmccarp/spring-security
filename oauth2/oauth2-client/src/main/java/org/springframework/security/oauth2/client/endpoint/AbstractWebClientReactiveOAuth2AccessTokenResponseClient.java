@@ -65,8 +65,7 @@ import org.springframework.web.reactive.function.client.WebClient;
  * @see WebClientReactivePasswordTokenResponseClient
  * @see WebClientReactiveRefreshTokenTokenResponseClient
  */
-public abstract class AbstractWebClientReactiveOAuth2AccessTokenResponseClient<T extends AbstractOAuth2AuthorizationGrantRequest>
-		implements ReactiveOAuth2AccessTokenResponseClient<T> {
+public abstract class AbstractWebClientReactiveOAuth2AccessTokenResponseClient<T extends AbstractOAuth2AuthorizationGrantRequest>implements ReactiveOAuth2AccessTokenResponseClient<T> {
 
 	private WebClient webClient = WebClient.builder().build();
 
@@ -75,7 +74,7 @@ public abstract class AbstractWebClientReactiveOAuth2AccessTokenResponseClient<T
 	private Converter<T, MultiValueMap<String, String>> parametersConverter = this::populateTokenRequestParameters;
 
 	private BodyExtractor<Mono<OAuth2AccessTokenResponse>, ReactiveHttpInputMessage> bodyExtractor = OAuth2BodyExtractors
-			.oauth2AccessTokenResponse();
+.oauth2AccessTokenResponse();
 
 	AbstractWebClientReactiveOAuth2AccessTokenResponseClient() {
 	}
@@ -85,16 +84,16 @@ public abstract class AbstractWebClientReactiveOAuth2AccessTokenResponseClient<T
 		Assert.notNull(grantRequest, "grantRequest cannot be null");
 		// @formatter:off
 		return Mono.defer(() -> this.webClient.post()
-				.uri(clientRegistration(grantRequest).getProviderDetails().getTokenUri())
-				.headers((headers) -> {
-					HttpHeaders headersToAdd = getHeadersConverter().convert(grantRequest);
-					if (headersToAdd != null) {
-						headers.addAll(headersToAdd);
-					}
-				})
-				.body(createTokenRequestBody(grantRequest))
-				.exchange()
-				.flatMap((response) -> readTokenResponse(grantRequest, response))
+.uri(clientRegistration(grantRequest).getProviderDetails().getTokenUri())
+.headers((headers) -> {
+	HttpHeaders headersToAdd = getHeadersConverter().convert(grantRequest);
+	if (headersToAdd != null) {
+		headers.addAll(headersToAdd);
+	}
+})
+.body(createTokenRequestBody(grantRequest))
+.exchange()
+.flatMap((response) -> readTokenResponse(grantRequest, response))
 		);
 		// @formatter:on
 	}
@@ -175,10 +174,10 @@ public abstract class AbstractWebClientReactiveOAuth2AccessTokenResponseClient<T
 	 * @return the populated body
 	 */
 	BodyInserters.FormInserter<String> populateTokenRequestBody(T grantRequest,
-			BodyInserters.FormInserter<String> body) {
+BodyInserters.FormInserter<String> body) {
 		ClientRegistration clientRegistration = clientRegistration(grantRequest);
 		if (!ClientAuthenticationMethod.CLIENT_SECRET_BASIC
-				.equals(clientRegistration.getClientAuthenticationMethod())) {
+	.equals(clientRegistration.getClientAuthenticationMethod())) {
 			body.with(OAuth2ParameterNames.CLIENT_ID, clientRegistration.getClientId());
 		}
 		if (ClientAuthenticationMethod.CLIENT_SECRET_POST.equals(clientRegistration.getClientAuthenticationMethod())) {
@@ -223,7 +222,7 @@ public abstract class AbstractWebClientReactiveOAuth2AccessTokenResponseClient<T
 	 */
 	private Mono<OAuth2AccessTokenResponse> readTokenResponse(T grantRequest, ClientResponse response) {
 		return response.body(this.bodyExtractor)
-				.map((tokenResponse) -> populateTokenResponse(grantRequest, tokenResponse));
+	.map((tokenResponse) -> populateTokenResponse(grantRequest, tokenResponse));
 	}
 
 	/**
@@ -239,9 +238,9 @@ public abstract class AbstractWebClientReactiveOAuth2AccessTokenResponseClient<T
 			Set<String> defaultScopes = defaultScopes(grantRequest);
 			// @formatter:off
 			tokenResponse = OAuth2AccessTokenResponse
-					.withResponse(tokenResponse)
-					.scopes(defaultScopes)
-					.build();
+		.withResponse(tokenResponse)
+		.scopes(defaultScopes)
+		.build();
 			// @formatter:on
 		}
 		return tokenResponse;
@@ -367,7 +366,7 @@ public abstract class AbstractWebClientReactiveOAuth2AccessTokenResponseClient<T
 	 * @since 5.6
 	 */
 	public final void setBodyExtractor(
-			BodyExtractor<Mono<OAuth2AccessTokenResponse>, ReactiveHttpInputMessage> bodyExtractor) {
+BodyExtractor<Mono<OAuth2AccessTokenResponse>, ReactiveHttpInputMessage> bodyExtractor) {
 		Assert.notNull(bodyExtractor, "bodyExtractor cannot be null");
 		this.bodyExtractor = bodyExtractor;
 	}

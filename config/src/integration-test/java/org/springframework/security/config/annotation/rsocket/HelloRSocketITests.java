@@ -73,13 +73,13 @@ public class HelloRSocketITests {
 	public void setup() {
 		// @formatter:off
 		this.server = RSocketServer.create()
-				.payloadDecoder(PayloadDecoder.ZERO_COPY)
-				.interceptors((registry) ->
-					registry.forSocketAcceptor(this.interceptor)
-				)
-				.acceptor(this.handler.responder())
-				.bind(TcpServerTransport.create("localhost", 0))
-				.block();
+	.payloadDecoder(PayloadDecoder.ZERO_COPY)
+	.interceptors((registry) ->
+registry.forSocketAcceptor(this.interceptor)
+	)
+	.acceptor(this.handler.responder())
+	.bind(TcpServerTransport.create("localhost", 0))
+	.block();
 		// @formatter:on
 	}
 
@@ -94,20 +94,20 @@ public class HelloRSocketITests {
 	public void retrieveMonoWhenSecureThenDenied() throws Exception {
 		// @formatter:off
 		this.requester = RSocketRequester.builder()
-			.rsocketStrategies(this.handler.getRSocketStrategies())
-			.connectTcp("localhost", this.server.address().getPort())
-			.block();
+	.rsocketStrategies(this.handler.getRSocketStrategies())
+	.connectTcp("localhost", this.server.address().getPort())
+	.block();
 		// @formatter:on
 		String data = "rob";
 		// @formatter:off
 		assertThatExceptionOfType(Exception.class).isThrownBy(
-				() -> this.requester.route("secure.retrieve-mono")
-						.data(data)
-						.retrieveMono(String.class)
-						.block()
-				)
-				.matches((ex) -> ex instanceof RejectedSetupException
-						|| ex.getClass().toString().contains("ReactiveException"));
+	() -> this.requester.route("secure.retrieve-mono")
+.data(data)
+.retrieveMono(String.class)
+.block()
+		)
+	.matches((ex) -> ex instanceof RejectedSetupException
+|| ex.getClass().toString().contains("ReactiveException"));
 		// @formatter:on
 		// FIXME: https://github.com/rsocket/rsocket-java/issues/686
 		assertThat(this.controller.payloads).isEmpty();
@@ -118,18 +118,18 @@ public class HelloRSocketITests {
 		UsernamePasswordMetadata credentials = new UsernamePasswordMetadata("rob", "password");
 		// @formatter:off
 		this.requester = RSocketRequester.builder()
-			.setupMetadata(credentials, UsernamePasswordMetadata.BASIC_AUTHENTICATION_MIME_TYPE)
-			.rsocketStrategies(this.handler.getRSocketStrategies())
-			.connectTcp("localhost", this.server.address().getPort())
-			.block();
+	.setupMetadata(credentials, UsernamePasswordMetadata.BASIC_AUTHENTICATION_MIME_TYPE)
+	.rsocketStrategies(this.handler.getRSocketStrategies())
+	.connectTcp("localhost", this.server.address().getPort())
+	.block();
 		// @formatter:on
 		String data = "rob";
 		// @formatter:off
 		String hiRob = this.requester.route("secure.retrieve-mono")
-			.metadata(credentials, UsernamePasswordMetadata.BASIC_AUTHENTICATION_MIME_TYPE)
-			.data(data)
-			.retrieveMono(String.class)
-			.block();
+	.metadata(credentials, UsernamePasswordMetadata.BASIC_AUTHENTICATION_MIME_TYPE)
+	.data(data)
+	.retrieveMono(String.class)
+	.block();
 		// @formatter:on
 		assertThat(hiRob).isEqualTo("Hi rob");
 		assertThat(this.controller.payloads).containsOnly(data);
@@ -160,10 +160,10 @@ public class HelloRSocketITests {
 		MapReactiveUserDetailsService uds() {
 			// @formatter:off
 			UserDetails rob = User.withDefaultPasswordEncoder()
-					.username("rob")
-					.password("password")
-					.roles("USER", "ADMIN")
-					.build();
+		.username("rob")
+		.password("password")
+		.roles("USER", "ADMIN")
+		.build();
 			// @formatter:on
 			return new MapReactiveUserDetailsService(rob);
 		}

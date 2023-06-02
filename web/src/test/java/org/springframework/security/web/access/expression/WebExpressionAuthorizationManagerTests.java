@@ -41,19 +41,19 @@ class WebExpressionAuthorizationManagerTests {
 	@Test
 	void instantiateWhenExpressionStringNullThenIllegalArgumentException() {
 		assertThatIllegalArgumentException().isThrownBy(() -> new WebExpressionAuthorizationManager(null))
-				.withMessage("expressionString cannot be empty");
+	.withMessage("expressionString cannot be empty");
 	}
 
 	@Test
 	void instantiateWhenExpressionStringEmptyThenIllegalArgumentException() {
 		assertThatIllegalArgumentException().isThrownBy(() -> new WebExpressionAuthorizationManager(""))
-				.withMessage("expressionString cannot be empty");
+	.withMessage("expressionString cannot be empty");
 	}
 
 	@Test
 	void instantiateWhenExpressionStringBlankThenIllegalArgumentException() {
 		assertThatIllegalArgumentException().isThrownBy(() -> new WebExpressionAuthorizationManager(" "))
-				.withMessage("expressionString cannot be empty");
+	.withMessage("expressionString cannot be empty");
 	}
 
 	@Test
@@ -66,7 +66,7 @@ class WebExpressionAuthorizationManagerTests {
 	void setExpressionHandlerWhenNullThenIllegalArgumentException() {
 		WebExpressionAuthorizationManager manager = new WebExpressionAuthorizationManager("hasRole('ADMIN')");
 		assertThatIllegalArgumentException().isThrownBy(() -> manager.setExpressionHandler(null))
-				.withMessage("expressionHandler cannot be null");
+	.withMessage("expressionHandler cannot be null");
 	}
 
 	@Test
@@ -88,7 +88,7 @@ class WebExpressionAuthorizationManagerTests {
 	void checkWhenExpressionHasRoleAdminConfiguredAndRoleAdminThenGrantedDecision() {
 		WebExpressionAuthorizationManager manager = new WebExpressionAuthorizationManager("hasRole('ADMIN')");
 		AuthorizationDecision decision = manager.check(TestAuthentication::authenticatedAdmin,
-				new RequestAuthorizationContext(new MockHttpServletRequest()));
+	new RequestAuthorizationContext(new MockHttpServletRequest()));
 		assertThat(decision).isNotNull();
 		assertThat(decision.isGranted()).isTrue();
 	}
@@ -97,7 +97,7 @@ class WebExpressionAuthorizationManagerTests {
 	void checkWhenExpressionHasRoleAdminConfiguredAndRoleUserThenDeniedDecision() {
 		WebExpressionAuthorizationManager manager = new WebExpressionAuthorizationManager("hasRole('ADMIN')");
 		AuthorizationDecision decision = manager.check(TestAuthentication::authenticatedUser,
-				new RequestAuthorizationContext(new MockHttpServletRequest()));
+	new RequestAuthorizationContext(new MockHttpServletRequest()));
 		assertThat(decision).isNotNull();
 		assertThat(decision.isGranted()).isFalse();
 	}

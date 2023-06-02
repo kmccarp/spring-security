@@ -69,7 +69,7 @@ class AclClassIdUtils {
 	 */
 	Serializable identifierFrom(Serializable identifier, ResultSet resultSet) throws SQLException {
 		if (isString(identifier) && hasValidClassIdType(resultSet)
-				&& canConvertFromStringTo(classIdTypeFrom(resultSet))) {
+	&& canConvertFromStringTo(classIdTypeFrom(resultSet))) {
 			return convertFromStringTo((String) identifier, classIdTypeFrom(resultSet));
 		}
 		// Assume it should be a Long type
@@ -143,7 +143,7 @@ class AclClassIdUtils {
 		public Long convert(String identifierAsString) {
 			if (identifierAsString == null) {
 				throw new ConversionFailedException(TypeDescriptor.valueOf(String.class),
-						TypeDescriptor.valueOf(Long.class), null, null);
+			TypeDescriptor.valueOf(Long.class), null, null);
 
 			}
 			return Long.parseLong(identifierAsString);
@@ -157,7 +157,7 @@ class AclClassIdUtils {
 		public UUID convert(String identifierAsString) {
 			if (identifierAsString == null) {
 				throw new ConversionFailedException(TypeDescriptor.valueOf(String.class),
-						TypeDescriptor.valueOf(UUID.class), null, null);
+			TypeDescriptor.valueOf(UUID.class), null, null);
 
 			}
 			return UUID.fromString(identifierAsString);

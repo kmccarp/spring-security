@@ -49,7 +49,7 @@ import org.springframework.util.Assert;
 public class AclAuthorizationStrategyImpl implements AclAuthorizationStrategy {
 
 	private SecurityContextHolderStrategy securityContextHolderStrategy = SecurityContextHolder
-			.getContextHolderStrategy();
+.getContextHolderStrategy();
 
 	private final GrantedAuthority gaGeneralChanges;
 
@@ -71,7 +71,7 @@ public class AclAuthorizationStrategyImpl implements AclAuthorizationStrategy {
 	 */
 	public AclAuthorizationStrategyImpl(GrantedAuthority... auths) {
 		Assert.isTrue(auths != null && (auths.length == 3 || auths.length == 1),
-				"One or three GrantedAuthority instances required");
+	"One or three GrantedAuthority instances required");
 		if (auths.length == 3) {
 			this.gaTakeOwnership = auths[0];
 			this.gaModifyAuditing = auths[1];
@@ -88,21 +88,21 @@ public class AclAuthorizationStrategyImpl implements AclAuthorizationStrategy {
 	public void securityCheck(Acl acl, int changeType) {
 		SecurityContext context = this.securityContextHolderStrategy.getContext();
 		if ((context == null) || (context.getAuthentication() == null)
-				|| !context.getAuthentication().isAuthenticated()) {
+	|| !context.getAuthentication().isAuthenticated()) {
 			throw new AccessDeniedException("Authenticated principal required to operate with ACLs");
 		}
 		Authentication authentication = context.getAuthentication();
 		// Check if authorized by virtue of ACL ownership
 		Sid currentUser = createCurrentUser(authentication);
 		if (currentUser.equals(acl.getOwner())
-				&& ((changeType == CHANGE_GENERAL) || (changeType == CHANGE_OWNERSHIP))) {
+	&& ((changeType == CHANGE_GENERAL) || (changeType == CHANGE_OWNERSHIP))) {
 			return;
 		}
 
 		// Iterate this principal's authorities to determine right
 		Set<String> authorities = AuthorityUtils.authorityListToSet(authentication.getAuthorities());
 		if (acl.getOwner() instanceof GrantedAuthoritySid
-				&& authorities.contains(((GrantedAuthoritySid) acl.getOwner()).getGrantedAuthority())) {
+	&& authorities.contains(((GrantedAuthoritySid) acl.getOwner()).getGrantedAuthority())) {
 			return;
 		}
 
@@ -120,7 +120,7 @@ public class AclAuthorizationStrategyImpl implements AclAuthorizationStrategy {
 		}
 
 		throw new AccessDeniedException(
-				"Principal does not have required ACL permissions to perform requested operation");
+	"Principal does not have required ACL permissions to perform requested operation");
 	}
 
 	private GrantedAuthority getRequiredAuthority(int changeType) {

@@ -120,10 +120,10 @@ public class SimpleUrlAuthenticationSuccessHandlerTests {
 		HttpSession session = request.getSession();
 		assertThat(session).isNotNull();
 		session.setAttribute(WebAttributes.AUTHENTICATION_EXCEPTION,
-				new BadCredentialsException("Invalid credentials"));
+	new BadCredentialsException("Invalid credentials"));
 		assertThat(session.getAttribute(WebAttributes.AUTHENTICATION_EXCEPTION)).isNotNull();
 		assertThat(session.getAttribute(WebAttributes.AUTHENTICATION_EXCEPTION))
-				.isInstanceOf(AuthenticationException.class);
+	.isInstanceOf(AuthenticationException.class);
 		ash.onAuthenticationSuccess(request, response, mock(Authentication.class));
 		assertThat(session.getAttribute(WebAttributes.AUTHENTICATION_EXCEPTION)).isNull();
 	}

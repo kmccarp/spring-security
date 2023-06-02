@@ -41,9 +41,9 @@ public class DigestAuthUtilsTests {
 		assertThat(headerMap.get("username")).isEqualTo("rod");
 		assertThat(headerMap.get("realm")).isEqualTo("Contacts Realm");
 		assertThat(headerMap.get("nonce"))
-				.isEqualTo("MTEwOTAyMzU1MTQ4NDo1YzY3OWViYWM5NDNmZWUwM2UwY2NmMDBiNDQzMTQ0OQ==");
+	.isEqualTo("MTEwOTAyMzU1MTQ4NDo1YzY3OWViYWM5NDNmZWUwM2UwY2NmMDBiNDQzMTQ0OQ==");
 		assertThat(headerMap.get("uri"))
-				.isEqualTo("/spring-security-sample-contacts-filter/secure/adminPermission.htm?contactId=4");
+	.isEqualTo("/spring-security-sample-contacts-filter/secure/adminPermission.htm?contactId=4");
 		assertThat(headerMap.get("response")).isEqualTo("38644211cf9ac3da63ab639807e2baff");
 		assertThat(headerMap.get("qop")).isEqualTo("auth");
 		assertThat(headerMap.get("nc")).isEqualTo("00000004");
@@ -59,9 +59,9 @@ public class DigestAuthUtilsTests {
 		assertThat(headerMap.get("username")).isEqualTo("\"rod\"");
 		assertThat(headerMap.get("realm")).isEqualTo("\"Contacts Realm\"");
 		assertThat(headerMap.get("nonce"))
-				.isEqualTo("\"MTEwOTAyMzU1MTQ4NDo1YzY3OWViYWM5NDNmZWUwM2UwY2NmMDBiNDQzMTQ0OQ==\"");
+	.isEqualTo("\"MTEwOTAyMzU1MTQ4NDo1YzY3OWViYWM5NDNmZWUwM2UwY2NmMDBiNDQzMTQ0OQ==\"");
 		assertThat(headerMap.get("uri"))
-				.isEqualTo("\"/spring-security-sample-contacts-filter/secure/adminPermission.htm?contactId=4\"");
+	.isEqualTo("\"/spring-security-sample-contacts-filter/secure/adminPermission.htm?contactId=4\"");
 		assertThat(headerMap.get("response")).isEqualTo("\"38644211cf9ac3da63ab639807e2baff\"");
 		assertThat(headerMap.get("qop")).isEqualTo("auth");
 		assertThat(headerMap.get("nc")).isEqualTo("00000004");
@@ -72,7 +72,7 @@ public class DigestAuthUtilsTests {
 	@Test
 	public void testSplitEachArrayElementAndCreateMapReturnsNullIfArrayEmptyOrNull() {
 		assertThat(DigestAuthUtils.splitEachArrayElementAndCreateMap(null, "=", "\"")).isNull();
-		assertThat(DigestAuthUtils.splitEachArrayElementAndCreateMap(new String[] {}, "=", "\"")).isNull();
+		assertThat(DigestAuthUtils.splitEachArrayElementAndCreateMap(new String[]{}, "=", "\"")).isNull();
 	}
 
 	@Test
@@ -80,12 +80,12 @@ public class DigestAuthUtilsTests {
 		String unsplit = "username=\"rod==\"";
 		assertThat(DigestAuthUtils.split(unsplit, "=")[0]).isEqualTo("username");
 		assertThat(DigestAuthUtils.split(unsplit, "=")[1]).isEqualTo("\"rod==\""); // should
-																					// not
-																					// remove
-																					// quotes
-																					// or
-																					// extra
-																					// equals
+		// not
+		// remove
+		// quotes
+		// or
+		// extra
+		// equals
 	}
 
 	@Test
@@ -95,7 +95,7 @@ public class DigestAuthUtilsTests {
 		assertThatIllegalArgumentException().isThrownBy(() -> DigestAuthUtils.split("sdch=dfgf", null));
 		assertThatIllegalArgumentException().isThrownBy(() -> DigestAuthUtils.split("fvfv=dcdc", ""));
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> DigestAuthUtils.split("dfdc=dcdc", "BIGGER_THAN_ONE_CHARACTER"));
+	.isThrownBy(() -> DigestAuthUtils.split("dfdc=dcdc", "BIGGER_THAN_ONE_CHARACTER"));
 	}
 
 	@Test
@@ -108,7 +108,7 @@ public class DigestAuthUtilsTests {
 
 	public void testAuthorizationHeaderWithCommasIsSplitCorrectly() {
 		String header = "Digest username=\"hamilton,bob\", realm=\"bobs,ok,realm\", nonce=\"the,nonce\", "
-				+ "uri=\"the,Uri\", response=\"the,response,Digest\", qop=theqop, nc=thenc, cnonce=\"the,cnonce\"";
+	+ "uri=\"the,Uri\", response=\"the,response,Digest\", qop=theqop, nc=thenc, cnonce=\"the,cnonce\"";
 		String[] parts = DigestAuthUtils.splitIgnoringQuotes(header, ',');
 		assertThat(parts).hasSize(8);
 	}

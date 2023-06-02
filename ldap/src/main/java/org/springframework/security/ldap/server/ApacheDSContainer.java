@@ -77,8 +77,7 @@ import org.springframework.util.Assert;
  * supported with no GA version to replace it.
  */
 @Deprecated
-public class ApacheDSContainer
-		implements EmbeddedLdapServerContainer, InitializingBean, DisposableBean, Lifecycle, ApplicationContextAware {
+public class ApacheDSContainerimplements EmbeddedLdapServerContainer, InitializingBean, DisposableBean, Lifecycle, ApplicationContextAware {
 
 	private final Log logger = LogFactory.getLog(getClass());
 
@@ -142,7 +141,7 @@ public class ApacheDSContainer
 			setWorkingDirectory(new File(apacheWorkDir));
 		}
 		Assert.isTrue(!this.ldapOverSslEnabled || this.keyStoreFile != null,
-				"When LdapOverSsl is enabled, the keyStoreFile property must be set.");
+	"When LdapOverSsl is enabled, the keyStoreFile property must be set.");
 		this.server = new LdapServer();
 		this.server.setDirectoryService(this.service);
 		// AbstractLdapIntegrationTests assume IPv4, so we specify the same here
@@ -170,10 +169,10 @@ public class ApacheDSContainer
 		Assert.notNull(workingDir, "workingDir cannot be null");
 		this.logger.info("Setting working directory for LDAP_PROVIDER: " + workingDir.getAbsolutePath());
 		Assert.isTrue(!workingDir.exists(),
-				"The specified working directory '" + workingDir.getAbsolutePath()
-						+ "' already exists. Another directory service instance may be using it or it may be from a "
-						+ " previous unclean shutdown. Please confirm and delete it or configure a different "
-						+ "working directory");
+	"The specified working directory '" + workingDir.getAbsolutePath()
++ "' already exists. Another directory service instance may be using it or it may be from a "
++ " previous unclean shutdown. Please confirm and delete it or configure a different "
++ "working directory");
 		this.workingDir = workingDir;
 		this.service.setWorkingDirectory(workingDir);
 	}
@@ -302,7 +301,7 @@ public class ApacheDSContainer
 	private void importLdifs() throws Exception {
 		// Import any ldif files
 		Resource[] ldifs = (this.ctxt != null) ? this.ctxt.getResources(this.ldifResources)
-				: new PathMatchingResourcePatternResolver().getResources(this.ldifResources);
+	: new PathMatchingResourcePatternResolver().getResources(this.ldifResources);
 		// Note that we can't just import using the ServerContext returned
 		// from starting Apache DS, apparently because of the long-running issue
 		// DIRSERVER-169.
@@ -312,11 +311,11 @@ public class ApacheDSContainer
 			return;
 		}
 		Assert.isTrue(ldifs.length == 1, () -> "More than one LDIF resource found with the supplied pattern:"
-				+ this.ldifResources + " Got " + Arrays.toString(ldifs));
+	+ this.ldifResources + " Got " + Arrays.toString(ldifs));
 		String ldifFile = getLdifFile(ldifs);
 		this.logger.info("Loading LDIF file: " + ldifFile);
 		LdifFileLoader loader = new LdifFileLoader(this.service.getAdminSession(), new File(ldifFile), null,
-				getClass().getClassLoader());
+	getClass().getClassLoader());
 		loader.execute();
 	}
 
@@ -341,7 +340,7 @@ public class ApacheDSContainer
 			fileName = fileNamePrefix + "~" + i;
 		}
 		throw new IOException(
-				"Failed to create a temporary directory for file at " + new File(parentTempDir, fileNamePrefix));
+	"Failed to create a temporary directory for file at " + new File(parentTempDir, fileNamePrefix));
 	}
 
 	private boolean deleteDir(File dir) {

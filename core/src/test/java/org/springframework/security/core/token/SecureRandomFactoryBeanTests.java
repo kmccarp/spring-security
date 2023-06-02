@@ -58,7 +58,7 @@ public class SecureRandomFactoryBeanTests {
 	public void testCreatesUsingSeed() throws Exception {
 		SecureRandomFactoryBean factory = new SecureRandomFactoryBean();
 		Resource resource = new ClassPathResource(
-				"org/springframework/security/core/token/SecureRandomFactoryBeanTests.class");
+	"org/springframework/security/core/token/SecureRandomFactoryBeanTests.class");
 		assertThat(resource).isNotNull();
 		factory.setSeed(resource);
 		SecureRandom first = factory.getObject();

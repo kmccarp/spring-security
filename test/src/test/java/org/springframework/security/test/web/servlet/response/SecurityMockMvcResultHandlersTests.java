@@ -56,9 +56,9 @@ public class SecurityMockMvcResultHandlersTests {
 	public void setup() {
 		// @formatter:off
 		this.mockMvc = MockMvcBuilders
-				.webAppContextSetup(this.context)
-				.apply(springSecurity())
-				.build();
+	.webAppContextSetup(this.context)
+	.apply(springSecurity())
+	.build();
 		// @formatter:on
 	}
 

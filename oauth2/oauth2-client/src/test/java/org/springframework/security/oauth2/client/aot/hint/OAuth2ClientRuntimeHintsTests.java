@@ -40,7 +40,7 @@ class OAuth2ClientRuntimeHintsTests {
 	@BeforeEach
 	void setup() {
 		SpringFactoriesLoader.forResourceLocation("META-INF/spring/aot.factories").load(RuntimeHintsRegistrar.class)
-				.forEach((registrar) -> registrar.registerHints(this.hints, ClassUtils.getDefaultClassLoader()));
+	.forEach((registrar) -> registrar.registerHints(this.hints, ClassUtils.getDefaultClassLoader()));
 	}
 
 	@ParameterizedTest
@@ -51,7 +51,7 @@ class OAuth2ClientRuntimeHintsTests {
 
 	private static Stream<String> getOAuth2ClientSchemaFiles() {
 		return Stream.of("org/springframework/security/oauth2/client/oauth2-client-schema.sql",
-				"org/springframework/security/oauth2/client/oauth2-client-schema-postgres.sql");
+	"org/springframework/security/oauth2/client/oauth2-client-schema-postgres.sql");
 	}
 
 }

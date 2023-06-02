@@ -74,13 +74,13 @@ public class BouncyCastleAesBytesEncryptorTests {
 	@Test
 	public void bcCbcWithWrongLengthIv() {
 		assertThatIllegalArgumentException().isThrownBy(
-				() -> new BouncyCastleAesCbcBytesEncryptor(this.password, this.salt, KeyGenerators.secureRandom(8)));
+	() -> new BouncyCastleAesCbcBytesEncryptor(this.password, this.salt, KeyGenerators.secureRandom(8)));
 	}
 
 	@Test
 	public void bcGcmWithWrongLengthIv() {
 		assertThatIllegalArgumentException().isThrownBy(
-				() -> new BouncyCastleAesGcmBytesEncryptor(this.password, this.salt, KeyGenerators.secureRandom(8)));
+	() -> new BouncyCastleAesGcmBytesEncryptor(this.password, this.salt, KeyGenerators.secureRandom(8)));
 	}
 
 }

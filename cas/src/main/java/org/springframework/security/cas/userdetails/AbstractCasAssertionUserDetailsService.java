@@ -30,8 +30,7 @@ import org.springframework.security.core.userdetails.UserDetails;
  * @author Scott Battaglia
  * @since 3.0
  */
-public abstract class AbstractCasAssertionUserDetailsService
-		implements AuthenticationUserDetailsService<CasAssertionAuthenticationToken> {
+public abstract class AbstractCasAssertionUserDetailsServiceimplements AuthenticationUserDetailsService<CasAssertionAuthenticationToken> {
 
 	@Override
 	public final UserDetails loadUserDetails(final CasAssertionAuthenticationToken token) {

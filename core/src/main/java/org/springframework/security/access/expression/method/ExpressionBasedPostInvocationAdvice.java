@@ -49,7 +49,7 @@ public class ExpressionBasedPostInvocationAdvice implements PostInvocationAuthor
 
 	@Override
 	public Object after(Authentication authentication, MethodInvocation mi, PostInvocationAttribute postAttr,
-			Object returnedObject) throws AccessDeniedException {
+Object returnedObject) throws AccessDeniedException {
 		PostInvocationExpressionAttribute pia = (PostInvocationExpressionAttribute) postAttr;
 		EvaluationContext ctx = this.expressionHandler.createEvaluationContext(authentication, mi);
 		Expression postFilter = pia.getFilterExpression();

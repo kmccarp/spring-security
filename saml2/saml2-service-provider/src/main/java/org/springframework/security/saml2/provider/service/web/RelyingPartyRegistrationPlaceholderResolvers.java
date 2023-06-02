@@ -73,7 +73,7 @@ public final class RelyingPartyRegistrationPlaceholderResolvers {
 		Map<String, String> uriVariables = uriVariables(request);
 		uriVariables.put("relyingPartyEntityId", StringUtils.hasText(relyingPartyEntityId) ? relyingPartyEntityId : "");
 		uriVariables.put("assertingPartyEntityId",
-				StringUtils.hasText(assertingPartyEntityId) ? assertingPartyEntityId : "");
+	StringUtils.hasText(assertingPartyEntityId) ? assertingPartyEntityId : "");
 		uriVariables.put("entityId", StringUtils.hasText(assertingPartyEntityId) ? assertingPartyEntityId : "");
 		uriVariables.put("registrationId", StringUtils.hasText(registrationId) ? registrationId : "");
 		return new UriResolver(uriVariables);
@@ -83,7 +83,7 @@ public final class RelyingPartyRegistrationPlaceholderResolvers {
 		String baseUrl = getApplicationUri(request);
 		Map<String, String> uriVariables = new HashMap<>();
 		UriComponents uriComponents = UriComponentsBuilder.fromHttpUrl(baseUrl).replaceQuery(null).fragment(null)
-				.build();
+	.build();
 		String scheme = uriComponents.getScheme();
 		uriVariables.put("baseScheme", (scheme != null) ? scheme : "");
 		String host = uriComponents.getHost();
@@ -102,7 +102,7 @@ public final class RelyingPartyRegistrationPlaceholderResolvers {
 
 	private static String getApplicationUri(HttpServletRequest request) {
 		UriComponents uriComponents = UriComponentsBuilder.fromHttpUrl(UrlUtils.buildFullRequestUrl(request))
-				.replacePath(request.getContextPath()).replaceQuery(null).fragment(null).build();
+	.replacePath(request.getContextPath()).replaceQuery(null).fragment(null).build();
 		return uriComponents.toUriString();
 	}
 

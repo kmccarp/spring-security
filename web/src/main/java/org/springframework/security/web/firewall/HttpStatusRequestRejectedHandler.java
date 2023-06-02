@@ -55,9 +55,9 @@ public class HttpStatusRequestRejectedHandler implements RequestRejectedHandler 
 
 	@Override
 	public void handle(HttpServletRequest request, HttpServletResponse response,
-			RequestRejectedException requestRejectedException) throws IOException {
+RequestRejectedException requestRejectedException) throws IOException {
 		logger.debug(LogMessage.format("Rejecting request due to: %s", requestRejectedException.getMessage()),
-				requestRejectedException);
+	requestRejectedException);
 		response.sendError(this.httpError);
 	}
 

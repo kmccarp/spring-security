@@ -95,7 +95,7 @@ public class SpringSecurityLdapTemplate extends LdapTemplate {
 			SearchControls searchControls = new SearchControls();
 			searchControls.setReturningAttributes(NO_ATTRS);
 			searchControls.setSearchScope(SearchControls.OBJECT_SCOPE);
-			Object[] params = new Object[] { value };
+			Object[] params = new Object[]{value};
 			NamingEnumeration<SearchResult> results = ctx.search(dn, comparisonFilter, params, searchControls);
 			Boolean match = results.hasMore();
 			LdapUtils.closeEnumeration(results);
@@ -114,7 +114,7 @@ public class SpringSecurityLdapTemplate extends LdapTemplate {
 		return (DirContextOperations) executeReadOnly((ContextExecutor) (ctx) -> {
 			Attributes attrs = ctx.getAttributes(dn, attributesToRetrieve);
 			return new DirContextAdapter(attrs, new DistinguishedName(dn),
-					new DistinguishedName(ctx.getNameInNamespace()));
+		new DistinguishedName(ctx.getNameInNamespace()));
 		});
 	}
 
@@ -131,10 +131,10 @@ public class SpringSecurityLdapTemplate extends LdapTemplate {
 	 * in all the matching entries.
 	 */
 	public Set<String> searchForSingleAttributeValues(final String base, final String filter, final Object[] params,
-			final String attributeName) {
-		String[] attributeNames = new String[] { attributeName };
+final String attributeName) {
+		String[] attributeNames = new String[]{attributeName};
 		Set<Map<String, List<String>>> multipleAttributeValues = searchForMultipleAttributeValues(base, filter, params,
-				attributeNames);
+	attributeNames);
 		Set<String> result = new HashSet<>();
 		for (Map<String, List<String>> map : multipleAttributeValues) {
 			List<String> values = map.get(attributeName);
@@ -159,7 +159,7 @@ public class SpringSecurityLdapTemplate extends LdapTemplate {
 	 * contains the DN as a String with the key predefined key {@link #DN_KEY}.
 	 */
 	public Set<Map<String, List<String>>> searchForMultipleAttributeValues(String base, String filter, Object[] params,
-			String[] attributeNames) {
+String[] attributeNames) {
 		// Escape the params acording to RFC2254
 		Object[] encodedParams = new String[params.length];
 		for (int i = 0; i < params.length; i++) {
@@ -173,7 +173,7 @@ public class SpringSecurityLdapTemplate extends LdapTemplate {
 			Map<String, List<String>> record = new HashMap<>();
 			if (ObjectUtils.isEmpty(attributeNames)) {
 				try {
-					for (NamingEnumeration enumeration = adapter.getAttributes().getAll(); enumeration.hasMore();) {
+					for (NamingEnumeration enumeration = adapter.getAttributes().getAll(); enumeration.hasMore(); ) {
 						Attribute attr = (Attribute) enumeration.next();
 						extractStringAttributeValues(adapter, record, attr.getID());
 					}
@@ -220,7 +220,7 @@ public class SpringSecurityLdapTemplate extends LdapTemplate {
 	 * @param attributeName - the name for which to fetch the values from
 	 */
 	private void extractStringAttributeValues(DirContextAdapter adapter, Map<String, List<String>> record,
-			String attributeName) {
+String attributeName) {
 		Object[] values = adapter.getObjectAttributes(attributeName);
 		if (values == null || values.length == 0) {
 			logger.debug(LogMessage.format("Did not find attribute value for %s", attributeName));
@@ -235,7 +235,7 @@ public class SpringSecurityLdapTemplate extends LdapTemplate {
 				else {
 					stringValues.add(value.toString());
 					logger.debug(LogMessage.format("Coerced attribute value for %s of type %s to a String",
-							attributeName, value.getClass()));
+				attributeName, value.getClass()));
 				}
 			}
 		}
@@ -258,20 +258,20 @@ public class SpringSecurityLdapTemplate extends LdapTemplate {
 	 */
 	public DirContextOperations searchForSingleEntry(String base, String filter, Object[] params) {
 		return (DirContextOperations) executeReadOnly((ContextExecutor) (ctx) -> searchForSingleEntryInternal(ctx,
-				this.searchControls, base, filter, params));
+	this.searchControls, base, filter, params));
 	}
 
 	/**
 	 * Internal method extracted to avoid code duplication in AD search.
 	 */
 	public static DirContextOperations searchForSingleEntryInternal(DirContext ctx, SearchControls searchControls,
-			String base, String filter, Object[] params) throws NamingException {
+String base, String filter, Object[] params) throws NamingException {
 		final DistinguishedName ctxBaseDn = new DistinguishedName(ctx.getNameInNamespace());
 		final DistinguishedName searchBaseDn = new DistinguishedName(base);
 		final NamingEnumeration<SearchResult> resultsEnum = ctx.search(searchBaseDn, filter, params,
-				buildControls(searchControls));
+	buildControls(searchControls));
 		logger.trace(LogMessage.format("Searching for entry under DN '%s', base = '%s', filter = '%s'", ctxBaseDn,
-				searchBaseDn, filter));
+	searchBaseDn, filter));
 		Set<DirContextOperations> results = new HashSet<>();
 		try {
 			while (resultsEnum.hasMore()) {
@@ -300,8 +300,8 @@ public class SpringSecurityLdapTemplate extends LdapTemplate {
 	 */
 	private static SearchControls buildControls(SearchControls originalControls) {
 		return new SearchControls(originalControls.getSearchScope(), originalControls.getCountLimit(),
-				originalControls.getTimeLimit(), originalControls.getReturningAttributes(), RETURN_OBJECT,
-				originalControls.getDerefLinkFlag());
+	originalControls.getTimeLimit(), originalControls.getReturningAttributes(), RETURN_OBJECT,
+	originalControls.getDerefLinkFlag());
 	}
 
 	/**

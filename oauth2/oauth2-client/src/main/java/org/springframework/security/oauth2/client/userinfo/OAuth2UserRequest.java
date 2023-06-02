@@ -60,13 +60,13 @@ public class OAuth2UserRequest {
 	 * @since 5.1
 	 */
 	public OAuth2UserRequest(ClientRegistration clientRegistration, OAuth2AccessToken accessToken,
-			Map<String, Object> additionalParameters) {
+Map<String, Object> additionalParameters) {
 		Assert.notNull(clientRegistration, "clientRegistration cannot be null");
 		Assert.notNull(accessToken, "accessToken cannot be null");
 		this.clientRegistration = clientRegistration;
 		this.accessToken = accessToken;
 		this.additionalParameters = Collections.unmodifiableMap(CollectionUtils.isEmpty(additionalParameters)
-				? Collections.emptyMap() : new LinkedHashMap<>(additionalParameters));
+	? Collections.emptyMap() : new LinkedHashMap<>(additionalParameters));
 	}
 
 	/**

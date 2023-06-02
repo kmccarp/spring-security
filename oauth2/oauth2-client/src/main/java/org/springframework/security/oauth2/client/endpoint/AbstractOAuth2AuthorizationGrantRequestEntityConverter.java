@@ -39,13 +39,11 @@ import org.springframework.web.util.UriComponentsBuilder;
  * @see AbstractOAuth2AuthorizationGrantRequest
  * @see RequestEntity
  */
-abstract class AbstractOAuth2AuthorizationGrantRequestEntityConverter<T extends AbstractOAuth2AuthorizationGrantRequest>
-		implements Converter<T, RequestEntity<?>> {
+abstract class AbstractOAuth2AuthorizationGrantRequestEntityConverter<T extends AbstractOAuth2AuthorizationGrantRequest>implements Converter<T, RequestEntity<?>> {
 
 	// @formatter:off
 	private Converter<T, HttpHeaders> headersConverter =
-			(authorizationGrantRequest) -> OAuth2AuthorizationGrantRequestEntityUtils
-					.getTokenRequestHeaders(authorizationGrantRequest.getClientRegistration());
+(authorizationGrantRequest) -> OAuth2AuthorizationGrantRequestEntityUtils.getTokenRequestHeaders(authorizationGrantRequest.getClientRegistration());
 	// @formatter:on
 
 	private Converter<T, MultiValueMap<String, String>> parametersConverter = this::createParameters;
@@ -55,8 +53,8 @@ abstract class AbstractOAuth2AuthorizationGrantRequestEntityConverter<T extends 
 		HttpHeaders headers = getHeadersConverter().convert(authorizationGrantRequest);
 		MultiValueMap<String, String> parameters = getParametersConverter().convert(authorizationGrantRequest);
 		URI uri = UriComponentsBuilder
-				.fromUriString(authorizationGrantRequest.getClientRegistration().getProviderDetails().getTokenUri())
-				.build().toUri();
+	.fromUriString(authorizationGrantRequest.getClientRegistration().getProviderDetails().getTokenUri())
+	.build().toUri();
 		return new RequestEntity<>(parameters, headers, HttpMethod.POST, uri);
 	}
 

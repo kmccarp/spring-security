@@ -50,7 +50,7 @@ public final class XorCsrfTokenRequestAttributeHandler extends CsrfTokenRequestA
 
 	@Override
 	public void handle(HttpServletRequest request, HttpServletResponse response,
-			Supplier<CsrfToken> deferredCsrfToken) {
+Supplier<CsrfToken> deferredCsrfToken) {
 		Assert.notNull(request, "request cannot be null");
 		Assert.notNull(response, "response cannot be null");
 		Assert.notNull(deferredCsrfToken, "deferredCsrfToken cannot be null");

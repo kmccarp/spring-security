@@ -106,35 +106,35 @@ public final class SecurityMockMvcResultMatchers {
 			}
 			if (this.expectedContext != null) {
 				AssertionErrors.assertEquals(this.expectedContext + " does not equal " + context, this.expectedContext,
-						context);
+			context);
 			}
 			if (this.expectedAuthentication != null) {
 				AssertionErrors.assertEquals(
-						this.expectedAuthentication + " does not equal " + context.getAuthentication(),
-						this.expectedAuthentication, context.getAuthentication());
+			this.expectedAuthentication + " does not equal " + context.getAuthentication(),
+			this.expectedAuthentication, context.getAuthentication());
 			}
 			if (this.expectedAuthenticationPrincipal != null) {
 				AssertionErrors.assertTrue("Authentication cannot be null", context.getAuthentication() != null);
 				AssertionErrors.assertEquals(
-						this.expectedAuthenticationPrincipal + " does not equal "
-								+ context.getAuthentication().getPrincipal(),
-						this.expectedAuthenticationPrincipal, context.getAuthentication().getPrincipal());
+			this.expectedAuthenticationPrincipal + " does not equal "
+		+ context.getAuthentication().getPrincipal(),
+			this.expectedAuthenticationPrincipal, context.getAuthentication().getPrincipal());
 			}
 			if (this.expectedAuthenticationName != null) {
 				AssertionErrors.assertTrue("Authentication cannot be null", auth != null);
 				String name = auth.getName();
 				AssertionErrors.assertEquals(this.expectedAuthenticationName + " does not equal " + name,
-						this.expectedAuthenticationName, name);
+			this.expectedAuthenticationName, name);
 			}
 			if (this.expectedGrantedAuthorities != null) {
 				AssertionErrors.assertTrue("Authentication cannot be null", auth != null);
 				Collection<? extends GrantedAuthority> authorities = auth.getAuthorities();
 				AssertionErrors.assertTrue(
-						authorities + " does not contain the same authorities as " + this.expectedGrantedAuthorities,
-						authorities.containsAll(this.expectedGrantedAuthorities));
+			authorities + " does not contain the same authorities as " + this.expectedGrantedAuthorities,
+			authorities.containsAll(this.expectedGrantedAuthorities));
 				AssertionErrors.assertTrue(
-						this.expectedGrantedAuthorities + " does not contain the same authorities as " + authorities,
-						this.expectedGrantedAuthorities.containsAll(authorities));
+			this.expectedGrantedAuthorities + " does not contain the same authorities as " + authorities,
+			this.expectedGrantedAuthorities.containsAll(authorities));
 			}
 		}
 
@@ -242,7 +242,7 @@ public final class SecurityMockMvcResultMatchers {
 
 			Authentication authentication = context.getAuthentication();
 			AssertionErrors.assertTrue("Expected anonymous Authentication got " + context,
-					authentication == null || this.trustResolver.isAnonymous(authentication));
+		authentication == null || this.trustResolver.isAnonymous(authentication));
 		}
 
 	}

@@ -53,7 +53,7 @@ import org.springframework.test.context.TestContext;
  * @author Rob Winch
  * @since 4.1
  */
-@Target({ ElementType.METHOD, ElementType.TYPE })
+@Target({ElementType.METHOD, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
 @Documented

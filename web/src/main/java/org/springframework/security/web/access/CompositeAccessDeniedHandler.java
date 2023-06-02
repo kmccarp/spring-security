@@ -41,7 +41,7 @@ public final class CompositeAccessDeniedHandler implements AccessDeniedHandler {
 
 	@Override
 	public void handle(HttpServletRequest request, HttpServletResponse response,
-			AccessDeniedException accessDeniedException) throws IOException, ServletException {
+AccessDeniedException accessDeniedException) throws IOException, ServletException {
 		for (AccessDeniedHandler handler : this.handlers) {
 			handler.handle(request, response, accessDeniedException);
 		}

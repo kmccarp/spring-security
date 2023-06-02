@@ -71,7 +71,7 @@ public final class Saml2RelyingPartyInitiatedLogoutSuccessHandler implements Log
 	 */
 	@Override
 	public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
-			throws IOException {
+throws IOException {
 		Saml2LogoutRequest logoutRequest = this.logoutRequestResolver.resolve(request, authentication);
 		if (logoutRequest == null) {
 			this.logger.trace("Returning 401 since no logout request generated");
@@ -98,10 +98,10 @@ public final class Saml2RelyingPartyInitiatedLogoutSuccessHandler implements Log
 	}
 
 	private void doRedirect(HttpServletRequest request, HttpServletResponse response, Saml2LogoutRequest logoutRequest)
-			throws IOException {
+throws IOException {
 		String location = logoutRequest.getLocation();
 		UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromUriString(location)
-				.query(logoutRequest.getParametersQuery());
+	.query(logoutRequest.getParametersQuery());
 		this.redirectStrategy.sendRedirect(request, response, uriBuilder.build(true).toUriString());
 	}
 
@@ -119,7 +119,7 @@ public final class Saml2RelyingPartyInitiatedLogoutSuccessHandler implements Log
 		html.append("<!DOCTYPE html>\n");
 		html.append("<html>\n").append("    <head>\n");
 		html.append("        <meta http-equiv=\"Content-Security-Policy\" ")
-				.append("content=\"script-src 'sha256-oZhLbc2kO8b8oaYLrUc7uye1MgVKMyLtPqWR4WtKF+c='\">\n");
+	.append("content=\"script-src 'sha256-oZhLbc2kO8b8oaYLrUc7uye1MgVKMyLtPqWR4WtKF+c='\">\n");
 		html.append("        <meta charset=\"utf-8\" />\n");
 		html.append("    </head>\n");
 		html.append("    <body>\n");

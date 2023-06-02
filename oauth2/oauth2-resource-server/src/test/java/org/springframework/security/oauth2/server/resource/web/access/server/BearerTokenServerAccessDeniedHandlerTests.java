@@ -66,7 +66,7 @@ public class BearerTokenServerAccessDeniedHandlerTests {
 		this.accessDeniedHandler.handle(exchange, null).block();
 		assertThat(exchange.getResponse().getStatusCode()).isEqualTo(HttpStatus.FORBIDDEN);
 		assertThat(exchange.getResponse().getHeaders().get("WWW-Authenticate"))
-				.isEqualTo(Arrays.asList("Bearer realm=\"test\""));
+	.isEqualTo(Arrays.asList("Bearer realm=\"test\""));
 	}
 
 	@Test
@@ -79,9 +79,9 @@ public class BearerTokenServerAccessDeniedHandlerTests {
 		assertThat(exchange.getResponse().getStatusCode()).isEqualTo(HttpStatus.FORBIDDEN);
 		// @formatter:off
 		assertThat(exchange.getResponse().getHeaders().get("WWW-Authenticate"))
-				.isEqualTo(Arrays.asList("Bearer error=\"insufficient_scope\", "
-						+ "error_description=\"The request requires higher privileges than provided by the access token.\", "
-						+ "error_uri=\"https://tools.ietf.org/html/rfc6750#section-3.1\""));
+	.isEqualTo(Arrays.asList("Bearer error=\"insufficient_scope\", "
++ "error_description=\"The request requires higher privileges than provided by the access token.\", "
++ "error_uri=\"https://tools.ietf.org/html/rfc6750#section-3.1\""));
 		// @formatter:on
 	}
 
@@ -91,7 +91,7 @@ public class BearerTokenServerAccessDeniedHandlerTests {
 	}
 
 	static class TestingOAuth2TokenAuthenticationToken
-			extends AbstractOAuth2TokenAuthenticationToken<TestingOAuth2TokenAuthenticationToken.TestingOAuth2Token> {
+extends AbstractOAuth2TokenAuthenticationToken<TestingOAuth2TokenAuthenticationToken.TestingOAuth2Token> {
 
 		private Map<String, Object> attributes;
 

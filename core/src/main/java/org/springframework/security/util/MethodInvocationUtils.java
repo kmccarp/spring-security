@@ -100,7 +100,7 @@ public final class MethodInvocationUtils {
 			for (Method method : clazz.getDeclaredMethods()) {
 				if (method.getName().equals(methodName)) {
 					Assert.isTrue(invocation == null,
-							() -> "The class " + clazz + " has more than one method named" + " '" + methodName + "'");
+				() -> "The class " + clazz + " has more than one method named" + " '" + methodName + "'");
 					invocation = new SimpleMethodInvocation(null, method);
 				}
 			}
@@ -122,7 +122,7 @@ public final class MethodInvocationUtils {
 	 * problem
 	 */
 	public static MethodInvocation createFromClass(Object targetObject, Class<?> clazz, String methodName,
-			Class<?>[] classArgs, Object[] args) {
+Class<?>[] classArgs, Object[] args) {
 		Assert.notNull(clazz, "Class required");
 		Assert.hasText(methodName, "MethodName required");
 		try {

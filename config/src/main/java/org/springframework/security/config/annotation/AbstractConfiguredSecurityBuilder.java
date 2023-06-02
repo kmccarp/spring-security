@@ -50,8 +50,7 @@ import org.springframework.web.filter.DelegatingFilterProxy;
  * @author Rob Winch
  * @see WebSecurity
  */
-public abstract class AbstractConfiguredSecurityBuilder<O, B extends SecurityBuilder<O>>
-		extends AbstractSecurityBuilder<O> {
+public abstract class AbstractConfiguredSecurityBuilder<O, B extends SecurityBuilder<O>>extends AbstractSecurityBuilder<O> {
 
 	private final Log logger = LogFactory.getLog(getClass());
 
@@ -86,7 +85,7 @@ public abstract class AbstractConfiguredSecurityBuilder<O, B extends SecurityBui
 	 * {@link SecurityConfigurer}'s when performing apply
 	 */
 	protected AbstractConfiguredSecurityBuilder(ObjectPostProcessor<Object> objectPostProcessor,
-			boolean allowConfigurersOfSameType) {
+boolean allowConfigurersOfSameType) {
 		Assert.notNull(objectPostProcessor, "objectPostProcessor cannot be null");
 		this.objectPostProcessor = objectPostProcessor;
 		this.allowConfigurersOfSameType = allowConfigurersOfSameType;
@@ -176,7 +175,7 @@ public abstract class AbstractConfiguredSecurityBuilder<O, B extends SecurityBui
 	private <C extends SecurityConfigurer<O, B>> void add(C configurer) {
 		Assert.notNull(configurer, "configurer cannot be null");
 		Class<? extends SecurityConfigurer<O, B>> clazz = (Class<? extends SecurityConfigurer<O, B>>) configurer
-				.getClass();
+	.getClass();
 		synchronized (this.configurers) {
 			if (this.buildState.isConfigured()) {
 				throw new IllegalStateException("Cannot apply " + configurer + " to already built object");
@@ -237,7 +236,7 @@ public abstract class AbstractConfiguredSecurityBuilder<O, B extends SecurityBui
 			return null;
 		}
 		Assert.state(configs.size() == 1,
-				() -> "Only one configurer expected for type " + clazz + ", but got " + configs);
+	() -> "Only one configurer expected for type " + clazz + ", but got " + configs);
 		return (C) configs.get(0);
 	}
 
@@ -254,7 +253,7 @@ public abstract class AbstractConfiguredSecurityBuilder<O, B extends SecurityBui
 			return null;
 		}
 		Assert.state(configs.size() == 1,
-				() -> "Only one configurer expected for type " + clazz + ", but got " + configs);
+	() -> "Only one configurer expected for type " + clazz + ", but got " + configs);
 		return (C) configs.get(0);
 	}
 

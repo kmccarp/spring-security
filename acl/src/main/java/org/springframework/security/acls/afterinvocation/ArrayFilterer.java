@@ -64,7 +64,7 @@ class ArrayFilterer<T> implements Filterer<T> {
 			}
 		}
 		logger.debug(LogMessage.of(() -> "Original array contained " + originalSize + " elements; now contains "
-				+ sizeOfResultingList + " elements"));
+	+ sizeOfResultingList + " elements"));
 		return filtered;
 	}
 

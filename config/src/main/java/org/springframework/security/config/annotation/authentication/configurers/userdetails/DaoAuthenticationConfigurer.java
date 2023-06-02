@@ -28,8 +28,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
  * @author Rob Winch
  * @since 3.2
  */
-public class DaoAuthenticationConfigurer<B extends ProviderManagerBuilder<B>, U extends UserDetailsService>
-		extends AbstractDaoAuthenticationConfigurer<B, DaoAuthenticationConfigurer<B, U>, U> {
+public class DaoAuthenticationConfigurer<B extends ProviderManagerBuilder<B>, U extends UserDetailsService>extends AbstractDaoAuthenticationConfigurer<B, DaoAuthenticationConfigurer<B, U>, U> {
 
 	/**
 	 * Creates a new instance

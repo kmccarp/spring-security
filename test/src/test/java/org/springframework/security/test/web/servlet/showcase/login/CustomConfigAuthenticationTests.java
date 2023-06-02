@@ -70,21 +70,21 @@ public class CustomConfigAuthenticationTests {
 	@Test
 	public void authenticationSuccess() throws Exception {
 		this.mvc.perform(formLogin("/authenticate").user("user", "user").password("pass", "password"))
-				.andExpect(status().isFound()).andExpect(redirectedUrl("/"))
-				.andExpect(authenticated().withUsername("user"));
+	.andExpect(status().isFound()).andExpect(redirectedUrl("/"))
+	.andExpect(authenticated().withUsername("user"));
 	}
 
 	@Test
 	public void withUserSuccess() throws Exception {
 		this.mvc.perform(get("/").with(user("user"))).andExpect(status().isNotFound())
-				.andExpect(authenticated().withUsername("user"));
+	.andExpect(authenticated().withUsername("user"));
 	}
 
 	@Test
 	public void authenticationFailed() throws Exception {
 		this.mvc.perform(formLogin("/authenticate").user("user", "notfound").password("pass", "invalid"))
-				.andExpect(status().isFound()).andExpect(redirectedUrl("/authenticate?error"))
-				.andExpect(unauthenticated());
+	.andExpect(status().isFound()).andExpect(redirectedUrl("/authenticate?error"))
+	.andExpect(unauthenticated());
 	}
 
 	@Configuration
@@ -96,16 +96,16 @@ public class CustomConfigAuthenticationTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests()
-					.anyRequest().authenticated()
-					.and()
-				.securityContext()
-					.securityContextRepository(securityContextRepository())
-					.and()
-				.formLogin()
-					.usernameParameter("user")
-					.passwordParameter("pass")
-					.loginPage("/authenticate");
+		.authorizeRequests()
+		.anyRequest().authenticated()
+		.and()
+		.securityContext()
+		.securityContextRepository(securityContextRepository())
+		.and()
+		.formLogin()
+		.usernameParameter("user")
+		.passwordParameter("pass")
+		.loginPage("/authenticate");
 			return http.build();
 			// @formatter:on
 		}
@@ -116,6 +116,7 @@ public class CustomConfigAuthenticationTests {
 			UserDetails user = User.withDefaultPasswordEncoder().username("user").password("password").roles("USER").build();
 			return new InMemoryUserDetailsManager(user);
 		}
+
 		// @formatter:on
 		@Bean
 		SecurityContextRepository securityContextRepository() {

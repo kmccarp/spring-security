@@ -42,7 +42,7 @@ class ReactiveMethodSecuritySelector implements ImportSelector {
 			return new String[0];
 		}
 		EnableReactiveMethodSecurity annotation = importMetadata.getAnnotations()
-				.get(EnableReactiveMethodSecurity.class).synthesize();
+	.get(EnableReactiveMethodSecurity.class).synthesize();
 		List<String> imports = new ArrayList<>(Arrays.asList(this.autoProxy.selectImports(importMetadata)));
 		if (annotation.useAuthorizationManager()) {
 			imports.add(ReactiveAuthorizationManagerMethodSecurityConfiguration.class.getName());
@@ -54,9 +54,9 @@ class ReactiveMethodSecuritySelector implements ImportSelector {
 	}
 
 	private static final class AutoProxyRegistrarSelector
-			extends AdviceModeImportSelector<EnableReactiveMethodSecurity> {
+extends AdviceModeImportSelector<EnableReactiveMethodSecurity> {
 
-		private static final String[] IMPORTS = new String[] { AutoProxyRegistrar.class.getName() };
+		private static final String[] IMPORTS = new String[]{AutoProxyRegistrar.class.getName()};
 
 		@Override
 		protected String[] selectImports(@NonNull AdviceMode adviceMode) {

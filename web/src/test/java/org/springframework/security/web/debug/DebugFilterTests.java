@@ -130,8 +130,8 @@ public class DebugFilterTests {
 		this.filter.doFilter(request, this.response, this.filterChain);
 		verify(this.logger).info(this.logCaptor.capture());
 		assertThat(this.logCaptor.getValue()).isEqualTo("Request received for GET '/path/':\n" + "\n" + request + "\n"
-				+ "\n" + "servletPath:/path\n" + "pathInfo:/\n" + "headers: \n" + "A: A Value, Another Value\n"
-				+ "B: B Value\n" + "\n" + "\n" + "Security filter chain: no match");
+	+ "\n" + "servletPath:/path\n" + "pathInfo:/\n" + "headers: \n" + "A: A Value, Another Value\n"
+	+ "B: B Value\n" + "\n" + "\n" + "Security filter chain: no match");
 	}
 
 }

@@ -51,7 +51,7 @@ public interface AuthenticationSuccessHandler {
 	 * @since 5.2.0
 	 */
 	default void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, FilterChain chain,
-			Authentication authentication) throws IOException, ServletException {
+Authentication authentication) throws IOException, ServletException {
 		onAuthenticationSuccess(request, response, authentication);
 		chain.doFilter(request, response);
 	}
@@ -64,6 +64,6 @@ public interface AuthenticationSuccessHandler {
 	 * the authentication process.
 	 */
 	void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
-			Authentication authentication) throws IOException, ServletException;
+Authentication authentication) throws IOException, ServletException;
 
 }

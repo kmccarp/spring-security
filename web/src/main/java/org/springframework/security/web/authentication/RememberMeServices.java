@@ -94,6 +94,6 @@ public interface RememberMeServices {
 	 * principal
 	 */
 	void loginSuccess(HttpServletRequest request, HttpServletResponse response,
-			Authentication successfulAuthentication);
+Authentication successfulAuthentication);
 
 }

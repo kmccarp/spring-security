@@ -32,8 +32,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
  * @author Rob Winch
  * @since 3.2
  */
-public final class DelegatingSecurityContextScheduledExecutorService extends DelegatingSecurityContextExecutorService
-		implements ScheduledExecutorService {
+public final class DelegatingSecurityContextScheduledExecutorService extends DelegatingSecurityContextExecutorServiceimplements ScheduledExecutorService {
 
 	/**
 	 * Creates a new {@link DelegatingSecurityContextScheduledExecutorService} that uses
@@ -45,7 +44,7 @@ public final class DelegatingSecurityContextScheduledExecutorService extends Del
 	 * {@link DelegatingSecurityContextCallable}.
 	 */
 	public DelegatingSecurityContextScheduledExecutorService(ScheduledExecutorService delegateScheduledExecutorService,
-			SecurityContext securityContext) {
+SecurityContext securityContext) {
 		super(delegateScheduledExecutorService, securityContext);
 	}
 

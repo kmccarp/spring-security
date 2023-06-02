@@ -112,11 +112,10 @@ import org.springframework.web.filter.GenericFilterBean;
  * @author Ben Alex
  * @author Luke Taylor
  */
-public abstract class AbstractAuthenticationProcessingFilter extends GenericFilterBean
-		implements ApplicationEventPublisherAware, MessageSourceAware {
+public abstract class AbstractAuthenticationProcessingFilter extends GenericFilterBeanimplements ApplicationEventPublisherAware, MessageSourceAware {
 
 	private SecurityContextHolderStrategy securityContextHolderStrategy = SecurityContextHolder
-			.getContextHolderStrategy();
+.getContextHolderStrategy();
 
 	protected ApplicationEventPublisher eventPublisher;
 
@@ -167,7 +166,7 @@ public abstract class AbstractAuthenticationProcessingFilter extends GenericFilt
 	 * an {@link Authentication} object. Cannot be null.
 	 */
 	protected AbstractAuthenticationProcessingFilter(String defaultFilterProcessesUrl,
-			AuthenticationManager authenticationManager) {
+AuthenticationManager authenticationManager) {
 		setFilterProcessesUrl(defaultFilterProcessesUrl);
 		setAuthenticationManager(authenticationManager);
 	}
@@ -181,7 +180,7 @@ public abstract class AbstractAuthenticationProcessingFilter extends GenericFilt
 	 * an {@link Authentication} object. Cannot be null.
 	 */
 	protected AbstractAuthenticationProcessingFilter(RequestMatcher requiresAuthenticationRequestMatcher,
-			AuthenticationManager authenticationManager) {
+AuthenticationManager authenticationManager) {
 		setRequiresAuthenticationRequestMatcher(requiresAuthenticationRequestMatcher);
 		setAuthenticationManager(authenticationManager);
 	}
@@ -217,12 +216,12 @@ public abstract class AbstractAuthenticationProcessingFilter extends GenericFilt
 	 */
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
-			throws IOException, ServletException {
+throws IOException, ServletException {
 		doFilter((HttpServletRequest) request, (HttpServletResponse) response, chain);
 	}
 
 	private void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
-			throws IOException, ServletException {
+throws IOException, ServletException {
 		if (!requiresAuthentication(request, response)) {
 			chain.doFilter(request, response);
 			return;
@@ -268,7 +267,7 @@ public abstract class AbstractAuthenticationProcessingFilter extends GenericFilt
 		}
 		if (this.logger.isTraceEnabled()) {
 			this.logger
-					.trace(LogMessage.format("Did not match request to %s", this.requiresAuthenticationRequestMatcher));
+		.trace(LogMessage.format("Did not match request to %s", this.requiresAuthenticationRequestMatcher));
 		}
 		return false;
 	}
@@ -293,7 +292,7 @@ public abstract class AbstractAuthenticationProcessingFilter extends GenericFilt
 	 * @throws AuthenticationException if authentication fails.
 	 */
 	public abstract Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
-			throws AuthenticationException, IOException, ServletException;
+throws AuthenticationException, IOException, ServletException;
 
 	/**
 	 * Default behaviour for successful authentication.
@@ -318,7 +317,7 @@ public abstract class AbstractAuthenticationProcessingFilter extends GenericFilt
 	 * @throws ServletException
 	 */
 	protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain,
-			Authentication authResult) throws IOException, ServletException {
+Authentication authResult) throws IOException, ServletException {
 		SecurityContext context = this.securityContextHolderStrategy.createEmptyContext();
 		context.setAuthentication(authResult);
 		this.securityContextHolderStrategy.setContext(context);
@@ -345,7 +344,7 @@ public abstract class AbstractAuthenticationProcessingFilter extends GenericFilt
 	 * </ol>
 	 */
 	protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response,
-			AuthenticationException failed) throws IOException, ServletException {
+AuthenticationException failed) throws IOException, ServletException {
 		this.securityContextHolderStrategy.clearContext();
 		this.logger.trace("Failed to process authentication request", failed);
 		this.logger.trace("Cleared SecurityContextHolder");
@@ -400,7 +399,7 @@ public abstract class AbstractAuthenticationProcessingFilter extends GenericFilt
 	}
 
 	public void setAuthenticationDetailsSource(
-			AuthenticationDetailsSource<HttpServletRequest, ?> authenticationDetailsSource) {
+AuthenticationDetailsSource<HttpServletRequest, ?> authenticationDetailsSource) {
 		Assert.notNull(authenticationDetailsSource, "AuthenticationDetailsSource required");
 		this.authenticationDetailsSource = authenticationDetailsSource;
 	}

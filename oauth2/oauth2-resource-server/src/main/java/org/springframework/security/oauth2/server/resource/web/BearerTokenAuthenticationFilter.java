@@ -27,15 +27,14 @@ import org.springframework.security.authentication.AuthenticationManagerResolver
  * instead
  */
 @Deprecated
-public final class BearerTokenAuthenticationFilter
-		extends org.springframework.security.oauth2.server.resource.web.authentication.BearerTokenAuthenticationFilter {
+public final class BearerTokenAuthenticationFilterextends org.springframework.security.oauth2.server.resource.web.authentication.BearerTokenAuthenticationFilter {
 
 	/**
 	 * Construct a {@code BearerTokenAuthenticationFilter} using the provided parameter(s)
 	 * @param authenticationManagerResolver
 	 */
 	public BearerTokenAuthenticationFilter(
-			AuthenticationManagerResolver<HttpServletRequest> authenticationManagerResolver) {
+AuthenticationManagerResolver<HttpServletRequest> authenticationManagerResolver) {
 		super(authenticationManagerResolver);
 	}
 

@@ -76,7 +76,7 @@ public final class PathPatternParserServerWebExchangeMatcher implements ServerWe
 			return MatchResult.notMatch().doOnNext((result) -> {
 				if (logger.isDebugEnabled()) {
 					logger.debug("Request '" + request.getMethod() + " " + path + "' doesn't match '" + this.method
-							+ " " + this.pattern.getPatternString() + "'");
+				+ " " + this.pattern.getPatternString() + "'");
 				}
 			});
 		}
@@ -85,7 +85,7 @@ public final class PathPatternParserServerWebExchangeMatcher implements ServerWe
 			return MatchResult.notMatch().doOnNext((result) -> {
 				if (logger.isDebugEnabled()) {
 					logger.debug("Request '" + request.getMethod() + " " + path + "' doesn't match '" + this.method
-							+ " " + this.pattern.getPatternString() + "'");
+				+ " " + this.pattern.getPatternString() + "'");
 				}
 			});
 		}
@@ -93,7 +93,7 @@ public final class PathPatternParserServerWebExchangeMatcher implements ServerWe
 		Map<String, Object> variables = new HashMap<>(pathVariables);
 		if (logger.isDebugEnabled()) {
 			logger.debug(
-					"Checking match of request : '" + path + "'; against '" + this.pattern.getPatternString() + "'");
+		"Checking match of request : '" + path + "'; against '" + this.pattern.getPatternString() + "'");
 		}
 		return MatchResult.match(variables);
 	}
@@ -101,7 +101,7 @@ public final class PathPatternParserServerWebExchangeMatcher implements ServerWe
 	@Override
 	public String toString() {
 		return "PathMatcherServerWebExchangeMatcher{" + "pattern='" + this.pattern + '\'' + ", method=" + this.method
-				+ '}';
+	+ '}';
 	}
 
 }

@@ -83,7 +83,7 @@ public class AclPermissionEvaluator implements PermissionEvaluator {
 
 	@Override
 	public boolean hasPermission(Authentication authentication, Serializable targetId, String targetType,
-			Object permission) {
+Object permission) {
 		ObjectIdentity objectIdentity = this.objectIdentityGenerator.createObjectIdentity(targetId, targetType);
 		return checkPermission(authentication, objectIdentity, permission);
 	}

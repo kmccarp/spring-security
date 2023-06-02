@@ -47,8 +47,8 @@ public class PasswordEncodedUser {
 	public static User.UserBuilder withUserDetails(UserDetails userDetails) {
 		// @formatter:off
 		return User
-				.withUserDetails(userDetails)
-				.passwordEncoder(passwordEncoder());
+	.withUserDetails(userDetails)
+	.passwordEncoder(passwordEncoder());
 		// @formatter:on
 	}
 

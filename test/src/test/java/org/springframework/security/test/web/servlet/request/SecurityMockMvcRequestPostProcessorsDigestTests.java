@@ -59,7 +59,7 @@ public class SecurityMockMvcRequestPostProcessorsDigestTests {
 		this.entryPoint.setRealmName("Spring Security");
 		this.filter = new DigestAuthenticationFilter();
 		this.filter.setUserDetailsService(
-				(username) -> new User(username, this.password, AuthorityUtils.createAuthorityList("ROLE_USER")));
+	(username) -> new User(username, this.password, AuthorityUtils.createAuthorityList("ROLE_USER")));
 		this.filter.setAuthenticationEntryPoint(this.entryPoint);
 		this.filter.afterPropertiesSet();
 	}
@@ -87,7 +87,7 @@ public class SecurityMockMvcRequestPostProcessorsDigestTests {
 		String username = "custom";
 		this.password = "secret";
 		MockHttpServletRequest postProcessedRequest = digest(username).password(this.password)
-				.postProcessRequest(this.request);
+	.postProcessRequest(this.request);
 		assertThat(extractUser()).isEqualTo(username);
 	}
 
@@ -96,7 +96,7 @@ public class SecurityMockMvcRequestPostProcessorsDigestTests {
 		String username = "admin";
 		this.entryPoint.setRealmName("Custom");
 		MockHttpServletRequest postProcessedRequest = digest(username).realm(this.entryPoint.getRealmName())
-				.postProcessRequest(this.request);
+	.postProcessRequest(this.request);
 		assertThat(extractUser()).isEqualTo(username);
 	}
 
@@ -104,7 +104,7 @@ public class SecurityMockMvcRequestPostProcessorsDigestTests {
 	public void digestWithFilterFails() throws Exception {
 		String username = "admin";
 		MockHttpServletRequest postProcessedRequest = digest(username).realm("Invalid")
-				.postProcessRequest(this.request);
+	.postProcessRequest(this.request);
 		assertThat(extractUser()).isNull();
 	}
 
@@ -114,7 +114,7 @@ public class SecurityMockMvcRequestPostProcessorsDigestTests {
 			public void doFilter(ServletRequest request, ServletResponse response) {
 				Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 				SecurityMockMvcRequestPostProcessorsDigestTests.this.username = (authentication != null)
-						? authentication.getName() : null;
+			? authentication.getName() : null;
 			}
 		});
 		return this.username;

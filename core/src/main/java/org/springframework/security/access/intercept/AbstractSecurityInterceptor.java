@@ -115,15 +115,14 @@ import org.springframework.util.CollectionUtils;
  * for method security.
  */
 @Deprecated
-public abstract class AbstractSecurityInterceptor
-		implements InitializingBean, ApplicationEventPublisherAware, MessageSourceAware {
+public abstract class AbstractSecurityInterceptorimplements InitializingBean, ApplicationEventPublisherAware, MessageSourceAware {
 
 	protected final Log logger = LogFactory.getLog(getClass());
 
 	protected MessageSourceAccessor messages = SpringSecurityMessageSource.getAccessor();
 
 	private SecurityContextHolderStrategy securityContextHolderStrategy = SecurityContextHolder
-			.getContextHolderStrategy();
+.getContextHolderStrategy();
 
 	private ApplicationEventPublisher eventPublisher;
 
@@ -152,20 +151,20 @@ public abstract class AbstractSecurityInterceptor
 		Assert.notNull(this.runAsManager, "A RunAsManager is required");
 		Assert.notNull(this.obtainSecurityMetadataSource(), "An SecurityMetadataSource is required");
 		Assert.isTrue(this.obtainSecurityMetadataSource().supports(getSecureObjectClass()),
-				() -> "SecurityMetadataSource does not support secure object class: " + getSecureObjectClass());
+	() -> "SecurityMetadataSource does not support secure object class: " + getSecureObjectClass());
 		Assert.isTrue(this.runAsManager.supports(getSecureObjectClass()),
-				() -> "RunAsManager does not support secure object class: " + getSecureObjectClass());
+	() -> "RunAsManager does not support secure object class: " + getSecureObjectClass());
 		Assert.isTrue(this.accessDecisionManager.supports(getSecureObjectClass()),
-				() -> "AccessDecisionManager does not support secure object class: " + getSecureObjectClass());
+	() -> "AccessDecisionManager does not support secure object class: " + getSecureObjectClass());
 		if (this.afterInvocationManager != null) {
 			Assert.isTrue(this.afterInvocationManager.supports(getSecureObjectClass()),
-					() -> "AfterInvocationManager does not support secure object class: " + getSecureObjectClass());
+		() -> "AfterInvocationManager does not support secure object class: " + getSecureObjectClass());
 		}
 		if (this.validateConfigAttributes) {
 			Collection<ConfigAttribute> attributeDefs = this.obtainSecurityMetadataSource().getAllConfigAttributes();
 			if (attributeDefs == null) {
 				this.logger.warn("Could not validate configuration attributes as the "
-						+ "SecurityMetadataSource did not return any attributes from getAllConfigAttributes()");
+			+ "SecurityMetadataSource did not return any attributes from getAllConfigAttributes()");
 				return;
 			}
 			validateAttributeDefs(attributeDefs);
@@ -176,13 +175,13 @@ public abstract class AbstractSecurityInterceptor
 		Set<ConfigAttribute> unsupportedAttrs = new HashSet<>();
 		for (ConfigAttribute attr : attributeDefs) {
 			if (!this.runAsManager.supports(attr) && !this.accessDecisionManager.supports(attr)
-					&& ((this.afterInvocationManager == null) || !this.afterInvocationManager.supports(attr))) {
+		&& ((this.afterInvocationManager == null) || !this.afterInvocationManager.supports(attr))) {
 				unsupportedAttrs.add(attr);
 			}
 		}
 		if (unsupportedAttrs.size() != 0) {
 			this.logger
-					.trace("Did not validate configuration attributes since validateConfigurationAttributes is false");
+		.trace("Did not validate configuration attributes since validateConfigurationAttributes is false");
 			throw new IllegalArgumentException("Unsupported configuration attributes: " + unsupportedAttrs);
 		}
 		else {
@@ -194,16 +193,16 @@ public abstract class AbstractSecurityInterceptor
 		Assert.notNull(object, "Object was null");
 		if (!getSecureObjectClass().isAssignableFrom(object.getClass())) {
 			throw new IllegalArgumentException("Security invocation attempted for object " + object.getClass().getName()
-					+ " but AbstractSecurityInterceptor only configured to support secure objects of type: "
-					+ getSecureObjectClass());
+		+ " but AbstractSecurityInterceptor only configured to support secure objects of type: "
+		+ getSecureObjectClass());
 		}
 		Collection<ConfigAttribute> attributes = this.obtainSecurityMetadataSource().getAttributes(object);
 		if (CollectionUtils.isEmpty(attributes)) {
 			Assert.isTrue(!this.rejectPublicInvocations,
-					() -> "Secure object invocation " + object
-							+ " was denied as public invocations are not allowed via this interceptor. "
-							+ "This indicates a configuration error because the "
-							+ "rejectPublicInvocations property is set to 'true'");
+		() -> "Secure object invocation " + object
+	+ " was denied as public invocations are not allowed via this interceptor. "
+	+ "This indicates a configuration error because the "
+	+ "rejectPublicInvocations property is set to 'true'");
 			if (this.logger.isDebugEnabled()) {
 				this.logger.debug(LogMessage.format("Authorized public object %s", object));
 			}
@@ -212,7 +211,7 @@ public abstract class AbstractSecurityInterceptor
 		}
 		if (this.securityContextHolderStrategy.getContext().getAuthentication() == null) {
 			credentialsNotFound(this.messages.getMessage("AbstractSecurityInterceptor.authenticationNotFound",
-					"An Authentication object was not found in the SecurityContext"), object, attributes);
+		"An Authentication object was not found in the SecurityContext"), object, attributes);
 		}
 		Authentication authenticated = authenticateIfRequired();
 		if (this.logger.isTraceEnabled()) {
@@ -248,14 +247,14 @@ public abstract class AbstractSecurityInterceptor
 	}
 
 	private void attemptAuthorization(Object object, Collection<ConfigAttribute> attributes,
-			Authentication authenticated) {
+Authentication authenticated) {
 		try {
 			this.accessDecisionManager.decide(authenticated, object, attributes);
 		}
 		catch (AccessDeniedException ex) {
 			if (this.logger.isTraceEnabled()) {
 				this.logger.trace(LogMessage.format("Failed to authorize %s with attributes %s using %s", object,
-						attributes, this.accessDecisionManager));
+			attributes, this.accessDecisionManager));
 			}
 			else if (this.logger.isDebugEnabled()) {
 				this.logger.debug(LogMessage.format("Failed to authorize %s with attributes %s", object, attributes));
@@ -277,7 +276,7 @@ public abstract class AbstractSecurityInterceptor
 			this.securityContextHolderStrategy.setContext(token.getSecurityContext());
 			if (this.logger.isDebugEnabled()) {
 				this.logger.debug(LogMessage.of(
-						() -> "Reverted to original authentication " + token.getSecurityContext().getAuthentication()));
+			() -> "Reverted to original authentication " + token.getSecurityContext().getAuthentication()));
 			}
 		}
 	}
@@ -301,11 +300,11 @@ public abstract class AbstractSecurityInterceptor
 			// Attempt after invocation handling
 			try {
 				returnedObject = this.afterInvocationManager.decide(token.getSecurityContext().getAuthentication(),
-						token.getSecureObject(), token.getAttributes(), returnedObject);
+			token.getSecureObject(), token.getAttributes(), returnedObject);
 			}
 			catch (AccessDeniedException ex) {
 				publishEvent(new AuthorizationFailureEvent(token.getSecureObject(), token.getAttributes(),
-						token.getSecurityContext().getAuthentication(), ex));
+			token.getSecurityContext().getAuthentication(), ex));
 				throw ex;
 			}
 		}
@@ -349,7 +348,7 @@ public abstract class AbstractSecurityInterceptor
 	private void credentialsNotFound(String reason, Object secureObject, Collection<ConfigAttribute> configAttribs) {
 		AuthenticationCredentialsNotFoundException exception = new AuthenticationCredentialsNotFoundException(reason);
 		AuthenticationCredentialsNotFoundEvent event = new AuthenticationCredentialsNotFoundEvent(secureObject,
-				configAttribs, exception);
+	configAttribs, exception);
 		publishEvent(event);
 		throw exception;
 	}

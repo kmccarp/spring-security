@@ -78,8 +78,8 @@ public class AnnotationSecurityAspectTests {
 	public final void setUp() {
 		MockitoAnnotations.initMocks(this);
 		this.interceptor = new AspectJMethodSecurityInterceptor();
-		AccessDecisionVoter[] voters = new AccessDecisionVoter[] { new RoleVoter(),
-				new PreInvocationAuthorizationAdviceVoter(new ExpressionBasedPreInvocationAdvice()) };
+		AccessDecisionVoter[] voters = new AccessDecisionVoter[]{new RoleVoter(),
+	new PreInvocationAuthorizationAdviceVoter(new ExpressionBasedPreInvocationAdvice())};
 		this.adm = new AffirmativeBased(Arrays.<AccessDecisionVoter<? extends Object>>asList(voters));
 		this.interceptor.setAccessDecisionManager(this.adm);
 		this.interceptor.setAuthenticationManager(this.authman);
@@ -101,7 +101,7 @@ public class AnnotationSecurityAspectTests {
 	@Test
 	public void securedClassMethodDeniesUnauthenticatedAccess() {
 		assertThatExceptionOfType(AuthenticationCredentialsNotFoundException.class)
-				.isThrownBy(() -> this.secured.securedClassMethod());
+	.isThrownBy(() -> this.secured.securedClassMethod());
 	}
 
 	@Test
@@ -150,7 +150,7 @@ public class AnnotationSecurityAspectTests {
 	private void configureForElAnnotations() {
 		DefaultMethodSecurityExpressionHandler eh = new DefaultMethodSecurityExpressionHandler();
 		this.interceptor.setSecurityMetadataSource(
-				new PrePostAnnotationSecurityMetadataSource(new ExpressionBasedAnnotationAttributeFactory(eh)));
+	new PrePostAnnotationSecurityMetadataSource(new ExpressionBasedAnnotationAttributeFactory(eh)));
 		this.interceptor.setAccessDecisionManager(this.adm);
 		AfterInvocationProviderManager aim = new AfterInvocationProviderManager();
 		aim.setProviders(Arrays.asList(new PostInvocationAdviceProvider(new ExpressionBasedPostInvocationAdvice(eh))));
@@ -212,7 +212,7 @@ public class AnnotationSecurityAspectTests {
 		@PostFilter("filterObject.startsWith('a')")
 		public List<String> postFilterMethod() {
 			ArrayList<String> objects = new ArrayList<>();
-			objects.addAll(Arrays.asList(new String[] { "apple", "banana", "aubergine", "orange" }));
+			objects.addAll(Arrays.asList(new String[]{"apple", "banana", "aubergine", "orange"}));
 			return objects;
 		}
 

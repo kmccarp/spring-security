@@ -48,6 +48,7 @@ public class RemoveAuthorizedClientOAuth2AuthorizationFailureHandler implements 
 	 * @see OAuth2ErrorCodes
 	 */
 	public static final Set<String> DEFAULT_REMOVE_AUTHORIZED_CLIENT_ERROR_CODES;
+
 	static {
 		Set<String> codes = new LinkedHashSet<>();
 		// Returned from Resource Servers when an access token provided is expired,
@@ -84,7 +85,7 @@ public class RemoveAuthorizedClientOAuth2AuthorizationFailureHandler implements 
 	 * {@link #DEFAULT_REMOVE_AUTHORIZED_CLIENT_ERROR_CODES}.
 	 */
 	public RemoveAuthorizedClientOAuth2AuthorizationFailureHandler(
-			OAuth2AuthorizedClientRemover authorizedClientRemover) {
+OAuth2AuthorizedClientRemover authorizedClientRemover) {
 		this(authorizedClientRemover, DEFAULT_REMOVE_AUTHORIZED_CLIENT_ERROR_CODES);
 	}
 
@@ -99,22 +100,22 @@ public class RemoveAuthorizedClientOAuth2AuthorizationFailureHandler implements 
 	 * @see OAuth2ErrorCodes
 	 */
 	public RemoveAuthorizedClientOAuth2AuthorizationFailureHandler(
-			OAuth2AuthorizedClientRemover authorizedClientRemover, Set<String> removeAuthorizedClientErrorCodes) {
+OAuth2AuthorizedClientRemover authorizedClientRemover, Set<String> removeAuthorizedClientErrorCodes) {
 		Assert.notNull(authorizedClientRemover, "authorizedClientRemover cannot be null");
 		Assert.notNull(removeAuthorizedClientErrorCodes, "removeAuthorizedClientErrorCodes cannot be null");
 		this.removeAuthorizedClientErrorCodes = Collections
-				.unmodifiableSet(new HashSet<>(removeAuthorizedClientErrorCodes));
+	.unmodifiableSet(new HashSet<>(removeAuthorizedClientErrorCodes));
 		this.delegate = authorizedClientRemover;
 	}
 
 	@Override
 	public void onAuthorizationFailure(OAuth2AuthorizationException authorizationException, Authentication principal,
-			Map<String, Object> attributes) {
+Map<String, Object> attributes) {
 		if (authorizationException instanceof ClientAuthorizationException
-				&& hasRemovalErrorCode(authorizationException)) {
+	&& hasRemovalErrorCode(authorizationException)) {
 			ClientAuthorizationException clientAuthorizationException = (ClientAuthorizationException) authorizationException;
 			this.delegate.removeAuthorizedClient(clientAuthorizationException.getClientRegistrationId(), principal,
-					attributes);
+		attributes);
 		}
 	}
 
@@ -148,7 +149,7 @@ public class RemoveAuthorizedClientOAuth2AuthorizationFailureHandler implements 
 		 * performed within the context of a {@code jakarta.servlet.ServletContext}.
 		 */
 		void removeAuthorizedClient(String clientRegistrationId, Authentication principal,
-				Map<String, Object> attributes);
+	Map<String, Object> attributes);
 
 	}
 

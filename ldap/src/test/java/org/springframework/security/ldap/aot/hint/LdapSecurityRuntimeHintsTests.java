@@ -40,7 +40,7 @@ class LdapSecurityRuntimeHintsTests {
 	@BeforeEach
 	void setup() {
 		SpringFactoriesLoader.forResourceLocation("META-INF/spring/aot.factories").load(RuntimeHintsRegistrar.class)
-				.forEach((registrar) -> registrar.registerHints(this.hints, ClassUtils.getDefaultClassLoader()));
+	.forEach((registrar) -> registrar.registerHints(this.hints, ClassUtils.getDefaultClassLoader()));
 	}
 
 	@Test
@@ -51,7 +51,7 @@ class LdapSecurityRuntimeHintsTests {
 	@Test
 	void ldapCtxFactoryHasHints() {
 		assertThat(RuntimeHintsPredicates.reflection().onType(TypeReference.of("com.sun.jndi.ldap.LdapCtxFactory")))
-				.accepts(this.hints);
+	.accepts(this.hints);
 	}
 
 }

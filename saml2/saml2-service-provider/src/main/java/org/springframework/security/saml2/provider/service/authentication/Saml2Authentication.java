@@ -48,7 +48,7 @@ public class Saml2Authentication extends AbstractAuthenticationToken {
 	 * @param authorities the authorities for the logged in user
 	 */
 	public Saml2Authentication(AuthenticatedPrincipal principal, String saml2Response,
-			Collection<? extends GrantedAuthority> authorities) {
+Collection<? extends GrantedAuthority> authorities) {
 		super(authorities);
 		Assert.notNull(principal, "principal cannot be null");
 		Assert.hasText(saml2Response, "saml2Response cannot be null");

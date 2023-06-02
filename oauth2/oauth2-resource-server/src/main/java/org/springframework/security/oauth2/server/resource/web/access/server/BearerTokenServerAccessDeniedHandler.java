@@ -61,10 +61,10 @@ public class BearerTokenServerAccessDeniedHandler implements ServerAccessDeniedH
 		}
 		// @formatter:off
 		return exchange.getPrincipal()
-				.filter(AbstractOAuth2TokenAuthenticationToken.class::isInstance)
-				.map((token) -> errorMessageParameters(parameters))
-				.switchIfEmpty(Mono.just(parameters))
-				.flatMap((params) -> respond(exchange, params));
+	.filter(AbstractOAuth2TokenAuthenticationToken.class::isInstance)
+	.map((token) -> errorMessageParameters(parameters))
+	.switchIfEmpty(Mono.just(parameters))
+	.flatMap((params) -> respond(exchange, params));
 		// @formatter:on
 	}
 
@@ -79,7 +79,7 @@ public class BearerTokenServerAccessDeniedHandler implements ServerAccessDeniedH
 	private static Map<String, String> errorMessageParameters(Map<String, String> parameters) {
 		parameters.put("error", BearerTokenErrorCodes.INSUFFICIENT_SCOPE);
 		parameters.put("error_description",
-				"The request requires higher privileges than provided by the access token.");
+	"The request requires higher privileges than provided by the access token.");
 		parameters.put("error_uri", "https://tools.ietf.org/html/rfc6750#section-3.1");
 		return parameters;
 	}

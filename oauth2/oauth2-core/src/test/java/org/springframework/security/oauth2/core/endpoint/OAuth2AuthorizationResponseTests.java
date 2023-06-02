@@ -43,11 +43,11 @@ public class OAuth2AuthorizationResponseTests {
 	@Test
 	public void buildSuccessResponseWhenAuthCodeIsNullThenThrowIllegalArgumentException() {
 		assertThatIllegalArgumentException().isThrownBy(() ->
-		// @formatter:off
-			OAuth2AuthorizationResponse.success(null)
-					.redirectUri(REDIRECT_URI)
-					.state(STATE)
-					.build()
+	// @formatter:off
+	OAuth2AuthorizationResponse.success(null)
+.redirectUri(REDIRECT_URI)
+.state(STATE)
+.build()
 		// @formatter:on
 		);
 	}
@@ -55,11 +55,11 @@ public class OAuth2AuthorizationResponseTests {
 	@Test
 	public void buildSuccessResponseWhenRedirectUriIsNullThenThrowIllegalArgumentException() {
 		assertThatIllegalArgumentException().isThrownBy(() ->
-		// @formatter:off
-			OAuth2AuthorizationResponse.success(AUTH_CODE)
-					.redirectUri(null)
-					.state(STATE)
-					.build()
+	// @formatter:off
+	OAuth2AuthorizationResponse.success(AUTH_CODE)
+.redirectUri(null)
+.state(STATE)
+.build()
 		// @formatter:on
 		);
 	}
@@ -68,9 +68,9 @@ public class OAuth2AuthorizationResponseTests {
 	public void buildSuccessResponseWhenStateIsNullThenDoesNotThrowAnyException() {
 		// @formatter:off
 		OAuth2AuthorizationResponse.success(AUTH_CODE)
-				.redirectUri(REDIRECT_URI)
-				.state(null)
-				.build();
+	.redirectUri(REDIRECT_URI)
+	.state(null)
+	.build();
 		// @formatter:on
 	}
 
@@ -78,27 +78,27 @@ public class OAuth2AuthorizationResponseTests {
 	public void buildSuccessResponseWhenAllAttributesProvidedThenAllAttributesAreSet() {
 		// @formatter:off
 		OAuth2AuthorizationResponse authorizationResponse = OAuth2AuthorizationResponse.success(AUTH_CODE)
-				.redirectUri(REDIRECT_URI)
-				.state(STATE)
-				.build();
+	.redirectUri(REDIRECT_URI)
+	.state(STATE)
+	.build();
 		assertThat(authorizationResponse.getCode())
-				.isEqualTo(AUTH_CODE);
+	.isEqualTo(AUTH_CODE);
 		assertThat(authorizationResponse.getRedirectUri())
-				.isEqualTo(REDIRECT_URI);
+	.isEqualTo(REDIRECT_URI);
 		assertThat(authorizationResponse.getState())
-				.isEqualTo(STATE);
+	.isEqualTo(STATE);
 		// @formatter:on
 	}
 
 	@Test
 	public void buildSuccessResponseWhenErrorCodeIsSetThenThrowIllegalArgumentException() {
 		assertThatIllegalArgumentException().isThrownBy(() ->
-		// @formatter:off
-			OAuth2AuthorizationResponse.success(AUTH_CODE)
-					.redirectUri(REDIRECT_URI)
-					.state(STATE)
-					.errorCode(ERROR_CODE)
-					.build()
+	// @formatter:off
+	OAuth2AuthorizationResponse.success(AUTH_CODE)
+.redirectUri(REDIRECT_URI)
+.state(STATE)
+.errorCode(ERROR_CODE)
+.build()
 		// @formatter:on
 		);
 	}
@@ -106,11 +106,11 @@ public class OAuth2AuthorizationResponseTests {
 	@Test
 	public void buildErrorResponseWhenErrorCodeIsNullThenThrowIllegalArgumentException() {
 		assertThatIllegalArgumentException().isThrownBy(() ->
-		// @formatter:off
-			OAuth2AuthorizationResponse.error(null)
-					.redirectUri(REDIRECT_URI)
-					.state(STATE)
-					.build()
+	// @formatter:off
+	OAuth2AuthorizationResponse.error(null)
+.redirectUri(REDIRECT_URI)
+.state(STATE)
+.build()
 		// @formatter:on
 		);
 	}
@@ -118,11 +118,11 @@ public class OAuth2AuthorizationResponseTests {
 	@Test
 	public void buildErrorResponseWhenRedirectUriIsNullThenThrowIllegalArgumentException() {
 		assertThatIllegalArgumentException().isThrownBy(() ->
-		// @formatter:off
-			OAuth2AuthorizationResponse.error(ERROR_CODE)
-					.redirectUri(null)
-					.state(STATE)
-					.build()
+	// @formatter:off
+	OAuth2AuthorizationResponse.error(ERROR_CODE)
+.redirectUri(null)
+.state(STATE)
+.build()
 		// @formatter:on
 		);
 	}
@@ -131,9 +131,9 @@ public class OAuth2AuthorizationResponseTests {
 	public void buildErrorResponseWhenStateIsNullThenDoesNotThrowAnyException() {
 		// @formatter:off
 		OAuth2AuthorizationResponse.error(ERROR_CODE)
-				.redirectUri(REDIRECT_URI)
-				.state(null)
-				.build();
+	.redirectUri(REDIRECT_URI)
+	.state(null)
+	.build();
 		// @formatter:on
 	}
 
@@ -141,33 +141,33 @@ public class OAuth2AuthorizationResponseTests {
 	public void buildErrorResponseWhenAllAttributesProvidedThenAllAttributesAreSet() {
 		// @formatter:off
 		OAuth2AuthorizationResponse authorizationResponse = OAuth2AuthorizationResponse.error(ERROR_CODE)
-				.errorDescription(ERROR_DESCRIPTION)
-				.errorUri(ERROR_URI)
-				.redirectUri(REDIRECT_URI)
-				.state(STATE)
-				.build();
+	.errorDescription(ERROR_DESCRIPTION)
+	.errorUri(ERROR_URI)
+	.redirectUri(REDIRECT_URI)
+	.state(STATE)
+	.build();
 		assertThat(authorizationResponse.getError().getErrorCode())
-				.isEqualTo(ERROR_CODE);
+	.isEqualTo(ERROR_CODE);
 		assertThat(authorizationResponse.getError().getDescription())
-				.isEqualTo(ERROR_DESCRIPTION);
+	.isEqualTo(ERROR_DESCRIPTION);
 		assertThat(authorizationResponse.getError().getUri())
-				.isEqualTo(ERROR_URI);
+	.isEqualTo(ERROR_URI);
 		assertThat(authorizationResponse.getRedirectUri())
-				.isEqualTo(REDIRECT_URI);
+	.isEqualTo(REDIRECT_URI);
 		assertThat(authorizationResponse.getState())
-				.isEqualTo(STATE);
+	.isEqualTo(STATE);
 		// @formatter:on
 	}
 
 	@Test
 	public void buildErrorResponseWhenAuthCodeIsSetThenThrowIllegalArgumentException() {
 		assertThatIllegalArgumentException().isThrownBy(() ->
-		// @formatter:off
-			OAuth2AuthorizationResponse.error(ERROR_CODE)
-					.redirectUri(REDIRECT_URI)
-					.state(STATE)
-					.code(AUTH_CODE)
-					.build()
+	// @formatter:off
+	OAuth2AuthorizationResponse.error(ERROR_CODE)
+.redirectUri(REDIRECT_URI)
+.state(STATE)
+.code(AUTH_CODE)
+.build()
 		// @formatter:on
 		);
 	}

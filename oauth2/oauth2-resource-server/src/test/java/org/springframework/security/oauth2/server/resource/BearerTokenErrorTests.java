@@ -55,8 +55,8 @@ public class BearerTokenErrorTests {
 	public void constructorWithErrorCodeAndHttpStatusWhenErrorCodeIsNullThenThrowIllegalArgumentException() {
 		// @formatter:off
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new BearerTokenError(null, TEST_HTTP_STATUS, null, null))
-				.withMessage("errorCode cannot be empty");
+	.isThrownBy(() -> new BearerTokenError(null, TEST_HTTP_STATUS, null, null))
+	.withMessage("errorCode cannot be empty");
 		// @formatter:on
 	}
 
@@ -64,8 +64,8 @@ public class BearerTokenErrorTests {
 	public void constructorWithErrorCodeAndHttpStatusWhenErrorCodeIsEmptyThenThrowIllegalArgumentException() {
 		// @formatter:off
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new BearerTokenError("", TEST_HTTP_STATUS, null, null))
-				.withMessage("errorCode cannot be empty");
+	.isThrownBy(() -> new BearerTokenError("", TEST_HTTP_STATUS, null, null))
+	.withMessage("errorCode cannot be empty");
 		// @formatter:on
 	}
 
@@ -73,15 +73,15 @@ public class BearerTokenErrorTests {
 	public void constructorWithErrorCodeAndHttpStatusWhenHttpStatusIsNullThenThrowIllegalArgumentException() {
 		// @formatter:off
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new BearerTokenError(TEST_ERROR_CODE, null, null, null))
-				.withMessage("httpStatus cannot be null");
+	.isThrownBy(() -> new BearerTokenError(TEST_ERROR_CODE, null, null, null))
+	.withMessage("httpStatus cannot be null");
 		// @formatter:on
 	}
 
 	@Test
 	public void constructorWithAllParametersWhenAllParametersAreValidThenCreated() {
 		BearerTokenError error = new BearerTokenError(TEST_ERROR_CODE, TEST_HTTP_STATUS, TEST_DESCRIPTION, TEST_URI,
-				TEST_SCOPE);
+	TEST_SCOPE);
 		assertThat(error.getErrorCode()).isEqualTo(TEST_ERROR_CODE);
 		assertThat(error.getHttpStatus()).isEqualTo(TEST_HTTP_STATUS);
 		assertThat(error.getDescription()).isEqualTo(TEST_DESCRIPTION);
@@ -93,8 +93,8 @@ public class BearerTokenErrorTests {
 	public void constructorWithAllParametersWhenErrorCodeIsNullThenThrowIllegalArgumentException() {
 		// @formatter:off
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new BearerTokenError(null, TEST_HTTP_STATUS, TEST_DESCRIPTION, TEST_URI, TEST_SCOPE))
-				.withMessage("errorCode cannot be empty");
+	.isThrownBy(() -> new BearerTokenError(null, TEST_HTTP_STATUS, TEST_DESCRIPTION, TEST_URI, TEST_SCOPE))
+	.withMessage("errorCode cannot be empty");
 		// @formatter:on
 	}
 
@@ -102,8 +102,8 @@ public class BearerTokenErrorTests {
 	public void constructorWithAllParametersWhenErrorCodeIsEmptyThenThrowIllegalArgumentException() {
 		// @formatter:off
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new BearerTokenError("", TEST_HTTP_STATUS, TEST_DESCRIPTION, TEST_URI, TEST_SCOPE))
-				.withMessage("errorCode cannot be empty");
+	.isThrownBy(() -> new BearerTokenError("", TEST_HTTP_STATUS, TEST_DESCRIPTION, TEST_URI, TEST_SCOPE))
+	.withMessage("errorCode cannot be empty");
 		// @formatter:on
 	}
 
@@ -111,8 +111,8 @@ public class BearerTokenErrorTests {
 	public void constructorWithAllParametersWhenHttpStatusIsNullThenThrowIllegalArgumentException() {
 		// @formatter:off
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new BearerTokenError(TEST_ERROR_CODE, null, TEST_DESCRIPTION, TEST_URI, TEST_SCOPE))
-				.withMessage("httpStatus cannot be null");
+	.isThrownBy(() -> new BearerTokenError(TEST_ERROR_CODE, null, TEST_DESCRIPTION, TEST_URI, TEST_SCOPE))
+	.withMessage("httpStatus cannot be null");
 		// @formatter:on
 	}
 
@@ -120,11 +120,10 @@ public class BearerTokenErrorTests {
 	public void constructorWithAllParametersWhenErrorCodeIsInvalidThenThrowIllegalArgumentException() {
 		// @formatter:off
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new BearerTokenError(TEST_ERROR_CODE + "\"",
-					TEST_HTTP_STATUS, TEST_DESCRIPTION, TEST_URI, TEST_SCOPE)
-				)
-				.withMessageContaining("errorCode")
-				.withMessageContaining("RFC 6750");
+	.isThrownBy(() -> new BearerTokenError(TEST_ERROR_CODE + "\"",TEST_HTTP_STATUS, TEST_DESCRIPTION, TEST_URI, TEST_SCOPE)
+	)
+	.withMessageContaining("errorCode")
+	.withMessageContaining("RFC 6750");
 		// @formatter:on
 	}
 
@@ -132,11 +131,10 @@ public class BearerTokenErrorTests {
 	public void constructorWithAllParametersWhenDescriptionIsInvalidThenThrowIllegalArgumentException() {
 		// @formatter:off
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new BearerTokenError(TEST_ERROR_CODE, TEST_HTTP_STATUS,
-					TEST_DESCRIPTION + "\"", TEST_URI, TEST_SCOPE)
-				)
-				.withMessageContaining("description")
-				.withMessageContaining("RFC 6750");
+	.isThrownBy(() -> new BearerTokenError(TEST_ERROR_CODE, TEST_HTTP_STATUS,TEST_DESCRIPTION + "\"", TEST_URI, TEST_SCOPE)
+	)
+	.withMessageContaining("description")
+	.withMessageContaining("RFC 6750");
 		// @formatter:on
 	}
 
@@ -144,11 +142,10 @@ public class BearerTokenErrorTests {
 	public void constructorWithAllParametersWhenErrorUriIsInvalidThenThrowIllegalArgumentException() {
 		// @formatter:off
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new BearerTokenError(TEST_ERROR_CODE, TEST_HTTP_STATUS, TEST_DESCRIPTION,
-						TEST_URI + "\"", TEST_SCOPE)
-				)
-				.withMessageContaining("errorUri")
-				.withMessageContaining("RFC 6750");
+	.isThrownBy(() -> new BearerTokenError(TEST_ERROR_CODE, TEST_HTTP_STATUS, TEST_DESCRIPTION,TEST_URI + "\"", TEST_SCOPE)
+	)
+	.withMessageContaining("errorUri")
+	.withMessageContaining("RFC 6750");
 		// @formatter:on
 	}
 
@@ -156,11 +153,10 @@ public class BearerTokenErrorTests {
 	public void constructorWithAllParametersWhenScopeIsInvalidThenThrowIllegalArgumentException() {
 		// @formatter:off
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new BearerTokenError(TEST_ERROR_CODE, TEST_HTTP_STATUS,
-					TEST_DESCRIPTION, TEST_URI, TEST_SCOPE + "\"")
-				)
-				.withMessageContaining("scope")
-				.withMessageContaining("RFC 6750");
+	.isThrownBy(() -> new BearerTokenError(TEST_ERROR_CODE, TEST_HTTP_STATUS,TEST_DESCRIPTION, TEST_URI, TEST_SCOPE + "\"")
+	)
+	.withMessageContaining("scope")
+	.withMessageContaining("RFC 6750");
 		// @formatter:on
 	}
 

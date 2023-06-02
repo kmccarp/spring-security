@@ -113,7 +113,7 @@ public final class JwtAuthenticationProvider implements AuthenticationProvider {
 	}
 
 	public void setJwtAuthenticationConverter(
-			Converter<Jwt, ? extends AbstractAuthenticationToken> jwtAuthenticationConverter) {
+Converter<Jwt, ? extends AbstractAuthenticationToken> jwtAuthenticationConverter) {
 		Assert.notNull(jwtAuthenticationConverter, "jwtAuthenticationConverter cannot be null");
 		this.jwtAuthenticationConverter = jwtAuthenticationConverter;
 	}

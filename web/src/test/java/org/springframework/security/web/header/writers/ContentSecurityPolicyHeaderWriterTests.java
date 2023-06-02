@@ -69,7 +69,7 @@ public class ContentSecurityPolicyHeaderWriterTests {
 	@Test
 	public void writeHeadersContentSecurityPolicyCustom() {
 		String policyDirectives = "default-src 'self'; " + "object-src plugins1.example.com plugins2.example.com; "
-				+ "script-src trustedscripts.example.com";
+	+ "script-src trustedscripts.example.com";
 		this.writer = new ContentSecurityPolicyHeaderWriter(policyDirectives);
 		this.writer.writeHeaders(this.request, this.response);
 		assertThat(this.response.getHeaderNames()).hasSize(1);

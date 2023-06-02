@@ -63,7 +63,7 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
  * @author Rob Winch
  * @author Josh Cummings
  */
-@ExtendWith({ SpringExtension.class, SpringTestContextExtension.class })
+@ExtendWith({SpringExtension.class, SpringTestContextExtension.class})
 @SecurityTestExecutionListeners
 public class NamespaceGlobalMethodSecurityTests {
 
@@ -108,7 +108,7 @@ public class NamespaceGlobalMethodSecurityTests {
 	@WithMockUser
 	public void methodSecurityWhenCustomMethodSecurityMetadataSourceThenAuthorizes() {
 		this.spring.register(CustomMethodSecurityMetadataSourceConfig.class, MethodSecurityServiceConfig.class)
-				.autowire();
+	.autowire();
 		assertThatExceptionOfType(AccessDeniedException.class).isThrownBy(() -> this.service.preAuthorize());
 		assertThatExceptionOfType(AccessDeniedException.class).isThrownBy(() -> this.service.secured());
 		assertThatExceptionOfType(AccessDeniedException.class).isThrownBy(() -> this.service.jsr250());
@@ -119,8 +119,8 @@ public class NamespaceGlobalMethodSecurityTests {
 	public void contextRefreshWhenUsingAspectJThenAutowire() throws Exception {
 		this.spring.register(AspectJModeConfig.class, MethodSecurityServiceConfig.class).autowire();
 		assertThat(this.spring.getContext().getBean(
-				Class.forName("org.springframework.security.access.intercept.aspectj.aspect.AnnotationSecurityAspect")))
-						.isNotNull();
+	Class.forName("org.springframework.security.access.intercept.aspectj.aspect.AnnotationSecurityAspect")))
+	.isNotNull();
 		assertThat(this.spring.getContext().getBean(AspectJMethodSecurityInterceptor.class)).isNotNull();
 		// TODO diagnose why aspectj isn't weaving method security advice around
 		// MethodSecurityServiceImpl
@@ -128,11 +128,11 @@ public class NamespaceGlobalMethodSecurityTests {
 
 	@Test
 	public void contextRefreshWhenUsingAspectJAndCustomGlobalMethodSecurityConfigurationThenAutowire()
-			throws Exception {
+throws Exception {
 		this.spring.register(AspectJModeExtendsGMSCConfig.class).autowire();
 		assertThat(this.spring.getContext().getBean(
-				Class.forName("org.springframework.security.access.intercept.aspectj.aspect.AnnotationSecurityAspect")))
-						.isNotNull();
+	Class.forName("org.springframework.security.access.intercept.aspectj.aspect.AnnotationSecurityAspect")))
+	.isNotNull();
 		assertThat(this.spring.getContext().getBean(AspectJMethodSecurityInterceptor.class)).isNotNull();
 	}
 
@@ -141,7 +141,7 @@ public class NamespaceGlobalMethodSecurityTests {
 	public void methodSecurityWhenOrderSpecifiedThenConfigured() {
 		this.spring.register(CustomOrderConfig.class, MethodSecurityServiceConfig.class).autowire();
 		assertThat(this.spring.getContext().getBean("metaDataSourceAdvisor", MethodSecurityMetadataSourceAdvisor.class)
-				.getOrder()).isEqualTo(-135);
+	.getOrder()).isEqualTo(-135);
 		assertThatExceptionOfType(AccessDeniedException.class).isThrownBy(() -> this.service.jsr250());
 	}
 
@@ -150,7 +150,7 @@ public class NamespaceGlobalMethodSecurityTests {
 	public void methodSecurityWhenOrderUnspecifiedThenConfiguredToLowestPrecedence() {
 		this.spring.register(DefaultOrderConfig.class, MethodSecurityServiceConfig.class).autowire();
 		assertThat(this.spring.getContext().getBean("metaDataSourceAdvisor", MethodSecurityMetadataSourceAdvisor.class)
-				.getOrder()).isEqualTo(Ordered.LOWEST_PRECEDENCE);
+	.getOrder()).isEqualTo(Ordered.LOWEST_PRECEDENCE);
 		assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(() -> this.service.jsr250());
 	}
 
@@ -158,9 +158,9 @@ public class NamespaceGlobalMethodSecurityTests {
 	@WithMockUser
 	public void methodSecurityWhenOrderUnspecifiedAndCustomGlobalMethodSecurityConfigurationThenConfiguredToLowestPrecedence() {
 		this.spring.register(DefaultOrderExtendsMethodSecurityConfig.class, MethodSecurityServiceConfig.class)
-				.autowire();
+	.autowire();
 		assertThat(this.spring.getContext().getBean("metaDataSourceAdvisor", MethodSecurityMetadataSourceAdvisor.class)
-				.getOrder()).isEqualTo(Ordered.LOWEST_PRECEDENCE);
+	.getOrder()).isEqualTo(Ordered.LOWEST_PRECEDENCE);
 		assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(() -> this.service.jsr250());
 	}
 
@@ -204,7 +204,7 @@ public class NamespaceGlobalMethodSecurityTests {
 	public void methodSecurityWhenCustomRunAsManagerThenRunAsWrapsAuthentication() {
 		this.spring.register(CustomRunAsManagerConfig.class, MethodSecurityServiceConfig.class).autowire();
 		assertThat(this.service.runAs().getAuthorities())
-				.anyMatch((authority) -> "ROLE_RUN_AS_SUPER".equals(authority.getAuthority()));
+	.anyMatch((authority) -> "ROLE_RUN_AS_SUPER".equals(authority.getAuthority()));
 	}
 
 	@Test
@@ -221,8 +221,8 @@ public class NamespaceGlobalMethodSecurityTests {
 	@WithMockUser
 	public void methodSecurityWhenMissingEnableAnnotationThenShowsHelpfulError() {
 		assertThatExceptionOfType(Exception.class)
-				.isThrownBy(() -> this.spring.register(ExtendsNoEnableAnntotationConfig.class).autowire())
-				.withStackTraceContaining(EnableGlobalMethodSecurity.class.getName() + " is required");
+	.isThrownBy(() -> this.spring.register(ExtendsNoEnableAnntotationConfig.class).autowire())
+	.withStackTraceContaining(EnableGlobalMethodSecurity.class.getName() + " is required");
 	}
 
 	@Test
@@ -247,7 +247,7 @@ public class NamespaceGlobalMethodSecurityTests {
 
 			@Override
 			public void decide(Authentication authentication, Object object,
-					Collection<ConfigAttribute> configAttributes) {
+		Collection<ConfigAttribute> configAttributes) {
 				throw new AccessDeniedException("Always Denied");
 			}
 
@@ -278,7 +278,7 @@ public class NamespaceGlobalMethodSecurityTests {
 
 			@Override
 			public Object decide(Authentication authentication, Object object, Collection<ConfigAttribute> attributes,
-					Object returnedObject) throws AccessDeniedException {
+		Object returnedObject) throws AccessDeniedException {
 				throw new AccessDeniedException("custom AfterInvocationManager");
 			}
 
@@ -334,7 +334,7 @@ public class NamespaceGlobalMethodSecurityTests {
 					// require ROLE_NOBODY for any method on MethodSecurityService
 					// interface
 					return MethodSecurityService.class.isAssignableFrom(targetClass)
-							? Arrays.asList(new SecurityConfig("ROLE_NOBODY")) : Collections.emptyList();
+				? Arrays.asList(new SecurityConfig("ROLE_NOBODY")) : Collections.emptyList();
 				}
 
 				@Override
@@ -362,11 +362,11 @@ public class NamespaceGlobalMethodSecurityTests {
 
 		@Override
 		public void registerBeanDefinitions(AnnotationMetadata importingClassMetadata,
-				BeanDefinitionRegistry registry) {
+	BeanDefinitionRegistry registry) {
 			BeanDefinitionBuilder advice = BeanDefinitionBuilder.rootBeanDefinition(ExceptingInterceptor.class);
 			registry.registerBeanDefinition("exceptingInterceptor", advice.getBeanDefinition());
 			BeanDefinitionBuilder advisor = BeanDefinitionBuilder
-					.rootBeanDefinition(MethodSecurityMetadataSourceAdvisor.class);
+		.rootBeanDefinition(MethodSecurityMetadataSourceAdvisor.class);
 			advisor.setRole(BeanDefinition.ROLE_INFRASTRUCTURE);
 			advisor.addConstructorArgValue("exceptingInterceptor");
 			advisor.addConstructorArgReference("methodSecurityMetadataSource");

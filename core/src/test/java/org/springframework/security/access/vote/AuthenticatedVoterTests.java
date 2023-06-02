@@ -45,7 +45,7 @@ public class AuthenticatedVoterTests {
 
 	private Authentication createFullyAuthenticated() {
 		return UsernamePasswordAuthenticationToken.authenticated("ignored", "ignored",
-				AuthorityUtils.createAuthorityList("ignored"));
+	AuthorityUtils.createAuthorityList("ignored"));
 	}
 
 	private Authentication createRememberMe() {

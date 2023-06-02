@@ -84,12 +84,12 @@ public class PrePostAnnotationSecurityMetadataSource extends AbstractMethodSecur
 		String postAuthorizeAttribute = (postAuthorize != null) ? postAuthorize.value() : null;
 		ArrayList<ConfigAttribute> attrs = new ArrayList<>(2);
 		PreInvocationAttribute pre = this.attributeFactory.createPreInvocationAttribute(preFilterAttribute,
-				filterObject, preAuthorizeAttribute);
+	filterObject, preAuthorizeAttribute);
 		if (pre != null) {
 			attrs.add(pre);
 		}
 		PostInvocationAttribute post = this.attributeFactory.createPostInvocationAttribute(postFilterAttribute,
-				postAuthorizeAttribute);
+	postAuthorizeAttribute);
 		if (post != null) {
 			attrs.add(post);
 		}
@@ -131,7 +131,7 @@ public class PrePostAnnotationSecurityMetadataSource extends AbstractMethodSecur
 		annotation = AnnotationUtils.findAnnotation(specificMethod.getDeclaringClass(), annotationClass);
 		if (annotation != null) {
 			this.logger.debug(
-					LogMessage.format("%s found on: %s", annotation, specificMethod.getDeclaringClass().getName()));
+		LogMessage.format("%s found on: %s", annotation, specificMethod.getDeclaringClass().getName()));
 			return annotation;
 		}
 		return null;

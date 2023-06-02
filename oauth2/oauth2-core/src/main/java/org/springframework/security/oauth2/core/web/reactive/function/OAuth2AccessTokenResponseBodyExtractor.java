@@ -48,8 +48,7 @@ import org.springframework.web.reactive.function.BodyExtractors;
  * @author Rob Winch
  * @since 5.1
  */
-class OAuth2AccessTokenResponseBodyExtractor
-		implements BodyExtractor<Mono<OAuth2AccessTokenResponse>, ReactiveHttpInputMessage> {
+class OAuth2AccessTokenResponseBodyExtractorimplements BodyExtractor<Mono<OAuth2AccessTokenResponse>, ReactiveHttpInputMessage> {
 
 	private static final String INVALID_TOKEN_RESPONSE_ERROR_CODE = "invalid_token_response";
 
@@ -62,16 +61,16 @@ class OAuth2AccessTokenResponseBodyExtractor
 	@Override
 	public Mono<OAuth2AccessTokenResponse> extract(ReactiveHttpInputMessage inputMessage, Context context) {
 		BodyExtractor<Mono<Map<String, Object>>, ReactiveHttpInputMessage> delegate = BodyExtractors
-				.toMono(STRING_OBJECT_MAP);
+	.toMono(STRING_OBJECT_MAP);
 		return delegate.extract(inputMessage, context)
-				.onErrorMap((ex) -> new OAuth2AuthorizationException(
-						invalidTokenResponse("An error occurred parsing the Access Token response: " + ex.getMessage()),
-						ex))
-				.switchIfEmpty(Mono.error(() -> new OAuth2AuthorizationException(
-						invalidTokenResponse("Empty OAuth 2.0 Access Token Response"))))
-				.map(OAuth2AccessTokenResponseBodyExtractor::parse)
-				.flatMap(OAuth2AccessTokenResponseBodyExtractor::oauth2AccessTokenResponse)
-				.map(OAuth2AccessTokenResponseBodyExtractor::oauth2AccessTokenResponse);
+	.onErrorMap((ex) -> new OAuth2AuthorizationException(
+invalidTokenResponse("An error occurred parsing the Access Token response: " + ex.getMessage()),
+ex))
+	.switchIfEmpty(Mono.error(() -> new OAuth2AuthorizationException(
+invalidTokenResponse("Empty OAuth 2.0 Access Token Response"))))
+	.map(OAuth2AccessTokenResponseBodyExtractor::parse)
+	.flatMap(OAuth2AccessTokenResponseBodyExtractor::oauth2AccessTokenResponse)
+	.map(OAuth2AccessTokenResponseBodyExtractor::oauth2AccessTokenResponse);
 	}
 
 	private static TokenResponse parse(Map<String, Object> json) {
@@ -80,7 +79,7 @@ class OAuth2AccessTokenResponseBodyExtractor
 		}
 		catch (ParseException ex) {
 			OAuth2Error oauth2Error = invalidTokenResponse(
-					"An error occurred parsing the Access Token response: " + ex.getMessage());
+		"An error occurred parsing the Access Token response: " + ex.getMessage());
 			throw new OAuth2AuthorizationException(oauth2Error, ex);
 		}
 	}
@@ -117,7 +116,7 @@ class OAuth2AccessTokenResponseBodyExtractor
 		}
 		long expiresIn = accessToken.getLifetime();
 		Set<String> scopes = (accessToken.getScope() != null)
-				? new LinkedHashSet<>(accessToken.getScope().toStringList()) : Collections.emptySet();
+	? new LinkedHashSet<>(accessToken.getScope().toStringList()) : Collections.emptySet();
 		String refreshToken = null;
 		if (accessTokenResponse.getTokens().getRefreshToken() != null) {
 			refreshToken = accessTokenResponse.getTokens().getRefreshToken().getValue();
@@ -125,12 +124,12 @@ class OAuth2AccessTokenResponseBodyExtractor
 		Map<String, Object> additionalParameters = new LinkedHashMap<>(accessTokenResponse.getCustomParameters());
 		// @formatter:off
 		return OAuth2AccessTokenResponse.withToken(accessToken.getValue())
-				.tokenType(accessTokenType)
-				.expiresIn(expiresIn)
-				.scopes(scopes)
-				.refreshToken(refreshToken)
-				.additionalParameters(additionalParameters)
-				.build();
+	.tokenType(accessTokenType)
+	.expiresIn(expiresIn)
+	.scopes(scopes)
+	.refreshToken(refreshToken)
+	.additionalParameters(additionalParameters)
+	.build();
 		// @formatter:on
 	}
 

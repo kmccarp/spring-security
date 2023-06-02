@@ -90,28 +90,28 @@ public class ServletOAuth2AuthorizedClientExchangeFilterFunctionITests {
 	public void setUp() throws Exception {
 		this.clientRegistrationRepository = mock(ClientRegistrationRepository.class);
 		final OAuth2AuthorizedClientRepository delegate = new AuthenticatedPrincipalOAuth2AuthorizedClientRepository(
-				new InMemoryOAuth2AuthorizedClientService(this.clientRegistrationRepository));
+	new InMemoryOAuth2AuthorizedClientService(this.clientRegistrationRepository));
 		this.authorizedClientRepository = spy(new OAuth2AuthorizedClientRepository() {
 			@Override
 			public <T extends OAuth2AuthorizedClient> T loadAuthorizedClient(String clientRegistrationId,
-					Authentication principal, HttpServletRequest request) {
+		Authentication principal, HttpServletRequest request) {
 				return delegate.loadAuthorizedClient(clientRegistrationId, principal, request);
 			}
 
 			@Override
 			public void saveAuthorizedClient(OAuth2AuthorizedClient authorizedClient, Authentication principal,
-					HttpServletRequest request, HttpServletResponse response) {
+		HttpServletRequest request, HttpServletResponse response) {
 				delegate.saveAuthorizedClient(authorizedClient, principal, request, response);
 			}
 
 			@Override
 			public void removeAuthorizedClient(String clientRegistrationId, Authentication principal,
-					HttpServletRequest request, HttpServletResponse response) {
+		HttpServletRequest request, HttpServletResponse response) {
 				delegate.removeAuthorizedClient(clientRegistrationId, principal, request, response);
 			}
 		});
 		this.authorizedClientFilter = new ServletOAuth2AuthorizedClientExchangeFilterFunction(
-				this.clientRegistrationRepository, this.authorizedClientRepository);
+	this.clientRegistrationRepository, this.authorizedClientRepository);
 		this.server = new MockWebServer();
 		this.server.start();
 		this.serverUrl = this.server.url("/").toString();
@@ -134,31 +134,31 @@ public class ServletOAuth2AuthorizedClientExchangeFilterFunctionITests {
 	public void requestWhenNotAuthorizedThenAuthorizeAndSendRequest() {
 		// @formatter:off
 		String accessTokenResponse = "{\n"
-			+ "   \"access_token\": \"access-token-1234\",\n"
-			+ "   \"token_type\": \"bearer\",\n"
-			+ "   \"expires_in\": \"3600\",\n"
-			+ "   \"scope\": \"read write\"\n"
-			+ "}\n";
+	+ "   \"access_token\": \"access-token-1234\",\n"
+	+ "   \"token_type\": \"bearer\",\n"
+	+ "   \"expires_in\": \"3600\",\n"
+	+ "   \"scope\": \"read write\"\n"
+	+ "}\n";
 		String clientResponse = "{\n"
-			+ "	\"attribute1\": \"value1\",\n"
-			+ "	\"attribute2\": \"value2\"\n"
-			+ "}\n";
+	+ "	\"attribute1\": \"value1\",\n"
+	+ "	\"attribute2\": \"value2\"\n"
+	+ "}\n";
 		// @formatter:on
 		this.server.enqueue(jsonResponse(accessTokenResponse));
 		this.server.enqueue(jsonResponse(clientResponse));
 		ClientRegistration clientRegistration = TestClientRegistrations.clientCredentials().tokenUri(this.serverUrl)
-				.build();
+	.build();
 		given(this.clientRegistrationRepository.findByRegistrationId(eq(clientRegistration.getRegistrationId())))
-				.willReturn(clientRegistration);
+	.willReturn(clientRegistration);
 		this.webClient.get().uri(this.serverUrl)
-				.attributes(ServletOAuth2AuthorizedClientExchangeFilterFunction
-						.clientRegistrationId(clientRegistration.getRegistrationId()))
-				.retrieve().bodyToMono(String.class).block();
+	.attributes(ServletOAuth2AuthorizedClientExchangeFilterFunction
+.clientRegistrationId(clientRegistration.getRegistrationId()))
+	.retrieve().bodyToMono(String.class).block();
 		assertThat(this.server.getRequestCount()).isEqualTo(2);
 		ArgumentCaptor<OAuth2AuthorizedClient> authorizedClientCaptor = ArgumentCaptor
-				.forClass(OAuth2AuthorizedClient.class);
+	.forClass(OAuth2AuthorizedClient.class);
 		verify(this.authorizedClientRepository).saveAuthorizedClient(authorizedClientCaptor.capture(),
-				eq(this.authentication), eq(this.request), eq(this.response));
+	eq(this.authentication), eq(this.request), eq(this.response));
 		assertThat(authorizedClientCaptor.getValue().getClientRegistration()).isSameAs(clientRegistration);
 	}
 
@@ -166,39 +166,39 @@ public class ServletOAuth2AuthorizedClientExchangeFilterFunctionITests {
 	public void requestWhenAuthorizedButExpiredThenRefreshAndSendRequest() {
 		// @formatter:off
 		String accessTokenResponse = "{\n"
-			+ "   \"access_token\": \"refreshed-access-token\",\n"
-			+ "   \"token_type\": \"bearer\",\n"
-			+ "   \"expires_in\": \"3600\"\n"
-			+ "}\n";
+	+ "   \"access_token\": \"refreshed-access-token\",\n"
+	+ "   \"token_type\": \"bearer\",\n"
+	+ "   \"expires_in\": \"3600\"\n"
+	+ "}\n";
 		String clientResponse = "{\n"
-			+ "	\"attribute1\": \"value1\",\n"
-			+ "	\"attribute2\": \"value2\"\n"
-			+ "}\n";
+	+ "	\"attribute1\": \"value1\",\n"
+	+ "	\"attribute2\": \"value2\"\n"
+	+ "}\n";
 		// @formatter:on
 		this.server.enqueue(jsonResponse(accessTokenResponse));
 		this.server.enqueue(jsonResponse(clientResponse));
 		ClientRegistration clientRegistration = TestClientRegistrations.clientRegistration().tokenUri(this.serverUrl)
-				.build();
+	.build();
 		given(this.clientRegistrationRepository.findByRegistrationId(eq(clientRegistration.getRegistrationId())))
-				.willReturn(clientRegistration);
+	.willReturn(clientRegistration);
 		Instant issuedAt = Instant.now().minus(Duration.ofDays(1));
 		Instant expiresAt = issuedAt.plus(Duration.ofHours(1));
 		OAuth2AccessToken accessToken = new OAuth2AccessToken(OAuth2AccessToken.TokenType.BEARER,
-				"expired-access-token", issuedAt, expiresAt, new HashSet<>(Arrays.asList("read", "write")));
+	"expired-access-token", issuedAt, expiresAt, new HashSet<>(Arrays.asList("read", "write")));
 		OAuth2RefreshToken refreshToken = TestOAuth2RefreshTokens.refreshToken();
 		OAuth2AuthorizedClient authorizedClient = new OAuth2AuthorizedClient(clientRegistration,
-				this.authentication.getName(), accessToken, refreshToken);
+	this.authentication.getName(), accessToken, refreshToken);
 		doReturn(authorizedClient).when(this.authorizedClientRepository).loadAuthorizedClient(
-				eq(clientRegistration.getRegistrationId()), eq(this.authentication), eq(this.request));
+	eq(clientRegistration.getRegistrationId()), eq(this.authentication), eq(this.request));
 		this.webClient.get().uri(this.serverUrl)
-				.attributes(ServletOAuth2AuthorizedClientExchangeFilterFunction
-						.clientRegistrationId(clientRegistration.getRegistrationId()))
-				.retrieve().bodyToMono(String.class).block();
+	.attributes(ServletOAuth2AuthorizedClientExchangeFilterFunction
+.clientRegistrationId(clientRegistration.getRegistrationId()))
+	.retrieve().bodyToMono(String.class).block();
 		assertThat(this.server.getRequestCount()).isEqualTo(2);
 		ArgumentCaptor<OAuth2AuthorizedClient> authorizedClientCaptor = ArgumentCaptor
-				.forClass(OAuth2AuthorizedClient.class);
+	.forClass(OAuth2AuthorizedClient.class);
 		verify(this.authorizedClientRepository).saveAuthorizedClient(authorizedClientCaptor.capture(),
-				eq(this.authentication), eq(this.request), eq(this.response));
+	eq(this.authentication), eq(this.request), eq(this.response));
 		OAuth2AuthorizedClient refreshedAuthorizedClient = authorizedClientCaptor.getValue();
 		assertThat(refreshedAuthorizedClient.getClientRegistration()).isSameAs(clientRegistration);
 		assertThat(refreshedAuthorizedClient.getAccessToken().getTokenValue()).isEqualTo("refreshed-access-token");
@@ -208,51 +208,46 @@ public class ServletOAuth2AuthorizedClientExchangeFilterFunctionITests {
 	public void requestMultipleWhenNoneAuthorizedThenAuthorizeAndSendRequest() {
 		// @formatter:off
 		String accessTokenResponse = "{\n"
-			+ "   \"access_token\": \"access-token-1234\",\n"
-			+ "   \"token_type\": \"bearer\",\n"
-			+ "   \"expires_in\": \"3600\",\n"
-			+ "   \"scope\": \"read write\"\n"
-			+ "}\n";
+	+ "   \"access_token\": \"access-token-1234\",\n"
+	+ "   \"token_type\": \"bearer\",\n"
+	+ "   \"expires_in\": \"3600\",\n"
+	+ "   \"scope\": \"read write\"\n"
+	+ "}\n";
 		String clientResponse = "{\n"
-			+ "   \"attribute1\": \"value1\",\n"
-			+ "   \"attribute2\": \"value2\"\n"
-			+ "}\n";
+	+ "   \"attribute1\": \"value1\",\n"
+	+ "   \"attribute2\": \"value2\"\n"
+	+ "}\n";
 		// @formatter:on
 		// Client 1
 		this.server.enqueue(jsonResponse(accessTokenResponse));
 		this.server.enqueue(jsonResponse(clientResponse));
 		ClientRegistration clientRegistration1 = TestClientRegistrations.clientCredentials().registrationId("client-1")
-				.tokenUri(this.serverUrl).build();
+	.tokenUri(this.serverUrl).build();
 		given(this.clientRegistrationRepository.findByRegistrationId(eq(clientRegistration1.getRegistrationId())))
-				.willReturn(clientRegistration1);
+	.willReturn(clientRegistration1);
 		// Client 2
 		this.server.enqueue(jsonResponse(accessTokenResponse));
 		this.server.enqueue(jsonResponse(clientResponse));
 		ClientRegistration clientRegistration2 = TestClientRegistrations.clientCredentials().registrationId("client-2")
-				.tokenUri(this.serverUrl).build();
+	.tokenUri(this.serverUrl).build();
 		given(this.clientRegistrationRepository.findByRegistrationId(eq(clientRegistration2.getRegistrationId())))
-				.willReturn(clientRegistration2);
+	.willReturn(clientRegistration2);
 		// @formatter:off
 		this.webClient.get()
-				.uri(this.serverUrl)
-				.attributes(ServletOAuth2AuthorizedClientExchangeFilterFunction.clientRegistrationId(clientRegistration1.getRegistrationId()))
-				.retrieve()
-				.bodyToMono(String.class)
-				.flatMap((response) -> this.webClient
-					.get()
-					.uri(this.serverUrl)
-					.attributes(ServletOAuth2AuthorizedClientExchangeFilterFunction.clientRegistrationId(clientRegistration2.getRegistrationId()))
-					.retrieve()
-					.bodyToMono(String.class)
-				)
-				.contextWrite(context())
-				.block();
+	.uri(this.serverUrl)
+	.attributes(ServletOAuth2AuthorizedClientExchangeFilterFunction.clientRegistrationId(clientRegistration1.getRegistrationId()))
+	.retrieve()
+	.bodyToMono(String.class)
+	.flatMap((response) -> this.webClient.get().uri(this.serverUrl).attributes(ServletOAuth2AuthorizedClientExchangeFilterFunction.clientRegistrationId(clientRegistration2.getRegistrationId())).retrieve().bodyToMono(String.class)
+	)
+	.contextWrite(context())
+	.block();
 		// @formatter:on
 		assertThat(this.server.getRequestCount()).isEqualTo(4);
 		ArgumentCaptor<OAuth2AuthorizedClient> authorizedClientCaptor = ArgumentCaptor
-				.forClass(OAuth2AuthorizedClient.class);
+	.forClass(OAuth2AuthorizedClient.class);
 		verify(this.authorizedClientRepository, times(2)).saveAuthorizedClient(authorizedClientCaptor.capture(),
-				eq(this.authentication), eq(this.request), eq(this.response));
+	eq(this.authentication), eq(this.request), eq(this.response));
 		assertThat(authorizedClientCaptor.getAllValues().get(0).getClientRegistration()).isSameAs(clientRegistration1);
 		assertThat(authorizedClientCaptor.getAllValues().get(1).getClientRegistration()).isSameAs(clientRegistration2);
 	}
@@ -263,14 +258,14 @@ public class ServletOAuth2AuthorizedClientExchangeFilterFunctionITests {
 		contextAttributes.put(HttpServletResponse.class, this.response);
 		contextAttributes.put(Authentication.class, this.authentication);
 		return Context.of(ServletOAuth2AuthorizedClientExchangeFilterFunction.SECURITY_REACTOR_CONTEXT_ATTRIBUTES_KEY,
-				contextAttributes);
+	contextAttributes);
 	}
 
 	private MockResponse jsonResponse(String json) {
 		// @formatter:off
 		return new MockResponse()
-				.setHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-				.setBody(json);
+	.setHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+	.setBody(json);
 		// @formatter:on
 	}
 

@@ -47,7 +47,7 @@ public class HttpStatusReturningLogoutSuccessHandlerTests {
 	@Test
 	public void testCustomHttpStatusBeingReturned() throws Exception {
 		final HttpStatusReturningLogoutSuccessHandler lsh = new HttpStatusReturningLogoutSuccessHandler(
-				HttpStatus.NO_CONTENT);
+	HttpStatus.NO_CONTENT);
 		MockHttpServletRequest request = new MockHttpServletRequest();
 		MockHttpServletResponse response = new MockHttpServletResponse();
 		lsh.onLogoutSuccess(request, response, mock(Authentication.class));
@@ -60,7 +60,7 @@ public class HttpStatusReturningLogoutSuccessHandlerTests {
 	@Test
 	public void testThatSettNullHttpStatusThrowsException() {
 		assertThatIllegalArgumentException().isThrownBy(() -> new HttpStatusReturningLogoutSuccessHandler(null))
-				.withMessage("The provided HttpStatus must not be null.");
+	.withMessage("The provided HttpStatus must not be null.");
 	}
 
 }

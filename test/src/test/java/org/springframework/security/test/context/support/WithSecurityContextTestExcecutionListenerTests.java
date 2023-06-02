@@ -75,7 +75,7 @@ public class WithSecurityContextTestExcecutionListenerTests {
 	}
 
 	@Test
-	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@SuppressWarnings({"rawtypes", "unchecked"})
 	public void beforeTestMethodNullSecurityContextNoError() throws Exception {
 		Class testClass = FakeTest.class;
 		given(this.testContext.getTestClass()).willReturn(testClass);
@@ -84,7 +84,7 @@ public class WithSecurityContextTestExcecutionListenerTests {
 	}
 
 	@Test
-	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@SuppressWarnings({"rawtypes", "unchecked"})
 	public void beforeTestMethodNoApplicationContext() throws Exception {
 		Class testClass = FakeTest.class;
 		given(this.testContext.getApplicationContext()).willThrow(new IllegalStateException());
@@ -94,7 +94,7 @@ public class WithSecurityContextTestExcecutionListenerTests {
 	}
 
 	@Test
-	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@SuppressWarnings({"rawtypes", "unchecked"})
 	public void beforeTestMethodInnerClass() throws Exception {
 		Class testClass = OuterClass.InnerClass.class;
 		Method testNoAnnotation = ReflectionUtils.findMethod(testClass, "testNoAnnotation");
@@ -106,7 +106,7 @@ public class WithSecurityContextTestExcecutionListenerTests {
 	}
 
 	@Test
-	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@SuppressWarnings({"rawtypes", "unchecked"})
 	public void beforeTestMethodInnerInnerClass() throws Exception {
 		Class testClass = OuterClass.InnerClass.InnerInnerClass.class;
 		Method testNoAnnotation = ReflectionUtils.findMethod(testClass, "testNoAnnotation");
@@ -118,7 +118,7 @@ public class WithSecurityContextTestExcecutionListenerTests {
 	}
 
 	@Test
-	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@SuppressWarnings({"rawtypes", "unchecked"})
 	public void beforeTestMethodInnerClassWhenOverride() throws Exception {
 		Class testClass = OverrideOuterClass.InnerClass.class;
 		Method testNoAnnotation = ReflectionUtils.findMethod(testClass, "testNoAnnotation");
@@ -154,13 +154,13 @@ public class WithSecurityContextTestExcecutionListenerTests {
 	// gh-3837
 	public void handlesGenericAnnotation() throws Exception {
 		Method method = ReflectionUtils.findMethod(WithSecurityContextTestExcecutionListenerTests.class,
-				"handlesGenericAnnotationTestMethod");
+	"handlesGenericAnnotationTestMethod");
 		TestContext testContext = mock(TestContext.class);
 		given(testContext.getTestMethod()).willReturn(method);
 		given(testContext.getApplicationContext()).willThrow(new IllegalStateException(""));
 		this.listener.beforeTestMethod(testContext);
 		assertThat(SecurityContextHolder.getContext().getAuthentication().getPrincipal())
-				.isInstanceOf(WithSuperClassWithSecurityContext.class);
+	.isInstanceOf(WithSuperClassWithSecurityContext.class);
 	}
 
 	@WithSuperClassWithSecurityContext

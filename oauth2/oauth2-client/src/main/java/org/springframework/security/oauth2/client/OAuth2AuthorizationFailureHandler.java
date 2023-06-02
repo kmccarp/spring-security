@@ -45,6 +45,6 @@ public interface OAuth2AuthorizationFailureHandler {
 	 * within the context of a {@code jakarta.servlet.ServletContext}.
 	 */
 	void onAuthorizationFailure(OAuth2AuthorizationException authorizationException, Authentication principal,
-			Map<String, Object> attributes);
+Map<String, Object> attributes);
 
 }

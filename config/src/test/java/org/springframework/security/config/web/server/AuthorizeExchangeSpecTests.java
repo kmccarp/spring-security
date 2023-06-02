@@ -36,25 +36,25 @@ public class AuthorizeExchangeSpecTests {
 	@Test
 	public void antMatchersWhenMethodAndPatternsThenDiscriminatesByMethod() {
 		this.http.csrf().disable().authorizeExchange().pathMatchers(HttpMethod.POST, "/a", "/b").denyAll().anyExchange()
-				.permitAll();
+	.permitAll();
 		WebTestClient client = buildClient();
 		// @formatter:off
 		client.get()
-				.uri("/a")
-				.exchange()
-				.expectStatus().isOk();
+	.uri("/a")
+	.exchange()
+	.expectStatus().isOk();
 		client.get()
-				.uri("/b")
-				.exchange()
-				.expectStatus().isOk();
+	.uri("/b")
+	.exchange()
+	.expectStatus().isOk();
 		client.post()
-				.uri("/a")
-				.exchange()
-				.expectStatus().isUnauthorized();
+	.uri("/a")
+	.exchange()
+	.expectStatus().isUnauthorized();
 		client.post()
-				.uri("/b")
-				.exchange()
-				.expectStatus().isUnauthorized();
+	.uri("/b")
+	.exchange()
+	.expectStatus().isUnauthorized();
 		// @formatter:on
 	}
 
@@ -64,46 +64,46 @@ public class AuthorizeExchangeSpecTests {
 		WebTestClient client = buildClient();
 		// @formatter:off
 		client.get()
-				.uri("/a")
-				.exchange()
-				.expectStatus().isUnauthorized();
+	.uri("/a")
+	.exchange()
+	.expectStatus().isUnauthorized();
 		client.get()
-				.uri("/b")
-				.exchange()
-				.expectStatus().isUnauthorized();
+	.uri("/b")
+	.exchange()
+	.expectStatus().isUnauthorized();
 		client.post()
-				.uri("/a")
-				.exchange()
-				.expectStatus().isUnauthorized();
+	.uri("/a")
+	.exchange()
+	.expectStatus().isUnauthorized();
 		client.post()
-				.uri("/b")
-				.exchange()
-				.expectStatus().isUnauthorized();
+	.uri("/b")
+	.exchange()
+	.expectStatus().isUnauthorized();
 		// @formatter:on
 	}
 
 	@Test
 	public void antMatchersWhenPatternsInLambdaThenAnyMethod() {
 		this.http.csrf(ServerHttpSecurity.CsrfSpec::disable).authorizeExchange(
-				(exchanges) -> exchanges.pathMatchers("/a", "/b").denyAll().anyExchange().permitAll());
+	(exchanges) -> exchanges.pathMatchers("/a", "/b").denyAll().anyExchange().permitAll());
 		WebTestClient client = buildClient();
 		// @formatter:off
 		client.get()
-				.uri("/a")
-				.exchange()
-				.expectStatus().isUnauthorized();
+	.uri("/a")
+	.exchange()
+	.expectStatus().isUnauthorized();
 		client.get()
-				.uri("/b")
-				.exchange()
-				.expectStatus().isUnauthorized();
+	.uri("/b")
+	.exchange()
+	.expectStatus().isUnauthorized();
 		client.post()
-				.uri("/a")
-				.exchange()
-				.expectStatus().isUnauthorized();
+	.uri("/a")
+	.exchange()
+	.expectStatus().isUnauthorized();
 		client.post()
-				.uri("/b")
-				.exchange()
-				.expectStatus().isUnauthorized();
+	.uri("/b")
+	.exchange()
+	.expectStatus().isUnauthorized();
 		// @formatter:on
 	}
 
@@ -111,16 +111,16 @@ public class AuthorizeExchangeSpecTests {
 	public void antMatchersWhenNoAccessAndAnotherMatcherThenThrowsException() {
 		this.http.authorizeExchange().pathMatchers("/incomplete");
 		assertThatIllegalStateException()
-				.isThrownBy(() -> this.http.authorizeExchange().pathMatchers("/throws-exception"));
+	.isThrownBy(() -> this.http.authorizeExchange().pathMatchers("/throws-exception"));
 	}
 
 	@Test
 	public void anyExchangeWhenFollowedByMatcherThenThrowsException() {
 		assertThatIllegalStateException().isThrownBy(() ->
-		// @formatter:off
-			this.http.authorizeExchange()
-					.anyExchange().denyAll()
-					.pathMatchers("/never-reached")
+	// @formatter:off
+	this.http.authorizeExchange()
+.anyExchange().denyAll()
+.pathMatchers("/never-reached")
 		// @formatter:on
 		);
 	}

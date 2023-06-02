@@ -61,8 +61,8 @@ public class JwtTimestampValidatorTests {
 		Collection<OAuth2Error> details = jwtValidator.validate(jwt).getErrors();
 		// @formatter:off
 		Collection<String> messages = details.stream()
-				.map(OAuth2Error::getDescription)
-				.collect(Collectors.toList());
+	.map(OAuth2Error::getDescription)
+	.collect(Collectors.toList());
 		// @formatter:on
 		assertThat(messages).contains("Jwt expired at " + oneHourAgo);
 		assertThat(details).allMatch((error) -> Objects.equals(error.getErrorCode(), OAuth2ErrorCodes.INVALID_TOKEN));
@@ -76,8 +76,8 @@ public class JwtTimestampValidatorTests {
 		Collection<OAuth2Error> details = jwtValidator.validate(jwt).getErrors();
 		// @formatter:off
 		Collection<String> messages = details.stream()
-				.map(OAuth2Error::getDescription)
-				.collect(Collectors.toList());
+	.map(OAuth2Error::getDescription)
+	.collect(Collectors.toList());
 		// @formatter:on
 		assertThat(messages).contains("Jwt used before " + oneHourFromNow);
 		assertThat(details).allMatch((error) -> Objects.equals(error.getErrorCode(), OAuth2ErrorCodes.INVALID_TOKEN));
@@ -98,9 +98,9 @@ public class JwtTimestampValidatorTests {
 		OAuth2TokenValidatorResult result = jwtValidator.validate(jwt);
 		// @formatter:off
 		Collection<String> messages = result.getErrors()
-				.stream()
-				.map(OAuth2Error::getDescription)
-				.collect(Collectors.toList());
+	.stream()
+	.map(OAuth2Error::getDescription)
+	.collect(Collectors.toList());
 		// @formatter:on
 		assertThat(result.hasErrors()).isTrue();
 		assertThat(messages).contains("Jwt expired at " + justOverOneDayAgo);
@@ -108,9 +108,9 @@ public class JwtTimestampValidatorTests {
 		result = jwtValidator.validate(jwt);
 		// @formatter:off
 		messages = result.getErrors()
-				.stream()
-				.map(OAuth2Error::getDescription)
-				.collect(Collectors.toList());
+	.stream()
+	.map(OAuth2Error::getDescription)
+	.collect(Collectors.toList());
 		// @formatter:on
 		assertThat(result.hasErrors()).isTrue();
 		assertThat(result.getErrors().iterator().next().getErrorCode()).isEqualTo(OAuth2ErrorCodes.INVALID_TOKEN);

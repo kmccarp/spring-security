@@ -68,13 +68,13 @@ public class RememberMeAuthenticationFilterTests {
 	@Test
 	public void testDetectsAuthenticationManagerProperty() {
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new RememberMeAuthenticationFilter(null, new NullRememberMeServices()));
+	.isThrownBy(() -> new RememberMeAuthenticationFilter(null, new NullRememberMeServices()));
 	}
 
 	@Test
 	public void testDetectsRememberMeServicesProperty() {
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new RememberMeAuthenticationFilter(mock(AuthenticationManager.class), null));
+	.isThrownBy(() -> new RememberMeAuthenticationFilter(mock(AuthenticationManager.class), null));
 	}
 
 	@Test
@@ -84,7 +84,7 @@ public class RememberMeAuthenticationFilterTests {
 		SecurityContextHolder.getContext().setAuthentication(originalAuth);
 		// Setup our filter correctly
 		RememberMeAuthenticationFilter filter = new RememberMeAuthenticationFilter(mock(AuthenticationManager.class),
-				new MockRememberMeServices(this.remembered));
+	new MockRememberMeServices(this.remembered));
 		filter.afterPropertiesSet();
 		// Test
 		MockHttpServletRequest request = new MockHttpServletRequest();
@@ -101,7 +101,7 @@ public class RememberMeAuthenticationFilterTests {
 		AuthenticationManager am = mock(AuthenticationManager.class);
 		given(am.authenticate(this.remembered)).willReturn(this.remembered);
 		RememberMeAuthenticationFilter filter = new RememberMeAuthenticationFilter(am,
-				new MockRememberMeServices(this.remembered));
+	new MockRememberMeServices(this.remembered));
 		filter.afterPropertiesSet();
 		MockHttpServletRequest request = new MockHttpServletRequest();
 		FilterChain fc = mock(FilterChain.class);
@@ -118,10 +118,10 @@ public class RememberMeAuthenticationFilterTests {
 		AuthenticationManager am = mock(AuthenticationManager.class);
 		given(am.authenticate(any(Authentication.class))).willThrow(new BadCredentialsException(""));
 		RememberMeAuthenticationFilter filter = new RememberMeAuthenticationFilter(am,
-				new MockRememberMeServices(this.remembered)) {
+	new MockRememberMeServices(this.remembered)) {
 			@Override
 			protected void onUnsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response,
-					AuthenticationException failed) {
+		AuthenticationException failed) {
 				super.onUnsuccessfulAuthentication(request, response, failed);
 				SecurityContextHolder.getContext().setAuthentication(failedAuth);
 			}
@@ -141,7 +141,7 @@ public class RememberMeAuthenticationFilterTests {
 		AuthenticationManager am = mock(AuthenticationManager.class);
 		given(am.authenticate(this.remembered)).willReturn(this.remembered);
 		RememberMeAuthenticationFilter filter = new RememberMeAuthenticationFilter(am,
-				new MockRememberMeServices(this.remembered));
+	new MockRememberMeServices(this.remembered));
 		filter.setAuthenticationSuccessHandler(new SimpleUrlAuthenticationSuccessHandler("/target"));
 		MockHttpServletRequest request = new MockHttpServletRequest();
 		MockHttpServletResponse response = new MockHttpServletResponse();
@@ -159,7 +159,7 @@ public class RememberMeAuthenticationFilterTests {
 		AuthenticationManager am = mock(AuthenticationManager.class);
 		given(am.authenticate(this.remembered)).willReturn(this.remembered);
 		RememberMeAuthenticationFilter filter = new RememberMeAuthenticationFilter(am,
-				new MockRememberMeServices(this.remembered));
+	new MockRememberMeServices(this.remembered));
 		filter.setAuthenticationSuccessHandler(new SimpleUrlAuthenticationSuccessHandler("/target"));
 		filter.setSecurityContextRepository(securityContextRepository);
 		MockHttpServletRequest request = new MockHttpServletRequest();
@@ -189,7 +189,7 @@ public class RememberMeAuthenticationFilterTests {
 
 		@Override
 		public void loginSuccess(HttpServletRequest request, HttpServletResponse response,
-				Authentication successfulAuthentication) {
+	Authentication successfulAuthentication) {
 		}
 
 	}

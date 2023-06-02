@@ -58,8 +58,7 @@ import org.springframework.security.web.servletapi.SecurityContextHolderAwareReq
  * @author Rob Winch
  * @since 3.2
  */
-public final class ServletApiConfigurer<H extends HttpSecurityBuilder<H>>
-		extends AbstractHttpConfigurer<ServletApiConfigurer<H>, H> {
+public final class ServletApiConfigurer<H extends HttpSecurityBuilder<H>>extends AbstractHttpConfigurer<ServletApiConfigurer<H>, H> {
 
 	private SecurityContextHolderAwareRequestFilter securityContextRequestFilter = new SecurityContextHolderAwareRequestFilter();
 
@@ -81,7 +80,7 @@ public final class ServletApiConfigurer<H extends HttpSecurityBuilder<H>>
 		this.securityContextRequestFilter.setAuthenticationManager(http.getSharedObject(AuthenticationManager.class));
 		ExceptionHandlingConfigurer<H> exceptionConf = http.getConfigurer(ExceptionHandlingConfigurer.class);
 		AuthenticationEntryPoint authenticationEntryPoint = (exceptionConf != null)
-				? exceptionConf.getAuthenticationEntryPoint(http) : null;
+	? exceptionConf.getAuthenticationEntryPoint(http) : null;
 		this.securityContextRequestFilter.setAuthenticationEntryPoint(authenticationEntryPoint);
 		LogoutConfigurer<H> logoutConf = http.getConfigurer(LogoutConfigurer.class);
 		List<LogoutHandler> logoutHandlers = (logoutConf != null) ? logoutConf.getLogoutHandlers() : null;
@@ -95,7 +94,7 @@ public final class ServletApiConfigurer<H extends HttpSecurityBuilder<H>>
 			String[] grantedAuthorityDefaultsBeanNames = context.getBeanNamesForType(GrantedAuthorityDefaults.class);
 			if (grantedAuthorityDefaultsBeanNames.length == 1) {
 				GrantedAuthorityDefaults grantedAuthorityDefaults = context
-						.getBean(grantedAuthorityDefaultsBeanNames[0], GrantedAuthorityDefaults.class);
+			.getBean(grantedAuthorityDefaultsBeanNames[0], GrantedAuthorityDefaults.class);
 				this.securityContextRequestFilter.setRolePrefix(grantedAuthorityDefaults.getRolePrefix());
 			}
 			this.securityContextRequestFilter.setSecurityContextHolderStrategy(getSecurityContextHolderStrategy());

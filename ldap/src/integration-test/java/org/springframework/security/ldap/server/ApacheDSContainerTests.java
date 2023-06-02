@@ -115,14 +115,14 @@ public class ApacheDSContainerTests {
 		server.setPort(ports.get(0));
 		server.setLdapOverSslEnabled(true);
 		assertThatIllegalArgumentException().isThrownBy(server::afterPropertiesSet)
-				.withMessage("When LdapOverSsl is enabled, the keyStoreFile property must be set.");
+	.withMessage("When LdapOverSsl is enabled, the keyStoreFile property must be set.");
 	}
 
 	@Test
 	@DisabledOnOs(OS.WINDOWS)
 	public void startWithLdapOverSslWithWrongPassword() throws Exception {
 		final ClassPathResource keyStoreResource = new ClassPathResource(
-				"/org/springframework/security/ldap/server/spring.keystore");
+	"/org/springframework/security/ldap/server/spring.keystore");
 		final File temporaryKeyStoreFile = new File(this.temporaryFolder, "spring.keystore");
 		FileCopyUtils.copy(keyStoreResource.getInputStream(), new FileOutputStream(temporaryKeyStoreFile));
 
@@ -137,7 +137,7 @@ public class ApacheDSContainerTests {
 		server.setKeyStoreFile(temporaryKeyStoreFile);
 		server.setCertificatePassord("incorrect-password");
 		assertThatExceptionOfType(RuntimeException.class).isThrownBy(server::afterPropertiesSet)
-				.withMessage("Server startup failed").withRootCauseInstanceOf(UnrecoverableKeyException.class);
+	.withMessage("Server startup failed").withRootCauseInstanceOf(UnrecoverableKeyException.class);
 	}
 
 	/**
@@ -157,7 +157,7 @@ public class ApacheDSContainerTests {
 	public void startWithLdapOverSsl() throws Exception {
 
 		final ClassPathResource keyStoreResource = new ClassPathResource(
-				"/org/springframework/security/ldap/server/spring.keystore");
+	"/org/springframework/security/ldap/server/spring.keystore");
 		final File temporaryKeyStoreFile = new File(this.temporaryFolder, "spring.keystore");
 		FileCopyUtils.copy(keyStoreResource.getInputStream(), new FileOutputStream(temporaryKeyStoreFile));
 

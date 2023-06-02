@@ -49,14 +49,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @author Rafiullah Hamedy
  *
  */
-@ExtendWith({ SpringExtension.class, SpringTestContextExtension.class })
+@ExtendWith({SpringExtension.class, SpringTestContextExtension.class})
 @SecurityTestExecutionListeners
 public class LogoutConfigurerClearSiteDataTests {
 
 	private static final String CLEAR_SITE_DATA_HEADER = "Clear-Site-Data";
 
-	private static final Directive[] SOURCE = { Directive.CACHE, Directive.COOKIES, Directive.STORAGE,
-			Directive.EXECUTION_CONTEXTS };
+	private static final Directive[] SOURCE = {Directive.CACHE, Directive.COOKIES, Directive.STORAGE,
+Directive.EXECUTION_CONTEXTS};
 
 	private static final String HEADER_VALUE = "\"cache\", \"cookies\", \"storage\", \"executionContexts\"";
 
@@ -97,8 +97,8 @@ public class LogoutConfigurerClearSiteDataTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.logout()
-					.addLogoutHandler(new HeaderWriterLogoutHandler(new ClearSiteDataHeaderWriter(SOURCE)));
+		.logout()
+		.addLogoutHandler(new HeaderWriterLogoutHandler(new ClearSiteDataHeaderWriter(SOURCE)));
 			return http.build();
 			// @formatter:on
 		}

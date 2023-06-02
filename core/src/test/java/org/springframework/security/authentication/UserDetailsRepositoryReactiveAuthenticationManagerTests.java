@@ -69,9 +69,9 @@ public class UserDetailsRepositoryReactiveAuthenticationManagerTests {
 
 	// @formatter:off
 	private UserDetails user = User.withUsername("user")
-		.password("password")
-		.roles("USER")
-		.build();
+.password("password")
+.roles("USER")
+.build();
 	// @formatter:on
 	private UserDetailsRepositoryReactiveAuthenticationManager manager;
 
@@ -96,7 +96,7 @@ public class UserDetailsRepositoryReactiveAuthenticationManagerTests {
 		this.manager.setScheduler(this.scheduler);
 		this.manager.setPasswordEncoder(this.encoder);
 		UsernamePasswordAuthenticationToken token = UsernamePasswordAuthenticationToken.unauthenticated(this.user,
-				this.user.getPassword());
+	this.user.getPassword());
 		Authentication result = this.manager.authenticate(token).block();
 		verify(this.scheduler).schedule(any());
 	}
@@ -112,7 +112,7 @@ public class UserDetailsRepositoryReactiveAuthenticationManagerTests {
 		this.manager.setPasswordEncoder(this.encoder);
 		this.manager.setUserDetailsPasswordService(this.userDetailsPasswordService);
 		UsernamePasswordAuthenticationToken token = UsernamePasswordAuthenticationToken.unauthenticated(this.user,
-				this.user.getPassword());
+	this.user.getPassword());
 		Authentication result = this.manager.authenticate(token).block();
 		verify(this.encoder).encode(this.user.getPassword());
 		verify(this.userDetailsPasswordService).updatePassword(eq(this.user), eq(encodedPassword));
@@ -125,9 +125,9 @@ public class UserDetailsRepositoryReactiveAuthenticationManagerTests {
 		this.manager.setPasswordEncoder(this.encoder);
 		this.manager.setUserDetailsPasswordService(this.userDetailsPasswordService);
 		UsernamePasswordAuthenticationToken token = UsernamePasswordAuthenticationToken.unauthenticated(this.user,
-				this.user.getPassword());
+	this.user.getPassword());
 		assertThatExceptionOfType(BadCredentialsException.class)
-				.isThrownBy(() -> this.manager.authenticate(token).block());
+	.isThrownBy(() -> this.manager.authenticate(token).block());
 		verifyNoMoreInteractions(this.userDetailsPasswordService);
 	}
 
@@ -139,7 +139,7 @@ public class UserDetailsRepositoryReactiveAuthenticationManagerTests {
 		this.manager.setPasswordEncoder(this.encoder);
 		this.manager.setUserDetailsPasswordService(this.userDetailsPasswordService);
 		UsernamePasswordAuthenticationToken token = UsernamePasswordAuthenticationToken.unauthenticated(this.user,
-				this.user.getPassword());
+	this.user.getPassword());
 		Authentication result = this.manager.authenticate(token).block();
 		verifyNoMoreInteractions(this.userDetailsPasswordService);
 	}
@@ -152,8 +152,8 @@ public class UserDetailsRepositoryReactiveAuthenticationManagerTests {
 		this.manager.setPasswordEncoder(this.encoder);
 		this.manager.setPostAuthenticationChecks(this.postAuthenticationChecks);
 		assertThatExceptionOfType(LockedException.class).isThrownBy(() -> this.manager
-				.authenticate(UsernamePasswordAuthenticationToken.unauthenticated(this.user, this.user.getPassword()))
-				.block()).withMessage("account is locked");
+	.authenticate(UsernamePasswordAuthenticationToken.unauthenticated(this.user, this.user.getPassword()))
+	.block()).withMessage("account is locked");
 		verify(this.postAuthenticationChecks).check(eq(this.user));
 	}
 
@@ -163,7 +163,7 @@ public class UserDetailsRepositoryReactiveAuthenticationManagerTests {
 		given(this.encoder.matches(any(), any())).willReturn(true);
 		this.manager.setPasswordEncoder(this.encoder);
 		UsernamePasswordAuthenticationToken token = UsernamePasswordAuthenticationToken.unauthenticated(this.user,
-				this.user.getPassword());
+	this.user.getPassword());
 		this.manager.authenticate(token).block();
 		verifyNoMoreInteractions(this.postAuthenticationChecks);
 	}
@@ -173,16 +173,16 @@ public class UserDetailsRepositoryReactiveAuthenticationManagerTests {
 		this.manager.setPasswordEncoder(this.encoder);
 		// @formatter:off
 		UserDetails expiredUser = User.withUsername("user")
-				.password("password")
-				.roles("USER")
-				.accountExpired(true)
-				.build();
+	.password("password")
+	.roles("USER")
+	.accountExpired(true)
+	.build();
 		// @formatter:on
 		given(this.userDetailsService.findByUsername(any())).willReturn(Mono.just(expiredUser));
 		UsernamePasswordAuthenticationToken token = UsernamePasswordAuthenticationToken.unauthenticated(expiredUser,
-				expiredUser.getPassword());
+	expiredUser.getPassword());
 		assertThatExceptionOfType(AccountExpiredException.class)
-				.isThrownBy(() -> this.manager.authenticate(token).block());
+	.isThrownBy(() -> this.manager.authenticate(token).block());
 	}
 
 	@Test
@@ -190,14 +190,14 @@ public class UserDetailsRepositoryReactiveAuthenticationManagerTests {
 		this.manager.setPasswordEncoder(this.encoder);
 		// @formatter:off
 		UserDetails lockedUser = User.withUsername("user")
-				.password("password")
-				.roles("USER")
-				.accountLocked(true)
-				.build();
+	.password("password")
+	.roles("USER")
+	.accountLocked(true)
+	.build();
 		// @formatter:on
 		given(this.userDetailsService.findByUsername(any())).willReturn(Mono.just(lockedUser));
 		UsernamePasswordAuthenticationToken token = UsernamePasswordAuthenticationToken.unauthenticated(lockedUser,
-				lockedUser.getPassword());
+	lockedUser.getPassword());
 		assertThatExceptionOfType(LockedException.class).isThrownBy(() -> this.manager.authenticate(token).block());
 	}
 
@@ -206,14 +206,14 @@ public class UserDetailsRepositoryReactiveAuthenticationManagerTests {
 		this.manager.setPasswordEncoder(this.encoder);
 		// @formatter:off
 		UserDetails disabledUser = User.withUsername("user")
-				.password("password")
-				.roles("USER")
-				.disabled(true)
-				.build();
+	.password("password")
+	.roles("USER")
+	.disabled(true)
+	.build();
 		// @formatter:on
 		given(this.userDetailsService.findByUsername(any())).willReturn(Mono.just(disabledUser));
 		UsernamePasswordAuthenticationToken token = UsernamePasswordAuthenticationToken.unauthenticated(disabledUser,
-				disabledUser.getPassword());
+	disabledUser.getPassword());
 		assertThatExceptionOfType(DisabledException.class).isThrownBy(() -> this.manager.authenticate(token).block());
 	}
 

@@ -66,8 +66,8 @@ public class CasAuthenticationToken extends AbstractAuthenticationToken implemen
 	 * @throws IllegalArgumentException if a <code>null</code> was passed
 	 */
 	public CasAuthenticationToken(final String key, final Object principal, final Object credentials,
-			final Collection<? extends GrantedAuthority> authorities, final UserDetails userDetails,
-			final Assertion assertion) {
+final Collection<? extends GrantedAuthority> authorities, final UserDetails userDetails,
+final Assertion assertion) {
 		this(extractKeyHash(key), principal, credentials, authorities, userDetails, assertion);
 	}
 
@@ -90,11 +90,11 @@ public class CasAuthenticationToken extends AbstractAuthenticationToken implemen
 	 * @since 4.2
 	 */
 	private CasAuthenticationToken(final Integer keyHash, final Object principal, final Object credentials,
-			final Collection<? extends GrantedAuthority> authorities, final UserDetails userDetails,
-			final Assertion assertion) {
+final Collection<? extends GrantedAuthority> authorities, final UserDetails userDetails,
+final Assertion assertion) {
 		super(authorities);
 		if ((principal == null) || "".equals(principal) || (credentials == null) || "".equals(credentials)
-				|| (authorities == null) || (userDetails == null) || (assertion == null)) {
+	|| (authorities == null) || (userDetails == null) || (assertion == null)) {
 			throw new IllegalArgumentException("Cannot pass null or empty values to constructor");
 		}
 		this.keyHash = keyHash;

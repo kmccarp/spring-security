@@ -282,7 +282,7 @@ public class OnCommittedResponseWrapperTests {
 	public void printWriterPrintfStringObjectVargs() throws Exception {
 		givenGetWriterThenReturn();
 		String format = "format";
-		Object[] args = new Object[] { "1" };
+		Object[] args = new Object[]{"1"};
 		this.response.getWriter().printf(format, args);
 		verify(this.writer).printf(format, args);
 	}
@@ -292,7 +292,7 @@ public class OnCommittedResponseWrapperTests {
 		givenGetWriterThenReturn();
 		Locale l = Locale.US;
 		String format = "format";
-		Object[] args = new Object[] { "1" };
+		Object[] args = new Object[]{"1"};
 		this.response.getWriter().printf(l, format, args);
 		verify(this.writer).printf(l, format, args);
 	}
@@ -301,7 +301,7 @@ public class OnCommittedResponseWrapperTests {
 	public void printWriterFormatStringObjectVargs() throws Exception {
 		givenGetWriterThenReturn();
 		String format = "format";
-		Object[] args = new Object[] { "1" };
+		Object[] args = new Object[]{"1"};
 		this.response.getWriter().format(format, args);
 		verify(this.writer).format(format, args);
 	}
@@ -311,7 +311,7 @@ public class OnCommittedResponseWrapperTests {
 		givenGetWriterThenReturn();
 		Locale l = Locale.US;
 		String format = "format";
-		Object[] args = new Object[] { "1" };
+		Object[] args = new Object[]{"1"};
 		this.response.getWriter().format(l, format, args);
 		verify(this.writer).format(l, format, args);
 	}
@@ -828,8 +828,8 @@ public class OnCommittedResponseWrapperTests {
 	public void contentLengthPlus1OutputStreamWriteByteArrayMultiDigitCommits() throws Exception {
 		givenGetOutputStreamThenReturn();
 		String expected = "{\n" + "  \"parameterName\" : \"_csrf\",\n"
-				+ "  \"token\" : \"06300b65-c4aa-4c8f-8cda-39ee17f545a0\",\n" + "  \"headerName\" : \"X-CSRF-TOKEN\"\n"
-				+ "}";
+	+ "  \"token\" : \"06300b65-c4aa-4c8f-8cda-39ee17f545a0\",\n" + "  \"headerName\" : \"X-CSRF-TOKEN\"\n"
+	+ "}";
 		this.response.setContentLength(expected.length() + 1);
 		this.response.getOutputStream().write(expected.getBytes());
 		assertThat(this.committed).isFalse();

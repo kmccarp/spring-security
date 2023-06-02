@@ -154,7 +154,7 @@ public class SpringSecurityCoreVersionTests {
 
 	private void performChecks(String minSpringVersion) {
 		Method method = ReflectionUtils.findMethod(SpringSecurityCoreVersion.class, "performVersionChecks",
-				String.class);
+	String.class);
 		ReflectionUtils.makeAccessible(method);
 		ReflectionUtils.invokeMethod(method, null, minSpringVersion);
 	}

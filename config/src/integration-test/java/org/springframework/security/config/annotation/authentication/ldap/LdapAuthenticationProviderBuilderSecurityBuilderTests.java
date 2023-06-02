@@ -75,7 +75,7 @@ public class LdapAuthenticationProviderBuilderSecurityBuilderTests {
 		assertThat(authoritiesPopulator).hasFieldOrPropertyWithValue("groupSearchBase", "");
 		assertThat(authoritiesPopulator).hasFieldOrPropertyWithValue("groupSearchFilter", "(uniqueMember={0})");
 		assertThat(authoritiesPopulator).extracting("searchControls").hasFieldOrPropertyWithValue("searchScope",
-				SearchControls.ONELEVEL_SCOPE);
+	SearchControls.ONELEVEL_SCOPE);
 		assertThat(ReflectionTestUtils.getField(getAuthoritiesMapper(provider), "prefix")).isEqualTo("ROLE_");
 	}
 
@@ -85,7 +85,7 @@ public class LdapAuthenticationProviderBuilderSecurityBuilderTests {
 		LdapAuthenticationProvider provider = ldapProvider();
 
 		assertThat(ReflectionTestUtils.getField(getAuthoritiesPopulator(provider), "groupRoleAttribute"))
-				.isEqualTo("group");
+	.isEqualTo("group");
 	}
 
 	@Test
@@ -94,7 +94,7 @@ public class LdapAuthenticationProviderBuilderSecurityBuilderTests {
 		LdapAuthenticationProvider provider = ldapProvider();
 
 		assertThat(ReflectionTestUtils.getField(getAuthoritiesPopulator(provider), "groupSearchFilter"))
-				.isEqualTo("ou=groupName");
+	.isEqualTo("ou=groupName");
 	}
 
 	@Test
@@ -103,7 +103,7 @@ public class LdapAuthenticationProviderBuilderSecurityBuilderTests {
 		LdapAuthenticationProvider provider = ldapProvider();
 
 		assertThat(ReflectionTestUtils.getField(getAuthoritiesPopulator(provider), "searchControls"))
-				.extracting("searchScope").isEqualTo(SearchControls.SUBTREE_SCOPE);
+	.extracting("searchScope").isEqualTo(SearchControls.SUBTREE_SCOPE);
 	}
 
 	@Test
@@ -119,8 +119,8 @@ public class LdapAuthenticationProviderBuilderSecurityBuilderTests {
 		this.spring.register(BindAuthenticationConfig.class).autowire();
 
 		this.mockMvc.perform(formLogin().user("bob").password("bobspassword"))
-				.andExpect(authenticated().withUsername("bob")
-						.withAuthorities(Collections.singleton(new SimpleGrantedAuthority("ROLE_DEVELOPERS"))));
+	.andExpect(authenticated().withUsername("bob")
+.withAuthorities(Collections.singleton(new SimpleGrantedAuthority("ROLE_DEVELOPERS"))));
 	}
 
 	// SEC-2472
@@ -129,13 +129,13 @@ public class LdapAuthenticationProviderBuilderSecurityBuilderTests {
 		this.spring.register(PasswordEncoderConfig.class).autowire();
 
 		this.mockMvc.perform(formLogin().user("bcrypt").password("password"))
-				.andExpect(authenticated().withUsername("bcrypt")
-						.withAuthorities(Collections.singleton(new SimpleGrantedAuthority("ROLE_DEVELOPERS"))));
+	.andExpect(authenticated().withUsername("bcrypt")
+.withAuthorities(Collections.singleton(new SimpleGrantedAuthority("ROLE_DEVELOPERS"))));
 	}
 
 	private LdapAuthenticationProvider ldapProvider() {
 		return ((List<LdapAuthenticationProvider>) ReflectionTestUtils.getField(this.authenticationManager,
-				"providers")).get(0);
+	"providers")).get(0);
 	}
 
 	private LdapAuthoritiesPopulator getAuthoritiesPopulator(LdapAuthenticationProvider provider) {
@@ -163,15 +163,15 @@ public class LdapAuthenticationProviderBuilderSecurityBuilderTests {
 		void configure(AuthenticationManagerBuilder auth) throws Exception {
 			// @formatter:off
 			auth
-				.ldapAuthentication()
-					.contextSource(contextSource())
-					.userDnPatterns("uid={0},ou=people");
+		.ldapAuthentication()
+		.contextSource(contextSource())
+		.userDnPatterns("uid={0},ou=people");
 			// @formatter:on
 		}
 
 		@Bean
 		AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration)
-				throws Exception {
+	throws Exception {
 			return authenticationConfiguration.getAuthenticationManager();
 		}
 
@@ -185,16 +185,16 @@ public class LdapAuthenticationProviderBuilderSecurityBuilderTests {
 		void configure(AuthenticationManagerBuilder auth) throws Exception {
 			// @formatter:off
 			auth
-				.ldapAuthentication()
-					.contextSource(contextSource())
-					.userDnPatterns("uid={0},ou=people")
-					.groupRoleAttribute("group");
+		.ldapAuthentication()
+		.contextSource(contextSource())
+		.userDnPatterns("uid={0},ou=people")
+		.groupRoleAttribute("group");
 			// @formatter:on
 		}
 
 		@Bean
 		AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration)
-				throws Exception {
+	throws Exception {
 			return authenticationConfiguration.getAuthenticationManager();
 		}
 
@@ -208,16 +208,16 @@ public class LdapAuthenticationProviderBuilderSecurityBuilderTests {
 		void configure(AuthenticationManagerBuilder auth) throws Exception {
 			// @formatter:off
 			auth
-				.ldapAuthentication()
-					.contextSource(contextSource())
-					.userDnPatterns("uid={0},ou=people")
-					.groupSearchFilter("ou=groupName");
+		.ldapAuthentication()
+		.contextSource(contextSource())
+		.userDnPatterns("uid={0},ou=people")
+		.groupSearchFilter("ou=groupName");
 			// @formatter:on
 		}
 
 		@Bean
 		AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration)
-				throws Exception {
+	throws Exception {
 			return authenticationConfiguration.getAuthenticationManager();
 		}
 
@@ -231,17 +231,17 @@ public class LdapAuthenticationProviderBuilderSecurityBuilderTests {
 		void configure(AuthenticationManagerBuilder auth) throws Exception {
 			// @formatter:off
 			auth
-				.ldapAuthentication()
-					.contextSource(contextSource())
-					.userDnPatterns("uid={0},ou=people")
-					.groupSearchFilter("ou=groupName")
-					.groupSearchSubtree(true);
+		.ldapAuthentication()
+		.contextSource(contextSource())
+		.userDnPatterns("uid={0},ou=people")
+		.groupSearchFilter("ou=groupName")
+		.groupSearchSubtree(true);
 			// @formatter:on
 		}
 
 		@Bean
 		AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration)
-				throws Exception {
+	throws Exception {
 			return authenticationConfiguration.getAuthenticationManager();
 		}
 
@@ -255,16 +255,16 @@ public class LdapAuthenticationProviderBuilderSecurityBuilderTests {
 		void configure(AuthenticationManagerBuilder auth) throws Exception {
 			// @formatter:off
 			auth
-				.ldapAuthentication()
-					.contextSource(contextSource())
-					.userDnPatterns("uid={0},ou=people")
-					.rolePrefix("role_");
+		.ldapAuthentication()
+		.contextSource(contextSource())
+		.userDnPatterns("uid={0},ou=people")
+		.rolePrefix("role_");
 			// @formatter:on
 		}
 
 		@Bean
 		AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration)
-				throws Exception {
+	throws Exception {
 			return authenticationConfiguration.getAuthenticationManager();
 		}
 
@@ -278,17 +278,17 @@ public class LdapAuthenticationProviderBuilderSecurityBuilderTests {
 		void configure(AuthenticationManagerBuilder auth) throws Exception {
 			// @formatter:off
 			auth
-				.ldapAuthentication()
-					.contextSource(contextSource())
-					.groupSearchBase("ou=groups")
-					.groupSearchFilter("(member={0})")
-					.userDnPatterns("uid={0},ou=people");
+		.ldapAuthentication()
+		.contextSource(contextSource())
+		.groupSearchBase("ou=groups")
+		.groupSearchFilter("(member={0})")
+		.userDnPatterns("uid={0},ou=people");
 			// @formatter:on
 		}
 
 		@Bean
 		AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration)
-				throws Exception {
+	throws Exception {
 			return authenticationConfiguration.getAuthenticationManager();
 		}
 
@@ -302,18 +302,18 @@ public class LdapAuthenticationProviderBuilderSecurityBuilderTests {
 		void configure(AuthenticationManagerBuilder auth) throws Exception {
 			// @formatter:off
 			auth
-				.ldapAuthentication()
-					.contextSource(contextSource())
-					.passwordEncoder(new BCryptPasswordEncoder())
-					.groupSearchBase("ou=groups")
-					.groupSearchFilter("(member={0})")
-					.userDnPatterns("uid={0},ou=people");
+		.ldapAuthentication()
+		.contextSource(contextSource())
+		.passwordEncoder(new BCryptPasswordEncoder())
+		.groupSearchBase("ou=groups")
+		.groupSearchFilter("(member={0})")
+		.userDnPatterns("uid={0},ou=people");
 			// @formatter:on
 		}
 
 		@Bean
 		AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration)
-				throws Exception {
+	throws Exception {
 			return authenticationConfiguration.getAuthenticationManager();
 		}
 
@@ -326,7 +326,7 @@ public class LdapAuthenticationProviderBuilderSecurityBuilderTests {
 		@Bean
 		ApacheDSContainer ldapServer() throws Exception {
 			ApacheDSContainer apacheDSContainer = new ApacheDSContainer("dc=springframework,dc=org",
-					"classpath:/test-server.ldif");
+		"classpath:/test-server.ldif");
 			apacheDSContainer.setPort(getPort());
 			return apacheDSContainer;
 		}
@@ -342,7 +342,7 @@ public class LdapAuthenticationProviderBuilderSecurityBuilderTests {
 		@Bean
 		BaseLdapPathContextSource contextSource() throws Exception {
 			DefaultSpringSecurityContextSource contextSource = new DefaultSpringSecurityContextSource(
-					"ldap://127.0.0.1:" + getPort() + "/dc=springframework,dc=org");
+		"ldap://127.0.0.1:" + getPort() + "/dc=springframework,dc=org");
 			contextSource.setUserDn("uid=admin,ou=system");
 			contextSource.setPassword("secret");
 			contextSource.afterPropertiesSet();

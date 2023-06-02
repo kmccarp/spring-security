@@ -58,7 +58,7 @@ public class AccessControlListTag extends TagSupport {
 	protected static final Log logger = LogFactory.getLog(AccessControlListTag.class);
 
 	private SecurityContextHolderStrategy securityContextHolderStrategy = SecurityContextHolder
-			.getContextHolderStrategy();
+.getContextHolderStrategy();
 
 	private ApplicationContext applicationContext;
 
@@ -152,7 +152,7 @@ public class AccessControlListTag extends TagSupport {
 		String[] names = this.applicationContext.getBeanNamesForType(SecurityContextHolderStrategy.class);
 		if (names.length == 1) {
 			SecurityContextHolderStrategy strategy = this.applicationContext
-					.getBean(SecurityContextHolderStrategy.class);
+		.getBean(SecurityContextHolderStrategy.class);
 			this.securityContextHolderStrategy = strategy;
 		}
 	}
@@ -170,7 +170,7 @@ public class AccessControlListTag extends TagSupport {
 			return map.values().iterator().next();
 		}
 		throw new JspException("Found incorrect number of " + type.getSimpleName() + " instances in "
-				+ "application context - you must have only have one!");
+	+ "application context - you must have only have one!");
 	}
 
 	public void setDomainObject(Object domainObject) {

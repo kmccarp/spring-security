@@ -93,22 +93,21 @@ public final class JwtBearerReactiveOAuth2AuthorizedClientProvider implements Re
 
 		// @formatter:off
 		return this.jwtAssertionResolver.apply(context)
-				.map((jwt) -> new JwtBearerGrantRequest(clientRegistration, jwt))
-				.flatMap(this.accessTokenResponseClient::getTokenResponse)
-				.onErrorMap(OAuth2AuthorizationException.class,
-						(ex) -> new ClientAuthorizationException(ex.getError(), clientRegistration.getRegistrationId(),
-								ex))
-				.map((tokenResponse) -> new OAuth2AuthorizedClient(clientRegistration, context.getPrincipal().getName(),
-						tokenResponse.getAccessToken()));
+	.map((jwt) -> new JwtBearerGrantRequest(clientRegistration, jwt))
+	.flatMap(this.accessTokenResponseClient::getTokenResponse)
+	.onErrorMap(OAuth2AuthorizationException.class,
+(ex) -> new ClientAuthorizationException(ex.getError(), clientRegistration.getRegistrationId(),ex))
+	.map((tokenResponse) -> new OAuth2AuthorizedClient(clientRegistration, context.getPrincipal().getName(),
+tokenResponse.getAccessToken()));
 		// @formatter:on
 	}
 
 	private Mono<Jwt> resolveJwtAssertion(OAuth2AuthorizationContext context) {
 		// @formatter:off
 		return Mono.just(context)
-				.map((ctx) -> ctx.getPrincipal().getPrincipal())
-				.filter((principal) -> principal instanceof Jwt)
-				.cast(Jwt.class);
+	.map((ctx) -> ctx.getPrincipal().getPrincipal())
+	.filter((principal) -> principal instanceof Jwt)
+	.cast(Jwt.class);
 		// @formatter:on
 	}
 
@@ -123,7 +122,7 @@ public final class JwtBearerReactiveOAuth2AuthorizedClientProvider implements Re
 	 * credential at the Token Endpoint for the {@code jwt-bearer} grant
 	 */
 	public void setAccessTokenResponseClient(
-			ReactiveOAuth2AccessTokenResponseClient<JwtBearerGrantRequest> accessTokenResponseClient) {
+ReactiveOAuth2AccessTokenResponseClient<JwtBearerGrantRequest> accessTokenResponseClient) {
 		Assert.notNull(accessTokenResponseClient, "accessTokenResponseClient cannot be null");
 		this.accessTokenResponseClient = accessTokenResponseClient;
 	}

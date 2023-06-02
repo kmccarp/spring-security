@@ -42,7 +42,7 @@ public class OAuth2ClientCredentialsGrantRequest extends AbstractOAuth2Authoriza
 	public OAuth2ClientCredentialsGrantRequest(ClientRegistration clientRegistration) {
 		super(AuthorizationGrantType.CLIENT_CREDENTIALS, clientRegistration);
 		Assert.isTrue(AuthorizationGrantType.CLIENT_CREDENTIALS.equals(clientRegistration.getAuthorizationGrantType()),
-				"clientRegistration.authorizationGrantType must be AuthorizationGrantType.CLIENT_CREDENTIALS");
+	"clientRegistration.authorizationGrantType must be AuthorizationGrantType.CLIENT_CREDENTIALS");
 	}
 
 }

@@ -50,7 +50,7 @@ public class MediaTypeServerWebExchangeMatcherTests {
 
 	@Test
 	public void constructorMediaTypeArrayWhenContainsNullThenThrowsIllegalArgumentException() {
-		MediaType[] types = { null };
+		MediaType[] types = {null};
 		assertThatIllegalArgumentException().isThrownBy(() -> new MediaTypeServerWebExchangeMatcher(types));
 	}
 
@@ -92,7 +92,7 @@ public class MediaTypeServerWebExchangeMatcherTests {
 	@Test
 	public void matchWhenDefaultResolverAndAcceptImpliedThenMatch() {
 		MediaTypeServerWebExchangeMatcher matcher = new MediaTypeServerWebExchangeMatcher(
-				MediaType.parseMediaTypes("text/*"));
+	MediaType.parseMediaTypes("text/*"));
 		assertThat(matcher.matches(exchange(MediaType.TEXT_HTML)).block().isMatch()).isTrue();
 	}
 

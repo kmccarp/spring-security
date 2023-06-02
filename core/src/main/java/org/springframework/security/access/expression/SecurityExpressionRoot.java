@@ -214,7 +214,7 @@ public abstract class SecurityExpressionRoot implements SecurityExpressionOperat
 	@Override
 	public boolean hasPermission(Object targetId, String targetType, Object permission) {
 		return this.permissionEvaluator.hasPermission(getAuthentication(), (Serializable) targetId, targetType,
-				permission);
+	permission);
 	}
 
 	public void setPermissionEvaluator(PermissionEvaluator permissionEvaluator) {

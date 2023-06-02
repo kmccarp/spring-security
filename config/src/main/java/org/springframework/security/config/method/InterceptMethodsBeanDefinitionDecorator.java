@@ -65,7 +65,7 @@ public class InterceptMethodsBeanDefinitionDecorator implements BeanDefinitionDe
 	}
 
 	static class InternalAuthorizationManagerInterceptMethodsBeanDefinitionDecorator
-			extends AbstractInterceptorDrivenBeanDefinitionDecorator {
+extends AbstractInterceptorDrivenBeanDefinitionDecorator {
 
 		static final String ATT_METHOD = "method";
 
@@ -79,16 +79,16 @@ public class InterceptMethodsBeanDefinitionDecorator implements BeanDefinitionDe
 		protected BeanDefinition createInterceptorDefinition(Node node) {
 			Element interceptMethodsElt = (Element) node;
 			BeanDefinitionBuilder interceptor = BeanDefinitionBuilder
-					.rootBeanDefinition(AuthorizationManagerBeforeMethodInterceptor.class);
+		.rootBeanDefinition(AuthorizationManagerBeforeMethodInterceptor.class);
 			interceptor.setAutowireMode(AbstractBeanDefinition.AUTOWIRE_BY_TYPE);
 			Map<Pointcut, BeanMetadataElement> managers = new ManagedMap<>();
 			List<Element> methods = DomUtils.getChildElementsByTagName(interceptMethodsElt, Elements.PROTECT);
 			for (Element protectElt : methods) {
 				managers.put(pointcut(interceptMethodsElt, protectElt),
-						authorizationManager(interceptMethodsElt, protectElt));
+			authorizationManager(interceptMethodsElt, protectElt));
 			}
 			return interceptor.addConstructorArgValue(Pointcut.TRUE)
-					.addConstructorArgValue(authorizationManager(managers)).getBeanDefinition();
+		.addConstructorArgValue(authorizationManager(managers)).getBeanDefinition();
 		}
 
 		boolean supports(Node node) {
@@ -115,12 +115,12 @@ public class InterceptMethodsBeanDefinitionDecorator implements BeanDefinitionDe
 			}
 			String access = protectElt.getAttribute(ATT_ACCESS);
 			return BeanDefinitionBuilder.rootBeanDefinition(MethodExpressionAuthorizationManager.class)
-					.addConstructorArgValue(access).getBeanDefinition();
+		.addConstructorArgValue(access).getBeanDefinition();
 		}
 
 		private BeanMetadataElement authorizationManager(Map<Pointcut, BeanMetadataElement> managers) {
 			return BeanDefinitionBuilder.rootBeanDefinition(PointcutDelegatingAuthorizationManager.class)
-					.addConstructorArgValue(managers).getBeanDefinition();
+		.addConstructorArgValue(managers).getBeanDefinition();
 		}
 
 	}
@@ -134,7 +134,7 @@ public class InterceptMethodsBeanDefinitionDecorator implements BeanDefinitionDe
 	 */
 	@Deprecated
 	static class InternalInterceptMethodsBeanDefinitionDecorator
-			extends AbstractInterceptorDrivenBeanDefinitionDecorator {
+extends AbstractInterceptorDrivenBeanDefinitionDecorator {
 
 		static final String ATT_METHOD = "method";
 
@@ -146,7 +146,7 @@ public class InterceptMethodsBeanDefinitionDecorator implements BeanDefinitionDe
 		protected BeanDefinition createInterceptorDefinition(Node node) {
 			Element interceptMethodsElt = (Element) node;
 			BeanDefinitionBuilder interceptor = BeanDefinitionBuilder
-					.rootBeanDefinition(MethodSecurityInterceptor.class);
+		.rootBeanDefinition(MethodSecurityInterceptor.class);
 			// Default to autowiring to pick up after invocation mgr
 			interceptor.setAutowireMode(AbstractBeanDefinition.AUTOWIRE_BY_TYPE);
 			String accessManagerId = interceptMethodsElt.getAttribute(ATT_ACCESS_MGR);
@@ -155,7 +155,7 @@ public class InterceptMethodsBeanDefinitionDecorator implements BeanDefinitionDe
 			}
 			interceptor.addPropertyValue("accessDecisionManager", new RuntimeBeanReference(accessManagerId));
 			interceptor.addPropertyValue("authenticationManager",
-					new RuntimeBeanReference(BeanIds.AUTHENTICATION_MANAGER));
+		new RuntimeBeanReference(BeanIds.AUTHENTICATION_MANAGER));
 			// Lookup parent bean information
 			String parentBeanClass = ((Element) interceptMethodsElt.getParentNode()).getAttribute("class");
 			// Parse the included methods

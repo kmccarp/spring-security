@@ -46,13 +46,13 @@ public final class TestOidcUsers {
 		Instant expiresAt = issuedAt.plusSeconds(3600);
 		// @formatter:off
 		return OidcIdToken.withTokenValue("id-token")
-				.issuedAt(issuedAt)
-				.expiresAt(expiresAt)
-				.subject("subject")
-				.issuer("http://localhost/issuer")
-				.audience(Collections.unmodifiableSet(new LinkedHashSet<>(Collections.singletonList("client"))))
-				.authorizedParty("client")
-				.build();
+	.issuedAt(issuedAt)
+	.expiresAt(expiresAt)
+	.subject("subject")
+	.issuer("http://localhost/issuer")
+	.audience(Collections.unmodifiableSet(new LinkedHashSet<>(Collections.singletonList("client"))))
+	.authorizedParty("client")
+	.build();
 		// @formatter:on
 	}
 
@@ -62,7 +62,7 @@ public final class TestOidcUsers {
 
 	private static Collection<? extends GrantedAuthority> authorities(OidcIdToken idToken, OidcUserInfo userInfo) {
 		return new LinkedHashSet<>(Arrays.asList(new OidcUserAuthority(idToken, userInfo),
-				new SimpleGrantedAuthority("SCOPE_read"), new SimpleGrantedAuthority("SCOPE_write")));
+	new SimpleGrantedAuthority("SCOPE_read"), new SimpleGrantedAuthority("SCOPE_write")));
 	}
 
 }

@@ -55,7 +55,7 @@ public final class AuthenticatedPrincipalOAuth2AuthorizedClientRepository implem
 	 * @param authorizedClientService the authorized client service
 	 */
 	public AuthenticatedPrincipalOAuth2AuthorizedClientRepository(
-			OAuth2AuthorizedClientService authorizedClientService) {
+OAuth2AuthorizedClientService authorizedClientService) {
 		Assert.notNull(authorizedClientService, "authorizedClientService cannot be null");
 		this.authorizedClientService = authorizedClientService;
 	}
@@ -68,14 +68,14 @@ public final class AuthenticatedPrincipalOAuth2AuthorizedClientRepository implem
 	 * are unauthenticated (or anonymous)
 	 */
 	public void setAnonymousAuthorizedClientRepository(
-			OAuth2AuthorizedClientRepository anonymousAuthorizedClientRepository) {
+OAuth2AuthorizedClientRepository anonymousAuthorizedClientRepository) {
 		Assert.notNull(anonymousAuthorizedClientRepository, "anonymousAuthorizedClientRepository cannot be null");
 		this.anonymousAuthorizedClientRepository = anonymousAuthorizedClientRepository;
 	}
 
 	@Override
 	public <T extends OAuth2AuthorizedClient> T loadAuthorizedClient(String clientRegistrationId,
-			Authentication principal, HttpServletRequest request) {
+Authentication principal, HttpServletRequest request) {
 		if (this.isPrincipalAuthenticated(principal)) {
 			return this.authorizedClientService.loadAuthorizedClient(clientRegistrationId, principal.getName());
 		}
@@ -84,31 +84,31 @@ public final class AuthenticatedPrincipalOAuth2AuthorizedClientRepository implem
 
 	@Override
 	public void saveAuthorizedClient(OAuth2AuthorizedClient authorizedClient, Authentication principal,
-			HttpServletRequest request, HttpServletResponse response) {
+HttpServletRequest request, HttpServletResponse response) {
 		if (this.isPrincipalAuthenticated(principal)) {
 			this.authorizedClientService.saveAuthorizedClient(authorizedClient, principal);
 		}
 		else {
 			this.anonymousAuthorizedClientRepository.saveAuthorizedClient(authorizedClient, principal, request,
-					response);
+		response);
 		}
 	}
 
 	@Override
 	public void removeAuthorizedClient(String clientRegistrationId, Authentication principal,
-			HttpServletRequest request, HttpServletResponse response) {
+HttpServletRequest request, HttpServletResponse response) {
 		if (this.isPrincipalAuthenticated(principal)) {
 			this.authorizedClientService.removeAuthorizedClient(clientRegistrationId, principal.getName());
 		}
 		else {
 			this.anonymousAuthorizedClientRepository.removeAuthorizedClient(clientRegistrationId, principal, request,
-					response);
+		response);
 		}
 	}
 
 	private boolean isPrincipalAuthenticated(Authentication authentication) {
 		return authentication != null && !this.authenticationTrustResolver.isAnonymous(authentication)
-				&& authentication.isAuthenticated();
+	&& authentication.isAuthenticated();
 	}
 
 }

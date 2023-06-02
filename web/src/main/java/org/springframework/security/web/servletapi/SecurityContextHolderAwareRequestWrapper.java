@@ -52,7 +52,7 @@ import org.springframework.util.Assert;
 public class SecurityContextHolderAwareRequestWrapper extends HttpServletRequestWrapper {
 
 	private SecurityContextHolderStrategy securityContextHolderStrategy = SecurityContextHolder
-			.getContextHolderStrategy();
+.getContextHolderStrategy();
 
 	private final AuthenticationTrustResolver trustResolver;
 
@@ -80,7 +80,7 @@ public class SecurityContextHolderAwareRequestWrapper extends HttpServletRequest
 	 * if no prefix.
 	 */
 	public SecurityContextHolderAwareRequestWrapper(HttpServletRequest request,
-			AuthenticationTrustResolver trustResolver, String rolePrefix) {
+AuthenticationTrustResolver trustResolver, String rolePrefix) {
 		super(request);
 		Assert.notNull(trustResolver, "trustResolver cannot be null");
 		this.rolePrefix = rolePrefix;

@@ -61,12 +61,12 @@ public class CasAuthenticationProviderTests {
 
 	private UserDetails makeUserDetails() {
 		return new User("user", "password", true, true, true, true,
-				AuthorityUtils.createAuthorityList("ROLE_ONE", "ROLE_TWO"));
+	AuthorityUtils.createAuthorityList("ROLE_ONE", "ROLE_TWO"));
 	}
 
 	private UserDetails makeUserDetailsFromAuthoritiesPopulator() {
 		return new User("user", "password", true, true, true, true,
-				AuthorityUtils.createAuthorityList("ROLE_A", "ROLE_B"));
+	AuthorityUtils.createAuthorityList("ROLE_A", "ROLE_B"));
 	}
 
 	private ServiceProperties makeServiceProperties() {
@@ -222,7 +222,7 @@ public class CasAuthenticationProviderTests {
 		cap.setServiceProperties(makeServiceProperties());
 		cap.afterPropertiesSet();
 		CasAuthenticationToken token = new CasAuthenticationToken("WRONG_KEY", makeUserDetails(), "credentials",
-				AuthorityUtils.createAuthorityList("XX"), makeUserDetails(), assertion);
+	AuthorityUtils.createAuthorityList("XX"), makeUserDetails(), assertion);
 		assertThatExceptionOfType(BadCredentialsException.class).isThrownBy(() -> cap.authenticate(token));
 	}
 
@@ -309,7 +309,7 @@ public class CasAuthenticationProviderTests {
 		cap.setServiceProperties(makeServiceProperties());
 		cap.afterPropertiesSet();
 		UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken("some_normal_user",
-				"password", AuthorityUtils.createAuthorityList("ROLE_A"));
+	"password", AuthorityUtils.createAuthorityList("ROLE_A"));
 		assertThat(cap.authenticate(token)).isNull();
 	}
 

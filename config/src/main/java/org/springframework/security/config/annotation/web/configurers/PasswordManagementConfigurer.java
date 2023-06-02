@@ -28,8 +28,7 @@ import org.springframework.util.Assert;
  * @author Evgeniy Cheban
  * @since 5.6
  */
-public final class PasswordManagementConfigurer<B extends HttpSecurityBuilder<B>>
-		extends AbstractHttpConfigurer<PasswordManagementConfigurer<B>, B> {
+public final class PasswordManagementConfigurer<B extends HttpSecurityBuilder<B>>extends AbstractHttpConfigurer<PasswordManagementConfigurer<B>, B> {
 
 	private static final String WELL_KNOWN_CHANGE_PASSWORD_PATTERN = "/.well-known/change-password";
 
@@ -55,7 +54,7 @@ public final class PasswordManagementConfigurer<B extends HttpSecurityBuilder<B>
 	@Override
 	public void configure(B http) throws Exception {
 		RequestMatcherRedirectFilter changePasswordFilter = new RequestMatcherRedirectFilter(
-				new AntPathRequestMatcher(WELL_KNOWN_CHANGE_PASSWORD_PATTERN), this.changePasswordPage);
+	new AntPathRequestMatcher(WELL_KNOWN_CHANGE_PASSWORD_PATTERN), this.changePasswordPage);
 		http.addFilterBefore(postProcess(changePasswordFilter), UsernamePasswordAuthenticationFilter.class);
 	}
 

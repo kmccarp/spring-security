@@ -67,14 +67,14 @@ public class OAuth2LoginAuthenticationWebFilterTests {
 	private ClientRegistration.Builder registration = TestClientRegistrations.clientRegistration();
 
 	private OAuth2AuthorizationResponse.Builder authorizationResponseBldr = OAuth2AuthorizationResponse.success("code")
-			.state("state");
+.state("state");
 
 	@BeforeEach
 	public void setup() {
 		this.filter = new OAuth2LoginAuthenticationWebFilter(this.authenticationManager,
-				this.authorizedClientRepository);
+	this.authorizedClientRepository);
 		this.webFilterExchange = new WebFilterExchange(MockServerWebExchange.from(MockServerHttpRequest.get("/")),
-				new DefaultWebFilterChain((exchange) -> exchange.getResponse().setComplete(), Collections.emptyList()));
+	new DefaultWebFilterChain((exchange) -> exchange.getResponse().setComplete(), Collections.emptyList()));
 		given(this.authorizedClientRepository.saveAuthorizedClient(any(), any(), any())).willReturn(Mono.empty());
 	}
 
@@ -86,27 +86,27 @@ public class OAuth2LoginAuthenticationWebFilterTests {
 
 	private OAuth2LoginAuthenticationToken loginToken() {
 		OAuth2AccessToken accessToken = new OAuth2AccessToken(OAuth2AccessToken.TokenType.BEARER, "token",
-				Instant.now(), Instant.now().plus(Duration.ofDays(1)), Collections.singleton("user"));
+	Instant.now(), Instant.now().plus(Duration.ofDays(1)), Collections.singleton("user"));
 		DefaultOAuth2User user = new DefaultOAuth2User(AuthorityUtils.createAuthorityList("ROLE_USER"),
-				Collections.singletonMap("user", "rob"), "user");
+	Collections.singletonMap("user", "rob"), "user");
 		ClientRegistration clientRegistration = this.registration.build();
 		// @formatter:off
 		OAuth2AuthorizationRequest authorizationRequest = OAuth2AuthorizationRequest.authorizationCode()
-				.state("state")
-				.clientId(clientRegistration.getClientId())
-				.authorizationUri(clientRegistration.getProviderDetails()
-				.getAuthorizationUri())
-				.redirectUri(clientRegistration.getRedirectUri())
-				.scopes(clientRegistration.getScopes())
-				.build();
+	.state("state")
+	.clientId(clientRegistration.getClientId())
+	.authorizationUri(clientRegistration.getProviderDetails()
+.getAuthorizationUri())
+	.redirectUri(clientRegistration.getRedirectUri())
+	.scopes(clientRegistration.getScopes())
+	.build();
 		OAuth2AuthorizationResponse authorizationResponse = this.authorizationResponseBldr
-				.redirectUri(clientRegistration.getRedirectUri())
-				.build();
+	.redirectUri(clientRegistration.getRedirectUri())
+	.build();
 		// @formatter:on
 		OAuth2AuthorizationExchange authorizationExchange = new OAuth2AuthorizationExchange(authorizationRequest,
-				authorizationResponse);
+	authorizationResponse);
 		return new OAuth2LoginAuthenticationToken(clientRegistration, authorizationExchange, user,
-				user.getAuthorities(), accessToken);
+	user.getAuthorities(), accessToken);
 	}
 
 }

@@ -70,32 +70,32 @@ public class OAuth2ErrorHttpMessageConverter extends AbstractHttpMessageConverte
 	@Override
 	@SuppressWarnings("unchecked")
 	protected OAuth2Error readInternal(Class<? extends OAuth2Error> clazz, HttpInputMessage inputMessage)
-			throws HttpMessageNotReadableException {
+throws HttpMessageNotReadableException {
 		try {
 			// gh-8157: Parse parameter values as Object in order to handle potential JSON
 			// Object and then convert values to String
 			Map<String, Object> errorParameters = (Map<String, Object>) this.jsonMessageConverter
-					.read(STRING_OBJECT_MAP.getType(), null, inputMessage);
+		.read(STRING_OBJECT_MAP.getType(), null, inputMessage);
 			return this.errorConverter.convert(errorParameters.entrySet().stream()
-					.collect(Collectors.toMap(Map.Entry::getKey, (entry) -> String.valueOf(entry.getValue()))));
+		.collect(Collectors.toMap(Map.Entry::getKey, (entry) -> String.valueOf(entry.getValue()))));
 		}
 		catch (Exception ex) {
 			throw new HttpMessageNotReadableException(
-					"An error occurred reading the OAuth 2.0 Error: " + ex.getMessage(), ex, inputMessage);
+		"An error occurred reading the OAuth 2.0 Error: " + ex.getMessage(), ex, inputMessage);
 		}
 	}
 
 	@Override
 	protected void writeInternal(OAuth2Error oauth2Error, HttpOutputMessage outputMessage)
-			throws HttpMessageNotWritableException {
+throws HttpMessageNotWritableException {
 		try {
 			Map<String, String> errorParameters = this.errorParametersConverter.convert(oauth2Error);
 			this.jsonMessageConverter.write(errorParameters, STRING_OBJECT_MAP.getType(), MediaType.APPLICATION_JSON,
-					outputMessage);
+		outputMessage);
 		}
 		catch (Exception ex) {
 			throw new HttpMessageNotWritableException(
-					"An error occurred writing the OAuth 2.0 Error: " + ex.getMessage(), ex);
+		"An error occurred writing the OAuth 2.0 Error: " + ex.getMessage(), ex);
 		}
 	}
 
@@ -117,7 +117,7 @@ public class OAuth2ErrorHttpMessageConverter extends AbstractHttpMessageConverte
 	 * {@code Map} representation of the Error parameters
 	 */
 	public final void setErrorParametersConverter(
-			Converter<OAuth2Error, Map<String, String>> errorParametersConverter) {
+Converter<OAuth2Error, Map<String, String>> errorParametersConverter) {
 		Assert.notNull(errorParametersConverter, "errorParametersConverter cannot be null");
 		this.errorParametersConverter = errorParametersConverter;
 	}

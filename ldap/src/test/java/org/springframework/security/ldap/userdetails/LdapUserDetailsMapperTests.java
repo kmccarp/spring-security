@@ -40,12 +40,12 @@ public class LdapUserDetailsMapperTests {
 		LdapUserDetailsMapper mapper = new LdapUserDetailsMapper();
 		mapper.setConvertToUpperCase(false);
 		mapper.setRolePrefix("");
-		mapper.setRoleAttributes(new String[] { "userRole" });
+		mapper.setRoleAttributes(new String[]{"userRole"});
 		DirContextAdapter ctx = new DirContextAdapter();
-		ctx.setAttributeValues("userRole", new String[] { "X", "Y", "Z" });
+		ctx.setAttributeValues("userRole", new String[]{"X", "Y", "Z"});
 		ctx.setAttributeValue("uid", "ani");
 		LdapUserDetailsImpl user = (LdapUserDetailsImpl) mapper.mapUserFromContext(ctx, "ani",
-				AuthorityUtils.NO_AUTHORITIES);
+	AuthorityUtils.NO_AUTHORITIES);
 		assertThat(user.getAuthorities()).hasSize(3);
 	}
 
@@ -55,13 +55,13 @@ public class LdapUserDetailsMapperTests {
 	@Test
 	public void testNonRetrievedRoleAttributeIsIgnored() {
 		LdapUserDetailsMapper mapper = new LdapUserDetailsMapper();
-		mapper.setRoleAttributes(new String[] { "userRole", "nonRetrievedAttribute" });
+		mapper.setRoleAttributes(new String[]{"userRole", "nonRetrievedAttribute"});
 		BasicAttributes attrs = new BasicAttributes();
 		attrs.put(new BasicAttribute("userRole", "x"));
 		DirContextAdapter ctx = new DirContextAdapter(attrs, new DistinguishedName("cn=someName"));
 		ctx.setAttributeValue("uid", "ani");
 		LdapUserDetailsImpl user = (LdapUserDetailsImpl) mapper.mapUserFromContext(ctx, "ani",
-				AuthorityUtils.NO_AUTHORITIES);
+	AuthorityUtils.NO_AUTHORITIES);
 		assertThat(user.getAuthorities()).hasSize(1);
 		assertThat(AuthorityUtils.authorityListToSet(user.getAuthorities())).contains("ROLE_X");
 	}
@@ -75,7 +75,7 @@ public class LdapUserDetailsMapperTests {
 		DirContextAdapter ctx = new DirContextAdapter(attrs, new DistinguishedName("cn=someName"));
 		ctx.setAttributeValue("uid", "ani");
 		LdapUserDetails user = (LdapUserDetailsImpl) mapper.mapUserFromContext(ctx, "ani",
-				AuthorityUtils.NO_AUTHORITIES);
+	AuthorityUtils.NO_AUTHORITIES);
 		assertThat(user.getPassword()).isEqualTo("mypassword");
 	}
 

@@ -48,21 +48,21 @@ final class OAuth2ImportSelector implements ImportSelector {
 		Set<String> imports = new LinkedHashSet<>();
 		ClassLoader classLoader = getClass().getClassLoader();
 		boolean oauth2ClientPresent = ClassUtils
-				.isPresent("org.springframework.security.oauth2.client.registration.ClientRegistration", classLoader);
+	.isPresent("org.springframework.security.oauth2.client.registration.ClientRegistration", classLoader);
 		boolean webfluxPresent = ClassUtils
-				.isPresent("org.springframework.web.reactive.function.client.ExchangeFilterFunction", classLoader);
+	.isPresent("org.springframework.web.reactive.function.client.ExchangeFilterFunction", classLoader);
 		boolean oauth2ResourceServerPresent = ClassUtils
-				.isPresent("org.springframework.security.oauth2.server.resource.BearerTokenError", classLoader);
+	.isPresent("org.springframework.security.oauth2.server.resource.BearerTokenError", classLoader);
 		if (oauth2ClientPresent) {
 			imports.add("org.springframework.security.config.annotation.web.configuration.OAuth2ClientConfiguration");
 		}
 		if (webfluxPresent && oauth2ClientPresent) {
 			imports.add(
-					"org.springframework.security.config.annotation.web.configuration.SecurityReactorContextConfiguration");
+		"org.springframework.security.config.annotation.web.configuration.SecurityReactorContextConfiguration");
 		}
 		if (webfluxPresent && oauth2ResourceServerPresent) {
 			imports.add(
-					"org.springframework.security.config.annotation.web.configuration.SecurityReactorContextConfiguration");
+		"org.springframework.security.config.annotation.web.configuration.SecurityReactorContextConfiguration");
 		}
 		return StringUtils.toStringArray(imports);
 	}

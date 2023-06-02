@@ -47,10 +47,10 @@ public class AuthenticationCredentialsNotFoundEvent extends AbstractAuthorizatio
 	 *
 	 */
 	public AuthenticationCredentialsNotFoundEvent(Object secureObject, Collection<ConfigAttribute> attributes,
-			AuthenticationCredentialsNotFoundException credentialsNotFoundException) {
+AuthenticationCredentialsNotFoundException credentialsNotFoundException) {
 		super(secureObject);
 		Assert.isTrue(attributes != null && credentialsNotFoundException != null,
-				"All parameters are required and cannot be null");
+	"All parameters are required and cannot be null");
 		this.configAttribs = attributes;
 		this.credentialsNotFoundException = credentialsNotFoundException;
 	}

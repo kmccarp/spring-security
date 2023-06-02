@@ -36,7 +36,7 @@ public final class AuthenticationConverterServerWebExchangeMatcher implements Se
 	private final ServerAuthenticationConverter serverAuthenticationConverter;
 
 	public AuthenticationConverterServerWebExchangeMatcher(
-			ServerAuthenticationConverter serverAuthenticationConverter) {
+ServerAuthenticationConverter serverAuthenticationConverter) {
 		Assert.notNull(serverAuthenticationConverter, "serverAuthenticationConverter cannot be null");
 		this.serverAuthenticationConverter = serverAuthenticationConverter;
 	}
@@ -44,7 +44,7 @@ public final class AuthenticationConverterServerWebExchangeMatcher implements Se
 	@Override
 	public Mono<MatchResult> matches(ServerWebExchange exchange) {
 		return this.serverAuthenticationConverter.convert(exchange).flatMap((a) -> MatchResult.match())
-				.onErrorResume((ex) -> MatchResult.notMatch()).switchIfEmpty(MatchResult.notMatch());
+	.onErrorResume((ex) -> MatchResult.notMatch()).switchIfEmpty(MatchResult.notMatch());
 	}
 
 }

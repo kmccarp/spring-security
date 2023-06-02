@@ -42,7 +42,7 @@ public final class JwtReactiveAuthenticationManager implements ReactiveAuthentic
 	private final ReactiveJwtDecoder jwtDecoder;
 
 	private Converter<Jwt, ? extends Mono<? extends AbstractAuthenticationToken>> jwtAuthenticationConverter = new ReactiveJwtAuthenticationConverterAdapter(
-			new JwtAuthenticationConverter());
+new JwtAuthenticationConverter());
 
 	public JwtReactiveAuthenticationManager(ReactiveJwtDecoder jwtDecoder) {
 		Assert.notNull(jwtDecoder, "jwtDecoder cannot be null");
@@ -53,13 +53,13 @@ public final class JwtReactiveAuthenticationManager implements ReactiveAuthentic
 	public Mono<Authentication> authenticate(Authentication authentication) {
 		// @formatter:off
 		return Mono.justOrEmpty(authentication)
-				.filter((a) -> a instanceof BearerTokenAuthenticationToken)
-				.cast(BearerTokenAuthenticationToken.class)
-				.map(BearerTokenAuthenticationToken::getToken)
-				.flatMap(this.jwtDecoder::decode)
-				.flatMap(this.jwtAuthenticationConverter::convert)
-				.cast(Authentication.class)
-				.onErrorMap(JwtException.class, this::onError);
+	.filter((a) -> a instanceof BearerTokenAuthenticationToken)
+	.cast(BearerTokenAuthenticationToken.class)
+	.map(BearerTokenAuthenticationToken::getToken)
+	.flatMap(this.jwtDecoder::decode)
+	.flatMap(this.jwtAuthenticationConverter::convert)
+	.cast(Authentication.class)
+	.onErrorMap(JwtException.class, this::onError);
 		// @formatter:on
 	}
 
@@ -69,7 +69,7 @@ public final class JwtReactiveAuthenticationManager implements ReactiveAuthentic
 	 * @param jwtAuthenticationConverter the {@link Converter} to use
 	 */
 	public void setJwtAuthenticationConverter(
-			Converter<Jwt, ? extends Mono<? extends AbstractAuthenticationToken>> jwtAuthenticationConverter) {
+Converter<Jwt, ? extends Mono<? extends AbstractAuthenticationToken>> jwtAuthenticationConverter) {
 		Assert.notNull(jwtAuthenticationConverter, "jwtAuthenticationConverter cannot be null");
 		this.jwtAuthenticationConverter = jwtAuthenticationConverter;
 	}

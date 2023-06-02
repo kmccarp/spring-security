@@ -37,8 +37,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
  * @author Rob Winch
  * @since 3.2
  */
-public class DelegatingSecurityContextExecutorService extends DelegatingSecurityContextExecutor
-		implements ExecutorService {
+public class DelegatingSecurityContextExecutorService extends DelegatingSecurityContextExecutorimplements ExecutorService {
 
 	/**
 	 * Creates a new {@link DelegatingSecurityContextExecutorService} that uses the
@@ -50,7 +49,7 @@ public class DelegatingSecurityContextExecutorService extends DelegatingSecurity
 	 * {@link DelegatingSecurityContextCallable}.
 	 */
 	public DelegatingSecurityContextExecutorService(ExecutorService delegateExecutorService,
-			SecurityContext securityContext) {
+SecurityContext securityContext) {
 		super(delegateExecutorService, securityContext);
 	}
 
@@ -104,30 +103,30 @@ public class DelegatingSecurityContextExecutorService extends DelegatingSecurity
 	}
 
 	@Override
-	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@SuppressWarnings({"rawtypes", "unchecked"})
 	public final List invokeAll(Collection tasks) throws InterruptedException {
 		tasks = createTasks(tasks);
 		return getDelegate().invokeAll(tasks);
 	}
 
 	@Override
-	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@SuppressWarnings({"rawtypes", "unchecked"})
 	public final List invokeAll(Collection tasks, long timeout, TimeUnit unit) throws InterruptedException {
 		tasks = createTasks(tasks);
 		return getDelegate().invokeAll(tasks, timeout, unit);
 	}
 
 	@Override
-	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@SuppressWarnings({"rawtypes", "unchecked"})
 	public final Object invokeAny(Collection tasks) throws InterruptedException, ExecutionException {
 		tasks = createTasks(tasks);
 		return getDelegate().invokeAny(tasks);
 	}
 
 	@Override
-	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@SuppressWarnings({"rawtypes", "unchecked"})
 	public final Object invokeAny(Collection tasks, long timeout, TimeUnit unit)
-			throws InterruptedException, ExecutionException, TimeoutException {
+throws InterruptedException, ExecutionException, TimeoutException {
 		tasks = createTasks(tasks);
 		return getDelegate().invokeAny(tasks, timeout, unit);
 	}

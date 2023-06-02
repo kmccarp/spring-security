@@ -37,7 +37,7 @@ import org.springframework.util.Assert;
 public final class ReactiveJwtAuthenticationConverter implements Converter<Jwt, Mono<AbstractAuthenticationToken>> {
 
 	private Converter<Jwt, Flux<GrantedAuthority>> jwtGrantedAuthoritiesConverter = new ReactiveJwtGrantedAuthoritiesConverterAdapter(
-			new JwtGrantedAuthoritiesConverter());
+new JwtGrantedAuthoritiesConverter());
 
 	private String principalClaimName = JwtClaimNames.SUB;
 
@@ -45,11 +45,11 @@ public final class ReactiveJwtAuthenticationConverter implements Converter<Jwt, 
 	public Mono<AbstractAuthenticationToken> convert(Jwt jwt) {
 		// @formatter:off
 		return this.jwtGrantedAuthoritiesConverter.convert(jwt)
-				.collectList()
-				.map((authorities) -> {
-					String principalName = jwt.getClaimAsString(this.principalClaimName);
-					return new JwtAuthenticationToken(jwt, authorities, principalName);
-				});
+	.collectList()
+	.map((authorities) -> {
+		String principalName = jwt.getClaimAsString(this.principalClaimName);
+		return new JwtAuthenticationToken(jwt, authorities, principalName);
+	});
 		// @formatter:on
 	}
 
@@ -60,7 +60,7 @@ public final class ReactiveJwtAuthenticationConverter implements Converter<Jwt, 
 	 * @see JwtGrantedAuthoritiesConverter
 	 */
 	public void setJwtGrantedAuthoritiesConverter(
-			Converter<Jwt, Flux<GrantedAuthority>> jwtGrantedAuthoritiesConverter) {
+Converter<Jwt, Flux<GrantedAuthority>> jwtGrantedAuthoritiesConverter) {
 		Assert.notNull(jwtGrantedAuthoritiesConverter, "jwtGrantedAuthoritiesConverter cannot be null");
 		this.jwtGrantedAuthoritiesConverter = jwtGrantedAuthoritiesConverter;
 	}

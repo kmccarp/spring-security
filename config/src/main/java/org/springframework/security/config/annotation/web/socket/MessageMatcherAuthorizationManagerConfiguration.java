@@ -28,11 +28,11 @@ final class MessageMatcherAuthorizationManagerConfiguration {
 	@Bean
 	@Scope("prototype")
 	MessageMatcherDelegatingAuthorizationManager.Builder messageAuthorizationManagerBuilder(
-			ApplicationContext context) {
+ApplicationContext context) {
 		return MessageMatcherDelegatingAuthorizationManager.builder().simpDestPathMatcher(
-				() -> (context.getBeanNamesForType(SimpAnnotationMethodMessageHandler.class).length > 0)
-						? context.getBean(SimpAnnotationMethodMessageHandler.class).getPathMatcher()
-						: new AntPathMatcher());
+	() -> (context.getBeanNamesForType(SimpAnnotationMethodMessageHandler.class).length > 0)
+? context.getBean(SimpAnnotationMethodMessageHandler.class).getPathMatcher()
+: new AntPathMatcher());
 	}
 
 }

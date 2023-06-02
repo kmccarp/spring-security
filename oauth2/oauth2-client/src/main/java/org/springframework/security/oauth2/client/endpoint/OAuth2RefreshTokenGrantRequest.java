@@ -52,7 +52,7 @@ public class OAuth2RefreshTokenGrantRequest extends AbstractOAuth2AuthorizationG
 	 * @param refreshToken the refresh token credential granted
 	 */
 	public OAuth2RefreshTokenGrantRequest(ClientRegistration clientRegistration, OAuth2AccessToken accessToken,
-			OAuth2RefreshToken refreshToken) {
+OAuth2RefreshToken refreshToken) {
 		this(clientRegistration, accessToken, refreshToken, Collections.emptySet());
 	}
 
@@ -64,14 +64,14 @@ public class OAuth2RefreshTokenGrantRequest extends AbstractOAuth2AuthorizationG
 	 * @param scopes the scopes to request
 	 */
 	public OAuth2RefreshTokenGrantRequest(ClientRegistration clientRegistration, OAuth2AccessToken accessToken,
-			OAuth2RefreshToken refreshToken, Set<String> scopes) {
+OAuth2RefreshToken refreshToken, Set<String> scopes) {
 		super(AuthorizationGrantType.REFRESH_TOKEN, clientRegistration);
 		Assert.notNull(accessToken, "accessToken cannot be null");
 		Assert.notNull(refreshToken, "refreshToken cannot be null");
 		this.accessToken = accessToken;
 		this.refreshToken = refreshToken;
 		this.scopes = Collections
-				.unmodifiableSet((scopes != null) ? new LinkedHashSet<>(scopes) : Collections.emptySet());
+	.unmodifiableSet((scopes != null) ? new LinkedHashSet<>(scopes) : Collections.emptySet());
 	}
 
 	/**

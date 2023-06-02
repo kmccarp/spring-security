@@ -75,23 +75,23 @@ public class NamespaceHttpBasicTests {
 	public void httpBasicWithPasswordEncoder() throws Exception {
 		// @formatter:off
 		loadContext("<http>\n"
-			+ "	<intercept-url pattern=\"/**\" access=\"hasRole('USER')\" />\n"
-			+ "	<http-basic />\n"
-			+ "</http>\n"
-			+  "\n"
-			+  "<authentication-manager id=\"authenticationManager\">\n"
-			+  "	<authentication-provider>\n"
-			+  "		<password-encoder ref=\"passwordEncoder\" />\n"
-			+  "		<user-service>\n"
-			+  "			<user name=\"user\" password=\"$2a$10$Zk1MxFEt7YYji4Ccy9xlfuewWzUMsmHZfy4UcCmNKVV6z5i/JNGJW\" authorities=\"ROLE_USER\"/>\n"
-			+  "		</user-service>\n"
-			+  "	</authentication-provider>\n"
-			+  "</authentication-manager>\n"
-			+  "<b:bean id=\"passwordEncoder\"\n"
-			+  "	class=\"org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder\" />");
+	+ "	<intercept-url pattern=\"/**\" access=\"hasRole('USER')\" />\n"
+	+ "	<http-basic />\n"
+	+ "</http>\n"
+	+  "\n"
+	+  "<authentication-manager id=\"authenticationManager\">\n"
+	+  "	<authentication-provider>\n"
+	+  "		<password-encoder ref=\"passwordEncoder\" />\n"
+	+  "		<user-service>\n"
+	+  "			<user name=\"user\" password=\"$2a$10$Zk1MxFEt7YYji4Ccy9xlfuewWzUMsmHZfy4UcCmNKVV6z5i/JNGJW\" authorities=\"ROLE_USER\"/>\n"
+	+  "		</user-service>\n"
+	+  "	</authentication-provider>\n"
+	+  "</authentication-manager>\n"
+	+  "<b:bean id=\"passwordEncoder\"\n"
+	+  "	class=\"org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder\" />");
 		// @formatter:on
 		this.request.addHeader("Authorization",
-				"Basic " + Base64.getEncoder().encodeToString("user:test".getBytes("UTF-8")));
+	"Basic " + Base64.getEncoder().encodeToString("user:test".getBytes("UTF-8")));
 		this.springSecurityFilterChain.doFilter(this.request, this.response, this.chain);
 		assertThat(this.response.getStatus()).isEqualTo(HttpServletResponse.SC_OK);
 	}
@@ -100,21 +100,21 @@ public class NamespaceHttpBasicTests {
 	public void httpBasicCustomSecurityContextHolderStrategy() throws Exception {
 		// @formatter:off
 		loadContext("<http auto-config=\"true\" use-expressions=\"false\" security-context-holder-strategy-ref=\"ref\" use-authorization-manager=\"false\"/>\n"
-				+  "<authentication-manager id=\"authenticationManager\">\n"
-				+  "	<authentication-provider>\n"
-				+  "		<user-service>\n"
-				+  "			<user name=\"user\" password=\"{noop}test\" authorities=\"ROLE_USER\"/>\n"
-				+  "		</user-service>\n"
-				+  "	</authentication-provider>\n"
-				+  "</authentication-manager>\n"
-				+  "<b:bean id=\"ref\" class=\"org.mockito.Mockito\" factory-method=\"spy\">\n" +
-				"	<b:constructor-arg>\n" +
-				"		<b:bean class=\"org.springframework.security.config.MockSecurityContextHolderStrategy\"/>\n" +
-				"	</b:constructor-arg>\n" +
-				"</b:bean>");
+	+  "<authentication-manager id=\"authenticationManager\">\n"
+	+  "	<authentication-provider>\n"
+	+  "		<user-service>\n"
+	+  "			<user name=\"user\" password=\"{noop}test\" authorities=\"ROLE_USER\"/>\n"
+	+  "		</user-service>\n"
+	+  "	</authentication-provider>\n"
+	+  "</authentication-manager>\n"
+	+  "<b:bean id=\"ref\" class=\"org.mockito.Mockito\" factory-method=\"spy\">\n" +
+	"	<b:constructor-arg>\n" +
+	"		<b:bean class=\"org.springframework.security.config.MockSecurityContextHolderStrategy\"/>\n" +
+	"	</b:constructor-arg>\n" +
+	"</b:bean>");
 		// @formatter:on
 		this.request.addHeader("Authorization",
-				"Basic " + Base64.getEncoder().encodeToString("user:test".getBytes("UTF-8")));
+	"Basic " + Base64.getEncoder().encodeToString("user:test".getBytes("UTF-8")));
 		this.springSecurityFilterChain.doFilter(this.request, this.response, this.chain);
 		assertThat(this.response.getStatus()).isEqualTo(HttpServletResponse.SC_OK);
 		verify(this.context.getBean(SecurityContextHolderStrategy.class), atLeastOnce()).getContext();
@@ -125,11 +125,11 @@ public class NamespaceHttpBasicTests {
 	public void httpBasicUnauthorizedOnDefault() throws Exception {
 		// @formatter:off
 		loadContext("<http>\n"
-			+  "	<intercept-url pattern=\"/**\" access=\"hasRole('USER')\" />\n"
-			+  "	<http-basic />\n"
-			+  "</http>\n"
-			+  "\n"
-			+  "<authentication-manager />");
+	+  "	<intercept-url pattern=\"/**\" access=\"hasRole('USER')\" />\n"
+	+  "	<http-basic />\n"
+	+  "</http>\n"
+	+  "\n"
+	+  "<authentication-manager />");
 		// @formatter:on
 		this.springSecurityFilterChain.doFilter(this.request, this.response, this.chain);
 		assertThat(this.response.getStatus()).isEqualTo(HttpServletResponse.SC_UNAUTHORIZED);

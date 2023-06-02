@@ -34,10 +34,10 @@ class SecuritySocketAcceptorInterceptorConfiguration {
 
 	@Bean
 	SecuritySocketAcceptorInterceptor securitySocketAcceptorInterceptor(
-			ObjectProvider<PayloadSocketAcceptorInterceptor> rsocketInterceptor,
-			ObjectProvider<RSocketSecurity> rsocketSecurity) {
+ObjectProvider<PayloadSocketAcceptorInterceptor> rsocketInterceptor,
+ObjectProvider<RSocketSecurity> rsocketSecurity) {
 		PayloadSocketAcceptorInterceptor delegate = rsocketInterceptor
-				.getIfAvailable(() -> defaultInterceptor(rsocketSecurity));
+	.getIfAvailable(() -> defaultInterceptor(rsocketSecurity));
 		return new SecuritySocketAcceptorInterceptor(delegate);
 	}
 
@@ -48,12 +48,9 @@ class SecuritySocketAcceptorInterceptorConfiguration {
 		}
 		// @formatter:off
 		rsocket.basicAuthentication(Customizer.withDefaults())
-			.simpleAuthentication(Customizer.withDefaults())
-			.authorizePayload((authz) -> authz
-				.setup().authenticated()
-				.anyRequest().authenticated()
-				.matcher((e) -> MatchResult.match()).permitAll()
-			);
+	.simpleAuthentication(Customizer.withDefaults())
+	.authorizePayload((authz) -> authz.setup().authenticated().anyRequest().authenticated().matcher((e) -> MatchResult.match()).permitAll()
+	);
 		// @formatter:on
 		return rsocket.build();
 	}

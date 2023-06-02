@@ -93,7 +93,7 @@ public final class RequestHeaderRequestMatcher implements RequestMatcher {
 	@Override
 	public String toString() {
 		return "RequestHeaderRequestMatcher [expectedHeaderName=" + this.expectedHeaderName + ", expectedHeaderValue="
-				+ this.expectedHeaderValue + "]";
+	+ this.expectedHeaderValue + "]";
 	}
 
 }

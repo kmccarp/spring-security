@@ -98,7 +98,7 @@ public class MvcRequestMatcher implements RequestMatcher, RequestVariablesExtrac
 
 	private boolean notMatchMethodOrServletPath(HttpServletRequest request) {
 		return this.method != null && !this.method.name().equals(request.getMethod())
-				|| this.servletPath != null && !this.servletPath.equals(request.getServletPath());
+	|| this.servletPath != null && !this.servletPath.equals(request.getServletPath());
 	}
 
 	private MatchableHandlerMapping getMapping(HttpServletRequest request) {
@@ -140,7 +140,7 @@ public class MvcRequestMatcher implements RequestMatcher, RequestVariablesExtrac
 		}
 		MvcRequestMatcher that = (MvcRequestMatcher) o;
 		return Objects.equals(this.pattern, that.pattern) && Objects.equals(this.method, that.method)
-				&& Objects.equals(this.servletPath, that.servletPath);
+	&& Objects.equals(this.servletPath, that.servletPath);
 	}
 
 	@Override
@@ -183,7 +183,7 @@ public class MvcRequestMatcher implements RequestMatcher, RequestVariablesExtrac
 			String lookupPath = this.pathHelper.getLookupPathForRequest(request);
 			if (matches(lookupPath)) {
 				Map<String, String> variables = this.pathMatcher
-						.extractUriTemplateVariables(MvcRequestMatcher.this.pattern, lookupPath);
+			.extractUriTemplateVariables(MvcRequestMatcher.this.pattern, lookupPath);
 				return MatchResult.match(variables);
 			}
 			return MatchResult.notMatch();

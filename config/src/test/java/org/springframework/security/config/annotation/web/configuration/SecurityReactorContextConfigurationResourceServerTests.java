@@ -72,8 +72,8 @@ public class SecurityReactorContextConfigurationResourceServerTests {
 		MockHttpServletRequestBuilder authenticatedRequest = get("/token").with(authentication(authentication));
 		// @formatter:off
 		this.mockMvc.perform(authenticatedRequest)
-				.andExpect(status().isOk())
-				.andExpect(content().string("Bearer token"));
+	.andExpect(status().isOk())
+	.andExpect(content().string("Bearer token"));
 		// @formatter:on
 	}
 
@@ -85,8 +85,8 @@ public class SecurityReactorContextConfigurationResourceServerTests {
 		MockHttpServletRequestBuilder authenticatedRequest = get("/token").with(authentication(authentication));
 		// @formatter:off
 		this.mockMvc.perform(authenticatedRequest)
-				.andExpect(status().isOk())
-				.andExpect(content().string(""));
+	.andExpect(status().isOk())
+	.andExpect(content().string(""));
 		// @formatter:on
 	}
 
@@ -94,12 +94,12 @@ public class SecurityReactorContextConfigurationResourceServerTests {
 	public void requestWhenCustomSecurityContextHolderStrategyThenUses() throws Exception {
 		BearerTokenAuthentication authentication = TestBearerTokenAuthentications.bearer();
 		this.spring.register(BearerFilterConfig.class, WebServerConfig.class, Controller.class,
-				SecurityContextChangedListenerConfig.class).autowire();
+	SecurityContextChangedListenerConfig.class).autowire();
 		MockHttpServletRequestBuilder authenticatedRequest = get("/token").with(authentication(authentication));
 		// @formatter:off
 		this.mockMvc.perform(authenticatedRequest)
-				.andExpect(status().isOk())
-				.andExpect(content().string("Bearer token"));
+	.andExpect(status().isOk())
+	.andExpect(content().string("Bearer token"));
 		// @formatter:on
 		SecurityContextHolderStrategy strategy = this.spring.getContext().getBean(SecurityContextHolderStrategy.class);
 		verify(strategy, atLeastOnce()).getContext();
@@ -156,15 +156,15 @@ public class SecurityReactorContextConfigurationResourceServerTests {
 		String token() {
 			// @formatter:off
 			return this.rest.get()
-					.uri(this.uri)
-					.retrieve()
-					.bodyToMono(String.class)
-					.flatMap((result) -> this.rest.get()
-							.uri(this.uri)
-							.retrieve()
-							.bodyToMono(String.class)
-					)
-					.block();
+		.uri(this.uri)
+		.retrieve()
+		.bodyToMono(String.class)
+		.flatMap((result) -> this.rest.get()
+.uri(this.uri)
+.retrieve()
+.bodyToMono(String.class)
+		)
+		.block();
 			// @formatter:on
 		}
 

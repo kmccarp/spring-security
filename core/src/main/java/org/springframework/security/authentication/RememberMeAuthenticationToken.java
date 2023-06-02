@@ -46,7 +46,7 @@ public class RememberMeAuthenticationToken extends AbstractAuthenticationToken {
 	 * @throws IllegalArgumentException if a <code>null</code> was passed
 	 */
 	public RememberMeAuthenticationToken(String key, Object principal,
-			Collection<? extends GrantedAuthority> authorities) {
+Collection<? extends GrantedAuthority> authorities) {
 		super(authorities);
 		if ((key == null) || ("".equals(key)) || (principal == null) || "".equals(principal)) {
 			throw new IllegalArgumentException("Cannot pass null or empty values to constructor");
@@ -64,7 +64,7 @@ public class RememberMeAuthenticationToken extends AbstractAuthenticationToken {
 	 * @since 4.2
 	 */
 	private RememberMeAuthenticationToken(Integer keyHash, Object principal,
-			Collection<? extends GrantedAuthority> authorities) {
+Collection<? extends GrantedAuthority> authorities) {
 		super(authorities);
 		this.keyHash = keyHash;
 		this.principal = principal;

@@ -52,11 +52,10 @@ import org.springframework.util.Assert;
  * @author Josh Cummings
  * @since 5.6
  */
-public final class AuthorizationManagerBeforeMethodInterceptor
-		implements Ordered, MethodInterceptor, PointcutAdvisor, AopInfrastructureBean {
+public final class AuthorizationManagerBeforeMethodInterceptorimplements Ordered, MethodInterceptor, PointcutAdvisor, AopInfrastructureBean {
 
 	private Supplier<Authentication> authentication = getAuthentication(
-			SecurityContextHolder.getContextHolderStrategy());
+SecurityContextHolder.getContextHolderStrategy());
 
 	private final Log logger = LogFactory.getLog(this.getClass());
 
@@ -74,7 +73,7 @@ public final class AuthorizationManagerBeforeMethodInterceptor
 	 * @param authorizationManager the {@link AuthorizationManager} to use
 	 */
 	public AuthorizationManagerBeforeMethodInterceptor(Pointcut pointcut,
-			AuthorizationManager<MethodInvocation> authorizationManager) {
+AuthorizationManager<MethodInvocation> authorizationManager) {
 		Assert.notNull(pointcut, "pointcut cannot be null");
 		Assert.notNull(authorizationManager, "authorizationManager cannot be null");
 		this.pointcut = pointcut;
@@ -95,9 +94,9 @@ public final class AuthorizationManagerBeforeMethodInterceptor
 	 * @return the interceptor
 	 */
 	public static AuthorizationManagerBeforeMethodInterceptor preAuthorize(
-			PreAuthorizeAuthorizationManager authorizationManager) {
+PreAuthorizeAuthorizationManager authorizationManager) {
 		AuthorizationManagerBeforeMethodInterceptor interceptor = new AuthorizationManagerBeforeMethodInterceptor(
-				AuthorizationMethodPointcuts.forAnnotations(PreAuthorize.class), authorizationManager);
+	AuthorizationMethodPointcuts.forAnnotations(PreAuthorize.class), authorizationManager);
 		interceptor.setOrder(AuthorizationInterceptorsOrder.PRE_AUTHORIZE.getOrder());
 		return interceptor;
 	}
@@ -109,9 +108,9 @@ public final class AuthorizationManagerBeforeMethodInterceptor
 	 * @since 6.0
 	 */
 	public static AuthorizationManagerBeforeMethodInterceptor preAuthorize(
-			AuthorizationManager<MethodInvocation> authorizationManager) {
+AuthorizationManager<MethodInvocation> authorizationManager) {
 		AuthorizationManagerBeforeMethodInterceptor interceptor = new AuthorizationManagerBeforeMethodInterceptor(
-				AuthorizationMethodPointcuts.forAnnotations(PreAuthorize.class), authorizationManager);
+	AuthorizationMethodPointcuts.forAnnotations(PreAuthorize.class), authorizationManager);
 		interceptor.setOrder(AuthorizationInterceptorsOrder.PRE_AUTHORIZE.getOrder());
 		return interceptor;
 	}
@@ -130,9 +129,9 @@ public final class AuthorizationManagerBeforeMethodInterceptor
 	 * @return the interceptor
 	 */
 	public static AuthorizationManagerBeforeMethodInterceptor secured(
-			SecuredAuthorizationManager authorizationManager) {
+SecuredAuthorizationManager authorizationManager) {
 		AuthorizationManagerBeforeMethodInterceptor interceptor = new AuthorizationManagerBeforeMethodInterceptor(
-				AuthorizationMethodPointcuts.forAnnotations(Secured.class), authorizationManager);
+	AuthorizationMethodPointcuts.forAnnotations(Secured.class), authorizationManager);
 		interceptor.setOrder(AuthorizationInterceptorsOrder.SECURED.getOrder());
 		return interceptor;
 	}
@@ -144,9 +143,9 @@ public final class AuthorizationManagerBeforeMethodInterceptor
 	 * @since 6.0
 	 */
 	public static AuthorizationManagerBeforeMethodInterceptor secured(
-			AuthorizationManager<MethodInvocation> authorizationManager) {
+AuthorizationManager<MethodInvocation> authorizationManager) {
 		AuthorizationManagerBeforeMethodInterceptor interceptor = new AuthorizationManagerBeforeMethodInterceptor(
-				AuthorizationMethodPointcuts.forAnnotations(Secured.class), authorizationManager);
+	AuthorizationMethodPointcuts.forAnnotations(Secured.class), authorizationManager);
 		interceptor.setOrder(AuthorizationInterceptorsOrder.SECURED.getOrder());
 		return interceptor;
 	}
@@ -166,8 +165,8 @@ public final class AuthorizationManagerBeforeMethodInterceptor
 	 */
 	public static AuthorizationManagerBeforeMethodInterceptor jsr250(Jsr250AuthorizationManager authorizationManager) {
 		AuthorizationManagerBeforeMethodInterceptor interceptor = new AuthorizationManagerBeforeMethodInterceptor(
-				AuthorizationMethodPointcuts.forAnnotations(RolesAllowed.class, DenyAll.class, PermitAll.class),
-				authorizationManager);
+	AuthorizationMethodPointcuts.forAnnotations(RolesAllowed.class, DenyAll.class, PermitAll.class),
+	authorizationManager);
 		interceptor.setOrder(AuthorizationInterceptorsOrder.JSR250.getOrder());
 		return interceptor;
 	}
@@ -179,10 +178,10 @@ public final class AuthorizationManagerBeforeMethodInterceptor
 	 * @since 6.0
 	 */
 	public static AuthorizationManagerBeforeMethodInterceptor jsr250(
-			AuthorizationManager<MethodInvocation> authorizationManager) {
+AuthorizationManager<MethodInvocation> authorizationManager) {
 		AuthorizationManagerBeforeMethodInterceptor interceptor = new AuthorizationManagerBeforeMethodInterceptor(
-				AuthorizationMethodPointcuts.forAnnotations(RolesAllowed.class, DenyAll.class, PermitAll.class),
-				authorizationManager);
+	AuthorizationMethodPointcuts.forAnnotations(RolesAllowed.class, DenyAll.class, PermitAll.class),
+	authorizationManager);
 		interceptor.setOrder(AuthorizationInterceptorsOrder.JSR250.getOrder());
 		return interceptor;
 	}
@@ -253,7 +252,7 @@ public final class AuthorizationManagerBeforeMethodInterceptor
 		this.eventPublisher.publishAuthorizationEvent(this.authentication, mi, decision);
 		if (decision != null && !decision.isGranted()) {
 			this.logger.debug(LogMessage.of(() -> "Failed to authorize " + mi + " with authorization manager "
-					+ this.authorizationManager + " and decision " + decision));
+		+ this.authorizationManager + " and decision " + decision));
 			throw new AccessDeniedException("Access Denied");
 		}
 		this.logger.debug(LogMessage.of(() -> "Authorized method invocation " + mi));
@@ -264,14 +263,14 @@ public final class AuthorizationManagerBeforeMethodInterceptor
 			Authentication authentication = strategy.getContext().getAuthentication();
 			if (authentication == null) {
 				throw new AuthenticationCredentialsNotFoundException(
-						"An Authentication object was not found in the SecurityContext");
+			"An Authentication object was not found in the SecurityContext");
 			}
 			return authentication;
 		};
 	}
 
 	private static <T> void noPublish(Supplier<Authentication> authentication, T object,
-			AuthorizationDecision decision) {
+AuthorizationDecision decision) {
 
 	}
 

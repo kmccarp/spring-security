@@ -50,7 +50,7 @@ public class LdapPasswordComparisonAuthenticationManagerFactoryITests {
 		this.spring.register(CustomPasswordEncoderConfig.class).autowire();
 
 		this.mockMvc.perform(formLogin().user("bcrypt").password("password"))
-				.andExpect(authenticated().withUsername("bcrypt"));
+	.andExpect(authenticated().withUsername("bcrypt"));
 	}
 
 	@Test
@@ -67,7 +67,7 @@ public class LdapPasswordComparisonAuthenticationManagerFactoryITests {
 		@Bean
 		AuthenticationManager authenticationManager(BaseLdapPathContextSource contextSource) {
 			LdapPasswordComparisonAuthenticationManagerFactory factory = new LdapPasswordComparisonAuthenticationManagerFactory(
-					contextSource, new BCryptPasswordEncoder());
+		contextSource, new BCryptPasswordEncoder());
 			factory.setUserDnPatterns("uid={0},ou=people");
 			return factory.createAuthenticationManager();
 		}
@@ -81,7 +81,7 @@ public class LdapPasswordComparisonAuthenticationManagerFactoryITests {
 		@Bean
 		AuthenticationManager authenticationManager(BaseLdapPathContextSource contextSource) {
 			LdapPasswordComparisonAuthenticationManagerFactory factory = new LdapPasswordComparisonAuthenticationManagerFactory(
-					contextSource, NoOpPasswordEncoder.getInstance());
+		contextSource, NoOpPasswordEncoder.getInstance());
 			factory.setPasswordAttribute("uid");
 			factory.setUserDnPatterns("uid={0},ou=people");
 			return factory.createAuthenticationManager();

@@ -42,13 +42,12 @@ import org.springframework.web.server.ServerWebExchange;
  * @since 5.7
  *
  */
-public final class ServerWebExchangeDelegatingReactiveAuthenticationManagerResolver
-		implements ReactiveAuthenticationManagerResolver<ServerWebExchange> {
+public final class ServerWebExchangeDelegatingReactiveAuthenticationManagerResolverimplements ReactiveAuthenticationManagerResolver<ServerWebExchange> {
 
 	private final List<ServerWebExchangeMatcherEntry<ReactiveAuthenticationManager>> authenticationManagers;
 
 	private ReactiveAuthenticationManager defaultAuthenticationManager = (authentication) -> Mono
-			.error(new AuthenticationServiceException("Cannot authenticate " + authentication));
+.error(new AuthenticationServiceException("Cannot authenticate " + authentication));
 
 	/**
 	 * Construct an
@@ -57,7 +56,7 @@ public final class ServerWebExchangeDelegatingReactiveAuthenticationManagerResol
 	 * @param managers a set of {@link ServerWebExchangeMatcherEntry}s
 	 */
 	ServerWebExchangeDelegatingReactiveAuthenticationManagerResolver(
-			ServerWebExchangeMatcherEntry<ReactiveAuthenticationManager>... managers) {
+ServerWebExchangeMatcherEntry<ReactiveAuthenticationManager>... managers) {
 		this(Arrays.asList(managers));
 	}
 
@@ -68,7 +67,7 @@ public final class ServerWebExchangeDelegatingReactiveAuthenticationManagerResol
 	 * @param managers a {@link List} of {@link ServerWebExchangeMatcherEntry}s
 	 */
 	ServerWebExchangeDelegatingReactiveAuthenticationManagerResolver(
-			List<ServerWebExchangeMatcherEntry<ReactiveAuthenticationManager>> managers) {
+List<ServerWebExchangeMatcherEntry<ReactiveAuthenticationManager>> managers) {
 		Assert.notNull(managers, "entries cannot be null");
 		this.authenticationManagers = managers;
 	}
@@ -79,7 +78,7 @@ public final class ServerWebExchangeDelegatingReactiveAuthenticationManagerResol
 	@Override
 	public Mono<ReactiveAuthenticationManager> resolve(ServerWebExchange exchange) {
 		return Flux.fromIterable(this.authenticationManagers).filterWhen((entry) -> isMatch(exchange, entry)).next()
-				.map(ServerWebExchangeMatcherEntry::getEntry).defaultIfEmpty(this.defaultAuthenticationManager);
+	.map(ServerWebExchangeMatcherEntry::getEntry).defaultIfEmpty(this.defaultAuthenticationManager);
 	}
 
 	/**
@@ -103,7 +102,7 @@ public final class ServerWebExchangeDelegatingReactiveAuthenticationManagerResol
 	}
 
 	private Mono<Boolean> isMatch(ServerWebExchange exchange,
-			ServerWebExchangeMatcherEntry<ReactiveAuthenticationManager> entry) {
+ServerWebExchangeMatcherEntry<ReactiveAuthenticationManager> entry) {
 		ServerWebExchangeMatcher matcher = entry.getMatcher();
 		return matcher.matches(exchange).map(ServerWebExchangeMatcher.MatchResult::isMatch);
 	}
@@ -129,7 +128,7 @@ public final class ServerWebExchangeDelegatingReactiveAuthenticationManagerResol
 		 * further customizations
 		 */
 		public ServerWebExchangeDelegatingReactiveAuthenticationManagerResolver.Builder add(
-				ServerWebExchangeMatcher matcher, ReactiveAuthenticationManager manager) {
+	ServerWebExchangeMatcher matcher, ReactiveAuthenticationManager manager) {
 			Assert.notNull(matcher, "matcher cannot be null");
 			Assert.notNull(manager, "manager cannot be null");
 			this.entries.add(new ServerWebExchangeMatcherEntry<>(matcher, manager));

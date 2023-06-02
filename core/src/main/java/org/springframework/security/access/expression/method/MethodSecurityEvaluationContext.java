@@ -49,12 +49,12 @@ class MethodSecurityEvaluationContext extends MethodBasedEvaluationContext {
 	}
 
 	MethodSecurityEvaluationContext(Authentication user, MethodInvocation mi,
-			ParameterNameDiscoverer parameterNameDiscoverer) {
+ParameterNameDiscoverer parameterNameDiscoverer) {
 		super(mi.getThis(), getSpecificMethod(mi), mi.getArguments(), parameterNameDiscoverer);
 	}
 
 	MethodSecurityEvaluationContext(MethodSecurityExpressionOperations root, MethodInvocation mi,
-			ParameterNameDiscoverer parameterNameDiscoverer) {
+ParameterNameDiscoverer parameterNameDiscoverer) {
 		super(root, getSpecificMethod(mi), mi.getArguments(), parameterNameDiscoverer);
 	}
 

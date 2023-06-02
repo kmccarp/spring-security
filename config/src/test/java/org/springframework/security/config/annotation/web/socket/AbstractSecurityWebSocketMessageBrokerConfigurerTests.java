@@ -110,8 +110,8 @@ public class AbstractSecurityWebSocketMessageBrokerConfigurerTests {
 		loadConfig(SockJsSecurityConfig.class);
 		clientInboundChannel().send(message("/permitAll"));
 		assertThatExceptionOfType(MessageDeliveryException.class)
-				.isThrownBy(() -> clientInboundChannel().send(message("/denyAll")))
-				.withCauseInstanceOf(AccessDeniedException.class);
+	.isThrownBy(() -> clientInboundChannel().send(message("/denyAll")))
+	.withCauseInstanceOf(AccessDeniedException.class);
 	}
 
 	@Test
@@ -136,7 +136,7 @@ public class AbstractSecurityWebSocketMessageBrokerConfigurerTests {
 		Message<String> message = message("/permitAll/authentication");
 		messageChannel.send(message);
 		assertThat(this.context.getBean(MyController.class).authenticationPrincipal)
-				.isEqualTo((String) this.messageUser.getPrincipal());
+	.isEqualTo((String) this.messageUser.getPrincipal());
 	}
 
 	@Test
@@ -146,7 +146,7 @@ public class AbstractSecurityWebSocketMessageBrokerConfigurerTests {
 		Message<String> message = message("/permitAll/authentication");
 		messageChannel.send(message);
 		assertThat(this.context.getBean(MyController.class).authenticationPrincipal)
-				.isEqualTo((String) this.messageUser.getPrincipal());
+	.isEqualTo((String) this.messageUser.getPrincipal());
 	}
 
 	@Test
@@ -156,7 +156,7 @@ public class AbstractSecurityWebSocketMessageBrokerConfigurerTests {
 		Message<?> message = message(headers, "/authentication");
 		MessageChannel messageChannel = clientInboundChannel();
 		assertThatExceptionOfType(MessageDeliveryException.class).isThrownBy(() -> messageChannel.send(message))
-				.withCauseInstanceOf(MissingCsrfTokenException.class);
+	.withCauseInstanceOf(MissingCsrfTokenException.class);
 	}
 
 	@Test
@@ -166,7 +166,7 @@ public class AbstractSecurityWebSocketMessageBrokerConfigurerTests {
 		Message<?> message = message(headers, "/authentication");
 		MessageChannel messageChannel = clientInboundChannel();
 		assertThatExceptionOfType(MessageDeliveryException.class).isThrownBy(() -> messageChannel.send(message))
-				.withCauseInstanceOf(MissingCsrfTokenException.class);
+	.withCauseInstanceOf(MissingCsrfTokenException.class);
 	}
 
 	@Test
@@ -224,8 +224,8 @@ public class AbstractSecurityWebSocketMessageBrokerConfigurerTests {
 		loadConfig(MsmsRegistryCustomPatternMatcherConfig.class);
 		clientInboundChannel().send(message("/app/a.b"));
 		assertThatExceptionOfType(MessageDeliveryException.class)
-				.isThrownBy(() -> clientInboundChannel().send(message("/app/a.b.c")))
-				.withCauseInstanceOf(AccessDeniedException.class);
+	.isThrownBy(() -> clientInboundChannel().send(message("/app/a.b.c")))
+	.withCauseInstanceOf(AccessDeniedException.class);
 	}
 
 	@Test
@@ -233,8 +233,8 @@ public class AbstractSecurityWebSocketMessageBrokerConfigurerTests {
 		loadConfig(OverrideMsmsRegistryCustomPatternMatcherConfig.class);
 		clientInboundChannel().send(message("/app/a/b"));
 		assertThatExceptionOfType(MessageDeliveryException.class)
-				.isThrownBy(() -> clientInboundChannel().send(message("/app/a/b/c")))
-				.withCauseInstanceOf(AccessDeniedException.class);
+	.isThrownBy(() -> clientInboundChannel().send(message("/app/a/b/c")))
+	.withCauseInstanceOf(AccessDeniedException.class);
 	}
 
 	@Test
@@ -242,8 +242,8 @@ public class AbstractSecurityWebSocketMessageBrokerConfigurerTests {
 		loadConfig(DefaultPatternMatcherConfig.class);
 		clientInboundChannel().send(message("/app/a/b"));
 		assertThatExceptionOfType(MessageDeliveryException.class)
-				.isThrownBy(() -> clientInboundChannel().send(message("/app/a/b/c")))
-				.withCauseInstanceOf(AccessDeniedException.class);
+	.isThrownBy(() -> clientInboundChannel().send(message("/app/a/b/c")))
+	.withCauseInstanceOf(AccessDeniedException.class);
 	}
 
 	@Test
@@ -252,8 +252,8 @@ public class AbstractSecurityWebSocketMessageBrokerConfigurerTests {
 		clientInboundChannel().send(message("/denyRob"));
 		this.messageUser = new TestingAuthenticationToken("rob", "password", "ROLE_USER");
 		assertThatExceptionOfType(MessageDeliveryException.class)
-				.isThrownBy(() -> clientInboundChannel().send(message("/denyRob")))
-				.withCauseInstanceOf(AccessDeniedException.class);
+	.isThrownBy(() -> clientInboundChannel().send(message("/denyRob")))
+	.withCauseInstanceOf(AccessDeniedException.class);
 	}
 
 	@Test
@@ -261,7 +261,7 @@ public class AbstractSecurityWebSocketMessageBrokerConfigurerTests {
 		loadConfig(SockJsProxylessSecurityConfig.class);
 		ChannelSecurityInterceptor channelSecurityInterceptor = this.context.getBean(ChannelSecurityInterceptor.class);
 		MessageSecurityMetadataSource messageSecurityMetadataSource = this.context
-				.getBean(MessageSecurityMetadataSource.class);
+	.getBean(MessageSecurityMetadataSource.class);
 		assertThat(channelSecurityInterceptor.obtainSecurityMetadataSource()).isSameAs(messageSecurityMetadataSource);
 	}
 
@@ -270,9 +270,9 @@ public class AbstractSecurityWebSocketMessageBrokerConfigurerTests {
 		loadConfig(SockJsProxylessSecurityConfig.class);
 		MessageChannel messageChannel = clientInboundChannel();
 		SecurityContextChannelInterceptor securityContextChannelInterceptor = this.context
-				.getBean(SecurityContextChannelInterceptor.class);
+	.getBean(SecurityContextChannelInterceptor.class);
 		assertThat(((AbstractMessageChannel) messageChannel).getInterceptors())
-				.contains(securityContextChannelInterceptor);
+	.contains(securityContextChannelInterceptor);
 	}
 
 	@Test
@@ -287,7 +287,7 @@ public class AbstractSecurityWebSocketMessageBrokerConfigurerTests {
 		TestHandshakeHandler handshakeHandler = this.context.getBean(TestHandshakeHandler.class);
 		assertThatCsrfToken(handshakeHandler.attributes.get(CsrfToken.class.getName())).isEqualTo(this.token);
 		assertThat(handshakeHandler.attributes.get(this.sessionAttr))
-				.isEqualTo(request.getSession().getAttribute(this.sessionAttr));
+	.isEqualTo(request.getSession().getAttribute(this.sessionAttr));
 	}
 
 	private HttpRequestHandler handler(HttpServletRequest request) throws Exception {
@@ -348,17 +348,19 @@ public class AbstractSecurityWebSocketMessageBrokerConfigurerTests {
 		@Override
 		public void registerStompEndpoints(StompEndpointRegistry registry) {
 			registry
-				.addEndpoint("/other")
-				.setHandshakeHandler(testHandshakeHandler());
+		.addEndpoint("/other")
+		.setHandshakeHandler(testHandshakeHandler());
 		}
+
 		// @formatter:on
 		// @formatter:off
 		@Override
 		protected void configureInbound(MessageSecurityMetadataSourceRegistry messages) {
 			messages
-				.simpDestMatchers("/app/a.*").permitAll()
-				.anyMessage().denyAll();
+		.simpDestMatchers("/app/a.*").permitAll()
+		.anyMessage().denyAll();
 		}
+
 		// @formatter:on
 		@Override
 		public void configureMessageBroker(MessageBrokerRegistry registry) {
@@ -378,24 +380,26 @@ public class AbstractSecurityWebSocketMessageBrokerConfigurerTests {
 	@EnableWebSocketMessageBroker
 	@Import(SyncExecutorConfig.class)
 	static class OverrideMsmsRegistryCustomPatternMatcherConfig
-			extends AbstractSecurityWebSocketMessageBrokerConfigurer {
+extends AbstractSecurityWebSocketMessageBrokerConfigurer {
 
 		// @formatter:off
 		@Override
 		public void registerStompEndpoints(StompEndpointRegistry registry) {
 			registry
-				.addEndpoint("/other")
-				.setHandshakeHandler(testHandshakeHandler());
+		.addEndpoint("/other")
+		.setHandshakeHandler(testHandshakeHandler());
 		}
+
 		// @formatter:on
 		// @formatter:off
 		@Override
 		protected void configureInbound(MessageSecurityMetadataSourceRegistry messages) {
 			messages
-				.simpDestPathMatcher(new AntPathMatcher())
-				.simpDestMatchers("/app/a/*").permitAll()
-				.anyMessage().denyAll();
+		.simpDestPathMatcher(new AntPathMatcher())
+		.simpDestMatchers("/app/a/*").permitAll()
+		.anyMessage().denyAll();
 		}
+
 		// @formatter:on
 		@Override
 		public void configureMessageBroker(MessageBrokerRegistry registry) {
@@ -420,17 +424,19 @@ public class AbstractSecurityWebSocketMessageBrokerConfigurerTests {
 		@Override
 		public void registerStompEndpoints(StompEndpointRegistry registry) {
 			registry
-				.addEndpoint("/other")
-				.setHandshakeHandler(testHandshakeHandler());
+		.addEndpoint("/other")
+		.setHandshakeHandler(testHandshakeHandler());
 		}
+
 		// @formatter:on
 		// @formatter:off
 		@Override
 		protected void configureInbound(MessageSecurityMetadataSourceRegistry messages) {
 			messages
-				.simpDestMatchers("/app/a/*").permitAll()
-				.anyMessage().denyAll();
+		.simpDestMatchers("/app/a/*").permitAll()
+		.anyMessage().denyAll();
 		}
+
 		// @formatter:on
 		@Override
 		public void configureMessageBroker(MessageBrokerRegistry registry) {
@@ -454,23 +460,25 @@ public class AbstractSecurityWebSocketMessageBrokerConfigurerTests {
 		@Override
 		public void registerStompEndpoints(StompEndpointRegistry registry) {
 			registry
-				.addEndpoint("/other")
-				.setHandshakeHandler(testHandshakeHandler());
+		.addEndpoint("/other")
+		.setHandshakeHandler(testHandshakeHandler());
 		}
+
 		// @formatter:on
 		// @formatter:off
 		@Override
 		protected void configureInbound(MessageSecurityMetadataSourceRegistry messages) {
 			messages
-				.anyMessage().access("denyRob()");
+		.anyMessage().access("denyRob()");
 		}
+
 		// @formatter:on
 		@Bean
 		static SecurityExpressionHandler<Message<Object>> messageSecurityExpressionHandler() {
 			return new DefaultMessageSecurityExpressionHandler<Object>() {
 				@Override
 				protected SecurityExpressionOperations createSecurityExpressionRoot(Authentication authentication,
-						Message<Object> invocation) {
+			Message<Object> invocation) {
 					return new MessageSecurityExpressionRoot(authentication, invocation) {
 						public boolean denyRob() {
 							Authentication auth = getAuthentication();
@@ -540,13 +548,13 @@ public class AbstractSecurityWebSocketMessageBrokerConfigurerTests {
 
 		@Override
 		public boolean doHandshake(ServerHttpRequest request, ServerHttpResponse response, WebSocketHandler wsHandler,
-				Map<String, Object> attributes) throws HandshakeFailureException {
+	Map<String, Object> attributes) throws HandshakeFailureException {
 			this.attributes = attributes;
 			if (wsHandler instanceof SockJsWebSocketHandler) {
 				// work around SPR-12716
 				SockJsWebSocketHandler sockJs = (SockJsWebSocketHandler) wsHandler;
 				WebSocketServerSockJsSession session = (WebSocketServerSockJsSession) ReflectionTestUtils
-						.getField(sockJs, "sockJsSession");
+			.getField(sockJs, "sockJsSession");
 				this.attributes = session.getAttributes();
 			}
 			return true;
@@ -563,9 +571,9 @@ public class AbstractSecurityWebSocketMessageBrokerConfigurerTests {
 		public void registerStompEndpoints(StompEndpointRegistry registry) {
 			// @formatter:off
 			registry.addEndpoint("/other").setHandshakeHandler(testHandshakeHandler())
-					.withSockJS().setInterceptors(new HttpSessionHandshakeInterceptor());
+		.withSockJS().setInterceptors(new HttpSessionHandshakeInterceptor());
 			registry.addEndpoint("/chat").setHandshakeHandler(testHandshakeHandler())
-					.withSockJS().setInterceptors(new HttpSessionHandshakeInterceptor());
+		.withSockJS().setInterceptors(new HttpSessionHandshakeInterceptor());
 			// @formatter:on
 		}
 
@@ -573,10 +581,11 @@ public class AbstractSecurityWebSocketMessageBrokerConfigurerTests {
 		@Override
 		protected void configureInbound(MessageSecurityMetadataSourceRegistry messages) {
 			messages
-				.simpDestMatchers("/permitAll/**").permitAll()
-				.simpDestMatchers("/beanResolver/**").access("@security.check()")
-				.anyMessage().denyAll();
+		.simpDestMatchers("/permitAll/**").permitAll()
+		.simpDestMatchers("/beanResolver/**").access("@security.check()")
+		.anyMessage().denyAll();
 		}
+
 		// @formatter:on
 		@Override
 		public void configureMessageBroker(MessageBrokerRegistry registry) {
@@ -621,9 +630,9 @@ public class AbstractSecurityWebSocketMessageBrokerConfigurerTests {
 		public void registerStompEndpoints(StompEndpointRegistry registry) {
 			// @formatter:off
 			registry.addEndpoint("/other")
-					.withSockJS().setInterceptors(new HttpSessionHandshakeInterceptor());
+		.withSockJS().setInterceptors(new HttpSessionHandshakeInterceptor());
 			registry.addEndpoint("/chat")
-					.withSockJS().setInterceptors(new HttpSessionHandshakeInterceptor());
+		.withSockJS().setInterceptors(new HttpSessionHandshakeInterceptor());
 			// @formatter:on
 		}
 
@@ -663,8 +672,8 @@ public class AbstractSecurityWebSocketMessageBrokerConfigurerTests {
 		public void registerStompEndpoints(StompEndpointRegistry registry) {
 			// @formatter:off
 			registry.addEndpoint("/websocket")
-					.setHandshakeHandler(testHandshakeHandler())
-					.addInterceptors(new HttpSessionHandshakeInterceptor());
+		.setHandshakeHandler(testHandshakeHandler())
+		.addInterceptors(new HttpSessionHandshakeInterceptor());
 			// @formatter:on
 		}
 
@@ -672,9 +681,9 @@ public class AbstractSecurityWebSocketMessageBrokerConfigurerTests {
 		protected void configureInbound(MessageSecurityMetadataSourceRegistry messages) {
 			// @formatter:off
 			messages
-				.simpDestMatchers("/permitAll/**").permitAll()
-				.simpDestMatchers("/customExpression/**").access("denyRob")
-				.anyMessage().denyAll();
+		.simpDestMatchers("/permitAll/**").permitAll()
+		.simpDestMatchers("/customExpression/**").access("denyRob")
+		.anyMessage().denyAll();
 			// @formatter:on
 		}
 
@@ -696,8 +705,8 @@ public class AbstractSecurityWebSocketMessageBrokerConfigurerTests {
 		public void registerStompEndpoints(StompEndpointRegistry registry) {
 			// @formatter:off
 			registry.addEndpoint("/chat")
-					.setHandshakeHandler(this.context.getBean(TestHandshakeHandler.class))
-					.withSockJS().setInterceptors(new HttpSessionHandshakeInterceptor());
+		.setHandshakeHandler(this.context.getBean(TestHandshakeHandler.class))
+		.withSockJS().setInterceptors(new HttpSessionHandshakeInterceptor());
 			// @formatter:on
 		}
 
@@ -710,8 +719,9 @@ public class AbstractSecurityWebSocketMessageBrokerConfigurerTests {
 		@Override
 		protected void configureInbound(MessageSecurityMetadataSourceRegistry messages) {
 			messages
-					.anyMessage().denyAll();
+		.anyMessage().denyAll();
 		}
+
 		// @formatter:on
 		@Bean
 		public TestHandshakeHandler testHandshakeHandler() {

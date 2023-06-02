@@ -71,7 +71,7 @@ public class OAuth2AuthorizedClientProviderBuilderTests {
 		OAuth2AccessTokenResponse accessTokenResponse = TestOAuth2AccessTokenResponses.accessTokenResponse().build();
 		this.accessTokenClient = mock(RestOperations.class);
 		given(this.accessTokenClient.exchange(any(RequestEntity.class), eq(OAuth2AccessTokenResponse.class)))
-				.willReturn(new ResponseEntity(accessTokenResponse, HttpStatus.OK));
+	.willReturn(new ResponseEntity(accessTokenResponse, HttpStatus.OK));
 		this.refreshTokenTokenResponseClient = new DefaultRefreshTokenTokenResponseClient();
 		this.refreshTokenTokenResponseClient.setRestOperations(this.accessTokenClient);
 		this.clientCredentialsTokenResponseClient = new DefaultClientCredentialsTokenResponseClient();
@@ -84,38 +84,38 @@ public class OAuth2AuthorizedClientProviderBuilderTests {
 	@Test
 	public void providerWhenNullThenThrowIllegalArgumentException() {
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> OAuth2AuthorizedClientProviderBuilder.builder().provider(null));
+	.isThrownBy(() -> OAuth2AuthorizedClientProviderBuilder.builder().provider(null));
 	}
 
 	@Test
 	public void buildWhenAuthorizationCodeProviderThenProviderAuthorizes() {
 		// @formatter:off
 		OAuth2AuthorizedClientProvider authorizedClientProvider = OAuth2AuthorizedClientProviderBuilder.builder()
-				.authorizationCode()
-				.build();
+	.authorizationCode()
+	.build();
 		OAuth2AuthorizationContext authorizationContext = OAuth2AuthorizationContext
-				.withClientRegistration(TestClientRegistrations.clientRegistration().build())
-				.principal(this.principal)
-				.build();
+	.withClientRegistration(TestClientRegistrations.clientRegistration().build())
+	.principal(this.principal)
+	.build();
 		// @formatter:on
 		assertThatExceptionOfType(ClientAuthorizationRequiredException.class)
-				.isThrownBy(() -> authorizedClientProvider.authorize(authorizationContext));
+	.isThrownBy(() -> authorizedClientProvider.authorize(authorizationContext));
 	}
 
 	@Test
 	public void buildWhenRefreshTokenProviderThenProviderReauthorizes() {
 		OAuth2AuthorizedClientProvider authorizedClientProvider = OAuth2AuthorizedClientProviderBuilder.builder()
-				.refreshToken(
-						(configurer) -> configurer.accessTokenResponseClient(this.refreshTokenTokenResponseClient))
-				.build();
+	.refreshToken(
+(configurer) -> configurer.accessTokenResponseClient(this.refreshTokenTokenResponseClient))
+	.build();
 		OAuth2AuthorizedClient authorizedClient = new OAuth2AuthorizedClient(
-				TestClientRegistrations.clientRegistration().build(), this.principal.getName(), expiredAccessToken(),
-				TestOAuth2RefreshTokens.refreshToken());
+	TestClientRegistrations.clientRegistration().build(), this.principal.getName(), expiredAccessToken(),
+	TestOAuth2RefreshTokens.refreshToken());
 		// @formatter:off
 		OAuth2AuthorizationContext authorizationContext = OAuth2AuthorizationContext
-				.withAuthorizedClient(authorizedClient)
-				.principal(this.principal)
-				.build();
+	.withAuthorizedClient(authorizedClient)
+	.principal(this.principal)
+	.build();
 		// @formatter:on
 		OAuth2AuthorizedClient reauthorizedClient = authorizedClientProvider.authorize(authorizationContext);
 		assertThat(reauthorizedClient).isNotNull();
@@ -125,14 +125,14 @@ public class OAuth2AuthorizedClientProviderBuilderTests {
 	@Test
 	public void buildWhenClientCredentialsProviderThenProviderAuthorizes() {
 		OAuth2AuthorizedClientProvider authorizedClientProvider = OAuth2AuthorizedClientProviderBuilder.builder()
-				.clientCredentials(
-						(configurer) -> configurer.accessTokenResponseClient(this.clientCredentialsTokenResponseClient))
-				.build();
+	.clientCredentials(
+(configurer) -> configurer.accessTokenResponseClient(this.clientCredentialsTokenResponseClient))
+	.build();
 		// @formatter:off
 		OAuth2AuthorizationContext authorizationContext = OAuth2AuthorizationContext
-				.withClientRegistration(TestClientRegistrations.clientCredentials().build())
-				.principal(this.principal)
-				.build();
+	.withClientRegistration(TestClientRegistrations.clientCredentials().build())
+	.principal(this.principal)
+	.build();
 		// @formatter:on
 		OAuth2AuthorizedClient authorizedClient = authorizedClientProvider.authorize(authorizationContext);
 		assertThat(authorizedClient).isNotNull();
@@ -143,14 +143,14 @@ public class OAuth2AuthorizedClientProviderBuilderTests {
 	public void buildWhenPasswordProviderThenProviderAuthorizes() {
 		// @formatter:off
 		OAuth2AuthorizedClientProvider authorizedClientProvider = OAuth2AuthorizedClientProviderBuilder.builder()
-				.password((configurer) -> configurer.accessTokenResponseClient(this.passwordTokenResponseClient))
-				.build();
+	.password((configurer) -> configurer.accessTokenResponseClient(this.passwordTokenResponseClient))
+	.build();
 		OAuth2AuthorizationContext authorizationContext = OAuth2AuthorizationContext
-				.withClientRegistration(TestClientRegistrations.password().build())
-				.principal(this.principal)
-				.attribute(OAuth2AuthorizationContext.USERNAME_ATTRIBUTE_NAME, "username")
-				.attribute(OAuth2AuthorizationContext.PASSWORD_ATTRIBUTE_NAME, "password")
-				.build();
+	.withClientRegistration(TestClientRegistrations.password().build())
+	.principal(this.principal)
+	.attribute(OAuth2AuthorizationContext.USERNAME_ATTRIBUTE_NAME, "username")
+	.attribute(OAuth2AuthorizationContext.PASSWORD_ATTRIBUTE_NAME, "password")
+	.build();
 		// @formatter:on
 		OAuth2AuthorizedClient authorizedClient = authorizedClientProvider.authorize(authorizationContext);
 		assertThat(authorizedClient).isNotNull();
@@ -160,56 +160,56 @@ public class OAuth2AuthorizedClientProviderBuilderTests {
 	@Test
 	public void buildWhenAllProvidersThenProvidersAuthorize() {
 		OAuth2AuthorizedClientProvider authorizedClientProvider = OAuth2AuthorizedClientProviderBuilder.builder()
-				.authorizationCode()
-				.refreshToken(
-						(configurer) -> configurer.accessTokenResponseClient(this.refreshTokenTokenResponseClient))
-				.clientCredentials(
-						(configurer) -> configurer.accessTokenResponseClient(this.clientCredentialsTokenResponseClient))
-				.password((configurer) -> configurer.accessTokenResponseClient(this.passwordTokenResponseClient))
-				.build();
+	.authorizationCode()
+	.refreshToken(
+(configurer) -> configurer.accessTokenResponseClient(this.refreshTokenTokenResponseClient))
+	.clientCredentials(
+(configurer) -> configurer.accessTokenResponseClient(this.clientCredentialsTokenResponseClient))
+	.password((configurer) -> configurer.accessTokenResponseClient(this.passwordTokenResponseClient))
+	.build();
 		ClientRegistration clientRegistration = TestClientRegistrations.clientRegistration().build();
 		// authorization_code
 		// @formatter:off
 		OAuth2AuthorizationContext authorizationCodeContext = OAuth2AuthorizationContext
-				.withClientRegistration(clientRegistration)
-				.principal(this.principal)
-				.build();
+	.withClientRegistration(clientRegistration)
+	.principal(this.principal)
+	.build();
 		// @formatter:on
 		assertThatExceptionOfType(ClientAuthorizationRequiredException.class)
-				.isThrownBy(() -> authorizedClientProvider.authorize(authorizationCodeContext));
+	.isThrownBy(() -> authorizedClientProvider.authorize(authorizationCodeContext));
 		// refresh_token
 		OAuth2AuthorizedClient authorizedClient = new OAuth2AuthorizedClient(clientRegistration,
-				this.principal.getName(), expiredAccessToken(), TestOAuth2RefreshTokens.refreshToken());
+	this.principal.getName(), expiredAccessToken(), TestOAuth2RefreshTokens.refreshToken());
 		OAuth2AuthorizationContext refreshTokenContext = OAuth2AuthorizationContext
-				.withAuthorizedClient(authorizedClient).principal(this.principal).build();
+	.withAuthorizedClient(authorizedClient).principal(this.principal).build();
 		OAuth2AuthorizedClient reauthorizedClient = authorizedClientProvider.authorize(refreshTokenContext);
 		assertThat(reauthorizedClient).isNotNull();
 		verify(this.accessTokenClient, times(1)).exchange(any(RequestEntity.class),
-				eq(OAuth2AccessTokenResponse.class));
+	eq(OAuth2AccessTokenResponse.class));
 		// client_credentials
 		// @formatter:off
 		OAuth2AuthorizationContext clientCredentialsContext = OAuth2AuthorizationContext
-				.withClientRegistration(TestClientRegistrations.clientCredentials().build())
-				.principal(this.principal)
-				.build();
+	.withClientRegistration(TestClientRegistrations.clientCredentials().build())
+	.principal(this.principal)
+	.build();
 		// @formatter:on
 		authorizedClient = authorizedClientProvider.authorize(clientCredentialsContext);
 		assertThat(authorizedClient).isNotNull();
 		verify(this.accessTokenClient, times(2)).exchange(any(RequestEntity.class),
-				eq(OAuth2AccessTokenResponse.class));
+	eq(OAuth2AccessTokenResponse.class));
 		// password
 		// @formatter:off
 		OAuth2AuthorizationContext passwordContext = OAuth2AuthorizationContext
-				.withClientRegistration(TestClientRegistrations.password().build())
-				.principal(this.principal)
-				.attribute(OAuth2AuthorizationContext.USERNAME_ATTRIBUTE_NAME, "username")
-				.attribute(OAuth2AuthorizationContext.PASSWORD_ATTRIBUTE_NAME, "password")
-				.build();
+	.withClientRegistration(TestClientRegistrations.password().build())
+	.principal(this.principal)
+	.attribute(OAuth2AuthorizationContext.USERNAME_ATTRIBUTE_NAME, "username")
+	.attribute(OAuth2AuthorizationContext.PASSWORD_ATTRIBUTE_NAME, "password")
+	.build();
 		// @formatter:on
 		authorizedClient = authorizedClientProvider.authorize(passwordContext);
 		assertThat(authorizedClient).isNotNull();
 		verify(this.accessTokenClient, times(3)).exchange(any(RequestEntity.class),
-				eq(OAuth2AccessTokenResponse.class));
+	eq(OAuth2AccessTokenResponse.class));
 	}
 
 	@Test
@@ -217,12 +217,12 @@ public class OAuth2AuthorizedClientProviderBuilderTests {
 		OAuth2AuthorizedClientProvider customProvider = mock(OAuth2AuthorizedClientProvider.class);
 		// @formatter:off
 		OAuth2AuthorizedClientProvider authorizedClientProvider = OAuth2AuthorizedClientProviderBuilder.builder()
-				.provider(customProvider)
-				.build();
+	.provider(customProvider)
+	.build();
 		OAuth2AuthorizationContext authorizationContext = OAuth2AuthorizationContext
-				.withClientRegistration(TestClientRegistrations.clientRegistration().build())
-				.principal(this.principal)
-				.build();
+	.withClientRegistration(TestClientRegistrations.clientRegistration().build())
+	.principal(this.principal)
+	.build();
 		// @formatter:on
 		authorizedClientProvider.authorize(authorizationContext);
 		verify(customProvider).authorize(any(OAuth2AuthorizationContext.class));

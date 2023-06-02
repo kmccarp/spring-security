@@ -55,7 +55,7 @@ public class RememberMeAuthenticationProvider implements AuthenticationProvider,
 		}
 		if (this.key.hashCode() != ((RememberMeAuthenticationToken) authentication).getKeyHash()) {
 			throw new BadCredentialsException(this.messages.getMessage("RememberMeAuthenticationProvider.incorrectKey",
-					"The presented RememberMeAuthenticationToken does not contain the expected key"));
+		"The presented RememberMeAuthenticationToken does not contain the expected key"));
 		}
 		return authentication;
 	}

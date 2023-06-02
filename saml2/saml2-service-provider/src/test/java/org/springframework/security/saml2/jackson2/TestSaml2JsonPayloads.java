@@ -55,38 +55,39 @@ final class TestSaml2JsonPayloads {
 	static final String REG_ID_JSON = "\"" + REG_ID + "\"";
 
 	static final String SESSION_INDEXES_JSON = "[" + "  \"java.util.Collections$UnmodifiableRandomAccessList\","
-			+ "  [ \"Index 1\", \"Index 2\" ]" + "]";
++ "  [ \"Index 1\", \"Index 2\" ]" + "]";
 	static final List<String> SESSION_INDEXES = Collections.unmodifiableList(Arrays.asList("Index 1", "Index 2"));
 
 	static final String PRINCIPAL_NAME = "principalName";
 
 	// @formatter:off
 	static final String DEFAULT_AUTHENTICATED_PRINCIPAL_JSON = "{"
-			+ "  \"@class\": \"org.springframework.security.saml2.provider.service.authentication.DefaultSaml2AuthenticatedPrincipal\","
-			+ "  \"name\": \"" + PRINCIPAL_NAME + "\","
-			+ "  \"attributes\": {"
-			+ "    \"@class\": \"java.util.Collections$UnmodifiableMap\","
-			+ "    \"listOf\": ["
-			+ "      \"java.util.Collections$UnmodifiableRandomAccessList\","
-			+ "      [ \"Element1\", \"Element2\", 4, true ]"
-			+ "    ],"
-			+ "    \"email\": ["
-			+ "      \"java.util.Collections$SingletonList\","
-			+ "      [ \"attr_email\" ]"
-			+ "    ],"
-			+ "    \"name\": ["
-			+ "      \"java.util.Collections$SingletonList\","
-			+ "      [ \"attr_name\" ]"
-			+ "    ]"
-			+ "  },"
-			+ "  \"sessionIndexes\": " + SESSION_INDEXES_JSON + ","
-			+ "  \"registrationId\": " + REG_ID_JSON + ""
-			+ "}";
++ "  \"@class\": \"org.springframework.security.saml2.provider.service.authentication.DefaultSaml2AuthenticatedPrincipal\","
++ "  \"name\": \"" + PRINCIPAL_NAME + "\","
++ "  \"attributes\": {"
++ "    \"@class\": \"java.util.Collections$UnmodifiableMap\","
++ "    \"listOf\": ["
++ "      \"java.util.Collections$UnmodifiableRandomAccessList\","
++ "      [ \"Element1\", \"Element2\", 4, true ]"
++ "    ],"
++ "    \"email\": ["
++ "      \"java.util.Collections$SingletonList\","
++ "      [ \"attr_email\" ]"
++ "    ],"
++ "    \"name\": ["
++ "      \"java.util.Collections$SingletonList\","
++ "      [ \"attr_name\" ]"
++ "    ]"
++ "  },"
++ "  \"sessionIndexes\": " + SESSION_INDEXES_JSON + ","
++ "  \"registrationId\": " + REG_ID_JSON + ""
++ "}";
+
 	// @formatter:on
 
 	static DefaultSaml2AuthenticatedPrincipal createDefaultPrincipal() {
 		DefaultSaml2AuthenticatedPrincipal principal = new DefaultSaml2AuthenticatedPrincipal(PRINCIPAL_NAME,
-				ATTRIBUTES, SESSION_INDEXES);
+	ATTRIBUTES, SESSION_INDEXES);
 		principal.setRelyingPartyRegistrationId(REG_ID);
 		return principal;
 	}
@@ -101,26 +102,26 @@ final class TestSaml2JsonPayloads {
 
 	// @formatter:off
 	static final String DEFAULT_REDIRECT_AUTH_REQUEST_JSON = "{"
-			+ " \"@class\": \"org.springframework.security.saml2.provider.service.authentication.Saml2RedirectAuthenticationRequest\","
-			+ " \"samlRequest\": \"" + SAML_REQUEST + "\","
-			+ " \"relayState\": \"" + RELAY_STATE + "\","
-			+ " \"authenticationRequestUri\": \"" + AUTHENTICATION_REQUEST_URI + "\","
-			+ " \"relyingPartyRegistrationId\": \"" + RELYINGPARTY_REGISTRATION_ID + "\","
-			+ " \"sigAlg\": \"" + SIG_ALG + "\","
-			+ " \"signature\": \"" + SIGNATURE + "\","
-			+ " \"id\": \"" + ID + "\""
-			+ "}";
++ " \"@class\": \"org.springframework.security.saml2.provider.service.authentication.Saml2RedirectAuthenticationRequest\","
++ " \"samlRequest\": \"" + SAML_REQUEST + "\","
++ " \"relayState\": \"" + RELAY_STATE + "\","
++ " \"authenticationRequestUri\": \"" + AUTHENTICATION_REQUEST_URI + "\","
++ " \"relyingPartyRegistrationId\": \"" + RELYINGPARTY_REGISTRATION_ID + "\","
++ " \"sigAlg\": \"" + SIG_ALG + "\","
++ " \"signature\": \"" + SIGNATURE + "\","
++ " \"id\": \"" + ID + "\""
++ "}";
 	// @formatter:on
 
 	// @formatter:off
 	static final String DEFAULT_POST_AUTH_REQUEST_JSON = "{"
-			+ " \"@class\": \"org.springframework.security.saml2.provider.service.authentication.Saml2PostAuthenticationRequest\","
-			+ " \"samlRequest\": \"" + SAML_REQUEST + "\","
-			+ " \"relayState\": \"" + RELAY_STATE + "\","
-			+ " \"relyingPartyRegistrationId\": \"" + RELYINGPARTY_REGISTRATION_ID + "\","
-			+ " \"authenticationRequestUri\": \"" + AUTHENTICATION_REQUEST_URI + "\","
-			+ " \"id\": \"" + ID + "\""
-			+ "}";
++ " \"@class\": \"org.springframework.security.saml2.provider.service.authentication.Saml2PostAuthenticationRequest\","
++ " \"samlRequest\": \"" + SAML_REQUEST + "\","
++ " \"relayState\": \"" + RELAY_STATE + "\","
++ " \"relyingPartyRegistrationId\": \"" + RELYINGPARTY_REGISTRATION_ID + "\","
++ " \"authenticationRequestUri\": \"" + AUTHENTICATION_REQUEST_URI + "\","
++ " \"id\": \"" + ID + "\""
++ "}";
 	// @formatter:on
 
 	static final String LOCATION = "locationValue";
@@ -129,93 +130,93 @@ final class TestSaml2JsonPayloads {
 
 	// @formatter:off
 	static final String DEFAULT_LOGOUT_REQUEST_JSON = "{"
-			+ "  \"@class\": \"org.springframework.security.saml2.provider.service.authentication.logout.Saml2LogoutRequest\","
-			+ "  \"id\": \"" + ID + "\","
-			+ "  \"location\": \"" + LOCATION + "\","
-			+ "  \"binding\": \"" + BINDNG + "\","
-			+ "  \"relyingPartyRegistrationId\": \"" + RELYINGPARTY_REGISTRATION_ID + "\","
-			+ "  \"parameters\": { "
-			+ "     \"@class\": \"java.util.Collections$UnmodifiableMap\","
-			+ "     \"SAMLRequest\": \"" + SAML_REQUEST + "\","
-			+ "     \"RelayState\": \"" + RELAY_STATE + "\","
-			+ "     \"AdditionalParam\": \"" + ADDITIONAL_PARAM + "\""
-			+ "  }"
-			+ "}";
++ "  \"@class\": \"org.springframework.security.saml2.provider.service.authentication.logout.Saml2LogoutRequest\","
++ "  \"id\": \"" + ID + "\","
++ "  \"location\": \"" + LOCATION + "\","
++ "  \"binding\": \"" + BINDNG + "\","
++ "  \"relyingPartyRegistrationId\": \"" + RELYINGPARTY_REGISTRATION_ID + "\","
++ "  \"parameters\": { "
++ "     \"@class\": \"java.util.Collections$UnmodifiableMap\","
++ "     \"SAMLRequest\": \"" + SAML_REQUEST + "\","
++ "     \"RelayState\": \"" + RELAY_STATE + "\","
++ "     \"AdditionalParam\": \"" + ADDITIONAL_PARAM + "\""
++ "  }"
++ "}";
+
 	// @formatter:on
 
 	static Saml2PostAuthenticationRequest createDefaultSaml2PostAuthenticationRequest() {
 		return Saml2PostAuthenticationRequest.withRelyingPartyRegistration(
-				TestRelyingPartyRegistrations.full().registrationId(RELYINGPARTY_REGISTRATION_ID)
-						.assertingPartyDetails((party) -> party.singleSignOnServiceLocation(AUTHENTICATION_REQUEST_URI))
-						.build())
-				.samlRequest(SAML_REQUEST).relayState(RELAY_STATE).id(ID).build();
+	TestRelyingPartyRegistrations.full().registrationId(RELYINGPARTY_REGISTRATION_ID)
+.assertingPartyDetails((party) -> party.singleSignOnServiceLocation(AUTHENTICATION_REQUEST_URI))
+.build())
+	.samlRequest(SAML_REQUEST).relayState(RELAY_STATE).id(ID).build();
 	}
 
 	static Saml2RedirectAuthenticationRequest createDefaultSaml2RedirectAuthenticationRequest() {
 		return Saml2RedirectAuthenticationRequest
-				.withRelyingPartyRegistration(TestRelyingPartyRegistrations.full()
-						.registrationId(RELYINGPARTY_REGISTRATION_ID)
-						.assertingPartyDetails((party) -> party.singleSignOnServiceLocation(AUTHENTICATION_REQUEST_URI))
-						.build())
-				.samlRequest(SAML_REQUEST).relayState(RELAY_STATE).sigAlg(SIG_ALG).signature(SIGNATURE).id(ID).build();
+	.withRelyingPartyRegistration(TestRelyingPartyRegistrations.full()
+.registrationId(RELYINGPARTY_REGISTRATION_ID)
+.assertingPartyDetails((party) -> party.singleSignOnServiceLocation(AUTHENTICATION_REQUEST_URI))
+.build())
+	.samlRequest(SAML_REQUEST).relayState(RELAY_STATE).sigAlg(SIG_ALG).signature(SIGNATURE).id(ID).build();
 	}
 
 	static Saml2LogoutRequest createDefaultSaml2LogoutRequest() {
 		return Saml2LogoutRequest
-				.withRelyingPartyRegistration(
-						TestRelyingPartyRegistrations.full().registrationId(RELYINGPARTY_REGISTRATION_ID)
-								.assertingPartyDetails((party) -> party.singleLogoutServiceLocation(LOCATION)
-										.singleLogoutServiceBinding(Saml2MessageBinding.REDIRECT))
-								.build())
-				.id(ID).samlRequest(SAML_REQUEST).relayState(RELAY_STATE)
-				.parameters((params) -> params.put("AdditionalParam", ADDITIONAL_PARAM)).build();
+	.withRelyingPartyRegistration(
+TestRelyingPartyRegistrations.full().registrationId(RELYINGPARTY_REGISTRATION_ID).assertingPartyDetails((party) -> party.singleLogoutServiceLocation(LOCATION)
+										.singleLogoutServiceBinding(Saml2MessageBinding.REDIRECT)).build())
+	.id(ID).samlRequest(SAML_REQUEST).relayState(RELAY_STATE)
+	.parameters((params) -> params.put("AdditionalParam", ADDITIONAL_PARAM)).build();
 	}
 
 	static final Collection<GrantedAuthority> AUTHORITIES = Collections
-			.unmodifiableList(Arrays.asList(new SimpleGrantedAuthority("Role1"), new SimpleGrantedAuthority("Role2")));
+.unmodifiableList(Arrays.asList(new SimpleGrantedAuthority("Role1"), new SimpleGrantedAuthority("Role2")));
 
 	static final Object DETAILS = User.withUsername("username").password("empty").authorities("A", "B").build();
 	static final String SAML_RESPONSE = "samlResponseValue";
 
 	// @formatter:off
 	static final String DEFAULT_SAML2AUTHENTICATION_JSON = "{"
-			+ "	\"@class\": \"org.springframework.security.saml2.provider.service.authentication.Saml2Authentication\","
-			+ "	\"authorities\": ["
-			+ "		\"java.util.Collections$UnmodifiableRandomAccessList\","
-			+ "		["
-			+ "			{"
-			+ "				\"@class\": \"org.springframework.security.core.authority.SimpleGrantedAuthority\","
-			+ "				\"authority\": \"Role1\""
-			+ "			},"
-			+ "			{"
-			+ "				\"@class\": \"org.springframework.security.core.authority.SimpleGrantedAuthority\","
-			+ "				\"authority\": \"Role2\""
-			+ "			}"
-			+ "		]"
-			+ " ],"
-			+ "	\"details\": {"
-			+ "		\"@class\": \"org.springframework.security.core.userdetails.User\","
-			+ "		\"password\": \"empty\","
-			+ "		\"username\": \"username\","
-			+ "		\"authorities\": ["
-			+ "			\"java.util.Collections$UnmodifiableSet\", ["
-			+ "				{"
-			+ "					\"@class\":\"org.springframework.security.core.authority.SimpleGrantedAuthority\","
-			+ "					\"authority\":\"A\""
-			+ "				},"
-			+ "				{"
-			+ "					\"@class\":\"org.springframework.security.core.authority.SimpleGrantedAuthority\","
-			+ "					\"authority\":\"B\""
-			+ "				}"
-			+ "		]],"
-			+ "		\"accountNonExpired\": true,"
-			+ "		\"accountNonLocked\": true,"
-			+ "		\"credentialsNonExpired\": true,"
-			+ "		\"enabled\": true"
-			+ "	},"
-			+ "	\"principal\": " + DEFAULT_AUTHENTICATED_PRINCIPAL_JSON + ","
-			+ "	\"saml2Response\": \"" + SAML_RESPONSE + "\""
-			+ "}";
++ "	\"@class\": \"org.springframework.security.saml2.provider.service.authentication.Saml2Authentication\","
++ "	\"authorities\": ["
++ "		\"java.util.Collections$UnmodifiableRandomAccessList\","
++ "		["
++ "			{"
++ "				\"@class\": \"org.springframework.security.core.authority.SimpleGrantedAuthority\","
++ "				\"authority\": \"Role1\""
++ "			},"
++ "			{"
++ "				\"@class\": \"org.springframework.security.core.authority.SimpleGrantedAuthority\","
++ "				\"authority\": \"Role2\""
++ "			}"
++ "		]"
++ " ],"
++ "	\"details\": {"
++ "		\"@class\": \"org.springframework.security.core.userdetails.User\","
++ "		\"password\": \"empty\","
++ "		\"username\": \"username\","
++ "		\"authorities\": ["
++ "			\"java.util.Collections$UnmodifiableSet\", ["
++ "				{"
++ "					\"@class\":\"org.springframework.security.core.authority.SimpleGrantedAuthority\","
++ "					\"authority\":\"A\""
++ "				},"
++ "				{"
++ "					\"@class\":\"org.springframework.security.core.authority.SimpleGrantedAuthority\","
++ "					\"authority\":\"B\""
++ "				}"
++ "		]],"
++ "		\"accountNonExpired\": true,"
++ "		\"accountNonLocked\": true,"
++ "		\"credentialsNonExpired\": true,"
++ "		\"enabled\": true"
++ "	},"
++ "	\"principal\": " + DEFAULT_AUTHENTICATED_PRINCIPAL_JSON + ","
++ "	\"saml2Response\": \"" + SAML_RESPONSE + "\""
++ "}";
+
 	// @formatter:on
 
 	static Saml2Authentication createDefaultAuthentication() {
@@ -227,14 +228,15 @@ final class TestSaml2JsonPayloads {
 
 	// @formatter:off
 	static final String DEFAULT_SAML_AUTH_EXCEPTION_JSON = "{"
-			+ "  \"@class\": \"org.springframework.security.saml2.provider.service.authentication.Saml2AuthenticationException\","
-			+ "  \"detailMessage\": \"exceptionMessage\","
-			+ "  \"error\": {"
-			+ "    \"@class\": \"org.springframework.security.saml2.core.Saml2Error\","
-			+ "    \"errorCode\": \"errorCode\","
-			+ "    \"description\": \"errorDescription\""
-			+ "  }"
-			+ "}";
++ "  \"@class\": \"org.springframework.security.saml2.provider.service.authentication.Saml2AuthenticationException\","
++ "  \"detailMessage\": \"exceptionMessage\","
++ "  \"error\": {"
++ "    \"@class\": \"org.springframework.security.saml2.core.Saml2Error\","
++ "    \"errorCode\": \"errorCode\","
++ "    \"description\": \"errorDescription\""
++ "  }"
++ "}";
+
 	// @formatter:on
 
 	static Saml2AuthenticationException createDefaultSaml2AuthenticationException() {

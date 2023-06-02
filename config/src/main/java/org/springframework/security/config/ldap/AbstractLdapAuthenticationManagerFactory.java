@@ -164,7 +164,7 @@ public abstract class AbstractLdapAuthenticationManagerFactory<T extends Abstrac
 		AbstractLdapAuthenticator authenticator = createDefaultLdapAuthenticator();
 		if (this.userSearchFilter != null) {
 			authenticator.setUserSearch(
-					new FilterBasedLdapUserSearch(this.userSearchBase, this.userSearchFilter, this.contextSource));
+		new FilterBasedLdapUserSearch(this.userSearchBase, this.userSearchFilter, this.contextSource));
 		}
 		if (this.userDnPatterns != null && this.userDnPatterns.length > 0) {
 			authenticator.setUserDnPatterns(this.userDnPatterns);

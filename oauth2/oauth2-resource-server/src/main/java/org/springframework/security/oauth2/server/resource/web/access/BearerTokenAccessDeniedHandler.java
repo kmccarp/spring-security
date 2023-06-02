@@ -58,7 +58,7 @@ public final class BearerTokenAccessDeniedHandler implements AccessDeniedHandler
 	 */
 	@Override
 	public void handle(HttpServletRequest request, HttpServletResponse response,
-			AccessDeniedException accessDeniedException) {
+AccessDeniedException accessDeniedException) {
 		Map<String, String> parameters = new LinkedHashMap<>();
 		if (this.realmName != null) {
 			parameters.put("realm", this.realmName);
@@ -66,7 +66,7 @@ public final class BearerTokenAccessDeniedHandler implements AccessDeniedHandler
 		if (request.getUserPrincipal() instanceof AbstractOAuth2TokenAuthenticationToken) {
 			parameters.put("error", BearerTokenErrorCodes.INSUFFICIENT_SCOPE);
 			parameters.put("error_description",
-					"The request requires higher privileges than provided by the access token.");
+		"The request requires higher privileges than provided by the access token.");
 			parameters.put("error_uri", "https://tools.ietf.org/html/rfc6750#section-3.1");
 		}
 		String wwwAuthenticate = computeWWWAuthenticateHeaderValue(parameters);

@@ -93,7 +93,7 @@ public class AspectJMethodSecurityInterceptorTests {
 		this.interceptor.setSecurityMetadataSource(this.mds);
 		// Set up joinpoint information for the countLength method on TargetObject
 		this.joinPoint = mock(ProceedingJoinPoint.class); // new MockJoinPoint(new
-															// TargetObject(), method);
+		// TargetObject(), method);
 		Signature sig = mock(Signature.class);
 		given(sig.getDeclaringType()).willReturn(TargetObject.class);
 		JoinPoint.StaticPart staticPart = mock(JoinPoint.StaticPart.class);
@@ -102,7 +102,7 @@ public class AspectJMethodSecurityInterceptorTests {
 		CodeSignature codeSig = mock(CodeSignature.class);
 		given(codeSig.getName()).willReturn("countLength");
 		given(codeSig.getDeclaringType()).willReturn(TargetObject.class);
-		given(codeSig.getParameterTypes()).willReturn(new Class[] { String.class });
+		given(codeSig.getParameterTypes()).willReturn(new Class[]{String.class});
 		given(staticPart.getSignature()).willReturn(codeSig);
 		given(this.mds.getAttributes(any())).willReturn(SecurityConfig.createList("ROLE_USER"));
 		given(this.authman.authenticate(this.token)).willReturn(this.token);
@@ -128,16 +128,16 @@ public class AspectJMethodSecurityInterceptorTests {
 		willThrow(new AccessDeniedException("denied")).given(this.adm).decide(any(), any(), any());
 		SecurityContextHolder.getContext().setAuthentication(this.token);
 		assertThatExceptionOfType(AccessDeniedException.class)
-				.isThrownBy(() -> this.interceptor.invoke(this.joinPoint, this.aspectJCallback));
+	.isThrownBy(() -> this.interceptor.invoke(this.joinPoint, this.aspectJCallback));
 		verify(this.aspectJCallback, never()).proceedWithObject();
 	}
 
 	@Test
 	public void adapterHoldsCorrectData() {
 		TargetObject to = new TargetObject();
-		Method m = ClassUtils.getMethodIfAvailable(TargetObject.class, "countLength", new Class[] { String.class });
+		Method m = ClassUtils.getMethodIfAvailable(TargetObject.class, "countLength", new Class[]{String.class});
 		given(this.joinPoint.getTarget()).willReturn(to);
-		given(this.joinPoint.getArgs()).willReturn(new Object[] { "Hi" });
+		given(this.joinPoint.getArgs()).willReturn(new Object[]{"Hi"});
 		MethodInvocationAdapter mia = new MethodInvocationAdapter(this.joinPoint);
 		assertThat(mia.getArguments()[0]).isEqualTo("Hi");
 		assertThat(mia.getStaticPart()).isEqualTo(m);
@@ -153,7 +153,7 @@ public class AspectJMethodSecurityInterceptorTests {
 		this.interceptor.setAfterInvocationManager(aim);
 		given(this.aspectJCallback.proceedWithObject()).willThrow(new RuntimeException());
 		assertThatExceptionOfType(RuntimeException.class)
-				.isThrownBy(() -> this.interceptor.invoke(this.joinPoint, this.aspectJCallback));
+	.isThrownBy(() -> this.interceptor.invoke(this.joinPoint, this.aspectJCallback));
 		verifyNoMoreInteractions(aim);
 	}
 
@@ -166,12 +166,12 @@ public class AspectJMethodSecurityInterceptorTests {
 		this.token.setAuthenticated(true);
 		final RunAsManager runAs = mock(RunAsManager.class);
 		final RunAsUserToken runAsToken = new RunAsUserToken("key", "someone", "creds", this.token.getAuthorities(),
-				TestingAuthenticationToken.class);
+	TestingAuthenticationToken.class);
 		this.interceptor.setRunAsManager(runAs);
 		given(runAs.buildRunAs(eq(this.token), any(MethodInvocation.class), any(List.class))).willReturn(runAsToken);
 		given(this.aspectJCallback.proceedWithObject()).willThrow(new RuntimeException());
 		assertThatExceptionOfType(RuntimeException.class)
-				.isThrownBy(() -> this.interceptor.invoke(this.joinPoint, this.aspectJCallback));
+	.isThrownBy(() -> this.interceptor.invoke(this.joinPoint, this.aspectJCallback));
 		// Check we've changed back
 		assertThat(SecurityContextHolder.getContext()).isSameAs(ctx);
 		assertThat(SecurityContextHolder.getContext().getAuthentication()).isSameAs(this.token);
@@ -186,7 +186,7 @@ public class AspectJMethodSecurityInterceptorTests {
 		this.token.setAuthenticated(true);
 		final RunAsManager runAs = mock(RunAsManager.class);
 		final RunAsUserToken runAsToken = new RunAsUserToken("key", "someone", "creds", this.token.getAuthorities(),
-				TestingAuthenticationToken.class);
+	TestingAuthenticationToken.class);
 		this.interceptor.setRunAsManager(runAs);
 		given(runAs.buildRunAs(eq(this.token), any(MethodInvocation.class), any(List.class))).willReturn(runAsToken);
 		given(this.joinPoint.proceed()).willThrow(new RuntimeException());

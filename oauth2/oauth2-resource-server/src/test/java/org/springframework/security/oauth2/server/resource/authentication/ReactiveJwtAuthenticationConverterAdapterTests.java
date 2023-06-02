@@ -40,7 +40,7 @@ public class ReactiveJwtAuthenticationConverterAdapterTests {
 	Converter<Jwt, AbstractAuthenticationToken> converter = new JwtAuthenticationConverter();
 
 	ReactiveJwtAuthenticationConverterAdapter jwtAuthenticationConverter = new ReactiveJwtAuthenticationConverterAdapter(
-			this.converter);
+this.converter);
 
 	@Test
 	public void convertWhenTokenHasScopeAttributeThenTranslatedToAuthorities() {
@@ -49,8 +49,8 @@ public class ReactiveJwtAuthenticationConverterAdapterTests {
 		Collection<GrantedAuthority> authorities = authentication.getAuthorities();
 		// @formatter:off
 		assertThat(authorities)
-				.containsExactly(new SimpleGrantedAuthority("SCOPE_message:read"),
-						new SimpleGrantedAuthority("SCOPE_message:write"));
+	.containsExactly(new SimpleGrantedAuthority("SCOPE_message:read"),
+new SimpleGrantedAuthority("SCOPE_message:write"));
 		// @formatter:on
 	}
 
@@ -69,8 +69,8 @@ public class ReactiveJwtAuthenticationConverterAdapterTests {
 		Collection<GrantedAuthority> authorities = authentication.getAuthorities();
 		// @formatter:off
 		assertThat(authorities)
-				.containsExactly(new SimpleGrantedAuthority("SCOPE_message:read"),
-						new SimpleGrantedAuthority("SCOPE_message:write"));
+	.containsExactly(new SimpleGrantedAuthority("SCOPE_message:read"),
+new SimpleGrantedAuthority("SCOPE_message:write"));
 		// @formatter:on
 	}
 
@@ -85,13 +85,13 @@ public class ReactiveJwtAuthenticationConverterAdapterTests {
 	@Test
 	public void convertWhenTokenHasBothScopeAndScpThenScopeAttributeIsTranslatedToAuthorities() {
 		Jwt jwt = TestJwts.jwt().claim("scp", Arrays.asList("message:read", "message:write"))
-				.claim("scope", "missive:read missive:write").build();
+	.claim("scope", "missive:read missive:write").build();
 		AbstractAuthenticationToken authentication = this.jwtAuthenticationConverter.convert(jwt).block();
 		Collection<GrantedAuthority> authorities = authentication.getAuthorities();
 		// @formatter:off
 		assertThat(authorities)
-				.containsExactly(new SimpleGrantedAuthority("SCOPE_missive:read"),
-						new SimpleGrantedAuthority("SCOPE_missive:write"));
+	.containsExactly(new SimpleGrantedAuthority("SCOPE_missive:read"),
+new SimpleGrantedAuthority("SCOPE_missive:write"));
 		// @formatter:on
 	}
 
@@ -99,9 +99,9 @@ public class ReactiveJwtAuthenticationConverterAdapterTests {
 	public void convertWhenTokenHasEmptyScopeAndNonEmptyScpThenScopeAttributeIsTranslatedToNoAuthorities() {
 		// @formatter:off
 		Jwt jwt = TestJwts.jwt()
-				.claim("scp", Arrays.asList("message:read", "message:write"))
-				.claim("scope", "")
-				.build();
+	.claim("scp", Arrays.asList("message:read", "message:write"))
+	.claim("scope", "")
+	.build();
 		// @formatter:on
 		AbstractAuthenticationToken authentication = this.jwtAuthenticationConverter.convert(jwt).block();
 		Collection<GrantedAuthority> authorities = authentication.getAuthorities();

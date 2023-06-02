@@ -58,8 +58,7 @@ import org.springframework.util.ClassUtils;
  * @author Tony Dalbrekt
  * @since 3.2
  */
-public class LdapAuthenticationProviderConfigurer<B extends ProviderManagerBuilder<B>>
-		extends SecurityConfigurerAdapter<AuthenticationManager, B> {
+public class LdapAuthenticationProviderConfigurer<B extends ProviderManagerBuilder<B>>extends SecurityConfigurerAdapter<AuthenticationManager, B> {
 
 	private static final String APACHEDS_CLASSNAME = "org.apache.directory.server.core.DefaultDirectoryService";
 
@@ -110,7 +109,7 @@ public class LdapAuthenticationProviderConfigurer<B extends ProviderManagerBuild
 		LdapAuthenticator ldapAuthenticator = createLdapAuthenticator(contextSource);
 		LdapAuthoritiesPopulator authoritiesPopulator = getLdapAuthoritiesPopulator();
 		LdapAuthenticationProvider ldapAuthenticationProvider = new LdapAuthenticationProvider(ldapAuthenticator,
-				authoritiesPopulator);
+	authoritiesPopulator);
 		ldapAuthenticationProvider.setAuthoritiesMapper(getAuthoritiesMapper());
 		if (this.userDetailsContextMapper != null) {
 			ldapAuthenticationProvider.setUserDetailsContextMapper(this.userDetailsContextMapper);
@@ -125,7 +124,7 @@ public class LdapAuthenticationProviderConfigurer<B extends ProviderManagerBuild
 	 * @return the {@link LdapAuthenticationProviderConfigurer} for further customizations
 	 */
 	public LdapAuthenticationProviderConfigurer<B> ldapAuthoritiesPopulator(
-			LdapAuthoritiesPopulator ldapAuthoritiesPopulator) {
+LdapAuthoritiesPopulator ldapAuthoritiesPopulator) {
 		this.ldapAuthoritiesPopulator = ldapAuthoritiesPopulator;
 		return this;
 	}
@@ -150,7 +149,7 @@ public class LdapAuthenticationProviderConfigurer<B extends ProviderManagerBuild
 			return this.ldapAuthoritiesPopulator;
 		}
 		DefaultLdapAuthoritiesPopulator defaultAuthoritiesPopulator = new DefaultLdapAuthoritiesPopulator(
-				this.contextSource, this.groupSearchBase);
+	this.contextSource, this.groupSearchBase);
 		defaultAuthoritiesPopulator.setGroupRoleAttribute(this.groupRoleAttribute);
 		defaultAuthoritiesPopulator.setGroupSearchFilter(this.groupSearchFilter);
 		defaultAuthoritiesPopulator.setSearchSubtree(this.groupSearchSubtree);
@@ -168,7 +167,7 @@ public class LdapAuthenticationProviderConfigurer<B extends ProviderManagerBuild
 	 * @since 4.1.1
 	 */
 	public LdapAuthenticationProviderConfigurer<B> authoritiesMapper(
-			GrantedAuthoritiesMapper grantedAuthoritiesMapper) {
+GrantedAuthoritiesMapper grantedAuthoritiesMapper) {
 		this.authoritiesMapper = grantedAuthoritiesMapper;
 		return this;
 	}
@@ -197,7 +196,7 @@ public class LdapAuthenticationProviderConfigurer<B extends ProviderManagerBuild
 	 */
 	private LdapAuthenticator createLdapAuthenticator(BaseLdapPathContextSource contextSource) {
 		AbstractLdapAuthenticator ldapAuthenticator = (this.passwordEncoder != null)
-				? createPasswordCompareAuthenticator(contextSource) : createBindAuthenticator(contextSource);
+	? createPasswordCompareAuthenticator(contextSource) : createBindAuthenticator(contextSource);
 		LdapUserSearch userSearch = createUserSearch();
 		if (userSearch != null) {
 			ldapAuthenticator.setUserSearch(userSearch);
@@ -214,7 +213,7 @@ public class LdapAuthenticationProviderConfigurer<B extends ProviderManagerBuild
 	 * @return
 	 */
 	private PasswordComparisonAuthenticator createPasswordCompareAuthenticator(
-			BaseLdapPathContextSource contextSource) {
+BaseLdapPathContextSource contextSource) {
 		PasswordComparisonAuthenticator ldapAuthenticator = new PasswordComparisonAuthenticator(contextSource);
 		if (this.passwordAttribute != null) {
 			ldapAuthenticator.setPasswordAttributeName(this.passwordAttribute);
@@ -268,7 +267,7 @@ public class LdapAuthenticationProviderConfigurer<B extends ProviderManagerBuild
 	 * @return the {@link LdapAuthenticationProviderConfigurer} for further customization
 	 */
 	public LdapAuthenticationProviderConfigurer<B> passwordEncoder(
-			final org.springframework.security.crypto.password.PasswordEncoder passwordEncoder) {
+final org.springframework.security.crypto.password.PasswordEncoder passwordEncoder) {
 		Assert.notNull(passwordEncoder, "passwordEncoder must not be null.");
 		this.passwordEncoder = passwordEncoder;
 		return this;
@@ -301,7 +300,7 @@ public class LdapAuthenticationProviderConfigurer<B extends ProviderManagerBuild
 	 * @see LdapUserDetailsMapper
 	 */
 	public LdapAuthenticationProviderConfigurer<B> userDetailsContextMapper(
-			UserDetailsContextMapper userDetailsContextMapper) {
+UserDetailsContextMapper userDetailsContextMapper) {
 		this.userDetailsContextMapper = userDetailsContextMapper;
 		return this;
 	}
@@ -401,7 +400,7 @@ public class LdapAuthenticationProviderConfigurer<B extends ProviderManagerBuild
 	 */
 	public PasswordCompareConfigurer passwordCompare() {
 		return new PasswordCompareConfigurer().passwordAttribute("password")
-				.passwordEncoder(NoOpPasswordEncoder.getInstance());
+	.passwordEncoder(NoOpPasswordEncoder.getInstance());
 	}
 
 	/**

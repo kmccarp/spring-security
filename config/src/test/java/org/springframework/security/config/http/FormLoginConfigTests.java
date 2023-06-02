@@ -73,7 +73,7 @@ public class FormLoginConfigTests {
 		this.spring.configLocations(this.xml("WithAntRequestMatcher")).autowire();
 		// @formatter:off
 		this.mvc.perform(get("/"))
-				.andExpect(redirectedUrl("http://localhost/login"));
+	.andExpect(redirectedUrl("http://localhost/login"));
 		// @formatter:on
 	}
 
@@ -82,11 +82,11 @@ public class FormLoginConfigTests {
 		this.spring.configLocations(this.xml("WithDefaultTargetUrl")).autowire();
 		// @formatter:off
 		MockHttpServletRequestBuilder loginRequest = post("/login")
-				.param("username", "user")
-				.param("password", "password")
-				.with(csrf());
+	.param("username", "user")
+	.param("password", "password")
+	.with(csrf());
 		this.mvc.perform(loginRequest)
-				.andExpect(redirectedUrl("/default"));
+	.andExpect(redirectedUrl("/default"));
 		// @formatter:on
 	}
 
@@ -95,32 +95,32 @@ public class FormLoginConfigTests {
 		this.spring.configLocations(this.xml("UsingSpel")).autowire();
 		// @formatter:off
 		MockHttpServletRequestBuilder loginRequest = post("/login")
-				.param("username", "user")
-				.param("password", "password")
-				.with(csrf());
+	.param("username", "user")
+	.param("password", "password")
+	.with(csrf());
 		this.mvc.perform(loginRequest)
-				.andExpect(redirectedUrl(WebConfigUtilsTests.URL + "/default"));
+	.andExpect(redirectedUrl(WebConfigUtilsTests.URL + "/default"));
 		MockHttpServletRequestBuilder invalidPassword = post("/login")
-				.param("username", "user")
-				.param("password", "wrong")
-				.with(csrf());
+	.param("username", "user")
+	.param("password", "wrong")
+	.with(csrf());
 		this.mvc.perform(invalidPassword)
-				.andExpect(redirectedUrl(WebConfigUtilsTests.URL + "/failure"));
+	.andExpect(redirectedUrl(WebConfigUtilsTests.URL + "/failure"));
 		this.mvc.perform(get("/"))
-				.andExpect(redirectedUrl("http://localhost" + WebConfigUtilsTests.URL + "/login"));
+	.andExpect(redirectedUrl("http://localhost" + WebConfigUtilsTests.URL + "/login"));
 		// @formatter:on
 	}
 
 	@Test
 	public void autowireWhenLoginPageIsMisconfiguredThenDetects() {
 		assertThatExceptionOfType(BeanCreationException.class)
-				.isThrownBy(() -> this.spring.configLocations(this.xml("NoLeadingSlashLoginPage")).autowire());
+	.isThrownBy(() -> this.spring.configLocations(this.xml("NoLeadingSlashLoginPage")).autowire());
 	}
 
 	@Test
 	public void autowireWhenDefaultTargetUrlIsMisconfiguredThenDetects() {
 		assertThatExceptionOfType(BeanCreationException.class)
-				.isThrownBy(() -> this.spring.configLocations(this.xml("NoLeadingSlashDefaultTargetUrl")).autowire());
+	.isThrownBy(() -> this.spring.configLocations(this.xml("NoLeadingSlashDefaultTargetUrl")).autowire());
 	}
 
 	@Test
@@ -128,17 +128,17 @@ public class FormLoginConfigTests {
 		this.spring.configLocations(this.xml("WithSuccessAndFailureHandlers")).autowire();
 		// @formatter:off
 		MockHttpServletRequestBuilder loginRequest = post("/login")
-				.param("username", "user")
-				.param("password", "password")
-				.with(csrf());
+	.param("username", "user")
+	.param("password", "password")
+	.with(csrf());
 		this.mvc.perform(loginRequest)
-				.andExpect(status().isIAmATeapot());
+	.andExpect(status().isIAmATeapot());
 		MockHttpServletRequestBuilder invalidPassword = post("/login")
-				.param("username", "user")
-				.param("password", "wrong")
-				.with(csrf());
+	.param("username", "user")
+	.param("password", "wrong")
+	.with(csrf());
 		this.mvc.perform(invalidPassword)
-				.andExpect(status().isIAmATeapot());
+	.andExpect(status().isIAmATeapot());
 		// @formatter:on
 	}
 
@@ -146,7 +146,7 @@ public class FormLoginConfigTests {
 	public void authenticateWhenCustomUsernameAndPasswordParametersThenSucceeds() throws Exception {
 		this.spring.configLocations(this.xml("WithUsernameAndPasswordParameters")).autowire();
 		this.mvc.perform(post("/login").param("xname", "user").param("xpass", "password").with(csrf()))
-				.andExpect(redirectedUrl("/"));
+	.andExpect(redirectedUrl("/"));
 	}
 
 	@Test
@@ -162,7 +162,7 @@ public class FormLoginConfigTests {
 	 */
 	@Test
 	public void autowireWhenCustomLoginPageIsSlashLoginThenNoDefaultLoginPageGeneratingFilterIsWired()
-			throws Exception {
+throws Exception {
 		this.spring.configLocations(this.xml("ForSec2919")).autowire();
 		this.mvc.perform(get("/login")).andExpect(content().string("teapot"));
 		assertThat(getFilter(this.spring.getContext(), DefaultLoginPageGeneratingFilter.class)).isNull();
@@ -173,10 +173,10 @@ public class FormLoginConfigTests {
 		this.spring.configLocations(this.xml("WithCsrfEnabled")).autowire();
 		// @formatter:off
 		MockHttpServletRequestBuilder loginRequest = post("/login")
-				.param("username", "user")
-				.param("password", "password");
+	.param("username", "user")
+	.param("password", "password");
 		this.mvc.perform(loginRequest)
-				.andExpect(status().isForbidden());
+	.andExpect(status().isForbidden());
 		// @formatter:on
 	}
 
@@ -185,10 +185,10 @@ public class FormLoginConfigTests {
 		this.spring.configLocations(this.xml("WithCsrfDisabled")).autowire();
 		// @formatter:off
 		MockHttpServletRequestBuilder loginRequest = post("/login")
-				.param("username", "user")
-				.param("password", "password");
+	.param("username", "user")
+	.param("password", "password");
 		this.mvc.perform(loginRequest)
-				.andExpect(status().isFound());
+	.andExpect(status().isFound());
 		// @formatter:on
 	}
 
@@ -198,15 +198,15 @@ public class FormLoginConfigTests {
 	 */
 	@Test
 	public void authenticateWhenLoginPageIsSlashLoginAndAuthenticationFailsThenRedirectContainsErrorParameter()
-			throws Exception {
+throws Exception {
 		this.spring.configLocations(this.xml("ForSec3147")).autowire();
 		// @formatter:off
 		MockHttpServletRequestBuilder loginRequest = post("/login")
-				.param("username", "user")
-				.param("password", "wrong")
-				.with(csrf());
+	.param("username", "user")
+	.param("password", "wrong")
+	.with(csrf());
 		this.mvc.perform(loginRequest)
-				.andExpect(redirectedUrl("/login?error"));
+	.andExpect(redirectedUrl("/login?error"));
 		// @formatter:on
 	}
 
@@ -236,17 +236,17 @@ public class FormLoginConfigTests {
 	}
 
 	public static class TeapotAuthenticationHandler
-			implements AuthenticationSuccessHandler, AuthenticationFailureHandler {
+implements AuthenticationSuccessHandler, AuthenticationFailureHandler {
 
 		@Override
 		public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
-				AuthenticationException exception) {
+	AuthenticationException exception) {
 			response.setStatus(HttpStatus.I_AM_A_TEAPOT.value());
 		}
 
 		@Override
 		public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
-				Authentication authentication) {
+	Authentication authentication) {
 			response.setStatus(HttpStatus.I_AM_A_TEAPOT.value());
 		}
 

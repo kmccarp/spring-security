@@ -41,7 +41,7 @@ public class ExpressionBasedFilterInvocationSecurityMetadataSourceTests {
 		LinkedHashMap<RequestMatcher, Collection<ConfigAttribute>> requestMap = new LinkedHashMap<>();
 		requestMap.put(AnyRequestMatcher.INSTANCE, SecurityConfig.createList(expression));
 		ExpressionBasedFilterInvocationSecurityMetadataSource mds = new ExpressionBasedFilterInvocationSecurityMetadataSource(
-				requestMap, new DefaultWebSecurityExpressionHandler());
+	requestMap, new DefaultWebSecurityExpressionHandler());
 		assertThat(mds.getAllConfigAttributes()).hasSize(1);
 		Collection<ConfigAttribute> attrs = mds.getAttributes(new FilterInvocation("/path", "GET"));
 		assertThat(attrs).hasSize(1);
@@ -56,8 +56,8 @@ public class ExpressionBasedFilterInvocationSecurityMetadataSourceTests {
 		LinkedHashMap<RequestMatcher, Collection<ConfigAttribute>> requestMap = new LinkedHashMap<>();
 		requestMap.put(AnyRequestMatcher.INSTANCE, SecurityConfig.createList("hasRole('X'"));
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new ExpressionBasedFilterInvocationSecurityMetadataSource(requestMap,
-						new DefaultWebSecurityExpressionHandler()));
+	.isThrownBy(() -> new ExpressionBasedFilterInvocationSecurityMetadataSource(requestMap,
+new DefaultWebSecurityExpressionHandler()));
 	}
 
 }

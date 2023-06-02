@@ -56,26 +56,26 @@ public class LoggerListener implements ApplicationListener<AbstractAuthorization
 
 	private void onAuthenticationCredentialsNotFoundEvent(AuthenticationCredentialsNotFoundEvent authEvent) {
 		logger.warn(LogMessage.format(
-				"Security interception failed due to: %s; secure object: %s; configuration attributes: %s",
-				authEvent.getCredentialsNotFoundException(), authEvent.getSource(), authEvent.getConfigAttributes()));
+	"Security interception failed due to: %s; secure object: %s; configuration attributes: %s",
+	authEvent.getCredentialsNotFoundException(), authEvent.getSource(), authEvent.getConfigAttributes()));
 	}
 
 	private void onPublicInvocationEvent(PublicInvocationEvent event) {
 		logger.info(LogMessage.format("Security interception not required for public secure object: %s",
-				event.getSource()));
+	event.getSource()));
 	}
 
 	private void onAuthorizedEvent(AuthorizedEvent authEvent) {
 		logger.info(LogMessage.format(
-				"Security authorized for authenticated principal: %s; secure object: %s; configuration attributes: %s",
-				authEvent.getAuthentication(), authEvent.getSource(), authEvent.getConfigAttributes()));
+	"Security authorized for authenticated principal: %s; secure object: %s; configuration attributes: %s",
+	authEvent.getAuthentication(), authEvent.getSource(), authEvent.getConfigAttributes()));
 	}
 
 	private void onAuthorizationFailureEvent(AuthorizationFailureEvent authEvent) {
 		logger.warn(LogMessage.format(
-				"Security authorization failed due to: %s; authenticated principal: %s; secure object: %s; configuration attributes: %s",
-				authEvent.getAccessDeniedException(), authEvent.getAuthentication(), authEvent.getSource(),
-				authEvent.getConfigAttributes()));
+	"Security authorization failed due to: %s; authenticated principal: %s; secure object: %s; configuration attributes: %s",
+	authEvent.getAccessDeniedException(), authEvent.getAuthentication(), authEvent.getSource(),
+	authEvent.getConfigAttributes()));
 	}
 
 }

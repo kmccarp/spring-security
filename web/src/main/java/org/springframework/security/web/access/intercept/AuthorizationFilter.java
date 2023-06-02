@@ -51,7 +51,7 @@ import org.springframework.web.filter.GenericFilterBean;
 public class AuthorizationFilter extends GenericFilterBean {
 
 	private SecurityContextHolderStrategy securityContextHolderStrategy = SecurityContextHolder
-			.getContextHolderStrategy();
+.getContextHolderStrategy();
 
 	private final AuthorizationManager<HttpServletRequest> authorizationManager;
 
@@ -74,7 +74,7 @@ public class AuthorizationFilter extends GenericFilterBean {
 
 	@Override
 	public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain chain)
-			throws ServletException, IOException {
+throws ServletException, IOException {
 
 		HttpServletRequest request = (HttpServletRequest) servletRequest;
 		HttpServletResponse response = (HttpServletResponse) servletResponse;
@@ -141,7 +141,7 @@ public class AuthorizationFilter extends GenericFilterBean {
 		Authentication authentication = this.securityContextHolderStrategy.getContext().getAuthentication();
 		if (authentication == null) {
 			throw new AuthenticationCredentialsNotFoundException(
-					"An Authentication object was not found in the SecurityContext");
+		"An Authentication object was not found in the SecurityContext");
 		}
 		return authentication;
 	}
@@ -196,7 +196,7 @@ public class AuthorizationFilter extends GenericFilterBean {
 	}
 
 	private static <T> void noPublish(Supplier<Authentication> authentication, T object,
-			AuthorizationDecision decision) {
+AuthorizationDecision decision) {
 
 	}
 

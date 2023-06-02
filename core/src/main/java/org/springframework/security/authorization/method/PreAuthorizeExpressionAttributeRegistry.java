@@ -63,14 +63,14 @@ final class PreAuthorizeExpressionAttributeRegistry extends AbstractExpressionAt
 			return ExpressionAttribute.NULL_ATTRIBUTE;
 		}
 		Expression preAuthorizeExpression = this.expressionHandler.getExpressionParser()
-				.parseExpression(preAuthorize.value());
+	.parseExpression(preAuthorize.value());
 		return new ExpressionAttribute(preAuthorizeExpression);
 	}
 
 	private PreAuthorize findPreAuthorizeAnnotation(Method method) {
 		PreAuthorize preAuthorize = AuthorizationAnnotationUtils.findUniqueAnnotation(method, PreAuthorize.class);
 		return (preAuthorize != null) ? preAuthorize
-				: AuthorizationAnnotationUtils.findUniqueAnnotation(method.getDeclaringClass(), PreAuthorize.class);
+	: AuthorizationAnnotationUtils.findUniqueAnnotation(method.getDeclaringClass(), PreAuthorize.class);
 	}
 
 }

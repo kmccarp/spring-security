@@ -35,7 +35,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@ContextConfiguration(locations = { "/http-path-param-stripping-app-context.xml" })
+@ContextConfiguration(locations = {"/http-path-param-stripping-app-context.xml"})
 @ExtendWith(SpringExtension.class)
 public class HttpPathParameterStrippingTests {
 
@@ -76,9 +76,9 @@ public class HttpPathParameterStrippingTests {
 	public HttpSession createAuthenticatedSession(String... roles) {
 		MockHttpSession session = new MockHttpSession();
 		SecurityContextHolder.getContext()
-				.setAuthentication(new TestingAuthenticationToken("bob", "bobspassword", roles));
+	.setAuthentication(new TestingAuthenticationToken("bob", "bobspassword", roles));
 		session.setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY,
-				SecurityContextHolder.getContext());
+	SecurityContextHolder.getContext());
 		SecurityContextHolder.clearContext();
 		return session;
 	}

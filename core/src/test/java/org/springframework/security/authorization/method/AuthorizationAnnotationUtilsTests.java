@@ -34,11 +34,11 @@ class AuthorizationAnnotationUtilsTests {
 	@Test // gh-13132
 	void annotationsOnSyntheticMethodsShouldNotTriggerAnnotationConfigurationException() throws NoSuchMethodException {
 		StringRepository proxy = (StringRepository) Proxy.newProxyInstance(
-				Thread.currentThread().getContextClassLoader(), new Class[] { StringRepository.class },
-				(p, m, args) -> null);
+	Thread.currentThread().getContextClassLoader(), new Class[]{StringRepository.class},
+	(p, m, args) -> null);
 		Method method = proxy.getClass().getDeclaredMethod("findAll");
 		assertThatNoException()
-				.isThrownBy(() -> AuthorizationAnnotationUtils.findUniqueAnnotation(method, PreAuthorize.class));
+	.isThrownBy(() -> AuthorizationAnnotationUtils.findUniqueAnnotation(method, PreAuthorize.class));
 	}
 
 	private interface BaseRepository<T> {

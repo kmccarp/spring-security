@@ -109,13 +109,13 @@ public class InterceptMethodsBeanDefinitionDecoratorTests implements Application
 	@Test
 	public void targetShouldPreventProtectedMethodInvocationWithNoContext() {
 		assertThatExceptionOfType(AuthenticationCredentialsNotFoundException.class)
-				.isThrownBy(this.target::doSomething);
+	.isThrownBy(this.target::doSomething);
 	}
 
 	@Test
 	public void targetShouldAllowProtectedMethodInvocationWithCorrectRole() {
 		UsernamePasswordAuthenticationToken token = UsernamePasswordAuthenticationToken.authenticated("Test",
-				"Password", AuthorityUtils.createAuthorityList("ROLE_USER"));
+	"Password", AuthorityUtils.createAuthorityList("ROLE_USER"));
 		SecurityContextHolder.getContext().setAuthentication(token);
 		this.target.doSomething();
 	}
@@ -123,7 +123,7 @@ public class InterceptMethodsBeanDefinitionDecoratorTests implements Application
 	@Test
 	public void targetShouldPreventProtectedMethodInvocationWithIncorrectRole() {
 		UsernamePasswordAuthenticationToken token = UsernamePasswordAuthenticationToken.authenticated("Test",
-				"Password", AuthorityUtils.createAuthorityList("ROLE_SOMEOTHERROLE"));
+	"Password", AuthorityUtils.createAuthorityList("ROLE_SOMEOTHERROLE"));
 		SecurityContextHolder.getContext().setAuthentication(token);
 		assertThatExceptionOfType(AccessDeniedException.class).isThrownBy(this.target::doSomething);
 	}
@@ -141,13 +141,13 @@ public class InterceptMethodsBeanDefinitionDecoratorTests implements Application
 	@Test
 	public void targetAuthorizationManagerShouldPreventProtectedMethodInvocationWithNoContext() {
 		assertThatExceptionOfType(AuthenticationCredentialsNotFoundException.class)
-				.isThrownBy(this.targetAuthorizationManager::doSomething);
+	.isThrownBy(this.targetAuthorizationManager::doSomething);
 	}
 
 	@Test
 	public void targetAuthorizationManagerShouldAllowProtectedMethodInvocationWithCorrectRole() {
 		UsernamePasswordAuthenticationToken token = UsernamePasswordAuthenticationToken.authenticated("Test",
-				"Password", AuthorityUtils.createAuthorityList("ROLE_USER"));
+	"Password", AuthorityUtils.createAuthorityList("ROLE_USER"));
 		SecurityContextHolder.getContext().setAuthentication(token);
 		this.targetAuthorizationManager.doSomething();
 	}
@@ -155,7 +155,7 @@ public class InterceptMethodsBeanDefinitionDecoratorTests implements Application
 	@Test
 	public void targetAuthorizationManagerShouldPreventProtectedMethodInvocationWithIncorrectRole() {
 		UsernamePasswordAuthenticationToken token = UsernamePasswordAuthenticationToken.authenticated("Test",
-				"Password", AuthorityUtils.createAuthorityList("ROLE_SOMEOTHERROLE"));
+	"Password", AuthorityUtils.createAuthorityList("ROLE_SOMEOTHERROLE"));
 		SecurityContextHolder.getContext().setAuthentication(token);
 		assertThatExceptionOfType(AccessDeniedException.class).isThrownBy(this.targetAuthorizationManager::doSomething);
 	}
@@ -163,7 +163,7 @@ public class InterceptMethodsBeanDefinitionDecoratorTests implements Application
 	@Test
 	public void transactionalAuthorizationManagerMethodsShouldBeSecured() {
 		assertThatExceptionOfType(AuthenticationException.class)
-				.isThrownBy(this.transactionalTargetAuthorizationManager::doSomething);
+	.isThrownBy(this.transactionalTargetAuthorizationManager::doSomething);
 	}
 
 	@Test

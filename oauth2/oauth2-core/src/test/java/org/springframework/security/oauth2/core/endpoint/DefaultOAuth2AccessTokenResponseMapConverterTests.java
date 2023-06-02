@@ -53,12 +53,12 @@ public class DefaultOAuth2AccessTokenResponseMapConverterTests {
 		scopes.add("write");
 		// @formatter:off
 		OAuth2AccessTokenResponse build = OAuth2AccessTokenResponse.withToken("access-token-value-1234")
-				.expiresIn(3699)
-				.additionalParameters(additionalParameters)
-				.refreshToken("refresh-token-value-1234")
-				.scopes(scopes)
-				.tokenType(OAuth2AccessToken.TokenType.BEARER)
-				.build();
+	.expiresIn(3699)
+	.additionalParameters(additionalParameters)
+	.refreshToken("refresh-token-value-1234")
+	.scopes(scopes)
+	.tokenType(OAuth2AccessToken.TokenType.BEARER)
+	.build();
 		// @formatter:on
 		Map<String, Object> result = this.messageConverter.convert(build);
 		Assertions.assertEquals(7, result.size());
@@ -75,8 +75,8 @@ public class DefaultOAuth2AccessTokenResponseMapConverterTests {
 	public void shouldConvertMinimal() {
 		// @formatter:off
 		OAuth2AccessTokenResponse build = OAuth2AccessTokenResponse.withToken("access-token-value-1234")
-				.tokenType(OAuth2AccessToken.TokenType.BEARER)
-				.build();
+	.tokenType(OAuth2AccessToken.TokenType.BEARER)
+	.build();
 		// @formatter:on
 		Map<String, Object> result = this.messageConverter.convert(build);
 		Assertions.assertEquals(3, result.size());
@@ -99,12 +99,12 @@ public class DefaultOAuth2AccessTokenResponseMapConverterTests {
 		scopes.add("write");
 		// @formatter:off
 		OAuth2AccessTokenResponse build = OAuth2AccessTokenResponse.withToken("access-token-value-1234")
-				.expiresIn(3699)
-				.additionalParameters(additionalParameters)
-				.refreshToken("refresh-token-value-1234")
-				.scopes(scopes)
-				.tokenType(OAuth2AccessToken.TokenType.BEARER)
-				.build();
+	.expiresIn(3699)
+	.additionalParameters(additionalParameters)
+	.refreshToken("refresh-token-value-1234")
+	.scopes(scopes)
+	.tokenType(OAuth2AccessToken.TokenType.BEARER)
+	.build();
 		// @formatter:on
 		Map<String, Object> result = this.messageConverter.convert(build);
 		Assertions.assertEquals(7, result.size());

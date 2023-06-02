@@ -37,8 +37,7 @@ import static org.mockito.Mockito.verify;
  * @see CurrentDelegatingSecurityContextScheduledExecutorServiceTests
  * @see ExplicitDelegatingSecurityContextScheduledExecutorServiceTests
  */
-public abstract class AbstractDelegatingSecurityContextScheduledExecutorServiceTests
-		extends AbstractDelegatingSecurityContextExecutorServiceTests {
+public abstract class AbstractDelegatingSecurityContextScheduledExecutorServiceTestsextends AbstractDelegatingSecurityContextExecutorServiceTests {
 
 	@Mock
 	private ScheduledFuture<Object> expectedResult;
@@ -54,7 +53,7 @@ public abstract class AbstractDelegatingSecurityContextScheduledExecutorServiceT
 	@SuppressWarnings("unchecked")
 	public void scheduleRunnable() {
 		given((ScheduledFuture<Object>) this.delegate.schedule(this.wrappedRunnable, 1, TimeUnit.SECONDS))
-				.willReturn(this.expectedResult);
+	.willReturn(this.expectedResult);
 		ScheduledFuture<?> result = this.executor.schedule(this.runnable, 1, TimeUnit.SECONDS);
 		assertThatObject(result).isEqualTo(this.expectedResult);
 		verify(this.delegate).schedule(this.wrappedRunnable, 1, TimeUnit.SECONDS);
@@ -72,7 +71,7 @@ public abstract class AbstractDelegatingSecurityContextScheduledExecutorServiceT
 	@SuppressWarnings("unchecked")
 	public void scheduleAtFixedRate() {
 		given((ScheduledFuture<Object>) this.delegate.scheduleAtFixedRate(this.wrappedRunnable, 1, 2, TimeUnit.SECONDS))
-				.willReturn(this.expectedResult);
+	.willReturn(this.expectedResult);
 		ScheduledFuture<?> result = this.executor.scheduleAtFixedRate(this.runnable, 1, 2, TimeUnit.SECONDS);
 		assertThatObject(result).isEqualTo(this.expectedResult);
 		verify(this.delegate).scheduleAtFixedRate(this.wrappedRunnable, 1, 2, TimeUnit.SECONDS);
@@ -82,7 +81,7 @@ public abstract class AbstractDelegatingSecurityContextScheduledExecutorServiceT
 	@SuppressWarnings("unchecked")
 	public void scheduleWithFixedDelay() {
 		given((ScheduledFuture<Object>) this.delegate.scheduleWithFixedDelay(this.wrappedRunnable, 1, 2,
-				TimeUnit.SECONDS)).willReturn(this.expectedResult);
+	TimeUnit.SECONDS)).willReturn(this.expectedResult);
 		ScheduledFuture<?> result = this.executor.scheduleWithFixedDelay(this.runnable, 1, 2, TimeUnit.SECONDS);
 		assertThatObject(result).isEqualTo(this.expectedResult);
 		verify(this.delegate).scheduleWithFixedDelay(this.wrappedRunnable, 1, 2, TimeUnit.SECONDS);

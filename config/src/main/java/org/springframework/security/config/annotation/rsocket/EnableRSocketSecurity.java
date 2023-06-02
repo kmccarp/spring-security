@@ -35,7 +35,7 @@ import org.springframework.context.annotation.Import;
 @Documented
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-@Import({ RSocketSecurityConfiguration.class, SecuritySocketAcceptorInterceptorConfiguration.class })
+@Import({RSocketSecurityConfiguration.class, SecuritySocketAcceptorInterceptorConfiguration.class})
 public @interface EnableRSocketSecurity {
 
 }

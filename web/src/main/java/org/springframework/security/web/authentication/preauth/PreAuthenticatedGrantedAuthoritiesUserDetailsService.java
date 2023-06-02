@@ -45,8 +45,7 @@ import org.springframework.util.Assert;
  * @author Ruud Senden
  * @since 2.0
  */
-public class PreAuthenticatedGrantedAuthoritiesUserDetailsService
-		implements AuthenticationUserDetailsService<PreAuthenticatedAuthenticationToken> {
+public class PreAuthenticatedGrantedAuthoritiesUserDetailsServiceimplements AuthenticationUserDetailsService<PreAuthenticatedAuthenticationToken> {
 
 	/**
 	 * Get a UserDetails object based on the user name contained in the given token, and
@@ -58,7 +57,7 @@ public class PreAuthenticatedGrantedAuthoritiesUserDetailsService
 		Assert.notNull(token.getDetails(), "token.getDetails() cannot be null");
 		Assert.isInstanceOf(GrantedAuthoritiesContainer.class, token.getDetails());
 		Collection<? extends GrantedAuthority> authorities = ((GrantedAuthoritiesContainer) token.getDetails())
-				.getGrantedAuthorities();
+	.getGrantedAuthorities();
 		return createUserDetails(token, authorities);
 	}
 

@@ -51,16 +51,16 @@ public class AuthorizationManagerBeforeMethodInterceptorTests {
 	@Test
 	public void instantiateWhenMethodMatcherNullThenException() {
 		assertThatIllegalArgumentException()
-				.isThrownBy(
-						() -> new AuthorizationManagerBeforeMethodInterceptor(null, mock(AuthorizationManager.class)))
-				.withMessage("pointcut cannot be null");
+	.isThrownBy(
+() -> new AuthorizationManagerBeforeMethodInterceptor(null, mock(AuthorizationManager.class)))
+	.withMessage("pointcut cannot be null");
 	}
 
 	@Test
 	public void instantiateWhenAuthorizationManagerNullThenException() {
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new AuthorizationManagerBeforeMethodInterceptor(mock(Pointcut.class), null))
-				.withMessage("authorizationManager cannot be null");
+	.isThrownBy(() -> new AuthorizationManagerBeforeMethodInterceptor(mock(Pointcut.class), null))
+	.withMessage("authorizationManager cannot be null");
 	}
 
 	@Test
@@ -68,7 +68,7 @@ public class AuthorizationManagerBeforeMethodInterceptorTests {
 		MethodInvocation mockMethodInvocation = mock(MethodInvocation.class);
 		AuthorizationManager<MethodInvocation> mockAuthorizationManager = mock(AuthorizationManager.class);
 		AuthorizationManagerBeforeMethodInterceptor advice = new AuthorizationManagerBeforeMethodInterceptor(
-				Pointcut.TRUE, mockAuthorizationManager);
+	Pointcut.TRUE, mockAuthorizationManager);
 		advice.invoke(mockMethodInvocation);
 		verify(mockAuthorizationManager).check(any(Supplier.class), eq(mockMethodInvocation));
 	}
@@ -77,12 +77,12 @@ public class AuthorizationManagerBeforeMethodInterceptorTests {
 	public void beforeWhenMockSecurityContextHolderStrategyThenUses() throws Throwable {
 		SecurityContextHolderStrategy strategy = mock(SecurityContextHolderStrategy.class);
 		Authentication authentication = new TestingAuthenticationToken("user", "password",
-				AuthorityUtils.createAuthorityList("authority"));
+	AuthorityUtils.createAuthorityList("authority"));
 		given(strategy.getContext()).willReturn(new SecurityContextImpl(authentication));
 		MethodInvocation invocation = mock(MethodInvocation.class);
 		AuthorizationManager<MethodInvocation> authorizationManager = AuthenticatedAuthorizationManager.authenticated();
 		AuthorizationManagerBeforeMethodInterceptor advice = new AuthorizationManagerBeforeMethodInterceptor(
-				Pointcut.TRUE, authorizationManager);
+	Pointcut.TRUE, authorizationManager);
 		advice.setSecurityContextHolderStrategy(strategy);
 		advice.invoke(invocation);
 		verify(strategy).getContext();
@@ -91,15 +91,15 @@ public class AuthorizationManagerBeforeMethodInterceptorTests {
 	@Test
 	public void configureWhenAuthorizationEventPublisherIsNullThenIllegalArgument() {
 		AuthorizationManagerBeforeMethodInterceptor advice = new AuthorizationManagerBeforeMethodInterceptor(
-				Pointcut.TRUE, AuthenticatedAuthorizationManager.authenticated());
+	Pointcut.TRUE, AuthenticatedAuthorizationManager.authenticated());
 		assertThatIllegalArgumentException().isThrownBy(() -> advice.setAuthorizationEventPublisher(null))
-				.withMessage("eventPublisher cannot be null");
+	.withMessage("eventPublisher cannot be null");
 	}
 
 	@Test
 	public void invokeWhenAuthorizationEventPublisherThenUses() throws Throwable {
 		AuthorizationManagerBeforeMethodInterceptor advice = new AuthorizationManagerBeforeMethodInterceptor(
-				Pointcut.TRUE, AuthenticatedAuthorizationManager.authenticated());
+	Pointcut.TRUE, AuthenticatedAuthorizationManager.authenticated());
 		AuthorizationEventPublisher eventPublisher = mock(AuthorizationEventPublisher.class);
 		advice.setAuthorizationEventPublisher(eventPublisher);
 
@@ -113,7 +113,7 @@ public class AuthorizationManagerBeforeMethodInterceptorTests {
 
 		advice.invoke(mockMethodInvocation);
 		verify(eventPublisher).publishAuthorizationEvent(any(Supplier.class), any(MethodInvocation.class),
-				any(AuthorizationDecision.class));
+	any(AuthorizationDecision.class));
 	}
 
 }

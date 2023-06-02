@@ -45,14 +45,14 @@ public class UserDetailsManagerConfigurerTests {
 	public void allAttributesSupported() {
 		// @formatter:off
 		UserDetails userDetails = configurer()
-				.withUser("user")
-				.password("password")
-				.roles("USER")
-				.disabled(true)
-				.accountExpired(true)
-				.accountLocked(true)
-				.credentialsExpired(true)
-				.build();
+	.withUser("user")
+	.password("password")
+	.roles("USER")
+	.disabled(true)
+	.accountExpired(true)
+	.accountLocked(true)
+	.credentialsExpired(true)
+	.build();
 		// @formatter:on
 		assertThat(userDetails.getUsername()).isEqualTo("user");
 		assertThat(userDetails.getPassword()).isEqualTo("password");
@@ -68,10 +68,10 @@ public class UserDetailsManagerConfigurerTests {
 		SimpleGrantedAuthority authority = new SimpleGrantedAuthority("ROLE_USER");
 		// @formatter:off
 		UserDetails userDetails = configurer()
-				.withUser("user")
-				.password("password")
-				.authorities(authority)
-				.build();
+	.withUser("user")
+	.password("password")
+	.authorities(authority)
+	.build();
 		// @formatter:on
 		assertThat(userDetails.getAuthorities().stream().findFirst().get()).isEqualTo(authority);
 	}
@@ -81,10 +81,10 @@ public class UserDetailsManagerConfigurerTests {
 		String authority = "ROLE_USER";
 		// @formatter:off
 		UserDetails userDetails = configurer()
-				.withUser("user")
-				.password("password")
-				.authorities(authority)
-				.build();
+	.withUser("user")
+	.password("password")
+	.authorities(authority)
+	.build();
 		// @formatter:on
 		assertThat(userDetails.getAuthorities().stream().findFirst().get().getAuthority()).isEqualTo(authority);
 	}
@@ -94,17 +94,17 @@ public class UserDetailsManagerConfigurerTests {
 		SimpleGrantedAuthority authority = new SimpleGrantedAuthority("ROLE_USER");
 		// @formatter:off
 		UserDetails userDetails = configurer()
-				.withUser("user")
-				.password("password")
-				.authorities(Arrays.asList(authority))
-				.build();
+	.withUser("user")
+	.password("password")
+	.authorities(Arrays.asList(authority))
+	.build();
 		// @formatter:on
 		assertThat(userDetails.getAuthorities().stream().findFirst().get()).isEqualTo(authority);
 	}
 
 	private UserDetailsManagerConfigurer<AuthenticationManagerBuilder, InMemoryUserDetailsManagerConfigurer<AuthenticationManagerBuilder>> configurer() {
 		return new UserDetailsManagerConfigurer<AuthenticationManagerBuilder, InMemoryUserDetailsManagerConfigurer<AuthenticationManagerBuilder>>(
-				this.userDetailsManager);
+	this.userDetailsManager);
 	}
 
 }

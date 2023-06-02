@@ -41,6 +41,6 @@ public interface AccessDeniedHandler {
 	 * @throws ServletException in the event of a ServletException
 	 */
 	void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException)
-			throws IOException, ServletException;
+throws IOException, ServletException;
 
 }

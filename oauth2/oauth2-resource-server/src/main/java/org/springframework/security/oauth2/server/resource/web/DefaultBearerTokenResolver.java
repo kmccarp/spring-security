@@ -42,7 +42,7 @@ public final class DefaultBearerTokenResolver implements BearerTokenResolver {
 	private static final String ACCESS_TOKEN_PARAMETER_NAME = "access_token";
 
 	private static final Pattern authorizationPattern = Pattern.compile("^Bearer (?<token>[a-zA-Z0-9-._~+/]+=*)$",
-			Pattern.CASE_INSENSITIVE);
+Pattern.CASE_INSENSITIVE);
 
 	private boolean allowFormEncodedBodyParameter = false;
 
@@ -54,11 +54,11 @@ public final class DefaultBearerTokenResolver implements BearerTokenResolver {
 	public String resolve(final HttpServletRequest request) {
 		final String authorizationHeaderToken = resolveFromAuthorizationHeader(request);
 		final String parameterToken = isParameterTokenSupportedForRequest(request)
-				? resolveFromRequestParameters(request) : null;
+	? resolveFromRequestParameters(request) : null;
 		if (authorizationHeaderToken != null) {
 			if (parameterToken != null) {
 				final BearerTokenError error = BearerTokenErrors
-						.invalidRequest("Found multiple bearer tokens in the request");
+			.invalidRequest("Found multiple bearer tokens in the request");
 				throw new OAuth2AuthenticationException(error);
 			}
 			return authorizationHeaderToken;
@@ -147,7 +147,7 @@ public final class DefaultBearerTokenResolver implements BearerTokenResolver {
 
 	private boolean isParameterTokenEnabledForRequest(HttpServletRequest request) {
 		return ((this.allowFormEncodedBodyParameter && isFormEncodedRequest(request) && !isGetRequest(request)
-				&& !hasAccessTokenInQueryString(request)) || (this.allowUriQueryParameter && isGetRequest(request)));
+	&& !hasAccessTokenInQueryString(request)) || (this.allowUriQueryParameter && isGetRequest(request)));
 	}
 
 }

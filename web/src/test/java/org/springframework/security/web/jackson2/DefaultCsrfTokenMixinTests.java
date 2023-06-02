@@ -37,11 +37,12 @@ public class DefaultCsrfTokenMixinTests extends AbstractMixinTests {
 
 	// @formatter:off
 	public static final String CSRF_JSON = "{"
-		+ "\"@class\": \"org.springframework.security.web.csrf.DefaultCsrfToken\", "
-		+ "\"headerName\": \"csrf-header\", "
-		+ "\"parameterName\": \"_csrf\", "
-		+ "\"token\": \"1\""
-	+ "}";
++ "\"@class\": \"org.springframework.security.web.csrf.DefaultCsrfToken\", "
++ "\"headerName\": \"csrf-header\", "
++ "\"parameterName\": \"_csrf\", "
++ "\"token\": \"1\""
++ "}";
+
 	// @formatter:on
 	@Test
 	public void defaultCsrfTokenSerializedTest() throws JsonProcessingException, JSONException {
@@ -63,14 +64,14 @@ public class DefaultCsrfTokenMixinTests extends AbstractMixinTests {
 	public void defaultCsrfTokenDeserializeWithoutClassTest() throws IOException {
 		String tokenJson = "{\"headerName\": \"csrf-header\", \"parameterName\": \"_csrf\", \"token\": \"1\"}";
 		assertThatExceptionOfType(JsonMappingException.class)
-				.isThrownBy(() -> this.mapper.readValue(tokenJson, DefaultCsrfToken.class));
+	.isThrownBy(() -> this.mapper.readValue(tokenJson, DefaultCsrfToken.class));
 	}
 
 	@Test
 	public void defaultCsrfTokenDeserializeNullValuesTest() throws IOException {
 		String tokenJson = "{\"@class\": \"org.springframework.security.web.csrf.DefaultCsrfToken\", \"headerName\": \"\", \"parameterName\": null, \"token\": \"1\"}";
 		assertThatExceptionOfType(JsonMappingException.class)
-				.isThrownBy(() -> this.mapper.readValue(tokenJson, DefaultCsrfToken.class));
+	.isThrownBy(() -> this.mapper.readValue(tokenJson, DefaultCsrfToken.class));
 	}
 
 }

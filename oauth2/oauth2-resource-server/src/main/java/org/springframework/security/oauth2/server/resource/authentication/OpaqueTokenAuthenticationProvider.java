@@ -145,13 +145,13 @@ public final class OpaqueTokenAuthenticationProvider implements AuthenticationPr
 	 * @return a {@link BearerTokenAuthentication}
 	 */
 	static BearerTokenAuthentication convert(String introspectedToken,
-			OAuth2AuthenticatedPrincipal authenticatedPrincipal) {
+OAuth2AuthenticatedPrincipal authenticatedPrincipal) {
 		Instant iat = authenticatedPrincipal.getAttribute(OAuth2TokenIntrospectionClaimNames.IAT);
 		Instant exp = authenticatedPrincipal.getAttribute(OAuth2TokenIntrospectionClaimNames.EXP);
 		OAuth2AccessToken accessToken = new OAuth2AccessToken(OAuth2AccessToken.TokenType.BEARER, introspectedToken,
-				iat, exp);
+	iat, exp);
 		return new BearerTokenAuthentication(authenticatedPrincipal, accessToken,
-				authenticatedPrincipal.getAuthorities());
+	authenticatedPrincipal.getAuthorities());
 	}
 
 	/**

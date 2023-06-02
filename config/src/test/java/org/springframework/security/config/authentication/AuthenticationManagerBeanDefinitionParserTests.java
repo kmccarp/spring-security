@@ -51,23 +51,23 @@ public class AuthenticationManagerBeanDefinitionParserTests {
 
 	// @formatter:off
 	private static final String CONTEXT = "<authentication-manager id='am'>"
-			+ "    <authentication-provider>"
-			+ "        <user-service>"
-			+ "            <user name='bob' password='{noop}bobspassword' authorities='ROLE_A,ROLE_B' />"
-			+ "        </user-service>"
-			+ "    </authentication-provider>"
-			+ "</authentication-manager>";
++ "    <authentication-provider>"
++ "        <user-service>"
++ "            <user name='bob' password='{noop}bobspassword' authorities='ROLE_A,ROLE_B' />"
++ "        </user-service>"
++ "    </authentication-provider>"
++ "</authentication-manager>";
 	// @formatter:on
 
 	// Issue #7282
 	// @formatter:off
 	private static final String CONTEXT_MULTI = "<authentication-manager id='amSecondary'>"
-			+ "    <authentication-provider>"
-			+ "        <user-service>"
-			+ "            <user name='john' password='{noop}doe' authorities='ROLE_C,ROLE_D' />"
-			+ "        </user-service>"
-			+ "    </authentication-provider>"
-			+ "</authentication-manager>";
++ "    <authentication-provider>"
++ "        <user-service>"
++ "            <user name='john' password='{noop}doe' authorities='ROLE_C,ROLE_D' />"
++ "        </user-service>"
++ "    </authentication-provider>"
++ "</authentication-manager>";
 	// @formatter:on
 
 	public final SpringTestContext spring = new SpringTestContext(this);
@@ -95,7 +95,7 @@ public class AuthenticationManagerBeanDefinitionParserTests {
 	// gh-8767
 	public void multipleAuthenticationManagersAndDisableBeanDefinitionOverridingThenNoException() {
 		InMemoryXmlWebApplicationContext xmlContext = new InMemoryXmlWebApplicationContext(
-				CONTEXT + '\n' + CONTEXT_MULTI);
+	CONTEXT + '\n' + CONTEXT_MULTI);
 		xmlContext.setAllowBeanDefinitionOverriding(false);
 		ConfigurableApplicationContext context = this.spring.context(xmlContext).getContext();
 		assertThat(context.getBeansOfType(AuthenticationManager.class)).hasSize(2);
@@ -124,7 +124,7 @@ public class AuthenticationManagerBeanDefinitionParserTests {
 	@Test
 	public void clearCredentialsPropertyIsRespected() {
 		ConfigurableApplicationContext appContext = this.spring
-				.context("<authentication-manager erase-credentials='false'/>").getContext();
+	.context("<authentication-manager erase-credentials='false'/>").getContext();
 		ProviderManager pm = (ProviderManager) appContext.getBeansOfType(ProviderManager.class).values().toArray()[0];
 		assertThat(pm.isEraseCredentialsAfterAuthentication()).isFalse();
 	}
@@ -136,17 +136,17 @@ public class AuthenticationManagerBeanDefinitionParserTests {
 	public void passwordEncoderBeanUsed() throws Exception {
 		// @formatter:off
 		this.spring.context("<b:bean id='passwordEncoder' class='org.springframework.security.crypto.password.NoOpPasswordEncoder' factory-method='getInstance'/>"
-				+ "<user-service>"
-				+ "  <user name='user' password='password' authorities='ROLE_A,ROLE_B' />"
-				+ "</user-service>"
-				+ "<http>"
-				+ "  <intercept-url pattern=\"/**\" access=\"authenticated\"/>"
-				+ "  <http-basic />"
-				+ "</http>")
-				.mockMvcAfterSpringSecurityOk()
-				.autowire();
+	+ "<user-service>"
+	+ "  <user name='user' password='password' authorities='ROLE_A,ROLE_B' />"
+	+ "</user-service>"
+	+ "<http>"
+	+ "  <intercept-url pattern=\"/**\" access=\"authenticated\"/>"
+	+ "  <http-basic />"
+	+ "</http>")
+	.mockMvcAfterSpringSecurityOk()
+	.autowire();
 		this.mockMvc.perform(get("/").with(httpBasic("user", "password")))
-				.andExpect(status().isOk());
+	.andExpect(status().isOk());
 		// @formatter:on
 	}
 

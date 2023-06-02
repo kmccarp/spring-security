@@ -77,19 +77,19 @@ public class CsrfAuthenticationStrategyTests {
 	@Test
 	public void setRequestHandlerWhenNullThenIllegalStateException() {
 		assertThatIllegalArgumentException().isThrownBy(() -> this.strategy.setRequestHandler(null))
-				.withMessage("requestHandler cannot be null");
+	.withMessage("requestHandler cannot be null");
 	}
 
 	@Test
 	public void onAuthenticationWhenCustomRequestHandlerThenUsed() {
 		given(this.csrfTokenRepository.loadToken(this.request)).willReturn(this.existingToken);
 		given(this.csrfTokenRepository.loadDeferredToken(this.request, this.response))
-				.willReturn(new TestDeferredCsrfToken(this.existingToken, false));
+	.willReturn(new TestDeferredCsrfToken(this.existingToken, false));
 
 		CsrfTokenRequestHandler requestHandler = mock(CsrfTokenRequestHandler.class);
 		this.strategy.setRequestHandler(requestHandler);
 		this.strategy.onAuthentication(new TestingAuthenticationToken("user", "password", "ROLE_USER"), this.request,
-				this.response);
+	this.response);
 		verify(this.csrfTokenRepository).loadToken(this.request);
 		verify(this.csrfTokenRepository).loadDeferredToken(this.request, this.response);
 		verify(requestHandler).handle(eq(this.request), eq(this.response), any());
@@ -100,9 +100,9 @@ public class CsrfAuthenticationStrategyTests {
 	public void logoutRemovesCsrfTokenAndLoadsNewDeferredCsrfToken() {
 		given(this.csrfTokenRepository.loadToken(this.request)).willReturn(this.existingToken);
 		given(this.csrfTokenRepository.loadDeferredToken(this.request, this.response))
-				.willReturn(new TestDeferredCsrfToken(this.generatedToken, false));
+	.willReturn(new TestDeferredCsrfToken(this.generatedToken, false));
 		this.strategy.onAuthentication(new TestingAuthenticationToken("user", "password", "ROLE_USER"), this.request,
-				this.response);
+	this.response);
 		verify(this.csrfTokenRepository).loadToken(this.request);
 		verify(this.csrfTokenRepository).saveToken(null, this.request, this.response);
 		verify(this.csrfTokenRepository).loadDeferredToken(this.request, this.response);
@@ -122,16 +122,16 @@ public class CsrfAuthenticationStrategyTests {
 		given(this.csrfTokenRepository.loadToken(this.request)).willReturn(this.existingToken, (CsrfToken) null);
 		given(this.csrfTokenRepository.generateToken(this.request)).willReturn(this.generatedToken);
 		this.strategy.onAuthentication(new TestingAuthenticationToken("user", "password", "ROLE_USER"), this.request,
-				this.response);
+	this.response);
 		verify(this.csrfTokenRepository).saveToken(null, this.request, this.response);
 		verify(this.csrfTokenRepository, never()).saveToken(eq(this.generatedToken), any(HttpServletRequest.class),
-				any(HttpServletResponse.class));
+	any(HttpServletResponse.class));
 		CsrfToken tokenInRequest = (CsrfToken) this.request.getAttribute(CsrfToken.class.getName());
 		tokenInRequest.getToken();
 		verify(this.csrfTokenRepository, times(2)).loadToken(this.request);
 		verify(this.csrfTokenRepository).generateToken(this.request);
 		verify(this.csrfTokenRepository).saveToken(eq(this.generatedToken), any(HttpServletRequest.class),
-				any(HttpServletResponse.class));
+	any(HttpServletResponse.class));
 	}
 
 }

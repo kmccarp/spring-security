@@ -55,7 +55,7 @@ public class SecurityMockMvcRequestPostProcessorsTestSecurityContextTests {
 	public void setup() {
 		this.request = new MockHttpServletRequest();
 		this.webTestUtils.when(() -> WebTestUtils.getSecurityContextRepository(this.request))
-				.thenReturn(this.repository);
+	.thenReturn(this.repository);
 	}
 
 	@AfterEach
@@ -75,7 +75,7 @@ public class SecurityMockMvcRequestPostProcessorsTestSecurityContextTests {
 	public void testSecurityContextNoContext() {
 		testSecurityContext().postProcessRequest(this.request);
 		verify(this.repository, never()).saveContext(any(SecurityContext.class), eq(this.request),
-				any(HttpServletResponse.class));
+	any(HttpServletResponse.class));
 	}
 
 }

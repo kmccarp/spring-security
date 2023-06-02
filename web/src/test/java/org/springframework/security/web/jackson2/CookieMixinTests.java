@@ -34,32 +34,33 @@ public class CookieMixinTests extends AbstractMixinTests {
 
 	// @formatter:off
 	private static final String COOKIE_JSON = "{" +
-		"	\"@class\": \"jakarta.servlet.http.Cookie\"," +
-		"	\"name\": \"demo\"," +
-		"	\"value\": \"cookie1\"," +
-		"	\"attributes\":{\"@class\":\"java.util.Collections$EmptyMap\"}," +
-		"	\"comment\": null," +
-		"	\"maxAge\": -1," +
-		"	\"path\": null," +
-		"	\"secure\": false," +
-		"	\"version\": 0," +
-		"	\"domain\": null" +
-		"}";
+"	\"@class\": \"jakarta.servlet.http.Cookie\"," +
+"	\"name\": \"demo\"," +
+"	\"value\": \"cookie1\"," +
+"	\"attributes\":{\"@class\":\"java.util.Collections$EmptyMap\"}," +
+"	\"comment\": null," +
+"	\"maxAge\": -1," +
+"	\"path\": null," +
+"	\"secure\": false," +
+"	\"version\": 0," +
+"	\"domain\": null" +
+"}";
 	// @formatter:on
 
 	// @formatter:off
 	private static final String COOKIE_HTTP_ONLY_JSON = "{" +
-		"	\"@class\": \"jakarta.servlet.http.Cookie\"," +
-		"	\"name\": \"demo\"," +
-		"	\"value\": \"cookie1\"," +
-		"	\"attributes\":{\"@class\":\"java.util.Collections$UnmodifiableMap\", \"HttpOnly\": \"true\"}," +
-		"	\"comment\": null," +
-		"	\"maxAge\": -1," +
-		"	\"path\": null," +
-		"	\"secure\": false," +
-		"	\"version\": 0," +
-		"	\"domain\": null" +
-		"}";
+"	\"@class\": \"jakarta.servlet.http.Cookie\"," +
+"	\"name\": \"demo\"," +
+"	\"value\": \"cookie1\"," +
+"	\"attributes\":{\"@class\":\"java.util.Collections$UnmodifiableMap\", \"HttpOnly\": \"true\"}," +
+"	\"comment\": null," +
+"	\"maxAge\": -1," +
+"	\"path\": null," +
+"	\"secure\": false," +
+"	\"version\": 0," +
+"	\"domain\": null" +
+"}";
+
 	// @formatter:on
 
 	@Test

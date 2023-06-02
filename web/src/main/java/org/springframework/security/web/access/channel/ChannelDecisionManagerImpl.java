@@ -58,7 +58,7 @@ public class ChannelDecisionManagerImpl implements ChannelDecisionManager, Initi
 
 	@Override
 	public void decide(FilterInvocation invocation, Collection<ConfigAttribute> config)
-			throws IOException, ServletException {
+throws IOException, ServletException {
 		for (ConfigAttribute attribute : config) {
 			if (ANY_CHANNEL.equals(attribute.getAttribute())) {
 				return;
@@ -82,7 +82,7 @@ public class ChannelDecisionManagerImpl implements ChannelDecisionManager, Initi
 		this.channelProcessors = new ArrayList<>(channelProcessors.size());
 		for (Object currentObject : channelProcessors) {
 			Assert.isInstanceOf(ChannelProcessor.class, currentObject, () -> "ChannelProcessor "
-					+ currentObject.getClass().getName() + " must implement ChannelProcessor");
+		+ currentObject.getClass().getName() + " must implement ChannelProcessor");
 			this.channelProcessors.add((ChannelProcessor) currentObject);
 		}
 	}

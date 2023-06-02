@@ -54,7 +54,7 @@ public class JwtAuthenticationConverter implements Converter<Jwt, AbstractAuthen
 	 * @see JwtGrantedAuthoritiesConverter
 	 */
 	public void setJwtGrantedAuthoritiesConverter(
-			Converter<Jwt, Collection<GrantedAuthority>> jwtGrantedAuthoritiesConverter) {
+Converter<Jwt, Collection<GrantedAuthority>> jwtGrantedAuthoritiesConverter) {
 		Assert.notNull(jwtGrantedAuthoritiesConverter, "jwtGrantedAuthoritiesConverter cannot be null");
 		this.jwtGrantedAuthoritiesConverter = jwtGrantedAuthoritiesConverter;
 	}

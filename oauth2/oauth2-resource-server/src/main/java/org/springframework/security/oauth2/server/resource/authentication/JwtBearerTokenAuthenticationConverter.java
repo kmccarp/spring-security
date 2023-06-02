@@ -50,7 +50,7 @@ public final class JwtBearerTokenAuthenticationConverter implements Converter<Jw
 	@Override
 	public AbstractAuthenticationToken convert(Jwt jwt) {
 		OAuth2AccessToken accessToken = new OAuth2AccessToken(OAuth2AccessToken.TokenType.BEARER, jwt.getTokenValue(),
-				jwt.getIssuedAt(), jwt.getExpiresAt());
+	jwt.getIssuedAt(), jwt.getExpiresAt());
 		Map<String, Object> attributes = jwt.getClaims();
 		AbstractAuthenticationToken token = this.jwtAuthenticationConverter.convert(jwt);
 		Collection<GrantedAuthority> authorities = token.getAuthorities();

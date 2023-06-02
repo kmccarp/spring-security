@@ -50,7 +50,7 @@ public class FilterBasedLdapUserSearchWithSpacesTests {
 	@Test
 	public void searchForUserWhenSpacesInBaseDnThenSuccess() throws Exception {
 		FilterBasedLdapUserSearch locator = new FilterBasedLdapUserSearch("ou=space cadets", "(uid={0})",
-				this.contextSource);
+	this.contextSource);
 		locator.setSearchSubtree(false);
 		locator.setSearchTimeLimit(0);
 		locator.setDerefLinkFlag(false);
@@ -68,7 +68,7 @@ public class FilterBasedLdapUserSearchWithSpacesTests {
 		@Bean
 		ApacheDSContainer ldapContainer() throws Exception {
 			this.container = new ApacheDSContainer("dc=spring framework,dc=org",
-					"classpath:test-server-with-spaces.ldif");
+		"classpath:test-server-with-spaces.ldif");
 			this.container.setPort(0);
 			return this.container;
 		}
@@ -76,7 +76,7 @@ public class FilterBasedLdapUserSearchWithSpacesTests {
 		@Bean
 		ContextSource contextSource(ApacheDSContainer ldapContainer) {
 			return new DefaultSpringSecurityContextSource(
-					"ldap://127.0.0.1:" + ldapContainer.getLocalPort() + "/dc=spring%20framework,dc=org");
+		"ldap://127.0.0.1:" + ldapContainer.getLocalPort() + "/dc=spring%20framework,dc=org");
 		}
 
 		@Override

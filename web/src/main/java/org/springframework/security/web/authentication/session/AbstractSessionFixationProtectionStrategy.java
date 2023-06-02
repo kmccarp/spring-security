@@ -36,8 +36,7 @@ import org.springframework.web.util.WebUtils;
  * @author Rob Winch
  * @since 3.2
  */
-public abstract class AbstractSessionFixationProtectionStrategy
-		implements SessionAuthenticationStrategy, ApplicationEventPublisherAware {
+public abstract class AbstractSessionFixationProtectionStrategyimplements SessionAuthenticationStrategy, ApplicationEventPublisherAware {
 
 	protected final Log logger = LogFactory.getLog(this.getClass());
 
@@ -71,7 +70,7 @@ public abstract class AbstractSessionFixationProtectionStrategy
 	 */
 	@Override
 	public void onAuthentication(Authentication authentication, HttpServletRequest request,
-			HttpServletResponse response) {
+HttpServletResponse response) {
 		boolean hadSessionAlready = request.getSession(false) != null;
 		if (!hadSessionAlready && !this.alwaysCreateSession) {
 			// Session fixation isn't a problem if there's no session
@@ -91,7 +90,7 @@ public abstract class AbstractSessionFixationProtectionStrategy
 			}
 			if (originalSessionId.equals(newSessionId)) {
 				this.logger.warn("Your servlet container did not change the session ID when a new session "
-						+ "was created. You will not be adequately protected against session-fixation attacks");
+			+ "was created. You will not be adequately protected against session-fixation attacks");
 			}
 			else {
 				if (this.logger.isDebugEnabled()) {
@@ -126,7 +125,7 @@ public abstract class AbstractSessionFixationProtectionStrategy
 	 */
 	protected void onSessionChange(String originalSessionId, HttpSession newSession, Authentication auth) {
 		this.applicationEventPublisher
-				.publishEvent(new SessionFixationProtectionEvent(auth, originalSessionId, newSession.getId()));
+	.publishEvent(new SessionFixationProtectionEvent(auth, originalSessionId, newSession.getId()));
 	}
 
 	/**

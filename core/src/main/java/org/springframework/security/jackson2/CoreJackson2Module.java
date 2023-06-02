@@ -61,14 +61,14 @@ public class CoreJackson2Module extends SimpleModule {
 		context.setMixInAnnotations(RememberMeAuthenticationToken.class, RememberMeAuthenticationTokenMixin.class);
 		context.setMixInAnnotations(SimpleGrantedAuthority.class, SimpleGrantedAuthorityMixin.class);
 		context.setMixInAnnotations(Collections.<Object>unmodifiableSet(Collections.emptySet()).getClass(),
-				UnmodifiableSetMixin.class);
+	UnmodifiableSetMixin.class);
 		context.setMixInAnnotations(Collections.<Object>unmodifiableList(Collections.emptyList()).getClass(),
-				UnmodifiableListMixin.class);
+	UnmodifiableListMixin.class);
 		context.setMixInAnnotations(Collections.<Object, Object>unmodifiableMap(Collections.emptyMap()).getClass(),
-				UnmodifiableMapMixin.class);
+	UnmodifiableMapMixin.class);
 		context.setMixInAnnotations(User.class, UserMixin.class);
 		context.setMixInAnnotations(UsernamePasswordAuthenticationToken.class,
-				UsernamePasswordAuthenticationTokenMixin.class);
+	UsernamePasswordAuthenticationTokenMixin.class);
 		context.setMixInAnnotations(BadCredentialsException.class, BadCredentialsExceptionMixin.class);
 	}
 

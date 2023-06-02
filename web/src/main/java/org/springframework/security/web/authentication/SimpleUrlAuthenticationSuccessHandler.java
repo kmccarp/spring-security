@@ -36,8 +36,7 @@ import org.springframework.security.web.WebAttributes;
  * @author Luke Taylor
  * @since 3.0
  */
-public class SimpleUrlAuthenticationSuccessHandler extends AbstractAuthenticationTargetUrlRequestHandler
-		implements AuthenticationSuccessHandler {
+public class SimpleUrlAuthenticationSuccessHandler extends AbstractAuthenticationTargetUrlRequestHandlerimplements AuthenticationSuccessHandler {
 
 	public SimpleUrlAuthenticationSuccessHandler() {
 	}
@@ -58,7 +57,7 @@ public class SimpleUrlAuthenticationSuccessHandler extends AbstractAuthenticatio
 	 */
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
-			Authentication authentication) throws IOException, ServletException {
+Authentication authentication) throws IOException, ServletException {
 		handle(request, response, authentication);
 		clearAuthenticationAttributes(request);
 	}

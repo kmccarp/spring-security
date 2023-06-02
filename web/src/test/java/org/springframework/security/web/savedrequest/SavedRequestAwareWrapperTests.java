@@ -33,7 +33,7 @@ import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException
 public class SavedRequestAwareWrapperTests {
 
 	private SavedRequestAwareWrapper createWrapper(MockHttpServletRequest requestToSave,
-			MockHttpServletRequest requestToWrap) {
+MockHttpServletRequest requestToWrap) {
 		DefaultSavedRequest saved = new DefaultSavedRequest(requestToSave, new PortResolverImpl());
 		return new SavedRequestAwareWrapper(saved, requestToWrap);
 	}
@@ -42,9 +42,9 @@ public class SavedRequestAwareWrapperTests {
 	@Test
 	public void savedRequestCookiesAreIgnored() {
 		MockHttpServletRequest newRequest = new MockHttpServletRequest();
-		newRequest.setCookies(new Cookie[] { new Cookie("cookie", "fromnew") });
+		newRequest.setCookies(new Cookie[]{new Cookie("cookie", "fromnew")});
 		MockHttpServletRequest savedRequest = new MockHttpServletRequest();
-		savedRequest.setCookies(new Cookie[] { new Cookie("cookie", "fromsaved") });
+		savedRequest.setCookies(new Cookie[]{new Cookie("cookie", "fromsaved")});
 		SavedRequestAwareWrapper wrapper = createWrapper(savedRequest, newRequest);
 		assertThat(wrapper.getCookies()).hasSize(1);
 		assertThat(wrapper.getCookies()[0].getValue()).isEqualTo("fromnew");
@@ -123,9 +123,9 @@ public class SavedRequestAwareWrapperTests {
 		savedRequest.setParameter("action", "foo");
 		MockHttpServletRequest wrappedRequest = new MockHttpServletRequest();
 		SavedRequestAwareWrapper wrapper = createWrapper(savedRequest, wrappedRequest);
-		assertThat(wrapper.getParameterValues("action")).isEqualTo(new Object[] { "foo" });
+		assertThat(wrapper.getParameterValues("action")).isEqualTo(new Object[]{"foo"});
 		wrappedRequest.setParameter("action", "bar");
-		assertThat(wrapper.getParameterValues("action")).isEqualTo(new Object[] { "bar", "foo" });
+		assertThat(wrapper.getParameterValues("action")).isEqualTo(new Object[]{"bar", "foo"});
 		// Check map is consistent
 		String[] valuesFromMap = (String[]) wrapper.getParameterMap().get("action");
 		assertThat(valuesFromMap).hasSize(2);

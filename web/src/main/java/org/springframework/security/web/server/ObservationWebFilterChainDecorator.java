@@ -81,7 +81,7 @@ public final class ObservationWebFilterChainDecorator implements WebFilterChainP
 			AroundWebFilterObservation parent = observation(exchange);
 			Observation parentObservation = contextView.getOrDefault(ObservationThreadLocalAccessor.KEY, null);
 			Observation observation = Observation.createNotStarted(SECURED_OBSERVATION_NAME, this.registry)
-					.contextualName("secured request").parentObservation(parentObservation);
+		.contextualName("secured request").parentObservation(parentObservation);
 			return parent.wrap(WebFilterObservation.create(observation).wrap(original)).filter(exchange);
 		});
 	}
@@ -90,7 +90,7 @@ public final class ObservationWebFilterChainDecorator implements WebFilterChainP
 		return (exchange) -> Mono.deferContextual((contextView) -> {
 			Observation parentObservation = contextView.getOrDefault(ObservationThreadLocalAccessor.KEY, null);
 			Observation observation = Observation.createNotStarted(UNSECURED_OBSERVATION_NAME, this.registry)
-					.contextualName("unsecured request").parentObservation(parentObservation);
+		.contextualName("unsecured request").parentObservation(parentObservation);
 			return WebFilterObservation.create(observation).wrap(original).filter(exchange);
 		});
 	}
@@ -143,7 +143,7 @@ public final class ObservationWebFilterChainDecorator implements WebFilterChainP
 		 * Private constructor to represent one link in the chain.
 		 */
 		private ObservationWebFilterChain(WebHandler handler, @Nullable ObservationWebFilter currentFilter,
-				@Nullable ObservationWebFilterChain chain) {
+	@Nullable ObservationWebFilterChain chain) {
 			this.currentFilter = currentFilter;
 			this.handler = handler;
 			this.chain = chain;
@@ -152,11 +152,11 @@ public final class ObservationWebFilterChainDecorator implements WebFilterChainP
 		@Override
 		public Mono<Void> filter(ServerWebExchange exchange) {
 			return Mono.defer(() -> (this.currentFilter != null && this.chain != null)
-					? invokeFilter(this.currentFilter, this.chain, exchange) : this.handler.handle(exchange));
+		? invokeFilter(this.currentFilter, this.chain, exchange) : this.handler.handle(exchange));
 		}
 
 		private Mono<Void> invokeFilter(ObservationWebFilter current, ObservationWebFilterChain chain,
-				ServerWebExchange exchange) {
+	ServerWebExchange exchange) {
 			String currentName = current.getName();
 			return current.filter(exchange, chain).checkpoint(currentName + " [DefaultWebFilterChain]");
 		}
@@ -224,9 +224,9 @@ public final class ObservationWebFilterChainDecorator implements WebFilterChainP
 			WebFilterChainObservationContext beforeContext = WebFilterChainObservationContext.before();
 			WebFilterChainObservationContext afterContext = WebFilterChainObservationContext.after();
 			Observation before = Observation.createNotStarted(this.convention, () -> beforeContext, this.registry)
-					.parentObservation(parentObservation);
+		.parentObservation(parentObservation);
 			Observation after = Observation.createNotStarted(this.convention, () -> afterContext, this.registry)
-					.parentObservation(parentObservation);
+		.parentObservation(parentObservation);
 			AroundWebFilterObservation parent = AroundWebFilterObservation.create(before, after);
 			exchange.getAttributes().put(ATTRIBUTE, parent);
 			return parent;
@@ -261,7 +261,7 @@ public final class ObservationWebFilterChainDecorator implements WebFilterChainP
 			private final ObservationReference after;
 
 			private final AtomicReference<ObservationReference> currentObservation = new AtomicReference<>(
-					ObservationReference.NOOP);
+		ObservationReference.NOOP);
 
 			SimpleAroundWebFilterObservation(Observation before, Observation after) {
 				this.before = new ObservationReference(before);
@@ -339,12 +339,12 @@ public final class ObservationWebFilterChainDecorator implements WebFilterChainP
 					stop();
 					// @formatter:off
 					return chain.filter(exchange)
-							.doOnSuccess((v) -> start())
-							.doOnCancel(this::start)
-							.doOnError((t) -> {
-								error(t);
-								start();
-							});
+				.doOnSuccess((v) -> start())
+				.doOnCancel(this::start)
+				.doOnError((t) -> {
+					error(t);
+					start();
+				});
 					// @formatter:on
 				};
 			}
@@ -355,13 +355,13 @@ public final class ObservationWebFilterChainDecorator implements WebFilterChainP
 					start();
 					// @formatter:off
 					return filter.filter(exchange, chain)
-							.doOnSuccess((v) -> stop())
-							.doOnCancel(this::stop)
-							.doOnError((t) -> {
-								error(t);
-								stop();
-							})
-							.contextWrite((context) -> context.put(ObservationThreadLocalAccessor.KEY, this));
+				.doOnSuccess((v) -> stop())
+				.doOnCancel(this::stop)
+				.doOnError((t) -> {
+					error(t);
+					stop();
+				})
+				.contextWrite((context) -> context.put(ObservationThreadLocalAccessor.KEY, this));
 					// @formatter:on
 				};
 			}
@@ -583,10 +583,10 @@ public final class ObservationWebFilterChainDecorator implements WebFilterChainP
 				return (exchange, chain) -> {
 					this.observation.start();
 					return filter.filter(exchange, chain).doOnSuccess((v) -> this.observation.stop())
-							.doOnCancel(this.observation::stop).doOnError((t) -> {
-								this.observation.error(t);
-								this.observation.stop();
-							});
+				.doOnCancel(this.observation::stop).doOnError((t) -> {
+						this.observation.error(t);
+						this.observation.stop();
+					});
 				};
 			}
 
@@ -598,11 +598,11 @@ public final class ObservationWebFilterChainDecorator implements WebFilterChainP
 				return (exchange) -> {
 					this.observation.start();
 					return chain.filter(exchange).doOnSuccess((v) -> this.observation.stop())
-							.doOnCancel(this.observation::stop).doOnError((t) -> {
-								this.observation.error(t);
-								this.observation.stop();
-							}).contextWrite(
-									(context) -> context.put(ObservationThreadLocalAccessor.KEY, this.observation));
+				.doOnCancel(this.observation::stop).doOnError((t) -> {
+						this.observation.error(t);
+						this.observation.stop();
+					}).contextWrite(
+				(context) -> context.put(ObservationThreadLocalAccessor.KEY, this.observation));
 				};
 			}
 
@@ -663,7 +663,7 @@ public final class ObservationWebFilterChainDecorator implements WebFilterChainP
 	}
 
 	static final class WebFilterChainObservationConvention
-			implements ObservationConvention<WebFilterChainObservationContext> {
+implements ObservationConvention<WebFilterChainObservationContext> {
 
 		static final String CHAIN_OBSERVATION_NAME = "spring.security.filterchains";
 
@@ -688,10 +688,10 @@ public final class ObservationWebFilterChainDecorator implements WebFilterChainP
 		@Override
 		public KeyValues getLowCardinalityKeyValues(WebFilterChainObservationContext context) {
 			return KeyValues.of(CHAIN_SIZE_NAME, String.valueOf(context.getChainSize()))
-					.and(CHAIN_POSITION_NAME, String.valueOf(context.getChainPosition()))
-					.and(FILTER_SECTION_NAME, context.getFilterSection())
-					.and(FILTER_NAME, (StringUtils.hasText(context.getFilterName())) ? context.getFilterName()
-							: KeyValue.NONE_VALUE);
+		.and(CHAIN_POSITION_NAME, String.valueOf(context.getChainPosition()))
+		.and(FILTER_SECTION_NAME, context.getFilterSection())
+		.and(FILTER_NAME, (StringUtils.hasText(context.getFilterName())) ? context.getFilterName()
+	: KeyValue.NONE_VALUE);
 		}
 
 		@Override

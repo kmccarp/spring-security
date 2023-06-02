@@ -56,29 +56,29 @@ public class MultiHttpBlockConfigTests {
 		this.spring.configLocations(this.xml("DistinctHttpElements")).autowire();
 		// @formatter:off
 		this.mvc.perform(get("/first").with(httpBasic("user", "password")))
-				.andExpect(status().isOk());
+	.andExpect(status().isOk());
 		MockHttpServletRequestBuilder formLoginRequest = post("/second/login")
-				.param("username", "user")
-				.param("password", "password")
-				.with(csrf());
+	.param("username", "user")
+	.param("password", "password")
+	.with(csrf());
 		this.mvc.perform(formLoginRequest)
-				.andExpect(status().isFound())
-				.andExpect(redirectedUrl("/"));
+	.andExpect(status().isFound())
+	.andExpect(redirectedUrl("/"));
 		// @formatter:on
 	}
 
 	@Test
 	public void configureWhenUsingDuplicateHttpElementsThenThrowsWiringException() {
 		assertThatExceptionOfType(BeanCreationException.class)
-				.isThrownBy(() -> this.spring.configLocations(this.xml("IdenticalHttpElements")).autowire())
-				.withCauseInstanceOf(IllegalArgumentException.class);
+	.isThrownBy(() -> this.spring.configLocations(this.xml("IdenticalHttpElements")).autowire())
+	.withCauseInstanceOf(IllegalArgumentException.class);
 	}
 
 	@Test
 	public void configureWhenUsingIndenticallyPatternedHttpElementsThenThrowsWiringException() {
 		assertThatExceptionOfType(BeanCreationException.class)
-				.isThrownBy(() -> this.spring.configLocations(this.xml("IdenticallyPatternedHttpElements")).autowire())
-				.withCauseInstanceOf(IllegalArgumentException.class);
+	.isThrownBy(() -> this.spring.configLocations(this.xml("IdenticallyPatternedHttpElements")).autowire())
+	.withCauseInstanceOf(IllegalArgumentException.class);
 	}
 
 	/**
@@ -86,20 +86,20 @@ public class MultiHttpBlockConfigTests {
 	 */
 	@Test
 	public void requestWhenTargettingAuthenticationManagersToCorrespondingHttpElementsThenAuthenticationProceeds()
-			throws Exception {
+throws Exception {
 		this.spring.configLocations(this.xml("Sec1937")).autowire();
 		// @formatter:off
 		MockHttpServletRequestBuilder basicLoginRequest = get("/first")
-				.with(httpBasic("first", "password"))
-				.with(csrf());
+	.with(httpBasic("first", "password"))
+	.with(csrf());
 		this.mvc.perform(basicLoginRequest)
-				.andExpect(status().isOk());
+	.andExpect(status().isOk());
 		MockHttpServletRequestBuilder formLoginRequest = post("/second/login")
-				.param("username", "second")
-				.param("password", "password")
-				.with(csrf());
+	.param("username", "second")
+	.param("password", "password")
+	.with(csrf());
 		this.mvc.perform(formLoginRequest)
-				.andExpect(redirectedUrl("/"));
+	.andExpect(redirectedUrl("/"));
 		// @formatter:on
 	}
 

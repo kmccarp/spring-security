@@ -75,7 +75,7 @@ import org.springframework.util.StringUtils;
 public final class AuthorizedClientServiceOAuth2AuthorizedClientManager implements OAuth2AuthorizedClientManager {
 
 	private static final OAuth2AuthorizedClientProvider DEFAULT_AUTHORIZED_CLIENT_PROVIDER = OAuth2AuthorizedClientProviderBuilder
-			.builder().clientCredentials().build();
+.builder().clientCredentials().build();
 
 	private final ClientRegistrationRepository clientRegistrationRepository;
 
@@ -96,8 +96,8 @@ public final class AuthorizedClientServiceOAuth2AuthorizedClientManager implemen
 	 * @param authorizedClientService the authorized client service
 	 */
 	public AuthorizedClientServiceOAuth2AuthorizedClientManager(
-			ClientRegistrationRepository clientRegistrationRepository,
-			OAuth2AuthorizedClientService authorizedClientService) {
+ClientRegistrationRepository clientRegistrationRepository,
+OAuth2AuthorizedClientService authorizedClientService) {
 		Assert.notNull(clientRegistrationRepository, "clientRegistrationRepository cannot be null");
 		Assert.notNull(authorizedClientService, "authorizedClientService cannot be null");
 		this.clientRegistrationRepository = clientRegistrationRepository;
@@ -105,10 +105,10 @@ public final class AuthorizedClientServiceOAuth2AuthorizedClientManager implemen
 		this.authorizedClientProvider = DEFAULT_AUTHORIZED_CLIENT_PROVIDER;
 		this.contextAttributesMapper = new DefaultContextAttributesMapper();
 		this.authorizationSuccessHandler = (authorizedClient, principal, attributes) -> authorizedClientService
-				.saveAuthorizedClient(authorizedClient, principal);
+	.saveAuthorizedClient(authorizedClient, principal);
 		this.authorizationFailureHandler = new RemoveAuthorizedClientOAuth2AuthorizationFailureHandler(
-				(clientRegistrationId, principal, attributes) -> authorizedClientService
-						.removeAuthorizedClient(clientRegistrationId, principal.getName()));
+	(clientRegistrationId, principal, attributes) -> authorizedClientService
+.removeAuthorizedClient(clientRegistrationId, principal.getName()));
 	}
 
 	@Nullable
@@ -124,11 +124,11 @@ public final class AuthorizedClientServiceOAuth2AuthorizedClientManager implemen
 		}
 		else {
 			ClientRegistration clientRegistration = this.clientRegistrationRepository
-					.findByRegistrationId(clientRegistrationId);
+		.findByRegistrationId(clientRegistrationId);
 			Assert.notNull(clientRegistration,
-					"Could not find ClientRegistration with id '" + clientRegistrationId + "'");
+		"Could not find ClientRegistration with id '" + clientRegistrationId + "'");
 			authorizedClient = this.authorizedClientService.loadAuthorizedClient(clientRegistrationId,
-					principal.getName());
+		principal.getName());
 			if (authorizedClient != null) {
 				contextBuilder = OAuth2AuthorizationContext.withAuthorizedClient(authorizedClient);
 			}
@@ -137,7 +137,7 @@ public final class AuthorizedClientServiceOAuth2AuthorizedClientManager implemen
 			}
 		}
 		OAuth2AuthorizationContext authorizationContext = buildAuthorizationContext(authorizeRequest, principal,
-				contextBuilder);
+	contextBuilder);
 		try {
 			authorizedClient = this.authorizedClientProvider.authorize(authorizationContext);
 		}
@@ -147,7 +147,7 @@ public final class AuthorizedClientServiceOAuth2AuthorizedClientManager implemen
 		}
 		if (authorizedClient != null) {
 			this.authorizationSuccessHandler.onAuthorizationSuccess(authorizedClient, principal,
-					Collections.emptyMap());
+		Collections.emptyMap());
 		}
 		else {
 			// In the case of re-authorization, the returned `authorizedClient` may be
@@ -162,16 +162,16 @@ public final class AuthorizedClientServiceOAuth2AuthorizedClientManager implemen
 	}
 
 	private OAuth2AuthorizationContext buildAuthorizationContext(OAuth2AuthorizeRequest authorizeRequest,
-			Authentication principal, OAuth2AuthorizationContext.Builder contextBuilder) {
+Authentication principal, OAuth2AuthorizationContext.Builder contextBuilder) {
 		// @formatter:off
 		return contextBuilder.principal(principal)
-				.attributes((attributes) -> {
-					Map<String, Object> contextAttributes = this.contextAttributesMapper.apply(authorizeRequest);
-					if (!CollectionUtils.isEmpty(contextAttributes)) {
-						attributes.putAll(contextAttributes);
-					}
-				})
-				.build();
+	.attributes((attributes) -> {
+		Map<String, Object> contextAttributes = this.contextAttributesMapper.apply(authorizeRequest);
+		if (!CollectionUtils.isEmpty(contextAttributes)) {
+			attributes.putAll(contextAttributes);
+		}
+	})
+	.build();
 		// @formatter:on
 	}
 
@@ -195,7 +195,7 @@ public final class AuthorizedClientServiceOAuth2AuthorizedClientManager implemen
 	 * authorization context}
 	 */
 	public void setContextAttributesMapper(
-			Function<OAuth2AuthorizeRequest, Map<String, Object>> contextAttributesMapper) {
+Function<OAuth2AuthorizeRequest, Map<String, Object>> contextAttributesMapper) {
 		Assert.notNull(contextAttributesMapper, "contextAttributesMapper cannot be null");
 		this.contextAttributesMapper = contextAttributesMapper;
 	}
@@ -238,7 +238,7 @@ public final class AuthorizedClientServiceOAuth2AuthorizedClientManager implemen
 	 * contextAttributesMapper}.
 	 */
 	public static class DefaultContextAttributesMapper
-			implements Function<OAuth2AuthorizeRequest, Map<String, Object>> {
+implements Function<OAuth2AuthorizeRequest, Map<String, Object>> {
 
 		@Override
 		public Map<String, Object> apply(OAuth2AuthorizeRequest authorizeRequest) {
@@ -247,7 +247,7 @@ public final class AuthorizedClientServiceOAuth2AuthorizedClientManager implemen
 			if (StringUtils.hasText(scope)) {
 				contextAttributes = new HashMap<>();
 				contextAttributes.put(OAuth2AuthorizationContext.REQUEST_SCOPE_ATTRIBUTE_NAME,
-						StringUtils.delimitedListToStringArray(scope, " "));
+			StringUtils.delimitedListToStringArray(scope, " "));
 			}
 			return contextAttributes;
 		}

@@ -46,7 +46,7 @@ final class Saml2MessageBindingUtils {
 
 	private static boolean isSamlRequestResponse(HttpServletRequest request) {
 		return (request.getParameter(Saml2ParameterNames.SAML_REQUEST) != null
-				|| request.getParameter(Saml2ParameterNames.SAML_RESPONSE) != null);
+	|| request.getParameter(Saml2ParameterNames.SAML_RESPONSE) != null);
 	}
 
 	static boolean isHttpRedirectBinding(HttpServletRequest request) {

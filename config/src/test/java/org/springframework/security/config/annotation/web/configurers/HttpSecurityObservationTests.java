@@ -66,7 +66,7 @@ public class HttpSecurityObservationTests {
 		this.spring.register(ObservationRegistryConfig.class).autowire();
 		// @formatter:off
 		this.mvc.perform(get("/").with(httpBasic("user", "password")))
-				.andExpect(status().isNotFound());
+	.andExpect(status().isNotFound());
 		// @formatter:on
 		ObservationHandler<Observation.Context> handler = this.spring.getContext().getBean(ObservationHandler.class);
 		ArgumentCaptor<Observation.Context> captor = ArgumentCaptor.forClass(Observation.Context.class);
@@ -94,7 +94,7 @@ public class HttpSecurityObservationTests {
 		@Bean
 		UserDetailsService userDetailsService() {
 			return new InMemoryUserDetailsManager(
-					User.withDefaultPasswordEncoder().username("user").password("password").authorities("app").build());
+		User.withDefaultPasswordEncoder().username("user").password("password").authorities("app").build());
 		}
 
 		@Bean

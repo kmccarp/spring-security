@@ -63,7 +63,7 @@ public class WebFilterChainProxyTests {
 		MatcherSecurityWebFilterChain chain = new MatcherSecurityWebFilterChain(notMatch, filters);
 		WebFilterChainProxy filter = new WebFilterChainProxy(chain);
 		WebTestClient.bindToController(new Object()).webFilter(filter).build().get().exchange().expectStatus()
-				.isNotFound();
+	.isNotFound();
 	}
 
 	@Test
@@ -129,7 +129,7 @@ public class WebFilterChainProxyTests {
 		WebFilterChain mockChain = mock(WebFilterChain.class);
 		given(mockChain.filter(any())).willReturn(Mono.empty());
 		assertThatExceptionOfType(IllegalStateException.class).isThrownBy(
-				() -> filter.filter(MockServerWebExchange.from(MockServerHttpRequest.get("/")), mockChain).block());
+	() -> filter.filter(MockServerWebExchange.from(MockServerHttpRequest.get("/")), mockChain).block());
 		ArgumentCaptor<Observation.Context> captor = ArgumentCaptor.forClass(Observation.Context.class);
 		verify(handler, times(2)).onStart(captor.capture());
 		verify(handler, atLeastOnce()).onError(any());

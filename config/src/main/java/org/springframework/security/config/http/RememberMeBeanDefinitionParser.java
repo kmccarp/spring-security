@@ -76,7 +76,7 @@ class RememberMeBeanDefinitionParser implements BeanDefinitionParser {
 	private String rememberMeServicesId;
 
 	RememberMeBeanDefinitionParser(String key, BeanReference authenticationManager,
-			BeanMetadataElement authenticationFilterSecurityContextHolderStrategyRef) {
+BeanMetadataElement authenticationFilterSecurityContextHolderStrategyRef) {
 		this.key = key;
 		this.authenticationManager = authenticationManager;
 		this.authenticationFilterSecurityContextHolderStrategyRef = authenticationFilterSecurityContextHolderStrategyRef;
@@ -85,7 +85,7 @@ class RememberMeBeanDefinitionParser implements BeanDefinitionParser {
 	@Override
 	public BeanDefinition parse(Element element, ParserContext pc) {
 		CompositeComponentDefinition compositeDef = new CompositeComponentDefinition(element.getTagName(),
-				pc.extractSource(element));
+	pc.extractSource(element));
 		pc.pushContainingComponent(compositeDef);
 		String tokenRepository = element.getAttribute(ATT_TOKEN_REPOSITORY);
 		String dataSource = element.getAttribute(ATT_DATA_SOURCE);
@@ -107,16 +107,16 @@ class RememberMeBeanDefinitionParser implements BeanDefinitionParser {
 		boolean remembermeParameterSet = StringUtils.hasText(remembermeParameter);
 		boolean remembermeCookieSet = StringUtils.hasText(remembermeCookie);
 		if (servicesRefSet && (dataSourceSet || tokenRepoSet || userServiceSet || tokenValiditySet || useSecureCookieSet
-				|| remembermeParameterSet || remembermeCookieSet)) {
+	|| remembermeParameterSet || remembermeCookieSet)) {
 			pc.getReaderContext()
-					.error(ATT_SERVICES_REF + " can't be used in combination with attributes " + ATT_TOKEN_REPOSITORY
-							+ "," + ATT_DATA_SOURCE + ", " + ATT_USER_SERVICE_REF + ", " + ATT_TOKEN_VALIDITY + ", "
-							+ ATT_SECURE_COOKIE + ", " + ATT_FORM_REMEMBERME_PARAMETER + " or " + ATT_REMEMBERME_COOKIE,
-							source);
+		.error(ATT_SERVICES_REF + " can't be used in combination with attributes " + ATT_TOKEN_REPOSITORY
+	+ "," + ATT_DATA_SOURCE + ", " + ATT_USER_SERVICE_REF + ", " + ATT_TOKEN_VALIDITY + ", "
+	+ ATT_SECURE_COOKIE + ", " + ATT_FORM_REMEMBERME_PARAMETER + " or " + ATT_REMEMBERME_COOKIE,
+	source);
 		}
 		if (dataSourceSet && tokenRepoSet) {
 			pc.getReaderContext().error("Specify " + ATT_TOKEN_REPOSITORY + " or " + ATT_DATA_SOURCE + " but not both",
-					source);
+		source);
 		}
 		boolean isPersistent = dataSourceSet | tokenRepoSet;
 		if (isPersistent) {
@@ -128,7 +128,7 @@ class RememberMeBeanDefinitionParser implements BeanDefinitionParser {
 			else {
 				tokenRepo = new RootBeanDefinition(JdbcTokenRepositoryImpl.class);
 				((BeanDefinition) tokenRepo).getPropertyValues().addPropertyValue("dataSource",
-						new RuntimeBeanReference(dataSource));
+			new RuntimeBeanReference(dataSource));
 			}
 			services.getConstructorArgumentValues().addIndexedArgumentValue(2, tokenRepo);
 		}
@@ -152,7 +152,7 @@ class RememberMeBeanDefinitionParser implements BeanDefinitionParser {
 				boolean isTokenValidityNegative = tokenValiditySeconds.startsWith("-");
 				if (isTokenValidityNegative && isPersistent) {
 					pc.getReaderContext().error(ATT_TOKEN_VALIDITY + " cannot be negative if using"
-							+ " a persistent remember-me token repository", source);
+				+ " a persistent remember-me token repository", source);
 				}
 				services.getPropertyValues().addPropertyValue("tokenValiditySeconds", tokenValiditySeconds);
 			}
@@ -181,7 +181,7 @@ class RememberMeBeanDefinitionParser implements BeanDefinitionParser {
 		filter.addConstructorArgValue(this.authenticationManager);
 		filter.addConstructorArgReference(servicesName);
 		filter.addPropertyValue("securityContextHolderStrategy",
-				this.authenticationFilterSecurityContextHolderStrategyRef);
+	this.authenticationFilterSecurityContextHolderStrategyRef);
 		pc.popAndRegisterContainingComponent();
 		return filter.getBeanDefinition();
 	}

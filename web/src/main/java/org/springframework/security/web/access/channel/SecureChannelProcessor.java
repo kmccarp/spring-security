@@ -54,7 +54,7 @@ public class SecureChannelProcessor implements InitializingBean, ChannelProcesso
 
 	@Override
 	public void decide(FilterInvocation invocation, Collection<ConfigAttribute> config)
-			throws IOException, ServletException {
+throws IOException, ServletException {
 		Assert.isTrue((invocation != null) && (config != null), "Nulls cannot be provided");
 		for (ConfigAttribute attribute : config) {
 			if (supports(attribute)) {
@@ -84,7 +84,7 @@ public class SecureChannelProcessor implements InitializingBean, ChannelProcesso
 	@Override
 	public boolean supports(ConfigAttribute attribute) {
 		return (attribute != null) && (attribute.getAttribute() != null)
-				&& attribute.getAttribute().equals(getSecureKeyword());
+	&& attribute.getAttribute().equals(getSecureKeyword());
 	}
 
 }

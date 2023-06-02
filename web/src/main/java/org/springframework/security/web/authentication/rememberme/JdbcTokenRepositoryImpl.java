@@ -36,7 +36,7 @@ public class JdbcTokenRepositoryImpl extends JdbcDaoSupport implements Persisten
 
 	/** Default SQL for creating the database table to store the tokens */
 	public static final String CREATE_TABLE_SQL = "create table persistent_logins (username varchar(64) not null, series varchar(64) primary key, "
-			+ "token varchar(64) not null, last_used timestamp not null)";
++ "token varchar(64) not null, last_used timestamp not null)";
 
 	/** The default SQL used by the <tt>getTokenBySeries</tt> query */
 	public static final String DEF_TOKEN_BY_SERIES_SQL = "select username,series,token,last_used from persistent_logins where series = ?";
@@ -70,7 +70,7 @@ public class JdbcTokenRepositoryImpl extends JdbcDaoSupport implements Persisten
 	@Override
 	public void createNewToken(PersistentRememberMeToken token) {
 		getJdbcTemplate().update(this.insertTokenSql, token.getUsername(), token.getSeries(), token.getTokenValue(),
-				token.getDate());
+	token.getDate());
 	}
 
 	@Override
@@ -97,8 +97,8 @@ public class JdbcTokenRepositoryImpl extends JdbcDaoSupport implements Persisten
 		}
 		catch (IncorrectResultSizeDataAccessException ex) {
 			this.logger.error(LogMessage.format(
-					"Querying token for series '%s' returned more than one value. Series" + " should be unique",
-					seriesId));
+		"Querying token for series '%s' returned more than one value. Series" + " should be unique",
+		seriesId));
 		}
 		catch (DataAccessException ex) {
 			this.logger.error("Failed to load token for series " + seriesId, ex);

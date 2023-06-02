@@ -71,7 +71,7 @@ public class AclImpl implements Acl, MutableAcl, AuditableAcl, OwnershipAcl {
 	 * @param auditLogger audit logger (required)
 	 */
 	public AclImpl(ObjectIdentity objectIdentity, Serializable id, AclAuthorizationStrategy aclAuthorizationStrategy,
-			AuditLogger auditLogger) {
+AuditLogger auditLogger) {
 		Assert.notNull(objectIdentity, "Object Identity required");
 		Assert.notNull(id, "Id required");
 		Assert.notNull(aclAuthorizationStrategy, "AclAuthorizationStrategy required");
@@ -97,8 +97,8 @@ public class AclImpl implements Acl, MutableAcl, AuditableAcl, OwnershipAcl {
 	 * @param owner the owner (required)
 	 */
 	public AclImpl(ObjectIdentity objectIdentity, Serializable id, AclAuthorizationStrategy aclAuthorizationStrategy,
-			PermissionGrantingStrategy grantingStrategy, Acl parentAcl, List<Sid> loadedSids, boolean entriesInheriting,
-			Sid owner) {
+PermissionGrantingStrategy grantingStrategy, Acl parentAcl, List<Sid> loadedSids, boolean entriesInheriting,
+Sid owner) {
 		Assert.notNull(objectIdentity, "Object Identity required");
 		Assert.notNull(id, "Id required");
 		Assert.notNull(aclAuthorizationStrategy, "AclAuthorizationStrategy required");
@@ -136,13 +136,13 @@ public class AclImpl implements Acl, MutableAcl, AuditableAcl, OwnershipAcl {
 		}
 		if (aceIndex >= this.aces.size()) {
 			throw new NotFoundException("aceIndex must refer to an index of the AccessControlEntry list. "
-					+ "List size is " + this.aces.size() + ", index was " + aceIndex);
+		+ "List size is " + this.aces.size() + ", index was " + aceIndex);
 		}
 	}
 
 	@Override
 	public void insertAce(int atIndexLocation, Permission permission, Sid sid, boolean granting)
-			throws NotFoundException {
+throws NotFoundException {
 		this.aclAuthorizationStrategy.securityCheck(this, AclAuthorizationStrategy.CHANGE_GENERAL);
 		Assert.notNull(permission, "Permission required");
 		Assert.notNull(sid, "Sid required");
@@ -151,7 +151,7 @@ public class AclImpl implements Acl, MutableAcl, AuditableAcl, OwnershipAcl {
 		}
 		if (atIndexLocation > this.aces.size()) {
 			throw new NotFoundException(
-					"atIndexLocation must be less than or equal to the size of the AccessControlEntry collection");
+		"atIndexLocation must be less than or equal to the size of the AccessControlEntry collection");
 		}
 		AccessControlEntryImpl ace = new AccessControlEntryImpl(null, this, sid, permission, granting, false, false);
 		synchronized (this.aces) {
@@ -189,7 +189,7 @@ public class AclImpl implements Acl, MutableAcl, AuditableAcl, OwnershipAcl {
 	 */
 	@Override
 	public boolean isGranted(List<Permission> permission, List<Sid> sids, boolean administrativeMode)
-			throws NotFoundException, UnloadedSidException {
+throws NotFoundException, UnloadedSidException {
 		Assert.notEmpty(permission, "Permissions required");
 		Assert.notEmpty(sids, "SIDs required");
 		if (!this.isSidLoaded(sids)) {
@@ -300,7 +300,7 @@ public class AclImpl implements Acl, MutableAcl, AuditableAcl, OwnershipAcl {
 		int result = (this.parentAcl != null) ? this.parentAcl.hashCode() : 0;
 		result = 31 * result + this.aclAuthorizationStrategy.hashCode();
 		result = 31 * result
-				+ ((this.permissionGrantingStrategy != null) ? this.permissionGrantingStrategy.hashCode() : 0);
+	+ ((this.permissionGrantingStrategy != null) ? this.permissionGrantingStrategy.hashCode() : 0);
 		result = 31 * result + ((this.aces != null) ? this.aces.hashCode() : 0);
 		result = 31 * result + this.objectIdentity.hashCode();
 		result = 31 * result + this.id.hashCode();

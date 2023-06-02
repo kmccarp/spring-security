@@ -54,8 +54,8 @@ public class DelegatingAuthenticationFailureHandler implements AuthenticationFai
 	 * @throws IllegalArgumentException if invalid argument is specified
 	 */
 	public DelegatingAuthenticationFailureHandler(
-			LinkedHashMap<Class<? extends AuthenticationException>, AuthenticationFailureHandler> handlers,
-			AuthenticationFailureHandler defaultHandler) {
+LinkedHashMap<Class<? extends AuthenticationException>, AuthenticationFailureHandler> handlers,
+AuthenticationFailureHandler defaultHandler) {
 		Assert.notEmpty(handlers, "handlers cannot be null or empty");
 		Assert.notNull(defaultHandler, "defaultHandler cannot be null");
 		this.handlers = handlers;
@@ -64,7 +64,7 @@ public class DelegatingAuthenticationFailureHandler implements AuthenticationFai
 
 	@Override
 	public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
-			AuthenticationException exception) throws IOException, ServletException {
+AuthenticationException exception) throws IOException, ServletException {
 		for (Map.Entry<Class<? extends AuthenticationException>, AuthenticationFailureHandler> entry : this.handlers
 				.entrySet()) {
 			Class<? extends AuthenticationException> handlerMappedExceptionClass = entry.getKey();

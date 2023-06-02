@@ -79,7 +79,7 @@ public class Person extends LdapUserDetailsImpl {
 		if (getPassword() != null) {
 			adapter.setAttributeValue("userPassword", getPassword());
 		}
-		adapter.setAttributeValues("objectclass", new String[] { "top", "person" });
+		adapter.setAttributeValues("objectclass", new String[]{"top", "person"});
 	}
 
 	public static class Essence extends LdapUserDetailsImpl.Essence {

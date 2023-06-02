@@ -45,8 +45,7 @@ import org.springframework.security.core.GrantedAuthority;
  * @see SecurityJackson2Modules
  */
 @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.PROPERTY)
-@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY, isGetterVisibility = JsonAutoDetect.Visibility.NONE,
-		getterVisibility = JsonAutoDetect.Visibility.NONE, creatorVisibility = JsonAutoDetect.Visibility.ANY)
+@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY, isGetterVisibility = JsonAutoDetect.Visibility.NONE,getterVisibility = JsonAutoDetect.Visibility.NONE, creatorVisibility = JsonAutoDetect.Visibility.ANY)
 @JsonIgnoreProperties(ignoreUnknown = true)
 class AnonymousAuthenticationTokenMixin {
 
@@ -60,8 +59,8 @@ class AnonymousAuthenticationTokenMixin {
 	 */
 	@JsonCreator
 	AnonymousAuthenticationTokenMixin(@JsonProperty("keyHash") Integer keyHash,
-			@JsonProperty("principal") Object principal,
-			@JsonProperty("authorities") Collection<? extends GrantedAuthority> authorities) {
+@JsonProperty("principal") Object principal,
+@JsonProperty("authorities") Collection<? extends GrantedAuthority> authorities) {
 	}
 
 }

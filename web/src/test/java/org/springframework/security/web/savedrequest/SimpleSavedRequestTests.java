@@ -74,7 +74,7 @@ public class SimpleSavedRequestTests {
 		simpleSavedRequest.setMethod("POST");
 		simpleSavedRequest.setHeaders(Collections.singletonMap("headername", Collections.singletonList("headervalue")));
 		simpleSavedRequest.setLocales(Collections.singletonList(Locale.ENGLISH));
-		simpleSavedRequest.setParameters(Collections.singletonMap("key", new String[] { "value" }));
+		simpleSavedRequest.setParameters(Collections.singletonMap("key", new String[]{"value"}));
 		return simpleSavedRequest;
 	}
 

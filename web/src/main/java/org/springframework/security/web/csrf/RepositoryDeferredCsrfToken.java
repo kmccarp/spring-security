@@ -37,7 +37,7 @@ final class RepositoryDeferredCsrfToken implements DeferredCsrfToken {
 	private boolean missingToken;
 
 	RepositoryDeferredCsrfToken(CsrfTokenRepository csrfTokenRepository, HttpServletRequest request,
-			HttpServletResponse response) {
+HttpServletResponse response) {
 		this.csrfTokenRepository = csrfTokenRepository;
 		this.request = request;
 		this.response = response;

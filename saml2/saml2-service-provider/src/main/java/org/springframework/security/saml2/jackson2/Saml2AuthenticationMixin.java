@@ -44,15 +44,14 @@ import org.springframework.security.saml2.provider.service.authentication.Saml2A
  * @see SecurityJackson2Modules
  */
 @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS)
-@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY, getterVisibility = JsonAutoDetect.Visibility.NONE,
-		isGetterVisibility = JsonAutoDetect.Visibility.NONE)
-@JsonIgnoreProperties(value = { "authenticated" }, ignoreUnknown = true)
+@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY, getterVisibility = JsonAutoDetect.Visibility.NONE,isGetterVisibility = JsonAutoDetect.Visibility.NONE)
+@JsonIgnoreProperties(value = {"authenticated"}, ignoreUnknown = true)
 class Saml2AuthenticationMixin {
 
 	@JsonCreator
 	Saml2AuthenticationMixin(@JsonProperty("principal") AuthenticatedPrincipal principal,
-			@JsonProperty("saml2Response") String saml2Response,
-			@JsonProperty("authorities") Collection<? extends GrantedAuthority> authorities) {
+@JsonProperty("saml2Response") String saml2Response,
+@JsonProperty("authorities") Collection<? extends GrantedAuthority> authorities) {
 	}
 
 }

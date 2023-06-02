@@ -49,8 +49,8 @@ public class OAuth2AuthenticationExceptionMixinTests {
 	@Test
 	public void serializeWhenMixinRegisteredThenSerializes() throws Exception {
 		OAuth2AuthenticationException exception = new OAuth2AuthenticationException(
-				new OAuth2Error("[authorization_request_not_found]", "Authorization Request Not Found", "/foo/bar"),
-				"Authorization Request Not Found");
+	new OAuth2Error("[authorization_request_not_found]", "Authorization Request Not Found", "/foo/bar"),
+	"Authorization Request Not Found");
 		String serializedJson = this.mapper.writeValueAsString(exception);
 		String expected = asJson(exception);
 		JSONAssert.assertEquals(expected, serializedJson, true);
@@ -59,7 +59,7 @@ public class OAuth2AuthenticationExceptionMixinTests {
 	@Test
 	public void serializeWhenRequiredAttributesOnlyThenSerializes() throws Exception {
 		OAuth2AuthenticationException exception = new OAuth2AuthenticationException(
-				new OAuth2Error("[authorization_request_not_found]"));
+	new OAuth2Error("[authorization_request_not_found]"));
 		String serializedJson = this.mapper.writeValueAsString(exception);
 		String expected = asJson(exception);
 		JSONAssert.assertEquals(expected, serializedJson, true);
@@ -69,16 +69,16 @@ public class OAuth2AuthenticationExceptionMixinTests {
 	public void deserializeWhenMixinNotRegisteredThenThrowJsonProcessingException() {
 		String json = asJson(new OAuth2AuthenticationException(new OAuth2Error("[authorization_request_not_found]")));
 		assertThatExceptionOfType(JsonProcessingException.class)
-				.isThrownBy(() -> new ObjectMapper().readValue(json, OAuth2AuthenticationException.class));
+	.isThrownBy(() -> new ObjectMapper().readValue(json, OAuth2AuthenticationException.class));
 	}
 
 	@Test
 	public void deserializeWhenMixinRegisteredThenDeserializes() throws Exception {
 		OAuth2AuthenticationException expected = new OAuth2AuthenticationException(
-				new OAuth2Error("[authorization_request_not_found]", "Authorization Request Not Found", "/foo/bar"),
-				"Authorization Request Not Found");
+	new OAuth2Error("[authorization_request_not_found]", "Authorization Request Not Found", "/foo/bar"),
+	"Authorization Request Not Found");
 		OAuth2AuthenticationException exception = this.mapper.readValue(asJson(expected),
-				OAuth2AuthenticationException.class);
+	OAuth2AuthenticationException.class);
 		assertThat(exception).isNotNull();
 		assertThat(exception.getCause()).isNull();
 		assertThat(exception.getMessage()).isEqualTo(expected.getMessage());
@@ -92,9 +92,9 @@ public class OAuth2AuthenticationExceptionMixinTests {
 	@Test
 	public void deserializeWhenRequiredAttributesOnlyThenDeserializes() throws Exception {
 		OAuth2AuthenticationException expected = new OAuth2AuthenticationException(
-				new OAuth2Error("[authorization_request_not_found]"));
+	new OAuth2Error("[authorization_request_not_found]"));
 		OAuth2AuthenticationException exception = this.mapper.readValue(asJson(expected),
-				OAuth2AuthenticationException.class);
+	OAuth2AuthenticationException.class);
 		assertThat(exception).isNotNull();
 		assertThat(exception.getCause()).isNull();
 		assertThat(exception.getMessage()).isNull();
@@ -109,16 +109,16 @@ public class OAuth2AuthenticationExceptionMixinTests {
 		OAuth2Error error = exception.getError();
 		// @formatter:off
 		return "\n{"
-				+ "\n  \"@class\": \"org.springframework.security.oauth2.core.OAuth2AuthenticationException\","
-				+ "\n  \"error\":"
-				+ "\n  {"
-				+ "\n    \"@class\":\"org.springframework.security.oauth2.core.OAuth2Error\","
-				+ "\n    \"errorCode\":\"" + error.getErrorCode() + "\","
-				+ "\n    \"description\":" + jsonStringOrNull(error.getDescription()) + ","
-				+ "\n    \"uri\":" + jsonStringOrNull(error.getUri())
-				+ "\n  },"
-				+ "\n  \"detailMessage\":" + jsonStringOrNull(exception.getMessage())
-				+ "\n}";
+	+ "\n  \"@class\": \"org.springframework.security.oauth2.core.OAuth2AuthenticationException\","
+	+ "\n  \"error\":"
+	+ "\n  {"
+	+ "\n    \"@class\":\"org.springframework.security.oauth2.core.OAuth2Error\","
+	+ "\n    \"errorCode\":\"" + error.getErrorCode() + "\","
+	+ "\n    \"description\":" + jsonStringOrNull(error.getDescription()) + ","
+	+ "\n    \"uri\":" + jsonStringOrNull(error.getUri())
+	+ "\n  },"
+	+ "\n  \"detailMessage\":" + jsonStringOrNull(exception.getMessage())
+	+ "\n}";
 		// @formatter:on
 	}
 

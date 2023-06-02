@@ -80,8 +80,7 @@ import org.springframework.util.Assert;
  * @author Michael Vitz
  * @since 3.2
  */
-public final class CsrfConfigurer<H extends HttpSecurityBuilder<H>>
-		extends AbstractHttpConfigurer<CsrfConfigurer<H>, H> {
+public final class CsrfConfigurer<H extends HttpSecurityBuilder<H>>extends AbstractHttpConfigurer<CsrfConfigurer<H>, H> {
 
 	private CsrfTokenRepository csrfTokenRepository = new LazyCsrfTokenRepository(new HttpSessionCsrfTokenRepository());
 
@@ -209,7 +208,7 @@ public final class CsrfConfigurer<H extends HttpSecurityBuilder<H>>
 	 * @since 5.2
 	 */
 	public CsrfConfigurer<H> sessionAuthenticationStrategy(
-			SessionAuthenticationStrategy sessionAuthenticationStrategy) {
+SessionAuthenticationStrategy sessionAuthenticationStrategy) {
 		Assert.notNull(sessionAuthenticationStrategy, "sessionAuthenticationStrategy cannot be null");
 		this.sessionAuthenticationStrategy = sessionAuthenticationStrategy;
 		return this;
@@ -257,7 +256,7 @@ public final class CsrfConfigurer<H extends HttpSecurityBuilder<H>>
 			return this.requireCsrfProtectionMatcher;
 		}
 		return new AndRequestMatcher(this.requireCsrfProtectionMatcher,
-				new NegatedRequestMatcher(new OrRequestMatcher(this.ignoredCsrfProtectionMatchers)));
+	new NegatedRequestMatcher(new OrRequestMatcher(this.ignoredCsrfProtectionMatchers)));
 	}
 
 	/**
@@ -315,7 +314,7 @@ public final class CsrfConfigurer<H extends HttpSecurityBuilder<H>>
 			return defaultAccessDeniedHandler;
 		}
 		InvalidSessionAccessDeniedHandler invalidSessionDeniedHandler = new InvalidSessionAccessDeniedHandler(
-				invalidSessionStrategy);
+	invalidSessionStrategy);
 		LinkedHashMap<Class<? extends AccessDeniedException>, AccessDeniedHandler> handlers = new LinkedHashMap<>();
 		handlers.put(MissingCsrfTokenException.class, invalidSessionDeniedHandler);
 		return new DelegatingAccessDeniedHandler(handlers, defaultAccessDeniedHandler);
@@ -332,7 +331,7 @@ public final class CsrfConfigurer<H extends HttpSecurityBuilder<H>>
 			return this.sessionAuthenticationStrategy;
 		}
 		CsrfAuthenticationStrategy csrfAuthenticationStrategy = new CsrfAuthenticationStrategy(
-				this.csrfTokenRepository);
+	this.csrfTokenRepository);
 		if (this.requestHandler != null) {
 			csrfAuthenticationStrategy.setRequestHandler(this.requestHandler);
 		}

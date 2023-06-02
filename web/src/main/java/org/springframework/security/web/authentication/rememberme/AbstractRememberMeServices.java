@@ -60,8 +60,7 @@ import org.springframework.util.StringUtils;
  * @author Onur Kagan Ozcan
  * @since 2.0
  */
-public abstract class AbstractRememberMeServices
-		implements RememberMeServices, InitializingBean, LogoutHandler, MessageSourceAware {
+public abstract class AbstractRememberMeServicesimplements RememberMeServices, InitializingBean, LogoutHandler, MessageSourceAware {
 
 	public static final String SPRING_SECURITY_REMEMBER_ME_COOKIE_KEY = "remember-me";
 
@@ -191,7 +190,7 @@ public abstract class AbstractRememberMeServices
 	 */
 	protected Authentication createSuccessfulAuthentication(HttpServletRequest request, UserDetails user) {
 		RememberMeAuthenticationToken auth = new RememberMeAuthenticationToken(this.key, user,
-				this.authoritiesMapper.mapAuthorities(user.getAuthorities()));
+	this.authoritiesMapper.mapAuthorities(user.getAuthorities()));
 		auth.setDetails(this.authenticationDetailsSource.buildDetails(request));
 		return auth;
 	}
@@ -273,7 +272,7 @@ public abstract class AbstractRememberMeServices
 	 */
 	@Override
 	public void loginSuccess(HttpServletRequest request, HttpServletResponse response,
-			Authentication successfulAuthentication) {
+Authentication successfulAuthentication) {
 		if (!rememberMeRequested(request, this.parameter)) {
 			this.logger.debug("Remember-me login not requested.");
 			return;
@@ -287,7 +286,7 @@ public abstract class AbstractRememberMeServices
 	 * record of it if the implementation requires this.
 	 */
 	protected abstract void onLoginSuccess(HttpServletRequest request, HttpServletResponse response,
-			Authentication successfulAuthentication);
+Authentication successfulAuthentication);
 
 	/**
 	 * Allows customization of whether a remember-me login has been requested. The default
@@ -306,12 +305,12 @@ public abstract class AbstractRememberMeServices
 		String paramValue = request.getParameter(parameter);
 		if (paramValue != null) {
 			if (paramValue.equalsIgnoreCase("true") || paramValue.equalsIgnoreCase("on")
-					|| paramValue.equalsIgnoreCase("yes") || paramValue.equals("1")) {
+		|| paramValue.equalsIgnoreCase("yes") || paramValue.equals("1")) {
 				return true;
 			}
 		}
 		this.logger.debug(
-				LogMessage.format("Did not send remember-me cookie (principal did not set parameter '%s')", parameter));
+	LogMessage.format("Did not send remember-me cookie (principal did not set parameter '%s')", parameter));
 		return false;
 	}
 
@@ -330,7 +329,7 @@ public abstract class AbstractRememberMeServices
 	 * system).
 	 */
 	protected abstract UserDetails processAutoLoginCookie(String[] cookieTokens, HttpServletRequest request,
-			HttpServletResponse response) throws RememberMeAuthenticationException, UsernameNotFoundException;
+HttpServletResponse response) throws RememberMeAuthenticationException, UsernameNotFoundException;
 
 	/**
 	 * Sets a "cancel cookie" (with maxAge = 0) on the response to disable persistent
@@ -388,7 +387,7 @@ public abstract class AbstractRememberMeServices
 	@Override
 	public void logout(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
 		this.logger.debug(LogMessage
-				.of(() -> "Logout of user " + ((authentication != null) ? authentication.getName() : "Unknown")));
+	.of(() -> "Logout of user " + ((authentication != null) ? authentication.getName() : "Unknown")));
 		cancelCookie(request, response);
 	}
 
@@ -461,7 +460,7 @@ public abstract class AbstractRememberMeServices
 	}
 
 	public void setAuthenticationDetailsSource(
-			AuthenticationDetailsSource<HttpServletRequest, ?> authenticationDetailsSource) {
+AuthenticationDetailsSource<HttpServletRequest, ?> authenticationDetailsSource) {
 		Assert.notNull(authenticationDetailsSource, "AuthenticationDetailsSource cannot be null");
 		this.authenticationDetailsSource = authenticationDetailsSource;
 	}

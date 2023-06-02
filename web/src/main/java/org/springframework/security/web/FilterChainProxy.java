@@ -148,7 +148,7 @@ public class FilterChainProxy extends GenericFilterBean {
 	private static final String FILTER_APPLIED = FilterChainProxy.class.getName().concat(".APPLIED");
 
 	private SecurityContextHolderStrategy securityContextHolderStrategy = SecurityContextHolder
-			.getContextHolderStrategy();
+.getContextHolderStrategy();
 
 	private List<SecurityFilterChain> filterChains;
 
@@ -180,7 +180,7 @@ public class FilterChainProxy extends GenericFilterBean {
 
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
-			throws IOException, ServletException {
+throws IOException, ServletException {
 		boolean clearContext = request.getAttribute(FILTER_APPLIED) == null;
 		if (!clearContext) {
 			doFilterInternal(request, response, chain);
@@ -193,12 +193,12 @@ public class FilterChainProxy extends GenericFilterBean {
 		catch (Exception ex) {
 			Throwable[] causeChain = this.throwableAnalyzer.determineCauseChain(ex);
 			Throwable requestRejectedException = this.throwableAnalyzer
-					.getFirstThrowableOfType(RequestRejectedException.class, causeChain);
+		.getFirstThrowableOfType(RequestRejectedException.class, causeChain);
 			if (!(requestRejectedException instanceof RequestRejectedException)) {
 				throw ex;
 			}
 			this.requestRejectedHandler.handle((HttpServletRequest) request, (HttpServletResponse) response,
-					(RequestRejectedException) requestRejectedException);
+		(RequestRejectedException) requestRejectedException);
 		}
 		finally {
 			this.securityContextHolderStrategy.clearContext();
@@ -207,7 +207,7 @@ public class FilterChainProxy extends GenericFilterBean {
 	}
 
 	private void doFilterInternal(ServletRequest request, ServletResponse response, FilterChain chain)
-			throws IOException, ServletException {
+throws IOException, ServletException {
 		FirewalledRequest firewallRequest = this.firewall.getFirewalledRequest((HttpServletRequest) request);
 		HttpServletResponse firewallResponse = this.firewall.getFirewalledResponse((HttpServletResponse) response);
 		List<Filter> filters = getFilters(firewallRequest);
@@ -243,7 +243,7 @@ public class FilterChainProxy extends GenericFilterBean {
 		for (SecurityFilterChain chain : this.filterChains) {
 			if (logger.isTraceEnabled()) {
 				logger.trace(LogMessage.format("Trying to match request against %s (%d/%d)", chain, ++count,
-						this.filterChains.size()));
+			this.filterChains.size()));
 			}
 			if (chain.matches(request)) {
 				return chain.getFilters();

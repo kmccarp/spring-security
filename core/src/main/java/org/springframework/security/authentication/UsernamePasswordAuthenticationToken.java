@@ -65,7 +65,7 @@ public class UsernamePasswordAuthenticationToken extends AbstractAuthenticationT
 	 * @param authorities
 	 */
 	public UsernamePasswordAuthenticationToken(Object principal, Object credentials,
-			Collection<? extends GrantedAuthority> authorities) {
+Collection<? extends GrantedAuthority> authorities) {
 		super(authorities);
 		this.principal = principal;
 		this.credentials = credentials;
@@ -95,7 +95,7 @@ public class UsernamePasswordAuthenticationToken extends AbstractAuthenticationT
 	 * @since 5.7
 	 */
 	public static UsernamePasswordAuthenticationToken authenticated(Object principal, Object credentials,
-			Collection<? extends GrantedAuthority> authorities) {
+Collection<? extends GrantedAuthority> authorities) {
 		return new UsernamePasswordAuthenticationToken(principal, credentials, authorities);
 	}
 
@@ -112,7 +112,7 @@ public class UsernamePasswordAuthenticationToken extends AbstractAuthenticationT
 	@Override
 	public void setAuthenticated(boolean isAuthenticated) throws IllegalArgumentException {
 		Assert.isTrue(!isAuthenticated,
-				"Cannot set this token to trusted - use constructor which takes a GrantedAuthority list instead");
+	"Cannot set this token to trusted - use constructor which takes a GrantedAuthority list instead");
 		super.setAuthenticated(false);
 	}
 

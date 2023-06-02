@@ -47,7 +47,7 @@ public class ServerCsrfTokenRequestAttributeHandler implements ServerCsrfTokenRe
 	@Override
 	public Mono<String> resolveCsrfTokenValue(ServerWebExchange exchange, CsrfToken csrfToken) {
 		return ServerCsrfTokenRequestHandler.super.resolveCsrfTokenValue(exchange, csrfToken)
-				.switchIfEmpty(tokenFromMultipartData(exchange, csrfToken));
+	.switchIfEmpty(tokenFromMultipartData(exchange, csrfToken));
 	}
 
 	/**
@@ -71,7 +71,7 @@ public class ServerCsrfTokenRequestAttributeHandler implements ServerCsrfTokenRe
 			return Mono.empty();
 		}
 		return exchange.getMultipartData().map((d) -> d.getFirst(expected.getParameterName())).cast(FormFieldPart.class)
-				.map(FormFieldPart::value);
+	.map(FormFieldPart::value);
 	}
 
 }

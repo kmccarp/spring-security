@@ -36,8 +36,7 @@ import org.springframework.util.MultiValueMap;
  * @author Josh Cummings
  * @since 5.2
  */
-public class InMemoryRelyingPartyRegistrationRepository
-		implements RelyingPartyRegistrationRepository, Iterable<RelyingPartyRegistration> {
+public class InMemoryRelyingPartyRegistrationRepositoryimplements RelyingPartyRegistrationRepository, Iterable<RelyingPartyRegistration> {
 
 	private final Map<String, RelyingPartyRegistration> byRegistrationId;
 
@@ -54,7 +53,7 @@ public class InMemoryRelyingPartyRegistrationRepository
 	}
 
 	private static Map<String, RelyingPartyRegistration> createMappingToIdentityProvider(
-			Collection<RelyingPartyRegistration> rps) {
+Collection<RelyingPartyRegistration> rps) {
 		LinkedHashMap<String, RelyingPartyRegistration> result = new LinkedHashMap<>();
 		for (RelyingPartyRegistration rp : rps) {
 			Assert.notNull(rp, "relying party collection cannot contain null values");
@@ -67,7 +66,7 @@ public class InMemoryRelyingPartyRegistrationRepository
 	}
 
 	private static Map<String, List<RelyingPartyRegistration>> createMappingByAssertingPartyEntityId(
-			Collection<RelyingPartyRegistration> rps) {
+Collection<RelyingPartyRegistration> rps) {
 		MultiValueMap<String, RelyingPartyRegistration> result = new LinkedMultiValueMap<>();
 		for (RelyingPartyRegistration rp : rps) {
 			result.add(rp.getAssertingPartyDetails().getEntityId(), rp);

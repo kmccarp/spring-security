@@ -63,8 +63,8 @@ public class NamespaceJdbcUserServiceTests {
 		this.spring.register(CustomDataSourceConfig.class, CustomJdbcUserServiceSampleConfig.class).autowire();
 		// @formatter:off
 		SecurityMockMvcResultMatchers.AuthenticatedMatcher dba = authenticated()
-				.withUsername("user")
-				.withRoles("DBA", "USER");
+	.withUsername("user")
+	.withRoles("DBA", "USER");
 		// @formatter:on
 		this.mockMvc.perform(formLogin()).andExpect(dba);
 	}
@@ -77,10 +77,10 @@ public class NamespaceJdbcUserServiceTests {
 		void configure(AuthenticationManagerBuilder auth, DataSource dataSource) throws Exception {
 			// @formatter:off
 			auth
-				.jdbcAuthentication()
-					.withDefaultSchema()
-					.withUser(PasswordEncodedUser.user())
-					.dataSource(dataSource); // jdbc-user-service@data-source-ref
+		.jdbcAuthentication()
+		.withDefaultSchema()
+		.withUser(PasswordEncodedUser.user())
+		.dataSource(dataSource); // jdbc-user-service@data-source-ref
 			// @formatter:on
 		}
 
@@ -105,19 +105,19 @@ public class NamespaceJdbcUserServiceTests {
 		void configure(AuthenticationManagerBuilder auth, DataSource dataSource) throws Exception {
 			// @formatter:off
 			auth
-				.jdbcAuthentication()
-				// jdbc-user-service@dataSource
-				.dataSource(dataSource)
-				// jdbc-user-service@cache-ref
-				.userCache(new CustomUserCache())
-				// jdbc-user-service@users-byusername-query
-				.usersByUsernameQuery("select principal,credentials,true from users where principal = ?")
-				// jdbc-user-service@authorities-by-username-query
-				.authoritiesByUsernameQuery("select principal,role from roles where principal = ?")
-				// jdbc-user-service@group-authorities-by-username-query
-				.groupAuthoritiesByUsername(JdbcDaoImpl.DEF_GROUP_AUTHORITIES_BY_USERNAME_QUERY)
-				// jdbc-user-service@role-prefix
-				.rolePrefix("ROLE_");
+		.jdbcAuthentication()
+		// jdbc-user-service@dataSource
+		.dataSource(dataSource)
+		// jdbc-user-service@cache-ref
+		.userCache(new CustomUserCache())
+		// jdbc-user-service@users-byusername-query
+		.usersByUsernameQuery("select principal,credentials,true from users where principal = ?")
+		// jdbc-user-service@authorities-by-username-query
+		.authoritiesByUsernameQuery("select principal,role from roles where principal = ?")
+		// jdbc-user-service@group-authorities-by-username-query
+		.groupAuthoritiesByUsername(JdbcDaoImpl.DEF_GROUP_AUTHORITIES_BY_USERNAME_QUERY)
+		// jdbc-user-service@role-prefix
+		.rolePrefix("ROLE_");
 			// @formatter:on
 		}
 
@@ -146,8 +146,8 @@ public class NamespaceJdbcUserServiceTests {
 		@Bean
 		DataSource dataSource() {
 			EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder()
-					// simulate that the DB already has the schema loaded and users in it
-					.addScript("CustomJdbcUserServiceSampleConfig.sql");
+		// simulate that the DB already has the schema loaded and users in it
+		.addScript("CustomJdbcUserServiceSampleConfig.sql");
 			return builder.setType(EmbeddedDatabaseType.HSQL).build();
 		}
 

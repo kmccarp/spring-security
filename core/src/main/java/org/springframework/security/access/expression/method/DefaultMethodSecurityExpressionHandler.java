@@ -54,8 +54,7 @@ import org.springframework.util.Assert;
  * @author Evgeniy Cheban
  * @since 3.0
  */
-public class DefaultMethodSecurityExpressionHandler extends AbstractSecurityExpressionHandler<MethodInvocation>
-		implements MethodSecurityExpressionHandler {
+public class DefaultMethodSecurityExpressionHandler extends AbstractSecurityExpressionHandler<MethodInvocation>implements MethodSecurityExpressionHandler {
 
 	protected final Log logger = LogFactory.getLog(getClass());
 
@@ -83,7 +82,7 @@ public class DefaultMethodSecurityExpressionHandler extends AbstractSecurityExpr
 	public EvaluationContext createEvaluationContext(Supplier<Authentication> authentication, MethodInvocation mi) {
 		MethodSecurityExpressionOperations root = createSecurityExpressionRoot(authentication, mi);
 		MethodSecurityEvaluationContext ctx = new MethodSecurityEvaluationContext(root, mi,
-				getParameterNameDiscoverer());
+	getParameterNameDiscoverer());
 		ctx.setBeanResolver(getBeanResolver());
 		return ctx;
 	}
@@ -93,12 +92,12 @@ public class DefaultMethodSecurityExpressionHandler extends AbstractSecurityExpr
 	 */
 	@Override
 	protected MethodSecurityExpressionOperations createSecurityExpressionRoot(Authentication authentication,
-			MethodInvocation invocation) {
+MethodInvocation invocation) {
 		return createSecurityExpressionRoot(() -> authentication, invocation);
 	}
 
 	private MethodSecurityExpressionOperations createSecurityExpressionRoot(Supplier<Authentication> authentication,
-			MethodInvocation invocation) {
+MethodInvocation invocation) {
 		MethodSecurityExpressionRoot root = new MethodSecurityExpressionRoot(authentication);
 		root.setThis(invocation.getThis());
 		root.setPermissionEvaluator(getPermissionEvaluator());
@@ -119,7 +118,7 @@ public class DefaultMethodSecurityExpressionHandler extends AbstractSecurityExpr
 	@Override
 	public Object filter(Object filterTarget, Expression filterExpression, EvaluationContext ctx) {
 		MethodSecurityExpressionOperations rootObject = (MethodSecurityExpressionOperations) ctx.getRootObject()
-				.getValue();
+	.getValue();
 		this.logger.debug(LogMessage.format("Filtering with expression: %s", filterExpression.getExpressionString()));
 		if (filterTarget instanceof Collection) {
 			return filterCollection((Collection<?>) filterTarget, filterExpression, ctx, rootObject);
@@ -134,11 +133,11 @@ public class DefaultMethodSecurityExpressionHandler extends AbstractSecurityExpr
 			return filterStream((Stream<?>) filterTarget, filterExpression, ctx, rootObject);
 		}
 		throw new IllegalArgumentException(
-				"Filter target must be a collection, array, map or stream type, but was " + filterTarget);
+	"Filter target must be a collection, array, map or stream type, but was " + filterTarget);
 	}
 
 	private <T> Object filterCollection(Collection<T> filterTarget, Expression filterExpression, EvaluationContext ctx,
-			MethodSecurityExpressionOperations rootObject) {
+MethodSecurityExpressionOperations rootObject) {
 		this.logger.debug(LogMessage.format("Filtering collection with %s elements", filterTarget.size()));
 		List<T> retain = new ArrayList<>(filterTarget.size());
 		if (this.permissionCacheOptimizer != null) {
@@ -157,12 +156,12 @@ public class DefaultMethodSecurityExpressionHandler extends AbstractSecurityExpr
 	}
 
 	private Object filterArray(Object[] filterTarget, Expression filterExpression, EvaluationContext ctx,
-			MethodSecurityExpressionOperations rootObject) {
+MethodSecurityExpressionOperations rootObject) {
 		List<Object> retain = new ArrayList<>(filterTarget.length);
 		this.logger.debug(LogMessage.format("Filtering array with %s elements", filterTarget.length));
 		if (this.permissionCacheOptimizer != null) {
 			this.permissionCacheOptimizer.cachePermissionsFor(rootObject.getAuthentication(),
-					Arrays.asList(filterTarget));
+		Arrays.asList(filterTarget));
 		}
 		for (Object filterObject : filterTarget) {
 			rootObject.setFilterObject(filterObject);
@@ -179,7 +178,7 @@ public class DefaultMethodSecurityExpressionHandler extends AbstractSecurityExpr
 	}
 
 	private <K, V> Object filterMap(final Map<K, V> filterTarget, Expression filterExpression, EvaluationContext ctx,
-			MethodSecurityExpressionOperations rootObject) {
+MethodSecurityExpressionOperations rootObject) {
 		Map<K, V> retain = new LinkedHashMap<>(filterTarget.size());
 		this.logger.debug(LogMessage.format("Filtering map with %s elements", filterTarget.size()));
 		for (Map.Entry<K, V> filterObject : filterTarget.entrySet()) {
@@ -195,7 +194,7 @@ public class DefaultMethodSecurityExpressionHandler extends AbstractSecurityExpr
 	}
 
 	private Object filterStream(final Stream<?> filterTarget, Expression filterExpression, EvaluationContext ctx,
-			MethodSecurityExpressionOperations rootObject) {
+MethodSecurityExpressionOperations rootObject) {
 		return filterTarget.filter((filterObject) -> {
 			rootObject.setFilterObject(filterObject);
 			return ExpressionUtils.evaluateAsBoolean(filterExpression, ctx);

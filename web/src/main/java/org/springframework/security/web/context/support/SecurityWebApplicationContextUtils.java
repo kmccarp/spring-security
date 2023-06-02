@@ -48,7 +48,7 @@ public abstract class SecurityWebApplicationContextUtils extends WebApplicationC
 	public static WebApplicationContext findRequiredWebApplicationContext(ServletContext servletContext) {
 		WebApplicationContext webApplicationContext = findWebApplicationContext(servletContext);
 		Assert.state(webApplicationContext != null,
-				"No WebApplicationContext found: no ContextLoaderListener registered?");
+	"No WebApplicationContext found: no ContextLoaderListener registered?");
 		return webApplicationContext;
 	}
 

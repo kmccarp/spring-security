@@ -63,11 +63,11 @@ public class FilterSecurityMetadataSourceBeanDefinitionParserTests {
 	public void parsingMinimalConfigurationIsSuccessful() {
 		// @formatter:off
 		setContext("<filter-security-metadata-source id='fids' use-expressions='false'>"
-				+ "   <intercept-url pattern='/**' access='ROLE_A'/>"
-				+ "</filter-security-metadata-source>");
+	+ "   <intercept-url pattern='/**' access='ROLE_A'/>"
+	+ "</filter-security-metadata-source>");
 		// @formatter:on
 		DefaultFilterInvocationSecurityMetadataSource fids = (DefaultFilterInvocationSecurityMetadataSource) this.appContext
-				.getBean("fids");
+	.getBean("fids");
 		Collection<ConfigAttribute> cad = fids.getAttributes(createFilterInvocation("/anything", "GET"));
 		assertThat(cad).contains(new SecurityConfig("ROLE_A"));
 	}
@@ -76,13 +76,13 @@ public class FilterSecurityMetadataSourceBeanDefinitionParserTests {
 	public void expressionsAreSupported() {
 		// @formatter:off
 		setContext("<filter-security-metadata-source id='fids'>"
-				+ "   <intercept-url pattern='/**' access=\"hasRole('ROLE_A')\" />"
-				+ "</filter-security-metadata-source>");
+	+ "   <intercept-url pattern='/**' access=\"hasRole('ROLE_A')\" />"
+	+ "</filter-security-metadata-source>");
 		// @formatter:on
 		ExpressionBasedFilterInvocationSecurityMetadataSource fids = (ExpressionBasedFilterInvocationSecurityMetadataSource) this.appContext
-				.getBean("fids");
+	.getBean("fids");
 		ConfigAttribute[] cad = fids.getAttributes(createFilterInvocation("/anything", "GET"))
-				.toArray(new ConfigAttribute[0]);
+	.toArray(new ConfigAttribute[0]);
 		assertThat(cad).hasSize(1);
 		assertThat(cad[0].toString()).isEqualTo("hasRole('ROLE_A')");
 	}
@@ -93,13 +93,13 @@ public class FilterSecurityMetadataSourceBeanDefinitionParserTests {
 		System.setProperty("secure.url", "/secure");
 		System.setProperty("secure.role", "ROLE_A");
 		setContext(
-				"<b:bean class=\"org.springframework.web.servlet.handler.HandlerMappingIntrospector\" name=\"mvcHandlerMappingIntrospector\"/>"
-						+ "<b:bean class='org.springframework.beans.factory.config.PropertyPlaceholderConfigurer'/>"
-						+ "<filter-security-metadata-source id='fids' use-expressions='false'>"
-						+ "   <intercept-url pattern='${secure.url}' access='${secure.role}'/>"
-						+ "</filter-security-metadata-source>");
+	"<b:bean class=\"org.springframework.web.servlet.handler.HandlerMappingIntrospector\" name=\"mvcHandlerMappingIntrospector\"/>"
++ "<b:bean class='org.springframework.beans.factory.config.PropertyPlaceholderConfigurer'/>"
++ "<filter-security-metadata-source id='fids' use-expressions='false'>"
++ "   <intercept-url pattern='${secure.url}' access='${secure.role}'/>"
++ "</filter-security-metadata-source>");
 		DefaultFilterInvocationSecurityMetadataSource fids = (DefaultFilterInvocationSecurityMetadataSource) this.appContext
-				.getBean("fids");
+	.getBean("fids");
 		Collection<ConfigAttribute> cad = fids.getAttributes(createFilterInvocation("/secure", "GET"));
 		assertThat(cad).containsExactly(new SecurityConfig("ROLE_A"));
 	}
@@ -108,27 +108,27 @@ public class FilterSecurityMetadataSourceBeanDefinitionParserTests {
 	public void parsingWithinFilterSecurityInterceptorIsSuccessful() {
 		// @formatter:off
 		setContext("<b:bean class=\"org.springframework.web.servlet.handler.HandlerMappingIntrospector\" name=\"mvcHandlerMappingIntrospector\"/>" +
-				"<http auto-config='true' use-expressions='false' use-authorization-manager='false'/>"
-				+ "<b:bean id='fsi' class='org.springframework.security.web.access.intercept.FilterSecurityInterceptor' autowire='byType'>"
-				+ "   <b:property name='securityMetadataSource'>"
-				+ "       <filter-security-metadata-source use-expressions='false'>"
-				+ "           <intercept-url pattern='/secure/extreme/**' access='ROLE_SUPERVISOR'/>"
-				+ "           <intercept-url pattern='/secure/**' access='ROLE_USER'/>"
-				+ "           <intercept-url pattern='/**' access='ROLE_USER'/>"
-				+ "       </filter-security-metadata-source>"
-				+ "   </b:property>"
-				+ "   <b:property name='authenticationManager' ref='" + BeanIds.AUTHENTICATION_MANAGER + "'/>"
-				+ "</b:bean>"
-				+ ConfigTestUtils.AUTH_PROVIDER_XML);
+	"<http auto-config='true' use-expressions='false' use-authorization-manager='false'/>"
+	+ "<b:bean id='fsi' class='org.springframework.security.web.access.intercept.FilterSecurityInterceptor' autowire='byType'>"
+	+ "   <b:property name='securityMetadataSource'>"
+	+ "       <filter-security-metadata-source use-expressions='false'>"
+	+ "           <intercept-url pattern='/secure/extreme/**' access='ROLE_SUPERVISOR'/>"
+	+ "           <intercept-url pattern='/secure/**' access='ROLE_USER'/>"
+	+ "           <intercept-url pattern='/**' access='ROLE_USER'/>"
+	+ "       </filter-security-metadata-source>"
+	+ "   </b:property>"
+	+ "   <b:property name='authenticationManager' ref='" + BeanIds.AUTHENTICATION_MANAGER + "'/>"
+	+ "</b:bean>"
+	+ ConfigTestUtils.AUTH_PROVIDER_XML);
 		// @formatter:on
 	}
 
 	@Test
 	public void parsingInterceptUrlServletPathFails() {
 		assertThatExceptionOfType(BeanDefinitionParsingException.class)
-				.isThrownBy(() -> setContext("<filter-security-metadata-source id='fids' use-expressions='false'>"
-						+ "   <intercept-url pattern='/secure' access='ROLE_USER' servlet-path='/spring' />"
-						+ "</filter-security-metadata-source>"));
+	.isThrownBy(() -> setContext("<filter-security-metadata-source id='fids' use-expressions='false'>"
++ "   <intercept-url pattern='/secure' access='ROLE_USER' servlet-path='/spring' />"
++ "</filter-security-metadata-source>"));
 	}
 
 	private FilterInvocation createFilterInvocation(String path, String method) {

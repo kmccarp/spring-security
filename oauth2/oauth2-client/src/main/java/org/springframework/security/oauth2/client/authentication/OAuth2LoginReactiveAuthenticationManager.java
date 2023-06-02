@@ -75,12 +75,12 @@ public class OAuth2LoginReactiveAuthenticationManager implements ReactiveAuthent
 	private GrantedAuthoritiesMapper authoritiesMapper = ((authorities) -> authorities);
 
 	public OAuth2LoginReactiveAuthenticationManager(
-			ReactiveOAuth2AccessTokenResponseClient<OAuth2AuthorizationCodeGrantRequest> accessTokenResponseClient,
-			ReactiveOAuth2UserService<OAuth2UserRequest, OAuth2User> userService) {
+ReactiveOAuth2AccessTokenResponseClient<OAuth2AuthorizationCodeGrantRequest> accessTokenResponseClient,
+ReactiveOAuth2UserService<OAuth2UserRequest, OAuth2User> userService) {
 		Assert.notNull(accessTokenResponseClient, "accessTokenResponseClient cannot be null");
 		Assert.notNull(userService, "userService cannot be null");
 		this.authorizationCodeManager = new OAuth2AuthorizationCodeReactiveAuthenticationManager(
-				accessTokenResponseClient);
+	accessTokenResponseClient);
 		this.userService = userService;
 	}
 
@@ -98,9 +98,9 @@ public class OAuth2LoginReactiveAuthenticationManager implements ReactiveAuthent
 				return Mono.empty();
 			}
 			return this.authorizationCodeManager.authenticate(token)
-					.onErrorMap(OAuth2AuthorizationException.class,
-							(e) -> new OAuth2AuthenticationException(e.getError(), e.getError().toString(), e))
-					.cast(OAuth2AuthorizationCodeAuthenticationToken.class).flatMap(this::onSuccess);
+		.onErrorMap(OAuth2AuthorizationException.class,
+	(e) -> new OAuth2AuthenticationException(e.getError(), e.getError().toString(), e))
+		.cast(OAuth2AuthorizationCodeAuthenticationToken.class).flatMap(this::onSuccess);
 		});
 	}
 
@@ -121,13 +121,13 @@ public class OAuth2LoginReactiveAuthenticationManager implements ReactiveAuthent
 		OAuth2AccessToken accessToken = authentication.getAccessToken();
 		Map<String, Object> additionalParameters = authentication.getAdditionalParameters();
 		OAuth2UserRequest userRequest = new OAuth2UserRequest(authentication.getClientRegistration(), accessToken,
-				additionalParameters);
+	additionalParameters);
 		return this.userService.loadUser(userRequest).map((oauth2User) -> {
 			Collection<? extends GrantedAuthority> mappedAuthorities = this.authoritiesMapper
-					.mapAuthorities(oauth2User.getAuthorities());
+		.mapAuthorities(oauth2User.getAuthorities());
 			OAuth2LoginAuthenticationToken authenticationResult = new OAuth2LoginAuthenticationToken(
-					authentication.getClientRegistration(), authentication.getAuthorizationExchange(), oauth2User,
-					mappedAuthorities, accessToken, authentication.getRefreshToken());
+		authentication.getClientRegistration(), authentication.getAuthorizationExchange(), oauth2User,
+		mappedAuthorities, accessToken, authentication.getRefreshToken());
 			return authenticationResult;
 		});
 	}

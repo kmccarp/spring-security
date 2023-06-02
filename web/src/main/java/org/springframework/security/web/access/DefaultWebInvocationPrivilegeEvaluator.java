@@ -51,9 +51,9 @@ public class DefaultWebInvocationPrivilegeEvaluator implements WebInvocationPriv
 	public DefaultWebInvocationPrivilegeEvaluator(AbstractSecurityInterceptor securityInterceptor) {
 		Assert.notNull(securityInterceptor, "SecurityInterceptor cannot be null");
 		Assert.isTrue(FilterInvocation.class.equals(securityInterceptor.getSecureObjectClass()),
-				"AbstractSecurityInterceptor does not support FilterInvocations");
+	"AbstractSecurityInterceptor does not support FilterInvocations");
 		Assert.notNull(securityInterceptor.getAccessDecisionManager(),
-				"AbstractSecurityInterceptor must provide a non-null AccessDecisionManager");
+	"AbstractSecurityInterceptor must provide a non-null AccessDecisionManager");
 		this.securityInterceptor = securityInterceptor;
 	}
 
@@ -90,7 +90,7 @@ public class DefaultWebInvocationPrivilegeEvaluator implements WebInvocationPriv
 		Assert.notNull(uri, "uri parameter is required");
 		FilterInvocation filterInvocation = new FilterInvocation(contextPath, uri, method, this.servletContext);
 		Collection<ConfigAttribute> attributes = this.securityInterceptor.obtainSecurityMetadataSource()
-				.getAttributes(filterInvocation);
+	.getAttributes(filterInvocation);
 		if (attributes == null) {
 			return (!this.securityInterceptor.isRejectPublicInvocations());
 		}

@@ -60,9 +60,9 @@ public class UnanimousBased extends AbstractAccessDecisionManager {
 	 * @throws AccessDeniedException if access is denied
 	 */
 	@Override
-	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@SuppressWarnings({"rawtypes", "unchecked"})
 	public void decide(Authentication authentication, Object object, Collection<ConfigAttribute> attributes)
-			throws AccessDeniedException {
+throws AccessDeniedException {
 		int grant = 0;
 		List<ConfigAttribute> singleAttributeList = new ArrayList<>(1);
 		singleAttributeList.add(null);
@@ -71,14 +71,14 @@ public class UnanimousBased extends AbstractAccessDecisionManager {
 			for (AccessDecisionVoter voter : getDecisionVoters()) {
 				int result = voter.vote(authentication, object, singleAttributeList);
 				switch (result) {
-				case AccessDecisionVoter.ACCESS_GRANTED:
-					grant++;
-					break;
-				case AccessDecisionVoter.ACCESS_DENIED:
-					throw new AccessDeniedException(
-							this.messages.getMessage("AbstractAccessDecisionManager.accessDenied", "Access is denied"));
-				default:
-					break;
+					case AccessDecisionVoter.ACCESS_GRANTED:
+						grant++;
+						break;
+					case AccessDecisionVoter.ACCESS_DENIED:
+						throw new AccessDeniedException(
+					this.messages.getMessage("AbstractAccessDecisionManager.accessDenied", "Access is denied"));
+					default:
+						break;
 				}
 			}
 		}

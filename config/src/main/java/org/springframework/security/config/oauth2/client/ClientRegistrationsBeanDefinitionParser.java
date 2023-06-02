@@ -86,30 +86,30 @@ public final class ClientRegistrationsBeanDefinitionParser implements BeanDefini
 	@Override
 	public BeanDefinition parse(Element element, ParserContext parserContext) {
 		CompositeComponentDefinition compositeDef = new CompositeComponentDefinition(element.getTagName(),
-				parserContext.extractSource(element));
+	parserContext.extractSource(element));
 		parserContext.pushContainingComponent(compositeDef);
 		Map<String, Map<String, String>> providers = getProviders(element, parserContext);
 		List<ClientRegistration> clientRegistrations = getClientRegistrations(element, parserContext, providers);
 		BeanDefinition clientRegistrationRepositoryBean = BeanDefinitionBuilder
-				.rootBeanDefinition(InMemoryClientRegistrationRepository.class)
-				.addConstructorArgValue(clientRegistrations).getBeanDefinition();
+	.rootBeanDefinition(InMemoryClientRegistrationRepository.class)
+	.addConstructorArgValue(clientRegistrations).getBeanDefinition();
 		String clientRegistrationRepositoryId = parserContext.getReaderContext()
-				.generateBeanName(clientRegistrationRepositoryBean);
+	.generateBeanName(clientRegistrationRepositoryBean);
 		parserContext.registerBeanComponent(
-				new BeanComponentDefinition(clientRegistrationRepositoryBean, clientRegistrationRepositoryId));
+	new BeanComponentDefinition(clientRegistrationRepositoryBean, clientRegistrationRepositoryId));
 		parserContext.popAndRegisterContainingComponent();
 		return null;
 	}
 
 	private List<ClientRegistration> getClientRegistrations(Element element, ParserContext parserContext,
-			Map<String, Map<String, String>> providers) {
+Map<String, Map<String, String>> providers) {
 		List<Element> clientRegistrationElts = DomUtils.getChildElementsByTagName(element, ELT_CLIENT_REGISTRATION);
 		List<ClientRegistration> clientRegistrations = new ArrayList<>();
 		for (Element clientRegistrationElt : clientRegistrationElts) {
 			String registrationId = clientRegistrationElt.getAttribute(ATT_REGISTRATION_ID);
 			String providerId = clientRegistrationElt.getAttribute(ATT_PROVIDER_ID);
 			ClientRegistration.Builder builder = getBuilderFromIssuerIfPossible(parserContext, registrationId,
-					providerId, providers);
+		providerId, providers);
 			if (builder == null) {
 				builder = getBuilder(parserContext, registrationId, providerId, providers);
 				if (builder == null) {
@@ -120,19 +120,19 @@ public final class ClientRegistrationsBeanDefinitionParser implements BeanDefini
 				}
 			}
 			getOptionalIfNotEmpty(parserContext, clientRegistrationElt.getAttribute(ATT_CLIENT_ID))
-					.ifPresent(builder::clientId);
+		.ifPresent(builder::clientId);
 			getOptionalIfNotEmpty(parserContext, clientRegistrationElt.getAttribute(ATT_CLIENT_SECRET))
-					.ifPresent(builder::clientSecret);
+		.ifPresent(builder::clientSecret);
 			getOptionalIfNotEmpty(parserContext, clientRegistrationElt.getAttribute(ATT_CLIENT_AUTHENTICATION_METHOD))
-					.map(ClientAuthenticationMethod::new).ifPresent(builder::clientAuthenticationMethod);
+		.map(ClientAuthenticationMethod::new).ifPresent(builder::clientAuthenticationMethod);
 			getOptionalIfNotEmpty(parserContext, clientRegistrationElt.getAttribute(ATT_AUTHORIZATION_GRANT_TYPE))
-					.map(AuthorizationGrantType::new).ifPresent(builder::authorizationGrantType);
+		.map(AuthorizationGrantType::new).ifPresent(builder::authorizationGrantType);
 			getOptionalIfNotEmpty(parserContext, clientRegistrationElt.getAttribute(ATT_REDIRECT_URI))
-					.ifPresent(builder::redirectUri);
+		.ifPresent(builder::redirectUri);
 			getOptionalIfNotEmpty(parserContext, clientRegistrationElt.getAttribute(ATT_SCOPE))
-					.map(StringUtils::commaDelimitedListToSet).ifPresent(builder::scope);
+		.map(StringUtils::commaDelimitedListToSet).ifPresent(builder::scope);
 			getOptionalIfNotEmpty(parserContext, clientRegistrationElt.getAttribute(ATT_CLIENT_NAME))
-					.ifPresent(builder::clientName);
+		.ifPresent(builder::clientName);
 			clientRegistrations.add(builder.build());
 		}
 		return clientRegistrations;
@@ -146,33 +146,33 @@ public final class ClientRegistrationsBeanDefinitionParser implements BeanDefini
 			String providerId = providerElt.getAttribute(ATT_PROVIDER_ID);
 			provider.put(ATT_PROVIDER_ID, providerId);
 			getOptionalIfNotEmpty(parserContext, providerElt.getAttribute(ATT_AUTHORIZATION_URI))
-					.ifPresent((value) -> provider.put(ATT_AUTHORIZATION_URI, value));
+		.ifPresent((value) -> provider.put(ATT_AUTHORIZATION_URI, value));
 			getOptionalIfNotEmpty(parserContext, providerElt.getAttribute(ATT_TOKEN_URI))
-					.ifPresent((value) -> provider.put(ATT_TOKEN_URI, value));
+		.ifPresent((value) -> provider.put(ATT_TOKEN_URI, value));
 			getOptionalIfNotEmpty(parserContext, providerElt.getAttribute(ATT_USER_INFO_URI))
-					.ifPresent((value) -> provider.put(ATT_USER_INFO_URI, value));
+		.ifPresent((value) -> provider.put(ATT_USER_INFO_URI, value));
 			getOptionalIfNotEmpty(parserContext, providerElt.getAttribute(ATT_USER_INFO_AUTHENTICATION_METHOD))
-					.ifPresent((value) -> provider.put(ATT_USER_INFO_AUTHENTICATION_METHOD, value));
+		.ifPresent((value) -> provider.put(ATT_USER_INFO_AUTHENTICATION_METHOD, value));
 			getOptionalIfNotEmpty(parserContext, providerElt.getAttribute(ATT_USER_INFO_USER_NAME_ATTRIBUTE))
-					.ifPresent((value) -> provider.put(ATT_USER_INFO_USER_NAME_ATTRIBUTE, value));
+		.ifPresent((value) -> provider.put(ATT_USER_INFO_USER_NAME_ATTRIBUTE, value));
 			getOptionalIfNotEmpty(parserContext, providerElt.getAttribute(ATT_JWK_SET_URI))
-					.ifPresent((value) -> provider.put(ATT_JWK_SET_URI, value));
+		.ifPresent((value) -> provider.put(ATT_JWK_SET_URI, value));
 			getOptionalIfNotEmpty(parserContext, providerElt.getAttribute(ATT_ISSUER_URI))
-					.ifPresent((value) -> provider.put(ATT_ISSUER_URI, value));
+		.ifPresent((value) -> provider.put(ATT_ISSUER_URI, value));
 			providers.put(providerId, provider);
 		}
 		return providers;
 	}
 
 	private static ClientRegistration.Builder getBuilderFromIssuerIfPossible(ParserContext parserContext,
-			String registrationId, String configuredProviderId, Map<String, Map<String, String>> providers) {
+String registrationId, String configuredProviderId, Map<String, Map<String, String>> providers) {
 		String providerId = (configuredProviderId != null) ? configuredProviderId : registrationId;
 		if (providers.containsKey(providerId)) {
 			Map<String, String> provider = providers.get(providerId);
 			String issuer = provider.get(ATT_ISSUER_URI);
 			if (!StringUtils.isEmpty(issuer)) {
 				ClientRegistration.Builder builder = ClientRegistrations.fromIssuerLocation(issuer)
-						.registrationId(registrationId);
+			.registrationId(registrationId);
 				return getBuilder(parserContext, builder, provider);
 			}
 		}
@@ -180,14 +180,14 @@ public final class ClientRegistrationsBeanDefinitionParser implements BeanDefini
 	}
 
 	private static ClientRegistration.Builder getBuilder(ParserContext parserContext, String registrationId,
-			String configuredProviderId, Map<String, Map<String, String>> providers) {
+String configuredProviderId, Map<String, Map<String, String>> providers) {
 		String providerId = (configuredProviderId != null) ? configuredProviderId : registrationId;
 		CommonOAuth2Provider provider = getCommonProvider(providerId);
 		if (provider == null && !providers.containsKey(providerId)) {
 			return null;
 		}
 		ClientRegistration.Builder builder = (provider != null) ? provider.getBuilder(registrationId)
-				: ClientRegistration.withRegistrationId(registrationId);
+	: ClientRegistration.withRegistrationId(registrationId);
 		if (providers.containsKey(providerId)) {
 			return getBuilder(parserContext, builder, providers.get(providerId));
 		}
@@ -195,21 +195,21 @@ public final class ClientRegistrationsBeanDefinitionParser implements BeanDefini
 	}
 
 	private static ClientRegistration.Builder getBuilder(ParserContext parserContext,
-			ClientRegistration.Builder builder, Map<String, String> provider) {
+ClientRegistration.Builder builder, Map<String, String> provider) {
 		getOptionalIfNotEmpty(parserContext, provider.get(ATT_AUTHORIZATION_URI)).ifPresent(builder::authorizationUri);
 		getOptionalIfNotEmpty(parserContext, provider.get(ATT_TOKEN_URI)).ifPresent(builder::tokenUri);
 		getOptionalIfNotEmpty(parserContext, provider.get(ATT_USER_INFO_URI)).ifPresent(builder::userInfoUri);
 		getOptionalIfNotEmpty(parserContext, provider.get(ATT_USER_INFO_AUTHENTICATION_METHOD))
-				.map(AuthenticationMethod::new).ifPresent(builder::userInfoAuthenticationMethod);
+	.map(AuthenticationMethod::new).ifPresent(builder::userInfoAuthenticationMethod);
 		getOptionalIfNotEmpty(parserContext, provider.get(ATT_JWK_SET_URI)).ifPresent(builder::jwkSetUri);
 		getOptionalIfNotEmpty(parserContext, provider.get(ATT_USER_INFO_USER_NAME_ATTRIBUTE))
-				.ifPresent(builder::userNameAttributeName);
+	.ifPresent(builder::userNameAttributeName);
 		return builder;
 	}
 
 	private static Optional<String> getOptionalIfNotEmpty(ParserContext parserContext, String str) {
 		return Optional.ofNullable(str).filter((s) -> !s.isEmpty())
-				.map(parserContext.getReaderContext().getEnvironment()::resolvePlaceholders);
+	.map(parserContext.getReaderContext().getEnvironment()::resolvePlaceholders);
 	}
 
 	private static CommonOAuth2Provider getCommonProvider(String providerId) {
@@ -239,19 +239,19 @@ public final class ClientRegistrationsBeanDefinitionParser implements BeanDefini
 			}
 		}
 		throw new IllegalArgumentException(
-				"No enum constant " + CommonOAuth2Provider.class.getCanonicalName() + "." + value);
+	"No enum constant " + CommonOAuth2Provider.class.getCanonicalName() + "." + value);
 	}
 
 	private static String getCanonicalName(String name) {
 		StringBuilder canonicalName = new StringBuilder(name.length());
 		name.chars().filter(Character::isLetterOrDigit).map(Character::toLowerCase)
-				.forEach((c) -> canonicalName.append((char) c));
+	.forEach((c) -> canonicalName.append((char) c));
 		return canonicalName.toString();
 	}
 
 	private static String getErrorMessage(String configuredProviderId, String registrationId) {
 		return (configuredProviderId != null) ? "Unknown provider ID '" + configuredProviderId + "'"
-				: "Provider ID must be specified for client registration '" + registrationId + "'";
+	: "Provider ID must be specified for client registration '" + registrationId + "'";
 	}
 
 }

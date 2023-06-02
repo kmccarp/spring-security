@@ -81,16 +81,16 @@ final class OAuth2ResourceServerBeanDefinitionParser implements BeanDefinitionPa
 	private final List<BeanDefinition> ignoreCsrfRequestMatchers;
 
 	private final BeanDefinition authenticationEntryPoint = new RootBeanDefinition(
-			BearerTokenAuthenticationEntryPoint.class);
+BearerTokenAuthenticationEntryPoint.class);
 
 	private final BeanDefinition accessDeniedHandler = new RootBeanDefinition(BearerTokenAccessDeniedHandler.class);
 
 	private final BeanMetadataElement authenticationFilterSecurityContextHolderStrategy;
 
 	OAuth2ResourceServerBeanDefinitionParser(BeanReference authenticationManager,
-			List<BeanReference> authenticationProviders, Map<BeanDefinition, BeanMetadataElement> entryPoints,
-			Map<BeanDefinition, BeanMetadataElement> deniedHandlers, List<BeanDefinition> ignoreCsrfRequestMatchers,
-			BeanMetadataElement authenticationFilterSecurityContextHolderStrategy) {
+List<BeanReference> authenticationProviders, Map<BeanDefinition, BeanMetadataElement> entryPoints,
+Map<BeanDefinition, BeanMetadataElement> deniedHandlers, List<BeanDefinition> ignoreCsrfRequestMatchers,
+BeanMetadataElement authenticationFilterSecurityContextHolderStrategy) {
 		this.authenticationManager = authenticationManager;
 		this.authenticationProviders = authenticationProviders;
 		this.entryPoints = entryPoints;
@@ -115,17 +115,17 @@ final class OAuth2ResourceServerBeanDefinitionParser implements BeanDefinitionPa
 		if (jwt != null) {
 			BeanDefinition jwtAuthenticationProvider = new JwtBeanDefinitionParser().parse(jwt, pc);
 			this.authenticationProviders.add(new RuntimeBeanReference(
-					pc.getReaderContext().registerWithGeneratedName(jwtAuthenticationProvider)));
+		pc.getReaderContext().registerWithGeneratedName(jwtAuthenticationProvider)));
 		}
 		if (opaqueToken != null) {
 			BeanDefinition opaqueTokenAuthenticationProvider = new OpaqueTokenBeanDefinitionParser().parse(opaqueToken,
-					pc);
+		pc);
 			this.authenticationProviders.add(new RuntimeBeanReference(
-					pc.getReaderContext().registerWithGeneratedName(opaqueTokenAuthenticationProvider)));
+		pc.getReaderContext().registerWithGeneratedName(opaqueTokenAuthenticationProvider)));
 		}
 		BeanMetadataElement bearerTokenResolver = getBearerTokenResolver(oauth2ResourceServer);
 		BeanDefinitionBuilder requestMatcherBuilder = BeanDefinitionBuilder
-				.rootBeanDefinition(BearerTokenRequestMatcher.class);
+	.rootBeanDefinition(BearerTokenRequestMatcher.class);
 		requestMatcherBuilder.addConstructorArgValue(bearerTokenResolver);
 		BeanDefinition requestMatcher = requestMatcherBuilder.getBeanDefinition();
 		BeanMetadataElement authenticationEntryPoint = getEntryPoint(oauth2ResourceServer);
@@ -133,13 +133,13 @@ final class OAuth2ResourceServerBeanDefinitionParser implements BeanDefinitionPa
 		this.deniedHandlers.put(requestMatcher, this.accessDeniedHandler);
 		this.ignoreCsrfRequestMatchers.add(requestMatcher);
 		BeanDefinitionBuilder filterBuilder = BeanDefinitionBuilder
-				.rootBeanDefinition(BearerTokenAuthenticationFilter.class);
+	.rootBeanDefinition(BearerTokenAuthenticationFilter.class);
 		BeanMetadataElement authenticationManagerResolver = getAuthenticationManagerResolver(oauth2ResourceServer);
 		filterBuilder.addConstructorArgValue(authenticationManagerResolver);
 		filterBuilder.addPropertyValue(BEARER_TOKEN_RESOLVER, bearerTokenResolver);
 		filterBuilder.addPropertyValue(AUTHENTICATION_ENTRY_POINT, authenticationEntryPoint);
 		filterBuilder.addPropertyValue("securityContextHolderStrategy",
-				this.authenticationFilterSecurityContextHolderStrategy);
+	this.authenticationFilterSecurityContextHolderStrategy);
 		return filterBuilder.getBeanDefinition();
 	}
 
@@ -147,19 +147,19 @@ final class OAuth2ResourceServerBeanDefinitionParser implements BeanDefinitionPa
 		if (!oauth2ResourceServer.hasAttribute(AUTHENTICATION_MANAGER_RESOLVER_REF)) {
 			if (jwt == null && opaqueToken == null) {
 				pc.getReaderContext().error("Didn't find authentication-manager-resolver-ref, "
-						+ "<jwt>, or <opaque-token>. " + "Please select one.", oauth2ResourceServer);
+			+ "<jwt>, or <opaque-token>. " + "Please select one.", oauth2ResourceServer);
 			}
 			return;
 		}
 		if (jwt != null) {
 			pc.getReaderContext().error(
-					"Found <jwt> as well as authentication-manager-resolver-ref. Please select just one.",
-					oauth2ResourceServer);
+		"Found <jwt> as well as authentication-manager-resolver-ref. Please select just one.",
+		oauth2ResourceServer);
 		}
 		if (opaqueToken != null) {
 			pc.getReaderContext().error(
-					"Found <opaque-token> as well as authentication-manager-resolver-ref. Please select just one.",
-					oauth2ResourceServer);
+		"Found <opaque-token> as well as authentication-manager-resolver-ref. Please select just one.",
+		oauth2ResourceServer);
 		}
 	}
 
@@ -169,7 +169,7 @@ final class OAuth2ResourceServerBeanDefinitionParser implements BeanDefinitionPa
 			return new RuntimeBeanReference(authenticationManagerResolverRef);
 		}
 		BeanDefinitionBuilder authenticationManagerResolver = BeanDefinitionBuilder
-				.rootBeanDefinition(StaticAuthenticationManagerResolver.class);
+	.rootBeanDefinition(StaticAuthenticationManagerResolver.class);
 		authenticationManagerResolver.addConstructorArgValue(this.authenticationManager);
 		return authenticationManagerResolver.getBeanDefinition();
 	}
@@ -207,7 +207,7 @@ final class OAuth2ResourceServerBeanDefinitionParser implements BeanDefinitionPa
 		public BeanDefinition parse(Element element, ParserContext pc) {
 			validateConfiguration(element, pc);
 			BeanDefinitionBuilder jwtProviderBuilder = BeanDefinitionBuilder
-					.rootBeanDefinition(JwtAuthenticationProvider.class);
+		.rootBeanDefinition(JwtAuthenticationProvider.class);
 			jwtProviderBuilder.addConstructorArgValue(getDecoder(element));
 			jwtProviderBuilder.addPropertyValue(JWT_AUTHENTICATION_CONVERTER, getJwtAuthenticationConverter(element));
 			return jwtProviderBuilder.getBeanDefinition();
@@ -227,7 +227,7 @@ final class OAuth2ResourceServerBeanDefinitionParser implements BeanDefinitionPa
 				return new RuntimeBeanReference(decoderRef);
 			}
 			BeanDefinitionBuilder builder = BeanDefinitionBuilder
-					.rootBeanDefinition(NimbusJwtDecoderJwkSetUriFactoryBean.class);
+		.rootBeanDefinition(NimbusJwtDecoderJwkSetUriFactoryBean.class);
 			builder.addConstructorArgValue(element.getAttribute(JWK_SET_URI));
 			return builder.getBeanDefinition();
 		}
@@ -235,7 +235,7 @@ final class OAuth2ResourceServerBeanDefinitionParser implements BeanDefinitionPa
 		Object getJwtAuthenticationConverter(Element element) {
 			String jwtDecoderRef = element.getAttribute(JWT_AUTHENTICATION_CONVERTER_REF);
 			return (!StringUtils.isEmpty(jwtDecoderRef)) ? new RuntimeBeanReference(jwtDecoderRef)
-					: new JwtAuthenticationConverter();
+		: new JwtAuthenticationConverter();
 		}
 
 	}
@@ -263,7 +263,7 @@ final class OAuth2ResourceServerBeanDefinitionParser implements BeanDefinitionPa
 			BeanMetadataElement introspector = getIntrospector(element);
 			String authenticationConverterRef = element.getAttribute(AUTHENTICATION_CONVERTER_REF);
 			BeanDefinitionBuilder opaqueTokenProviderBuilder = BeanDefinitionBuilder
-					.rootBeanDefinition(OpaqueTokenAuthenticationProvider.class);
+		.rootBeanDefinition(OpaqueTokenAuthenticationProvider.class);
 			opaqueTokenProviderBuilder.addConstructorArgValue(introspector);
 			if (StringUtils.hasText(authenticationConverterRef)) {
 				opaqueTokenProviderBuilder.addPropertyReference(AUTHENTICATION_CONVERTER, authenticationConverterRef);
@@ -274,17 +274,17 @@ final class OAuth2ResourceServerBeanDefinitionParser implements BeanDefinitionPa
 		void validateConfiguration(Element element, ParserContext pc) {
 			boolean usesIntrospector = element.hasAttribute(INTROSPECTOR_REF);
 			boolean usesEndpoint = element.hasAttribute(INTROSPECTION_URI) || element.hasAttribute(CLIENT_ID)
-					|| element.hasAttribute(CLIENT_SECRET);
+		|| element.hasAttribute(CLIENT_SECRET);
 			if (usesIntrospector == usesEndpoint) {
 				pc.getReaderContext().error("Please specify either introspector-ref or all of "
-						+ "introspection-uri, client-id, and client-secret.", element);
+			+ "introspection-uri, client-id, and client-secret.", element);
 				return;
 			}
 			if (usesEndpoint) {
 				if (!(element.hasAttribute(INTROSPECTION_URI) && element.hasAttribute(CLIENT_ID)
-						&& element.hasAttribute(CLIENT_SECRET))) {
+			&& element.hasAttribute(CLIENT_SECRET))) {
 					pc.getReaderContext()
-							.error("Please specify introspection-uri, client-id, and client-secret together", element);
+				.error("Please specify introspection-uri, client-id, and client-secret together", element);
 				}
 			}
 		}
@@ -298,7 +298,7 @@ final class OAuth2ResourceServerBeanDefinitionParser implements BeanDefinitionPa
 			String clientId = element.getAttribute(CLIENT_ID);
 			String clientSecret = element.getAttribute(CLIENT_SECRET);
 			BeanDefinitionBuilder introspectorBuilder = BeanDefinitionBuilder
-					.rootBeanDefinition(NimbusOpaqueTokenIntrospector.class);
+		.rootBeanDefinition(NimbusOpaqueTokenIntrospector.class);
 			introspectorBuilder.addConstructorArgValue(introspectionUri);
 			introspectorBuilder.addConstructorArgValue(clientId);
 			introspectorBuilder.addConstructorArgValue(clientSecret);
@@ -308,7 +308,7 @@ final class OAuth2ResourceServerBeanDefinitionParser implements BeanDefinitionPa
 	}
 
 	static final class StaticAuthenticationManagerResolver
-			implements AuthenticationManagerResolver<HttpServletRequest> {
+implements AuthenticationManagerResolver<HttpServletRequest> {
 
 		private final AuthenticationManager authenticationManager;
 

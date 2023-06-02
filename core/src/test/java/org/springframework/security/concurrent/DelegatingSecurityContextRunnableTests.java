@@ -97,7 +97,7 @@ public class DelegatingSecurityContextRunnableTests {
 	@Test
 	public void constructorNullDelegateNonNullSecurityContext() {
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new DelegatingSecurityContextRunnable(null, this.securityContext));
+	.isThrownBy(() -> new DelegatingSecurityContextRunnable(null, this.securityContext));
 	}
 
 	@Test
@@ -108,7 +108,7 @@ public class DelegatingSecurityContextRunnableTests {
 	@Test
 	public void constructorNullSecurityContext() {
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new DelegatingSecurityContextRunnable(this.delegate, null));
+	.isThrownBy(() -> new DelegatingSecurityContextRunnable(this.delegate, null));
 	}
 
 	@Test
@@ -124,7 +124,7 @@ public class DelegatingSecurityContextRunnableTests {
 		SecurityContextHolder.setContext(this.securityContext);
 		this.runnable = new DelegatingSecurityContextRunnable(this.delegate);
 		SecurityContextHolder.clearContext(); // ensure runnable is what sets up the
-												// SecurityContextHolder
+		// SecurityContextHolder
 		assertWrapped(this.runnable);
 	}
 
@@ -156,7 +156,7 @@ public class DelegatingSecurityContextRunnableTests {
 	@Test
 	public void createNullDelegate() {
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> DelegatingSecurityContextRunnable.create(null, this.securityContext));
+	.isThrownBy(() -> DelegatingSecurityContextRunnable.create(null, this.securityContext));
 	}
 
 	@Test
@@ -170,7 +170,7 @@ public class DelegatingSecurityContextRunnableTests {
 		SecurityContextHolder.setContext(this.securityContext);
 		this.runnable = DelegatingSecurityContextRunnable.create(this.delegate, null);
 		SecurityContextHolder.clearContext(); // ensure runnable is what sets up the
-												// SecurityContextHolder
+		// SecurityContextHolder
 		assertWrapped(this.runnable);
 	}
 

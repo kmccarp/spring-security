@@ -39,10 +39,10 @@ public class SecurityDebugBeanFactoryPostProcessor implements BeanDefinitionRegi
 	@Override
 	public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry registry) throws BeansException {
 		this.logger.warn("\n\n" + "********************************************************************\n"
-				+ "**********        Security debugging is enabled.       *************\n"
-				+ "**********    This may include sensitive information.  *************\n"
-				+ "**********      Do not use in a production system!     *************\n"
-				+ "********************************************************************\n\n");
+	+ "**********        Security debugging is enabled.       *************\n"
+	+ "**********    This may include sensitive information.  *************\n"
+	+ "**********      Do not use in a production system!     *************\n"
+	+ "********************************************************************\n\n");
 		// SPRING_SECURITY_FILTER_CHAIN does not exist yet since it is an alias that has
 		// not been processed, so use FILTER_CHAIN_PROXY
 		if (registry.containsBeanDefinition(BeanIds.FILTER_CHAIN_PROXY)) {

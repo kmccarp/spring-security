@@ -53,7 +53,7 @@ public class OidcUserRequestTests {
 	public void setUp() {
 		this.clientRegistration = TestClientRegistrations.clientRegistration().build();
 		this.accessToken = new OAuth2AccessToken(OAuth2AccessToken.TokenType.BEARER, "access-token-1234", Instant.now(),
-				Instant.now().plusSeconds(60), new LinkedHashSet<>(Arrays.asList("scope1", "scope2")));
+	Instant.now().plusSeconds(60), new LinkedHashSet<>(Arrays.asList("scope1", "scope2")));
 		this.idToken = TestOidcIdTokens.idToken().authorizedParty(this.clientRegistration.getClientId()).build();
 		this.additionalParameters = new HashMap<>();
 		this.additionalParameters.put("param1", "value1");
@@ -63,25 +63,25 @@ public class OidcUserRequestTests {
 	@Test
 	public void constructorWhenClientRegistrationIsNullThenThrowIllegalArgumentException() {
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new OidcUserRequest(null, this.accessToken, this.idToken));
+	.isThrownBy(() -> new OidcUserRequest(null, this.accessToken, this.idToken));
 	}
 
 	@Test
 	public void constructorWhenAccessTokenIsNullThenThrowIllegalArgumentException() {
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new OidcUserRequest(this.clientRegistration, null, this.idToken));
+	.isThrownBy(() -> new OidcUserRequest(this.clientRegistration, null, this.idToken));
 	}
 
 	@Test
 	public void constructorWhenIdTokenIsNullThenThrowIllegalArgumentException() {
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new OidcUserRequest(this.clientRegistration, this.accessToken, null));
+	.isThrownBy(() -> new OidcUserRequest(this.clientRegistration, this.accessToken, null));
 	}
 
 	@Test
 	public void constructorWhenAllParametersProvidedAndValidThenCreated() {
 		OidcUserRequest userRequest = new OidcUserRequest(this.clientRegistration, this.accessToken, this.idToken,
-				this.additionalParameters);
+	this.additionalParameters);
 		assertThat(userRequest.getClientRegistration()).isEqualTo(this.clientRegistration);
 		assertThat(userRequest.getAccessToken()).isEqualTo(this.accessToken);
 		assertThat(userRequest.getIdToken()).isEqualTo(this.idToken);

@@ -91,6 +91,7 @@ public class OAuth2IntrospectionAuthenticatedPrincipalTests {
 	private static final String JTI_VALUE = "jwt-id-1";
 
 	private static final Map<String, Object> CLAIMS;
+
 	static {
 		CLAIMS = new HashMap<>();
 		CLAIMS.put(ACTIVE_CLAIM, ACTIVE_VALUE);
@@ -109,15 +110,15 @@ public class OAuth2IntrospectionAuthenticatedPrincipalTests {
 	@Test
 	public void constructorWhenAttributesIsNullOrEmptyThenIllegalArgumentException() {
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new OAuth2IntrospectionAuthenticatedPrincipal(null, AUTHORITIES));
+	.isThrownBy(() -> new OAuth2IntrospectionAuthenticatedPrincipal(null, AUTHORITIES));
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new OAuth2IntrospectionAuthenticatedPrincipal(Collections.emptyMap(), AUTHORITIES));
+	.isThrownBy(() -> new OAuth2IntrospectionAuthenticatedPrincipal(Collections.emptyMap(), AUTHORITIES));
 	}
 
 	@Test
 	public void constructorWhenAuthoritiesIsNullOrEmptyThenNoAuthorities() {
 		Collection<? extends GrantedAuthority> authorities = new OAuth2IntrospectionAuthenticatedPrincipal(CLAIMS, null)
-				.getAuthorities();
+	.getAuthorities();
 		assertThat(authorities).isEmpty();
 		authorities = new OAuth2IntrospectionAuthenticatedPrincipal(CLAIMS, Collections.emptyList()).getAuthorities();
 		assertThat(authorities).isEmpty();
@@ -126,14 +127,14 @@ public class OAuth2IntrospectionAuthenticatedPrincipalTests {
 	@Test
 	public void constructorWhenNameIsNullThenFallsbackToSubAttribute() {
 		OAuth2AuthenticatedPrincipal principal = new OAuth2IntrospectionAuthenticatedPrincipal(null, CLAIMS,
-				AUTHORITIES);
+	AUTHORITIES);
 		assertThat(principal.getName()).isEqualTo(CLAIMS.get(SUB_CLAIM));
 	}
 
 	@Test
 	public void constructorWhenAttributesAuthoritiesProvidedThenCreated() {
 		OAuth2IntrospectionAuthenticatedPrincipal principal = new OAuth2IntrospectionAuthenticatedPrincipal(CLAIMS,
-				AUTHORITIES);
+	AUTHORITIES);
 		assertThat(principal.getName()).isEqualTo(CLAIMS.get(SUB_CLAIM));
 		assertThat(principal.getAttributes()).isEqualTo(CLAIMS);
 		assertThat(principal.getClaims()).isEqualTo(CLAIMS);
@@ -155,7 +156,7 @@ public class OAuth2IntrospectionAuthenticatedPrincipalTests {
 	@Test
 	public void constructorWhenAllParametersProvidedAndValidThenCreated() {
 		OAuth2IntrospectionAuthenticatedPrincipal principal = new OAuth2IntrospectionAuthenticatedPrincipal(SUBJECT,
-				CLAIMS, AUTHORITIES);
+	CLAIMS, AUTHORITIES);
 		assertThat(principal.getName()).isEqualTo(SUBJECT);
 		assertThat(principal.getAttributes()).isEqualTo(CLAIMS);
 		assertThat(principal.getClaims()).isEqualTo(CLAIMS);
@@ -177,7 +178,7 @@ public class OAuth2IntrospectionAuthenticatedPrincipalTests {
 	@Test
 	public void getNameWhenInConstructorThenReturns() {
 		OAuth2AuthenticatedPrincipal principal = new OAuth2IntrospectionAuthenticatedPrincipal(SUB_VALUE, CLAIMS,
-				AUTHORITIES);
+	AUTHORITIES);
 		assertThat(principal.getName()).isEqualTo(SUB_VALUE);
 	}
 

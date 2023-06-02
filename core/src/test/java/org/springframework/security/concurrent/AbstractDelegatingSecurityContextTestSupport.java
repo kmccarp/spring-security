@@ -74,18 +74,18 @@ public abstract class AbstractDelegatingSecurityContextTestSupport {
 
 	public final void explicitSecurityContextSetup() throws Exception {
 		this.delegatingSecurityContextCallable.when(() -> DelegatingSecurityContextCallable.create(eq(this.callable),
-				this.securityContextCaptor.capture(), any())).thenReturn(this.wrappedCallable);
+	this.securityContextCaptor.capture(), any())).thenReturn(this.wrappedCallable);
 		this.delegatingSecurityContextRunnable.when(() -> DelegatingSecurityContextRunnable.create(eq(this.runnable),
-				this.securityContextCaptor.capture(), any())).thenReturn(this.wrappedRunnable);
+	this.securityContextCaptor.capture(), any())).thenReturn(this.wrappedRunnable);
 	}
 
 	public final void currentSecurityContextSetup() throws Exception {
 		this.delegatingSecurityContextCallable
-				.when(() -> DelegatingSecurityContextCallable.create(eq(this.callable), isNull(), any()))
-				.thenReturn(this.wrappedCallable);
+	.when(() -> DelegatingSecurityContextCallable.create(eq(this.callable), isNull(), any()))
+	.thenReturn(this.wrappedCallable);
 		this.delegatingSecurityContextRunnable
-				.when(() -> DelegatingSecurityContextRunnable.create(eq(this.runnable), isNull(), any()))
-				.thenReturn(this.wrappedRunnable);
+	.when(() -> DelegatingSecurityContextRunnable.create(eq(this.runnable), isNull(), any()))
+	.thenReturn(this.wrappedRunnable);
 	}
 
 	@BeforeEach

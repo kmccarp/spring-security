@@ -82,31 +82,31 @@ import org.springframework.util.Assert;
 public class BasicLookupStrategy implements LookupStrategy {
 
 	private static final String DEFAULT_SELECT_CLAUSE_COLUMNS = "select acl_object_identity.object_id_identity, "
-			+ "acl_entry.ace_order,  " + "acl_object_identity.id as acl_id, " + "acl_object_identity.parent_object, "
-			+ "acl_object_identity.entries_inheriting, " + "acl_entry.id as ace_id, " + "acl_entry.mask,  "
-			+ "acl_entry.granting,  " + "acl_entry.audit_success, " + "acl_entry.audit_failure,  "
-			+ "acl_sid.principal as ace_principal, " + "acl_sid.sid as ace_sid,  "
-			+ "acli_sid.principal as acl_principal, " + "acli_sid.sid as acl_sid, " + "acl_class.class ";
++ "acl_entry.ace_order,  " + "acl_object_identity.id as acl_id, " + "acl_object_identity.parent_object, "
++ "acl_object_identity.entries_inheriting, " + "acl_entry.id as ace_id, " + "acl_entry.mask,  "
++ "acl_entry.granting,  " + "acl_entry.audit_success, " + "acl_entry.audit_failure,  "
++ "acl_sid.principal as ace_principal, " + "acl_sid.sid as ace_sid,  "
++ "acli_sid.principal as acl_principal, " + "acli_sid.sid as acl_sid, " + "acl_class.class ";
 
 	private static final String DEFAULT_SELECT_CLAUSE_ACL_CLASS_ID_TYPE_COLUMN = ", acl_class.class_id_type  ";
 
 	private static final String DEFAULT_SELECT_CLAUSE_FROM = "from acl_object_identity "
-			+ "left join acl_sid acli_sid on acli_sid.id = acl_object_identity.owner_sid "
-			+ "left join acl_class on acl_class.id = acl_object_identity.object_id_class   "
-			+ "left join acl_entry on acl_object_identity.id = acl_entry.acl_object_identity "
-			+ "left join acl_sid on acl_entry.sid = acl_sid.id  " + "where ( ";
++ "left join acl_sid acli_sid on acli_sid.id = acl_object_identity.owner_sid "
++ "left join acl_class on acl_class.id = acl_object_identity.object_id_class   "
++ "left join acl_entry on acl_object_identity.id = acl_entry.acl_object_identity "
++ "left join acl_sid on acl_entry.sid = acl_sid.id  " + "where ( ";
 
 	public static final String DEFAULT_SELECT_CLAUSE = DEFAULT_SELECT_CLAUSE_COLUMNS + DEFAULT_SELECT_CLAUSE_FROM;
 
 	public static final String DEFAULT_ACL_CLASS_ID_SELECT_CLAUSE = DEFAULT_SELECT_CLAUSE_COLUMNS
-			+ DEFAULT_SELECT_CLAUSE_ACL_CLASS_ID_TYPE_COLUMN + DEFAULT_SELECT_CLAUSE_FROM;
++ DEFAULT_SELECT_CLAUSE_ACL_CLASS_ID_TYPE_COLUMN + DEFAULT_SELECT_CLAUSE_FROM;
 
 	private static final String DEFAULT_LOOKUP_KEYS_WHERE_CLAUSE = "(acl_object_identity.id = ?)";
 
 	private static final String DEFAULT_LOOKUP_IDENTITIES_WHERE_CLAUSE = "(acl_object_identity.object_id_identity = ? and acl_class.class = ?)";
 
 	public static final String DEFAULT_ORDER_BY_CLAUSE = ") order by acl_object_identity.object_id_identity"
-			+ " asc, acl_entry.ace_order asc";
++ " asc, acl_entry.ace_order asc";
 
 	private final AclAuthorizationStrategy aclAuthorizationStrategy;
 
@@ -144,7 +144,7 @@ public class BasicLookupStrategy implements LookupStrategy {
 	 * @param aclAuthorizationStrategy authorization strategy (required)
 	 */
 	public BasicLookupStrategy(DataSource dataSource, AclCache aclCache,
-			AclAuthorizationStrategy aclAuthorizationStrategy, AuditLogger auditLogger) {
+AclAuthorizationStrategy aclAuthorizationStrategy, AuditLogger auditLogger) {
 		this(dataSource, aclCache, aclAuthorizationStrategy, new DefaultPermissionGrantingStrategy(auditLogger));
 	}
 
@@ -156,7 +156,7 @@ public class BasicLookupStrategy implements LookupStrategy {
 	 * @param grantingStrategy the PermissionGrantingStrategy
 	 */
 	public BasicLookupStrategy(DataSource dataSource, AclCache aclCache,
-			AclAuthorizationStrategy aclAuthorizationStrategy, PermissionGrantingStrategy grantingStrategy) {
+AclAuthorizationStrategy aclAuthorizationStrategy, PermissionGrantingStrategy grantingStrategy) {
 		Assert.notNull(dataSource, "DataSource required");
 		Assert.notNull(aclCache, "AclCache required");
 		Assert.notNull(aclAuthorizationStrategy, "AclAuthorizationStrategy required");
@@ -176,7 +176,7 @@ public class BasicLookupStrategy implements LookupStrategy {
 		String startSql = this.selectClause;
 		String endSql = this.orderByClause;
 		StringBuilder sqlStringBldr = new StringBuilder(
-				startSql.length() + endSql.length() + requiredRepetitions * (repeatingSql.length() + 4));
+	startSql.length() + endSql.length() + requiredRepetitions * (repeatingSql.length() + 4));
 		sqlStringBldr.append(startSql);
 		for (int i = 1; i <= requiredRepetitions; i++) {
 			sqlStringBldr.append(repeatingSql);
@@ -228,7 +228,7 @@ public class BasicLookupStrategy implements LookupStrategy {
 		Assert.notEmpty(findNow, "Items to find now required");
 		String sql = computeRepeatingSql(this.lookupPrimaryKeysWhereClause, findNow.size());
 		Set<Long> parentsToLookup = this.jdbcTemplate.query(sql, (ps) -> setKeys(ps, findNow),
-				new ProcessResultSet(acls, sids));
+	new ProcessResultSet(acls, sids));
 		// Lookup the parents, now that our JdbcTemplate has released the database
 		// connection (SEC-547)
 		if (parentsToLookup.size() > 0) {
@@ -284,8 +284,8 @@ public class BasicLookupStrategy implements LookupStrategy {
 				// (they should always, as our base impl doesn't filter on SID)
 				if (acl != null) {
 					Assert.state(acl.isSidLoaded(sids),
-							"Error: SID-filtered element detected when implementation does not perform SID filtering "
-									+ "- have you added something to the cache manually?");
+				"Error: SID-filtered element detected when implementation does not perform SID filtering "
+			+ "- have you added something to the cache manually?");
 					result.put(acl.getObjectIdentity(), acl);
 					aclFound = true;
 				}
@@ -322,7 +322,7 @@ public class BasicLookupStrategy implements LookupStrategy {
 	 * properly-configured parent ACLs.
 	 */
 	private Map<ObjectIdentity, Acl> lookupObjectIdentities(final Collection<ObjectIdentity> objectIdentities,
-			List<Sid> sids) {
+List<Sid> sids) {
 		Assert.notEmpty(objectIdentities, "Must provide identities to lookup");
 
 		// contains Acls with StubAclParents
@@ -333,7 +333,7 @@ public class BasicLookupStrategy implements LookupStrategy {
 		String sql = computeRepeatingSql(this.lookupObjectIdentitiesWhereClause, objectIdentities.size());
 
 		Set<Long> parentsToLookup = this.jdbcTemplate.query(sql,
-				(ps) -> setupLookupObjectIdentitiesStatement(ps, objectIdentities), new ProcessResultSet(acls, sids));
+	(ps) -> setupLookupObjectIdentitiesStatement(ps, objectIdentities), new ProcessResultSet(acls, sids));
 
 		// Lookup the parents, now that our JdbcTemplate has released the database
 		// connection (SEC-547)
@@ -354,7 +354,7 @@ public class BasicLookupStrategy implements LookupStrategy {
 	}
 
 	private void setupLookupObjectIdentitiesStatement(PreparedStatement ps, Collection<ObjectIdentity> objectIdentities)
-			throws SQLException {
+throws SQLException {
 		int i = 0;
 		for (ObjectIdentity oid : objectIdentities) {
 			// Determine prepared statement values for this iteration
@@ -399,7 +399,7 @@ public class BasicLookupStrategy implements LookupStrategy {
 
 		// Now we have the parent (if there is one), create the true AclImpl
 		AclImpl result = new AclImpl(inputAcl.getObjectIdentity(), inputAcl.getId(), this.aclAuthorizationStrategy,
-				this.grantingStrategy, parent, null, inputAcl.isEntriesInheriting(), inputAcl.getOwner());
+	this.grantingStrategy, parent, null, inputAcl.isEntriesInheriting(), inputAcl.getOwner());
 
 		// Copy the "aces" from the input to the destination
 
@@ -486,8 +486,8 @@ public class BasicLookupStrategy implements LookupStrategy {
 	public final void setAclClassIdSupported(boolean aclClassIdSupported) {
 		if (aclClassIdSupported) {
 			Assert.isTrue(this.selectClause.equals(DEFAULT_SELECT_CLAUSE),
-					"Cannot set aclClassIdSupported and override the select clause; "
-							+ "just override the select clause");
+		"Cannot set aclClassIdSupported and override the select clause; "
+	+ "just override the select clause");
 			this.selectClause = DEFAULT_ACL_CLASS_ID_SELECT_CLAUSE;
 		}
 	}
@@ -579,7 +579,7 @@ public class BasicLookupStrategy implements LookupStrategy {
 				Serializable identifier = (Serializable) rs.getObject("object_id_identity");
 				identifier = BasicLookupStrategy.this.aclClassIdUtils.identifierFrom(identifier, rs);
 				ObjectIdentity objectIdentity = BasicLookupStrategy.this.objectIdentityGenerator
-						.createObjectIdentity(identifier, rs.getString("class"));
+			.createObjectIdentity(identifier, rs.getString("class"));
 
 				Acl parentAcl = null;
 				long parentAclId = rs.getLong("parent_object");
@@ -592,7 +592,7 @@ public class BasicLookupStrategy implements LookupStrategy {
 				Sid owner = createSid(rs.getBoolean("acl_principal"), rs.getString("acl_sid"));
 
 				acl = new AclImpl(objectIdentity, id, BasicLookupStrategy.this.aclAuthorizationStrategy,
-						BasicLookupStrategy.this.grantingStrategy, parentAcl, null, entriesInheriting, owner);
+			BasicLookupStrategy.this.grantingStrategy, parentAcl, null, entriesInheriting, owner);
 
 				acls.put(id, acl);
 			}
@@ -611,7 +611,7 @@ public class BasicLookupStrategy implements LookupStrategy {
 				boolean auditFailure = rs.getBoolean("audit_failure");
 
 				AccessControlEntryImpl ace = new AccessControlEntryImpl(aceId, acl, recipient, permission, granting,
-						auditSuccess, auditFailure);
+			auditSuccess, auditFailure);
 
 				// Field acesField = FieldUtils.getField(AclImpl.class, "aces");
 				List<AccessControlEntryImpl> aces = readAces((AclImpl) acl);
@@ -664,7 +664,7 @@ public class BasicLookupStrategy implements LookupStrategy {
 
 		@Override
 		public boolean isGranted(List<Permission> permission, List<Sid> sids, boolean administrativeMode)
-				throws NotFoundException, UnloadedSidException {
+	throws NotFoundException, UnloadedSidException {
 			throw new UnsupportedOperationException("Stub only");
 		}
 

@@ -98,21 +98,21 @@ public final class PasswordOAuth2AuthorizedClientProvider implements OAuth2Autho
 			return null;
 		}
 		if (authorizedClient != null && hasTokenExpired(authorizedClient.getAccessToken())
-				&& authorizedClient.getRefreshToken() != null) {
+	&& authorizedClient.getRefreshToken() != null) {
 			// If client is already authorized and access token is expired and a refresh
 			// token is available, than return and allow
 			// RefreshTokenOAuth2AuthorizedClientProvider to handle the refresh
 			return null;
 		}
 		OAuth2PasswordGrantRequest passwordGrantRequest = new OAuth2PasswordGrantRequest(clientRegistration, username,
-				password);
+	password);
 		OAuth2AccessTokenResponse tokenResponse = getTokenResponse(clientRegistration, passwordGrantRequest);
 		return new OAuth2AuthorizedClient(clientRegistration, context.getPrincipal().getName(),
-				tokenResponse.getAccessToken(), tokenResponse.getRefreshToken());
+	tokenResponse.getAccessToken(), tokenResponse.getRefreshToken());
 	}
 
 	private OAuth2AccessTokenResponse getTokenResponse(ClientRegistration clientRegistration,
-			OAuth2PasswordGrantRequest passwordGrantRequest) {
+OAuth2PasswordGrantRequest passwordGrantRequest) {
 		try {
 			return this.accessTokenResponseClient.getTokenResponse(passwordGrantRequest);
 		}
@@ -132,7 +132,7 @@ public final class PasswordOAuth2AuthorizedClientProvider implements OAuth2Autho
 	 * credential at the Token Endpoint for the {@code password} grant
 	 */
 	public void setAccessTokenResponseClient(
-			OAuth2AccessTokenResponseClient<OAuth2PasswordGrantRequest> accessTokenResponseClient) {
+OAuth2AccessTokenResponseClient<OAuth2PasswordGrantRequest> accessTokenResponseClient) {
 		Assert.notNull(accessTokenResponseClient, "accessTokenResponseClient cannot be null");
 		this.accessTokenResponseClient = accessTokenResponseClient;
 	}

@@ -85,7 +85,7 @@ public class SecurityContextConfigurerTests {
 	public void securityContextWhenInvokedTwiceThenUsesOriginalSecurityContextRepository() throws Exception {
 		this.spring.register(DuplicateDoesNotOverrideConfig.class).autowire();
 		given(DuplicateDoesNotOverrideConfig.SCR.loadDeferredContext(any(HttpServletRequest.class)))
-				.willReturn(new TestDeferredSecurityContext(mock(SecurityContext.class), false));
+	.willReturn(new TestDeferredSecurityContext(mock(SecurityContext.class), false));
 		this.mvc.perform(get("/"));
 		verify(DuplicateDoesNotOverrideConfig.SCR).loadDeferredContext(any(HttpServletRequest.class));
 	}
@@ -129,16 +129,16 @@ public class SecurityContextConfigurerTests {
 		FilterChainProxy filterChainProxy = testContext.getContext().getBean(FilterChainProxy.class);
 		// @formatter:off
 		List<Class<? extends Filter>> filterTypes = filterChainProxy.getFilters("/")
-				.stream()
-				.map(Filter::getClass)
-				.collect(Collectors.toList());
+	.stream()
+	.map(Filter::getClass)
+	.collect(Collectors.toList());
 		assertThat(filterTypes)
-				.contains(SecurityContextHolderFilter.class)
-				.doesNotContain(SecurityContextPersistenceFilter.class);
+	.contains(SecurityContextHolderFilter.class)
+	.doesNotContain(SecurityContextPersistenceFilter.class);
 		// @formatter:on
 		MvcResult mvcResult = this.mvc.perform(formLogin()).andReturn();
 		SecurityContext securityContext = repository
-				.loadContext(new HttpRequestResponseHolder(mvcResult.getRequest(), mvcResult.getResponse()));
+	.loadContext(new HttpRequestResponseHolder(mvcResult.getRequest(), mvcResult.getResponse()));
 		assertThat(securityContext.getAuthentication()).isNotNull();
 	}
 
@@ -152,7 +152,7 @@ public class SecurityContextConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.securityContext();
+		.securityContext();
 			return http.build();
 			// @formatter:on
 		}
@@ -183,10 +183,10 @@ public class SecurityContextConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.securityContext()
-					.securityContextRepository(SCR)
-					.and()
-				.securityContext();
+		.securityContext()
+		.securityContextRepository(SCR)
+		.and()
+		.securityContext();
 			return http.build();
 			// @formatter:on
 		}
@@ -202,15 +202,15 @@ public class SecurityContextConfigurerTests {
 			TestHttpSecurity.disableDefaults(http);
 			// @formatter:off
 			http
-				.addFilter(new WebAsyncManagerIntegrationFilter())
-				.anonymous()
-					.and()
-				.securityContext()
-					.and()
-				.authorizeRequests()
-					.anyRequest().permitAll()
-					.and()
-				.httpBasic();
+		.addFilter(new WebAsyncManagerIntegrationFilter())
+		.anonymous()
+		.and()
+		.securityContext()
+		.and()
+		.authorizeRequests()
+		.anyRequest().permitAll()
+		.and()
+		.httpBasic();
 			// @formatter:on
 			return http.build();
 		}
@@ -230,8 +230,8 @@ public class SecurityContextConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.formLogin(withDefaults())
-				.securityContext(withDefaults());
+		.formLogin(withDefaults())
+		.securityContext(withDefaults());
 			// @formatter:on
 			return http.build();
 		}
@@ -251,8 +251,8 @@ public class SecurityContextConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.formLogin(withDefaults())
-				.securityContext(AbstractHttpConfigurer::disable);
+		.formLogin(withDefaults())
+		.securityContext(AbstractHttpConfigurer::disable);
 			// @formatter:on
 			return http.build();
 		}
@@ -272,11 +272,11 @@ public class SecurityContextConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-					.formLogin(withDefaults())
-					.securityContext((securityContext) ->
-							securityContext
-									.securityContextRepository(new NullSecurityContextRepository())
-					);
+		.formLogin(withDefaults())
+		.securityContext((securityContext) ->
+	securityContext
+.securityContextRepository(new NullSecurityContextRepository())
+		);
 			// @formatter:on
 			return http.build();
 		}
@@ -296,10 +296,10 @@ public class SecurityContextConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.formLogin(withDefaults())
-				.securityContext((securityContext) -> securityContext
-					.requireExplicitSave(true)
-				);
+		.formLogin(withDefaults())
+		.securityContext((securityContext) -> securityContext
+.requireExplicitSave(true)
+		);
 			// @formatter:on
 			return http.build();
 		}

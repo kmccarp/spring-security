@@ -99,7 +99,7 @@ public class ChannelDecisionManagerImplTests {
 		MockHttpServletRequest request = new MockHttpServletRequest();
 		MockHttpServletResponse response = new MockHttpServletResponse();
 		FilterInvocation fi = new FilterInvocation(request, response, mock(FilterChain.class));
-		cdm.decide(fi, SecurityConfig.createList(new String[] { "abc", "ANY_CHANNEL" }));
+		cdm.decide(fi, SecurityConfig.createList(new String[]{"abc", "ANY_CHANNEL"}));
 		assertThat(fi.getResponse().isCommitted()).isFalse();
 	}
 
@@ -152,7 +152,7 @@ public class ChannelDecisionManagerImplTests {
 	public void testStartupFailsWithEmptyChannelProcessorsList() throws Exception {
 		ChannelDecisionManagerImpl cdm = new ChannelDecisionManagerImpl();
 		assertThatIllegalArgumentException().isThrownBy(cdm::afterPropertiesSet)
-				.withMessage("A list of ChannelProcessors is required");
+	.withMessage("A list of ChannelProcessors is required");
 	}
 
 	private class MockChannelProcessor implements ChannelProcessor {

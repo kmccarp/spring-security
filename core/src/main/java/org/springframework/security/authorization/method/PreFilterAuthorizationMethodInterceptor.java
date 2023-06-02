@@ -44,11 +44,10 @@ import org.springframework.util.StringUtils;
  * @author Josh Cummings
  * @since 5.6
  */
-public final class PreFilterAuthorizationMethodInterceptor
-		implements Ordered, MethodInterceptor, PointcutAdvisor, AopInfrastructureBean {
+public final class PreFilterAuthorizationMethodInterceptorimplements Ordered, MethodInterceptor, PointcutAdvisor, AopInfrastructureBean {
 
 	private Supplier<Authentication> authentication = getAuthentication(
-			SecurityContextHolder.getContextHolderStrategy());
+SecurityContextHolder.getContextHolderStrategy());
 
 	private PreFilterExpressionAttributeRegistry registry = new PreFilterExpressionAttributeRegistry();
 
@@ -135,18 +134,18 @@ public final class PreFilterAuthorizationMethodInterceptor
 		if (StringUtils.hasText(filterTargetName)) {
 			filterTarget = ctx.lookupVariable(filterTargetName);
 			Assert.notNull(filterTarget, () -> "Filter target was null, or no argument with name '" + filterTargetName
-					+ "' found in method.");
+		+ "' found in method.");
 		}
 		else {
 			Object[] arguments = methodInvocation.getArguments();
 			Assert.state(arguments.length == 1,
-					"Unable to determine the method argument for filtering. Specify the filter target.");
+		"Unable to determine the method argument for filtering. Specify the filter target.");
 			filterTarget = arguments[0];
 			Assert.notNull(filterTarget,
-					"Filter target was null. Make sure you passing the correct value in the method argument.");
+		"Filter target was null. Make sure you passing the correct value in the method argument.");
 		}
 		Assert.state(!filterTarget.getClass().isArray(),
-				"Pre-filtering on array types is not supported. Using a Collection will solve this problem.");
+	"Pre-filtering on array types is not supported. Using a Collection will solve this problem.");
 		return filterTarget;
 	}
 
@@ -155,7 +154,7 @@ public final class PreFilterAuthorizationMethodInterceptor
 			Authentication authentication = strategy.getContext().getAuthentication();
 			if (authentication == null) {
 				throw new AuthenticationCredentialsNotFoundException(
-						"An Authentication object was not found in the SecurityContext");
+			"An Authentication object was not found in the SecurityContext");
 			}
 			return authentication;
 		};

@@ -74,7 +74,7 @@ public class PostFilterAuthorizationMethodInterceptorTests {
 	public void setExpressionHandlerWhenNullThenException() {
 		PostFilterAuthorizationMethodInterceptor advice = new PostFilterAuthorizationMethodInterceptor();
 		assertThatIllegalArgumentException().isThrownBy(() -> advice.setExpressionHandler(null))
-				.withMessage("expressionHandler cannot be null");
+	.withMessage("expressionHandler cannot be null");
 	}
 
 	@Test
@@ -82,7 +82,7 @@ public class PostFilterAuthorizationMethodInterceptorTests {
 		PostFilterAuthorizationMethodInterceptor advice = new PostFilterAuthorizationMethodInterceptor();
 		MethodMatcher methodMatcher = advice.getPointcut().getMethodMatcher();
 		assertThat(methodMatcher.matches(NoPostFilterClass.class.getMethod("doSomething"), NoPostFilterClass.class))
-				.isFalse();
+	.isFalse();
 	}
 
 	@Test
@@ -90,15 +90,15 @@ public class PostFilterAuthorizationMethodInterceptorTests {
 		PostFilterAuthorizationMethodInterceptor advice = new PostFilterAuthorizationMethodInterceptor();
 		MethodMatcher methodMatcher = advice.getPointcut().getMethodMatcher();
 		assertThat(
-				methodMatcher.matches(TestClass.class.getMethod("doSomethingArray", String[].class), TestClass.class))
-						.isTrue();
+	methodMatcher.matches(TestClass.class.getMethod("doSomethingArray", String[].class), TestClass.class))
+	.isTrue();
 	}
 
 	@Test
 	public void afterWhenArrayNotNullThenFilteredArray() throws Throwable {
-		String[] array = { "john", "bob" };
+		String[] array = {"john", "bob"};
 		MockMethodInvocation methodInvocation = new MockMethodInvocation(new TestClass(), TestClass.class,
-				"doSomethingArrayClassLevel", new Class[] { String[].class }, new Object[] { array }) {
+	"doSomethingArrayClassLevel", new Class[]{String[].class}, new Object[]{array}) {
 			@Override
 			public Object proceed() {
 				return array;
@@ -112,30 +112,30 @@ public class PostFilterAuthorizationMethodInterceptorTests {
 	@Test
 	public void checkInheritedAnnotationsWhenDuplicatedThenAnnotationConfigurationException() throws Exception {
 		MockMethodInvocation methodInvocation = new MockMethodInvocation(new TestClass(), TestClass.class,
-				"inheritedAnnotations");
+	"inheritedAnnotations");
 		PostFilterAuthorizationMethodInterceptor advice = new PostFilterAuthorizationMethodInterceptor();
 		assertThatExceptionOfType(AnnotationConfigurationException.class)
-				.isThrownBy(() -> advice.invoke(methodInvocation));
+	.isThrownBy(() -> advice.invoke(methodInvocation));
 	}
 
 	@Test
 	public void checkInheritedAnnotationsWhenConflictingThenAnnotationConfigurationException() throws Exception {
 		MockMethodInvocation methodInvocation = new MockMethodInvocation(new ConflictingAnnotations(),
-				ConflictingAnnotations.class, "inheritedAnnotations");
+	ConflictingAnnotations.class, "inheritedAnnotations");
 		PostFilterAuthorizationMethodInterceptor advice = new PostFilterAuthorizationMethodInterceptor();
 		assertThatExceptionOfType(AnnotationConfigurationException.class)
-				.isThrownBy(() -> advice.invoke(methodInvocation));
+	.isThrownBy(() -> advice.invoke(methodInvocation));
 	}
 
 	@Test
 	public void postFilterWhenMockSecurityContextHolderStrategyThenUses() throws Throwable {
 		SecurityContextHolderStrategy strategy = mock(SecurityContextHolderStrategy.class);
 		Authentication authentication = new TestingAuthenticationToken("john", "password",
-				AuthorityUtils.createAuthorityList("authority"));
+	AuthorityUtils.createAuthorityList("authority"));
 		given(strategy.getContext()).willReturn(new SecurityContextImpl(authentication));
-		String[] array = { "john", "bob" };
+		String[] array = {"john", "bob"};
 		MockMethodInvocation invocation = new MockMethodInvocation(new TestClass(), TestClass.class,
-				"doSomethingArrayAuthentication", new Class[] { String[].class }, new Object[] { array }) {
+	"doSomethingArrayAuthentication", new Class[]{String[].class}, new Object[]{array}) {
 			@Override
 			public Object proceed() {
 				return array;

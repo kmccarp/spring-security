@@ -53,13 +53,13 @@ public class PostInvocationAdviceProvider implements AfterInvocationProvider {
 
 	@Override
 	public Object decide(Authentication authentication, Object object, Collection<ConfigAttribute> config,
-			Object returnedObject) throws AccessDeniedException {
+Object returnedObject) throws AccessDeniedException {
 		PostInvocationAttribute postInvocationAttribute = findPostInvocationAttribute(config);
 		if (postInvocationAttribute == null) {
 			return returnedObject;
 		}
 		return this.postAdvice.after(authentication, (MethodInvocation) object, postInvocationAttribute,
-				returnedObject);
+	returnedObject);
 	}
 
 	private PostInvocationAttribute findPostInvocationAttribute(Collection<ConfigAttribute> config) {

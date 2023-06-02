@@ -155,15 +155,15 @@ public final class ClientRegistrations {
 	private static Supplier<ClientRegistration.Builder> oidc(URI issuer) {
 		// @formatter:off
 		URI uri = UriComponentsBuilder.fromUri(issuer)
-				.replacePath(issuer.getPath() + OIDC_METADATA_PATH)
-				.build(Collections.emptyMap());
+	.replacePath(issuer.getPath() + OIDC_METADATA_PATH)
+	.build(Collections.emptyMap());
 		// @formatter:on
 		return () -> {
 			RequestEntity<Void> request = RequestEntity.get(uri).build();
 			Map<String, Object> configuration = rest.exchange(request, typeReference).getBody();
 			OIDCProviderMetadata metadata = parse(configuration, OIDCProviderMetadata::parse);
 			ClientRegistration.Builder builder = withProviderConfiguration(metadata, issuer.toASCIIString())
-					.jwkSetUri(metadata.getJWKSetURI().toASCIIString());
+		.jwkSetUri(metadata.getJWKSetURI().toASCIIString());
 			if (metadata.getUserInfoEndpointURI() != null) {
 				builder.userInfoUri(metadata.getUserInfoEndpointURI().toASCIIString());
 			}
@@ -174,8 +174,8 @@ public final class ClientRegistrations {
 	private static Supplier<ClientRegistration.Builder> oidcRfc8414(URI issuer) {
 		// @formatter:off
 		URI uri = UriComponentsBuilder.fromUri(issuer)
-				.replacePath(OIDC_METADATA_PATH + issuer.getPath())
-				.build(Collections.emptyMap());
+	.replacePath(OIDC_METADATA_PATH + issuer.getPath())
+	.build(Collections.emptyMap());
 		// @formatter:on
 		return getRfc8414Builder(issuer, uri);
 	}
@@ -183,8 +183,8 @@ public final class ClientRegistrations {
 	private static Supplier<ClientRegistration.Builder> oauth(URI issuer) {
 		// @formatter:off
 		URI uri = UriComponentsBuilder.fromUri(issuer)
-				.replacePath(OAUTH_METADATA_PATH + issuer.getPath())
-				.build(Collections.emptyMap());
+	.replacePath(OAUTH_METADATA_PATH + issuer.getPath())
+	.build(Collections.emptyMap());
 		// @formatter:on
 		return getRfc8414Builder(issuer, uri);
 	}
@@ -209,7 +209,7 @@ public final class ClientRegistrations {
 
 	@SafeVarargs
 	private static ClientRegistration.Builder getBuilder(String issuer,
-			Supplier<ClientRegistration.Builder>... suppliers) {
+Supplier<ClientRegistration.Builder>... suppliers) {
 		String errorMessage = "Unable to resolve Configuration with the provided Issuer of \"" + issuer + "\"";
 		for (Supplier<ClientRegistration.Builder> supplier : suppliers) {
 			try {
@@ -241,32 +241,32 @@ public final class ClientRegistrations {
 	}
 
 	private static ClientRegistration.Builder withProviderConfiguration(AuthorizationServerMetadata metadata,
-			String issuer) {
+String issuer) {
 		String metadataIssuer = metadata.getIssuer().getValue();
 		Assert.state(issuer.equals(metadataIssuer),
-				() -> "The Issuer \"" + metadataIssuer + "\" provided in the configuration metadata did "
-						+ "not match the requested issuer \"" + issuer + "\"");
+	() -> "The Issuer \"" + metadataIssuer + "\" provided in the configuration metadata did "
++ "not match the requested issuer \"" + issuer + "\"");
 		String name = URI.create(issuer).getHost();
 		ClientAuthenticationMethod method = getClientAuthenticationMethod(metadata.getTokenEndpointAuthMethods());
 		Map<String, Object> configurationMetadata = new LinkedHashMap<>(metadata.toJSONObject());
 		// @formatter:off
 		return ClientRegistration.withRegistrationId(name)
-				.userNameAttributeName(IdTokenClaimNames.SUB)
-				.authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
-				.clientAuthenticationMethod(method)
-				.redirectUri("{baseUrl}/{action}/oauth2/code/{registrationId}")
-				.authorizationUri((metadata.getAuthorizationEndpointURI() != null) ? metadata.getAuthorizationEndpointURI().toASCIIString() : null)
-				.providerConfigurationMetadata(configurationMetadata)
-				.tokenUri(metadata.getTokenEndpointURI().toASCIIString())
-				.issuerUri(issuer)
-				.clientName(issuer);
+	.userNameAttributeName(IdTokenClaimNames.SUB)
+	.authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
+	.clientAuthenticationMethod(method)
+	.redirectUri("{baseUrl}/{action}/oauth2/code/{registrationId}")
+	.authorizationUri((metadata.getAuthorizationEndpointURI() != null) ? metadata.getAuthorizationEndpointURI().toASCIIString() : null)
+	.providerConfigurationMetadata(configurationMetadata)
+	.tokenUri(metadata.getTokenEndpointURI().toASCIIString())
+	.issuerUri(issuer)
+	.clientName(issuer);
 		// @formatter:on
 	}
 
 	private static ClientAuthenticationMethod getClientAuthenticationMethod(
-			List<com.nimbusds.oauth2.sdk.auth.ClientAuthenticationMethod> metadataAuthMethods) {
+List<com.nimbusds.oauth2.sdk.auth.ClientAuthenticationMethod> metadataAuthMethods) {
 		if (metadataAuthMethods == null || metadataAuthMethods
-				.contains(com.nimbusds.oauth2.sdk.auth.ClientAuthenticationMethod.CLIENT_SECRET_BASIC)) {
+	.contains(com.nimbusds.oauth2.sdk.auth.ClientAuthenticationMethod.CLIENT_SECRET_BASIC)) {
 			// If null, the default includes client_secret_basic
 			return ClientAuthenticationMethod.CLIENT_SECRET_BASIC;
 		}

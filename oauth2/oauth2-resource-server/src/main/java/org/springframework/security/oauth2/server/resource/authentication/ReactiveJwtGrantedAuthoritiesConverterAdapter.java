@@ -42,7 +42,7 @@ public final class ReactiveJwtGrantedAuthoritiesConverterAdapter implements Conv
 	private final Converter<Jwt, Collection<GrantedAuthority>> grantedAuthoritiesConverter;
 
 	public ReactiveJwtGrantedAuthoritiesConverterAdapter(
-			Converter<Jwt, Collection<GrantedAuthority>> grantedAuthoritiesConverter) {
+Converter<Jwt, Collection<GrantedAuthority>> grantedAuthoritiesConverter) {
 		Assert.notNull(grantedAuthoritiesConverter, "grantedAuthoritiesConverter cannot be null");
 		this.grantedAuthoritiesConverter = grantedAuthoritiesConverter;
 	}

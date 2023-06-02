@@ -153,7 +153,7 @@ public class SpringOpaqueTokenIntrospector implements OpaqueTokenIntrospector {
 	private Map<String, Object> adaptToNimbusResponse(ResponseEntity<Map<String, Object>> responseEntity) {
 		if (responseEntity.getStatusCode() != HttpStatus.OK) {
 			throw new OAuth2IntrospectionException(
-					"Introspection endpoint responded with " + responseEntity.getStatusCode());
+		"Introspection endpoint responded with " + responseEntity.getStatusCode());
 		}
 		Map<String, Object> claims = responseEntity.getBody();
 		// relying solely on the authorization server to validate this token (not checking
@@ -187,9 +187,9 @@ public class SpringOpaqueTokenIntrospector implements OpaqueTokenIntrospector {
 		});
 		claims.computeIfPresent(OAuth2TokenIntrospectionClaimNames.CLIENT_ID, (k, v) -> v.toString());
 		claims.computeIfPresent(OAuth2TokenIntrospectionClaimNames.EXP,
-				(k, v) -> Instant.ofEpochSecond(((Number) v).longValue()));
+	(k, v) -> Instant.ofEpochSecond(((Number) v).longValue()));
 		claims.computeIfPresent(OAuth2TokenIntrospectionClaimNames.IAT,
-				(k, v) -> Instant.ofEpochSecond(((Number) v).longValue()));
+	(k, v) -> Instant.ofEpochSecond(((Number) v).longValue()));
 		// RFC-7662 page 7 directs users to RFC-7519 for defining the values of these
 		// issuer fields.
 		// https://datatracker.ietf.org/doc/html/rfc7662#page-7
@@ -210,7 +210,7 @@ public class SpringOpaqueTokenIntrospector implements OpaqueTokenIntrospector {
 		// would *only* allow valid URLs, which is not what we wish to achieve here.
 		claims.computeIfPresent(OAuth2TokenIntrospectionClaimNames.ISS, (k, v) -> v.toString());
 		claims.computeIfPresent(OAuth2TokenIntrospectionClaimNames.NBF,
-				(k, v) -> Instant.ofEpochSecond(((Number) v).longValue()));
+	(k, v) -> Instant.ofEpochSecond(((Number) v).longValue()));
 		Collection<GrantedAuthority> authorities = new ArrayList<>();
 		claims.computeIfPresent(OAuth2TokenIntrospectionClaimNames.SCOPE, (k, v) -> {
 			if (v instanceof String) {

@@ -45,7 +45,7 @@ public class StrictTransportSecurityServerHttpHeadersWriterTests {
 		HttpHeaders headers = this.exchange.getResponse().getHeaders();
 		assertThat(headers).hasSize(1);
 		assertThat(headers).containsEntry(StrictTransportSecurityServerHttpHeadersWriter.STRICT_TRANSPORT_SECURITY,
-				Arrays.asList("max-age=31536000 ; includeSubDomains"));
+	Arrays.asList("max-age=31536000 ; includeSubDomains"));
 	}
 
 	@Test
@@ -57,7 +57,7 @@ public class StrictTransportSecurityServerHttpHeadersWriterTests {
 		HttpHeaders headers = this.exchange.getResponse().getHeaders();
 		assertThat(headers).hasSize(1);
 		assertThat(headers).containsEntry(StrictTransportSecurityServerHttpHeadersWriter.STRICT_TRANSPORT_SECURITY,
-				Arrays.asList("max-age=" + maxAge.getSeconds() + " ; includeSubDomains"));
+	Arrays.asList("max-age=" + maxAge.getSeconds() + " ; includeSubDomains"));
 	}
 
 	@Test
@@ -68,7 +68,7 @@ public class StrictTransportSecurityServerHttpHeadersWriterTests {
 		HttpHeaders headers = this.exchange.getResponse().getHeaders();
 		assertThat(headers).hasSize(1);
 		assertThat(headers).containsEntry(StrictTransportSecurityServerHttpHeadersWriter.STRICT_TRANSPORT_SECURITY,
-				Arrays.asList("max-age=31536000"));
+	Arrays.asList("max-age=31536000"));
 	}
 
 	@Test

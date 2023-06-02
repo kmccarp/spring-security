@@ -57,7 +57,7 @@ public class InMemoryUserDetailsManager implements UserDetailsManager, UserDetai
 	private final Map<String, MutableUserDetails> users = new HashMap<>();
 
 	private SecurityContextHolderStrategy securityContextHolderStrategy = SecurityContextHolder
-			.getContextHolderStrategy();
+.getContextHolderStrategy();
 
 	private AuthenticationManager authenticationManager;
 
@@ -84,7 +84,7 @@ public class InMemoryUserDetailsManager implements UserDetailsManager, UserDetai
 			editor.setAsText(users.getProperty(name));
 			UserAttribute attr = (UserAttribute) editor.getValue();
 			Assert.notNull(attr,
-					() -> "The entry with username '" + name + "' could not be converted to an UserDetails");
+		() -> "The entry with username '" + name + "' could not be converted to an UserDetails");
 			createUser(createUserDetails(name, attr));
 		}
 	}
@@ -121,7 +121,7 @@ public class InMemoryUserDetailsManager implements UserDetailsManager, UserDetai
 		if (currentUser == null) {
 			// This would indicate bad coding somewhere
 			throw new AccessDeniedException(
-					"Can't change password as no Authentication object found in context " + "for current user.");
+		"Can't change password as no Authentication object found in context " + "for current user.");
 		}
 		String username = currentUser.getName();
 		this.logger.debug(LogMessage.format("Changing password for user '%s'", username));
@@ -130,7 +130,7 @@ public class InMemoryUserDetailsManager implements UserDetailsManager, UserDetai
 		if (this.authenticationManager != null) {
 			this.logger.debug(LogMessage.format("Reauthenticating user '%s' for password change request.", username));
 			this.authenticationManager
-					.authenticate(UsernamePasswordAuthenticationToken.unauthenticated(username, oldPassword));
+		.authenticate(UsernamePasswordAuthenticationToken.unauthenticated(username, oldPassword));
 		}
 		else {
 			this.logger.debug("No authentication manager set. Password won't be re-checked.");
@@ -155,7 +155,7 @@ public class InMemoryUserDetailsManager implements UserDetailsManager, UserDetai
 			throw new UsernameNotFoundException(username);
 		}
 		return new User(user.getUsername(), user.getPassword(), user.isEnabled(), user.isAccountNonExpired(),
-				user.isCredentialsNonExpired(), user.isAccountNonLocked(), user.getAuthorities());
+	user.isCredentialsNonExpired(), user.isAccountNonLocked(), user.getAuthorities());
 	}
 
 	/**

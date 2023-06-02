@@ -33,7 +33,7 @@ class DefaultOidcIdTokenValidatorFactory implements Function<ClientRegistration,
 	@Override
 	public OAuth2TokenValidator<Jwt> apply(ClientRegistration clientRegistration) {
 		return new DelegatingOAuth2TokenValidator<>(new JwtTimestampValidator(),
-				new OidcIdTokenValidator(clientRegistration));
+	new OidcIdTokenValidator(clientRegistration));
 	}
 
 }

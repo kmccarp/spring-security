@@ -65,8 +65,8 @@ public class NamespaceHttpServerAccessDeniedHandlerTests {
 		this.spring.register(AccessDeniedPageConfig.class).autowire();
 		// @formatter:off
 		this.mvc.perform(get("/").with(authentication(user())))
-				.andExpect(status().isForbidden())
-				.andExpect(forwardedUrl("/AccessDeniedPageConfig"));
+	.andExpect(status().isForbidden())
+	.andExpect(forwardedUrl("/AccessDeniedPageConfig"));
 		// @formatter:on
 	}
 
@@ -75,8 +75,8 @@ public class NamespaceHttpServerAccessDeniedHandlerTests {
 		this.spring.register(AccessDeniedPageInLambdaConfig.class).autowire();
 		// @formatter:off
 		this.mvc.perform(get("/").with(authentication(user())))
-				.andExpect(status().isForbidden())
-				.andExpect(forwardedUrl("/AccessDeniedPageConfig"));
+	.andExpect(status().isForbidden())
+	.andExpect(forwardedUrl("/AccessDeniedPageConfig"));
 		// @formatter:on
 	}
 
@@ -85,7 +85,7 @@ public class NamespaceHttpServerAccessDeniedHandlerTests {
 		this.spring.register(AccessDeniedHandlerRefConfig.class).autowire();
 		this.mvc.perform(get("/").with(authentication(user())));
 		verifyBean(AccessDeniedHandler.class).handle(any(HttpServletRequest.class), any(HttpServletResponse.class),
-				any(AccessDeniedException.class));
+	any(AccessDeniedException.class));
 	}
 
 	@Test
@@ -93,7 +93,7 @@ public class NamespaceHttpServerAccessDeniedHandlerTests {
 		this.spring.register(AccessDeniedHandlerRefInLambdaConfig.class).autowire();
 		this.mvc.perform(get("/").with(authentication(user())));
 		verify(AccessDeniedHandlerRefInLambdaConfig.accessDeniedHandler).handle(any(HttpServletRequest.class),
-				any(HttpServletResponse.class), any(AccessDeniedException.class));
+	any(HttpServletResponse.class), any(AccessDeniedException.class));
 	}
 
 	private static Authentication user() {
@@ -112,11 +112,11 @@ public class NamespaceHttpServerAccessDeniedHandlerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests()
-					.anyRequest().denyAll()
-					.and()
-				.exceptionHandling()
-					.accessDeniedPage("/AccessDeniedPageConfig");
+		.authorizeRequests()
+		.anyRequest().denyAll()
+		.and()
+		.exceptionHandling()
+		.accessDeniedPage("/AccessDeniedPageConfig");
 			return http.build();
 			// @formatter:on
 		}
@@ -131,13 +131,13 @@ public class NamespaceHttpServerAccessDeniedHandlerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests((authorizeRequests) ->
-					authorizeRequests
-						.anyRequest().denyAll()
-				)
-				.exceptionHandling((exceptionHandling) ->
-					exceptionHandling.accessDeniedPage("/AccessDeniedPageConfig")
-				);
+		.authorizeRequests((authorizeRequests) ->
+	authorizeRequests
+.anyRequest().denyAll()
+		)
+		.exceptionHandling((exceptionHandling) ->
+	exceptionHandling.accessDeniedPage("/AccessDeniedPageConfig")
+		);
 			return http.build();
 			// @formatter:on
 		}
@@ -152,11 +152,11 @@ public class NamespaceHttpServerAccessDeniedHandlerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests()
-					.anyRequest().denyAll()
-					.and()
-				.exceptionHandling()
-					.accessDeniedHandler(accessDeniedHandler());
+		.authorizeRequests()
+		.anyRequest().denyAll()
+		.and()
+		.exceptionHandling()
+		.accessDeniedHandler(accessDeniedHandler());
 			return http.build();
 			// @formatter:on
 		}
@@ -178,13 +178,13 @@ public class NamespaceHttpServerAccessDeniedHandlerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests((authorizeRequests) ->
-					authorizeRequests
-						.anyRequest().denyAll()
-				)
-				.exceptionHandling((exceptionHandling) ->
-						exceptionHandling.accessDeniedHandler(accessDeniedHandler())
-				);
+		.authorizeRequests((authorizeRequests) ->
+	authorizeRequests
+.anyRequest().denyAll()
+		)
+		.exceptionHandling((exceptionHandling) ->
+	exceptionHandling.accessDeniedHandler(accessDeniedHandler())
+		);
 			return http.build();
 			// @formatter:on
 		}

@@ -31,6 +31,6 @@ import jakarta.servlet.http.HttpServletResponse;
 public interface InvalidSessionStrategy {
 
 	void onInvalidSessionDetected(HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException;
+throws IOException, ServletException;
 
 }

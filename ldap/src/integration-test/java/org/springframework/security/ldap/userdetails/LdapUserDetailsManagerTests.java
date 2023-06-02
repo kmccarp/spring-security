@@ -58,7 +58,7 @@ public class LdapUserDetailsManagerTests {
 	private ContextSource contextSource;
 
 	private static final List<GrantedAuthority> TEST_AUTHORITIES = AuthorityUtils.createAuthorityList("ROLE_CLOWNS",
-			"ROLE_ACROBATS");
+"ROLE_ACROBATS");
 
 	private LdapUserDetailsManager mgr;
 
@@ -143,7 +143,7 @@ public class LdapUserDetailsManagerTests {
 	public void testCreateNewUserSucceeds() {
 		InetOrgPerson.Essence p = new InetOrgPerson.Essence();
 		p.setCarLicense("XXX");
-		p.setCn(new String[] { "Joe Smeth" });
+		p.setCn(new String[]{"Joe Smeth"});
 		p.setDepartmentNumber("5679");
 		p.setDescription("Some description");
 		p.setDn("whocares");
@@ -166,7 +166,7 @@ public class LdapUserDetailsManagerTests {
 	public void testDeleteUserSucceeds() {
 		InetOrgPerson.Essence p = new InetOrgPerson.Essence();
 		p.setDn("whocares");
-		p.setCn(new String[] { "Don Smeth" });
+		p.setCn(new String[]{"Don Smeth"});
 		p.setSn("Smeth");
 		p.setUid("don");
 		p.setAuthorities(TEST_AUTHORITIES);
@@ -189,7 +189,7 @@ public class LdapUserDetailsManagerTests {
 	public void testPasswordChangeWithCorrectOldPasswordSucceeds() {
 		InetOrgPerson.Essence p = new InetOrgPerson.Essence();
 		p.setDn("whocares");
-		p.setCn(new String[] { "John Yossarian" });
+		p.setCn(new String[]{"John Yossarian"});
 		p.setSn("Yossarian");
 		p.setUid("johnyossarian");
 		p.setPassword("yossarianspassword");
@@ -198,19 +198,19 @@ public class LdapUserDetailsManagerTests {
 		this.mgr.createUser(p.createUserDetails());
 
 		SecurityContextHolder.getContext().setAuthentication(UsernamePasswordAuthenticationToken
-				.authenticated("johnyossarian", "yossarianspassword", TEST_AUTHORITIES));
+	.authenticated("johnyossarian", "yossarianspassword", TEST_AUTHORITIES));
 
 		this.mgr.changePassword("yossarianspassword", "yossariansnewpassword");
 
 		assertThat(this.template.compare("uid=johnyossarian,ou=test people", "userPassword", "yossariansnewpassword"))
-				.isTrue();
+	.isTrue();
 	}
 
 	@Test
 	public void testPasswordChangeUsesCustomSecurityContextHolderStrategy() {
 		InetOrgPerson.Essence p = new InetOrgPerson.Essence();
 		p.setDn("whocares");
-		p.setCn(new String[] { "John Yossarian" });
+		p.setCn(new String[]{"John Yossarian"});
 		p.setSn("Yossarian");
 		p.setUid("johnyossarian");
 		p.setPassword("yossarianspassword");
@@ -220,13 +220,13 @@ public class LdapUserDetailsManagerTests {
 
 		SecurityContextHolderStrategy strategy = mock(SecurityContextHolderStrategy.class);
 		given(strategy.getContext()).willReturn(new SecurityContextImpl(UsernamePasswordAuthenticationToken
-				.authenticated("johnyossarian", "yossarianspassword", TEST_AUTHORITIES)));
+	.authenticated("johnyossarian", "yossarianspassword", TEST_AUTHORITIES)));
 		this.mgr.setSecurityContextHolderStrategy(strategy);
 
 		this.mgr.changePassword("yossarianspassword", "yossariansnewpassword");
 
 		assertThat(this.template.compare("uid=johnyossarian,ou=test people", "userPassword", "yossariansnewpassword"))
-				.isTrue();
+	.isTrue();
 		verify(strategy).getContext();
 	}
 
@@ -234,16 +234,16 @@ public class LdapUserDetailsManagerTests {
 	public void testPasswordChangeWithWrongOldPasswordFails() {
 		InetOrgPerson.Essence p = new InetOrgPerson.Essence();
 		p.setDn("whocares");
-		p.setCn(new String[] { "John Yossarian" });
+		p.setCn(new String[]{"John Yossarian"});
 		p.setSn("Yossarian");
 		p.setUid("johnyossarian");
 		p.setPassword("yossarianspassword");
 		p.setAuthorities(TEST_AUTHORITIES);
 		this.mgr.createUser(p.createUserDetails());
 		SecurityContextHolder.getContext().setAuthentication(UsernamePasswordAuthenticationToken
-				.authenticated("johnyossarian", "yossarianspassword", TEST_AUTHORITIES));
+	.authenticated("johnyossarian", "yossarianspassword", TEST_AUTHORITIES));
 		assertThatExceptionOfType(BadCredentialsException.class)
-				.isThrownBy(() -> this.mgr.changePassword("wrongpassword", "yossariansnewpassword"));
+	.isThrownBy(() -> this.mgr.changePassword("wrongpassword", "yossariansnewpassword"));
 	}
 
 }

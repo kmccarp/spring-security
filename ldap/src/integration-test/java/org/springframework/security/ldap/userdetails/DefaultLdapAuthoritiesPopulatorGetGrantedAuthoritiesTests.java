@@ -41,8 +41,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Dayan Kodippily
  */
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(
-		classes = DefaultLdapAuthoritiesPopulatorGetGrantedAuthoritiesTests.ApacheDsContainerWithUndefinedGroupRoleAttributeConfig.class)
+@ContextConfiguration(classes = DefaultLdapAuthoritiesPopulatorGetGrantedAuthoritiesTests.ApacheDsContainerWithUndefinedGroupRoleAttributeConfig.class)
 public class DefaultLdapAuthoritiesPopulatorGetGrantedAuthoritiesTests {
 
 	@Autowired
@@ -66,7 +65,7 @@ public class DefaultLdapAuthoritiesPopulatorGetGrantedAuthoritiesTests {
 		this.populator.setGroupSearchFilter("(member={0})");
 
 		DirContextAdapter ctx = new DirContextAdapter(
-				new DistinguishedName("uid=dayan,ou=people,dc=springframework,dc=org"));
+	new DistinguishedName("uid=dayan,ou=people,dc=springframework,dc=org"));
 
 		Set<String> authorities = AuthorityUtils.authorityListToSet(this.populator.getGrantedAuthorities(ctx, "dayan"));
 
@@ -84,7 +83,7 @@ public class DefaultLdapAuthoritiesPopulatorGetGrantedAuthoritiesTests {
 		@Bean
 		ApacheDSContainer ldapContainer() throws Exception {
 			this.container = new ApacheDSContainer("dc=springframework,dc=org",
-					"classpath:test-server-with-undefined-group-role-attributes.ldif");
+		"classpath:test-server-with-undefined-group-role-attributes.ldif");
 			this.container.setPort(0);
 			return this.container;
 		}
@@ -92,7 +91,7 @@ public class DefaultLdapAuthoritiesPopulatorGetGrantedAuthoritiesTests {
 		@Bean
 		ContextSource contextSource(ApacheDSContainer ldapContainer) {
 			return new DefaultSpringSecurityContextSource(
-					"ldap://127.0.0.1:" + ldapContainer.getLocalPort() + "/dc=springframework,dc=org");
+		"ldap://127.0.0.1:" + ldapContainer.getLocalPort() + "/dc=springframework,dc=org");
 		}
 
 		@Override

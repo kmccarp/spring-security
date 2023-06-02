@@ -70,9 +70,9 @@ public class OAuth2AuthorizedClientMixinTests {
 		providerConfigurationMetadata.put("config2", "value2");
 		// @formatter:off
 		this.clientRegistrationBuilder = TestClientRegistrations.clientRegistration()
-				.authorizationGrantType(new AuthorizationGrantType("custom-grant"))
-				.scope("read", "write")
-				.providerConfigurationMetadata(providerConfigurationMetadata);
+	.authorizationGrantType(new AuthorizationGrantType("custom-grant"))
+	.scope("read", "write")
+	.providerConfigurationMetadata(providerConfigurationMetadata);
 		// @formatter:on
 		this.accessToken = TestOAuth2AccessTokens.scopes("read", "write");
 		this.refreshToken = TestOAuth2RefreshTokens.refreshToken();
@@ -82,7 +82,7 @@ public class OAuth2AuthorizedClientMixinTests {
 	@Test
 	public void serializeWhenMixinRegisteredThenSerializes() throws Exception {
 		OAuth2AuthorizedClient authorizedClient = new OAuth2AuthorizedClient(this.clientRegistrationBuilder.build(),
-				this.principalName, this.accessToken, this.refreshToken);
+	this.principalName, this.accessToken, this.refreshToken);
 		String expectedJson = asJson(authorizedClient);
 		String json = this.mapper.writeValueAsString(authorizedClient);
 		JSONAssert.assertEquals(expectedJson, json, true);
@@ -92,16 +92,16 @@ public class OAuth2AuthorizedClientMixinTests {
 	public void serializeWhenRequiredAttributesOnlyThenSerializes() throws Exception {
 		// @formatter:off
 		ClientRegistration clientRegistration = TestClientRegistrations.clientRegistration()
-				.clientSecret(null)
-				.clientName(null)
-				.userInfoUri(null)
-				.userNameAttributeName(null)
-				.jwkSetUri(null)
-				.issuerUri(null)
-				.build();
+	.clientSecret(null)
+	.clientName(null)
+	.userInfoUri(null)
+	.userNameAttributeName(null)
+	.jwkSetUri(null)
+	.issuerUri(null)
+	.build();
 		// @formatter:on
 		OAuth2AuthorizedClient authorizedClient = new OAuth2AuthorizedClient(clientRegistration, this.principalName,
-				TestOAuth2AccessTokens.noScopes());
+	TestOAuth2AccessTokens.noScopes());
 		String expectedJson = asJson(authorizedClient);
 		String json = this.mapper.writeValueAsString(authorizedClient);
 		JSONAssert.assertEquals(expectedJson, json, true);
@@ -110,10 +110,10 @@ public class OAuth2AuthorizedClientMixinTests {
 	@Test
 	public void deserializeWhenMixinNotRegisteredThenThrowJsonProcessingException() {
 		OAuth2AuthorizedClient authorizedClient = new OAuth2AuthorizedClient(this.clientRegistrationBuilder.build(),
-				this.principalName, this.accessToken);
+	this.principalName, this.accessToken);
 		String json = asJson(authorizedClient);
 		assertThatExceptionOfType(JsonProcessingException.class)
-				.isThrownBy(() -> new ObjectMapper().readValue(json, OAuth2AuthorizedClient.class));
+	.isThrownBy(() -> new ObjectMapper().readValue(json, OAuth2AuthorizedClient.class));
 	}
 
 	@Test
@@ -122,7 +122,7 @@ public class OAuth2AuthorizedClientMixinTests {
 		OAuth2AccessToken expectedAccessToken = this.accessToken;
 		OAuth2RefreshToken expectedRefreshToken = this.refreshToken;
 		OAuth2AuthorizedClient expectedAuthorizedClient = new OAuth2AuthorizedClient(expectedClientRegistration,
-				this.principalName, expectedAccessToken, expectedRefreshToken);
+	this.principalName, expectedAccessToken, expectedRefreshToken);
 		String json = asJson(expectedAuthorizedClient);
 		OAuth2AuthorizedClient authorizedClient = this.mapper.readValue(json, OAuth2AuthorizedClient.class);
 		ClientRegistration clientRegistration = authorizedClient.getClientRegistration();
@@ -130,27 +130,27 @@ public class OAuth2AuthorizedClientMixinTests {
 		assertThat(clientRegistration.getClientId()).isEqualTo(expectedClientRegistration.getClientId());
 		assertThat(clientRegistration.getClientSecret()).isEqualTo(expectedClientRegistration.getClientSecret());
 		assertThat(clientRegistration.getClientAuthenticationMethod())
-				.isEqualTo(expectedClientRegistration.getClientAuthenticationMethod());
+	.isEqualTo(expectedClientRegistration.getClientAuthenticationMethod());
 		assertThat(clientRegistration.getAuthorizationGrantType())
-				.isEqualTo(expectedClientRegistration.getAuthorizationGrantType());
+	.isEqualTo(expectedClientRegistration.getAuthorizationGrantType());
 		assertThat(clientRegistration.getRedirectUri()).isEqualTo(expectedClientRegistration.getRedirectUri());
 		assertThat(clientRegistration.getScopes()).isEqualTo(expectedClientRegistration.getScopes());
 		assertThat(clientRegistration.getProviderDetails().getAuthorizationUri())
-				.isEqualTo(expectedClientRegistration.getProviderDetails().getAuthorizationUri());
+	.isEqualTo(expectedClientRegistration.getProviderDetails().getAuthorizationUri());
 		assertThat(clientRegistration.getProviderDetails().getTokenUri())
-				.isEqualTo(expectedClientRegistration.getProviderDetails().getTokenUri());
+	.isEqualTo(expectedClientRegistration.getProviderDetails().getTokenUri());
 		assertThat(clientRegistration.getProviderDetails().getUserInfoEndpoint().getUri())
-				.isEqualTo(expectedClientRegistration.getProviderDetails().getUserInfoEndpoint().getUri());
+	.isEqualTo(expectedClientRegistration.getProviderDetails().getUserInfoEndpoint().getUri());
 		assertThat(clientRegistration.getProviderDetails().getUserInfoEndpoint().getAuthenticationMethod()).isEqualTo(
-				expectedClientRegistration.getProviderDetails().getUserInfoEndpoint().getAuthenticationMethod());
+	expectedClientRegistration.getProviderDetails().getUserInfoEndpoint().getAuthenticationMethod());
 		assertThat(clientRegistration.getProviderDetails().getUserInfoEndpoint().getUserNameAttributeName()).isEqualTo(
-				expectedClientRegistration.getProviderDetails().getUserInfoEndpoint().getUserNameAttributeName());
+	expectedClientRegistration.getProviderDetails().getUserInfoEndpoint().getUserNameAttributeName());
 		assertThat(clientRegistration.getProviderDetails().getJwkSetUri())
-				.isEqualTo(expectedClientRegistration.getProviderDetails().getJwkSetUri());
+	.isEqualTo(expectedClientRegistration.getProviderDetails().getJwkSetUri());
 		assertThat(clientRegistration.getProviderDetails().getIssuerUri())
-				.isEqualTo(expectedClientRegistration.getProviderDetails().getIssuerUri());
+	.isEqualTo(expectedClientRegistration.getProviderDetails().getIssuerUri());
 		assertThat(clientRegistration.getProviderDetails().getConfigurationMetadata())
-				.containsExactlyEntriesOf(clientRegistration.getProviderDetails().getConfigurationMetadata());
+	.containsExactlyEntriesOf(clientRegistration.getProviderDetails().getConfigurationMetadata());
 		assertThat(clientRegistration.getClientName()).isEqualTo(expectedClientRegistration.getClientName());
 		assertThat(authorizedClient.getPrincipalName()).isEqualTo(expectedAuthorizedClient.getPrincipalName());
 		OAuth2AccessToken accessToken = authorizedClient.getAccessToken();
@@ -169,17 +169,17 @@ public class OAuth2AuthorizedClientMixinTests {
 	public void deserializeWhenRequiredAttributesOnlyThenDeserializes() throws Exception {
 		// @formatter:off
 		ClientRegistration expectedClientRegistration = TestClientRegistrations.clientRegistration()
-				.clientSecret(null)
-				.clientName(null)
-				.userInfoUri(null)
-				.userNameAttributeName(null)
-				.jwkSetUri(null)
-				.issuerUri(null)
-				.build();
+	.clientSecret(null)
+	.clientName(null)
+	.userInfoUri(null)
+	.userNameAttributeName(null)
+	.jwkSetUri(null)
+	.issuerUri(null)
+	.build();
 		// @formatter:on
 		OAuth2AccessToken expectedAccessToken = TestOAuth2AccessTokens.noScopes();
 		OAuth2AuthorizedClient expectedAuthorizedClient = new OAuth2AuthorizedClient(expectedClientRegistration,
-				this.principalName, expectedAccessToken);
+	this.principalName, expectedAccessToken);
 		String json = asJson(expectedAuthorizedClient);
 		OAuth2AuthorizedClient authorizedClient = this.mapper.readValue(json, OAuth2AuthorizedClient.class);
 		ClientRegistration clientRegistration = authorizedClient.getClientRegistration();
@@ -187,18 +187,18 @@ public class OAuth2AuthorizedClientMixinTests {
 		assertThat(clientRegistration.getClientId()).isEqualTo(expectedClientRegistration.getClientId());
 		assertThat(clientRegistration.getClientSecret()).isEmpty();
 		assertThat(clientRegistration.getClientAuthenticationMethod())
-				.isEqualTo(expectedClientRegistration.getClientAuthenticationMethod());
+	.isEqualTo(expectedClientRegistration.getClientAuthenticationMethod());
 		assertThat(clientRegistration.getAuthorizationGrantType())
-				.isEqualTo(expectedClientRegistration.getAuthorizationGrantType());
+	.isEqualTo(expectedClientRegistration.getAuthorizationGrantType());
 		assertThat(clientRegistration.getRedirectUri()).isEqualTo(expectedClientRegistration.getRedirectUri());
 		assertThat(clientRegistration.getScopes()).isEqualTo(expectedClientRegistration.getScopes());
 		assertThat(clientRegistration.getProviderDetails().getAuthorizationUri())
-				.isEqualTo(expectedClientRegistration.getProviderDetails().getAuthorizationUri());
+	.isEqualTo(expectedClientRegistration.getProviderDetails().getAuthorizationUri());
 		assertThat(clientRegistration.getProviderDetails().getTokenUri())
-				.isEqualTo(expectedClientRegistration.getProviderDetails().getTokenUri());
+	.isEqualTo(expectedClientRegistration.getProviderDetails().getTokenUri());
 		assertThat(clientRegistration.getProviderDetails().getUserInfoEndpoint().getUri()).isNull();
 		assertThat(clientRegistration.getProviderDetails().getUserInfoEndpoint().getAuthenticationMethod()).isEqualTo(
-				expectedClientRegistration.getProviderDetails().getUserInfoEndpoint().getAuthenticationMethod());
+	expectedClientRegistration.getProviderDetails().getUserInfoEndpoint().getAuthenticationMethod());
 		assertThat(clientRegistration.getProviderDetails().getUserInfoEndpoint().getUserNameAttributeName()).isNull();
 		assertThat(clientRegistration.getProviderDetails().getJwkSetUri()).isNull();
 		assertThat(clientRegistration.getProviderDetails().getIssuerUri()).isNull();
@@ -217,12 +217,12 @@ public class OAuth2AuthorizedClientMixinTests {
 	private static String asJson(OAuth2AuthorizedClient authorizedClient) {
 		// @formatter:off
 		return "{\n" +
-				"  \"@class\": \"org.springframework.security.oauth2.client.OAuth2AuthorizedClient\",\n" +
-				"  \"clientRegistration\": " + asJson(authorizedClient.getClientRegistration()) + ",\n" +
-				"  \"principalName\": \"" + authorizedClient.getPrincipalName() + "\",\n" +
-				"  \"accessToken\": " + asJson(authorizedClient.getAccessToken()) + ",\n" +
-				"  \"refreshToken\": " + asJson(authorizedClient.getRefreshToken()) + "\n" +
-				"}";
+	"  \"@class\": \"org.springframework.security.oauth2.client.OAuth2AuthorizedClient\",\n" +
+	"  \"clientRegistration\": " + asJson(authorizedClient.getClientRegistration()) + ",\n" +
+	"  \"principalName\": \"" + authorizedClient.getPrincipalName() + "\",\n" +
+	"  \"accessToken\": " + asJson(authorizedClient.getAccessToken()) + ",\n" +
+	"  \"refreshToken\": " + asJson(authorizedClient.getRefreshToken()) + "\n" +
+	"}";
 		// @formatter:on
 	}
 
@@ -236,46 +236,46 @@ public class OAuth2AuthorizedClientMixinTests {
 		String configurationMetadata = "\"@class\": \"java.util.Collections$UnmodifiableMap\"";
 		if (!CollectionUtils.isEmpty(providerDetails.getConfigurationMetadata())) {
 			configurationMetadata += "," + providerDetails.getConfigurationMetadata().keySet().stream()
-					.map((key) -> "\"" + key + "\": \"" + providerDetails.getConfigurationMetadata().get(key) + "\"")
-					.collect(Collectors.joining(","));
+		.map((key) -> "\"" + key + "\": \"" + providerDetails.getConfigurationMetadata().get(key) + "\"")
+		.collect(Collectors.joining(","));
 		}
 		// @formatter:off
 		return "{\n" +
-				"    \"@class\": \"org.springframework.security.oauth2.client.registration.ClientRegistration\",\n" +
-				"    \"registrationId\": \"" + clientRegistration.getRegistrationId() + "\",\n" +
-				"    \"clientId\": \"" + clientRegistration.getClientId() + "\",\n" +
-				"    \"clientSecret\": \"" + clientRegistration.getClientSecret() + "\",\n" +
-				"    \"clientAuthenticationMethod\": {\n" +
-				"      \"value\": \"" + clientRegistration.getClientAuthenticationMethod().getValue() + "\"\n" +
-				"    },\n" +
-				"    \"authorizationGrantType\": {\n" +
-				"      \"value\": \"" + clientRegistration.getAuthorizationGrantType().getValue() + "\"\n" +
-				"    },\n" +
-				"    \"redirectUri\": \"" + clientRegistration.getRedirectUri() + "\",\n" +
-				"    \"scopes\": [\n" +
-				"      \"java.util.Collections$UnmodifiableSet\",\n" +
-				"      [" + scopes + "]\n" +
-				"    ],\n" +
-				"    \"providerDetails\": {\n" +
-				"      \"@class\": \"org.springframework.security.oauth2.client.registration.ClientRegistration$ProviderDetails\",\n" +
-				"      \"authorizationUri\": \"" + providerDetails.getAuthorizationUri() + "\",\n" +
-				"      \"tokenUri\": \"" + providerDetails.getTokenUri() + "\",\n" +
-				"      \"userInfoEndpoint\": {\n" +
-				"        \"@class\": \"org.springframework.security.oauth2.client.registration.ClientRegistration$ProviderDetails$UserInfoEndpoint\",\n" +
-				"        \"uri\": " + ((userInfoEndpoint.getUri() != null) ? "\"" + userInfoEndpoint.getUri() + "\"" : null) + ",\n" +
-				"        \"authenticationMethod\": {\n" +
-				"          \"value\": \"" + userInfoEndpoint.getAuthenticationMethod().getValue() + "\"\n" +
-				"        },\n" +
-				"        \"userNameAttributeName\": " + ((userInfoEndpoint.getUserNameAttributeName() != null) ? "\"" + userInfoEndpoint.getUserNameAttributeName() + "\"" : null) + "\n" +
-				"      },\n" +
-				"      \"jwkSetUri\": " + ((providerDetails.getJwkSetUri() != null) ? "\"" + providerDetails.getJwkSetUri() + "\"" : null) + ",\n" +
-				"      \"issuerUri\": " + ((providerDetails.getIssuerUri() != null) ? "\"" + providerDetails.getIssuerUri() + "\"" : null) + ",\n" +
-				"      \"configurationMetadata\": {\n" +
-				"        " + configurationMetadata + "\n" +
-				"      }\n" +
-				"    },\n" +
-				"    \"clientName\": \"" + clientRegistration.getClientName() + "\"\n" +
-				"}";
+	"    \"@class\": \"org.springframework.security.oauth2.client.registration.ClientRegistration\",\n" +
+	"    \"registrationId\": \"" + clientRegistration.getRegistrationId() + "\",\n" +
+	"    \"clientId\": \"" + clientRegistration.getClientId() + "\",\n" +
+	"    \"clientSecret\": \"" + clientRegistration.getClientSecret() + "\",\n" +
+	"    \"clientAuthenticationMethod\": {\n" +
+	"      \"value\": \"" + clientRegistration.getClientAuthenticationMethod().getValue() + "\"\n" +
+	"    },\n" +
+	"    \"authorizationGrantType\": {\n" +
+	"      \"value\": \"" + clientRegistration.getAuthorizationGrantType().getValue() + "\"\n" +
+	"    },\n" +
+	"    \"redirectUri\": \"" + clientRegistration.getRedirectUri() + "\",\n" +
+	"    \"scopes\": [\n" +
+	"      \"java.util.Collections$UnmodifiableSet\",\n" +
+	"      [" + scopes + "]\n" +
+	"    ],\n" +
+	"    \"providerDetails\": {\n" +
+	"      \"@class\": \"org.springframework.security.oauth2.client.registration.ClientRegistration$ProviderDetails\",\n" +
+	"      \"authorizationUri\": \"" + providerDetails.getAuthorizationUri() + "\",\n" +
+	"      \"tokenUri\": \"" + providerDetails.getTokenUri() + "\",\n" +
+	"      \"userInfoEndpoint\": {\n" +
+	"        \"@class\": \"org.springframework.security.oauth2.client.registration.ClientRegistration$ProviderDetails$UserInfoEndpoint\",\n" +
+	"        \"uri\": " + ((userInfoEndpoint.getUri() != null) ? "\"" + userInfoEndpoint.getUri() + "\"" : null) + ",\n" +
+	"        \"authenticationMethod\": {\n" +
+	"          \"value\": \"" + userInfoEndpoint.getAuthenticationMethod().getValue() + "\"\n" +
+	"        },\n" +
+	"        \"userNameAttributeName\": " + ((userInfoEndpoint.getUserNameAttributeName() != null) ? "\"" + userInfoEndpoint.getUserNameAttributeName() + "\"" : null) + "\n" +
+	"      },\n" +
+	"      \"jwkSetUri\": " + ((providerDetails.getJwkSetUri() != null) ? "\"" + providerDetails.getJwkSetUri() + "\"" : null) + ",\n" +
+	"      \"issuerUri\": " + ((providerDetails.getIssuerUri() != null) ? "\"" + providerDetails.getIssuerUri() + "\"" : null) + ",\n" +
+	"      \"configurationMetadata\": {\n" +
+	"        " + configurationMetadata + "\n" +
+	"      }\n" +
+	"    },\n" +
+	"    \"clientName\": \"" + clientRegistration.getClientName() + "\"\n" +
+	"}";
 		// @formatter:on
 	}
 
@@ -286,18 +286,18 @@ public class OAuth2AuthorizedClientMixinTests {
 		}
 		// @formatter:off
 		return "{\n" +
-				"    \"@class\": \"org.springframework.security.oauth2.core.OAuth2AccessToken\",\n" +
-				"    \"tokenType\": {\n" +
-				"      \"value\": \"" + accessToken.getTokenType().getValue() + "\"\n" +
-				"    },\n" +
-				"    \"tokenValue\": \"" + accessToken.getTokenValue() + "\",\n" +
-				"    \"issuedAt\": " + toString(accessToken.getIssuedAt()) + ",\n" +
-				"    \"expiresAt\": " + toString(accessToken.getExpiresAt()) + ",\n" +
-				"    \"scopes\": [\n" +
-				"      \"java.util.Collections$UnmodifiableSet\",\n" +
-				"      [" + scopes + "]\n" +
-				"    ]\n" +
-				"}";
+	"    \"@class\": \"org.springframework.security.oauth2.core.OAuth2AccessToken\",\n" +
+	"    \"tokenType\": {\n" +
+	"      \"value\": \"" + accessToken.getTokenType().getValue() + "\"\n" +
+	"    },\n" +
+	"    \"tokenValue\": \"" + accessToken.getTokenValue() + "\",\n" +
+	"    \"issuedAt\": " + toString(accessToken.getIssuedAt()) + ",\n" +
+	"    \"expiresAt\": " + toString(accessToken.getExpiresAt()) + ",\n" +
+	"    \"scopes\": [\n" +
+	"      \"java.util.Collections$UnmodifiableSet\",\n" +
+	"      [" + scopes + "]\n" +
+	"    ]\n" +
+	"}";
 		// @formatter:on
 	}
 
@@ -307,11 +307,11 @@ public class OAuth2AuthorizedClientMixinTests {
 		}
 		// @formatter:off
 		return "{\n" +
-				"    \"@class\": \"org.springframework.security.oauth2.core.OAuth2RefreshToken\",\n" +
-				"    \"tokenValue\": \"" + refreshToken.getTokenValue() + "\",\n" +
-				"    \"issuedAt\": " + toString(refreshToken.getIssuedAt()) + ",\n" +
-				"    \"expiresAt\": " + toString(refreshToken.getExpiresAt()) + "\n" +
-				"}";
+	"    \"@class\": \"org.springframework.security.oauth2.core.OAuth2RefreshToken\",\n" +
+	"    \"tokenValue\": \"" + refreshToken.getTokenValue() + "\",\n" +
+	"    \"issuedAt\": " + toString(refreshToken.getIssuedAt()) + ",\n" +
+	"    \"expiresAt\": " + toString(refreshToken.getExpiresAt()) + "\n" +
+	"}";
 		// @formatter:on
 	}
 

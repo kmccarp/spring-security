@@ -29,7 +29,7 @@ public final class NullAuthenticatedSessionStrategy implements SessionAuthentica
 
 	@Override
 	public void onAuthentication(Authentication authentication, HttpServletRequest request,
-			HttpServletResponse response) {
+HttpServletResponse response) {
 	}
 
 }

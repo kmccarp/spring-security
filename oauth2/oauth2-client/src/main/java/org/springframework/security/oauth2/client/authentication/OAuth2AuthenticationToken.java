@@ -57,7 +57,7 @@ public class OAuth2AuthenticationToken extends AbstractAuthenticationToken {
 	 * {@link OAuth2AuthorizedClient Authorized Client}
 	 */
 	public OAuth2AuthenticationToken(OAuth2User principal, Collection<? extends GrantedAuthority> authorities,
-			String authorizedClientRegistrationId) {
+String authorizedClientRegistrationId) {
 		super(authorities);
 		Assert.notNull(principal, "principal cannot be null");
 		Assert.hasText(authorizedClientRegistrationId, "authorizedClientRegistrationId cannot be empty");

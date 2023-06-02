@@ -54,8 +54,7 @@ import org.springframework.web.socket.sockjs.transport.TransportHandlingSockJsSe
 
 @Order(Ordered.HIGHEST_PRECEDENCE + 100)
 @Import(MessageMatcherAuthorizationManagerConfiguration.class)
-final class WebSocketMessageBrokerSecurityConfiguration
-		implements WebSocketMessageBrokerConfigurer, SmartInitializingSingleton {
+final class WebSocketMessageBrokerSecurityConfigurationimplements WebSocketMessageBrokerConfigurer, SmartInitializingSingleton {
 
 	private static final String SIMPLE_URL_HANDLER_MAPPING_BEAN_NAME = "stompWebSocketHandlerMapping";
 
@@ -64,10 +63,10 @@ final class WebSocketMessageBrokerSecurityConfiguration
 	private MessageMatcherDelegatingAuthorizationManager b;
 
 	private static final AuthorizationManager<Message<?>> ANY_MESSAGE_AUTHENTICATED = MessageMatcherDelegatingAuthorizationManager
-			.builder().anyMessage().authenticated().build();
+.builder().anyMessage().authenticated().build();
 
 	private SecurityContextHolderStrategy securityContextHolderStrategy = SecurityContextHolder
-			.getContextHolderStrategy();
+.getContextHolderStrategy();
 
 	private final SecurityContextChannelInterceptor securityContextChannelInterceptor = new SecurityContextChannelInterceptor();
 
@@ -93,7 +92,7 @@ final class WebSocketMessageBrokerSecurityConfiguration
 	@Override
 	public void configureClientInboundChannel(ChannelRegistration registration) {
 		ChannelInterceptor csrfChannelInterceptor = getBeanOrNull(CSRF_CHANNEL_INTERCEPTOR_BEAN_NAME,
-				ChannelInterceptor.class);
+	ChannelInterceptor.class);
 		if (csrfChannelInterceptor != null) {
 			this.csrfChannelInterceptor = csrfChannelInterceptor;
 		}
@@ -128,7 +127,7 @@ final class WebSocketMessageBrokerSecurityConfiguration
 	@Override
 	public void afterSingletonsInstantiated() {
 		SimpleUrlHandlerMapping mapping = getBeanOrNull(SIMPLE_URL_HANDLER_MAPPING_BEAN_NAME,
-				SimpleUrlHandlerMapping.class);
+	SimpleUrlHandlerMapping.class);
 		if (mapping == null) {
 			return;
 		}
@@ -151,8 +150,8 @@ final class WebSocketMessageBrokerSecurityConfiguration
 			}
 			else {
 				throw new IllegalStateException(
-						"Bean " + SIMPLE_URL_HANDLER_MAPPING_BEAN_NAME + " is expected to contain mappings to either a "
-								+ "SockJsHttpRequestHandler or a WebSocketHttpRequestHandler but got " + object);
+			"Bean " + SIMPLE_URL_HANDLER_MAPPING_BEAN_NAME + " is expected to contain mappings to either a "
+		+ "SockJsHttpRequestHandler or a WebSocketHttpRequestHandler but got " + object);
 			}
 		}
 	}
@@ -160,7 +159,7 @@ final class WebSocketMessageBrokerSecurityConfiguration
 	private void setHandshakeInterceptors(SockJsHttpRequestHandler handler) {
 		SockJsService sockJsService = handler.getSockJsService();
 		Assert.state(sockJsService instanceof TransportHandlingSockJsService,
-				() -> "sockJsService must be instance of TransportHandlingSockJsService got " + sockJsService);
+	() -> "sockJsService must be instance of TransportHandlingSockJsService got " + sockJsService);
 		TransportHandlingSockJsService transportHandlingSockJsService = (TransportHandlingSockJsService) sockJsService;
 		List<HandshakeInterceptor> handshakeInterceptors = transportHandlingSockJsService.getHandshakeInterceptors();
 		List<HandshakeInterceptor> interceptorsToSet = new ArrayList<>(handshakeInterceptors.size() + 1);

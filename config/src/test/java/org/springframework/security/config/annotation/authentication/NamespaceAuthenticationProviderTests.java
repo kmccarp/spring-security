@@ -68,7 +68,7 @@ public class NamespaceAuthenticationProviderTests {
 		void configure(AuthenticationManagerBuilder auth) {
 			// @formatter:off
 			auth
-				.authenticationProvider(authenticationProvider());
+		.authenticationProvider(authenticationProvider());
 			// @formatter:on
 		}
 
@@ -89,7 +89,7 @@ public class NamespaceAuthenticationProviderTests {
 		void configure(AuthenticationManagerBuilder auth) throws Exception {
 			// @formatter:off
 			auth
-				.userDetailsService(userDetailsService());
+		.userDetailsService(userDetailsService());
 			// @formatter:on
 		}
 

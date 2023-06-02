@@ -48,8 +48,7 @@ import org.springframework.util.ClassUtils;
  * annotation-based or {@link AuthorizationManager}-based authorization
  */
 @Deprecated
-public class MapBasedMethodSecurityMetadataSource extends AbstractFallbackMethodSecurityMetadataSource
-		implements BeanClassLoaderAware {
+public class MapBasedMethodSecurityMetadataSource extends AbstractFallbackMethodSecurityMetadataSourceimplements BeanClassLoaderAware {
 
 	private ClassLoader beanClassLoader = ClassUtils.getDefaultClassLoader();
 
@@ -147,7 +146,7 @@ public class MapBasedMethodSecurityMetadataSource extends AbstractFallbackMethod
 	}
 
 	private void registerAllMatchingMethods(Class<?> javaType, List<ConfigAttribute> attr, String name,
-			List<Method> matchingMethods) {
+List<Method> matchingMethods) {
 		for (Method method : matchingMethods) {
 			RegisteredMethod registeredMethod = new RegisteredMethod(method, javaType);
 			String regMethodName = this.nameMap.get(registeredMethod);
@@ -156,16 +155,16 @@ public class MapBasedMethodSecurityMetadataSource extends AbstractFallbackMethod
 				// method name specification (now) -> (re-)register method
 				if (regMethodName != null) {
 					this.logger.debug(LogMessage.format(
-							"Replacing attributes for secure method [%s]: current name [%s] is more specific than [%s]",
-							method, name, regMethodName));
+				"Replacing attributes for secure method [%s]: current name [%s] is more specific than [%s]",
+				method, name, regMethodName));
 				}
 				this.nameMap.put(registeredMethod, name);
 				addSecureMethod(registeredMethod, attr);
 			}
 			else {
 				this.logger.debug(LogMessage.format(
-						"Keeping attributes for secure method [%s]: current name [%s] is not more specific than [%s]",
-						method, name, regMethodName));
+			"Keeping attributes for secure method [%s]: current name [%s] is not more specific than [%s]",
+			method, name, regMethodName));
 			}
 		}
 	}
@@ -183,7 +182,7 @@ public class MapBasedMethodSecurityMetadataSource extends AbstractFallbackMethod
 		RegisteredMethod key = new RegisteredMethod(method, javaType);
 		if (this.methodMap.containsKey(key)) {
 			this.logger.debug(LogMessage.format("Method [%s] is already registered with attributes [%s]", method,
-					this.methodMap.get(key)));
+		this.methodMap.get(key)));
 			return;
 		}
 		this.methodMap.put(key, attr);
@@ -221,7 +220,7 @@ public class MapBasedMethodSecurityMetadataSource extends AbstractFallbackMethod
 	 */
 	private boolean isMatch(String methodName, String mappedName) {
 		return (mappedName.endsWith("*") && methodName.startsWith(mappedName.substring(0, mappedName.length() - 1)))
-				|| (mappedName.startsWith("*") && methodName.endsWith(mappedName.substring(1, mappedName.length())));
+	|| (mappedName.startsWith("*") && methodName.endsWith(mappedName.substring(1, mappedName.length())));
 	}
 
 	@Override

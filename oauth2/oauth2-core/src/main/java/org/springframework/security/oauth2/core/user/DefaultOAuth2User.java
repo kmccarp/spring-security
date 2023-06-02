@@ -65,15 +65,15 @@ public class DefaultOAuth2User implements OAuth2User, Serializable {
 	 * {@link #getAttributes()}
 	 */
 	public DefaultOAuth2User(Collection<? extends GrantedAuthority> authorities, Map<String, Object> attributes,
-			String nameAttributeKey) {
+String nameAttributeKey) {
 		Assert.notEmpty(attributes, "attributes cannot be empty");
 		Assert.hasText(nameAttributeKey, "nameAttributeKey cannot be empty");
 		if (!attributes.containsKey(nameAttributeKey)) {
 			throw new IllegalArgumentException("Missing attribute '" + nameAttributeKey + "' in attributes");
 		}
 		this.authorities = (authorities != null)
-				? Collections.unmodifiableSet(new LinkedHashSet<>(this.sortAuthorities(authorities)))
-				: Collections.unmodifiableSet(new LinkedHashSet<>(AuthorityUtils.NO_AUTHORITIES));
+	? Collections.unmodifiableSet(new LinkedHashSet<>(this.sortAuthorities(authorities)))
+	: Collections.unmodifiableSet(new LinkedHashSet<>(AuthorityUtils.NO_AUTHORITIES));
 		this.attributes = Collections.unmodifiableMap(new LinkedHashMap<>(attributes));
 		this.nameAttributeKey = nameAttributeKey;
 	}
@@ -95,7 +95,7 @@ public class DefaultOAuth2User implements OAuth2User, Serializable {
 
 	private Set<GrantedAuthority> sortAuthorities(Collection<? extends GrantedAuthority> authorities) {
 		SortedSet<GrantedAuthority> sortedAuthorities = new TreeSet<>(
-				Comparator.comparing(GrantedAuthority::getAuthority));
+	Comparator.comparing(GrantedAuthority::getAuthority));
 		sortedAuthorities.addAll(authorities);
 		return sortedAuthorities;
 	}

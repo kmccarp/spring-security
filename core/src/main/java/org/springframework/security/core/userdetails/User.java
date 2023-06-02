@@ -105,10 +105,10 @@ public class User implements UserDetails, CredentialsContainer {
 	 * a parameter or as an element in the <code>GrantedAuthority</code> collection
 	 */
 	public User(String username, String password, boolean enabled, boolean accountNonExpired,
-			boolean credentialsNonExpired, boolean accountNonLocked,
-			Collection<? extends GrantedAuthority> authorities) {
+boolean credentialsNonExpired, boolean accountNonLocked,
+Collection<? extends GrantedAuthority> authorities) {
 		Assert.isTrue(username != null && !"".equals(username) && password != null,
-				"Cannot pass null or empty values to constructor");
+	"Cannot pass null or empty values to constructor");
 		this.username = username;
 		this.password = password;
 		this.enabled = enabled;
@@ -282,7 +282,7 @@ public class User implements UserDetails, CredentialsContainer {
 	@Deprecated
 	public static UserBuilder withDefaultPasswordEncoder() {
 		logger.warn("User.withDefaultPasswordEncoder() is considered unsafe for production "
-				+ "and is only intended for sample applications.");
+	+ "and is only intended for sample applications.");
 		PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
 		return builder().passwordEncoder(encoder::encode);
 	}
@@ -290,12 +290,12 @@ public class User implements UserDetails, CredentialsContainer {
 	public static UserBuilder withUserDetails(UserDetails userDetails) {
 		// @formatter:off
 		return withUsername(userDetails.getUsername())
-				.password(userDetails.getPassword())
-				.accountExpired(!userDetails.isAccountNonExpired())
-				.accountLocked(!userDetails.isAccountNonLocked())
-				.authorities(userDetails.getAuthorities())
-				.credentialsExpired(!userDetails.isCredentialsNonExpired())
-				.disabled(!userDetails.isEnabled());
+	.password(userDetails.getPassword())
+	.accountExpired(!userDetails.isAccountNonExpired())
+	.accountLocked(!userDetails.isAccountNonLocked())
+	.authorities(userDetails.getAuthorities())
+	.credentialsExpired(!userDetails.isCredentialsNonExpired())
+	.disabled(!userDetails.isEnabled());
 		// @formatter:on
 	}
 
@@ -412,7 +412,7 @@ public class User implements UserDetails, CredentialsContainer {
 			List<GrantedAuthority> authorities = new ArrayList<>(roles.length);
 			for (String role : roles) {
 				Assert.isTrue(!role.startsWith("ROLE_"),
-						() -> role + " cannot start with ROLE_ (it is automatically added)");
+			() -> role + " cannot start with ROLE_ (it is automatically added)");
 				authorities.add(new SimpleGrantedAuthority("ROLE_" + role));
 			}
 			return authorities(authorities);
@@ -505,7 +505,7 @@ public class User implements UserDetails, CredentialsContainer {
 		public UserDetails build() {
 			String encodedPassword = this.passwordEncoder.apply(this.password);
 			return new User(this.username, encodedPassword, !this.disabled, !this.accountExpired,
-					!this.credentialsExpired, !this.accountLocked, this.authorities);
+		!this.credentialsExpired, !this.accountLocked, this.authorities);
 		}
 
 	}

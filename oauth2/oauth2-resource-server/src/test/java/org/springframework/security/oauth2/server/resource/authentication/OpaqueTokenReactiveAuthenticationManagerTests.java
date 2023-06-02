@@ -55,7 +55,7 @@ public class OpaqueTokenReactiveAuthenticationManagerTests {
 	@Test
 	public void authenticateWhenActiveTokenThenOk() throws Exception {
 		OAuth2AuthenticatedPrincipal authority = TestOAuth2AuthenticatedPrincipals
-				.active((attributes) -> attributes.put("extension_field", "twenty-seven"));
+	.active((attributes) -> attributes.put("extension_field", "twenty-seven"));
 		ReactiveOpaqueTokenIntrospector introspector = mock(ReactiveOpaqueTokenIntrospector.class);
 		given(introspector.introspect(any())).willReturn(Mono.just(authority));
 		OpaqueTokenReactiveAuthenticationManager provider = new OpaqueTokenReactiveAuthenticationManager(introspector);
@@ -64,29 +64,29 @@ public class OpaqueTokenReactiveAuthenticationManagerTests {
 		Map<String, Object> attributes = ((OAuth2AuthenticatedPrincipal) result.getPrincipal()).getAttributes();
 		// @formatter:off
 		assertThat(attributes)
-				.isNotNull()
-				.containsEntry(OAuth2TokenIntrospectionClaimNames.ACTIVE, true)
-				.containsEntry(OAuth2TokenIntrospectionClaimNames.AUD,
-						Arrays.asList("https://protected.example.net/resource"))
-				.containsEntry(OAuth2TokenIntrospectionClaimNames.CLIENT_ID, "l238j323ds-23ij4")
-				.containsEntry(OAuth2TokenIntrospectionClaimNames.EXP, Instant.ofEpochSecond(1419356238))
-				.containsEntry(OAuth2TokenIntrospectionClaimNames.ISS, new URL("https://server.example.com/"))
-				.containsEntry(OAuth2TokenIntrospectionClaimNames.NBF, Instant.ofEpochSecond(29348723984L))
-				.containsEntry(OAuth2TokenIntrospectionClaimNames.SCOPE, Arrays.asList("read", "write", "dolphin"))
-				.containsEntry(OAuth2TokenIntrospectionClaimNames.SUB, "Z5O3upPC88QrAjx00dis")
-				.containsEntry(OAuth2TokenIntrospectionClaimNames.USERNAME, "jdoe")
-				.containsEntry("extension_field", "twenty-seven");
+	.isNotNull()
+	.containsEntry(OAuth2TokenIntrospectionClaimNames.ACTIVE, true)
+	.containsEntry(OAuth2TokenIntrospectionClaimNames.AUD,
+Arrays.asList("https://protected.example.net/resource"))
+	.containsEntry(OAuth2TokenIntrospectionClaimNames.CLIENT_ID, "l238j323ds-23ij4")
+	.containsEntry(OAuth2TokenIntrospectionClaimNames.EXP, Instant.ofEpochSecond(1419356238))
+	.containsEntry(OAuth2TokenIntrospectionClaimNames.ISS, new URL("https://server.example.com/"))
+	.containsEntry(OAuth2TokenIntrospectionClaimNames.NBF, Instant.ofEpochSecond(29348723984L))
+	.containsEntry(OAuth2TokenIntrospectionClaimNames.SCOPE, Arrays.asList("read", "write", "dolphin"))
+	.containsEntry(OAuth2TokenIntrospectionClaimNames.SUB, "Z5O3upPC88QrAjx00dis")
+	.containsEntry(OAuth2TokenIntrospectionClaimNames.USERNAME, "jdoe")
+	.containsEntry("extension_field", "twenty-seven");
 		assertThat(result.getAuthorities())
-				.extracting("authority")
-				.containsExactly("SCOPE_read", "SCOPE_write",
-				"SCOPE_dolphin");
+	.extracting("authority")
+	.containsExactly("SCOPE_read", "SCOPE_write",
+"SCOPE_dolphin");
 		// @formatter:on
 	}
 
 	@Test
 	public void authenticateWhenMissingScopeAttributeThenNoAuthorities() {
 		OAuth2AuthenticatedPrincipal authority = new OAuth2IntrospectionAuthenticatedPrincipal(
-				Collections.singletonMap("claim", "value"), null);
+	Collections.singletonMap("claim", "value"), null);
 		ReactiveOpaqueTokenIntrospector introspector = mock(ReactiveOpaqueTokenIntrospector.class);
 		given(introspector.introspect(any())).willReturn(Mono.just(authority));
 		OpaqueTokenReactiveAuthenticationManager provider = new OpaqueTokenReactiveAuthenticationManager(introspector);
@@ -101,17 +101,17 @@ public class OpaqueTokenReactiveAuthenticationManagerTests {
 	public void authenticateWhenIntrospectionEndpointThrowsExceptionThenInvalidToken() {
 		ReactiveOpaqueTokenIntrospector introspector = mock(ReactiveOpaqueTokenIntrospector.class);
 		given(introspector.introspect(any()))
-				.willReturn(Mono.error(new OAuth2IntrospectionException("with \"invalid\" chars")));
+	.willReturn(Mono.error(new OAuth2IntrospectionException("with \"invalid\" chars")));
 		OpaqueTokenReactiveAuthenticationManager provider = new OpaqueTokenReactiveAuthenticationManager(introspector);
 		assertThatExceptionOfType(AuthenticationServiceException.class)
-				.isThrownBy(() -> provider.authenticate(new BearerTokenAuthenticationToken("token")).block());
+	.isThrownBy(() -> provider.authenticate(new BearerTokenAuthenticationToken("token")).block());
 	}
 
 	@Test
 	public void constructorWhenIntrospectionClientIsNullThenIllegalArgumentException() {
 		// @formatter:off
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new OpaqueTokenReactiveAuthenticationManager(null));
+	.isThrownBy(() -> new OpaqueTokenReactiveAuthenticationManager(null));
 		// @formatter:on
 	}
 
@@ -121,8 +121,8 @@ public class OpaqueTokenReactiveAuthenticationManagerTests {
 		OpaqueTokenReactiveAuthenticationManager provider = new OpaqueTokenReactiveAuthenticationManager(introspector);
 		// @formatter:off
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> provider.setAuthenticationConverter(null))
-				.withMessage("authenticationConverter cannot be null");
+	.isThrownBy(() -> provider.setAuthenticationConverter(null))
+	.withMessage("authenticationConverter cannot be null");
 		// @formatter:on
 	}
 
@@ -133,9 +133,9 @@ public class OpaqueTokenReactiveAuthenticationManagerTests {
 		given(introspector.introspect(any())).willReturn(Mono.just(principal));
 		OpaqueTokenReactiveAuthenticationManager provider = new OpaqueTokenReactiveAuthenticationManager(introspector);
 		ReactiveOpaqueTokenAuthenticationConverter authenticationConverter = mock(
-				ReactiveOpaqueTokenAuthenticationConverter.class);
+	ReactiveOpaqueTokenAuthenticationConverter.class);
 		given(authenticationConverter.convert(any(), any(OAuth2AuthenticatedPrincipal.class)))
-				.willReturn(Mono.just(new TestingAuthenticationToken(principal, null, Collections.emptyList())));
+	.willReturn(Mono.just(new TestingAuthenticationToken(principal, null, Collections.emptyList())));
 		provider.setAuthenticationConverter(authenticationConverter);
 
 		Authentication result = provider.authenticate(new BearerTokenAuthenticationToken("token")).block();

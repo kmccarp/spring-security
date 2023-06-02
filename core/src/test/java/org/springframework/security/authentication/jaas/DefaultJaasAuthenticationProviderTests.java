@@ -73,11 +73,11 @@ public class DefaultJaasAuthenticationProviderTests {
 		this.provider = new DefaultJaasAuthenticationProvider();
 		this.provider.setConfiguration(configuration);
 		this.provider.setApplicationEventPublisher(this.publisher);
-		this.provider.setAuthorityGranters(new AuthorityGranter[] { new TestAuthorityGranter() });
+		this.provider.setAuthorityGranters(new AuthorityGranter[]{new TestAuthorityGranter()});
 		this.provider.afterPropertiesSet();
-		AppConfigurationEntry[] aces = new AppConfigurationEntry[] {
-				new AppConfigurationEntry(TestLoginModule.class.getName(), LoginModuleControlFlag.REQUIRED,
-						Collections.<String, Object>emptyMap()) };
+		AppConfigurationEntry[] aces = new AppConfigurationEntry[]{
+	new AppConfigurationEntry(TestLoginModule.class.getName(), LoginModuleControlFlag.REQUIRED,
+Collections.<String, Object>emptyMap())};
 		given(configuration.getAppConfigurationEntry(this.provider.getLoginContextName())).willReturn(aces);
 		this.token = UsernamePasswordAuthenticationToken.unauthenticated("user", "password");
 		ReflectionTestUtils.setField(this.provider, "log", this.log);
@@ -114,14 +114,14 @@ public class DefaultJaasAuthenticationProviderTests {
 	@Test
 	public void authenticateBadPassword() {
 		assertThatExceptionOfType(AuthenticationException.class).isThrownBy(
-				() -> this.provider.authenticate(UsernamePasswordAuthenticationToken.unauthenticated("user", "asdf")));
+	() -> this.provider.authenticate(UsernamePasswordAuthenticationToken.unauthenticated("user", "asdf")));
 		verifyFailedLogin();
 	}
 
 	@Test
 	public void authenticateBadUser() {
 		assertThatExceptionOfType(AuthenticationException.class).isThrownBy(() -> this.provider
-				.authenticate(UsernamePasswordAuthenticationToken.unauthenticated("asdf", "password")));
+	.authenticate(UsernamePasswordAuthenticationToken.unauthenticated("asdf", "password")));
 		verifyFailedLogin();
 	}
 
@@ -236,7 +236,7 @@ public class DefaultJaasAuthenticationProviderTests {
 
 	private void verifyFailedLogin() {
 		ArgumentCaptor<JaasAuthenticationFailedEvent> event = ArgumentCaptor
-				.forClass(JaasAuthenticationFailedEvent.class);
+	.forClass(JaasAuthenticationFailedEvent.class);
 		verify(this.publisher).publishEvent(event.capture());
 		assertThat(event.getValue()).isInstanceOf(JaasAuthenticationFailedEvent.class);
 		assertThat(event.getValue().getException()).isNotNull();

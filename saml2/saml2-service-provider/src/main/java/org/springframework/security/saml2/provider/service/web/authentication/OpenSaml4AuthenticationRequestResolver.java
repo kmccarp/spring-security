@@ -126,7 +126,7 @@ public final class OpenSaml4AuthenticationRequestResolver implements Saml2Authen
 		private final AuthnRequest authnRequest;
 
 		public AuthnRequestContext(HttpServletRequest request, RelyingPartyRegistration registration,
-				AuthnRequest authnRequest) {
+	AuthnRequest authnRequest) {
 			this.request = request;
 			this.registration = registration;
 			this.authnRequest = authnRequest;

@@ -399,7 +399,7 @@ public final class SecurityMockMvcRequestPostProcessors {
 	 */
 	public static OAuth2LoginRequestPostProcessor oauth2Login() {
 		OAuth2AccessToken accessToken = new OAuth2AccessToken(OAuth2AccessToken.TokenType.BEARER, "access-token", null,
-				null, Collections.singleton("read"));
+	null, Collections.singleton("read"));
 		return new OAuth2LoginRequestPostProcessor(accessToken);
 	}
 
@@ -427,7 +427,7 @@ public final class SecurityMockMvcRequestPostProcessors {
 	 */
 	public static OidcLoginRequestPostProcessor oidcLogin() {
 		OAuth2AccessToken accessToken = new OAuth2AccessToken(OAuth2AccessToken.TokenType.BEARER, "access-token", null,
-				null, Collections.singleton("read"));
+	null, Collections.singleton("read"));
 		return new OidcLoginRequestPostProcessor(accessToken);
 	}
 
@@ -464,7 +464,7 @@ public final class SecurityMockMvcRequestPostProcessors {
 
 	private static SecurityContextHolderStrategy getSecurityContextHolderStrategy(HttpServletRequest request) {
 		WebApplicationContext context = WebApplicationContextUtils
-				.findWebApplicationContext(request.getServletContext());
+	.findWebApplicationContext(request.getServletContext());
 		if (context == null) {
 			return DEFAULT_SECURITY_CONTEXT_HOLDER_STRATEGY;
 		}
@@ -502,7 +502,7 @@ public final class SecurityMockMvcRequestPostProcessors {
 	 */
 	public static final class CsrfRequestPostProcessor implements RequestPostProcessor {
 
-		private static final byte[] INVALID_TOKEN_BYTES = new byte[] { 1, 1, 1, 96, 99, 98 };
+		private static final byte[] INVALID_TOKEN_BYTES = new byte[]{1, 1, 1, 96, 99, 98};
 
 		private static final String INVALID_TOKEN_VALUE = Base64.getEncoder().encodeToString(INVALID_TOKEN_BYTES);
 
@@ -668,10 +668,10 @@ public final class SecurityMockMvcRequestPostProcessors {
 		private String createAuthorizationHeader(MockHttpServletRequest request) {
 			String uri = request.getRequestURI();
 			String responseDigest = generateDigest(this.username, this.realm, this.password, request.getMethod(), uri,
-					this.qop, this.nonce, this.nc, this.cnonce);
+		this.qop, this.nonce, this.nc, this.cnonce);
 			return "Digest username=\"" + this.username + "\", realm=\"" + this.realm + "\", nonce=\"" + this.nonce
-					+ "\", uri=\"" + uri + "\", response=\"" + responseDigest + "\", qop=" + this.qop + ", nc="
-					+ this.nc + ", cnonce=\"" + this.cnonce + "\"";
+		+ "\", uri=\"" + uri + "\", response=\"" + responseDigest + "\", qop=" + this.qop + ", nc="
+		+ this.nc + ", cnonce=\"" + this.cnonce + "\"";
 		}
 
 		@Override
@@ -698,7 +698,7 @@ public final class SecurityMockMvcRequestPostProcessors {
 		 * @throws IllegalArgumentException if the supplied qop value is unsupported.
 		 */
 		private static String generateDigest(String username, String realm, String password, String httpMethod,
-				String uri, String qop, String nonce, String nc, String cnonce) throws IllegalArgumentException {
+	String uri, String qop, String nonce, String nc, String cnonce) throws IllegalArgumentException {
 			String a1Md5 = encodePasswordInA1Format(username, realm, password);
 			String a2 = httpMethod + ":" + uri;
 			String a2Md5 = md5Hex(a2);
@@ -814,7 +814,7 @@ public final class SecurityMockMvcRequestPostProcessors {
 	 * @since 4.0
 	 */
 	private static final class TestSecurityContextHolderPostProcessor extends SecurityContextRequestPostProcessorSupport
-			implements RequestPostProcessor {
+implements RequestPostProcessor {
 
 		@Override
 		public MockHttpServletRequest postProcessRequest(MockHttpServletRequest request) {
@@ -842,7 +842,7 @@ public final class SecurityMockMvcRequestPostProcessors {
 	 * @since 4.0
 	 */
 	private static final class SecurityContextRequestPostProcessor extends SecurityContextRequestPostProcessorSupport
-			implements RequestPostProcessor {
+implements RequestPostProcessor {
 
 		private final SecurityContext securityContext;
 
@@ -867,7 +867,7 @@ public final class SecurityMockMvcRequestPostProcessors {
 	 *
 	 */
 	private static final class AuthenticationRequestPostProcessor extends SecurityContextRequestPostProcessorSupport
-			implements RequestPostProcessor {
+implements RequestPostProcessor {
 
 		private final Authentication authentication;
 
@@ -899,7 +899,7 @@ public final class SecurityMockMvcRequestPostProcessors {
 
 		UserDetailsRequestPostProcessor(UserDetails user) {
 			Authentication token = UsernamePasswordAuthenticationToken.authenticated(user, user.getPassword(),
-					user.getAuthorities());
+		user.getAuthorities());
 			this.delegate = new AuthenticationRequestPostProcessor(token);
 		}
 
@@ -918,7 +918,7 @@ public final class SecurityMockMvcRequestPostProcessors {
 	 * @since 4.0
 	 */
 	public static final class UserRequestPostProcessor extends SecurityContextRequestPostProcessorSupport
-			implements RequestPostProcessor {
+implements RequestPostProcessor {
 
 		private String username;
 
@@ -959,7 +959,7 @@ public final class SecurityMockMvcRequestPostProcessors {
 			List<GrantedAuthority> authorities = new ArrayList<>(roles.length);
 			for (String role : roles) {
 				Assert.isTrue(!role.startsWith(ROLE_PREFIX), () -> "Role should not start with " + ROLE_PREFIX
-						+ " since this method automatically prefixes with this value. Got " + role);
+			+ " since this method automatically prefixes with this value. Got " + role);
 				authorities.add(new SimpleGrantedAuthority(ROLE_PREFIX + role));
 			}
 			this.authorities = authorities;
@@ -1009,17 +1009,17 @@ public final class SecurityMockMvcRequestPostProcessors {
 		 */
 		private User createUser() {
 			return new User(this.username, this.password, this.enabled, this.accountNonExpired,
-					this.credentialsNonExpired, this.accountNonLocked, this.authorities);
+		this.credentialsNonExpired, this.accountNonLocked, this.authorities);
 		}
 
 	}
 
 	private static class AnonymousRequestPostProcessor extends SecurityContextRequestPostProcessorSupport
-			implements RequestPostProcessor {
+implements RequestPostProcessor {
 
 		private AuthenticationRequestPostProcessor delegate = new AuthenticationRequestPostProcessor(
-				new AnonymousAuthenticationToken("key", "anonymous",
-						AuthorityUtils.createAuthorityList("ROLE_ANONYMOUS")));
+	new AnonymousAuthenticationToken("key", "anonymous",
+AuthorityUtils.createAuthorityList("ROLE_ANONYMOUS")));
 
 		@Override
 		public MockHttpServletRequest postProcessRequest(MockHttpServletRequest request) {
@@ -1076,7 +1076,7 @@ public final class SecurityMockMvcRequestPostProcessors {
 		 */
 		public JwtRequestPostProcessor jwt(Consumer<Jwt.Builder> jwtBuilderConsumer) {
 			Jwt.Builder jwtBuilder = Jwt.withTokenValue("token").header("alg", "none").claim(JwtClaimNames.SUB, "user")
-					.claim("scope", "read");
+		.claim("scope", "read");
 			jwtBuilderConsumer.accept(jwtBuilder);
 			this.jwt = jwtBuilder.build();
 			return this;
@@ -1131,7 +1131,7 @@ public final class SecurityMockMvcRequestPostProcessors {
 		public MockHttpServletRequest postProcessRequest(MockHttpServletRequest request) {
 			CsrfFilter.skipRequest(request);
 			JwtAuthenticationToken token = new JwtAuthenticationToken(this.jwt,
-					this.authoritiesConverter.convert(this.jwt));
+		this.authoritiesConverter.convert(this.jwt));
 			return new AuthenticationRequestPostProcessor(token).postProcessRequest(request);
 		}
 
@@ -1210,7 +1210,7 @@ public final class SecurityMockMvcRequestPostProcessors {
 			OAuth2AuthenticatedPrincipal principal = this.principal.get();
 			OAuth2AccessToken accessToken = getOAuth2AccessToken(principal);
 			BearerTokenAuthentication token = new BearerTokenAuthentication(principal, accessToken,
-					principal.getAuthorities());
+		principal.getAuthorities());
 			return new AuthenticationRequestPostProcessor(token).postProcessRequest(request);
 		}
 
@@ -1243,7 +1243,7 @@ public final class SecurityMockMvcRequestPostProcessors {
 
 		private Collection<GrantedAuthority> getAuthorities(Collection<?> scopes) {
 			return scopes.stream().map((scope) -> new SimpleGrantedAuthority("SCOPE_" + scope))
-					.collect(Collectors.toList());
+		.collect(Collectors.toList());
 		}
 
 		private OAuth2AccessToken getOAuth2AccessToken(OAuth2AuthenticatedPrincipal principal) {
@@ -1356,15 +1356,15 @@ public final class SecurityMockMvcRequestPostProcessors {
 		public MockHttpServletRequest postProcessRequest(MockHttpServletRequest request) {
 			OAuth2User oauth2User = this.oauth2User.get();
 			OAuth2AuthenticationToken token = new OAuth2AuthenticationToken(oauth2User, oauth2User.getAuthorities(),
-					this.clientRegistration.getRegistrationId());
+		this.clientRegistration.getRegistrationId());
 			request = new AuthenticationRequestPostProcessor(token).postProcessRequest(request);
 			return new OAuth2ClientRequestPostProcessor().clientRegistration(this.clientRegistration)
-					.principalName(oauth2User.getName()).accessToken(this.accessToken).postProcessRequest(request);
+		.principalName(oauth2User.getName()).accessToken(this.accessToken).postProcessRequest(request);
 		}
 
 		private ClientRegistration.Builder clientRegistrationBuilder() {
 			return ClientRegistration.withRegistrationId("test").authorizationGrantType(AuthorizationGrantType.PASSWORD)
-					.clientId("test-client").tokenUri("https://token-uri.example.org");
+		.clientId("test-client").tokenUri("https://token-uri.example.org");
 		}
 
 		private Collection<GrantedAuthority> defaultAuthorities() {
@@ -1491,12 +1491,12 @@ public final class SecurityMockMvcRequestPostProcessors {
 		public MockHttpServletRequest postProcessRequest(MockHttpServletRequest request) {
 			OidcUser oidcUser = this.oidcUser.get();
 			return new OAuth2LoginRequestPostProcessor(this.accessToken).oauth2User(oidcUser)
-					.clientRegistration(this.clientRegistration).postProcessRequest(request);
+		.clientRegistration(this.clientRegistration).postProcessRequest(request);
 		}
 
 		private ClientRegistration.Builder clientRegistrationBuilder() {
 			return ClientRegistration.withRegistrationId("test").authorizationGrantType(AuthorizationGrantType.PASSWORD)
-					.clientId("test-client").tokenUri("https://token-uri.example.org");
+		.clientId("test-client").tokenUri("https://token-uri.example.org");
 		}
 
 		private Collection<GrantedAuthority> getAuthorities() {
@@ -1541,7 +1541,7 @@ public final class SecurityMockMvcRequestPostProcessors {
 		private String principalName = "user";
 
 		private OAuth2AccessToken accessToken = new OAuth2AccessToken(OAuth2AccessToken.TokenType.BEARER,
-				"access-token", null, null, Collections.singleton("read"));
+	"access-token", null, null, Collections.singleton("read"));
 
 		private OAuth2ClientRequestPostProcessor() {
 		}
@@ -1568,7 +1568,7 @@ public final class SecurityMockMvcRequestPostProcessors {
 		 * @return the {@link OAuth2ClientRequestPostProcessor} for further configuration
 		 */
 		public OAuth2ClientRequestPostProcessor clientRegistration(
-				Consumer<ClientRegistration.Builder> clientRegistrationConfigurer) {
+	Consumer<ClientRegistration.Builder> clientRegistrationConfigurer) {
 			ClientRegistration.Builder builder = clientRegistrationBuilder();
 			clientRegistrationConfigurer.accept(builder);
 			this.clientRegistration = builder.build();
@@ -1600,12 +1600,12 @@ public final class SecurityMockMvcRequestPostProcessors {
 		public MockHttpServletRequest postProcessRequest(MockHttpServletRequest request) {
 			if (this.clientRegistration == null) {
 				throw new IllegalArgumentException(
-						"Please specify a ClientRegistration via one " + "of the clientRegistration methods");
+			"Please specify a ClientRegistration via one " + "of the clientRegistration methods");
 			}
 			OAuth2AuthorizedClient client = new OAuth2AuthorizedClient(this.clientRegistration, this.principalName,
-					this.accessToken);
+		this.accessToken);
 			OAuth2AuthorizedClientRepository authorizedClientRepository = OAuth2ClientServletTestUtils
-					.getAuthorizedClientRepository(request);
+		.getAuthorizedClientRepository(request);
 			if (!(authorizedClientRepository instanceof TestOAuth2AuthorizedClientRepository)) {
 				authorizedClientRepository = new TestOAuth2AuthorizedClientRepository(authorizedClientRepository);
 				OAuth2ClientServletTestUtils.setAuthorizedClientRepository(request, authorizedClientRepository);
@@ -1617,8 +1617,8 @@ public final class SecurityMockMvcRequestPostProcessors {
 
 		private ClientRegistration.Builder clientRegistrationBuilder() {
 			return ClientRegistration.withRegistrationId(this.registrationId)
-					.authorizationGrantType(AuthorizationGrantType.PASSWORD).clientId("test-client")
-					.clientSecret("test-secret").tokenUri("https://idp.example.org/oauth/token");
+		.authorizationGrantType(AuthorizationGrantType.PASSWORD).clientId("test-client")
+		.clientSecret("test-secret").tokenUri("https://idp.example.org/oauth/token");
 		}
 
 		/**
@@ -1628,7 +1628,7 @@ public final class SecurityMockMvcRequestPostProcessors {
 		private static final class TestOAuth2AuthorizedClientManager implements OAuth2AuthorizedClientManager {
 
 			static final String ENABLED_ATTR_NAME = TestOAuth2AuthorizedClientManager.class.getName()
-					.concat(".ENABLED");
+		.concat(".ENABLED");
 
 			private final OAuth2AuthorizedClientManager delegate;
 
@@ -1643,7 +1643,7 @@ public final class SecurityMockMvcRequestPostProcessors {
 				HttpServletRequest request = authorizeRequest.getAttribute(HttpServletRequest.class.getName());
 				if (isEnabled(request)) {
 					return this.authorizedClientRepository.loadAuthorizedClient(
-							authorizeRequest.getClientRegistrationId(), authorizeRequest.getPrincipal(), request);
+				authorizeRequest.getClientRegistrationId(), authorizeRequest.getPrincipal(), request);
 				}
 				return this.delegate.authorize(authorizeRequest);
 			}
@@ -1667,7 +1667,7 @@ public final class SecurityMockMvcRequestPostProcessors {
 			static final String TOKEN_ATTR_NAME = TestOAuth2AuthorizedClientRepository.class.getName().concat(".TOKEN");
 
 			static final String ENABLED_ATTR_NAME = TestOAuth2AuthorizedClientRepository.class.getName()
-					.concat(".ENABLED");
+		.concat(".ENABLED");
 
 			private final OAuth2AuthorizedClientRepository delegate;
 
@@ -1677,7 +1677,7 @@ public final class SecurityMockMvcRequestPostProcessors {
 
 			@Override
 			public <T extends OAuth2AuthorizedClient> T loadAuthorizedClient(String clientRegistrationId,
-					Authentication principal, HttpServletRequest request) {
+		Authentication principal, HttpServletRequest request) {
 				if (isEnabled(request)) {
 					return (T) request.getAttribute(TOKEN_ATTR_NAME);
 				}
@@ -1686,7 +1686,7 @@ public final class SecurityMockMvcRequestPostProcessors {
 
 			@Override
 			public void saveAuthorizedClient(OAuth2AuthorizedClient authorizedClient, Authentication principal,
-					HttpServletRequest request, HttpServletResponse response) {
+		HttpServletRequest request, HttpServletResponse response) {
 				if (isEnabled(request)) {
 					request.setAttribute(TOKEN_ATTR_NAME, authorizedClient);
 					return;
@@ -1696,7 +1696,7 @@ public final class SecurityMockMvcRequestPostProcessors {
 
 			@Override
 			public void removeAuthorizedClient(String clientRegistrationId, Authentication principal,
-					HttpServletRequest request, HttpServletResponse response) {
+		HttpServletRequest request, HttpServletResponse response) {
 				if (isEnabled(request)) {
 					request.removeAttribute(TOKEN_ATTR_NAME);
 					return;
@@ -1737,7 +1737,7 @@ public final class SecurityMockMvcRequestPostProcessors {
 				}
 				if (manager instanceof DefaultOAuth2AuthorizedClientManager) {
 					return (OAuth2AuthorizedClientRepository) ReflectionTestUtils.getField(manager,
-							"authorizedClientRepository");
+				"authorizedClientRepository");
 				}
 				if (manager instanceof TestOAuth2AuthorizedClientManager) {
 					return ((TestOAuth2AuthorizedClientManager) manager).authorizedClientRepository;
@@ -1746,7 +1746,7 @@ public final class SecurityMockMvcRequestPostProcessors {
 			}
 
 			static void setAuthorizedClientRepository(HttpServletRequest request,
-					OAuth2AuthorizedClientRepository repository) {
+		OAuth2AuthorizedClientRepository repository) {
 				OAuth2AuthorizedClientManager manager = getOAuth2AuthorizedClientManager(request);
 				if (manager == null) {
 					return;
@@ -1765,12 +1765,12 @@ public final class SecurityMockMvcRequestPostProcessors {
 
 			static OAuth2AuthorizedClientManager getOAuth2AuthorizedClientManager(HttpServletRequest request) {
 				OAuth2AuthorizedClientArgumentResolver resolver = findResolver(request,
-						OAuth2AuthorizedClientArgumentResolver.class);
+			OAuth2AuthorizedClientArgumentResolver.class);
 				if (resolver == null) {
 					return null;
 				}
 				return (OAuth2AuthorizedClientManager) ReflectionTestUtils.getField(resolver,
-						"authorizedClientManager");
+			"authorizedClientManager");
 			}
 
 			/**
@@ -1781,9 +1781,9 @@ public final class SecurityMockMvcRequestPostProcessors {
 			 * @param manager the {@link OAuth2AuthorizedClientManager} to set
 			 */
 			static void setOAuth2AuthorizedClientManager(HttpServletRequest request,
-					OAuth2AuthorizedClientManager manager) {
+		OAuth2AuthorizedClientManager manager) {
 				OAuth2AuthorizedClientArgumentResolver resolver = findResolver(request,
-						OAuth2AuthorizedClientArgumentResolver.class);
+			OAuth2AuthorizedClientArgumentResolver.class);
 				if (resolver == null) {
 					return;
 				}
@@ -1792,9 +1792,9 @@ public final class SecurityMockMvcRequestPostProcessors {
 
 			@SuppressWarnings("unchecked")
 			static <T extends HandlerMethodArgumentResolver> T findResolver(HttpServletRequest request,
-					Class<T> resolverClass) {
+		Class<T> resolverClass) {
 				if (!ClassUtils.isPresent(
-						"org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter", null)) {
+			"org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter", null)) {
 					return null;
 				}
 				return WebMvcClasspathGuard.findResolver(request, resolverClass);
@@ -1803,7 +1803,7 @@ public final class SecurityMockMvcRequestPostProcessors {
 			private static class WebMvcClasspathGuard {
 
 				static <T extends HandlerMethodArgumentResolver> T findResolver(HttpServletRequest request,
-						Class<T> resolverClass) {
+			Class<T> resolverClass) {
 					ServletContext servletContext = request.getServletContext();
 					RequestMappingHandlerAdapter mapping = getRequestMappingHandlerAdapter(servletContext);
 					if (mapping == null) {
@@ -1822,7 +1822,7 @@ public final class SecurityMockMvcRequestPostProcessors {
 				}
 
 				private static RequestMappingHandlerAdapter getRequestMappingHandlerAdapter(
-						ServletContext servletContext) {
+			ServletContext servletContext) {
 					WebApplicationContext context = WebApplicationContextUtils.getWebApplicationContext(servletContext);
 					if (context != null) {
 						String[] names = context.getBeanNamesForType(RequestMappingHandlerAdapter.class);

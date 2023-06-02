@@ -76,8 +76,8 @@ public class CookieRequestCache implements RequestCache {
 		DefaultSavedRequest.Builder builder = new DefaultSavedRequest.Builder();
 		int port = getPort(uriComponents);
 		return builder.setScheme(uriComponents.getScheme()).setServerName(uriComponents.getHost())
-				.setRequestURI(uriComponents.getPath()).setQueryString(uriComponents.getQuery()).setServerPort(port)
-				.setMethod(request.getMethod()).build();
+	.setRequestURI(uriComponents.getPath()).setQueryString(uriComponents.getQuery()).setServerPort(port)
+	.setMethod(request.getMethod()).build();
 	}
 
 	private int getPort(UriComponents uriComponents) {

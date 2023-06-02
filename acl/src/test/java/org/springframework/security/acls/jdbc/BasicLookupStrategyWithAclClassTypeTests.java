@@ -75,7 +75,7 @@ public class BasicLookupStrategyWithAclClassTypeTests extends AbstractBasicLooku
 	public void initializeBeans() {
 		super.initializeBeans();
 		this.uuidEnabledStrategy = new BasicLookupStrategy(getDataSource(), aclCache(), aclAuthStrategy(),
-				new DefaultPermissionGrantingStrategy(new ConsoleAuditLogger()));
+	new DefaultPermissionGrantingStrategy(new ConsoleAuditLogger()));
 		this.uuidEnabledStrategy.setPermissionFactory(new DefaultPermissionFactory());
 		this.uuidEnabledStrategy.setAclClassIdSupported(true);
 		this.uuidEnabledStrategy.setConversionService(new DefaultConversionService());
@@ -84,13 +84,13 @@ public class BasicLookupStrategyWithAclClassTypeTests extends AbstractBasicLooku
 	@BeforeEach
 	public void populateDatabaseForAclClassTypeTests() {
 		String query = "INSERT INTO acl_class(ID,CLASS,CLASS_ID_TYPE) VALUES (3,'" + TARGET_CLASS_WITH_UUID
-				+ "', 'java.util.UUID');"
-				+ "INSERT INTO acl_object_identity(ID,OBJECT_ID_CLASS,OBJECT_ID_IDENTITY,PARENT_OBJECT,OWNER_SID,ENTRIES_INHERITING) VALUES (4,3,'"
-				+ OBJECT_IDENTITY_UUID.toString() + "',null,1,1);"
-				+ "INSERT INTO acl_object_identity(ID,OBJECT_ID_CLASS,OBJECT_ID_IDENTITY,PARENT_OBJECT,OWNER_SID,ENTRIES_INHERITING) VALUES (5,3,'"
-				+ OBJECT_IDENTITY_LONG_AS_UUID + "',null,1,1);"
-				+ "INSERT INTO acl_entry(ID,ACL_OBJECT_IDENTITY,ACE_ORDER,SID,MASK,GRANTING,AUDIT_SUCCESS,AUDIT_FAILURE) VALUES (5,4,0,1,8,0,0,0);"
-				+ "INSERT INTO acl_entry(ID,ACL_OBJECT_IDENTITY,ACE_ORDER,SID,MASK,GRANTING,AUDIT_SUCCESS,AUDIT_FAILURE) VALUES (6,5,0,1,8,0,0,0);";
+	+ "', 'java.util.UUID');"
+	+ "INSERT INTO acl_object_identity(ID,OBJECT_ID_CLASS,OBJECT_ID_IDENTITY,PARENT_OBJECT,OWNER_SID,ENTRIES_INHERITING) VALUES (4,3,'"
+	+ OBJECT_IDENTITY_UUID.toString() + "',null,1,1);"
+	+ "INSERT INTO acl_object_identity(ID,OBJECT_ID_CLASS,OBJECT_ID_IDENTITY,PARENT_OBJECT,OWNER_SID,ENTRIES_INHERITING) VALUES (5,3,'"
+	+ OBJECT_IDENTITY_LONG_AS_UUID + "',null,1,1);"
+	+ "INSERT INTO acl_entry(ID,ACL_OBJECT_IDENTITY,ACE_ORDER,SID,MASK,GRANTING,AUDIT_SUCCESS,AUDIT_FAILURE) VALUES (5,4,0,1,8,0,0,0);"
+	+ "INSERT INTO acl_entry(ID,ACL_OBJECT_IDENTITY,ACE_ORDER,SID,MASK,GRANTING,AUDIT_SUCCESS,AUDIT_FAILURE) VALUES (6,5,0,1,8,0,0,0);";
 		DATABASE_HELPER.getJdbcTemplate().execute(query);
 	}
 
@@ -98,7 +98,7 @@ public class BasicLookupStrategyWithAclClassTypeTests extends AbstractBasicLooku
 	public void testReadObjectIdentityUsingUuidType() {
 		ObjectIdentity oid = new ObjectIdentityImpl(TARGET_CLASS_WITH_UUID, OBJECT_IDENTITY_UUID);
 		Map<ObjectIdentity, Acl> foundAcls = this.uuidEnabledStrategy.readAclsById(Arrays.asList(oid),
-				Arrays.asList(BEN_SID));
+	Arrays.asList(BEN_SID));
 		assertThat(foundAcls).hasSize(1);
 		assertThat(foundAcls.get(oid)).isNotNull();
 	}
@@ -107,7 +107,7 @@ public class BasicLookupStrategyWithAclClassTypeTests extends AbstractBasicLooku
 	public void testReadObjectIdentityUsingLongTypeWithConversionServiceEnabled() {
 		ObjectIdentity oid = new ObjectIdentityImpl(TARGET_CLASS, 100L);
 		Map<ObjectIdentity, Acl> foundAcls = this.uuidEnabledStrategy.readAclsById(Arrays.asList(oid),
-				Arrays.asList(BEN_SID));
+	Arrays.asList(BEN_SID));
 		assertThat(foundAcls).hasSize(1);
 		assertThat(foundAcls.get(oid)).isNotNull();
 	}
@@ -116,7 +116,7 @@ public class BasicLookupStrategyWithAclClassTypeTests extends AbstractBasicLooku
 	public void testReadObjectIdentityUsingNonUuidInDatabase() {
 		ObjectIdentity oid = new ObjectIdentityImpl(TARGET_CLASS_WITH_UUID, OBJECT_IDENTITY_LONG_AS_UUID);
 		assertThatExceptionOfType(ConversionFailedException.class)
-				.isThrownBy(() -> this.uuidEnabledStrategy.readAclsById(Arrays.asList(oid), Arrays.asList(BEN_SID)));
+	.isThrownBy(() -> this.uuidEnabledStrategy.readAclsById(Arrays.asList(oid), Arrays.asList(BEN_SID)));
 	}
 
 }

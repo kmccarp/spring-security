@@ -25,22 +25,22 @@ import java.util.List;
 public class BusinessServiceImpl<E extends Entity> implements BusinessService {
 
 	@Override
-	@Secured({ "ROLE_USER" })
+	@Secured({"ROLE_USER"})
 	public void someUserMethod1() {
 	}
 
 	@Override
-	@Secured({ "ROLE_USER" })
+	@Secured({"ROLE_USER"})
 	public void someUserMethod2() {
 	}
 
 	@Override
-	@Secured({ "ROLE_USER", "ROLE_ADMIN" })
+	@Secured({"ROLE_USER", "ROLE_ADMIN"})
 	public void someUserAndAdminMethod() {
 	}
 
 	@Override
-	@Secured({ "ROLE_ADMIN" })
+	@Secured({"ROLE_ADMIN"})
 	public void someAdminMethod() {
 	}
 

@@ -101,41 +101,41 @@ public class AclImplTests {
 	@Test
 	public void constructorsRejectNullObjectIdentity() {
 		assertThatIllegalArgumentException().isThrownBy(
-				() -> new AclImpl(null, 1, this.authzStrategy, this.pgs, null, null, true, new PrincipalSid("joe")));
+	() -> new AclImpl(null, 1, this.authzStrategy, this.pgs, null, null, true, new PrincipalSid("joe")));
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new AclImpl(null, 1, this.authzStrategy, this.mockAuditLogger));
+	.isThrownBy(() -> new AclImpl(null, 1, this.authzStrategy, this.mockAuditLogger));
 	}
 
 	@Test
 	public void constructorsRejectNullId() {
 		assertThatIllegalArgumentException().isThrownBy(() -> new AclImpl(this.objectIdentity, null, this.authzStrategy,
-				this.pgs, null, null, true, new PrincipalSid("joe")));
+	this.pgs, null, null, true, new PrincipalSid("joe")));
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new AclImpl(this.objectIdentity, null, this.authzStrategy, this.mockAuditLogger));
+	.isThrownBy(() -> new AclImpl(this.objectIdentity, null, this.authzStrategy, this.mockAuditLogger));
 	}
 
 	@Test
 	public void constructorsRejectNullAclAuthzStrategy() {
 		assertThatIllegalArgumentException().isThrownBy(() -> new AclImpl(this.objectIdentity, 1, null,
-				new DefaultPermissionGrantingStrategy(this.mockAuditLogger), null, null, true,
-				new PrincipalSid("joe")));
+	new DefaultPermissionGrantingStrategy(this.mockAuditLogger), null, null, true,
+	new PrincipalSid("joe")));
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new AclImpl(this.objectIdentity, 1, null, this.mockAuditLogger));
+	.isThrownBy(() -> new AclImpl(this.objectIdentity, 1, null, this.mockAuditLogger));
 	}
 
 	@Test
 	public void insertAceRejectsNullParameters() {
 		MutableAcl acl = new AclImpl(this.objectIdentity, 1, this.authzStrategy, this.pgs, null, null, true,
-				new PrincipalSid("joe"));
+	new PrincipalSid("joe"));
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> acl.insertAce(0, null, new GrantedAuthoritySid("ROLE_IGNORED"), true));
+	.isThrownBy(() -> acl.insertAce(0, null, new GrantedAuthoritySid("ROLE_IGNORED"), true));
 		assertThatIllegalArgumentException().isThrownBy(() -> acl.insertAce(0, BasePermission.READ, null, true));
 	}
 
 	@Test
 	public void insertAceAddsElementAtCorrectIndex() {
 		MutableAcl acl = new AclImpl(this.objectIdentity, 1, this.authzStrategy, this.pgs, null, null, true,
-				new PrincipalSid("joe"));
+	new PrincipalSid("joe"));
 		MockAclService service = new MockAclService();
 		// Insert one permission
 		acl.insertAce(0, BasePermission.READ, new GrantedAuthoritySid("ROLE_TEST1"), true);
@@ -169,19 +169,19 @@ public class AclImplTests {
 	@Test
 	public void insertAceFailsForNonExistentElement() {
 		MutableAcl acl = new AclImpl(this.objectIdentity, 1, this.authzStrategy, this.pgs, null, null, true,
-				new PrincipalSid("joe"));
+	new PrincipalSid("joe"));
 		MockAclService service = new MockAclService();
 		// Insert one permission
 		acl.insertAce(0, BasePermission.READ, new GrantedAuthoritySid("ROLE_TEST1"), true);
 		service.updateAcl(acl);
 		assertThatExceptionOfType(NotFoundException.class)
-				.isThrownBy(() -> acl.insertAce(55, BasePermission.READ, new GrantedAuthoritySid("ROLE_TEST2"), true));
+	.isThrownBy(() -> acl.insertAce(55, BasePermission.READ, new GrantedAuthoritySid("ROLE_TEST2"), true));
 	}
 
 	@Test
 	public void deleteAceKeepsInitialOrdering() {
 		MutableAcl acl = new AclImpl(this.objectIdentity, 1, this.authzStrategy, this.pgs, null, null, true,
-				new PrincipalSid("joe"));
+	new PrincipalSid("joe"));
 		MockAclService service = new MockAclService();
 		// Add several permissions
 		acl.insertAce(0, BasePermission.READ, new GrantedAuthoritySid("ROLE_TEST1"), true);
@@ -210,20 +210,20 @@ public class AclImplTests {
 	@Test
 	public void deleteAceFailsForNonExistentElement() {
 		AclAuthorizationStrategyImpl strategy = new AclAuthorizationStrategyImpl(
-				new SimpleGrantedAuthority("ROLE_OWNERSHIP"), new SimpleGrantedAuthority("ROLE_AUDITING"),
-				new SimpleGrantedAuthority("ROLE_GENERAL"));
+	new SimpleGrantedAuthority("ROLE_OWNERSHIP"), new SimpleGrantedAuthority("ROLE_AUDITING"),
+	new SimpleGrantedAuthority("ROLE_GENERAL"));
 		MutableAcl acl = new AclImpl(this.objectIdentity, (1), strategy, this.pgs, null, null, true,
-				new PrincipalSid("joe"));
+	new PrincipalSid("joe"));
 		assertThatExceptionOfType(NotFoundException.class).isThrownBy(() -> acl.deleteAce(99));
 	}
 
 	@Test
 	public void isGrantingRejectsEmptyParameters() {
 		MutableAcl acl = new AclImpl(this.objectIdentity, 1, this.authzStrategy, this.pgs, null, null, true,
-				new PrincipalSid("joe"));
+	new PrincipalSid("joe"));
 		Sid ben = new PrincipalSid("ben");
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> acl.isGranted(new ArrayList<>(0), Arrays.asList(ben), false));
+	.isThrownBy(() -> acl.isGranted(new ArrayList<>(0), Arrays.asList(ben), false));
 		assertThatIllegalArgumentException().isThrownBy(() -> acl.isGranted(READ, new ArrayList<>(0), false));
 	}
 
@@ -235,7 +235,7 @@ public class AclImplTests {
 		ObjectIdentity rootOid = new ObjectIdentityImpl(TARGET_CLASS, 100);
 		// Create an ACL which owner is not the authenticated principal
 		MutableAcl rootAcl = new AclImpl(rootOid, 1, this.authzStrategy, this.pgs, null, null, false,
-				new PrincipalSid("joe"));
+	new PrincipalSid("joe"));
 		// Grant some permissions
 		rootAcl.insertAce(0, BasePermission.READ, new PrincipalSid("ben"), false);
 		rootAcl.insertAce(1, BasePermission.WRITE, new PrincipalSid("scott"), true);
@@ -246,15 +246,15 @@ public class AclImplTests {
 		List<Sid> sids = Arrays.asList(new PrincipalSid("ben"), new GrantedAuthoritySid("ROLE_GUEST"));
 		assertThat(rootAcl.isGranted(permissions, sids, false)).isFalse();
 		assertThatExceptionOfType(NotFoundException.class)
-				.isThrownBy(() -> rootAcl.isGranted(permissions, SCOTT, false));
+	.isThrownBy(() -> rootAcl.isGranted(permissions, SCOTT, false));
 		assertThat(rootAcl.isGranted(WRITE, SCOTT, false)).isTrue();
 		assertThat(rootAcl.isGranted(WRITE,
-				Arrays.asList(new PrincipalSid("rod"), new GrantedAuthoritySid("WRITE_ACCESS_ROLE")), false)).isFalse();
+	Arrays.asList(new PrincipalSid("rod"), new GrantedAuthoritySid("WRITE_ACCESS_ROLE")), false)).isFalse();
 		assertThat(rootAcl.isGranted(WRITE,
-				Arrays.asList(new GrantedAuthoritySid("WRITE_ACCESS_ROLE"), new PrincipalSid("rod")), false)).isTrue();
+	Arrays.asList(new GrantedAuthoritySid("WRITE_ACCESS_ROLE"), new PrincipalSid("rod")), false)).isTrue();
 		// Change the type of the Sid and check the granting process
 		assertThatExceptionOfType(NotFoundException.class).isThrownBy(() -> rootAcl.isGranted(WRITE,
-				Arrays.asList(new GrantedAuthoritySid("rod"), new PrincipalSid("WRITE_ACCESS_ROLE")), false));
+	Arrays.asList(new GrantedAuthoritySid("rod"), new PrincipalSid("WRITE_ACCESS_ROLE")), false));
 	}
 
 	@Test
@@ -270,7 +270,7 @@ public class AclImplTests {
 		// Create ACLs
 		PrincipalSid joe = new PrincipalSid("joe");
 		MutableAcl grandParentAcl = new AclImpl(grandParentOid, 1, this.authzStrategy, this.pgs, null, null, false,
-				joe);
+	joe);
 		MutableAcl parentAcl1 = new AclImpl(parentOid1, 2, this.authzStrategy, this.pgs, null, null, true, joe);
 		MutableAcl parentAcl2 = new AclImpl(parentOid2, 3, this.authzStrategy, this.pgs, null, null, true, joe);
 		MutableAcl childAcl1 = new AclImpl(childOid1, 4, this.authzStrategy, this.pgs, null, null, true, joe);
@@ -292,7 +292,7 @@ public class AclImplTests {
 		// Check granting process for parent1
 		assertThat(parentAcl1.isGranted(READ, SCOTT, false)).isTrue();
 		assertThat(parentAcl1.isGranted(READ, Arrays.asList((Sid) new GrantedAuthoritySid("ROLE_USER_READ")), false))
-				.isTrue();
+	.isTrue();
 		assertThat(parentAcl1.isGranted(WRITE, BEN, false)).isTrue();
 		assertThat(parentAcl1.isGranted(DELETE, BEN, false)).isFalse();
 		assertThat(parentAcl1.isGranted(DELETE, SCOTT, false)).isFalse();
@@ -303,13 +303,13 @@ public class AclImplTests {
 		// Check granting process for child1
 		assertThat(childAcl1.isGranted(CREATE, SCOTT, false)).isTrue();
 		assertThat(childAcl1.isGranted(READ, Arrays.asList((Sid) new GrantedAuthoritySid("ROLE_USER_READ")), false))
-				.isTrue();
+	.isTrue();
 		assertThat(childAcl1.isGranted(DELETE, BEN, false)).isFalse();
 		// Check granting process for child2 (doesn't inherit the permissions from its
 		// parent)
 		assertThatExceptionOfType(NotFoundException.class).isThrownBy(() -> childAcl2.isGranted(CREATE, SCOTT, false));
 		assertThatExceptionOfType(NotFoundException.class)
-				.isThrownBy(() -> childAcl2.isGranted(CREATE, Arrays.asList((Sid) new PrincipalSid("joe")), false));
+	.isThrownBy(() -> childAcl2.isGranted(CREATE, Arrays.asList((Sid) new PrincipalSid("joe")), false));
 	}
 
 	@Test
@@ -318,7 +318,7 @@ public class AclImplTests {
 		auth.setAuthenticated(true);
 		SecurityContextHolder.getContext().setAuthentication(auth);
 		MutableAcl acl = new AclImpl(this.objectIdentity, 1, this.authzStrategy, this.pgs, null, null, false,
-				new PrincipalSid("joe"));
+	new PrincipalSid("joe"));
 		MockAclService service = new MockAclService();
 		acl.insertAce(0, BasePermission.READ, new GrantedAuthoritySid("ROLE_USER_READ"), true);
 		acl.insertAce(1, BasePermission.WRITE, new GrantedAuthoritySid("ROLE_USER_READ"), true);
@@ -343,7 +343,7 @@ public class AclImplTests {
 		auth.setAuthenticated(true);
 		SecurityContextHolder.getContext().setAuthentication(auth);
 		MutableAcl acl = new AclImpl(this.objectIdentity, 1, this.authzStrategy, this.pgs, null, null, false,
-				new PrincipalSid("joe"));
+	new PrincipalSid("joe"));
 		MockAclService service = new MockAclService();
 		acl.insertAce(0, BasePermission.READ, new GrantedAuthoritySid("ROLE_USER_READ"), true);
 		acl.insertAce(1, BasePermission.WRITE, new GrantedAuthoritySid("ROLE_USER_READ"), true);
@@ -368,9 +368,9 @@ public class AclImplTests {
 		ObjectIdentity identity = new ObjectIdentityImpl(TARGET_CLASS, (100));
 		ObjectIdentity identity2 = new ObjectIdentityImpl(TARGET_CLASS, (101));
 		MutableAcl acl = new AclImpl(identity, 1, this.authzStrategy, this.pgs, null, null, true,
-				new PrincipalSid("joe"));
+	new PrincipalSid("joe"));
 		MutableAcl parentAcl = new AclImpl(identity2, 2, this.authzStrategy, this.pgs, null, null, true,
-				new PrincipalSid("joe"));
+	new PrincipalSid("joe"));
 		MockAclService service = new MockAclService();
 		acl.insertAce(0, BasePermission.READ, new GrantedAuthoritySid("ROLE_USER_READ"), true);
 		acl.insertAce(1, BasePermission.WRITE, new GrantedAuthoritySid("ROLE_USER_READ"), true);
@@ -393,56 +393,56 @@ public class AclImplTests {
 	public void isSidLoadedBehavesAsExpected() {
 		List<Sid> loadedSids = Arrays.asList(new PrincipalSid("ben"), new GrantedAuthoritySid("ROLE_IGNORED"));
 		MutableAcl acl = new AclImpl(this.objectIdentity, 1, this.authzStrategy, this.pgs, null, loadedSids, true,
-				new PrincipalSid("joe"));
+	new PrincipalSid("joe"));
 		assertThat(acl.isSidLoaded(loadedSids)).isTrue();
 		assertThat(acl.isSidLoaded(Arrays.asList(new GrantedAuthoritySid("ROLE_IGNORED"), new PrincipalSid("ben"))))
-				.isTrue();
+	.isTrue();
 		assertThat(acl.isSidLoaded(Arrays.asList((Sid) new GrantedAuthoritySid("ROLE_IGNORED")))).isTrue();
 		assertThat(acl.isSidLoaded(BEN)).isTrue();
 		assertThat(acl.isSidLoaded(null)).isTrue();
 		assertThat(acl.isSidLoaded(new ArrayList<>(0))).isTrue();
 		assertThat(acl.isSidLoaded(
-				Arrays.asList(new GrantedAuthoritySid("ROLE_IGNORED"), new GrantedAuthoritySid("ROLE_IGNORED"))))
-						.isTrue();
+	Arrays.asList(new GrantedAuthoritySid("ROLE_IGNORED"), new GrantedAuthoritySid("ROLE_IGNORED"))))
+	.isTrue();
 		assertThat(acl.isSidLoaded(
-				Arrays.asList(new GrantedAuthoritySid("ROLE_GENERAL"), new GrantedAuthoritySid("ROLE_IGNORED"))))
-						.isFalse();
+	Arrays.asList(new GrantedAuthoritySid("ROLE_GENERAL"), new GrantedAuthoritySid("ROLE_IGNORED"))))
+	.isFalse();
 		assertThat(acl.isSidLoaded(
-				Arrays.asList(new GrantedAuthoritySid("ROLE_IGNORED"), new GrantedAuthoritySid("ROLE_GENERAL"))))
-						.isFalse();
+	Arrays.asList(new GrantedAuthoritySid("ROLE_IGNORED"), new GrantedAuthoritySid("ROLE_GENERAL"))))
+	.isFalse();
 	}
 
 	@Test
 	public void insertAceRaisesNotFoundExceptionForIndexLessThanZero() {
 		AclImpl acl = new AclImpl(this.objectIdentity, 1, this.authzStrategy, this.pgs, null, null, true,
-				new PrincipalSid("joe"));
+	new PrincipalSid("joe"));
 		assertThatExceptionOfType(NotFoundException.class)
-				.isThrownBy(() -> acl.insertAce(-1, mock(Permission.class), mock(Sid.class), true));
+	.isThrownBy(() -> acl.insertAce(-1, mock(Permission.class), mock(Sid.class), true));
 	}
 
 	@Test
 	public void deleteAceRaisesNotFoundExceptionForIndexLessThanZero() {
 		AclImpl acl = new AclImpl(this.objectIdentity, 1, this.authzStrategy, this.pgs, null, null, true,
-				new PrincipalSid("joe"));
+	new PrincipalSid("joe"));
 		assertThatExceptionOfType(NotFoundException.class).isThrownBy(() -> acl.deleteAce(-1));
 	}
 
 	@Test
 	public void insertAceRaisesNotFoundExceptionForIndexGreaterThanSize() {
 		AclImpl acl = new AclImpl(this.objectIdentity, 1, this.authzStrategy, this.pgs, null, null, true,
-				new PrincipalSid("joe"));
+	new PrincipalSid("joe"));
 		// Insert at zero, OK.
 		acl.insertAce(0, mock(Permission.class), mock(Sid.class), true);
 		// Size is now 1
 		assertThatExceptionOfType(NotFoundException.class)
-				.isThrownBy(() -> acl.insertAce(2, mock(Permission.class), mock(Sid.class), true));
+	.isThrownBy(() -> acl.insertAce(2, mock(Permission.class), mock(Sid.class), true));
 	}
 
 	// SEC-1151
 	@Test
 	public void deleteAceRaisesNotFoundExceptionForIndexEqualToSize() {
 		AclImpl acl = new AclImpl(this.objectIdentity, 1, this.authzStrategy, this.pgs, null, null, true,
-				new PrincipalSid("joe"));
+	new PrincipalSid("joe"));
 		acl.insertAce(0, mock(Permission.class), mock(Sid.class), true);
 		// Size is now 1
 		assertThatExceptionOfType(NotFoundException.class).isThrownBy(() -> acl.deleteAce(1));
@@ -464,9 +464,9 @@ public class AclImplTests {
 		DefaultPermissionGrantingStrategy maskPgs = new MaskPermissionGrantingStrategy(this.mockAuditLogger);
 		MockAclService service = new MockAclService();
 		AclImpl acl = new AclImpl(this.objectIdentity, 1, this.authzStrategy, maskPgs, null, null, true,
-				new PrincipalSid("joe"));
+	new PrincipalSid("joe"));
 		Permission permission = this.permissionFactory
-				.buildFromMask(BasePermission.READ.getMask() | BasePermission.WRITE.getMask());
+	.buildFromMask(BasePermission.READ.getMask() | BasePermission.WRITE.getMask());
 		Sid sid = new PrincipalSid("ben");
 		acl.insertAce(0, permission, sid, true);
 		service.updateAcl(acl);
@@ -539,8 +539,8 @@ public class AclImplTests {
 					// Just give an ID to all this acl's aces, rest of the fields are just
 					// copied
 					newAces.add(new AccessControlEntryImpl((i + 1), ac.getAcl(), ac.getSid(), ac.getPermission(),
-							ac.isGranting(), ((AuditableAccessControlEntry) ac).isAuditSuccess(),
-							((AuditableAccessControlEntry) ac).isAuditFailure()));
+				ac.isGranting(), ((AuditableAccessControlEntry) ac).isAuditSuccess(),
+				((AuditableAccessControlEntry) ac).isAuditFailure()));
 				}
 			}
 			catch (IllegalAccessException ex) {
@@ -571,7 +571,7 @@ public class AclImplTests {
 
 		@Override
 		public Map<ObjectIdentity, Acl> readAclsById(List<ObjectIdentity> objects, List<Sid> sids)
-				throws NotFoundException {
+	throws NotFoundException {
 			return null;
 		}
 

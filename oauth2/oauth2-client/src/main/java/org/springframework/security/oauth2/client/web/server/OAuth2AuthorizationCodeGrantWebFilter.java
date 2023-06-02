@@ -122,11 +122,11 @@ public class OAuth2AuthorizationCodeGrantWebFilter implements WebFilter {
 	private ServerRequestCache requestCache = new WebSessionServerRequestCache();
 
 	private AnonymousAuthenticationToken anonymousToken = new AnonymousAuthenticationToken("key", "anonymous",
-			AuthorityUtils.createAuthorityList("ROLE_ANONYMOUS"));
+AuthorityUtils.createAuthorityList("ROLE_ANONYMOUS"));
 
 	public OAuth2AuthorizationCodeGrantWebFilter(ReactiveAuthenticationManager authenticationManager,
-			ReactiveClientRegistrationRepository clientRegistrationRepository,
-			ServerOAuth2AuthorizedClientRepository authorizedClientRepository) {
+ReactiveClientRegistrationRepository clientRegistrationRepository,
+ServerOAuth2AuthorizedClientRepository authorizedClientRepository) {
 		Assert.notNull(authenticationManager, "authenticationManager cannot be null");
 		Assert.notNull(clientRegistrationRepository, "clientRegistrationRepository cannot be null");
 		Assert.notNull(authorizedClientRepository, "authorizedClientRepository cannot be null");
@@ -134,7 +134,7 @@ public class OAuth2AuthorizationCodeGrantWebFilter implements WebFilter {
 		this.authorizedClientRepository = authorizedClientRepository;
 		this.requiresAuthenticationMatcher = this::matchesAuthorizationResponse;
 		ServerOAuth2AuthorizationCodeAuthenticationTokenConverter authenticationConverter = new ServerOAuth2AuthorizationCodeAuthenticationTokenConverter(
-				clientRegistrationRepository);
+	clientRegistrationRepository);
 		authenticationConverter.setAuthorizationRequestRepository(this.authorizationRequestRepository);
 		this.authenticationConverter = authenticationConverter;
 		this.defaultAuthenticationConverter = true;
@@ -145,8 +145,8 @@ public class OAuth2AuthorizationCodeGrantWebFilter implements WebFilter {
 	}
 
 	public OAuth2AuthorizationCodeGrantWebFilter(ReactiveAuthenticationManager authenticationManager,
-			ServerAuthenticationConverter authenticationConverter,
-			ServerOAuth2AuthorizedClientRepository authorizedClientRepository) {
+ServerAuthenticationConverter authenticationConverter,
+ServerOAuth2AuthorizedClientRepository authorizedClientRepository) {
 		Assert.notNull(authenticationManager, "authenticationManager cannot be null");
 		Assert.notNull(authenticationConverter, "authenticationConverter cannot be null");
 		Assert.notNull(authorizedClientRepository, "authorizedClientRepository cannot be null");
@@ -168,7 +168,7 @@ public class OAuth2AuthorizationCodeGrantWebFilter implements WebFilter {
 	 * @since 5.2
 	 */
 	public final void setAuthorizationRequestRepository(
-			ServerAuthorizationRequestRepository<OAuth2AuthorizationRequest> authorizationRequestRepository) {
+ServerAuthorizationRequestRepository<OAuth2AuthorizationRequest> authorizationRequestRepository) {
 		Assert.notNull(authorizationRequestRepository, "authorizationRequestRepository cannot be null");
 		this.authorizationRequestRepository = authorizationRequestRepository;
 		updateDefaultAuthenticationConverter();
@@ -177,7 +177,7 @@ public class OAuth2AuthorizationCodeGrantWebFilter implements WebFilter {
 	private void updateDefaultAuthenticationConverter() {
 		if (this.defaultAuthenticationConverter) {
 			((ServerOAuth2AuthorizationCodeAuthenticationTokenConverter) this.authenticationConverter)
-					.setAuthorizationRequestRepository(this.authorizationRequestRepository);
+		.setAuthorizationRequestRepository(this.authorizationRequestRepository);
 		}
 	}
 
@@ -197,89 +197,86 @@ public class OAuth2AuthorizationCodeGrantWebFilter implements WebFilter {
 
 	private void updateDefaultAuthenticationSuccessHandler() {
 		((RedirectServerAuthenticationSuccessHandler) this.authenticationSuccessHandler)
-				.setRequestCache(this.requestCache);
+	.setRequestCache(this.requestCache);
 	}
 
 	@Override
 	public Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain) {
 		// @formatter:off
 		return this.requiresAuthenticationMatcher.matches(exchange)
-				.filter(ServerWebExchangeMatcher.MatchResult::isMatch)
-				.flatMap((matchResult) -> this.authenticationConverter.convert(exchange)
-					.onErrorMap(OAuth2AuthorizationException.class,
-						(ex) -> new OAuth2AuthenticationException(ex.getError(), ex.getError().toString())
-					)
-				)
-				.switchIfEmpty(chain.filter(exchange).then(Mono.empty()))
-				.flatMap((token) -> authenticate(exchange, chain, token))
-				.onErrorResume(AuthenticationException.class, (e) ->
-					this.authenticationFailureHandler.onAuthenticationFailure(new WebFilterExchange(exchange, chain), e)
-				);
+	.filter(ServerWebExchangeMatcher.MatchResult::isMatch)
+	.flatMap((matchResult) -> this.authenticationConverter.convert(exchange).onErrorMap(OAuth2AuthorizationException.class,
+						(ex) -> new OAuth2AuthenticationException(ex.getError(), ex.getError().toString()))
+	)
+	.switchIfEmpty(chain.filter(exchange).then(Mono.empty()))
+	.flatMap((token) -> authenticate(exchange, chain, token))
+	.onErrorResume(AuthenticationException.class, (e) ->
+this.authenticationFailureHandler.onAuthenticationFailure(new WebFilterExchange(exchange, chain), e)
+	);
 		// @formatter:on
 	}
 
 	private Mono<Void> authenticate(ServerWebExchange exchange, WebFilterChain chain, Authentication token) {
 		WebFilterExchange webFilterExchange = new WebFilterExchange(exchange, chain);
 		return this.authenticationManager.authenticate(token)
-				.onErrorMap(OAuth2AuthorizationException.class,
-						(ex) -> new OAuth2AuthenticationException(ex.getError(), ex.getError().toString()))
-				.switchIfEmpty(Mono.defer(
-						() -> Mono.error(new IllegalStateException("No provider found for " + token.getClass()))))
-				.flatMap((authentication) -> onAuthenticationSuccess(authentication, webFilterExchange))
-				.onErrorResume(AuthenticationException.class,
-						(e) -> this.authenticationFailureHandler.onAuthenticationFailure(webFilterExchange, e));
+	.onErrorMap(OAuth2AuthorizationException.class,
+(ex) -> new OAuth2AuthenticationException(ex.getError(), ex.getError().toString()))
+	.switchIfEmpty(Mono.defer(
+() -> Mono.error(new IllegalStateException("No provider found for " + token.getClass()))))
+	.flatMap((authentication) -> onAuthenticationSuccess(authentication, webFilterExchange))
+	.onErrorResume(AuthenticationException.class,
+(e) -> this.authenticationFailureHandler.onAuthenticationFailure(webFilterExchange, e));
 	}
 
 	private Mono<Void> onAuthenticationSuccess(Authentication authentication, WebFilterExchange webFilterExchange) {
 		OAuth2AuthorizationCodeAuthenticationToken authenticationResult = (OAuth2AuthorizationCodeAuthenticationToken) authentication;
 		OAuth2AuthorizedClient authorizedClient = new OAuth2AuthorizedClient(
-				authenticationResult.getClientRegistration(), authenticationResult.getName(),
-				authenticationResult.getAccessToken(), authenticationResult.getRefreshToken());
+	authenticationResult.getClientRegistration(), authenticationResult.getName(),
+	authenticationResult.getAccessToken(), authenticationResult.getRefreshToken());
 		// @formatter:off
 		return this.authenticationSuccessHandler.onAuthenticationSuccess(webFilterExchange, authentication)
-				.then(ReactiveSecurityContextHolder.getContext()
-						.map(SecurityContext::getAuthentication)
-						.defaultIfEmpty(this.anonymousToken)
-						.flatMap((principal) -> this.authorizedClientRepository
+	.then(ReactiveSecurityContextHolder.getContext()
+.map(SecurityContext::getAuthentication)
+.defaultIfEmpty(this.anonymousToken)
+.flatMap((principal) -> this.authorizedClientRepository
 								.saveAuthorizedClient(authorizedClient, principal, webFilterExchange.getExchange())
-						)
-				);
+)
+	);
 		// @formatter:on
 	}
 
 	private Mono<ServerWebExchangeMatcher.MatchResult> matchesAuthorizationResponse(ServerWebExchange exchange) {
 		// @formatter:off
 		return Mono.just(exchange)
-				.filter((exch) ->
-						OAuth2AuthorizationResponseUtils.isAuthorizationResponse(exch.getRequest().getQueryParams())
-				)
-				.flatMap((exch) -> this.authorizationRequestRepository.loadAuthorizationRequest(exchange)
-						.flatMap((authorizationRequest) -> matchesRedirectUri(exch.getRequest().getURI(),
+	.filter((exch) ->
+OAuth2AuthorizationResponseUtils.isAuthorizationResponse(exch.getRequest().getQueryParams())
+	)
+	.flatMap((exch) -> this.authorizationRequestRepository.loadAuthorizationRequest(exchange).flatMap((authorizationRequest) -> matchesRedirectUri(exch.getRequest().getURI(),
 								authorizationRequest.getRedirectUri()))
-				)
-				.switchIfEmpty(ServerWebExchangeMatcher.MatchResult.notMatch());
+	)
+	.switchIfEmpty(ServerWebExchangeMatcher.MatchResult.notMatch());
 		// @formatter:on
 	}
 
 	private static Mono<ServerWebExchangeMatcher.MatchResult> matchesRedirectUri(URI authorizationResponseUri,
-			String authorizationRequestRedirectUri) {
+String authorizationRequestRedirectUri) {
 		UriComponents requestUri = UriComponentsBuilder.fromUri(authorizationResponseUri).build();
 		UriComponents redirectUri = UriComponentsBuilder.fromUriString(authorizationRequestRedirectUri).build();
 		Set<Map.Entry<String, List<String>>> requestUriParameters = new LinkedHashSet<>(
-				requestUri.getQueryParams().entrySet());
+	requestUri.getQueryParams().entrySet());
 		Set<Map.Entry<String, List<String>>> redirectUriParameters = new LinkedHashSet<>(
-				redirectUri.getQueryParams().entrySet());
+	redirectUri.getQueryParams().entrySet());
 		// Remove the additional request parameters (if any) from the authorization
 		// response (request)
 		// before doing an exact comparison with the authorizationRequest.getRedirectUri()
 		// parameters (if any)
 		requestUriParameters.retainAll(redirectUriParameters);
 		if (Objects.equals(requestUri.getScheme(), redirectUri.getScheme())
-				&& Objects.equals(requestUri.getUserInfo(), redirectUri.getUserInfo())
-				&& Objects.equals(requestUri.getHost(), redirectUri.getHost())
-				&& Objects.equals(requestUri.getPort(), redirectUri.getPort())
-				&& Objects.equals(requestUri.getPath(), redirectUri.getPath())
-				&& Objects.equals(requestUriParameters.toString(), redirectUriParameters.toString())) {
+	&& Objects.equals(requestUri.getUserInfo(), redirectUri.getUserInfo())
+	&& Objects.equals(requestUri.getHost(), redirectUri.getHost())
+	&& Objects.equals(requestUri.getPort(), redirectUri.getPort())
+	&& Objects.equals(requestUri.getPath(), redirectUri.getPath())
+	&& Objects.equals(requestUriParameters.toString(), redirectUriParameters.toString())) {
 			return ServerWebExchangeMatcher.MatchResult.match();
 		}
 		return ServerWebExchangeMatcher.MatchResult.notMatch();

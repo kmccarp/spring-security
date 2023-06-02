@@ -41,8 +41,7 @@ import static org.mockito.Mockito.verify;
  * @see CurrentDelegatingSecurityContextExecutorServiceTests
  * @see ExplicitDelegatingSecurityContextExecutorServiceTests
  */
-public abstract class AbstractDelegatingSecurityContextExecutorServiceTests
-		extends AbstractDelegatingSecurityContextExecutorTests {
+public abstract class AbstractDelegatingSecurityContextExecutorServiceTestsextends AbstractDelegatingSecurityContextExecutorTests {
 
 	@Mock
 	private Future<Object> expectedFutureObject;

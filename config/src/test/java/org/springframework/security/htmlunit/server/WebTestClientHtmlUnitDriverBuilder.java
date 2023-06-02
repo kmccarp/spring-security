@@ -43,7 +43,7 @@ public final class WebTestClientHtmlUnitDriverBuilder {
 		WebClient webClient = driver.getWebClient();
 		WebTestClientWebConnection webClientConnection = new WebTestClientWebConnection(this.webTestClient, webClient);
 		WebConnection connection = new DelegatingWebConnection(driver.getWebConnection(),
-				new DelegateWebConnection(new HostRequestMatcher("localhost"), webClientConnection));
+	new DelegateWebConnection(new HostRequestMatcher("localhost"), webClientConnection));
 		driver.setWebConnection(connection);
 		return driver;
 	}

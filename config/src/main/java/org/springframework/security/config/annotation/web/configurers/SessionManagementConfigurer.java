@@ -104,8 +104,7 @@ import org.springframework.util.CollectionUtils;
  * @see SessionManagementFilter
  * @see ConcurrentSessionFilter
  */
-public final class SessionManagementConfigurer<H extends HttpSecurityBuilder<H>>
-		extends AbstractHttpConfigurer<SessionManagementConfigurer<H>, H> {
+public final class SessionManagementConfigurer<H extends HttpSecurityBuilder<H>>extends AbstractHttpConfigurer<SessionManagementConfigurer<H>, H> {
 
 	private final SessionAuthenticationStrategy DEFAULT_SESSION_FIXATION_STRATEGY = createDefaultSessionFixationProtectionStrategy();
 
@@ -178,7 +177,7 @@ public final class SessionManagementConfigurer<H extends HttpSecurityBuilder<H>>
 	 * @return the {@link SessionManagementConfigurer} for further customization
 	 */
 	public SessionManagementConfigurer<H> requireExplicitAuthenticationStrategy(
-			boolean requireExplicitAuthenticationStrategy) {
+boolean requireExplicitAuthenticationStrategy) {
 		this.requireExplicitAuthenticationStrategy = requireExplicitAuthenticationStrategy;
 		return this;
 	}
@@ -210,7 +209,7 @@ public final class SessionManagementConfigurer<H extends HttpSecurityBuilder<H>>
 	public SessionManagementConfigurer<H> sessionAuthenticationErrorUrl(String sessionAuthenticationErrorUrl) {
 		this.sessionAuthenticationErrorUrl = sessionAuthenticationErrorUrl;
 		this.propertiesThatRequireImplicitAuthentication
-				.add("sessionAuthenticationErrorUrl = " + sessionAuthenticationErrorUrl);
+	.add("sessionAuthenticationErrorUrl = " + sessionAuthenticationErrorUrl);
 		return this;
 	}
 
@@ -224,10 +223,10 @@ public final class SessionManagementConfigurer<H extends HttpSecurityBuilder<H>>
 	 * @return the {@link SessionManagementConfigurer} for further customization
 	 */
 	public SessionManagementConfigurer<H> sessionAuthenticationFailureHandler(
-			AuthenticationFailureHandler sessionAuthenticationFailureHandler) {
+AuthenticationFailureHandler sessionAuthenticationFailureHandler) {
 		this.sessionAuthenticationFailureHandler = sessionAuthenticationFailureHandler;
 		this.propertiesThatRequireImplicitAuthentication
-				.add("sessionAuthenticationFailureHandler = " + sessionAuthenticationFailureHandler);
+	.add("sessionAuthenticationFailureHandler = " + sessionAuthenticationFailureHandler);
 		return this;
 	}
 
@@ -283,10 +282,10 @@ public final class SessionManagementConfigurer<H extends HttpSecurityBuilder<H>>
 	 * @return the {@link SessionManagementConfigurer} for further customizations
 	 */
 	public SessionManagementConfigurer<H> sessionAuthenticationStrategy(
-			SessionAuthenticationStrategy sessionAuthenticationStrategy) {
+SessionAuthenticationStrategy sessionAuthenticationStrategy) {
 		this.providedSessionAuthenticationStrategy = sessionAuthenticationStrategy;
 		this.propertiesThatRequireImplicitAuthentication
-				.add("sessionAuthenticationStrategy = " + sessionAuthenticationStrategy);
+	.add("sessionAuthenticationStrategy = " + sessionAuthenticationStrategy);
 		return this;
 	}
 
@@ -297,7 +296,7 @@ public final class SessionManagementConfigurer<H extends HttpSecurityBuilder<H>>
 	 * @return the {@link SessionManagementConfigurer} for further customizations
 	 */
 	SessionManagementConfigurer<H> addSessionAuthenticationStrategy(
-			SessionAuthenticationStrategy sessionAuthenticationStrategy) {
+SessionAuthenticationStrategy sessionAuthenticationStrategy) {
 		this.sessionAuthenticationStrategies.add(sessionAuthenticationStrategy);
 		return this;
 	}
@@ -317,7 +316,7 @@ public final class SessionManagementConfigurer<H extends HttpSecurityBuilder<H>>
 	 * @return the {@link SessionManagementConfigurer} for further customizations
 	 */
 	public SessionManagementConfigurer<H> sessionFixation(
-			Customizer<SessionFixationConfigurer> sessionFixationCustomizer) {
+Customizer<SessionFixationConfigurer> sessionFixationCustomizer) {
 		sessionFixationCustomizer.customize(new SessionFixationConfigurer());
 		return this;
 	}
@@ -342,7 +341,7 @@ public final class SessionManagementConfigurer<H extends HttpSecurityBuilder<H>>
 	 * @return the {@link SessionManagementConfigurer} for further customizations
 	 */
 	public SessionManagementConfigurer<H> sessionConcurrency(
-			Customizer<ConcurrencyControlConfigurer> sessionConcurrencyCustomizer) {
+Customizer<ConcurrencyControlConfigurer> sessionConcurrencyCustomizer) {
 		sessionConcurrencyCustomizer.customize(new ConcurrencyControlConfigurer());
 		return this;
 	}
@@ -353,7 +352,7 @@ public final class SessionManagementConfigurer<H extends HttpSecurityBuilder<H>>
 	 * @param sessionFixationAuthenticationStrategy
 	 */
 	private void setSessionFixationAuthenticationStrategy(
-			SessionAuthenticationStrategy sessionFixationAuthenticationStrategy) {
+SessionAuthenticationStrategy sessionFixationAuthenticationStrategy) {
 		this.sessionFixationAuthenticationStrategy = postProcess(sessionFixationAuthenticationStrategy);
 	}
 
@@ -376,7 +375,7 @@ public final class SessionManagementConfigurer<H extends HttpSecurityBuilder<H>>
 				}
 				this.sessionManagementSecurityContextRepository = httpSecurityRepository;
 				DelegatingSecurityContextRepository defaultRepository = new DelegatingSecurityContextRepository(
-						httpSecurityRepository, new RequestAttributeSecurityContextRepository());
+			httpSecurityRepository, new RequestAttributeSecurityContextRepository());
 				http.setSharedObject(SecurityContextRepository.class, defaultRepository);
 			}
 		}
@@ -415,7 +414,7 @@ public final class SessionManagementConfigurer<H extends HttpSecurityBuilder<H>>
 
 	private boolean shouldRequireExplicitAuthenticationStrategy() {
 		boolean defaultRequireExplicitAuthenticationStrategy = this.propertiesThatRequireImplicitAuthentication
-				.isEmpty();
+	.isEmpty();
 		if (this.requireExplicitAuthenticationStrategy == null) {
 			// explicit is not set, use default
 			return defaultRequireExplicitAuthenticationStrategy;
@@ -423,10 +422,10 @@ public final class SessionManagementConfigurer<H extends HttpSecurityBuilder<H>>
 		if (this.requireExplicitAuthenticationStrategy && !defaultRequireExplicitAuthenticationStrategy) {
 			// explicit disabled and implicit requires it
 			throw new IllegalStateException(
-					"Invalid configuration that explicitly sets requireExplicitAuthenticationStrategy to "
-							+ this.requireExplicitAuthenticationStrategy
-							+ " but implicitly requires it due to the following properties being set: "
-							+ this.propertiesThatRequireImplicitAuthentication);
+		"Invalid configuration that explicitly sets requireExplicitAuthenticationStrategy to "
+	+ this.requireExplicitAuthenticationStrategy
+	+ " but implicitly requires it due to the following properties being set: "
+	+ this.propertiesThatRequireImplicitAuthentication);
 		}
 		return this.requireExplicitAuthenticationStrategy;
 	}
@@ -437,10 +436,10 @@ public final class SessionManagementConfigurer<H extends HttpSecurityBuilder<H>>
 		}
 		SecurityContextRepository securityContextRepository = this.sessionManagementSecurityContextRepository;
 		SessionManagementFilter sessionManagementFilter = new SessionManagementFilter(securityContextRepository,
-				getSessionAuthenticationStrategy(http));
+	getSessionAuthenticationStrategy(http));
 		if (this.sessionAuthenticationErrorUrl != null) {
 			sessionManagementFilter.setAuthenticationFailureHandler(
-					new SimpleUrlAuthenticationFailureHandler(this.sessionAuthenticationErrorUrl));
+		new SimpleUrlAuthenticationFailureHandler(this.sessionAuthenticationErrorUrl));
 		}
 		InvalidSessionStrategy strategy = getInvalidSessionStrategy();
 		if (strategy != null) {
@@ -462,8 +461,8 @@ public final class SessionManagementConfigurer<H extends HttpSecurityBuilder<H>>
 		SessionInformationExpiredStrategy expireStrategy = getExpiredSessionStrategy();
 		SessionRegistry sessionRegistry = getSessionRegistry(http);
 		ConcurrentSessionFilter concurrentSessionFilter = (expireStrategy != null)
-				? new ConcurrentSessionFilter(sessionRegistry, expireStrategy)
-				: new ConcurrentSessionFilter(sessionRegistry);
+	? new ConcurrentSessionFilter(sessionRegistry, expireStrategy)
+	: new ConcurrentSessionFilter(sessionRegistry);
 		LogoutConfigurer<H> logoutConfigurer = http.getConfigurer(LogoutConfigurer.class);
 		if (logoutConfigurer != null) {
 			List<LogoutHandler> logoutHandlers = logoutConfigurer.getLogoutHandlers();
@@ -511,7 +510,7 @@ public final class SessionManagementConfigurer<H extends HttpSecurityBuilder<H>>
 			return null;
 		}
 		this.sessionAuthenticationFailureHandler = new SimpleUrlAuthenticationFailureHandler(
-				this.sessionAuthenticationErrorUrl);
+	this.sessionAuthenticationErrorUrl);
 		return this.sessionAuthenticationFailureHandler;
 	}
 
@@ -569,22 +568,22 @@ public final class SessionManagementConfigurer<H extends HttpSecurityBuilder<H>>
 		if (isConcurrentSessionControlEnabled()) {
 			SessionRegistry sessionRegistry = getSessionRegistry(http);
 			ConcurrentSessionControlAuthenticationStrategy concurrentSessionControlStrategy = new ConcurrentSessionControlAuthenticationStrategy(
-					sessionRegistry);
+		sessionRegistry);
 			concurrentSessionControlStrategy.setMaximumSessions(this.maximumSessions);
 			concurrentSessionControlStrategy.setExceptionIfMaximumExceeded(this.maxSessionsPreventsLogin);
 			concurrentSessionControlStrategy = postProcess(concurrentSessionControlStrategy);
 			RegisterSessionAuthenticationStrategy registerSessionStrategy = new RegisterSessionAuthenticationStrategy(
-					sessionRegistry);
+		sessionRegistry);
 			registerSessionStrategy = postProcess(registerSessionStrategy);
 
 			delegateStrategies.addAll(Arrays.asList(concurrentSessionControlStrategy,
-					defaultSessionAuthenticationStrategy, registerSessionStrategy));
+		defaultSessionAuthenticationStrategy, registerSessionStrategy));
 		}
 		else {
 			delegateStrategies.add(defaultSessionAuthenticationStrategy);
 		}
 		this.sessionAuthenticationStrategy = postProcess(
-				new CompositeSessionAuthenticationStrategy(delegateStrategies));
+	new CompositeSessionAuthenticationStrategy(delegateStrategies));
 		return this.sessionAuthenticationStrategy;
 	}
 
@@ -733,7 +732,7 @@ public final class SessionManagementConfigurer<H extends HttpSecurityBuilder<H>>
 		 * @return the {@link ConcurrencyControlConfigurer} for further customizations
 		 */
 		public ConcurrencyControlConfigurer expiredSessionStrategy(
-				SessionInformationExpiredStrategy expiredSessionStrategy) {
+	SessionInformationExpiredStrategy expiredSessionStrategy) {
 			SessionManagementConfigurer.this.expiredSessionStrategy = expiredSessionStrategy;
 			return this;
 		}

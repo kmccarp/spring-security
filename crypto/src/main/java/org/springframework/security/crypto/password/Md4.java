@@ -105,7 +105,7 @@ class Md4 {
 	private void update(byte[] block, int offset) {
 		for (int i = 0; i < 16; i++) {
 			this.tmp[i] = (block[offset++] & 0xFF) | (block[offset++] & 0xFF) << 8 | (block[offset++] & 0xFF) << 16
-					| (block[offset++] & 0xFF) << 24;
+		| (block[offset++] & 0xFF) << 24;
 		}
 
 		int A = this.state[0];

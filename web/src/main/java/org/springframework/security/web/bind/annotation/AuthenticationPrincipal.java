@@ -35,7 +35,7 @@ import org.springframework.security.core.Authentication;
  * @author Rob Winch
  * @since 3.2
  */
-@Target({ ElementType.PARAMETER, ElementType.ANNOTATION_TYPE })
+@Target({ElementType.PARAMETER, ElementType.ANNOTATION_TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Deprecated

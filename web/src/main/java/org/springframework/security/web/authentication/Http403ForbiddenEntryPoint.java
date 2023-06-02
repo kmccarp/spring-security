@@ -53,7 +53,7 @@ public class Http403ForbiddenEntryPoint implements AuthenticationEntryPoint {
 	 */
 	@Override
 	public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException arg2)
-			throws IOException {
+throws IOException {
 		logger.debug("Pre-authenticated entry point called. Rejecting access");
 		response.sendError(HttpServletResponse.SC_FORBIDDEN, "Access Denied");
 	}

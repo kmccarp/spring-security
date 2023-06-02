@@ -45,6 +45,6 @@ public interface ReactiveOAuth2AuthorizationSuccessHandler {
 	 * handling the event.
 	 */
 	Mono<Void> onAuthorizationSuccess(OAuth2AuthorizedClient authorizedClient, Authentication principal,
-			Map<String, Object> attributes);
+Map<String, Object> attributes);
 
 }

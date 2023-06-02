@@ -30,12 +30,12 @@ public class OidcUserInfoBuilderTests {
 		OidcUserInfo.Builder userInfoBuilder = OidcUserInfo.builder();
 		// @formatter:off
 		OidcUserInfo first = userInfoBuilder
-				.claim("TEST_CLAIM_1", "C1")
-				.build();
+	.claim("TEST_CLAIM_1", "C1")
+	.build();
 		OidcUserInfo second = userInfoBuilder
-				.claim("TEST_CLAIM_1", "C2")
-				.claim("TEST_CLAIM_2", "C3")
-				.build();
+	.claim("TEST_CLAIM_1", "C2")
+	.claim("TEST_CLAIM_2", "C3")
+	.build();
 		// @formatter:on
 		assertThat(first.getClaims()).hasSize(1);
 		assertThat(first.getClaims().get("TEST_CLAIM_1")).isEqualTo("C1");
@@ -51,16 +51,16 @@ public class OidcUserInfoBuilderTests {
 		String named = new String("sub");
 		// @formatter:off
 		OidcUserInfo userInfo = userInfoBuilder
-				.subject(named)
-				.claim(IdTokenClaimNames.SUB, generic)
-				.build();
+	.subject(named)
+	.claim(IdTokenClaimNames.SUB, generic)
+	.build();
 		// @formatter:on
 		assertThat(userInfo.getSubject()).isSameAs(generic);
 		// @formatter:off
 		userInfo = userInfoBuilder
-				.claim(IdTokenClaimNames.SUB, generic)
-				.subject(named)
-				.build();
+	.claim(IdTokenClaimNames.SUB, generic)
+	.subject(named)
+	.build();
 		// @formatter:on
 		assertThat(userInfo.getSubject()).isSameAs(named);
 	}
@@ -69,10 +69,10 @@ public class OidcUserInfoBuilderTests {
 	public void claimsWhenRemovingAClaimThenIsNotPresent() {
 		// @formatter:off
 		OidcUserInfo.Builder userInfoBuilder = OidcUserInfo.builder()
-				.claim("needs", "a claim");
+	.claim("needs", "a claim");
 		OidcUserInfo userInfo = userInfoBuilder.subject("sub")
-				.claims((claims) -> claims.remove(IdTokenClaimNames.SUB))
-				.build();
+	.claims((claims) -> claims.remove(IdTokenClaimNames.SUB))
+	.build();
 		// @formatter:on
 		assertThat(userInfo.getSubject()).isNull();
 	}
@@ -84,8 +84,8 @@ public class OidcUserInfoBuilderTests {
 		String value = new String("value");
 		// @formatter:off
 		OidcUserInfo userInfo = userInfoBuilder
-				.claims((claims) -> claims.put(name, value))
-				.build();
+	.claims((claims) -> claims.put(name, value))
+	.build();
 		// @formatter:on
 		assertThat(userInfo.getClaims()).hasSize(1);
 		assertThat(userInfo.getClaims().get(name)).isSameAs(value);

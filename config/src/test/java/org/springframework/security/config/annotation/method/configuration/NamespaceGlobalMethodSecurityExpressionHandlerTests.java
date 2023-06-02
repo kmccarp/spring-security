@@ -41,7 +41,7 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
  * @author Rob Winch
  * @author Josh Cummings
  */
-@ExtendWith({ SpringExtension.class, SpringTestContextExtension.class })
+@ExtendWith({SpringExtension.class, SpringTestContextExtension.class})
 @SecurityTestExecutionListeners
 public class NamespaceGlobalMethodSecurityExpressionHandlerTests {
 
@@ -64,7 +64,7 @@ public class NamespaceGlobalMethodSecurityExpressionHandlerTests {
 		this.spring.register(CustomAccessDecisionManagerConfig.class, MethodSecurityServiceConfig.class).autowire();
 		assertThat(this.service.postHasPermission("granted")).isNull();
 		assertThatExceptionOfType(AccessDeniedException.class)
-				.isThrownBy(() -> this.service.postHasPermission("denied"));
+	.isThrownBy(() -> this.service.postHasPermission("denied"));
 	}
 
 	@Configuration
@@ -77,13 +77,13 @@ public class NamespaceGlobalMethodSecurityExpressionHandlerTests {
 			expressionHandler.setPermissionEvaluator(new PermissionEvaluator() {
 				@Override
 				public boolean hasPermission(Authentication authentication, Object targetDomainObject,
-						Object permission) {
+			Object permission) {
 					return "granted".equals(targetDomainObject);
 				}
 
 				@Override
 				public boolean hasPermission(Authentication authentication, Serializable targetId, String targetType,
-						Object permission) {
+			Object permission) {
 					throw new UnsupportedOperationException();
 				}
 			});

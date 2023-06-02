@@ -78,10 +78,9 @@ import static org.mockito.Mockito.verify;
  * @author Evgeniy Cheban
  * @author Josh Cummings
  */
-@ExtendWith({ SpringExtension.class, SpringTestContextExtension.class })
+@ExtendWith({SpringExtension.class, SpringTestContextExtension.class})
 @ContextConfiguration(classes = SecurityContextChangedListenerConfig.class)
-@TestExecutionListeners(listeners = { WithSecurityContextTestExecutionListener.class,
-		SpringTestParentApplicationContextExecutionListener.class })
+@TestExecutionListeners(listeners = {WithSecurityContextTestExecutionListener.class,SpringTestParentApplicationContextExecutionListener.class})
 public class PrePostMethodSecurityConfigurationTests {
 
 	public final SpringTestContext spring = new SpringTestContext(this);
@@ -97,7 +96,7 @@ public class PrePostMethodSecurityConfigurationTests {
 	public void preAuthorizeWhenRoleAdminThenAccessDeniedException() {
 		this.spring.register(MethodSecurityServiceConfig.class).autowire();
 		assertThatExceptionOfType(AccessDeniedException.class).isThrownBy(this.methodSecurityService::preAuthorize)
-				.withMessage("Access Denied");
+	.withMessage("Access Denied");
 	}
 
 	@WithAnonymousUser
@@ -113,7 +112,7 @@ public class PrePostMethodSecurityConfigurationTests {
 	public void preAuthorizeNotAnonymousWhenRoleAnonymousThenAccessDeniedException() {
 		this.spring.register(MethodSecurityServiceConfig.class).autowire();
 		assertThatExceptionOfType(AccessDeniedException.class)
-				.isThrownBy(this.methodSecurityService::preAuthorizeNotAnonymous).withMessage("Access Denied");
+	.isThrownBy(this.methodSecurityService::preAuthorizeNotAnonymous).withMessage("Access Denied");
 	}
 
 	@WithMockUser
@@ -128,7 +127,7 @@ public class PrePostMethodSecurityConfigurationTests {
 	public void securedWhenRoleUserThenAccessDeniedException() {
 		this.spring.register(MethodSecurityServiceEnabledConfig.class).autowire();
 		assertThatExceptionOfType(AccessDeniedException.class).isThrownBy(this.methodSecurityService::secured)
-				.withMessage("Access Denied");
+	.withMessage("Access Denied");
 	}
 
 	@WithMockUser(roles = "ADMIN")
@@ -144,7 +143,7 @@ public class PrePostMethodSecurityConfigurationTests {
 	public void securedUserWhenRoleAdminThenAccessDeniedException() {
 		this.spring.register(MethodSecurityServiceEnabledConfig.class).autowire();
 		assertThatExceptionOfType(AccessDeniedException.class).isThrownBy(this.methodSecurityService::securedUser)
-				.withMessage("Access Denied");
+	.withMessage("Access Denied");
 		SecurityContextHolderStrategy strategy = this.spring.getContext().getBean(SecurityContextHolderStrategy.class);
 		verify(strategy, atLeastOnce()).getContext();
 	}
@@ -162,7 +161,7 @@ public class PrePostMethodSecurityConfigurationTests {
 	public void preAuthorizeAdminWhenRoleUserThenAccessDeniedException() {
 		this.spring.register(MethodSecurityServiceConfig.class).autowire();
 		assertThatExceptionOfType(AccessDeniedException.class).isThrownBy(this.methodSecurityService::preAuthorizeAdmin)
-				.withMessage("Access Denied");
+	.withMessage("Access Denied");
 	}
 
 	@WithMockUser(roles = "ADMIN")
@@ -193,7 +192,7 @@ public class PrePostMethodSecurityConfigurationTests {
 	public void postHasPermissionWhenParameterIsNotGrantThenAccessDeniedException() {
 		this.spring.register(CustomPermissionEvaluatorConfig.class, MethodSecurityServiceConfig.class).autowire();
 		assertThatExceptionOfType(AccessDeniedException.class)
-				.isThrownBy(() -> this.methodSecurityService.postHasPermission("deny")).withMessage("Access Denied");
+	.isThrownBy(() -> this.methodSecurityService.postHasPermission("deny")).withMessage("Access Denied");
 	}
 
 	@WithMockUser
@@ -209,7 +208,7 @@ public class PrePostMethodSecurityConfigurationTests {
 	public void postAnnotationWhenParameterIsNotGrantThenAccessDeniedException() {
 		this.spring.register(MethodSecurityServiceConfig.class).autowire();
 		assertThatExceptionOfType(AccessDeniedException.class)
-				.isThrownBy(() -> this.methodSecurityService.postAnnotation("deny")).withMessage("Access Denied");
+	.isThrownBy(() -> this.methodSecurityService.postAnnotation("deny")).withMessage("Access Denied");
 	}
 
 	@WithMockUser
@@ -250,7 +249,7 @@ public class PrePostMethodSecurityConfigurationTests {
 	@Test
 	public void securedUserWhenCustomBeforeAdviceConfiguredAndNameBobThenPasses() {
 		this.spring.register(CustomAuthorizationManagerBeforeAdviceConfig.class, MethodSecurityServiceConfig.class)
-				.autowire();
+	.autowire();
 		String result = this.methodSecurityService.securedUser();
 		assertThat(result).isNull();
 	}
@@ -259,16 +258,16 @@ public class PrePostMethodSecurityConfigurationTests {
 	@Test
 	public void securedUserWhenCustomBeforeAdviceConfiguredAndNameNotBobThenAccessDeniedException() {
 		this.spring.register(CustomAuthorizationManagerBeforeAdviceConfig.class, MethodSecurityServiceConfig.class)
-				.autowire();
+	.autowire();
 		assertThatExceptionOfType(AccessDeniedException.class).isThrownBy(this.methodSecurityService::securedUser)
-				.withMessage("Access Denied");
+	.withMessage("Access Denied");
 	}
 
 	@WithMockUser("bob")
 	@Test
 	public void securedUserWhenCustomAfterAdviceConfiguredAndNameBobThenGranted() {
 		this.spring.register(CustomAuthorizationManagerAfterAdviceConfig.class, MethodSecurityServiceConfig.class)
-				.autowire();
+	.autowire();
 		String result = this.methodSecurityService.securedUser();
 		assertThat(result).isEqualTo("granted");
 	}
@@ -277,9 +276,9 @@ public class PrePostMethodSecurityConfigurationTests {
 	@Test
 	public void securedUserWhenCustomAfterAdviceConfiguredAndNameNotBobThenAccessDeniedException() {
 		this.spring.register(CustomAuthorizationManagerAfterAdviceConfig.class, MethodSecurityServiceConfig.class)
-				.autowire();
+	.autowire();
 		assertThatExceptionOfType(AccessDeniedException.class).isThrownBy(this.methodSecurityService::securedUser)
-				.withMessage("Access Denied for User 'joe'");
+	.withMessage("Access Denied for User 'joe'");
 	}
 
 	@WithMockUser(roles = "ADMIN")
@@ -287,7 +286,7 @@ public class PrePostMethodSecurityConfigurationTests {
 	public void jsr250WhenRoleAdminThenAccessDeniedException() {
 		this.spring.register(MethodSecurityServiceEnabledConfig.class).autowire();
 		assertThatExceptionOfType(AccessDeniedException.class).isThrownBy(this.methodSecurityService::jsr250)
-				.withMessage("Access Denied");
+	.withMessage("Access Denied");
 	}
 
 	@WithAnonymousUser
@@ -303,7 +302,7 @@ public class PrePostMethodSecurityConfigurationTests {
 	public void rolesAllowedUserWhenRoleAdminThenAccessDeniedException() {
 		this.spring.register(BusinessServiceConfig.class).autowire();
 		assertThatExceptionOfType(AccessDeniedException.class).isThrownBy(this.businessService::rolesAllowedUser)
-				.withMessage("Access Denied");
+	.withMessage("Access Denied");
 		SecurityContextHolderStrategy strategy = this.spring.getContext().getBean(SecurityContextHolderStrategy.class);
 		verify(strategy, atLeastOnce()).getContext();
 	}
@@ -315,7 +314,7 @@ public class PrePostMethodSecurityConfigurationTests {
 		this.businessService.rolesAllowedUser();
 	}
 
-	@WithMockUser(roles = { "ADMIN", "USER" })
+	@WithMockUser(roles = {"ADMIN", "USER"})
 	@Test
 	public void manyAnnotationsWhenMeetsConditionsThenReturnsFilteredList() throws Exception {
 		List<String> names = Arrays.asList("harold", "jonathan", "pete", "bo");
@@ -333,7 +332,7 @@ public class PrePostMethodSecurityConfigurationTests {
 		List<String> names = Arrays.asList("harold", "jonathan", "pete", "bo");
 		this.spring.register(MethodSecurityServiceEnabledConfig.class).autowire();
 		assertThatExceptionOfType(AccessDeniedException.class)
-				.isThrownBy(() -> this.methodSecurityService.manyAnnotations(new ArrayList<>(names)));
+	.isThrownBy(() -> this.methodSecurityService.manyAnnotations(new ArrayList<>(names)));
 	}
 
 	@WithMockUser
@@ -342,7 +341,7 @@ public class PrePostMethodSecurityConfigurationTests {
 		List<String> names = Arrays.asList("harold", "jonathan", "pete");
 		this.spring.register(MethodSecurityServiceEnabledConfig.class).autowire();
 		assertThatExceptionOfType(AccessDeniedException.class)
-				.isThrownBy(() -> this.methodSecurityService.manyAnnotations(new ArrayList<>(names)));
+	.isThrownBy(() -> this.methodSecurityService.manyAnnotations(new ArrayList<>(names)));
 	}
 
 	@WithMockUser(roles = "ADMIN")
@@ -351,7 +350,7 @@ public class PrePostMethodSecurityConfigurationTests {
 		List<String> names = Arrays.asList("harold", "jonathan", "pete", "bo");
 		this.spring.register(MethodSecurityServiceEnabledConfig.class).autowire();
 		assertThatExceptionOfType(AccessDeniedException.class)
-				.isThrownBy(() -> this.methodSecurityService.manyAnnotations(new ArrayList<>(names)));
+	.isThrownBy(() -> this.methodSecurityService.manyAnnotations(new ArrayList<>(names)));
 	}
 
 	// gh-3183
@@ -359,7 +358,7 @@ public class PrePostMethodSecurityConfigurationTests {
 	public void repeatedAnnotationsWhenPresentThenFails() {
 		this.spring.register(MethodSecurityServiceConfig.class).autowire();
 		assertThatExceptionOfType(AnnotationConfigurationException.class)
-				.isThrownBy(() -> this.methodSecurityService.repeatedAnnotations());
+	.isThrownBy(() -> this.methodSecurityService.repeatedAnnotations());
 	}
 
 	// gh-3183
@@ -367,7 +366,7 @@ public class PrePostMethodSecurityConfigurationTests {
 	public void repeatedJsr250AnnotationsWhenPresentThenFails() {
 		this.spring.register(Jsr250Config.class).autowire();
 		assertThatExceptionOfType(AnnotationConfigurationException.class)
-				.isThrownBy(() -> this.businessService.repeatedAnnotations());
+	.isThrownBy(() -> this.businessService.repeatedAnnotations());
 	}
 
 	// gh-3183
@@ -375,7 +374,7 @@ public class PrePostMethodSecurityConfigurationTests {
 	public void repeatedSecuredAnnotationsWhenPresentThenFails() {
 		this.spring.register(SecuredConfig.class).autowire();
 		assertThatExceptionOfType(AnnotationConfigurationException.class)
-				.isThrownBy(() -> this.businessService.repeatedAnnotations());
+	.isThrownBy(() -> this.businessService.repeatedAnnotations());
 	}
 
 	@WithMockUser
@@ -383,10 +382,10 @@ public class PrePostMethodSecurityConfigurationTests {
 	public void preAuthorizeWhenAuthorizationEventPublisherThenUses() {
 		this.spring.register(MethodSecurityServiceConfig.class, AuthorizationEventPublisherConfig.class).autowire();
 		assertThatExceptionOfType(AccessDeniedException.class)
-				.isThrownBy(() -> this.methodSecurityService.preAuthorize());
+	.isThrownBy(() -> this.methodSecurityService.preAuthorize());
 		AuthorizationEventPublisher publisher = this.spring.getContext().getBean(AuthorizationEventPublisher.class);
 		verify(publisher).publishAuthorizationEvent(any(Supplier.class), any(MethodInvocation.class),
-				any(AuthorizationDecision.class));
+	any(AuthorizationDecision.class));
 	}
 
 	@WithMockUser
@@ -396,7 +395,7 @@ public class PrePostMethodSecurityConfigurationTests {
 		this.methodSecurityService.postAnnotation("grant");
 		AuthorizationEventPublisher publisher = this.spring.getContext().getBean(AuthorizationEventPublisher.class);
 		verify(publisher).publishAuthorizationEvent(any(Supplier.class), any(MethodInvocationResult.class),
-				any(AuthorizationDecision.class));
+	any(AuthorizationDecision.class));
 	}
 
 	// gh-10305
@@ -488,13 +487,13 @@ public class PrePostMethodSecurityConfigurationTests {
 			expressionHandler.setPermissionEvaluator(new PermissionEvaluator() {
 				@Override
 				public boolean hasPermission(Authentication authentication, Object targetDomainObject,
-						Object permission) {
+			Object permission) {
 					return "grant".equals(targetDomainObject);
 				}
 
 				@Override
 				public boolean hasPermission(Authentication authentication, Serializable targetId, String targetType,
-						Object permission) {
+			Object permission) {
 					throw new UnsupportedOperationException();
 				}
 			});
@@ -524,9 +523,9 @@ public class PrePostMethodSecurityConfigurationTests {
 			JdkRegexpMethodPointcut pointcut = new JdkRegexpMethodPointcut();
 			pointcut.setPattern(".*MethodSecurityServiceImpl.*securedUser");
 			AuthorizationManager<MethodInvocation> authorizationManager = (a,
-					o) -> new AuthorizationDecision("bob".equals(a.get().getName()));
+		o) -> new AuthorizationDecision("bob".equals(a.get().getName()));
 			AuthorizationManagerBeforeMethodInterceptor before = new AuthorizationManagerBeforeMethodInterceptor(
-					pointcut, authorizationManager);
+		pointcut, authorizationManager);
 			before.setSecurityContextHolderStrategy(strategy);
 			return before;
 		}

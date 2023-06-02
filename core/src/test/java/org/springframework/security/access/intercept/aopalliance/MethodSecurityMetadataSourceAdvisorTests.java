@@ -38,7 +38,7 @@ public class MethodSecurityMetadataSourceAdvisorTests {
 	@Test
 	public void testAdvisorReturnsFalseWhenMethodInvocationNotDefined() throws Exception {
 		Class<TargetObject> clazz = TargetObject.class;
-		Method method = clazz.getMethod("makeLowerCase", new Class[] { String.class });
+		Method method = clazz.getMethod("makeLowerCase", new Class[]{String.class});
 		MethodSecurityMetadataSource mds = mock(MethodSecurityMetadataSource.class);
 		given(mds.getAttributes(method, clazz)).willReturn(null);
 		MethodSecurityMetadataSourceAdvisor advisor = new MethodSecurityMetadataSourceAdvisor("", mds, "");
@@ -48,7 +48,7 @@ public class MethodSecurityMetadataSourceAdvisorTests {
 	@Test
 	public void testAdvisorReturnsTrueWhenMethodInvocationIsDefined() throws Exception {
 		Class<TargetObject> clazz = TargetObject.class;
-		Method method = clazz.getMethod("countLength", new Class[] { String.class });
+		Method method = clazz.getMethod("countLength", new Class[]{String.class});
 		MethodSecurityMetadataSource mds = mock(MethodSecurityMetadataSource.class);
 		given(mds.getAttributes(method, clazz)).willReturn(SecurityConfig.createList("ROLE_A"));
 		MethodSecurityMetadataSourceAdvisor advisor = new MethodSecurityMetadataSourceAdvisor("", mds, "");

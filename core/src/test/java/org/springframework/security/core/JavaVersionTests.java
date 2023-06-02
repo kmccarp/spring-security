@@ -39,7 +39,7 @@ public class JavaVersionTests {
 	private void assertClassVersion(Class<?> clazz) throws Exception {
 		String classResourceName = clazz.getName().replaceAll("\\.", "/") + ".class";
 		try (InputStream input = Thread.currentThread().getContextClassLoader()
-				.getResourceAsStream(classResourceName)) {
+	.getResourceAsStream(classResourceName)) {
 			DataInputStream data = new DataInputStream(input);
 			data.readInt();
 			data.readShort(); // minor

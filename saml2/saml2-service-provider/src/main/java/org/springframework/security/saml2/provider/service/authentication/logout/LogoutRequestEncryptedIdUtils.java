@@ -49,8 +49,7 @@ import org.springframework.security.saml2.provider.service.registration.RelyingP
 final class LogoutRequestEncryptedIdUtils {
 
 	private static final EncryptedKeyResolver encryptedKeyResolver = new ChainingEncryptedKeyResolver(
-			Arrays.asList(new InlineEncryptedKeyResolver(), new EncryptedElementTypeEncryptedKeyResolver(),
-					new SimpleRetrievalMethodEncryptedKeyResolver()));
+Arrays.asList(new InlineEncryptedKeyResolver(), new EncryptedElementTypeEncryptedKeyResolver(),new SimpleRetrievalMethodEncryptedKeyResolver()));
 
 	static SAMLObject decryptEncryptedId(EncryptedID encryptedId, RelyingPartyRegistration registration) {
 		Decrypter decrypter = decrypter(registration);

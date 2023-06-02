@@ -65,34 +65,34 @@ class CoreSecurityRuntimeHints implements RuntimeHintsRegistrar {
 
 	private void registerMethodSecurityHints(RuntimeHints hints) {
 		hints.reflection().registerType(
-				TypeReference.of("org.springframework.security.access.expression.method.MethodSecurityExpressionRoot"),
-				(builder) -> builder.withMembers(MemberCategory.INVOKE_PUBLIC_METHODS));
+	TypeReference.of("org.springframework.security.access.expression.method.MethodSecurityExpressionRoot"),
+	(builder) -> builder.withMembers(MemberCategory.INVOKE_PUBLIC_METHODS));
 		hints.reflection().registerType(AbstractAuthenticationToken.class,
-				(builder) -> builder.withMembers(MemberCategory.INVOKE_PUBLIC_METHODS));
+	(builder) -> builder.withMembers(MemberCategory.INVOKE_PUBLIC_METHODS));
 	}
 
 	private void registerExpressionEvaluationHints(RuntimeHints hints) {
 		hints.reflection().registerTypes(
-				List.of(TypeReference.of(SecurityExpressionOperations.class),
-						TypeReference.of(SecurityExpressionRoot.class)),
-				(builder) -> builder.withMembers(MemberCategory.DECLARED_FIELDS,
-						MemberCategory.INVOKE_DECLARED_METHODS));
+	List.of(TypeReference.of(SecurityExpressionOperations.class),
+TypeReference.of(SecurityExpressionRoot.class)),
+	(builder) -> builder.withMembers(MemberCategory.DECLARED_FIELDS,
+MemberCategory.INVOKE_DECLARED_METHODS));
 	}
 
 	private void registerExceptionEventsHints(RuntimeHints hints) {
 		hints.reflection().registerTypes(getDefaultAuthenticationExceptionEventPublisherTypes(),
-				(builder) -> builder.withMembers(MemberCategory.INVOKE_DECLARED_CONSTRUCTORS));
+	(builder) -> builder.withMembers(MemberCategory.INVOKE_DECLARED_CONSTRUCTORS));
 	}
 
 	private List<TypeReference> getDefaultAuthenticationExceptionEventPublisherTypes() {
 		return Stream.of(AuthenticationFailureBadCredentialsEvent.class,
-				AuthenticationFailureCredentialsExpiredEvent.class, AuthenticationFailureDisabledEvent.class,
-				AuthenticationFailureExpiredEvent.class, AuthenticationFailureLockedEvent.class,
-				AuthenticationFailureProviderNotFoundEvent.class, AuthenticationFailureProxyUntrustedEvent.class,
-				AuthenticationFailureServiceExceptionEvent.class, AuthenticationServiceException.class,
-				AccountExpiredException.class, BadCredentialsException.class, CredentialsExpiredException.class,
-				DisabledException.class, LockedException.class, UsernameNotFoundException.class,
-				ProviderNotFoundException.class).map(TypeReference::of).toList();
+	AuthenticationFailureCredentialsExpiredEvent.class, AuthenticationFailureDisabledEvent.class,
+	AuthenticationFailureExpiredEvent.class, AuthenticationFailureLockedEvent.class,
+	AuthenticationFailureProviderNotFoundEvent.class, AuthenticationFailureProxyUntrustedEvent.class,
+	AuthenticationFailureServiceExceptionEvent.class, AuthenticationServiceException.class,
+	AccountExpiredException.class, BadCredentialsException.class, CredentialsExpiredException.class,
+	DisabledException.class, LockedException.class, UsernameNotFoundException.class,
+	ProviderNotFoundException.class).map(TypeReference::of).toList();
 	}
 
 	private void registerDefaultJdbcSchemaFileHint(RuntimeHints hints) {
@@ -101,7 +101,7 @@ class CoreSecurityRuntimeHints implements RuntimeHintsRegistrar {
 
 	private void registerSecurityContextHints(RuntimeHints hints) {
 		hints.reflection().registerType(SecurityContextImpl.class,
-				(builder) -> builder.withMembers(MemberCategory.INVOKE_PUBLIC_METHODS));
+	(builder) -> builder.withMembers(MemberCategory.INVOKE_PUBLIC_METHODS));
 	}
 
 }

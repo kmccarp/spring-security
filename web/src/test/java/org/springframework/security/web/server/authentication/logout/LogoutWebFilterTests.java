@@ -57,24 +57,24 @@ public class LogoutWebFilterTests {
 		this.logoutWebFilter.setLogoutHandler(this.handler1);
 		this.logoutWebFilter.setLogoutHandler(this.handler2);
 		assertThat(getLogoutHandler()).isNotNull().isInstanceOf(ServerLogoutHandler.class)
-				.isNotInstanceOf(SecurityContextServerLogoutHandler.class).extracting(ServerLogoutHandler::getClass)
-				.isEqualTo(this.handler2.getClass());
+	.isNotInstanceOf(SecurityContextServerLogoutHandler.class).extracting(ServerLogoutHandler::getClass)
+	.isEqualTo(this.handler2.getClass());
 	}
 
 	@Test
 	public void multipleLogoutHandlers() {
 		this.logoutWebFilter
-				.setLogoutHandler(new DelegatingServerLogoutHandler(this.handler1, this.handler2, this.handler3));
+	.setLogoutHandler(new DelegatingServerLogoutHandler(this.handler1, this.handler2, this.handler3));
 		assertThat(getLogoutHandler()).isNotNull().isExactlyInstanceOf(DelegatingServerLogoutHandler.class)
-				.extracting((delegatingLogoutHandler) -> ((Collection<ServerLogoutHandler>) ReflectionTestUtils
-						.getField(delegatingLogoutHandler, DelegatingServerLogoutHandler.class, "delegates")).stream()
-								.map(ServerLogoutHandler::getClass).collect(Collectors.toList()))
-				.isEqualTo(Arrays.asList(this.handler1.getClass(), this.handler2.getClass(), this.handler3.getClass()));
+	.extracting((delegatingLogoutHandler) -> ((Collection<ServerLogoutHandler>) ReflectionTestUtils
+.getField(delegatingLogoutHandler, DelegatingServerLogoutHandler.class, "delegates")).stream()
+.map(ServerLogoutHandler::getClass).collect(Collectors.toList()))
+	.isEqualTo(Arrays.asList(this.handler1.getClass(), this.handler2.getClass(), this.handler3.getClass()));
 	}
 
 	private ServerLogoutHandler getLogoutHandler() {
 		return (ServerLogoutHandler) ReflectionTestUtils.getField(this.logoutWebFilter, LogoutWebFilter.class,
-				"logoutHandler");
+	"logoutHandler");
 	}
 
 }

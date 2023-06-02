@@ -116,72 +116,72 @@ public class CsrfConfigurerTests {
 	@Test
 	public void postWhenWebSecurityEnabledThenRespondsWithForbidden() throws Exception {
 		this.spring
-				.register(CsrfAppliedDefaultConfig.class, AllowHttpMethodsFirewallConfig.class, BasicController.class)
-				.autowire();
+	.register(CsrfAppliedDefaultConfig.class, AllowHttpMethodsFirewallConfig.class, BasicController.class)
+	.autowire();
 		this.mvc.perform(post("/")).andExpect(status().isForbidden());
 	}
 
 	@Test
 	public void putWhenWebSecurityEnabledThenRespondsWithForbidden() throws Exception {
 		this.spring
-				.register(CsrfAppliedDefaultConfig.class, AllowHttpMethodsFirewallConfig.class, BasicController.class)
-				.autowire();
+	.register(CsrfAppliedDefaultConfig.class, AllowHttpMethodsFirewallConfig.class, BasicController.class)
+	.autowire();
 		this.mvc.perform(put("/")).andExpect(status().isForbidden());
 	}
 
 	@Test
 	public void patchWhenWebSecurityEnabledThenRespondsWithForbidden() throws Exception {
 		this.spring
-				.register(CsrfAppliedDefaultConfig.class, AllowHttpMethodsFirewallConfig.class, BasicController.class)
-				.autowire();
+	.register(CsrfAppliedDefaultConfig.class, AllowHttpMethodsFirewallConfig.class, BasicController.class)
+	.autowire();
 		this.mvc.perform(patch("/")).andExpect(status().isForbidden());
 	}
 
 	@Test
 	public void deleteWhenWebSecurityEnabledThenRespondsWithForbidden() throws Exception {
 		this.spring
-				.register(CsrfAppliedDefaultConfig.class, AllowHttpMethodsFirewallConfig.class, BasicController.class)
-				.autowire();
+	.register(CsrfAppliedDefaultConfig.class, AllowHttpMethodsFirewallConfig.class, BasicController.class)
+	.autowire();
 		this.mvc.perform(delete("/")).andExpect(status().isForbidden());
 	}
 
 	@Test
 	public void invalidWhenWebSecurityEnabledThenRespondsWithForbidden() throws Exception {
 		this.spring
-				.register(CsrfAppliedDefaultConfig.class, AllowHttpMethodsFirewallConfig.class, BasicController.class)
-				.autowire();
+	.register(CsrfAppliedDefaultConfig.class, AllowHttpMethodsFirewallConfig.class, BasicController.class)
+	.autowire();
 		this.mvc.perform(request("INVALID", URI.create("/"))).andExpect(status().isForbidden());
 	}
 
 	@Test
 	public void getWhenWebSecurityEnabledThenRespondsWithOk() throws Exception {
 		this.spring
-				.register(CsrfAppliedDefaultConfig.class, AllowHttpMethodsFirewallConfig.class, BasicController.class)
-				.autowire();
+	.register(CsrfAppliedDefaultConfig.class, AllowHttpMethodsFirewallConfig.class, BasicController.class)
+	.autowire();
 		this.mvc.perform(get("/")).andExpect(status().isOk());
 	}
 
 	@Test
 	public void headWhenWebSecurityEnabledThenRespondsWithOk() throws Exception {
 		this.spring
-				.register(CsrfAppliedDefaultConfig.class, AllowHttpMethodsFirewallConfig.class, BasicController.class)
-				.autowire();
+	.register(CsrfAppliedDefaultConfig.class, AllowHttpMethodsFirewallConfig.class, BasicController.class)
+	.autowire();
 		this.mvc.perform(head("/")).andExpect(status().isOk());
 	}
 
 	@Test
 	public void traceWhenWebSecurityEnabledThenRespondsWithOk() throws Exception {
 		this.spring
-				.register(CsrfAppliedDefaultConfig.class, AllowHttpMethodsFirewallConfig.class, BasicController.class)
-				.autowire();
+	.register(CsrfAppliedDefaultConfig.class, AllowHttpMethodsFirewallConfig.class, BasicController.class)
+	.autowire();
 		this.mvc.perform(request(HttpMethod.TRACE, "/")).andExpect(status().isOk());
 	}
 
 	@Test
 	public void optionsWhenWebSecurityEnabledThenRespondsWithOk() throws Exception {
 		this.spring
-				.register(CsrfAppliedDefaultConfig.class, AllowHttpMethodsFirewallConfig.class, BasicController.class)
-				.autowire();
+	.register(CsrfAppliedDefaultConfig.class, AllowHttpMethodsFirewallConfig.class, BasicController.class)
+	.autowire();
 		this.mvc.perform(options("/")).andExpect(status().isOk());
 	}
 
@@ -211,8 +211,8 @@ public class CsrfConfigurerTests {
 		RequestCache requestCache = new HttpSessionRequestCache();
 		String redirectUrl = requestCache.getRequest(mvcResult.getRequest(), mvcResult.getResponse()).getRedirectUrl();
 		this.mvc.perform(post("/login").param("username", "user").param("password", "password")
-				.session((MockHttpSession) mvcResult.getRequest().getSession())).andExpect(status().isFound())
-				.andExpect(redirectedUrl(redirectUrl));
+	.session((MockHttpSession) mvcResult.getRequest().getSession())).andExpect(status().isFound())
+	.andExpect(redirectedUrl(redirectUrl));
 	}
 
 	@Test
@@ -220,14 +220,14 @@ public class CsrfConfigurerTests {
 		CsrfDisablesPostRequestFromRequestCacheConfig.REPO = mock(CsrfTokenRepository.class);
 		DefaultCsrfToken csrfToken = new DefaultCsrfToken("X-CSRF-TOKEN", "_csrf", "token");
 		given(CsrfDisablesPostRequestFromRequestCacheConfig.REPO.loadDeferredToken(any(HttpServletRequest.class),
-				any(HttpServletResponse.class))).willReturn(new TestDeferredCsrfToken(csrfToken));
+	any(HttpServletResponse.class))).willReturn(new TestDeferredCsrfToken(csrfToken));
 		this.spring.register(CsrfDisablesPostRequestFromRequestCacheConfig.class).autowire();
 		MvcResult mvcResult = this.mvc.perform(post("/some-url")).andReturn();
 		this.mvc.perform(post("/login").param("username", "user").param("password", "password").with(csrf())
-				.session((MockHttpSession) mvcResult.getRequest().getSession())).andExpect(status().isFound())
-				.andExpect(redirectedUrl("/"));
+	.session((MockHttpSession) mvcResult.getRequest().getSession())).andExpect(status().isFound())
+	.andExpect(redirectedUrl("/"));
 		verify(CsrfDisablesPostRequestFromRequestCacheConfig.REPO, atLeastOnce())
-				.loadDeferredToken(any(HttpServletRequest.class), any(HttpServletResponse.class));
+	.loadDeferredToken(any(HttpServletRequest.class), any(HttpServletResponse.class));
 	}
 
 	@Test
@@ -235,16 +235,16 @@ public class CsrfConfigurerTests {
 		CsrfDisablesPostRequestFromRequestCacheConfig.REPO = mock(CsrfTokenRepository.class);
 		DefaultCsrfToken csrfToken = new DefaultCsrfToken("X-CSRF-TOKEN", "_csrf", "token");
 		given(CsrfDisablesPostRequestFromRequestCacheConfig.REPO.loadDeferredToken(any(HttpServletRequest.class),
-				any(HttpServletResponse.class))).willReturn(new TestDeferredCsrfToken(csrfToken));
+	any(HttpServletResponse.class))).willReturn(new TestDeferredCsrfToken(csrfToken));
 		this.spring.register(CsrfDisablesPostRequestFromRequestCacheConfig.class).autowire();
 		MvcResult mvcResult = this.mvc.perform(get("/some-url")).andReturn();
 		RequestCache requestCache = new HttpSessionRequestCache();
 		String redirectUrl = requestCache.getRequest(mvcResult.getRequest(), mvcResult.getResponse()).getRedirectUrl();
 		this.mvc.perform(post("/login").param("username", "user").param("password", "password").with(csrf())
-				.session((MockHttpSession) mvcResult.getRequest().getSession())).andExpect(status().isFound())
-				.andExpect(redirectedUrl(redirectUrl));
+	.session((MockHttpSession) mvcResult.getRequest().getSession())).andExpect(status().isFound())
+	.andExpect(redirectedUrl(redirectUrl));
 		verify(CsrfDisablesPostRequestFromRequestCacheConfig.REPO, atLeastOnce())
-				.loadDeferredToken(any(HttpServletRequest.class), any(HttpServletResponse.class));
+	.loadDeferredToken(any(HttpServletRequest.class), any(HttpServletResponse.class));
 	}
 
 	// SEC-2422
@@ -252,9 +252,9 @@ public class CsrfConfigurerTests {
 	public void postWhenCsrfEnabledAndSessionIsExpiredThenRespondsWithForbidden() throws Exception {
 		this.spring.register(InvalidSessionUrlConfig.class).autowire();
 		MvcResult mvcResult = this.mvc.perform(post("/").param("_csrf", "abc")).andExpect(status().isFound())
-				.andExpect(redirectedUrl("/error/sessionError")).andReturn();
+	.andExpect(redirectedUrl("/error/sessionError")).andReturn();
 		this.mvc.perform(post("/").session((MockHttpSession) mvcResult.getRequest().getSession()))
-				.andExpect(status().isForbidden());
+	.andExpect(status().isForbidden());
 	}
 
 	@Test
@@ -292,12 +292,12 @@ public class CsrfConfigurerTests {
 	public void postWhenCustomCsrfTokenRepositoryThenRepositoryIsUsed() throws Exception {
 		CsrfTokenRepositoryConfig.REPO = mock(CsrfTokenRepository.class);
 		given(CsrfTokenRepositoryConfig.REPO.loadDeferredToken(any(HttpServletRequest.class),
-				any(HttpServletResponse.class)))
-						.willReturn(new TestDeferredCsrfToken(new DefaultCsrfToken("X-CSRF-TOKEN", "_csrf", "token")));
+	any(HttpServletResponse.class)))
+	.willReturn(new TestDeferredCsrfToken(new DefaultCsrfToken("X-CSRF-TOKEN", "_csrf", "token")));
 		this.spring.register(CsrfTokenRepositoryConfig.class, BasicController.class).autowire();
 		this.mvc.perform(post("/"));
 		verify(CsrfTokenRepositoryConfig.REPO).loadDeferredToken(any(HttpServletRequest.class),
-				any(HttpServletResponse.class));
+	any(HttpServletResponse.class));
 	}
 
 	@Test
@@ -306,7 +306,7 @@ public class CsrfConfigurerTests {
 		this.spring.register(CsrfTokenRepositoryConfig.class, BasicController.class).autowire();
 		this.mvc.perform(post("/logout").with(csrf()).with(user("user")));
 		verify(CsrfTokenRepositoryConfig.REPO).saveToken(isNull(), any(HttpServletRequest.class),
-				any(HttpServletResponse.class));
+	any(HttpServletResponse.class));
 	}
 
 	@Test
@@ -315,30 +315,30 @@ public class CsrfConfigurerTests {
 		DefaultCsrfToken csrfToken = new DefaultCsrfToken("X-CSRF-TOKEN", "_csrf", "token");
 		given(CsrfTokenRepositoryConfig.REPO.loadToken(any())).willReturn(csrfToken);
 		given(CsrfTokenRepositoryConfig.REPO.loadDeferredToken(any(HttpServletRequest.class),
-				any(HttpServletResponse.class))).willReturn(new TestDeferredCsrfToken(csrfToken));
+	any(HttpServletResponse.class))).willReturn(new TestDeferredCsrfToken(csrfToken));
 		this.spring.register(CsrfTokenRepositoryConfig.class, BasicController.class).autowire();
 		// @formatter:off
 		MockHttpServletRequestBuilder loginRequest = post("/login")
-				.with(csrf())
-				.param("username", "user")
-				.param("password", "password");
+	.with(csrf())
+	.param("username", "user")
+	.param("password", "password");
 		// @formatter:on
 		this.mvc.perform(loginRequest).andExpect(redirectedUrl("/"));
 		verify(CsrfTokenRepositoryConfig.REPO).loadToken(any(HttpServletRequest.class));
 		verify(CsrfTokenRepositoryConfig.REPO).saveToken(isNull(), any(HttpServletRequest.class),
-				any(HttpServletResponse.class));
+	any(HttpServletResponse.class));
 	}
 
 	@Test
 	public void getWhenCustomCsrfTokenRepositoryInLambdaThenRepositoryIsUsed() throws Exception {
 		CsrfTokenRepositoryInLambdaConfig.REPO = mock(CsrfTokenRepository.class);
 		given(CsrfTokenRepositoryInLambdaConfig.REPO.loadDeferredToken(any(HttpServletRequest.class),
-				any(HttpServletResponse.class)))
-						.willReturn(new TestDeferredCsrfToken(new DefaultCsrfToken("X-CSRF-TOKEN", "_csrf", "token")));
+	any(HttpServletResponse.class)))
+	.willReturn(new TestDeferredCsrfToken(new DefaultCsrfToken("X-CSRF-TOKEN", "_csrf", "token")));
 		this.spring.register(CsrfTokenRepositoryInLambdaConfig.class, BasicController.class).autowire();
 		this.mvc.perform(post("/"));
 		verify(CsrfTokenRepositoryInLambdaConfig.REPO).loadDeferredToken(any(HttpServletRequest.class),
-				any(HttpServletResponse.class));
+	any(HttpServletResponse.class));
 	}
 
 	@Test
@@ -347,7 +347,7 @@ public class CsrfConfigurerTests {
 		this.spring.register(AccessDeniedHandlerConfig.class, BasicController.class).autowire();
 		this.mvc.perform(post("/")).andExpect(status().isOk());
 		verify(AccessDeniedHandlerConfig.DENIED_HANDLER).handle(any(HttpServletRequest.class),
-				any(HttpServletResponse.class), any());
+	any(HttpServletResponse.class), any());
 	}
 
 	@Test
@@ -358,7 +358,7 @@ public class CsrfConfigurerTests {
 		this.spring.register(DefaultAccessDeniedHandlerForConfig.class, BasicController.class).autowire();
 		this.mvc.perform(post("/")).andExpect(status().isOk());
 		verify(DefaultAccessDeniedHandlerForConfig.DENIED_HANDLER).handle(any(HttpServletRequest.class),
-				any(HttpServletResponse.class), any());
+	any(HttpServletResponse.class), any());
 	}
 
 	@Test
@@ -366,11 +366,11 @@ public class CsrfConfigurerTests {
 		this.spring.register(FormLoginConfig.class).autowire();
 		// @formatter:off
 		MockHttpServletRequestBuilder loginRequest = post("/login")
-				.param("username", "user")
-				.param("password", "password");
+	.param("username", "user")
+	.param("password", "password");
 		this.mvc.perform(loginRequest)
-				.andExpect(status().isForbidden())
-				.andExpect(unauthenticated());
+	.andExpect(status().isForbidden())
+	.andExpect(unauthenticated());
 		// @formatter:on
 	}
 
@@ -380,8 +380,8 @@ public class CsrfConfigurerTests {
 		MockHttpServletRequestBuilder logoutRequest = post("/logout").with(user("username"));
 		// @formatter:off
 		this.mvc.perform(logoutRequest)
-				.andExpect(status().isForbidden())
-				.andExpect(authenticated());
+	.andExpect(status().isForbidden())
+	.andExpect(authenticated());
 		// @formatter:on
 	}
 
@@ -404,8 +404,8 @@ public class CsrfConfigurerTests {
 	@Test
 	public void configureWhenRequireCsrfProtectionMatcherNullThenException() {
 		assertThatExceptionOfType(BeanCreationException.class)
-				.isThrownBy(() -> this.spring.register(NullRequireCsrfProtectionMatcherConfig.class).autowire())
-				.withRootCauseInstanceOf(IllegalArgumentException.class);
+	.isThrownBy(() -> this.spring.register(NullRequireCsrfProtectionMatcherConfig.class).autowire())
+	.withRootCauseInstanceOf(IllegalArgumentException.class);
 	}
 
 	@Test
@@ -418,8 +418,8 @@ public class CsrfConfigurerTests {
 	@Test
 	public void getWhenNullAuthenticationStrategyThenException() {
 		assertThatExceptionOfType(BeanCreationException.class)
-				.isThrownBy(() -> this.spring.register(NullAuthenticationStrategy.class).autowire())
-				.withRootCauseInstanceOf(IllegalArgumentException.class);
+	.isThrownBy(() -> this.spring.register(NullAuthenticationStrategy.class).autowire())
+	.withRootCauseInstanceOf(IllegalArgumentException.class);
 	}
 
 	@Test
@@ -428,13 +428,13 @@ public class CsrfConfigurerTests {
 		this.spring.register(CsrfAuthenticationStrategyConfig.class).autowire();
 		// @formatter:off
 		MockHttpServletRequestBuilder loginRequest = post("/login")
-				.with(csrf())
-				.param("username", "user")
-				.param("password", "password");
+	.with(csrf())
+	.param("username", "user")
+	.param("password", "password");
 		// @formatter:on
 		this.mvc.perform(loginRequest).andExpect(redirectedUrl("/"));
 		verify(CsrfAuthenticationStrategyConfig.STRATEGY, atLeastOnce()).onAuthentication(any(Authentication.class),
-				any(HttpServletRequest.class), any(HttpServletResponse.class));
+	any(HttpServletRequest.class), any(HttpServletResponse.class));
 	}
 
 	@Test
@@ -442,12 +442,12 @@ public class CsrfConfigurerTests {
 		CsrfTokenRepository csrfTokenRepository = mock(CsrfTokenRepository.class);
 		CsrfToken csrfToken = new DefaultCsrfToken("X-CSRF-TOKEN", "_csrf", "token");
 		given(csrfTokenRepository.loadDeferredToken(any(HttpServletRequest.class), any(HttpServletResponse.class)))
-				.willReturn(new TestDeferredCsrfToken(csrfToken));
+	.willReturn(new TestDeferredCsrfToken(csrfToken));
 		CsrfTokenRequestHandlerConfig.REPO = csrfTokenRepository;
 		CsrfTokenRequestHandlerConfig.HANDLER = new CsrfTokenRequestAttributeHandler();
 		this.spring.register(CsrfTokenRequestHandlerConfig.class, BasicController.class).autowire();
 		this.mvc.perform(get("/login")).andExpect(status().isOk())
-				.andExpect(content().string(containsString(csrfToken.getToken())));
+	.andExpect(content().string(containsString(csrfToken.getToken())));
 		verify(csrfTokenRepository).loadDeferredToken(any(HttpServletRequest.class), any(HttpServletResponse.class));
 		verifyNoMoreInteractions(csrfTokenRepository);
 	}
@@ -458,22 +458,22 @@ public class CsrfConfigurerTests {
 		CsrfTokenRepository csrfTokenRepository = mock(CsrfTokenRepository.class);
 		given(csrfTokenRepository.loadToken(any(HttpServletRequest.class))).willReturn(csrfToken);
 		given(csrfTokenRepository.loadDeferredToken(any(HttpServletRequest.class), any(HttpServletResponse.class)))
-				.willReturn(new TestDeferredCsrfToken(csrfToken));
+	.willReturn(new TestDeferredCsrfToken(csrfToken));
 		CsrfTokenRequestHandlerConfig.REPO = csrfTokenRepository;
 		CsrfTokenRequestHandlerConfig.HANDLER = new CsrfTokenRequestAttributeHandler();
 		this.spring.register(CsrfTokenRequestHandlerConfig.class, BasicController.class).autowire();
 
 		// @formatter:off
 		MockHttpServletRequestBuilder loginRequest = post("/login")
-				.header(csrfToken.getHeaderName(), csrfToken.getToken())
-				.param("username", "user")
-				.param("password", "password");
+	.header(csrfToken.getHeaderName(), csrfToken.getToken())
+	.param("username", "user")
+	.param("password", "password");
 		// @formatter:on
 		this.mvc.perform(loginRequest).andExpect(redirectedUrl("/"));
 		verify(csrfTokenRepository).loadToken(any(HttpServletRequest.class));
 		verify(csrfTokenRepository).saveToken(isNull(), any(HttpServletRequest.class), any(HttpServletResponse.class));
 		verify(csrfTokenRepository, times(2)).loadDeferredToken(any(HttpServletRequest.class),
-				any(HttpServletResponse.class));
+	any(HttpServletResponse.class));
 		verifyNoMoreInteractions(csrfTokenRepository);
 	}
 
@@ -482,12 +482,12 @@ public class CsrfConfigurerTests {
 		CsrfTokenRepository csrfTokenRepository = mock(CsrfTokenRepository.class);
 		CsrfToken csrfToken = new DefaultCsrfToken("X-CSRF-TOKEN", "_csrf", "token");
 		given(csrfTokenRepository.loadDeferredToken(any(HttpServletRequest.class), any(HttpServletResponse.class)))
-				.willReturn(new TestDeferredCsrfToken(csrfToken));
+	.willReturn(new TestDeferredCsrfToken(csrfToken));
 		CsrfTokenRequestHandlerConfig.REPO = csrfTokenRepository;
 		CsrfTokenRequestHandlerConfig.HANDLER = new XorCsrfTokenRequestAttributeHandler();
 		this.spring.register(CsrfTokenRequestHandlerConfig.class, BasicController.class).autowire();
 		this.mvc.perform(get("/login")).andExpect(status().isOk())
-				.andExpect(content().string(not(containsString(csrfToken.getToken()))));
+	.andExpect(content().string(not(containsString(csrfToken.getToken()))));
 		verify(csrfTokenRepository).loadDeferredToken(any(HttpServletRequest.class), any(HttpServletResponse.class));
 		verifyNoMoreInteractions(csrfTokenRepository);
 	}
@@ -498,7 +498,7 @@ public class CsrfConfigurerTests {
 		CsrfTokenRepository csrfTokenRepository = mock(CsrfTokenRepository.class);
 		given(csrfTokenRepository.loadToken(any(HttpServletRequest.class))).willReturn(csrfToken);
 		given(csrfTokenRepository.loadDeferredToken(any(HttpServletRequest.class), any(HttpServletResponse.class)))
-				.willReturn(new TestDeferredCsrfToken(csrfToken));
+	.willReturn(new TestDeferredCsrfToken(csrfToken));
 		CsrfTokenRequestHandlerConfig.REPO = csrfTokenRepository;
 		CsrfTokenRequestHandlerConfig.HANDLER = new XorCsrfTokenRequestAttributeHandler();
 		this.spring.register(CsrfTokenRequestHandlerConfig.class, BasicController.class).autowire();
@@ -508,15 +508,15 @@ public class CsrfConfigurerTests {
 
 		// @formatter:off
 		MockHttpServletRequestBuilder loginRequest = post("/login")
-				.header(csrfToken.getHeaderName(), csrfTokenAttribute.getToken())
-				.param("username", "user")
-				.param("password", "password");
+	.header(csrfToken.getHeaderName(), csrfTokenAttribute.getToken())
+	.param("username", "user")
+	.param("password", "password");
 		// @formatter:on
 		this.mvc.perform(loginRequest).andExpect(redirectedUrl("/"));
 		verify(csrfTokenRepository).loadToken(any(HttpServletRequest.class));
 		verify(csrfTokenRepository).saveToken(isNull(), any(HttpServletRequest.class), any(HttpServletResponse.class));
 		verify(csrfTokenRepository, times(3)).loadDeferredToken(any(HttpServletRequest.class),
-				any(HttpServletResponse.class));
+	any(HttpServletResponse.class));
 		verifyNoMoreInteractions(csrfTokenRepository);
 	}
 
@@ -532,10 +532,10 @@ public class CsrfConfigurerTests {
 
 		// @formatter:off
 		MockHttpServletRequestBuilder loginRequest = post("/login")
-				.cookie(existingCookie)
-				.header(csrfToken.getHeaderName(), csrfToken.getToken())
-				.param("username", "user")
-				.param("password", "password");
+	.cookie(existingCookie)
+	.header(csrfToken.getHeaderName(), csrfToken.getToken())
+	.param("username", "user")
+	.param("password", "password");
 		// @formatter:on
 		MvcResult mvcResult = this.mvc.perform(loginRequest).andExpect(redirectedUrl("/")).andReturn();
 		List<Cookie> cookies = Arrays.asList(mvcResult.getResponse().getCookies());
@@ -546,7 +546,7 @@ public class CsrfConfigurerTests {
 
 	@Test
 	public void postWhenHttpBasicAndCookieCsrfTokenRepositorySetAndExistingTokenThenDoesNotGenerateNewToken()
-			throws Exception {
+throws Exception {
 		CsrfToken csrfToken = new DefaultCsrfToken("X-XSRF-TOKEN", "_csrf", "token");
 		Cookie existingCookie = new Cookie("XSRF-TOKEN", csrfToken.getToken());
 		CookieCsrfTokenRepository csrfTokenRepository = CookieCsrfTokenRepository.withHttpOnlyFalse();
@@ -560,10 +560,10 @@ public class CsrfConfigurerTests {
 		headers.setBasicAuth("user", "password");
 		// @formatter:off
 		MvcResult mvcResult = this.mvc.perform(post("/")
-				.cookie(existingCookie)
-				.headers(headers))
-				.andExpect(status().isOk())
-				.andReturn();
+	.cookie(existingCookie)
+	.headers(headers))
+	.andExpect(status().isOk())
+	.andReturn();
 		// @formatter:on
 		List<Cookie> cookies = Arrays.asList(mvcResult.getResponse().getCookies());
 		cookies.removeIf((cookie) -> !cookie.getName().equalsIgnoreCase(existingCookie.getName()));
@@ -572,7 +572,7 @@ public class CsrfConfigurerTests {
 
 	@Test
 	public void getWhenHttpBasicAndCookieCsrfTokenRepositorySetAndNoExistingCookieThenDoesNotGenerateNewToken()
-			throws Exception {
+throws Exception {
 		CsrfToken csrfToken = new DefaultCsrfToken("X-XSRF-TOKEN", "_csrf", "token");
 		Cookie expectedCookie = new Cookie("XSRF-TOKEN", csrfToken.getToken());
 		CookieCsrfTokenRepository csrfTokenRepository = CookieCsrfTokenRepository.withHttpOnlyFalse();
@@ -586,9 +586,9 @@ public class CsrfConfigurerTests {
 		headers.setBasicAuth("user", "password");
 		// @formatter:off
 		MvcResult mvcResult = this.mvc.perform(get("/")
-				.headers(headers))
-				.andExpect(status().isOk())
-				.andReturn();
+	.headers(headers))
+	.andExpect(status().isOk())
+	.andReturn();
 		// @formatter:on
 		List<Cookie> cookies = Arrays.asList(mvcResult.getResponse().getCookies());
 		cookies.removeIf((cookie) -> !cookie.getName().equalsIgnoreCase(expectedCookie.getName()));
@@ -626,8 +626,8 @@ public class CsrfConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.csrf()
-					.disable();
+		.csrf()
+		.disable();
 			return http.build();
 			// @formatter:on
 		}
@@ -642,7 +642,7 @@ public class CsrfConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.csrf(AbstractHttpConfigurer::disable);
+		.csrf(AbstractHttpConfigurer::disable);
 			return http.build();
 			// @formatter:on
 		}
@@ -657,13 +657,13 @@ public class CsrfConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests()
-					.anyRequest().authenticated()
-					.and()
-				.formLogin()
-					.and()
-				.csrf()
-					.disable();
+		.authorizeRequests()
+		.anyRequest().authenticated()
+		.and()
+		.formLogin()
+		.and()
+		.csrf()
+		.disable();
 			// @formatter:on
 			return http.build();
 		}
@@ -685,13 +685,13 @@ public class CsrfConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests()
-					.anyRequest().authenticated()
-					.and()
-				.formLogin()
-					.and()
-				.csrf()
-					.csrfTokenRepository(REPO);
+		.authorizeRequests()
+		.anyRequest().authenticated()
+		.and()
+		.formLogin()
+		.and()
+		.csrf()
+		.csrfTokenRepository(REPO);
 			// @formatter:on
 			return http.build();
 		}
@@ -711,10 +711,10 @@ public class CsrfConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.csrf()
-					.and()
-				.sessionManagement()
-					.invalidSessionUrl("/error/sessionError");
+		.csrf()
+		.and()
+		.sessionManagement()
+		.invalidSessionUrl("/error/sessionError");
 			return http.build();
 			// @formatter:on
 		}
@@ -731,8 +731,8 @@ public class CsrfConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.csrf()
-					.requireCsrfProtectionMatcher(MATCHER);
+		.csrf()
+		.requireCsrfProtectionMatcher(MATCHER);
 			return http.build();
 			// @formatter:on
 		}
@@ -749,7 +749,7 @@ public class CsrfConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.csrf((csrf) -> csrf.requireCsrfProtectionMatcher(MATCHER));
+		.csrf((csrf) -> csrf.requireCsrfProtectionMatcher(MATCHER));
 			return http.build();
 			// @formatter:on
 		}
@@ -766,10 +766,10 @@ public class CsrfConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.formLogin()
-					.and()
-				.csrf()
-					.csrfTokenRepository(REPO);
+		.formLogin()
+		.and()
+		.csrf()
+		.csrfTokenRepository(REPO);
 			// @formatter:on
 			return http.build();
 		}
@@ -791,8 +791,8 @@ public class CsrfConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.formLogin(withDefaults())
-				.csrf((csrf) -> csrf.csrfTokenRepository(REPO));
+		.formLogin(withDefaults())
+		.csrf((csrf) -> csrf.csrfTokenRepository(REPO));
 			return http.build();
 			// @formatter:on
 		}
@@ -809,8 +809,8 @@ public class CsrfConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.exceptionHandling()
-					.accessDeniedHandler(DENIED_HANDLER);
+		.exceptionHandling()
+		.accessDeniedHandler(DENIED_HANDLER);
 			return http.build();
 			// @formatter:on
 		}
@@ -829,8 +829,8 @@ public class CsrfConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.exceptionHandling()
-					.defaultAccessDeniedHandlerFor(DENIED_HANDLER, MATCHER);
+		.exceptionHandling()
+		.defaultAccessDeniedHandlerFor(DENIED_HANDLER, MATCHER);
 			return http.build();
 			// @formatter:on
 		}
@@ -845,7 +845,7 @@ public class CsrfConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.formLogin();
+		.formLogin();
 			return http.build();
 			// @formatter:on
 		}
@@ -860,10 +860,10 @@ public class CsrfConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.formLogin()
-					.and()
-				.logout()
-					.logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
+		.formLogin()
+		.and()
+		.logout()
+		.logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
 			return http.build();
 			// @formatter:on
 		}
@@ -878,8 +878,8 @@ public class CsrfConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.csrf()
-					.requireCsrfProtectionMatcher(null);
+		.csrf()
+		.requireCsrfProtectionMatcher(null);
 			return http.build();
 			// @formatter:on
 		}
@@ -894,12 +894,12 @@ public class CsrfConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests()
-					.anyRequest().permitAll()
-					.and()
-				.formLogin()
-					.and()
-				.httpBasic();
+		.authorizeRequests()
+		.anyRequest().permitAll()
+		.and()
+		.formLogin()
+		.and()
+		.httpBasic();
 			// @formatter:on
 			return http.build();
 		}
@@ -919,8 +919,8 @@ public class CsrfConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-					.csrf()
-					.sessionAuthenticationStrategy(null);
+		.csrf()
+		.sessionAuthenticationStrategy(null);
 			return http.build();
 			// @formatter:on
 		}
@@ -937,10 +937,10 @@ public class CsrfConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-					.formLogin()
-					.and()
-					.csrf()
-					.sessionAuthenticationStrategy(STRATEGY);
+		.formLogin()
+		.and()
+		.csrf()
+		.sessionAuthenticationStrategy(STRATEGY);
 			// @formatter:on
 			return http.build();
 		}
@@ -964,14 +964,14 @@ public class CsrfConfigurerTests {
 		SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeHttpRequests((authorize) -> authorize
-					.anyRequest().authenticated()
-				)
-				.formLogin(Customizer.withDefaults())
-				.csrf((csrf) -> csrf
-					.csrfTokenRepository(REPO)
-					.csrfTokenRequestHandler(HANDLER)
-				);
+		.authorizeHttpRequests((authorize) -> authorize
+.anyRequest().authenticated()
+		)
+		.formLogin(Customizer.withDefaults())
+		.csrf((csrf) -> csrf
+.csrfTokenRepository(REPO)
+.csrfTokenRequestHandler(HANDLER)
+		);
 			// @formatter:on
 
 			return http.build();
@@ -981,8 +981,8 @@ public class CsrfConfigurerTests {
 		void configure(AuthenticationManagerBuilder auth) throws Exception {
 			// @formatter:off
 			auth
-					.inMemoryAuthentication()
-					.withUser(PasswordEncodedUser.user());
+		.inMemoryAuthentication()
+		.withUser(PasswordEncodedUser.user());
 			// @formatter:on
 		}
 
@@ -1000,14 +1000,14 @@ public class CsrfConfigurerTests {
 		SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeHttpRequests((authorize) -> authorize
-					.anyRequest().authenticated()
-				)
-				.httpBasic(Customizer.withDefaults())
-				.csrf((csrf) -> csrf
-					.csrfTokenRepository(REPO)
-					.csrfTokenRequestHandler(HANDLER)
-				);
+		.authorizeHttpRequests((authorize) -> authorize
+.anyRequest().authenticated()
+		)
+		.httpBasic(Customizer.withDefaults())
+		.csrf((csrf) -> csrf
+.csrfTokenRepository(REPO)
+.csrfTokenRequestHandler(HANDLER)
+		);
 			// @formatter:on
 
 			return http.build();
@@ -1017,8 +1017,8 @@ public class CsrfConfigurerTests {
 		void configure(AuthenticationManagerBuilder auth) throws Exception {
 			// @formatter:off
 			auth
-				.inMemoryAuthentication()
-					.withUser(PasswordEncodedUser.user());
+		.inMemoryAuthentication()
+		.withUser(PasswordEncodedUser.user());
 			// @formatter:on
 		}
 

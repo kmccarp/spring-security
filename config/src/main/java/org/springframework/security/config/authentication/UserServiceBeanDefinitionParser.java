@@ -65,7 +65,7 @@ public class UserServiceBeanDefinitionParser extends AbstractUserDetailsServiceB
 		if (StringUtils.hasText(userProperties)) {
 			if (!CollectionUtils.isEmpty(userElts)) {
 				throw new BeanDefinitionStoreException(
-						"Use of a properties file and user elements are mutually exclusive");
+			"Use of a properties file and user elements are mutually exclusive");
 			}
 			BeanDefinition bd = new RootBeanDefinition(PropertiesFactoryBean.class);
 			bd.getPropertyValues().addPropertyValue("location", userProperties);
@@ -74,7 +74,7 @@ public class UserServiceBeanDefinitionParser extends AbstractUserDetailsServiceB
 		}
 		if (CollectionUtils.isEmpty(userElts)) {
 			throw new BeanDefinitionStoreException("You must supply user definitions, either with <" + ELT_USER
-					+ "> child elements or a " + "properties file (using the '" + ATT_PROPERTIES + "' attribute)");
+		+ "> child elements or a " + "properties file (using the '" + ATT_PROPERTIES + "' attribute)");
 		}
 		ManagedList<BeanDefinition> users = new ManagedList<>();
 		for (Object elt : userElts) {

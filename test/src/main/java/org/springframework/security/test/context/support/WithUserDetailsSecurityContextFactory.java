@@ -46,13 +46,13 @@ final class WithUserDetailsSecurityContextFactory implements WithSecurityContext
 	private static final boolean reactorPresent;
 
 	private SecurityContextHolderStrategy securityContextHolderStrategy = SecurityContextHolder
-			.getContextHolderStrategy();
+.getContextHolderStrategy();
 
 	private BeanFactory beans;
 
 	static {
 		reactorPresent = ClassUtils.isPresent("reactor.core.publisher.Mono",
-				WithUserDetailsSecurityContextFactory.class.getClassLoader());
+	WithUserDetailsSecurityContextFactory.class.getClassLoader());
 	}
 
 	@Autowired
@@ -68,7 +68,7 @@ final class WithUserDetailsSecurityContextFactory implements WithSecurityContext
 		Assert.hasLength(username, "value() must be non empty String");
 		UserDetails principal = userDetailsService.loadUserByUsername(username);
 		Authentication authentication = UsernamePasswordAuthenticationToken.authenticated(principal,
-				principal.getPassword(), principal.getAuthorities());
+	principal.getPassword(), principal.getAuthorities());
 		SecurityContext context = this.securityContextHolderStrategy.createEmptyContext();
 		context.setAuthentication(authentication);
 		return context;
@@ -87,14 +87,14 @@ final class WithUserDetailsSecurityContextFactory implements WithSecurityContext
 			}
 		}
 		return StringUtils.hasLength(beanName) ? this.beans.getBean(beanName, UserDetailsService.class)
-				: this.beans.getBean(UserDetailsService.class);
+	: this.beans.getBean(UserDetailsService.class);
 	}
 
 	UserDetailsService findAndAdaptReactiveUserDetailsService(String beanName) {
 		try {
 			ReactiveUserDetailsService reactiveUserDetailsService = StringUtils.hasLength(beanName)
-					? this.beans.getBean(beanName, ReactiveUserDetailsService.class)
-					: this.beans.getBean(ReactiveUserDetailsService.class);
+		? this.beans.getBean(beanName, ReactiveUserDetailsService.class)
+		: this.beans.getBean(ReactiveUserDetailsService.class);
 			return new ReactiveUserDetailsServiceAdapter(reactiveUserDetailsService);
 		}
 		catch (NoSuchBeanDefinitionException | BeanNotOfRequiredTypeException ex) {

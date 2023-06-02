@@ -56,34 +56,34 @@ public class DefaultfSecurityRequestsTests {
 	@BeforeEach
 	public void setup() {
 		this.mvc = MockMvcBuilders.webAppContextSetup(this.context)
-				.defaultRequest(get("/").with(user("user").roles("ADMIN"))).apply(springSecurity()).build();
+	.defaultRequest(get("/").with(user("user").roles("ADMIN"))).apply(springSecurity()).build();
 	}
 
 	@Test
 	public void requestProtectedUrlWithUser() throws Exception {
 		this.mvc.perform(get("/"))
-				// Ensure we got past Security
-				.andExpect(status().isNotFound())
-				// Ensure it appears we are authenticated with user
-				.andExpect(authenticated().withUsername("user"));
+	// Ensure we got past Security
+	.andExpect(status().isNotFound())
+	// Ensure it appears we are authenticated with user
+	.andExpect(authenticated().withUsername("user"));
 	}
 
 	@Test
 	public void requestProtectedUrlWithAdmin() throws Exception {
 		this.mvc.perform(get("/admin"))
-				// Ensure we got past Security
-				.andExpect(status().isNotFound())
-				// Ensure it appears we are authenticated with user
-				.andExpect(authenticated().withUsername("user"));
+	// Ensure we got past Security
+	.andExpect(status().isNotFound())
+	// Ensure it appears we are authenticated with user
+	.andExpect(authenticated().withUsername("user"));
 	}
 
 	@Test
 	public void requestProtectedUrlWithAnonymous() throws Exception {
 		this.mvc.perform(get("/admin").with(anonymous()))
-				// Ensure we got past Security
-				.andExpect(status().isUnauthorized())
-				// Ensure it appears we are authenticated with user
-				.andExpect(unauthenticated());
+	// Ensure we got past Security
+	.andExpect(status().isUnauthorized())
+	// Ensure it appears we are authenticated with user
+	.andExpect(unauthenticated());
 	}
 
 	@Configuration
@@ -95,11 +95,11 @@ public class DefaultfSecurityRequestsTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests()
-					.requestMatchers("/admin/**").hasRole("ADMIN")
-					.anyRequest().authenticated()
-					.and()
-				.httpBasic();
+		.authorizeRequests()
+		.requestMatchers("/admin/**").hasRole("ADMIN")
+		.anyRequest().authenticated()
+		.and()
+		.httpBasic();
 			return http.build();
 			// @formatter:on
 		}
@@ -108,8 +108,8 @@ public class DefaultfSecurityRequestsTests {
 		void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 			// @formatter:off
 			auth
-				.inMemoryAuthentication()
-					.withUser("user").password("password").roles("USER");
+		.inMemoryAuthentication()
+		.withUser("user").password("password").roles("USER");
 			// @formatter:on
 		}
 

@@ -60,7 +60,7 @@ public class SecurityMockMvcRequestPostProcessorsTestSecurityContextStatelessTes
 	@BeforeEach
 	public void setup() {
 		this.mvc = MockMvcBuilders.webAppContextSetup(this.context).addFilters(this.springSecurityFilterChain)
-				.defaultRequest(get("/").with(testSecurityContext())).build();
+	.defaultRequest(get("/").with(testSecurityContext())).build();
 	}
 
 	@Test
@@ -78,8 +78,8 @@ public class SecurityMockMvcRequestPostProcessorsTestSecurityContextStatelessTes
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.sessionManagement()
-					.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+		.sessionManagement()
+		.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 			return http.build();
 			// @formatter:on
 		}

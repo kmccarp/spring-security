@@ -53,25 +53,25 @@ public class OAuth2AccessTokenTests {
 	@Test
 	public void constructorWhenTokenTypeIsNullThenThrowIllegalArgumentException() {
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new OAuth2AccessToken(null, TOKEN_VALUE, ISSUED_AT, EXPIRES_AT));
+	.isThrownBy(() -> new OAuth2AccessToken(null, TOKEN_VALUE, ISSUED_AT, EXPIRES_AT));
 	}
 
 	@Test
 	public void constructorWhenTokenValueIsNullThenThrowIllegalArgumentException() {
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new OAuth2AccessToken(TOKEN_TYPE, null, ISSUED_AT, EXPIRES_AT));
+	.isThrownBy(() -> new OAuth2AccessToken(TOKEN_TYPE, null, ISSUED_AT, EXPIRES_AT));
 	}
 
 	@Test
 	public void constructorWhenIssuedAtAfterExpiresAtThenThrowIllegalArgumentException() {
 		assertThatIllegalArgumentException().isThrownBy(() -> new OAuth2AccessToken(TOKEN_TYPE, TOKEN_VALUE,
-				Instant.from(EXPIRES_AT).plusSeconds(1), EXPIRES_AT));
+	Instant.from(EXPIRES_AT).plusSeconds(1), EXPIRES_AT));
 	}
 
 	@Test
 	public void constructorWhenExpiresAtBeforeIssuedAtThenThrowIllegalArgumentException() {
 		assertThatIllegalArgumentException().isThrownBy(() -> new OAuth2AccessToken(TOKEN_TYPE, TOKEN_VALUE, ISSUED_AT,
-				Instant.from(ISSUED_AT).minusSeconds(1)));
+	Instant.from(ISSUED_AT).minusSeconds(1)));
 	}
 
 	@Test

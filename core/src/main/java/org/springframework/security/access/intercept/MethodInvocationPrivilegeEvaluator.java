@@ -62,7 +62,7 @@ public class MethodInvocationPrivilegeEvaluator implements InitializingBean {
 		Assert.notNull(invocation, "MethodInvocation required");
 		Assert.notNull(invocation.getMethod(), "MethodInvocation must provide a non-null getMethod()");
 		Collection<ConfigAttribute> attrs = this.securityInterceptor.obtainSecurityMetadataSource()
-				.getAttributes(invocation);
+	.getAttributes(invocation);
 		if (attrs == null) {
 			return !this.securityInterceptor.isRejectPublicInvocations();
 		}
@@ -82,9 +82,9 @@ public class MethodInvocationPrivilegeEvaluator implements InitializingBean {
 	public void setSecurityInterceptor(AbstractSecurityInterceptor securityInterceptor) {
 		Assert.notNull(securityInterceptor, "AbstractSecurityInterceptor cannot be null");
 		Assert.isTrue(MethodInvocation.class.equals(securityInterceptor.getSecureObjectClass()),
-				"AbstractSecurityInterceptor does not support MethodInvocations");
+	"AbstractSecurityInterceptor does not support MethodInvocations");
 		Assert.notNull(securityInterceptor.getAccessDecisionManager(),
-				"AbstractSecurityInterceptor must provide a non-null AccessDecisionManager");
+	"AbstractSecurityInterceptor must provide a non-null AccessDecisionManager");
 		this.securityInterceptor = securityInterceptor;
 	}
 

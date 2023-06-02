@@ -44,9 +44,9 @@ public class Jsr250AnnotationDrivenBeanDefinitionParserTests {
 	public void loadContext() {
 		// @formatter:off
 		this.appContext = new InMemoryXmlApplicationContext(
-				"<b:bean id='target' class='org.springframework.security.access.annotation.Jsr250BusinessServiceImpl'/>"
-						+ "<global-method-security jsr250-annotations='enabled'/>"
-						+ ConfigTestUtils.AUTH_PROVIDER_XML);
+	"<b:bean id='target' class='org.springframework.security.access.annotation.Jsr250BusinessServiceImpl'/>"
++ "<global-method-security jsr250-annotations='enabled'/>"
++ ConfigTestUtils.AUTH_PROVIDER_XML);
 		// @formatter:on
 		this.target = (BusinessService) this.appContext.getBean("target");
 	}
@@ -62,13 +62,13 @@ public class Jsr250AnnotationDrivenBeanDefinitionParserTests {
 	@Test
 	public void targetShouldPreventProtectedMethodInvocationWithNoContext() {
 		assertThatExceptionOfType(AuthenticationCredentialsNotFoundException.class)
-				.isThrownBy(() -> this.target.someUserMethod1());
+	.isThrownBy(() -> this.target.someUserMethod1());
 	}
 
 	@Test
 	public void permitAllShouldBeDefaultAttribute() {
 		UsernamePasswordAuthenticationToken token = UsernamePasswordAuthenticationToken.authenticated("Test",
-				"Password", AuthorityUtils.createAuthorityList("ROLE_USER"));
+	"Password", AuthorityUtils.createAuthorityList("ROLE_USER"));
 		SecurityContextHolder.getContext().setAuthentication(token);
 		this.target.someOther(0);
 	}
@@ -76,7 +76,7 @@ public class Jsr250AnnotationDrivenBeanDefinitionParserTests {
 	@Test
 	public void targetShouldAllowProtectedMethodInvocationWithCorrectRole() {
 		UsernamePasswordAuthenticationToken token = UsernamePasswordAuthenticationToken.authenticated("Test",
-				"Password", AuthorityUtils.createAuthorityList("ROLE_USER"));
+	"Password", AuthorityUtils.createAuthorityList("ROLE_USER"));
 		SecurityContextHolder.getContext().setAuthentication(token);
 		this.target.someUserMethod1();
 	}
@@ -84,7 +84,7 @@ public class Jsr250AnnotationDrivenBeanDefinitionParserTests {
 	@Test
 	public void targetShouldPreventProtectedMethodInvocationWithIncorrectRole() {
 		UsernamePasswordAuthenticationToken token = UsernamePasswordAuthenticationToken.authenticated("Test",
-				"Password", AuthorityUtils.createAuthorityList("ROLE_SOMEOTHERROLE"));
+	"Password", AuthorityUtils.createAuthorityList("ROLE_SOMEOTHERROLE"));
 		SecurityContextHolder.getContext().setAuthentication(token);
 		assertThatExceptionOfType(AccessDeniedException.class).isThrownBy(this.target::someAdminMethod);
 	}
@@ -92,7 +92,7 @@ public class Jsr250AnnotationDrivenBeanDefinitionParserTests {
 	@Test
 	public void hasAnyRoleAddsDefaultPrefix() {
 		UsernamePasswordAuthenticationToken token = UsernamePasswordAuthenticationToken.authenticated("Test",
-				"Password", AuthorityUtils.createAuthorityList("ROLE_USER"));
+	"Password", AuthorityUtils.createAuthorityList("ROLE_USER"));
 		SecurityContextHolder.getContext().setAuthentication(token);
 		this.target.rolesAllowedUser();
 	}

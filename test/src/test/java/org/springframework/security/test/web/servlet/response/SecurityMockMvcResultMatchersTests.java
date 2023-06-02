@@ -59,22 +59,22 @@ public class SecurityMockMvcResultMatchersTests {
 	public void setup() {
 		// @formatter:off
 		this.mockMvc = MockMvcBuilders
-			.webAppContextSetup(this.context)
-			.apply(springSecurity())
-			.build();
+	.webAppContextSetup(this.context)
+	.apply(springSecurity())
+	.build();
 		// @formatter:on
 	}
 
 	@Test
 	public void withAuthenticationWhenMatchesThenSuccess() throws Exception {
 		this.mockMvc.perform(formLogin()).andExpect(authenticated().withAuthentication(
-				(auth) -> assertThat(auth).isInstanceOf(UsernamePasswordAuthenticationToken.class)));
+	(auth) -> assertThat(auth).isInstanceOf(UsernamePasswordAuthenticationToken.class)));
 	}
 
 	@Test
 	public void withAuthenticationWhenNotMatchesThenFails() throws Exception {
 		assertThatExceptionOfType(AssertionError.class).isThrownBy(() -> this.mockMvc.perform(formLogin()).andExpect(
-				authenticated().withAuthentication((auth) -> assertThat(auth.getName()).isEqualTo("notmatch"))));
+	authenticated().withAuthentication((auth) -> assertThat(auth.getName()).isEqualTo("notmatch"))));
 	}
 
 	// SEC-2719
@@ -82,19 +82,19 @@ public class SecurityMockMvcResultMatchersTests {
 	public void withRolesNotOrderSensitive() throws Exception {
 		// @formatter:off
 		this.mockMvc
-			.perform(formLogin())
-			.andExpect(authenticated().withRoles("USER", "SELLER"))
-			.andExpect(authenticated().withRoles("SELLER", "USER"));
+	.perform(formLogin())
+	.andExpect(authenticated().withRoles("USER", "SELLER"))
+	.andExpect(authenticated().withRoles("SELLER", "USER"));
 		// @formatter:on
 	}
 
 	@Test
 	public void withRolesFailsIfNotAllRoles() throws Exception {
 		assertThatExceptionOfType(AssertionError.class).isThrownBy(() ->
-		// @formatter:off
-			this.mockMvc
-				.perform(formLogin())
-				.andExpect(authenticated().withRoles("USER"))
+	// @formatter:off
+	this.mockMvc
+.perform(formLogin())
+.andExpect(authenticated().withRoles("USER"))
 		// @formatter:on
 		);
 	}

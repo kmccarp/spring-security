@@ -36,7 +36,7 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 /**
  * @author Luke Taylor
  */
-@ContextConfiguration(locations = { "/multi-sec-annotation-app-context.xml" })
+@ContextConfiguration(locations = {"/multi-sec-annotation-app-context.xml"})
 @ExtendWith(SpringExtension.class)
 public class MultiAnnotationTests {
 

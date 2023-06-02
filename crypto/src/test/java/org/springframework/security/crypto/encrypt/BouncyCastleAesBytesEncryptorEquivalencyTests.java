@@ -53,9 +53,9 @@ public class BouncyCastleAesBytesEncryptorEquivalencyTests {
 	public void bouncyCastleAesCbcWithPredictableIvEquivalent() throws Exception {
 		CryptoAssumptions.assumeCBCJCE();
 		BytesEncryptor bcEncryptor = new BouncyCastleAesCbcBytesEncryptor(this.password, this.salt,
-				new PredictableRandomBytesKeyGenerator(16));
+	new PredictableRandomBytesKeyGenerator(16));
 		BytesEncryptor jceEncryptor = new AesBytesEncryptor(this.password, this.salt,
-				new PredictableRandomBytesKeyGenerator(16));
+	new PredictableRandomBytesKeyGenerator(16));
 		testEquivalence(bcEncryptor, jceEncryptor);
 	}
 
@@ -63,7 +63,7 @@ public class BouncyCastleAesBytesEncryptorEquivalencyTests {
 	public void bouncyCastleAesCbcWithSecureIvCompatible() throws Exception {
 		CryptoAssumptions.assumeCBCJCE();
 		BytesEncryptor bcEncryptor = new BouncyCastleAesCbcBytesEncryptor(this.password, this.salt,
-				KeyGenerators.secureRandom(16));
+	KeyGenerators.secureRandom(16));
 		BytesEncryptor jceEncryptor = new AesBytesEncryptor(this.password, this.salt, KeyGenerators.secureRandom(16));
 		testCompatibility(bcEncryptor, jceEncryptor);
 	}
@@ -72,9 +72,9 @@ public class BouncyCastleAesBytesEncryptorEquivalencyTests {
 	public void bouncyCastleAesGcmWithPredictableIvEquivalent() throws Exception {
 		CryptoAssumptions.assumeGCMJCE();
 		BytesEncryptor bcEncryptor = new BouncyCastleAesGcmBytesEncryptor(this.password, this.salt,
-				new PredictableRandomBytesKeyGenerator(16));
+	new PredictableRandomBytesKeyGenerator(16));
 		BytesEncryptor jceEncryptor = new AesBytesEncryptor(this.password, this.salt,
-				new PredictableRandomBytesKeyGenerator(16), CipherAlgorithm.GCM);
+	new PredictableRandomBytesKeyGenerator(16), CipherAlgorithm.GCM);
 		testEquivalence(bcEncryptor, jceEncryptor);
 	}
 
@@ -82,9 +82,9 @@ public class BouncyCastleAesBytesEncryptorEquivalencyTests {
 	public void bouncyCastleAesGcmWithSecureIvCompatible() throws Exception {
 		CryptoAssumptions.assumeGCMJCE();
 		BytesEncryptor bcEncryptor = new BouncyCastleAesGcmBytesEncryptor(this.password, this.salt,
-				KeyGenerators.secureRandom(16));
+	KeyGenerators.secureRandom(16));
 		BytesEncryptor jceEncryptor = new AesBytesEncryptor(this.password, this.salt, KeyGenerators.secureRandom(16),
-				CipherAlgorithm.GCM);
+	CipherAlgorithm.GCM);
 		testCompatibility(bcEncryptor, jceEncryptor);
 	}
 

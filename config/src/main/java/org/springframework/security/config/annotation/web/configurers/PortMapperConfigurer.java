@@ -32,8 +32,7 @@ import org.springframework.security.web.PortMapperImpl;
  * @author Rob Winch
  * @since 3.2
  */
-public final class PortMapperConfigurer<H extends HttpSecurityBuilder<H>>
-		extends AbstractHttpConfigurer<PortMapperConfigurer<H>, H> {
+public final class PortMapperConfigurer<H extends HttpSecurityBuilder<H>>extends AbstractHttpConfigurer<PortMapperConfigurer<H>, H> {
 
 	private PortMapper portMapper;
 

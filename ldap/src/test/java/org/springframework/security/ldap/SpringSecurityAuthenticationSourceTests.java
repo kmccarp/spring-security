@@ -59,7 +59,7 @@ public class SpringSecurityAuthenticationSourceTests {
 	public void principalIsEmptyForAnonymousUser() {
 		AuthenticationSource source = new SpringSecurityAuthenticationSource();
 		SecurityContextHolder.getContext().setAuthentication(
-				new AnonymousAuthenticationToken("key", "anonUser", AuthorityUtils.createAuthorityList("ignored")));
+	new AnonymousAuthenticationToken("key", "anonUser", AuthorityUtils.createAuthorityList("ignored")));
 		assertThat(source.getPrincipal()).isEqualTo("");
 	}
 
@@ -84,7 +84,7 @@ public class SpringSecurityAuthenticationSourceTests {
 		user.setDn(new DistinguishedName("uid=joe,ou=users"));
 		AuthenticationSource source = new SpringSecurityAuthenticationSource();
 		SecurityContextHolder.getContext()
-				.setAuthentication(new TestingAuthenticationToken(user.createUserDetails(), null));
+	.setAuthentication(new TestingAuthenticationToken(user.createUserDetails(), null));
 		assertThat(source.getPrincipal()).isEqualTo("uid=joe,ou=users");
 	}
 
@@ -95,7 +95,7 @@ public class SpringSecurityAuthenticationSourceTests {
 		user.setDn(new DistinguishedName("uid=joe,ou=users"));
 		SecurityContextHolderStrategy strategy = mock(SecurityContextHolderStrategy.class);
 		given(strategy.getContext())
-				.willReturn(new SecurityContextImpl(new TestingAuthenticationToken(user.createUserDetails(), null)));
+	.willReturn(new SecurityContextImpl(new TestingAuthenticationToken(user.createUserDetails(), null)));
 		SpringSecurityAuthenticationSource source = new SpringSecurityAuthenticationSource();
 		source.setSecurityContextHolderStrategy(strategy);
 		assertThat(source.getPrincipal()).isEqualTo("uid=joe,ou=users");

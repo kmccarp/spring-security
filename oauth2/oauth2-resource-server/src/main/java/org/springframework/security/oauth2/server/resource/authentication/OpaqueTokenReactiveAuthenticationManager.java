@@ -88,18 +88,18 @@ public class OpaqueTokenReactiveAuthenticationManager implements ReactiveAuthent
 	public Mono<Authentication> authenticate(Authentication authentication) {
 		// @formatter:off
 		return Mono.justOrEmpty(authentication)
-				.filter(BearerTokenAuthenticationToken.class::isInstance)
-				.cast(BearerTokenAuthenticationToken.class)
-				.map(BearerTokenAuthenticationToken::getToken)
-				.flatMap(this::authenticate);
+	.filter(BearerTokenAuthenticationToken.class::isInstance)
+	.cast(BearerTokenAuthenticationToken.class)
+	.map(BearerTokenAuthenticationToken::getToken)
+	.flatMap(this::authenticate);
 		// @formatter:on
 	}
 
 	private Mono<Authentication> authenticate(String token) {
 		// @formatter:off
 		return this.introspector.introspect(token)
-				.flatMap((principal) -> this.authenticationConverter.convert(token, principal))
-				.onErrorMap(OAuth2IntrospectionException.class, this::onError);
+	.flatMap((principal) -> this.authenticationConverter.convert(token, principal))
+	.onErrorMap(OAuth2IntrospectionException.class, this::onError);
 		// @formatter:on
 	}
 

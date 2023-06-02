@@ -40,8 +40,7 @@ import org.springframework.security.web.authentication.AnonymousAuthenticationFi
  * @author Rob Winch
  * @since 3.2
  */
-public final class AnonymousConfigurer<H extends HttpSecurityBuilder<H>>
-		extends AbstractHttpConfigurer<AnonymousConfigurer<H>, H> {
+public final class AnonymousConfigurer<H extends HttpSecurityBuilder<H>>extends AbstractHttpConfigurer<AnonymousConfigurer<H>, H> {
 
 	private String key;
 

@@ -77,21 +77,21 @@ public class WebTestUtilsTests {
 	@Test
 	public void getCsrfTokenRepositorytNoWac() {
 		assertThat(WebTestUtils.getCsrfTokenRepository(this.request))
-				.isInstanceOf(HttpSessionCsrfTokenRepository.class);
+	.isInstanceOf(HttpSessionCsrfTokenRepository.class);
 	}
 
 	@Test
 	public void getCsrfTokenRepositorytNoSecurity() {
 		loadConfig(Config.class);
 		assertThat(WebTestUtils.getCsrfTokenRepository(this.request))
-				.isInstanceOf(HttpSessionCsrfTokenRepository.class);
+	.isInstanceOf(HttpSessionCsrfTokenRepository.class);
 	}
 
 	@Test
 	public void getCsrfTokenRepositorytSecurityNoCsrf() {
 		loadConfig(SecurityNoCsrfConfig.class);
 		assertThat(WebTestUtils.getCsrfTokenRepository(this.request))
-				.isInstanceOf(HttpSessionCsrfTokenRepository.class);
+	.isInstanceOf(HttpSessionCsrfTokenRepository.class);
 	}
 
 	@Test
@@ -106,21 +106,21 @@ public class WebTestUtilsTests {
 	@Test
 	public void getSecurityContextRepositoryNoWac() {
 		assertThat(WebTestUtils.getSecurityContextRepository(this.request))
-				.isInstanceOf(HttpSessionSecurityContextRepository.class);
+	.isInstanceOf(HttpSessionSecurityContextRepository.class);
 	}
 
 	@Test
 	public void getSecurityContextRepositoryNoSecurity() {
 		loadConfig(Config.class);
 		assertThat(WebTestUtils.getSecurityContextRepository(this.request))
-				.isInstanceOf(HttpSessionSecurityContextRepository.class);
+	.isInstanceOf(HttpSessionSecurityContextRepository.class);
 	}
 
 	@Test
 	public void getSecurityContextRepositorySecurityNoCsrf() {
 		loadConfig(SecurityNoCsrfConfig.class);
 		assertThat(WebTestUtils.getSecurityContextRepository(this.request))
-				.isInstanceOf(DelegatingSecurityContextRepository.class);
+	.isInstanceOf(DelegatingSecurityContextRepository.class);
 	}
 
 	@Test
@@ -156,7 +156,7 @@ public class WebTestUtilsTests {
 		loadConfig(NoSecurityConfig.class);
 		CsrfFilter toFind = new CsrfFilter(new HttpSessionCsrfTokenRepository());
 		FilterChainProxy springSecurityFilterChain = new FilterChainProxy(
-				new DefaultSecurityFilterChain(AnyRequestMatcher.INSTANCE, toFind));
+	new DefaultSecurityFilterChain(AnyRequestMatcher.INSTANCE, toFind));
 		this.request.getServletContext().setAttribute(BeanIds.SPRING_SECURITY_FILTER_CHAIN, springSecurityFilterChain);
 		assertThat(WebTestUtils.findFilter(this.request, toFind.getClass())).isEqualTo(toFind);
 	}
@@ -166,7 +166,7 @@ public class WebTestUtilsTests {
 		loadConfig(SecurityConfigWithDefaults.class);
 		CsrfFilter toFind = new CsrfFilter(new HttpSessionCsrfTokenRepository());
 		FilterChainProxy springSecurityFilterChain = new FilterChainProxy(
-				new DefaultSecurityFilterChain(AnyRequestMatcher.INSTANCE, toFind));
+	new DefaultSecurityFilterChain(AnyRequestMatcher.INSTANCE, toFind));
 		this.request.getServletContext().setAttribute(BeanIds.SPRING_SECURITY_FILTER_CHAIN, springSecurityFilterChain);
 		assertThat(WebTestUtils.findFilter(this.request, toFind.getClass())).isSameAs(toFind);
 	}
@@ -177,7 +177,7 @@ public class WebTestUtilsTests {
 		context.refresh();
 		this.context = context;
 		this.request.getServletContext().setAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE,
-				context);
+	context);
 	}
 
 	@Configuration
@@ -208,11 +208,11 @@ public class WebTestUtilsTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.csrf()
-					.csrfTokenRepository(CSRF_REPO)
-					.and()
-				.securityContext()
-					.securityContextRepository(CONTEXT_REPO);
+		.csrf()
+		.csrfTokenRepository(CSRF_REPO)
+		.and()
+		.securityContext()
+		.securityContextRepository(CONTEXT_REPO);
 			return http.build();
 			// @formatter:on
 		}
@@ -227,7 +227,7 @@ public class WebTestUtilsTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.securityMatcher(new AntPathRequestMatcher("/willnotmatchthis"));
+		.securityMatcher(new AntPathRequestMatcher("/willnotmatchthis"));
 			return http.build();
 			// @formatter:on
 		}
@@ -253,7 +253,7 @@ public class WebTestUtilsTests {
 		DefaultSecurityFilterChain springSecurityFilter(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.securityContext((securityContext) -> securityContext.requireExplicitSave(true));
+		.securityContext((securityContext) -> securityContext.requireExplicitSave(true));
 			// @formatter:on
 			return http.build();
 		}

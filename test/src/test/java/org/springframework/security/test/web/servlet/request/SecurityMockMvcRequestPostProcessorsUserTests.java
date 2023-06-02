@@ -69,7 +69,7 @@ public class SecurityMockMvcRequestPostProcessorsUserTests {
 	public void setup() {
 		this.request = new MockHttpServletRequest();
 		this.webTestUtils.when(() -> WebTestUtils.getSecurityContextRepository(this.request))
-				.thenReturn(this.repository);
+	.thenReturn(this.repository);
 	}
 
 	@AfterEach
@@ -82,7 +82,7 @@ public class SecurityMockMvcRequestPostProcessorsUserTests {
 		String username = "userabc";
 		user(username).postProcessRequest(this.request);
 		verify(this.repository).saveContext(this.contextCaptor.capture(), eq(this.request),
-				any(HttpServletResponse.class));
+	any(HttpServletResponse.class));
 		SecurityContext context = this.contextCaptor.getValue();
 		assertThat(context.getAuthentication()).isInstanceOf(UsernamePasswordAuthenticationToken.class);
 		assertThat(context.getAuthentication().getName()).isEqualTo(username);
@@ -95,13 +95,13 @@ public class SecurityMockMvcRequestPostProcessorsUserTests {
 		String username = "customuser";
 		user(username).roles("CUSTOM", "ADMIN").password("newpass").postProcessRequest(this.request);
 		verify(this.repository).saveContext(this.contextCaptor.capture(), eq(this.request),
-				any(HttpServletResponse.class));
+	any(HttpServletResponse.class));
 		SecurityContext context = this.contextCaptor.getValue();
 		assertThat(context.getAuthentication()).isInstanceOf(UsernamePasswordAuthenticationToken.class);
 		assertThat(context.getAuthentication().getName()).isEqualTo(username);
 		assertThat(context.getAuthentication().getCredentials()).isEqualTo("newpass");
 		assertThat(context.getAuthentication().getAuthorities()).extracting("authority").containsOnly("ROLE_CUSTOM",
-				"ROLE_ADMIN");
+	"ROLE_ADMIN");
 	}
 
 	@Test
@@ -109,16 +109,16 @@ public class SecurityMockMvcRequestPostProcessorsUserTests {
 		String username = "customuser";
 		user(username).authorities(this.authority1, this.authority2).postProcessRequest(this.request);
 		verify(this.repository).saveContext(this.contextCaptor.capture(), eq(this.request),
-				any(HttpServletResponse.class));
+	any(HttpServletResponse.class));
 		SecurityContext context = this.contextCaptor.getValue();
 		assertThat((List<GrantedAuthority>) context.getAuthentication().getAuthorities()).containsOnly(this.authority1,
-				this.authority2);
+	this.authority2);
 	}
 
 	@Test
 	public void userRolesWithRolePrefixErrors() {
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> user("user").roles("ROLE_INVALID").postProcessRequest(this.request));
+	.isThrownBy(() -> user("user").roles("ROLE_INVALID").postProcessRequest(this.request));
 	}
 
 	@Test
@@ -126,10 +126,10 @@ public class SecurityMockMvcRequestPostProcessorsUserTests {
 		String username = "customuser";
 		user(username).authorities(Arrays.asList(this.authority1, this.authority2)).postProcessRequest(this.request);
 		verify(this.repository).saveContext(this.contextCaptor.capture(), eq(this.request),
-				any(HttpServletResponse.class));
+	any(HttpServletResponse.class));
 		SecurityContext context = this.contextCaptor.getValue();
 		assertThat((List<GrantedAuthority>) context.getAuthentication().getAuthorities()).containsOnly(this.authority1,
-				this.authority2);
+	this.authority2);
 	}
 
 }

@@ -55,7 +55,7 @@ public abstract class AbstractAclProvider implements AfterInvocationProvider {
 	protected final List<Permission> requirePermission;
 
 	public AbstractAclProvider(AclService aclService, String processConfigAttribute,
-			List<Permission> requirePermission) {
+List<Permission> requirePermission) {
 		Assert.hasText(processConfigAttribute, "A processConfigAttribute is mandatory");
 		Assert.notNull(aclService, "An AclService is mandatory");
 		Assert.isTrue(!ObjectUtils.isEmpty(requirePermission), "One or more requirePermission entries is mandatory");

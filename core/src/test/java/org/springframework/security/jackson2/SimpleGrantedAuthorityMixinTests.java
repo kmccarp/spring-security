@@ -42,6 +42,7 @@ public class SimpleGrantedAuthorityMixinTests extends AbstractMixinTests {
 	public static final String NO_AUTHORITIES_ARRAYLIST_JSON = "[\"java.util.Collections$UnmodifiableRandomAccessList\", []]";
 	public static final String EMPTY_AUTHORITIES_ARRAYLIST_JSON = "[\"java.util.Collections$EmptyList\", []]";
 	public static final String NO_AUTHORITIES_SET_JSON = "[\"java.util.Collections$UnmodifiableSet\", []]";
+
 	// @formatter:on
 	@Test
 	public void serializeSimpleGrantedAuthorityTest() throws JsonProcessingException, JSONException {
@@ -61,7 +62,7 @@ public class SimpleGrantedAuthorityMixinTests extends AbstractMixinTests {
 	public void deserializeGrantedAuthorityWithoutRoleTest() throws IOException {
 		String json = "{\"@class\": \"org.springframework.security.core.authority.SimpleGrantedAuthority\"}";
 		assertThatExceptionOfType(JsonMappingException.class)
-				.isThrownBy(() -> this.mapper.readValue(json, SimpleGrantedAuthority.class));
+	.isThrownBy(() -> this.mapper.readValue(json, SimpleGrantedAuthority.class));
 	}
 
 }

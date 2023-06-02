@@ -96,15 +96,15 @@ public class OAuth2AuthorizationCodeReactiveAuthenticationManagerTests {
 	@Test
 	public void authenticateWhenOAuth2AuthorizationExceptionThenOAuth2AuthorizationException() {
 		given(this.accessTokenResponseClient.getTokenResponse(any()))
-				.willReturn(Mono.error(() -> new OAuth2AuthorizationException(new OAuth2Error("error"))));
+	.willReturn(Mono.error(() -> new OAuth2AuthorizationException(new OAuth2Error("error"))));
 		assertThatExceptionOfType(OAuth2AuthorizationException.class).isThrownBy(() -> authenticate());
 	}
 
 	private OAuth2AuthorizationCodeAuthenticationToken authenticate() {
 		OAuth2AuthorizationExchange exchange = new OAuth2AuthorizationExchange(this.authorizationRequest.build(),
-				this.authorizationResponse.build());
+	this.authorizationResponse.build());
 		OAuth2AuthorizationCodeAuthenticationToken token = new OAuth2AuthorizationCodeAuthenticationToken(
-				this.registration.build(), exchange);
+	this.registration.build(), exchange);
 		return (OAuth2AuthorizationCodeAuthenticationToken) this.manager.authenticate(token).block();
 	}
 

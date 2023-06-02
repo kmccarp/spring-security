@@ -40,6 +40,6 @@ public interface SessionAuthenticationStrategy {
 	 * sessions open at once.
 	 */
 	void onAuthentication(Authentication authentication, HttpServletRequest request, HttpServletResponse response)
-			throws SessionAuthenticationException;
+throws SessionAuthenticationException;
 
 }

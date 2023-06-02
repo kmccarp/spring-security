@@ -70,20 +70,20 @@ public class DelegatingServerAuthenticationSuccessHandlerTests {
 	@Test
 	public void constructorWhenNullThenIllegalArgumentException() {
 		assertThatIllegalArgumentException().isThrownBy(
-				() -> new DelegatingServerAuthenticationSuccessHandler((ServerAuthenticationSuccessHandler[]) null));
+	() -> new DelegatingServerAuthenticationSuccessHandler((ServerAuthenticationSuccessHandler[]) null));
 	}
 
 	@Test
 	public void constructorWhenEmptyThenIllegalArgumentException() {
 		assertThatIllegalArgumentException().isThrownBy(
-				() -> new DelegatingServerAuthenticationSuccessHandler(new ServerAuthenticationSuccessHandler[0]));
+	() -> new DelegatingServerAuthenticationSuccessHandler(new ServerAuthenticationSuccessHandler[0]));
 	}
 
 	@Test
 	public void onAuthenticationSuccessWhenSingleThenExecuted() {
 		givenDelegate1WillReturnMock();
 		DelegatingServerAuthenticationSuccessHandler handler = new DelegatingServerAuthenticationSuccessHandler(
-				this.delegate1);
+	this.delegate1);
 		handler.onAuthenticationSuccess(this.exchange, this.authentication).block();
 		this.delegate1Result.assertWasSubscribed();
 	}
@@ -93,7 +93,7 @@ public class DelegatingServerAuthenticationSuccessHandlerTests {
 		givenDelegate1WillReturnMock();
 		givenDelegate2WillReturnMock();
 		DelegatingServerAuthenticationSuccessHandler handler = new DelegatingServerAuthenticationSuccessHandler(
-				this.delegate1, this.delegate2);
+	this.delegate1, this.delegate2);
 		handler.onAuthenticationSuccess(this.exchange, this.authentication).block();
 		this.delegate1Result.assertWasSubscribed();
 		this.delegate2Result.assertWasSubscribed();
@@ -104,14 +104,14 @@ public class DelegatingServerAuthenticationSuccessHandlerTests {
 		AtomicBoolean slowDone = new AtomicBoolean();
 		CountDownLatch latch = new CountDownLatch(1);
 		ServerAuthenticationSuccessHandler slow = (exchange, authentication) -> Mono.delay(Duration.ofMillis(100))
-				.doOnSuccess((__) -> slowDone.set(true)).then();
+	.doOnSuccess((__) -> slowDone.set(true)).then();
 		ServerAuthenticationSuccessHandler second = (exchange, authentication) -> Mono.fromRunnable(() -> {
 			latch.countDown();
 			assertThat(slowDone.get()).describedAs("ServerAuthenticationSuccessHandler should be executed sequentially")
-					.isTrue();
+		.isTrue();
 		});
 		DelegatingServerAuthenticationSuccessHandler handler = new DelegatingServerAuthenticationSuccessHandler(slow,
-				second);
+	second);
 		handler.onAuthenticationSuccess(this.exchange, this.authentication).block();
 		assertThat(latch.await(3, TimeUnit.SECONDS)).isTrue();
 	}

@@ -62,7 +62,7 @@ public class OAuth2AuthorizationCodeAuthenticationToken extends AbstractAuthenti
 	 * @param authorizationExchange the authorization exchange
 	 */
 	public OAuth2AuthorizationCodeAuthenticationToken(ClientRegistration clientRegistration,
-			OAuth2AuthorizationExchange authorizationExchange) {
+OAuth2AuthorizationExchange authorizationExchange) {
 		super(Collections.emptyList());
 		Assert.notNull(clientRegistration, "clientRegistration cannot be null");
 		Assert.notNull(authorizationExchange, "authorizationExchange cannot be null");
@@ -78,7 +78,7 @@ public class OAuth2AuthorizationCodeAuthenticationToken extends AbstractAuthenti
 	 * @param accessToken the access token credential
 	 */
 	public OAuth2AuthorizationCodeAuthenticationToken(ClientRegistration clientRegistration,
-			OAuth2AuthorizationExchange authorizationExchange, OAuth2AccessToken accessToken) {
+OAuth2AuthorizationExchange authorizationExchange, OAuth2AccessToken accessToken) {
 		this(clientRegistration, authorizationExchange, accessToken, null);
 	}
 
@@ -91,14 +91,14 @@ public class OAuth2AuthorizationCodeAuthenticationToken extends AbstractAuthenti
 	 * @param refreshToken the refresh token credential
 	 */
 	public OAuth2AuthorizationCodeAuthenticationToken(ClientRegistration clientRegistration,
-			OAuth2AuthorizationExchange authorizationExchange, OAuth2AccessToken accessToken,
-			@Nullable OAuth2RefreshToken refreshToken) {
+OAuth2AuthorizationExchange authorizationExchange, OAuth2AccessToken accessToken,
+@Nullable OAuth2RefreshToken refreshToken) {
 		this(clientRegistration, authorizationExchange, accessToken, refreshToken, Collections.emptyMap());
 	}
 
 	public OAuth2AuthorizationCodeAuthenticationToken(ClientRegistration clientRegistration,
-			OAuth2AuthorizationExchange authorizationExchange, OAuth2AccessToken accessToken,
-			OAuth2RefreshToken refreshToken, Map<String, Object> additionalParameters) {
+OAuth2AuthorizationExchange authorizationExchange, OAuth2AccessToken accessToken,
+OAuth2RefreshToken refreshToken, Map<String, Object> additionalParameters) {
 		this(clientRegistration, authorizationExchange);
 		Assert.notNull(accessToken, "accessToken cannot be null");
 		this.accessToken = accessToken;
@@ -115,7 +115,7 @@ public class OAuth2AuthorizationCodeAuthenticationToken extends AbstractAuthenti
 	@Override
 	public Object getCredentials() {
 		return (this.accessToken != null) ? this.accessToken.getTokenValue()
-				: this.authorizationExchange.getAuthorizationResponse().getCode();
+	: this.authorizationExchange.getAuthorizationResponse().getCode();
 	}
 
 	/**

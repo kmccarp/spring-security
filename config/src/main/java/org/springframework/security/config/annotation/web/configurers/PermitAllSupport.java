@@ -45,21 +45,21 @@ final class PermitAllSupport {
 
 	@SuppressWarnings("unchecked")
 	static void permitAll(HttpSecurityBuilder<? extends HttpSecurityBuilder<?>> http,
-			RequestMatcher... requestMatchers) {
+RequestMatcher... requestMatchers) {
 		ExpressionUrlAuthorizationConfigurer<?> configurer = http
-				.getConfigurer(ExpressionUrlAuthorizationConfigurer.class);
+	.getConfigurer(ExpressionUrlAuthorizationConfigurer.class);
 		AuthorizeHttpRequestsConfigurer<?> httpConfigurer = http.getConfigurer(AuthorizeHttpRequestsConfigurer.class);
 
 		boolean oneConfigurerPresent = configurer == null ^ httpConfigurer == null;
 		Assert.state(oneConfigurerPresent,
-				"permitAll only works with either HttpSecurity.authorizeRequests() or HttpSecurity.authorizeHttpRequests(). "
-						+ "Please define one or the other but not both.");
+	"permitAll only works with either HttpSecurity.authorizeRequests() or HttpSecurity.authorizeHttpRequests(). "
++ "Please define one or the other but not both.");
 
 		for (RequestMatcher matcher : requestMatchers) {
 			if (matcher != null) {
 				if (configurer != null) {
 					configurer.getRegistry().addMapping(0, new UrlMapping(matcher,
-							SecurityConfig.createList(ExpressionUrlAuthorizationConfigurer.permitAll)));
+				SecurityConfig.createList(ExpressionUrlAuthorizationConfigurer.permitAll)));
 				}
 				else {
 					httpConfigurer.addFirst(matcher, AuthorizeHttpRequestsConfigurer.permitAllAuthorizationManager);

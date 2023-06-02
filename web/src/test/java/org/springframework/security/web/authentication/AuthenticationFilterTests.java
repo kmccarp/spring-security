@@ -92,7 +92,7 @@ public class AuthenticationFilterTests {
 	@Test
 	public void filterWhenDefaultsAndNoAuthenticationThenContinues() throws Exception {
 		AuthenticationFilter filter = new AuthenticationFilter(this.authenticationManager,
-				this.authenticationConverter);
+	this.authenticationConverter);
 		MockHttpServletRequest request = new MockHttpServletRequest("GET", "/");
 		MockHttpServletResponse response = new MockHttpServletResponse();
 		FilterChain chain = mock(FilterChain.class);
@@ -105,7 +105,7 @@ public class AuthenticationFilterTests {
 	@Test
 	public void filterWhenAuthenticationManagerResolverDefaultsAndNoAuthenticationThenContinues() throws Exception {
 		AuthenticationFilter filter = new AuthenticationFilter(this.authenticationManagerResolver,
-				this.authenticationConverter);
+	this.authenticationConverter);
 		MockHttpServletRequest request = new MockHttpServletRequest("GET", "/");
 		MockHttpServletResponse response = new MockHttpServletResponse();
 		FilterChain chain = mock(FilterChain.class);
@@ -121,7 +121,7 @@ public class AuthenticationFilterTests {
 		given(this.authenticationConverter.convert(any())).willReturn(authentication);
 		given(this.authenticationManager.authenticate(any())).willReturn(authentication);
 		AuthenticationFilter filter = new AuthenticationFilter(this.authenticationManager,
-				this.authenticationConverter);
+	this.authenticationConverter);
 		MockHttpServletRequest request = new MockHttpServletRequest("GET", "/");
 		MockHttpServletResponse response = new MockHttpServletResponse();
 		FilterChain chain = mock(FilterChain.class);
@@ -130,7 +130,7 @@ public class AuthenticationFilterTests {
 		verify(chain).doFilter(any(ServletRequest.class), any(ServletResponse.class));
 		assertThat(SecurityContextHolder.getContext().getAuthentication()).isNotNull();
 		assertThat(request.getAttribute(RequestAttributeSecurityContextRepository.DEFAULT_REQUEST_ATTR_NAME))
-				.isNotNull();
+	.isNotNull();
 	}
 
 	@Test
@@ -139,7 +139,7 @@ public class AuthenticationFilterTests {
 		given(this.authenticationConverter.convert(any())).willReturn(authentication);
 		given(this.authenticationManager.authenticate(any())).willReturn(authentication);
 		AuthenticationFilter filter = new AuthenticationFilter(this.authenticationManager,
-				this.authenticationConverter);
+	this.authenticationConverter);
 		SecurityContextHolderStrategy strategy = mock(SecurityContextHolderStrategy.class);
 		given(strategy.createEmptyContext()).willReturn(new SecurityContextImpl());
 		filter.setSecurityContextHolderStrategy(strategy);
@@ -154,13 +154,13 @@ public class AuthenticationFilterTests {
 
 	@Test
 	public void filterWhenAuthenticationManagerResolverDefaultsAndAuthenticationSuccessThenContinues()
-			throws Exception {
+throws Exception {
 		givenResolveWillReturnAuthenticationManager();
 		Authentication authentication = new TestingAuthenticationToken("test", "this", "ROLE");
 		given(this.authenticationConverter.convert(any())).willReturn(authentication);
 		given(this.authenticationManager.authenticate(any())).willReturn(authentication);
 		AuthenticationFilter filter = new AuthenticationFilter(this.authenticationManagerResolver,
-				this.authenticationConverter);
+	this.authenticationConverter);
 		MockHttpServletRequest request = new MockHttpServletRequest("GET", "/");
 		MockHttpServletResponse response = new MockHttpServletResponse();
 		FilterChain chain = mock(FilterChain.class);
@@ -169,7 +169,7 @@ public class AuthenticationFilterTests {
 		verify(chain).doFilter(any(ServletRequest.class), any(ServletResponse.class));
 		assertThat(SecurityContextHolder.getContext().getAuthentication()).isNotNull();
 		assertThat(request.getAttribute(RequestAttributeSecurityContextRepository.DEFAULT_REQUEST_ATTR_NAME))
-				.isNotNull();
+	.isNotNull();
 	}
 
 	@Test
@@ -178,7 +178,7 @@ public class AuthenticationFilterTests {
 		given(this.authenticationConverter.convert(any())).willReturn(authentication);
 		given(this.authenticationManager.authenticate(any())).willThrow(new BadCredentialsException("failed"));
 		AuthenticationFilter filter = new AuthenticationFilter(this.authenticationManager,
-				this.authenticationConverter);
+	this.authenticationConverter);
 		MockHttpServletRequest request = new MockHttpServletRequest("GET", "/");
 		MockHttpServletResponse response = new MockHttpServletResponse();
 		FilterChain chain = mock(FilterChain.class);
@@ -189,13 +189,13 @@ public class AuthenticationFilterTests {
 
 	@Test
 	public void filterWhenAuthenticationManagerResolverDefaultsAndAuthenticationFailThenUnauthorized()
-			throws Exception {
+throws Exception {
 		givenResolveWillReturnAuthenticationManager();
 		Authentication authentication = new TestingAuthenticationToken("test", "this", "ROLE");
 		given(this.authenticationConverter.convert(any())).willReturn(authentication);
 		given(this.authenticationManager.authenticate(any())).willThrow(new BadCredentialsException("failed"));
 		AuthenticationFilter filter = new AuthenticationFilter(this.authenticationManagerResolver,
-				this.authenticationConverter);
+	this.authenticationConverter);
 		MockHttpServletRequest request = new MockHttpServletRequest("GET", "/");
 		MockHttpServletResponse response = new MockHttpServletResponse();
 		FilterChain chain = mock(FilterChain.class);
@@ -208,7 +208,7 @@ public class AuthenticationFilterTests {
 	public void filterWhenConvertEmptyThenOk() throws Exception {
 		given(this.authenticationConverter.convert(any())).willReturn(null);
 		AuthenticationFilter filter = new AuthenticationFilter(this.authenticationManagerResolver,
-				this.authenticationConverter);
+	this.authenticationConverter);
 		MockHttpServletRequest request = new MockHttpServletRequest("GET", "/");
 		FilterChain chain = mock(FilterChain.class);
 		filter.doFilter(request, new MockHttpServletResponse(), chain);
@@ -224,7 +224,7 @@ public class AuthenticationFilterTests {
 		given(this.authenticationConverter.convert(any())).willReturn(authentication);
 		given(this.authenticationManager.authenticate(any())).willReturn(authentication);
 		AuthenticationFilter filter = new AuthenticationFilter(this.authenticationManagerResolver,
-				this.authenticationConverter);
+	this.authenticationConverter);
 		filter.setSuccessHandler(this.successHandler);
 		MockHttpServletRequest request = new MockHttpServletRequest("GET", "/");
 		MockHttpServletResponse response = new MockHttpServletResponse();
@@ -234,7 +234,7 @@ public class AuthenticationFilterTests {
 		verifyNoMoreInteractions(this.failureHandler);
 		assertThat(SecurityContextHolder.getContext().getAuthentication()).isNotNull();
 		assertThat(request.getAttribute(RequestAttributeSecurityContextRepository.DEFAULT_REQUEST_ATTR_NAME))
-				.isNotNull();
+	.isNotNull();
 	}
 
 	@Test
@@ -244,7 +244,7 @@ public class AuthenticationFilterTests {
 		given(this.authenticationConverter.convert(any())).willReturn(authentication);
 		given(this.authenticationManager.authenticate(any())).willReturn(null);
 		AuthenticationFilter filter = new AuthenticationFilter(this.authenticationManagerResolver,
-				this.authenticationConverter);
+	this.authenticationConverter);
 		filter.setSuccessHandler(this.successHandler);
 		MockHttpServletRequest request = new MockHttpServletRequest("GET", "/");
 		MockHttpServletResponse response = new MockHttpServletResponse();
@@ -258,7 +258,7 @@ public class AuthenticationFilterTests {
 	public void filterWhenNotMatchAndConvertAndAuthenticationSuccessThenContinues() throws Exception {
 		given(this.requestMatcher.matches(any())).willReturn(false);
 		AuthenticationFilter filter = new AuthenticationFilter(this.authenticationManagerResolver,
-				this.authenticationConverter);
+	this.authenticationConverter);
 		filter.setRequestMatcher(this.requestMatcher);
 		MockHttpServletRequest request = new MockHttpServletRequest("GET", "/");
 		MockHttpServletResponse response = new MockHttpServletResponse();
@@ -281,7 +281,7 @@ public class AuthenticationFilterTests {
 		FilterChain chain = new MockFilterChain();
 		String sessionId = session.getId();
 		AuthenticationFilter filter = new AuthenticationFilter(this.authenticationManager,
-				this.authenticationConverter);
+	this.authenticationConverter);
 		filter.doFilter(request, response, chain);
 		assertThat(session.getId()).isNotEqualTo(sessionId);
 	}
@@ -295,7 +295,7 @@ public class AuthenticationFilterTests {
 		MockHttpServletResponse response = new MockHttpServletResponse();
 		FilterChain chain = new MockFilterChain();
 		AuthenticationFilter filter = new AuthenticationFilter(this.authenticationManager,
-				this.authenticationConverter);
+	this.authenticationConverter);
 		filter.doFilter(request, response, chain);
 		assertThat(request.getSession(false)).isNull();
 	}
@@ -311,7 +311,7 @@ public class AuthenticationFilterTests {
 		MockHttpServletResponse response = new MockHttpServletResponse();
 		FilterChain chain = new MockFilterChain();
 		AuthenticationFilter filter = new AuthenticationFilter(this.authenticationManager,
-				this.authenticationConverter);
+	this.authenticationConverter);
 		filter.setSecurityContextRepository(securityContextRepository);
 		filter.doFilter(request, response, chain);
 		verify(securityContextRepository).saveContext(securityContextArg.capture(), eq(request), eq(response));

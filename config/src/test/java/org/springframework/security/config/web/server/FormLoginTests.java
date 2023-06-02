@@ -69,30 +69,30 @@ public class FormLoginTests {
 	public void defaultLoginPage() {
 		// @formatter:off
 		SecurityWebFilterChain securityWebFilter = this.http
-				.authorizeExchange()
-					.anyExchange().authenticated()
-					.and()
-				.formLogin()
-					.and()
-				.build();
+	.authorizeExchange()
+	.anyExchange().authenticated()
+	.and()
+	.formLogin()
+	.and()
+	.build();
 		WebTestClient webTestClient = WebTestClientBuilder
-				.bindToWebFilters(securityWebFilter)
-				.build();
+	.bindToWebFilters(securityWebFilter)
+	.build();
 		WebDriver driver = WebTestClientHtmlUnitDriverBuilder
-				.webTestClientSetup(webTestClient)
-				.build();
+	.webTestClientSetup(webTestClient)
+	.build();
 		// @formatter:on
 		DefaultLoginPage loginPage = HomePage.to(driver, DefaultLoginPage.class).assertAt();
 		// @formatter:off
 		loginPage = loginPage.loginForm()
-					.username("user")
-					.password("invalid")
-					.submit(DefaultLoginPage.class)
-				.assertError();
+	.username("user")
+	.password("invalid")
+	.submit(DefaultLoginPage.class)
+	.assertError();
 		HomePage homePage = loginPage.loginForm()
-				.username("user")
-				.password("password")
-				.submit(HomePage.class);
+	.username("user")
+	.password("password")
+	.submit(HomePage.class);
 		// @formatter:on
 		homePage.assertAt();
 		loginPage = DefaultLogoutPage.to(driver).assertAt().logout();
@@ -102,22 +102,22 @@ public class FormLoginTests {
 	@Test
 	public void formLoginWhenDefaultsInLambdaThenCreatesDefaultLoginPage() {
 		SecurityWebFilterChain securityWebFilter = this.http
-				.authorizeExchange((exchanges) -> exchanges.anyExchange().authenticated()).formLogin(withDefaults())
-				.build();
+	.authorizeExchange((exchanges) -> exchanges.anyExchange().authenticated()).formLogin(withDefaults())
+	.build();
 		WebTestClient webTestClient = WebTestClientBuilder.bindToWebFilters(securityWebFilter).build();
 		WebDriver driver = WebTestClientHtmlUnitDriverBuilder.webTestClientSetup(webTestClient).build();
 		DefaultLoginPage loginPage = HomePage.to(driver, DefaultLoginPage.class).assertAt();
 		// @formatter:off
 		loginPage = loginPage
-				.loginForm()
-					.username("user")
-					.password("invalid")
-					.submit(DefaultLoginPage.class)
-				.assertError();
+	.loginForm()
+	.username("user")
+	.password("invalid")
+	.submit(DefaultLoginPage.class)
+	.assertError();
 		HomePage homePage = loginPage.loginForm()
-				.username("user")
-				.password("password")
-				.submit(HomePage.class);
+	.username("user")
+	.password("password")
+	.submit(HomePage.class);
 		// @formatter:on
 		homePage.assertAt();
 		loginPage = DefaultLogoutPage.to(driver).assertAt().logout();
@@ -128,28 +128,28 @@ public class FormLoginTests {
 	public void customLoginPage() {
 		// @formatter:off
 		SecurityWebFilterChain securityWebFilter = this.http
-				.authorizeExchange()
-					.pathMatchers("/login").permitAll()
-					.anyExchange().authenticated()
-					.and()
-				.formLogin()
-					.loginPage("/login")
-					.and()
-				.build();
+	.authorizeExchange()
+	.pathMatchers("/login").permitAll()
+	.anyExchange().authenticated()
+	.and()
+	.formLogin()
+	.loginPage("/login")
+	.and()
+	.build();
 		WebTestClient webTestClient = WebTestClient
-				.bindToController(new CustomLoginPageController(), new WebTestClientBuilder.Http200RestController())
-				.webFilter(new WebFilterChainProxy(securityWebFilter))
-				.build();
+	.bindToController(new CustomLoginPageController(), new WebTestClientBuilder.Http200RestController())
+	.webFilter(new WebFilterChainProxy(securityWebFilter))
+	.build();
 		WebDriver driver = WebTestClientHtmlUnitDriverBuilder
-				.webTestClientSetup(webTestClient)
-				.build();
+	.webTestClientSetup(webTestClient)
+	.build();
 		// @formatter:on
 		CustomLoginPage loginPage = HomePage.to(driver, CustomLoginPage.class).assertAt();
 		// @formatter:off
 		HomePage homePage = loginPage.loginForm()
-				.username("user")
-				.password("password")
-				.submit(HomePage.class);
+	.username("user")
+	.password("password")
+	.submit(HomePage.class);
 		// @formatter:on
 		homePage.assertAt();
 	}
@@ -158,28 +158,25 @@ public class FormLoginTests {
 	public void formLoginWhenCustomLoginPageInLambdaThenUsed() {
 		// @formatter:off
 		SecurityWebFilterChain securityWebFilter = this.http
-				.authorizeExchange((exchanges) -> exchanges
-						.pathMatchers("/login").permitAll()
-						.anyExchange().authenticated()
-				)
-				.formLogin((formLogin) -> formLogin
-						.loginPage("/login")
-				)
-				.build();
+	.authorizeExchange((exchanges) -> exchanges.pathMatchers("/login").permitAll().anyExchange().authenticated()
+	)
+	.formLogin((formLogin) -> formLogin.loginPage("/login")
+	)
+	.build();
 		WebTestClient webTestClient = WebTestClient
-				.bindToController(new CustomLoginPageController(), new WebTestClientBuilder.Http200RestController())
-				.webFilter(new WebFilterChainProxy(securityWebFilter))
-				.build();
+	.bindToController(new CustomLoginPageController(), new WebTestClientBuilder.Http200RestController())
+	.webFilter(new WebFilterChainProxy(securityWebFilter))
+	.build();
 		WebDriver driver = WebTestClientHtmlUnitDriverBuilder
-				.webTestClientSetup(webTestClient)
-				.build();
+	.webTestClientSetup(webTestClient)
+	.build();
 		// @formatter:on
 		CustomLoginPage loginPage = HomePage.to(driver, CustomLoginPage.class).assertAt();
 		// @formatter:off
 		HomePage homePage = loginPage.loginForm()
-				.username("user")
-				.password("password")
-				.submit(HomePage.class);
+	.username("user")
+	.password("password")
+	.submit(HomePage.class);
 		// @formatter:on
 		homePage.assertAt();
 	}
@@ -188,27 +185,27 @@ public class FormLoginTests {
 	public void formLoginWhenCustomAuthenticationFailureHandlerThenUsed() {
 		// @formatter:off
 		SecurityWebFilterChain securityWebFilter = this.http
-				.authorizeExchange()
-					.pathMatchers("/login", "/failure").permitAll()
-					.anyExchange().authenticated()
-					.and()
-				.formLogin()
-					.authenticationFailureHandler(new RedirectServerAuthenticationFailureHandler("/failure"))
-					.and()
-				.build();
+	.authorizeExchange()
+	.pathMatchers("/login", "/failure").permitAll()
+	.anyExchange().authenticated()
+	.and()
+	.formLogin()
+	.authenticationFailureHandler(new RedirectServerAuthenticationFailureHandler("/failure"))
+	.and()
+	.build();
 		WebTestClient webTestClient = WebTestClientBuilder
-				.bindToWebFilters(securityWebFilter)
-				.build();
+	.bindToWebFilters(securityWebFilter)
+	.build();
 		WebDriver driver = WebTestClientHtmlUnitDriverBuilder
-				.webTestClientSetup(webTestClient)
-				.build();
+	.webTestClientSetup(webTestClient)
+	.build();
 		// @formatter:on
 		DefaultLoginPage loginPage = HomePage.to(driver, DefaultLoginPage.class).assertAt();
 		// @formatter:off
 		loginPage.loginForm()
-				.username("invalid")
-				.password("invalid")
-				.submit(HomePage.class);
+	.username("invalid")
+	.password("invalid")
+	.submit(HomePage.class);
 		// @formatter:on
 		assertThat(driver.getCurrentUrl()).endsWith("/failure");
 	}
@@ -217,20 +214,20 @@ public class FormLoginTests {
 	public void formLoginWhenCustomRequiresAuthenticationMatcherThenUsed() {
 		// @formatter:off
 		SecurityWebFilterChain securityWebFilter = this.http
-				.authorizeExchange()
-					.pathMatchers("/login", "/sign-in").permitAll()
-					.anyExchange().authenticated()
-					.and()
-				.formLogin()
-					.requiresAuthenticationMatcher(new PathPatternParserServerWebExchangeMatcher("/sign-in"))
-					.and()
-				.build();
+	.authorizeExchange()
+	.pathMatchers("/login", "/sign-in").permitAll()
+	.anyExchange().authenticated()
+	.and()
+	.formLogin()
+	.requiresAuthenticationMatcher(new PathPatternParserServerWebExchangeMatcher("/sign-in"))
+	.and()
+	.build();
 		WebTestClient webTestClient = WebTestClientBuilder
-				.bindToWebFilters(securityWebFilter)
-				.build();
+	.bindToWebFilters(securityWebFilter)
+	.build();
 		WebDriver driver = WebTestClientHtmlUnitDriverBuilder
-				.webTestClientSetup(webTestClient)
-				.build();
+	.webTestClientSetup(webTestClient)
+	.build();
 		// @formatter:on
 		driver.get("http://localhost/sign-in");
 		assertThat(driver.getCurrentUrl()).endsWith("/login?error");
@@ -240,26 +237,26 @@ public class FormLoginTests {
 	public void authenticationSuccess() {
 		// @formatter:off
 		SecurityWebFilterChain securityWebFilter = this.http
-				.authorizeExchange()
-					.anyExchange().authenticated()
-					.and()
-				.formLogin()
-					.authenticationSuccessHandler(new RedirectServerAuthenticationSuccessHandler("/custom"))
-					.and()
-				.build();
+	.authorizeExchange()
+	.anyExchange().authenticated()
+	.and()
+	.formLogin()
+	.authenticationSuccessHandler(new RedirectServerAuthenticationSuccessHandler("/custom"))
+	.and()
+	.build();
 		WebTestClient webTestClient = WebTestClientBuilder
-				.bindToWebFilters(securityWebFilter)
-				.build();
+	.bindToWebFilters(securityWebFilter)
+	.build();
 		WebDriver driver = WebTestClientHtmlUnitDriverBuilder
-				.webTestClientSetup(webTestClient)
-				.build();
+	.webTestClientSetup(webTestClient)
+	.build();
 		// @formatter:on
 		DefaultLoginPage loginPage = DefaultLoginPage.to(driver).assertAt();
 		// @formatter:off
 		HomePage homePage = loginPage.loginForm()
-				.username("user")
-				.password("password")
-				.submit(HomePage.class);
+	.username("user")
+	.password("password")
+	.submit(HomePage.class);
 		// @formatter:on
 		assertThat(driver.getCurrentUrl()).endsWith("/custom");
 	}
@@ -269,29 +266,29 @@ public class FormLoginTests {
 		ReactiveAuthenticationManager defaultAuthenticationManager = mock(ReactiveAuthenticationManager.class);
 		ReactiveAuthenticationManager customAuthenticationManager = mock(ReactiveAuthenticationManager.class);
 		given(defaultAuthenticationManager.authenticate(any()))
-				.willThrow(new RuntimeException("should not interact with default auth manager"));
+	.willThrow(new RuntimeException("should not interact with default auth manager"));
 		given(customAuthenticationManager.authenticate(any()))
-				.willReturn(Mono.just(new TestingAuthenticationToken("user", "password", "ROLE_USER", "ROLE_ADMIN")));
+	.willReturn(Mono.just(new TestingAuthenticationToken("user", "password", "ROLE_USER", "ROLE_ADMIN")));
 		// @formatter:off
 		SecurityWebFilterChain securityWebFilter = this.http
-				.authenticationManager(defaultAuthenticationManager)
-				.formLogin()
-					.authenticationManager(customAuthenticationManager)
-					.and()
-				.build();
+	.authenticationManager(defaultAuthenticationManager)
+	.formLogin()
+	.authenticationManager(customAuthenticationManager)
+	.and()
+	.build();
 		WebTestClient webTestClient = WebTestClientBuilder
-				.bindToWebFilters(securityWebFilter)
-				.build();
+	.bindToWebFilters(securityWebFilter)
+	.build();
 		WebDriver driver = WebTestClientHtmlUnitDriverBuilder
-				.webTestClientSetup(webTestClient)
-				.build();
+	.webTestClientSetup(webTestClient)
+	.build();
 		// @formatter:on
 		DefaultLoginPage loginPage = DefaultLoginPage.to(driver).assertAt();
 		// @formatter:off
 		HomePage homePage = loginPage.loginForm()
-				.username("user")
-				.password("password")
-				.submit(HomePage.class);
+	.username("user")
+	.password("password")
+	.submit(HomePage.class);
 		// @formatter:on
 		homePage.assertAt();
 		verifyNoMoreInteractions(defaultAuthenticationManager);
@@ -308,27 +305,27 @@ public class FormLoginTests {
 		given(formLoginSecContextRepository.load(any())).willReturn(authentication(token));
 		// @formatter:off
 		SecurityWebFilterChain securityWebFilter = this.http
-				.authorizeExchange()
-					.anyExchange().authenticated()
-					.and()
-				.securityContextRepository(defaultSecContextRepository)
-				.formLogin()
-					.securityContextRepository(formLoginSecContextRepository)
-					.and()
-				.build();
+	.authorizeExchange()
+	.anyExchange().authenticated()
+	.and()
+	.securityContextRepository(defaultSecContextRepository)
+	.formLogin()
+	.securityContextRepository(formLoginSecContextRepository)
+	.and()
+	.build();
 		WebTestClient webTestClient = WebTestClientBuilder
-				.bindToWebFilters(securityWebFilter)
-				.build();
+	.bindToWebFilters(securityWebFilter)
+	.build();
 		WebDriver driver = WebTestClientHtmlUnitDriverBuilder
-				.webTestClientSetup(webTestClient)
-				.build();
+	.webTestClientSetup(webTestClient)
+	.build();
 		// @formatter:on
 		DefaultLoginPage loginPage = DefaultLoginPage.to(driver).assertAt();
 		// @formatter:off
 		HomePage homePage = loginPage.loginForm()
-				.username("user")
-				.password("password")
-				.submit(HomePage.class);
+	.username("user")
+	.password("password")
+	.submit(HomePage.class);
 		// @formatter:on
 		homePage.assertAt();
 		verify(defaultSecContextRepository, atLeastOnce()).load(any());
@@ -565,32 +562,32 @@ public class FormLoginTests {
 			Mono<CsrfToken> token = exchange.getAttributeOrDefault(CsrfToken.class.getName(), Mono.empty());
 			// @formatter:off
 			return token.map((t) -> "<!DOCTYPE html>\n"
-					+ "<html lang=\"en\">\n"
-					+ "  <head>\n"
-					+ "    <meta charset=\"utf-8\">\n"
-					+ "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1, shrink-to-fit=no\">\n"
-					+ "    <meta name=\"description\" content=\"\">\n"
-					+ "    <meta name=\"author\" content=\"\">\n"
-					+ "    <title>Custom Log In Page</title>\n"
-					+ "  </head>\n"
-					+ "  <body>\n"
-					+ "     <div>\n"
-					+ "      <form method=\"post\" action=\"/login\">\n"
-					+ "        <h2>Please sign in</h2>\n"
-					+ "        <p>\n"
-					+ "          <label for=\"username\">Username</label>\n"
-					+ "          <input type=\"text\" id=\"username\" name=\"username\" placeholder=\"Username\" required autofocus>\n"
-					+ "        </p>\n"
-					+ "        <p>\n"
-					+ "          <label for=\"password\" class=\"sr-only\">Password</label>\n"
-					+ "          <input type=\"password\" id=\"password\" name=\"password\" placeholder=\"Password\" required>\n"
-					+ "        </p>\n"
-					+ "        <input type=\"hidden\" name=\"" + t.getParameterName() + "\" value=\"" + t.getToken() + "\">\n"
-					+ "        <button type=\"submit\">Sign in</button>\n"
-					+ "      </form>\n"
-					+ "    </div>\n"
-					+ "  </body>\n"
-					+ "</html>");
+		+ "<html lang=\"en\">\n"
+		+ "  <head>\n"
+		+ "    <meta charset=\"utf-8\">\n"
+		+ "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1, shrink-to-fit=no\">\n"
+		+ "    <meta name=\"description\" content=\"\">\n"
+		+ "    <meta name=\"author\" content=\"\">\n"
+		+ "    <title>Custom Log In Page</title>\n"
+		+ "  </head>\n"
+		+ "  <body>\n"
+		+ "     <div>\n"
+		+ "      <form method=\"post\" action=\"/login\">\n"
+		+ "        <h2>Please sign in</h2>\n"
+		+ "        <p>\n"
+		+ "          <label for=\"username\">Username</label>\n"
+		+ "          <input type=\"text\" id=\"username\" name=\"username\" placeholder=\"Username\" required autofocus>\n"
+		+ "        </p>\n"
+		+ "        <p>\n"
+		+ "          <label for=\"password\" class=\"sr-only\">Password</label>\n"
+		+ "          <input type=\"password\" id=\"password\" name=\"password\" placeholder=\"Password\" required>\n"
+		+ "        </p>\n"
+		+ "        <input type=\"hidden\" name=\"" + t.getParameterName() + "\" value=\"" + t.getToken() + "\">\n"
+		+ "        <button type=\"submit\">Sign in</button>\n"
+		+ "      </form>\n"
+		+ "    </div>\n"
+		+ "  </body>\n"
+		+ "</html>");
 			// @formatter:on
 		}
 

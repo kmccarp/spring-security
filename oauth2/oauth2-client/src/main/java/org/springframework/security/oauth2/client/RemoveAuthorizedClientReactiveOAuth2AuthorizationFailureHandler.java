@@ -39,8 +39,7 @@ import org.springframework.util.Assert;
  * @author Phil Clay
  * @since 5.3
  */
-public class RemoveAuthorizedClientReactiveOAuth2AuthorizationFailureHandler
-		implements ReactiveOAuth2AuthorizationFailureHandler {
+public class RemoveAuthorizedClientReactiveOAuth2AuthorizationFailureHandlerimplements ReactiveOAuth2AuthorizationFailureHandler {
 
 	/**
 	 * The default OAuth 2.0 error codes that will trigger removal of the authorized
@@ -48,6 +47,7 @@ public class RemoveAuthorizedClientReactiveOAuth2AuthorizationFailureHandler
 	 * @see OAuth2ErrorCodes
 	 */
 	public static final Set<String> DEFAULT_REMOVE_AUTHORIZED_CLIENT_ERROR_CODES;
+
 	static {
 		Set<String> codes = new LinkedHashSet<>();
 		// Returned from resource servers when an access token provided is expired,
@@ -85,7 +85,7 @@ public class RemoveAuthorizedClientReactiveOAuth2AuthorizationFailureHandler
 	 * {@link #DEFAULT_REMOVE_AUTHORIZED_CLIENT_ERROR_CODES}.
 	 */
 	public RemoveAuthorizedClientReactiveOAuth2AuthorizationFailureHandler(
-			OAuth2AuthorizedClientRemover authorizedClientRemover) {
+OAuth2AuthorizedClientRemover authorizedClientRemover) {
 		this(authorizedClientRemover, DEFAULT_REMOVE_AUTHORIZED_CLIENT_ERROR_CODES);
 	}
 
@@ -101,22 +101,22 @@ public class RemoveAuthorizedClientReactiveOAuth2AuthorizationFailureHandler
 	 * @see OAuth2ErrorCodes
 	 */
 	public RemoveAuthorizedClientReactiveOAuth2AuthorizationFailureHandler(
-			OAuth2AuthorizedClientRemover authorizedClientRemover, Set<String> removeAuthorizedClientErrorCodes) {
+OAuth2AuthorizedClientRemover authorizedClientRemover, Set<String> removeAuthorizedClientErrorCodes) {
 		Assert.notNull(authorizedClientRemover, "authorizedClientRemover cannot be null");
 		Assert.notNull(removeAuthorizedClientErrorCodes, "removeAuthorizedClientErrorCodes cannot be null");
 		this.removeAuthorizedClientErrorCodes = Collections
-				.unmodifiableSet(new HashSet<>(removeAuthorizedClientErrorCodes));
+	.unmodifiableSet(new HashSet<>(removeAuthorizedClientErrorCodes));
 		this.delegate = authorizedClientRemover;
 	}
 
 	@Override
 	public Mono<Void> onAuthorizationFailure(OAuth2AuthorizationException authorizationException,
-			Authentication principal, Map<String, Object> attributes) {
+Authentication principal, Map<String, Object> attributes) {
 		if (authorizationException instanceof ClientAuthorizationException
-				&& hasRemovalErrorCode(authorizationException)) {
+	&& hasRemovalErrorCode(authorizationException)) {
 			ClientAuthorizationException clientAuthorizationException = (ClientAuthorizationException) authorizationException;
 			return this.delegate.removeAuthorizedClient(clientAuthorizationException.getClientRegistrationId(),
-					principal, attributes);
+		principal, attributes);
 		}
 		return Mono.empty();
 	}
@@ -154,7 +154,7 @@ public class RemoveAuthorizedClientReactiveOAuth2AuthorizationFailureHandler
 		 * handling the event.
 		 */
 		Mono<Void> removeAuthorizedClient(String clientRegistrationId, Authentication principal,
-				Map<String, Object> attributes);
+	Map<String, Object> attributes);
 
 	}
 

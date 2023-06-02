@@ -39,7 +39,7 @@ import org.springframework.util.Assert;
 public final class HttpSessionLogoutRequestRepository implements Saml2LogoutRequestRepository {
 
 	private static final String DEFAULT_LOGOUT_REQUEST_ATTR_NAME = HttpSessionLogoutRequestRepository.class.getName()
-			+ ".LOGOUT_REQUEST";
++ ".LOGOUT_REQUEST";
 
 	/**
 	 * {@inheritDoc}
@@ -63,7 +63,7 @@ public final class HttpSessionLogoutRequestRepository implements Saml2LogoutRequ
 	 */
 	@Override
 	public void saveLogoutRequest(Saml2LogoutRequest logoutRequest, HttpServletRequest request,
-			HttpServletResponse response) {
+HttpServletResponse response) {
 		Assert.notNull(request, "request cannot be null");
 		Assert.notNull(response, "response cannot be null");
 		if (logoutRequest == null) {

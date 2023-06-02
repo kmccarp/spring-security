@@ -48,7 +48,7 @@ public class SpringCacheBasedAclCache implements AclCache {
 	private AclAuthorizationStrategy aclAuthorizationStrategy;
 
 	public SpringCacheBasedAclCache(Cache cache, PermissionGrantingStrategy permissionGrantingStrategy,
-			AclAuthorizationStrategy aclAuthorizationStrategy) {
+AclAuthorizationStrategy aclAuthorizationStrategy) {
 		Assert.notNull(cache, "Cache required");
 		Assert.notNull(permissionGrantingStrategy, "PermissionGrantingStrategy required");
 		Assert.notNull(aclAuthorizationStrategy, "AclAuthorizationStrategy required");

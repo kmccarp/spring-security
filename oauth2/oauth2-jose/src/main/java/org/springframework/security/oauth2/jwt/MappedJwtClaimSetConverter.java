@@ -100,7 +100,7 @@ public final class MappedJwtClaimSetConverter implements Converter<Map<String, O
 		Assert.notNull(claimTypeConverters, "claimTypeConverters cannot be null");
 		Converter<Object, ?> stringConverter = getConverter(STRING_TYPE_DESCRIPTOR);
 		Converter<Object, ?> collectionStringConverter = getConverter(
-				TypeDescriptor.collection(Collection.class, STRING_TYPE_DESCRIPTOR));
+	TypeDescriptor.collection(Collection.class, STRING_TYPE_DESCRIPTOR));
 		Map<String, Converter<Object, ?>> claimNameToConverter = new HashMap<>();
 		claimNameToConverter.put(JwtClaimNames.AUD, collectionStringConverter);
 		claimNameToConverter.put(JwtClaimNames.EXP, MappedJwtClaimSetConverter::convertInstant);

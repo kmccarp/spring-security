@@ -63,22 +63,22 @@ public class ConsensusBased extends AbstractAccessDecisionManager {
 	 * @throws AccessDeniedException if access is denied
 	 */
 	@Override
-	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@SuppressWarnings({"rawtypes", "unchecked"})
 	public void decide(Authentication authentication, Object object, Collection<ConfigAttribute> configAttributes)
-			throws AccessDeniedException {
+throws AccessDeniedException {
 		int grant = 0;
 		int deny = 0;
 		for (AccessDecisionVoter voter : getDecisionVoters()) {
 			int result = voter.vote(authentication, object, configAttributes);
 			switch (result) {
-			case AccessDecisionVoter.ACCESS_GRANTED:
-				grant++;
-				break;
-			case AccessDecisionVoter.ACCESS_DENIED:
-				deny++;
-				break;
-			default:
-				break;
+				case AccessDecisionVoter.ACCESS_GRANTED:
+					grant++;
+					break;
+				case AccessDecisionVoter.ACCESS_DENIED:
+					deny++;
+					break;
+				default:
+					break;
 			}
 		}
 		if (grant > deny) {
@@ -86,14 +86,14 @@ public class ConsensusBased extends AbstractAccessDecisionManager {
 		}
 		if (deny > grant) {
 			throw new AccessDeniedException(
-					this.messages.getMessage("AbstractAccessDecisionManager.accessDenied", "Access is denied"));
+		this.messages.getMessage("AbstractAccessDecisionManager.accessDenied", "Access is denied"));
 		}
 		if ((grant == deny) && (grant != 0)) {
 			if (this.allowIfEqualGrantedDeniedDecisions) {
 				return;
 			}
 			throw new AccessDeniedException(
-					this.messages.getMessage("AbstractAccessDecisionManager.accessDenied", "Access is denied"));
+		this.messages.getMessage("AbstractAccessDecisionManager.accessDenied", "Access is denied"));
 		}
 		// To get this far, every AccessDecisionVoter abstained
 		checkAllowIfAllAbstainDecisions();

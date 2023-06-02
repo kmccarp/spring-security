@@ -114,7 +114,7 @@ public class LdapServerBeanDefinitionParser implements BeanDefinitionParser {
 		if (StringUtils.hasText(managerDn)) {
 			if (!StringUtils.hasText(managerPassword)) {
 				parserContext.getReaderContext()
-						.error("You must specify the " + ATT_PASSWORD + " if you supply a " + managerDn, elt);
+			.error("You must specify the " + ATT_PASSWORD + " if you supply a " + managerDn, elt);
 			}
 			contextSource.getPropertyValues().addPropertyValue("userDn", managerDn);
 			contextSource.getPropertyValues().addPropertyValue("password", managerPassword);
@@ -145,11 +145,11 @@ public class LdapServerBeanDefinitionParser implements BeanDefinitionParser {
 		contextSource.addPropertyValue("userDn", "uid=admin,ou=system");
 		contextSource.addPropertyValue("password", "secret");
 		BeanDefinition embeddedLdapServerConfigBean = BeanDefinitionBuilder
-				.rootBeanDefinition(EmbeddedLdapServerConfigBean.class).getBeanDefinition();
+	.rootBeanDefinition(EmbeddedLdapServerConfigBean.class).getBeanDefinition();
 		String embeddedLdapServerConfigBeanName = parserContext.getReaderContext()
-				.generateBeanName(embeddedLdapServerConfigBean);
+	.generateBeanName(embeddedLdapServerConfigBean);
 		parserContext.registerBeanComponent(
-				new BeanComponentDefinition(embeddedLdapServerConfigBean, embeddedLdapServerConfigBeanName));
+	new BeanComponentDefinition(embeddedLdapServerConfigBean, embeddedLdapServerConfigBeanName));
 		contextSource.setFactoryMethodOnBean("createEmbeddedContextSource", embeddedLdapServerConfigBeanName);
 		String mode = element.getAttribute("mode");
 		RootBeanDefinition ldapContainer = getRootBeanDefinition(mode);
@@ -162,9 +162,9 @@ public class LdapServerBeanDefinitionParser implements BeanDefinitionParser {
 		ldapContainer.getConstructorArgumentValues().addGenericArgumentValue(ldifs);
 		ldapContainer.getPropertyValues().addPropertyValue("port", getPort(element));
 		if (parserContext.getRegistry().containsBeanDefinition(BeanIds.EMBEDDED_APACHE_DS)
-				|| parserContext.getRegistry().containsBeanDefinition(BeanIds.EMBEDDED_UNBOUNDID)) {
+	|| parserContext.getRegistry().containsBeanDefinition(BeanIds.EMBEDDED_UNBOUNDID)) {
 			parserContext.getReaderContext().error("Only one embedded server bean is allowed per application context",
-					element);
+		element);
 		}
 		String beanId = resolveBeanId(mode);
 		if (beanId != null) {

@@ -49,69 +49,69 @@ public class J2eeBasedPreAuthenticatedWebAuthenticationDetailsSourceTests {
 
 	@Test
 	public final void testBuildDetailsHttpServletRequestNoMappedNoUserRoles() {
-		String[] mappedRoles = new String[] {};
-		String[] roles = new String[] {};
-		String[] expectedRoles = new String[] {};
+		String[] mappedRoles = new String[]{};
+		String[] roles = new String[]{};
+		String[] expectedRoles = new String[]{};
 		testDetails(mappedRoles, roles, expectedRoles);
 	}
 
 	@Test
 	public final void testBuildDetailsHttpServletRequestNoMappedUnmappedUserRoles() {
-		String[] mappedRoles = new String[] {};
-		String[] roles = new String[] { "Role1", "Role2" };
-		String[] expectedRoles = new String[] {};
+		String[] mappedRoles = new String[]{};
+		String[] roles = new String[]{"Role1", "Role2"};
+		String[] expectedRoles = new String[]{};
 		testDetails(mappedRoles, roles, expectedRoles);
 	}
 
 	@Test
 	public final void testBuildDetailsHttpServletRequestNoUserRoles() {
-		String[] mappedRoles = new String[] { "Role1", "Role2", "Role3", "Role4" };
-		String[] roles = new String[] {};
-		String[] expectedRoles = new String[] {};
+		String[] mappedRoles = new String[]{"Role1", "Role2", "Role3", "Role4"};
+		String[] roles = new String[]{};
+		String[] expectedRoles = new String[]{};
 		testDetails(mappedRoles, roles, expectedRoles);
 	}
 
 	@Test
 	public final void testBuildDetailsHttpServletRequestAllUserRoles() {
-		String[] mappedRoles = new String[] { "Role1", "Role2", "Role3", "Role4" };
-		String[] roles = new String[] { "Role1", "Role2", "Role3", "Role4" };
-		String[] expectedRoles = new String[] { "Role1", "Role2", "Role3", "Role4" };
+		String[] mappedRoles = new String[]{"Role1", "Role2", "Role3", "Role4"};
+		String[] roles = new String[]{"Role1", "Role2", "Role3", "Role4"};
+		String[] expectedRoles = new String[]{"Role1", "Role2", "Role3", "Role4"};
 		testDetails(mappedRoles, roles, expectedRoles);
 	}
 
 	@Test
 	public final void testBuildDetailsHttpServletRequestUnmappedUserRoles() {
-		String[] mappedRoles = new String[] { "Role1", "Role2", "Role3", "Role4" };
-		String[] roles = new String[] { "Role1", "Role2", "Role3", "Role4", "Role5" };
-		String[] expectedRoles = new String[] { "Role1", "Role2", "Role3", "Role4" };
+		String[] mappedRoles = new String[]{"Role1", "Role2", "Role3", "Role4"};
+		String[] roles = new String[]{"Role1", "Role2", "Role3", "Role4", "Role5"};
+		String[] expectedRoles = new String[]{"Role1", "Role2", "Role3", "Role4"};
 		testDetails(mappedRoles, roles, expectedRoles);
 	}
 
 	@Test
 	public final void testBuildDetailsHttpServletRequestPartialUserRoles() {
-		String[] mappedRoles = new String[] { "Role1", "Role2", "Role3", "Role4" };
-		String[] roles = new String[] { "Role2", "Role3" };
-		String[] expectedRoles = new String[] { "Role2", "Role3" };
+		String[] mappedRoles = new String[]{"Role1", "Role2", "Role3", "Role4"};
+		String[] roles = new String[]{"Role2", "Role3"};
+		String[] expectedRoles = new String[]{"Role2", "Role3"};
 		testDetails(mappedRoles, roles, expectedRoles);
 	}
 
 	@Test
 	public final void testBuildDetailsHttpServletRequestPartialAndUnmappedUserRoles() {
-		String[] mappedRoles = new String[] { "Role1", "Role2", "Role3", "Role4" };
-		String[] roles = new String[] { "Role2", "Role3", "Role5" };
-		String[] expectedRoles = new String[] { "Role2", "Role3" };
+		String[] mappedRoles = new String[]{"Role1", "Role2", "Role3", "Role4"};
+		String[] roles = new String[]{"Role2", "Role3", "Role5"};
+		String[] expectedRoles = new String[]{"Role2", "Role3"};
 		testDetails(mappedRoles, roles, expectedRoles);
 	}
 
 	private void testDetails(String[] mappedRoles, String[] userRoles, String[] expectedRoles) {
 		J2eeBasedPreAuthenticatedWebAuthenticationDetailsSource src = getJ2eeBasedPreAuthenticatedWebAuthenticationDetailsSource(
-				mappedRoles);
+	mappedRoles);
 		Object o = src.buildDetails(getRequest("testUser", userRoles));
 		assertThat(o).isNotNull();
 		assertThat(o instanceof PreAuthenticatedGrantedAuthoritiesWebAuthenticationDetails).withFailMessage(
-				"Returned object not of type PreAuthenticatedGrantedAuthoritiesWebAuthenticationDetails, actual type: "
-						+ o.getClass())
-				.isTrue();
+	"Returned object not of type PreAuthenticatedGrantedAuthoritiesWebAuthenticationDetails, actual type: "
++ o.getClass())
+	.isTrue();
 		PreAuthenticatedGrantedAuthoritiesWebAuthenticationDetails details = (PreAuthenticatedGrantedAuthoritiesWebAuthenticationDetails) o;
 		List<GrantedAuthority> gas = details.getGrantedAuthorities();
 		assertThat(gas).as("Granted authorities should not be null").isNotNull();
@@ -122,11 +122,11 @@ public class J2eeBasedPreAuthenticatedWebAuthenticationDetailsSourceTests {
 			gasRolesSet.add(grantedAuthority.getAuthority());
 		}
 		assertThat(expectedRolesColl.containsAll(gasRolesSet) && gasRolesSet.containsAll(expectedRolesColl))
-				.withFailMessage("Granted Authorities do not match expected roles").isTrue();
+	.withFailMessage("Granted Authorities do not match expected roles").isTrue();
 	}
 
 	private J2eeBasedPreAuthenticatedWebAuthenticationDetailsSource getJ2eeBasedPreAuthenticatedWebAuthenticationDetailsSource(
-			String[] mappedRoles) {
+String[] mappedRoles) {
 		J2eeBasedPreAuthenticatedWebAuthenticationDetailsSource result = new J2eeBasedPreAuthenticatedWebAuthenticationDetailsSource();
 		result.setMappableRolesRetriever(getMappableRolesRetriever(mappedRoles));
 		result.setUserRoles2GrantedAuthoritiesMapper(getJ2eeUserRoles2GrantedAuthoritiesMapper());

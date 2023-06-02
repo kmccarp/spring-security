@@ -49,7 +49,7 @@ public class AuthorizationCodeReactiveOAuth2AuthorizedClientProviderTests {
 		this.authorizedClientProvider = new AuthorizationCodeReactiveOAuth2AuthorizedClientProvider();
 		this.clientRegistration = TestClientRegistrations.clientRegistration().build();
 		this.authorizedClient = new OAuth2AuthorizedClient(this.clientRegistration, "principal",
-				TestOAuth2AccessTokens.scopes("read", "write"));
+	TestOAuth2AccessTokens.scopes("read", "write"));
 		this.principal = new TestingAuthenticationToken("principal", "password");
 	}
 
@@ -63,9 +63,9 @@ public class AuthorizationCodeReactiveOAuth2AuthorizedClientProviderTests {
 		ClientRegistration clientCredentialsClient = TestClientRegistrations.clientCredentials().build();
 		// @formatter:off
 		OAuth2AuthorizationContext authorizationContext = OAuth2AuthorizationContext
-				.withClientRegistration(clientCredentialsClient)
-				.principal(this.principal)
-				.build();
+	.withClientRegistration(clientCredentialsClient)
+	.principal(this.principal)
+	.build();
 		// @formatter:on
 		assertThat(this.authorizedClientProvider.authorize(authorizationContext).block()).isNull();
 	}
@@ -74,9 +74,9 @@ public class AuthorizationCodeReactiveOAuth2AuthorizedClientProviderTests {
 	public void authorizeWhenAuthorizationCodeAndAuthorizedThenNotAuthorize() {
 		// @formatter:off
 		OAuth2AuthorizationContext authorizationContext = OAuth2AuthorizationContext
-				.withAuthorizedClient(this.authorizedClient)
-				.principal(this.principal)
-				.build();
+	.withAuthorizedClient(this.authorizedClient)
+	.principal(this.principal)
+	.build();
 		// @formatter:on
 		assertThat(this.authorizedClientProvider.authorize(authorizationContext).block()).isNull();
 	}
@@ -85,12 +85,12 @@ public class AuthorizationCodeReactiveOAuth2AuthorizedClientProviderTests {
 	public void authorizeWhenAuthorizationCodeAndNotAuthorizedThenAuthorize() {
 		// @formatter:off
 		OAuth2AuthorizationContext authorizationContext = OAuth2AuthorizationContext
-				.withClientRegistration(this.clientRegistration)
-				.principal(this.principal)
-				.build();
+	.withClientRegistration(this.clientRegistration)
+	.principal(this.principal)
+	.build();
 		// @formatter:on
 		assertThatExceptionOfType(ClientAuthorizationRequiredException.class)
-				.isThrownBy(() -> this.authorizedClientProvider.authorize(authorizationContext).block());
+	.isThrownBy(() -> this.authorizedClientProvider.authorize(authorizationContext).block());
 	}
 
 }

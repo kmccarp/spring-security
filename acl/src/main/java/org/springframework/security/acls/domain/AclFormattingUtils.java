@@ -30,7 +30,7 @@ public abstract class AclFormattingUtils {
 		Assert.notNull(original, "Original string required");
 		Assert.notNull(removeBits, "Bits To Remove string required");
 		Assert.isTrue(original.length() == removeBits.length(),
-				"Original and Bits To Remove strings must be identical length");
+	"Original and Bits To Remove strings must be identical length");
 		char[] replacement = new char[original.length()];
 		for (int i = 0; i < original.length(); i++) {
 			if (removeBits.charAt(i) == Permission.RESERVED_OFF) {
@@ -47,7 +47,7 @@ public abstract class AclFormattingUtils {
 		Assert.notNull(original, "Original string required");
 		Assert.notNull(extraBits, "Extra Bits string required");
 		Assert.isTrue(original.length() == extraBits.length(),
-				"Original and Extra Bits strings must be identical length");
+	"Original and Extra Bits strings must be identical length");
 		char[] replacement = new char[extraBits.length()];
 		for (int i = 0; i < extraBits.length(); i++) {
 			if (extraBits.charAt(i) == Permission.RESERVED_OFF) {
@@ -83,9 +83,9 @@ public abstract class AclFormattingUtils {
 	 */
 	public static String printBinary(int mask, char code) {
 		Assert.doesNotContain(Character.toString(code), Character.toString(Permission.RESERVED_ON),
-				() -> Permission.RESERVED_ON + " is a reserved character code");
+	() -> Permission.RESERVED_ON + " is a reserved character code");
 		Assert.doesNotContain(Character.toString(code), Character.toString(Permission.RESERVED_OFF),
-				() -> Permission.RESERVED_OFF + " is a reserved character code");
+	() -> Permission.RESERVED_OFF + " is a reserved character code");
 		return printBinary(mask, Permission.RESERVED_ON, Permission.RESERVED_OFF).replace(Permission.RESERVED_ON, code);
 	}
 

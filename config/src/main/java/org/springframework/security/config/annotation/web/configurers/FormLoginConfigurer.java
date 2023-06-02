@@ -68,8 +68,7 @@ import org.springframework.security.web.util.matcher.RequestMatcher;
  * @author Shazin Sadakath
  * @since 3.2
  */
-public final class FormLoginConfigurer<H extends HttpSecurityBuilder<H>> extends
-		AbstractAuthenticationFilterConfigurer<H, FormLoginConfigurer<H>, UsernamePasswordAuthenticationFilter> {
+public final class FormLoginConfigurer<H extends HttpSecurityBuilder<H>> extendsAbstractAuthenticationFilterConfigurer<H, FormLoginConfigurer<H>, UsernamePasswordAuthenticationFilter> {
 
 	/**
 	 * Creates a new instance
@@ -260,7 +259,7 @@ public final class FormLoginConfigurer<H extends HttpSecurityBuilder<H>> extends
 	 */
 	private void initDefaultLoginFilter(H http) {
 		DefaultLoginPageGeneratingFilter loginPageGeneratingFilter = http
-				.getSharedObject(DefaultLoginPageGeneratingFilter.class);
+	.getSharedObject(DefaultLoginPageGeneratingFilter.class);
 		if (loginPageGeneratingFilter != null && !isCustomLoginPage()) {
 			loginPageGeneratingFilter.setFormLoginEnabled(true);
 			loginPageGeneratingFilter.setUsernameParameter(getUsernameParameter());

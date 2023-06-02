@@ -45,7 +45,7 @@ public abstract class AbstractOAuth2AuthorizationGrantRequest {
 	 * @since 5.5
 	 */
 	protected AbstractOAuth2AuthorizationGrantRequest(AuthorizationGrantType authorizationGrantType,
-			ClientRegistration clientRegistration) {
+ClientRegistration clientRegistration) {
 		Assert.notNull(authorizationGrantType, "authorizationGrantType cannot be null");
 		Assert.notNull(clientRegistration, "clientRegistration cannot be null");
 		this.authorizationGrantType = authorizationGrantType;

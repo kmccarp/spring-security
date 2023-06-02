@@ -93,25 +93,25 @@ final class OpenSamlLogoutResponseResolver {
 	 * Construct a {@link OpenSamlLogoutResponseResolver}
 	 */
 	OpenSamlLogoutResponseResolver(RelyingPartyRegistrationRepository registrations,
-			RelyingPartyRegistrationResolver relyingPartyRegistrationResolver) {
+RelyingPartyRegistrationResolver relyingPartyRegistrationResolver) {
 		this.registrations = registrations;
 		this.relyingPartyRegistrationResolver = relyingPartyRegistrationResolver;
 		XMLObjectProviderRegistry registry = ConfigurationService.get(XMLObjectProviderRegistry.class);
 		this.parserPool = registry.getParserPool();
 		this.unmarshaller = (LogoutRequestUnmarshaller) XMLObjectProviderRegistrySupport.getUnmarshallerFactory()
-				.getUnmarshaller(LogoutRequest.DEFAULT_ELEMENT_NAME);
+	.getUnmarshaller(LogoutRequest.DEFAULT_ELEMENT_NAME);
 		this.marshaller = (LogoutResponseMarshaller) registry.getMarshallerFactory()
-				.getMarshaller(LogoutResponse.DEFAULT_ELEMENT_NAME);
+	.getMarshaller(LogoutResponse.DEFAULT_ELEMENT_NAME);
 		Assert.notNull(this.marshaller, "logoutResponseMarshaller must be configured in OpenSAML");
 		this.logoutResponseBuilder = (LogoutResponseBuilder) registry.getBuilderFactory()
-				.getBuilder(LogoutResponse.DEFAULT_ELEMENT_NAME);
+	.getBuilder(LogoutResponse.DEFAULT_ELEMENT_NAME);
 		Assert.notNull(this.logoutResponseBuilder, "logoutResponseBuilder must be configured in OpenSAML");
 		this.issuerBuilder = (IssuerBuilder) registry.getBuilderFactory().getBuilder(Issuer.DEFAULT_ELEMENT_NAME);
 		Assert.notNull(this.issuerBuilder, "issuerBuilder must be configured in OpenSAML");
 		this.statusBuilder = (StatusBuilder) registry.getBuilderFactory().getBuilder(Status.DEFAULT_ELEMENT_NAME);
 		Assert.notNull(this.statusBuilder, "statusBuilder must be configured in OpenSAML");
 		this.statusCodeBuilder = (StatusCodeBuilder) registry.getBuilderFactory()
-				.getBuilder(StatusCode.DEFAULT_ELEMENT_NAME);
+	.getBuilder(StatusCode.DEFAULT_ELEMENT_NAME);
 		Assert.notNull(this.statusCodeBuilder, "statusCodeBuilder must be configured in OpenSAML");
 	}
 
@@ -132,7 +132,7 @@ final class OpenSamlLogoutResponseResolver {
 	}
 
 	Saml2LogoutResponse resolve(HttpServletRequest request, Authentication authentication,
-			BiConsumer<RelyingPartyRegistration, LogoutResponse> logoutResponseConsumer) {
+BiConsumer<RelyingPartyRegistration, LogoutResponse> logoutResponseConsumer) {
 		LogoutRequest logoutRequest = parse(extractSamlRequest(request));
 		String registrationId = getRegistrationId(authentication);
 		RelyingPartyRegistration registration = this.relyingPartyRegistrationResolver.resolve(request, registrationId);
@@ -178,7 +178,7 @@ final class OpenSamlLogoutResponseResolver {
 			String deflatedAndEncoded = Saml2Utils.samlEncode(Saml2Utils.samlDeflate(xml));
 			result.samlResponse(deflatedAndEncoded);
 			QueryParametersPartial partial = OpenSamlSigningUtils.sign(registration)
-					.param(Saml2ParameterNames.SAML_RESPONSE, deflatedAndEncoded);
+		.param(Saml2ParameterNames.SAML_RESPONSE, deflatedAndEncoded);
 			if (request.getParameter(Saml2ParameterNames.RELAY_STATE) != null) {
 				partial.param(Saml2ParameterNames.RELAY_STATE, request.getParameter(Saml2ParameterNames.RELAY_STATE));
 			}
@@ -212,7 +212,7 @@ final class OpenSamlLogoutResponseResolver {
 	private LogoutRequest parse(String request) throws Saml2Exception {
 		try {
 			Document document = this.parserPool
-					.parse(new ByteArrayInputStream(request.getBytes(StandardCharsets.UTF_8)));
+		.parse(new ByteArrayInputStream(request.getBytes(StandardCharsets.UTF_8)));
 			Element element = document.getDocumentElement();
 			return (LogoutRequest) this.unmarshaller.unmarshall(element);
 		}

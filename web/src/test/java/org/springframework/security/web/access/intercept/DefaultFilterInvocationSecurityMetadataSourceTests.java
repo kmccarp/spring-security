@@ -83,7 +83,7 @@ public class DefaultFilterInvocationSecurityMetadataSourceTests {
 		FilterInvocation fi = createFilterInvocation("/someAdminPage.html", null, "a=/test", null);
 		Collection<ConfigAttribute> response = this.fids.getAttributes(fi);
 		assertThat(response); // see SEC-161 (it should truncate after ?
-								// sign).isEqualTo(def)
+		// sign).isEqualTo(def)
 	}
 
 	@Test
@@ -138,7 +138,7 @@ public class DefaultFilterInvocationSecurityMetadataSourceTests {
 	}
 
 	private FilterInvocation createFilterInvocation(String servletPath, String pathInfo, String queryString,
-			String method) {
+String method) {
 		MockHttpServletRequest request = new MockHttpServletRequest();
 		request.setRequestURI(null);
 		request.setMethod(method);

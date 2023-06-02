@@ -28,16 +28,16 @@ public final class TestOAuth2AuthorizationResponses {
 	public static OAuth2AuthorizationResponse.Builder success() {
 		// @formatter:off
 		return OAuth2AuthorizationResponse.success("authorization-code")
-				.state("state")
-				.redirectUri("https://example.com/authorize/oauth2/code/registration-id");
+	.state("state")
+	.redirectUri("https://example.com/authorize/oauth2/code/registration-id");
 		// @formatter:on
 	}
 
 	public static OAuth2AuthorizationResponse.Builder error() {
 		// @formatter:off
 		return OAuth2AuthorizationResponse.error("error")
-				.redirectUri("https://example.com/authorize/oauth2/code/registration-id")
-				.errorUri("https://example.com/error");
+	.redirectUri("https://example.com/authorize/oauth2/code/registration-id")
+	.errorUri("https://example.com/error");
 		// @formatter:on
 	}
 

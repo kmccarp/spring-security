@@ -52,13 +52,13 @@ public class OidcClientInitiatedServerLogoutSuccessHandlerTests {
 
 	// @formatter:off
 	ClientRegistration registration = TestClientRegistrations
-			.clientRegistration()
-			.providerConfigurationMetadata(Collections.singletonMap("end_session_endpoint", "https://endpoint"))
-			.build();
+.clientRegistration()
+.providerConfigurationMetadata(Collections.singletonMap("end_session_endpoint", "https://endpoint"))
+.build();
 	// @formatter:on
 
 	ReactiveClientRegistrationRepository repository = new InMemoryReactiveClientRegistrationRepository(
-			this.registration);
+this.registration);
 
 	ServerWebExchange exchange;
 
@@ -78,7 +78,7 @@ public class OidcClientInitiatedServerLogoutSuccessHandlerTests {
 	@Test
 	public void logoutWhenOidcRedirectUrlConfiguredThenRedirects() {
 		OAuth2AuthenticationToken token = new OAuth2AuthenticationToken(TestOidcUsers.create(),
-				AuthorityUtils.NO_AUTHORITIES, this.registration.getRegistrationId());
+	AuthorityUtils.NO_AUTHORITIES, this.registration.getRegistrationId());
 		given(this.exchange.getPrincipal()).willReturn(Mono.just(token));
 		WebFilterExchange f = new WebFilterExchange(this.exchange, this.chain);
 		this.handler.onLogoutSuccess(f, token).block();
@@ -98,7 +98,7 @@ public class OidcClientInitiatedServerLogoutSuccessHandlerTests {
 	@Test
 	public void logoutWhenNotOidcUserThenDefaults() {
 		OAuth2AuthenticationToken token = new OAuth2AuthenticationToken(TestOAuth2Users.create(),
-				AuthorityUtils.NO_AUTHORITIES, this.registration.getRegistrationId());
+	AuthorityUtils.NO_AUTHORITIES, this.registration.getRegistrationId());
 		given(this.exchange.getPrincipal()).willReturn(Mono.just(token));
 		WebFilterExchange f = new WebFilterExchange(this.exchange, this.chain);
 		this.handler.setLogoutSuccessUrl(URI.create("https://default"));
@@ -110,11 +110,11 @@ public class OidcClientInitiatedServerLogoutSuccessHandlerTests {
 	public void logoutWhenClientRegistrationHasNoEndSessionEndpointThenDefaults() {
 		ClientRegistration registration = TestClientRegistrations.clientRegistration().build();
 		ReactiveClientRegistrationRepository repository = new InMemoryReactiveClientRegistrationRepository(
-				registration);
+	registration);
 		OidcClientInitiatedServerLogoutSuccessHandler handler = new OidcClientInitiatedServerLogoutSuccessHandler(
-				repository);
+	repository);
 		OAuth2AuthenticationToken token = new OAuth2AuthenticationToken(TestOidcUsers.create(),
-				AuthorityUtils.NO_AUTHORITIES, registration.getRegistrationId());
+	AuthorityUtils.NO_AUTHORITIES, registration.getRegistrationId());
 		given(this.exchange.getPrincipal()).willReturn(Mono.just(token));
 		WebFilterExchange f = new WebFilterExchange(this.exchange, this.chain);
 		handler.setLogoutSuccessUrl(URI.create("https://default"));
@@ -124,9 +124,9 @@ public class OidcClientInitiatedServerLogoutSuccessHandlerTests {
 
 	@Test
 	public void logoutWhenUsingPostLogoutBaseUrlRedirectUriTemplateThenBuildsItForRedirect()
-			throws IOException, ServletException {
+throws IOException, ServletException {
 		OAuth2AuthenticationToken token = new OAuth2AuthenticationToken(TestOidcUsers.create(),
-				AuthorityUtils.NO_AUTHORITIES, this.registration.getRegistrationId());
+	AuthorityUtils.NO_AUTHORITIES, this.registration.getRegistrationId());
 		given(this.exchange.getPrincipal()).willReturn(Mono.just(token));
 		MockServerHttpRequest request = MockServerHttpRequest.get("https://rp.example.org/").build();
 		given(this.exchange.getRequest()).willReturn(request);
@@ -134,26 +134,26 @@ public class OidcClientInitiatedServerLogoutSuccessHandlerTests {
 		this.handler.setPostLogoutRedirectUri("{baseUrl}");
 		this.handler.onLogoutSuccess(f, token).block();
 		assertThat(redirectedUrl(this.exchange)).isEqualTo(
-				"https://endpoint?" + "id_token_hint=id-token&" + "post_logout_redirect_uri=https://rp.example.org");
+	"https://endpoint?" + "id_token_hint=id-token&" + "post_logout_redirect_uri=https://rp.example.org");
 	}
 
 	// gh-11379
 	@Test
 	public void logoutWhenUsingPostLogoutRedirectUriWithQueryParametersThenBuildsItForRedirect() {
 		OAuth2AuthenticationToken token = new OAuth2AuthenticationToken(TestOidcUsers.create(),
-				AuthorityUtils.NO_AUTHORITIES, this.registration.getRegistrationId());
+	AuthorityUtils.NO_AUTHORITIES, this.registration.getRegistrationId());
 		given(this.exchange.getPrincipal()).willReturn(Mono.just(token));
 		this.handler.setPostLogoutRedirectUri("https://rp.example.org/context?forwardUrl=secured%3Fparam%3Dtrue");
 		WebFilterExchange f = new WebFilterExchange(this.exchange, this.chain);
 		this.handler.onLogoutSuccess(f, token).block();
 		assertThat(redirectedUrl(this.exchange)).isEqualTo("https://endpoint?id_token_hint=id-token&"
-				+ "post_logout_redirect_uri=https://rp.example.org/context?forwardUrl%3Dsecured%253Fparam%253Dtrue");
+	+ "post_logout_redirect_uri=https://rp.example.org/context?forwardUrl%3Dsecured%253Fparam%253Dtrue");
 	}
 
 	@Test
 	public void logoutWhenUsingPostLogoutRedirectUriTemplateThenBuildsItForRedirect() {
 		OAuth2AuthenticationToken token = new OAuth2AuthenticationToken(TestOidcUsers.create(),
-				AuthorityUtils.NO_AUTHORITIES, this.registration.getRegistrationId());
+	AuthorityUtils.NO_AUTHORITIES, this.registration.getRegistrationId());
 		given(this.exchange.getPrincipal()).willReturn(Mono.just(token));
 		MockServerHttpRequest request = MockServerHttpRequest.get("https://rp.example.org/").build();
 		given(this.exchange.getRequest()).willReturn(request);
@@ -161,13 +161,13 @@ public class OidcClientInitiatedServerLogoutSuccessHandlerTests {
 		this.handler.setPostLogoutRedirectUri("{baseScheme}://{baseHost}{basePort}{basePath}");
 		this.handler.onLogoutSuccess(f, token).block();
 		assertThat(redirectedUrl(this.exchange)).isEqualTo(
-				"https://endpoint?" + "id_token_hint=id-token&" + "post_logout_redirect_uri=https://rp.example.org");
+	"https://endpoint?" + "id_token_hint=id-token&" + "post_logout_redirect_uri=https://rp.example.org");
 	}
 
 	@Test
 	public void logoutWhenUsingPostLogoutRedirectUriTemplateWithOtherPortThenBuildsItForRedirect() {
 		OAuth2AuthenticationToken token = new OAuth2AuthenticationToken(TestOidcUsers.create(),
-				AuthorityUtils.NO_AUTHORITIES, this.registration.getRegistrationId());
+	AuthorityUtils.NO_AUTHORITIES, this.registration.getRegistrationId());
 		given(this.exchange.getPrincipal()).willReturn(Mono.just(token));
 		MockServerHttpRequest request = MockServerHttpRequest.get("https://rp.example.org:400").build();
 		given(this.exchange.getRequest()).willReturn(request);
@@ -175,14 +175,14 @@ public class OidcClientInitiatedServerLogoutSuccessHandlerTests {
 		this.handler.setPostLogoutRedirectUri("{baseScheme}://{baseHost}{basePort}{basePath}");
 		this.handler.onLogoutSuccess(f, token).block();
 		assertThat(redirectedUrl(this.exchange)).isEqualTo("https://endpoint?" + "id_token_hint=id-token&"
-				+ "post_logout_redirect_uri=https://rp.example.org:400");
+	+ "post_logout_redirect_uri=https://rp.example.org:400");
 	}
 
 	@Test
 	public void logoutWhenUsingPostLogoutRedirectUriTemplateThenBuildsItForRedirectExpanded()
-			throws IOException, ServletException {
+throws IOException, ServletException {
 		OAuth2AuthenticationToken token = new OAuth2AuthenticationToken(TestOidcUsers.create(),
-				AuthorityUtils.NO_AUTHORITIES, this.registration.getRegistrationId());
+	AuthorityUtils.NO_AUTHORITIES, this.registration.getRegistrationId());
 		given(this.exchange.getPrincipal()).willReturn(Mono.just(token));
 		MockServerHttpRequest request = MockServerHttpRequest.get("https://rp.example.org/").build();
 		given(this.exchange.getRequest()).willReturn(request);
@@ -190,8 +190,8 @@ public class OidcClientInitiatedServerLogoutSuccessHandlerTests {
 		this.handler.setPostLogoutRedirectUri("{baseUrl}/{registrationId}");
 		this.handler.onLogoutSuccess(f, token).block();
 		assertThat(redirectedUrl(this.exchange)).isEqualTo(String.format(
-				"https://endpoint?" + "id_token_hint=id-token&" + "post_logout_redirect_uri=https://rp.example.org/%s",
-				this.registration.getRegistrationId()));
+	"https://endpoint?" + "id_token_hint=id-token&" + "post_logout_redirect_uri=https://rp.example.org/%s",
+	this.registration.getRegistrationId()));
 	}
 
 	@Test

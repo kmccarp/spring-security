@@ -70,13 +70,13 @@ public class JwtBearerOAuth2AuthorizedClientProviderTests {
 		this.authorizedClientProvider.setAccessTokenResponseClient(this.accessTokenResponseClient);
 		// @formatter:off
 		this.clientRegistration = ClientRegistration.withRegistrationId("jwt-bearer")
-				.clientId("client-id")
-				.clientSecret("client-secret")
-				.clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
-				.authorizationGrantType(AuthorizationGrantType.JWT_BEARER)
-				.scope("read", "write")
-				.tokenUri("https://example.com/oauth2/token")
-				.build();
+	.clientId("client-id")
+	.clientSecret("client-secret")
+	.clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
+	.authorizationGrantType(AuthorizationGrantType.JWT_BEARER)
+	.scope("read", "write")
+	.tokenUri("https://example.com/oauth2/token")
+	.build();
 		// @formatter:on
 		this.jwtAssertion = TestJwts.jwt().build();
 		this.principal = new TestingAuthenticationToken(this.jwtAssertion, this.jwtAssertion);
@@ -85,23 +85,23 @@ public class JwtBearerOAuth2AuthorizedClientProviderTests {
 	@Test
 	public void setAccessTokenResponseClientWhenClientIsNullThenThrowIllegalArgumentException() {
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> this.authorizedClientProvider.setAccessTokenResponseClient(null))
-				.withMessage("accessTokenResponseClient cannot be null");
+	.isThrownBy(() -> this.authorizedClientProvider.setAccessTokenResponseClient(null))
+	.withMessage("accessTokenResponseClient cannot be null");
 	}
 
 	@Test
 	public void setJwtAssertionResolverWhenNullThenThrowIllegalArgumentException() {
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> this.authorizedClientProvider.setJwtAssertionResolver(null))
-				.withMessage("jwtAssertionResolver cannot be null");
+	.isThrownBy(() -> this.authorizedClientProvider.setJwtAssertionResolver(null))
+	.withMessage("jwtAssertionResolver cannot be null");
 	}
 
 	@Test
 	public void setClockSkewWhenNullThenThrowIllegalArgumentException() {
 		// @formatter:off
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> this.authorizedClientProvider.setClockSkew(null))
-				.withMessage("clockSkew cannot be null");
+	.isThrownBy(() -> this.authorizedClientProvider.setClockSkew(null))
+	.withMessage("clockSkew cannot be null");
 		// @formatter:on
 	}
 
@@ -109,8 +109,8 @@ public class JwtBearerOAuth2AuthorizedClientProviderTests {
 	public void setClockSkewWhenNegativeSecondsThenThrowIllegalArgumentException() {
 		// @formatter:off
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> this.authorizedClientProvider.setClockSkew(Duration.ofSeconds(-1)))
-				.withMessage("clockSkew must be >= 0");
+	.isThrownBy(() -> this.authorizedClientProvider.setClockSkew(Duration.ofSeconds(-1)))
+	.withMessage("clockSkew must be >= 0");
 		// @formatter:on
 	}
 
@@ -118,8 +118,8 @@ public class JwtBearerOAuth2AuthorizedClientProviderTests {
 	public void setClockWhenNullThenThrowIllegalArgumentException() {
 		// @formatter:off
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> this.authorizedClientProvider.setClock(null))
-				.withMessage("clock cannot be null");
+	.isThrownBy(() -> this.authorizedClientProvider.setClock(null))
+	.withMessage("clock cannot be null");
 		// @formatter:on
 	}
 
@@ -127,8 +127,8 @@ public class JwtBearerOAuth2AuthorizedClientProviderTests {
 	public void authorizeWhenContextIsNullThenThrowIllegalArgumentException() {
 		// @formatter:off
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> this.authorizedClientProvider.authorize(null))
-				.withMessage("context cannot be null");
+	.isThrownBy(() -> this.authorizedClientProvider.authorize(null))
+	.withMessage("context cannot be null");
 		// @formatter:on
 	}
 
@@ -137,9 +137,9 @@ public class JwtBearerOAuth2AuthorizedClientProviderTests {
 		ClientRegistration clientRegistration = TestClientRegistrations.clientCredentials().build();
 		// @formatter:off
 		OAuth2AuthorizationContext authorizationContext = OAuth2AuthorizationContext
-				.withClientRegistration(clientRegistration)
-				.principal(this.principal)
-				.build();
+	.withClientRegistration(clientRegistration)
+	.principal(this.principal)
+	.build();
 		// @formatter:on
 		assertThat(this.authorizedClientProvider.authorize(authorizationContext)).isNull();
 	}
@@ -147,12 +147,12 @@ public class JwtBearerOAuth2AuthorizedClientProviderTests {
 	@Test
 	public void authorizeWhenJwtBearerAndTokenNotExpiredThenNotReauthorize() {
 		OAuth2AuthorizedClient authorizedClient = new OAuth2AuthorizedClient(this.clientRegistration,
-				this.principal.getName(), TestOAuth2AccessTokens.scopes("read", "write"));
+	this.principal.getName(), TestOAuth2AccessTokens.scopes("read", "write"));
 		// @formatter:off
 		OAuth2AuthorizationContext authorizationContext = OAuth2AuthorizationContext
-				.withAuthorizedClient(authorizedClient)
-				.principal(this.principal)
-				.build();
+	.withAuthorizedClient(authorizedClient)
+	.principal(this.principal)
+	.build();
 		// @formatter:on
 		assertThat(this.authorizedClientProvider.authorize(authorizationContext)).isNull();
 	}
@@ -163,16 +163,16 @@ public class JwtBearerOAuth2AuthorizedClientProviderTests {
 		Instant issuedAt = now.minus(Duration.ofMinutes(60));
 		Instant expiresAt = now.minus(Duration.ofMinutes(30));
 		OAuth2AccessToken accessToken = new OAuth2AccessToken(OAuth2AccessToken.TokenType.BEARER, "access-token-1234",
-				issuedAt, expiresAt);
+	issuedAt, expiresAt);
 		OAuth2AuthorizedClient authorizedClient = new OAuth2AuthorizedClient(this.clientRegistration,
-				this.principal.getName(), accessToken);
+	this.principal.getName(), accessToken);
 		OAuth2AccessTokenResponse accessTokenResponse = TestOAuth2AccessTokenResponses.accessTokenResponse().build();
 		given(this.accessTokenResponseClient.getTokenResponse(any())).willReturn(accessTokenResponse);
 		// @formatter:off
 		OAuth2AuthorizationContext authorizationContext = OAuth2AuthorizationContext
-				.withAuthorizedClient(authorizedClient)
-				.principal(this.principal)
-				.build();
+	.withAuthorizedClient(authorizedClient)
+	.principal(this.principal)
+	.build();
 		// @formatter:on
 		authorizedClient = this.authorizedClientProvider.authorize(authorizationContext);
 		assertThat(authorizedClient.getClientRegistration()).isSameAs(this.clientRegistration);
@@ -186,9 +186,9 @@ public class JwtBearerOAuth2AuthorizedClientProviderTests {
 		Instant issuedAt = now.minus(Duration.ofMinutes(60));
 		Instant expiresAt = now.plus(Duration.ofMinutes(1));
 		OAuth2AccessToken expiresInOneMinAccessToken = new OAuth2AccessToken(OAuth2AccessToken.TokenType.BEARER,
-				"access-token-1234", issuedAt, expiresAt);
+	"access-token-1234", issuedAt, expiresAt);
 		OAuth2AuthorizedClient authorizedClient = new OAuth2AuthorizedClient(this.clientRegistration,
-				this.principal.getName(), expiresInOneMinAccessToken);
+	this.principal.getName(), expiresInOneMinAccessToken);
 		// Shorten the lifespan of the access token by 90 seconds, which will ultimately
 		// force it to expire on the client
 		this.authorizedClientProvider.setClockSkew(Duration.ofSeconds(90));
@@ -196,9 +196,9 @@ public class JwtBearerOAuth2AuthorizedClientProviderTests {
 		given(this.accessTokenResponseClient.getTokenResponse(any())).willReturn(accessTokenResponse);
 		// @formatter:off
 		OAuth2AuthorizationContext authorizationContext = OAuth2AuthorizationContext
-				.withAuthorizedClient(authorizedClient)
-				.principal(this.principal)
-				.build();
+	.withAuthorizedClient(authorizedClient)
+	.principal(this.principal)
+	.build();
 		// @formatter:on
 		OAuth2AuthorizedClient reauthorizedClient = this.authorizedClientProvider.authorize(authorizationContext);
 		assertThat(reauthorizedClient.getClientRegistration()).isSameAs(this.clientRegistration);
@@ -210,9 +210,9 @@ public class JwtBearerOAuth2AuthorizedClientProviderTests {
 	public void authorizeWhenJwtBearerAndNotAuthorizedAndJwtDoesNotResolveThenUnableToAuthorize() {
 		// @formatter:off
 		OAuth2AuthorizationContext authorizationContext = OAuth2AuthorizationContext
-				.withClientRegistration(this.clientRegistration)
-				.principal(new TestingAuthenticationToken("user", "password"))
-				.build();
+	.withClientRegistration(this.clientRegistration)
+	.principal(new TestingAuthenticationToken("user", "password"))
+	.build();
 		// @formatter:on
 		assertThat(this.authorizedClientProvider.authorize(authorizationContext)).isNull();
 	}
@@ -223,9 +223,9 @@ public class JwtBearerOAuth2AuthorizedClientProviderTests {
 		given(this.accessTokenResponseClient.getTokenResponse(any())).willReturn(accessTokenResponse);
 		// @formatter:off
 		OAuth2AuthorizationContext authorizationContext = OAuth2AuthorizationContext
-				.withClientRegistration(this.clientRegistration)
-				.principal(this.principal)
-				.build();
+	.withClientRegistration(this.clientRegistration)
+	.principal(this.principal)
+	.build();
 		// @formatter:on
 		OAuth2AuthorizedClient authorizedClient = this.authorizedClientProvider.authorize(authorizationContext);
 		assertThat(authorizedClient.getClientRegistration()).isSameAs(this.clientRegistration);
@@ -243,9 +243,9 @@ public class JwtBearerOAuth2AuthorizedClientProviderTests {
 		// @formatter:off
 		TestingAuthenticationToken principal = new TestingAuthenticationToken("user", "password");
 		OAuth2AuthorizationContext authorizationContext = OAuth2AuthorizationContext
-				.withClientRegistration(this.clientRegistration)
-				.principal(principal)
-				.build();
+	.withClientRegistration(this.clientRegistration)
+	.principal(principal)
+	.build();
 		// @formatter:on
 		OAuth2AuthorizedClient authorizedClient = this.authorizedClientProvider.authorize(authorizationContext);
 		verify(jwtAssertionResolver).apply(any());

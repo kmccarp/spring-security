@@ -91,8 +91,7 @@ import org.springframework.util.Assert;
  * @see OAuth2AuthorizedClientRepository
  * @see AbstractHttpConfigurer
  */
-public final class OAuth2ClientConfigurer<B extends HttpSecurityBuilder<B>>
-		extends AbstractHttpConfigurer<OAuth2ClientConfigurer<B>, B> {
+public final class OAuth2ClientConfigurer<B extends HttpSecurityBuilder<B>>extends AbstractHttpConfigurer<OAuth2ClientConfigurer<B>, B> {
 
 	private AuthorizationCodeGrantConfigurer authorizationCodeGrantConfigurer = new AuthorizationCodeGrantConfigurer();
 
@@ -102,7 +101,7 @@ public final class OAuth2ClientConfigurer<B extends HttpSecurityBuilder<B>>
 	 * @return the {@link OAuth2ClientConfigurer} for further configuration
 	 */
 	public OAuth2ClientConfigurer<B> clientRegistrationRepository(
-			ClientRegistrationRepository clientRegistrationRepository) {
+ClientRegistrationRepository clientRegistrationRepository) {
 		Assert.notNull(clientRegistrationRepository, "clientRegistrationRepository cannot be null");
 		this.getBuilder().setSharedObject(ClientRegistrationRepository.class, clientRegistrationRepository);
 		return this;
@@ -114,7 +113,7 @@ public final class OAuth2ClientConfigurer<B extends HttpSecurityBuilder<B>>
 	 * @return the {@link OAuth2ClientConfigurer} for further configuration
 	 */
 	public OAuth2ClientConfigurer<B> authorizedClientRepository(
-			OAuth2AuthorizedClientRepository authorizedClientRepository) {
+OAuth2AuthorizedClientRepository authorizedClientRepository) {
 		Assert.notNull(authorizedClientRepository, "authorizedClientRepository cannot be null");
 		this.getBuilder().setSharedObject(OAuth2AuthorizedClientRepository.class, authorizedClientRepository);
 		return this;
@@ -128,7 +127,7 @@ public final class OAuth2ClientConfigurer<B extends HttpSecurityBuilder<B>>
 	public OAuth2ClientConfigurer<B> authorizedClientService(OAuth2AuthorizedClientService authorizedClientService) {
 		Assert.notNull(authorizedClientService, "authorizedClientService cannot be null");
 		this.authorizedClientRepository(
-				new AuthenticatedPrincipalOAuth2AuthorizedClientRepository(authorizedClientService));
+	new AuthenticatedPrincipalOAuth2AuthorizedClientRepository(authorizedClientService));
 		return this;
 	}
 
@@ -151,7 +150,7 @@ public final class OAuth2ClientConfigurer<B extends HttpSecurityBuilder<B>>
 	 * @return the {@link OAuth2ClientConfigurer} for further customizations
 	 */
 	public OAuth2ClientConfigurer<B> authorizationCodeGrant(
-			Customizer<AuthorizationCodeGrantConfigurer> authorizationCodeGrantCustomizer) {
+Customizer<AuthorizationCodeGrantConfigurer> authorizationCodeGrantCustomizer) {
 		authorizationCodeGrantCustomizer.customize(this.authorizationCodeGrantConfigurer);
 		return this;
 	}
@@ -189,7 +188,7 @@ public final class OAuth2ClientConfigurer<B extends HttpSecurityBuilder<B>>
 		 * @return the {@link AuthorizationCodeGrantConfigurer} for further configuration
 		 */
 		public AuthorizationCodeGrantConfigurer authorizationRequestResolver(
-				OAuth2AuthorizationRequestResolver authorizationRequestResolver) {
+	OAuth2AuthorizationRequestResolver authorizationRequestResolver) {
 			Assert.notNull(authorizationRequestResolver, "authorizationRequestResolver cannot be null");
 			this.authorizationRequestResolver = authorizationRequestResolver;
 			return this;
@@ -202,7 +201,7 @@ public final class OAuth2ClientConfigurer<B extends HttpSecurityBuilder<B>>
 		 * @return the {@link AuthorizationCodeGrantConfigurer} for further configuration
 		 */
 		public AuthorizationCodeGrantConfigurer authorizationRequestRepository(
-				AuthorizationRequestRepository<OAuth2AuthorizationRequest> authorizationRequestRepository) {
+	AuthorizationRequestRepository<OAuth2AuthorizationRequest> authorizationRequestRepository) {
 			Assert.notNull(authorizationRequestRepository, "authorizationRequestRepository cannot be null");
 			this.authorizationRequestRepository = authorizationRequestRepository;
 			return this;
@@ -214,7 +213,7 @@ public final class OAuth2ClientConfigurer<B extends HttpSecurityBuilder<B>>
 		 * @return the {@link AuthorizationCodeGrantConfigurer} for further configuration
 		 */
 		public AuthorizationCodeGrantConfigurer authorizationRedirectStrategy(
-				RedirectStrategy authorizationRedirectStrategy) {
+	RedirectStrategy authorizationRedirectStrategy) {
 			this.authorizationRedirectStrategy = authorizationRedirectStrategy;
 			return this;
 		}
@@ -227,7 +226,7 @@ public final class OAuth2ClientConfigurer<B extends HttpSecurityBuilder<B>>
 		 * @return the {@link AuthorizationCodeGrantConfigurer} for further configuration
 		 */
 		public AuthorizationCodeGrantConfigurer accessTokenResponseClient(
-				OAuth2AccessTokenResponseClient<OAuth2AuthorizationCodeGrantRequest> accessTokenResponseClient) {
+	OAuth2AccessTokenResponseClient<OAuth2AuthorizationCodeGrantRequest> accessTokenResponseClient) {
 			Assert.notNull(accessTokenResponseClient, "accessTokenResponseClient cannot be null");
 			this.accessTokenResponseClient = accessTokenResponseClient;
 			return this;
@@ -246,26 +245,26 @@ public final class OAuth2ClientConfigurer<B extends HttpSecurityBuilder<B>>
 
 		private void init(B builder) {
 			OAuth2AuthorizationCodeAuthenticationProvider authorizationCodeAuthenticationProvider = new OAuth2AuthorizationCodeAuthenticationProvider(
-					getAccessTokenResponseClient());
+		getAccessTokenResponseClient());
 			builder.authenticationProvider(postProcess(authorizationCodeAuthenticationProvider));
 		}
 
 		private void configure(B builder) {
 			OAuth2AuthorizationRequestRedirectFilter authorizationRequestRedirectFilter = createAuthorizationRequestRedirectFilter(
-					builder);
+		builder);
 			builder.addFilter(postProcess(authorizationRequestRedirectFilter));
 			OAuth2AuthorizationCodeGrantFilter authorizationCodeGrantFilter = createAuthorizationCodeGrantFilter(
-					builder);
+		builder);
 			builder.addFilter(postProcess(authorizationCodeGrantFilter));
 		}
 
 		private OAuth2AuthorizationRequestRedirectFilter createAuthorizationRequestRedirectFilter(B builder) {
 			OAuth2AuthorizationRequestResolver resolver = getAuthorizationRequestResolver();
 			OAuth2AuthorizationRequestRedirectFilter authorizationRequestRedirectFilter = new OAuth2AuthorizationRequestRedirectFilter(
-					resolver);
+		resolver);
 			if (this.authorizationRequestRepository != null) {
 				authorizationRequestRedirectFilter
-						.setAuthorizationRequestRepository(this.authorizationRequestRepository);
+			.setAuthorizationRequestRepository(this.authorizationRequestRepository);
 			}
 			if (this.authorizationRedirectStrategy != null) {
 				authorizationRequestRedirectFilter.setAuthorizationRedirectStrategy(this.authorizationRedirectStrategy);
@@ -282,16 +281,16 @@ public final class OAuth2ClientConfigurer<B extends HttpSecurityBuilder<B>>
 				return this.authorizationRequestResolver;
 			}
 			ClientRegistrationRepository clientRegistrationRepository = OAuth2ClientConfigurerUtils
-					.getClientRegistrationRepository(getBuilder());
+		.getClientRegistrationRepository(getBuilder());
 			return new DefaultOAuth2AuthorizationRequestResolver(clientRegistrationRepository,
-					OAuth2AuthorizationRequestRedirectFilter.DEFAULT_AUTHORIZATION_REQUEST_BASE_URI);
+		OAuth2AuthorizationRequestRedirectFilter.DEFAULT_AUTHORIZATION_REQUEST_BASE_URI);
 		}
 
 		private OAuth2AuthorizationCodeGrantFilter createAuthorizationCodeGrantFilter(B builder) {
 			AuthenticationManager authenticationManager = builder.getSharedObject(AuthenticationManager.class);
 			OAuth2AuthorizationCodeGrantFilter authorizationCodeGrantFilter = new OAuth2AuthorizationCodeGrantFilter(
-					OAuth2ClientConfigurerUtils.getClientRegistrationRepository(builder),
-					OAuth2ClientConfigurerUtils.getAuthorizedClientRepository(builder), authenticationManager);
+		OAuth2ClientConfigurerUtils.getClientRegistrationRepository(builder),
+		OAuth2ClientConfigurerUtils.getAuthorizedClientRepository(builder), authenticationManager);
 			if (this.authorizationRequestRepository != null) {
 				authorizationCodeGrantFilter.setAuthorizationRequestRepository(this.authorizationRequestRepository);
 			}

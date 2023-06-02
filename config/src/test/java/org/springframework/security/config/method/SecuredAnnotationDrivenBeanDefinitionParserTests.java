@@ -51,9 +51,9 @@ public class SecuredAnnotationDrivenBeanDefinitionParserTests {
 	public void loadContext() {
 		SecurityContextHolder.clearContext();
 		this.appContext = new InMemoryXmlApplicationContext(
-				"<b:bean id='target' class='org.springframework.security.access.annotation.BusinessServiceImpl'/>"
-						+ "<global-method-security secured-annotations='enabled'/>"
-						+ ConfigTestUtils.AUTH_PROVIDER_XML);
+	"<b:bean id='target' class='org.springframework.security.access.annotation.BusinessServiceImpl'/>"
++ "<global-method-security secured-annotations='enabled'/>"
++ ConfigTestUtils.AUTH_PROVIDER_XML);
 		this.target = (BusinessService) this.appContext.getBean("target");
 	}
 
@@ -68,13 +68,13 @@ public class SecuredAnnotationDrivenBeanDefinitionParserTests {
 	@Test
 	public void targetShouldPreventProtectedMethodInvocationWithNoContext() {
 		assertThatExceptionOfType(AuthenticationCredentialsNotFoundException.class)
-				.isThrownBy(this.target::someUserMethod1);
+	.isThrownBy(this.target::someUserMethod1);
 	}
 
 	@Test
 	public void targetShouldAllowProtectedMethodInvocationWithCorrectRole() {
 		UsernamePasswordAuthenticationToken token = UsernamePasswordAuthenticationToken.authenticated("Test",
-				"Password", AuthorityUtils.createAuthorityList("ROLE_USER"));
+	"Password", AuthorityUtils.createAuthorityList("ROLE_USER"));
 		SecurityContextHolder.getContext().setAuthentication(token);
 		this.target.someUserMethod1();
 	}
@@ -82,7 +82,7 @@ public class SecuredAnnotationDrivenBeanDefinitionParserTests {
 	@Test
 	public void targetShouldPreventProtectedMethodInvocationWithIncorrectRole() {
 		UsernamePasswordAuthenticationToken token = UsernamePasswordAuthenticationToken.authenticated("Test",
-				"Password", AuthorityUtils.createAuthorityList("ROLE_SOMEOTHER"));
+	"Password", AuthorityUtils.createAuthorityList("ROLE_SOMEOTHER"));
 		SecurityContextHolder.getContext().setAuthentication(token);
 		assertThatExceptionOfType(AccessDeniedException.class).isThrownBy(this.target::someAdminMethod);
 	}
@@ -92,13 +92,13 @@ public class SecuredAnnotationDrivenBeanDefinitionParserTests {
 	public void targetIsSerializableBeforeUse() throws Exception {
 		BusinessService chompedTarget = (BusinessService) serializeAndDeserialize(this.target);
 		assertThatExceptionOfType(AuthenticationCredentialsNotFoundException.class)
-				.isThrownBy(chompedTarget::someAdminMethod);
+	.isThrownBy(chompedTarget::someAdminMethod);
 	}
 
 	@Test
 	public void targetIsSerializableAfterUse() throws Exception {
 		assertThatExceptionOfType(AuthenticationCredentialsNotFoundException.class)
-				.isThrownBy(this.target::someAdminMethod);
+	.isThrownBy(this.target::someAdminMethod);
 		SecurityContextHolder.getContext().setAuthentication(new TestingAuthenticationToken("u", "p", "ROLE_A"));
 		BusinessService chompedTarget = (BusinessService) serializeAndDeserialize(this.target);
 		assertThatExceptionOfType(AccessDeniedException.class).isThrownBy(chompedTarget::someAdminMethod);

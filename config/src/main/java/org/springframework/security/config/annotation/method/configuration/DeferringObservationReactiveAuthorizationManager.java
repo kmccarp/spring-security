@@ -33,7 +33,7 @@ final class DeferringObservationReactiveAuthorizationManager<T> implements React
 	private final Supplier<ReactiveAuthorizationManager<T>> delegate;
 
 	DeferringObservationReactiveAuthorizationManager(ObjectProvider<ObservationRegistry> provider,
-			ReactiveAuthorizationManager<T> delegate) {
+ReactiveAuthorizationManager<T> delegate) {
 		this.delegate = SingletonSupplier.of(() -> {
 			ObservationRegistry registry = provider.getIfAvailable(() -> ObservationRegistry.NOOP);
 			if (registry.isNoop()) {

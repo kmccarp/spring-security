@@ -48,19 +48,19 @@ public class OAuth2AuthorizationCodeGrantRequestTests {
 	@Test
 	public void constructorWhenClientRegistrationIsNullThenThrowIllegalArgumentException() {
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new OAuth2AuthorizationCodeGrantRequest(null, this.authorizationExchange));
+	.isThrownBy(() -> new OAuth2AuthorizationCodeGrantRequest(null, this.authorizationExchange));
 	}
 
 	@Test
 	public void constructorWhenAuthorizationExchangeIsNullThenThrowIllegalArgumentException() {
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new OAuth2AuthorizationCodeGrantRequest(this.clientRegistration, null));
+	.isThrownBy(() -> new OAuth2AuthorizationCodeGrantRequest(this.clientRegistration, null));
 	}
 
 	@Test
 	public void constructorWhenAllParametersProvidedAndValidThenCreated() {
 		OAuth2AuthorizationCodeGrantRequest authorizationCodeGrantRequest = new OAuth2AuthorizationCodeGrantRequest(
-				this.clientRegistration, this.authorizationExchange);
+	this.clientRegistration, this.authorizationExchange);
 		assertThat(authorizationCodeGrantRequest.getClientRegistration()).isEqualTo(this.clientRegistration);
 		assertThat(authorizationCodeGrantRequest.getAuthorizationExchange()).isEqualTo(this.authorizationExchange);
 		assertThat(authorizationCodeGrantRequest.getGrantType()).isEqualTo(AuthorizationGrantType.AUTHORIZATION_CODE);

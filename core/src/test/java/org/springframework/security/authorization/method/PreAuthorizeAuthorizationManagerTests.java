@@ -56,13 +56,13 @@ public class PreAuthorizeAuthorizationManagerTests {
 	public void setExpressionHandlerWhenNullThenException() {
 		PreAuthorizeAuthorizationManager manager = new PreAuthorizeAuthorizationManager();
 		assertThatIllegalArgumentException().isThrownBy(() -> manager.setExpressionHandler(null))
-				.withMessage("expressionHandler cannot be null");
+	.withMessage("expressionHandler cannot be null");
 	}
 
 	@Test
 	public void checkDoSomethingWhenNoPostAuthorizeAnnotationThenNullDecision() throws Exception {
 		MockMethodInvocation methodInvocation = new MockMethodInvocation(new TestClass(), TestClass.class,
-				"doSomething", new Class[] {}, new Object[] {});
+	"doSomething", new Class[]{}, new Object[]{});
 		PreAuthorizeAuthorizationManager manager = new PreAuthorizeAuthorizationManager();
 		AuthorizationDecision decision = manager.check(TestAuthentication::authenticatedUser, methodInvocation);
 		assertThat(decision).isNull();
@@ -71,7 +71,7 @@ public class PreAuthorizeAuthorizationManagerTests {
 	@Test
 	public void checkDoSomethingStringWhenArgIsGrantThenGrantedDecision() throws Exception {
 		MockMethodInvocation methodInvocation = new MockMethodInvocation(new TestClass(), TestClass.class,
-				"doSomethingString", new Class[] { String.class }, new Object[] { "grant" });
+	"doSomethingString", new Class[]{String.class}, new Object[]{"grant"});
 		PreAuthorizeAuthorizationManager manager = new PreAuthorizeAuthorizationManager();
 		AuthorizationDecision decision = manager.check(TestAuthentication::authenticatedUser, methodInvocation);
 		assertThat(decision).isNotNull();
@@ -81,7 +81,7 @@ public class PreAuthorizeAuthorizationManagerTests {
 	@Test
 	public void checkDoSomethingStringWhenArgIsNotGrantThenDeniedDecision() throws Exception {
 		MockMethodInvocation methodInvocation = new MockMethodInvocation(new TestClass(), TestClass.class,
-				"doSomethingString", new Class[] { String.class }, new Object[] { "deny" });
+	"doSomethingString", new Class[]{String.class}, new Object[]{"deny"});
 		PreAuthorizeAuthorizationManager manager = new PreAuthorizeAuthorizationManager();
 		AuthorizationDecision decision = manager.check(TestAuthentication::authenticatedUser, methodInvocation);
 		assertThat(decision).isNotNull();
@@ -92,7 +92,7 @@ public class PreAuthorizeAuthorizationManagerTests {
 	public void checkRequiresAdminWhenClassAnnotationsThenMethodAnnotationsTakePrecedence() throws Exception {
 		Supplier<Authentication> authentication = () -> new TestingAuthenticationToken("user", "password", "ROLE_USER");
 		MockMethodInvocation methodInvocation = new MockMethodInvocation(new ClassLevelAnnotations(),
-				ClassLevelAnnotations.class, "securedAdmin");
+	ClassLevelAnnotations.class, "securedAdmin");
 		PreAuthorizeAuthorizationManager manager = new PreAuthorizeAuthorizationManager();
 		AuthorizationDecision decision = manager.check(authentication, methodInvocation);
 		assertThat(decision.isGranted()).isFalse();
@@ -105,7 +105,7 @@ public class PreAuthorizeAuthorizationManagerTests {
 	public void checkRequiresUserWhenClassAnnotationsThenApplies() throws Exception {
 		Supplier<Authentication> authentication = () -> new TestingAuthenticationToken("user", "password", "ROLE_USER");
 		MockMethodInvocation methodInvocation = new MockMethodInvocation(new ClassLevelAnnotations(),
-				ClassLevelAnnotations.class, "securedUser");
+	ClassLevelAnnotations.class, "securedUser");
 		PreAuthorizeAuthorizationManager manager = new PreAuthorizeAuthorizationManager();
 		AuthorizationDecision decision = manager.check(authentication, methodInvocation);
 		assertThat(decision.isGranted()).isTrue();
@@ -118,26 +118,26 @@ public class PreAuthorizeAuthorizationManagerTests {
 	public void checkInheritedAnnotationsWhenDuplicatedThenAnnotationConfigurationException() throws Exception {
 		Supplier<Authentication> authentication = () -> new TestingAuthenticationToken("user", "password", "ROLE_USER");
 		MockMethodInvocation methodInvocation = new MockMethodInvocation(new TestClass(), TestClass.class,
-				"inheritedAnnotations");
+	"inheritedAnnotations");
 		PreAuthorizeAuthorizationManager manager = new PreAuthorizeAuthorizationManager();
 		assertThatExceptionOfType(AnnotationConfigurationException.class)
-				.isThrownBy(() -> manager.check(authentication, methodInvocation));
+	.isThrownBy(() -> manager.check(authentication, methodInvocation));
 	}
 
 	@Test
 	public void checkInheritedAnnotationsWhenConflictingThenAnnotationConfigurationException() throws Exception {
 		Supplier<Authentication> authentication = () -> new TestingAuthenticationToken("user", "password", "ROLE_USER");
 		MockMethodInvocation methodInvocation = new MockMethodInvocation(new ClassLevelAnnotations(),
-				ClassLevelAnnotations.class, "inheritedAnnotations");
+	ClassLevelAnnotations.class, "inheritedAnnotations");
 		PreAuthorizeAuthorizationManager manager = new PreAuthorizeAuthorizationManager();
 		assertThatExceptionOfType(AnnotationConfigurationException.class)
-				.isThrownBy(() -> manager.check(authentication, methodInvocation));
+	.isThrownBy(() -> manager.check(authentication, methodInvocation));
 	}
 
 	@Test
 	public void checkTargetClassAwareWhenInterfaceLevelAnnotationsThenApplies() throws Exception {
 		MockMethodInvocation methodInvocation = new MockMethodInvocation(new TestTargetClassAware(),
-				TestTargetClassAware.class, "doSomething");
+	TestTargetClassAware.class, "doSomething");
 		PreAuthorizeAuthorizationManager manager = new PreAuthorizeAuthorizationManager();
 		AuthorizationDecision decision = manager.check(TestAuthentication::authenticatedUser, methodInvocation);
 		assertThat(decision).isNotNull();

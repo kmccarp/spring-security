@@ -45,8 +45,7 @@ import org.springframework.util.Assert;
  * @author Evgeniy Cheban
  * @since 5.8
  */
-public final class AuthorizationManagerAfterReactiveMethodInterceptor
-		implements Ordered, MethodInterceptor, PointcutAdvisor, AopInfrastructureBean {
+public final class AuthorizationManagerAfterReactiveMethodInterceptorimplements Ordered, MethodInterceptor, PointcutAdvisor, AopInfrastructureBean {
 
 	private final Pointcut pointcut;
 
@@ -68,9 +67,9 @@ public final class AuthorizationManagerAfterReactiveMethodInterceptor
 	 * @return the {@link AuthorizationManagerAfterReactiveMethodInterceptor} to use
 	 */
 	public static AuthorizationManagerAfterReactiveMethodInterceptor postAuthorize(
-			ReactiveAuthorizationManager<MethodInvocationResult> authorizationManager) {
+ReactiveAuthorizationManager<MethodInvocationResult> authorizationManager) {
 		AuthorizationManagerAfterReactiveMethodInterceptor interceptor = new AuthorizationManagerAfterReactiveMethodInterceptor(
-				AuthorizationMethodPointcuts.forAnnotations(PostAuthorize.class), authorizationManager);
+	AuthorizationMethodPointcuts.forAnnotations(PostAuthorize.class), authorizationManager);
 		interceptor.setOrder(AuthorizationInterceptorsOrder.POST_AUTHORIZE.getOrder());
 		return interceptor;
 	}
@@ -81,7 +80,7 @@ public final class AuthorizationManagerAfterReactiveMethodInterceptor
 	 * @param authorizationManager the {@link ReactiveAuthorizationManager} to use
 	 */
 	public AuthorizationManagerAfterReactiveMethodInterceptor(Pointcut pointcut,
-			ReactiveAuthorizationManager<MethodInvocationResult> authorizationManager) {
+ReactiveAuthorizationManager<MethodInvocationResult> authorizationManager) {
 		Assert.notNull(pointcut, "pointcut cannot be null");
 		Assert.notNull(authorizationManager, "authorizationManager cannot be null");
 		this.pointcut = pointcut;
@@ -100,8 +99,8 @@ public final class AuthorizationManagerAfterReactiveMethodInterceptor
 		Method method = mi.getMethod();
 		Class<?> type = method.getReturnType();
 		Assert.state(Publisher.class.isAssignableFrom(type),
-				() -> String.format("The returnType %s on %s must return an instance of org.reactivestreams.Publisher "
-						+ "(for example, a Mono or Flux) in order to support Reactor Context", type, method));
+	() -> String.format("The returnType %s on %s must return an instance of org.reactivestreams.Publisher "
++ "(for example, a Mono or Flux) in order to support Reactor Context", type, method));
 		Mono<Authentication> authentication = ReactiveAuthenticationUtils.getAuthentication();
 		Function<Object, Mono<?>> postAuthorize = (result) -> postAuthorize(authentication, mi, result);
 		ReactiveAdapter adapter = ReactiveAdapterRegistry.getSharedInstance().getAdapter(type);
@@ -123,7 +122,7 @@ public final class AuthorizationManagerAfterReactiveMethodInterceptor
 
 	private Mono<?> postAuthorize(Mono<Authentication> authentication, MethodInvocation mi, Object result) {
 		return this.authorizationManager.verify(authentication, new MethodInvocationResult(mi, result))
-				.thenReturn(result);
+	.thenReturn(result);
 	}
 
 	@Override

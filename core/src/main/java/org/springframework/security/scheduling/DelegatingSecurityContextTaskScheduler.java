@@ -54,7 +54,7 @@ public class DelegatingSecurityContextTaskScheduler implements TaskScheduler {
 	 * @since 5.6
 	 */
 	public DelegatingSecurityContextTaskScheduler(TaskScheduler delegateTaskScheduler,
-			SecurityContext securityContext) {
+SecurityContext securityContext) {
 		Assert.notNull(delegateTaskScheduler, "delegateTaskScheduler cannot be null");
 		this.delegate = delegateTaskScheduler;
 		this.securityContext = securityContext;

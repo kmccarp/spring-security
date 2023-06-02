@@ -118,7 +118,7 @@ public class SpringTestContext implements Closeable {
 		this.deferAddFilter.addFilter(new OncePerRequestFilter() {
 			@Override
 			protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
-					FilterChain filterChain) {
+		FilterChain filterChain) {
 				response.setStatus(HttpServletResponse.SC_OK);
 			}
 		});
@@ -149,10 +149,10 @@ public class SpringTestContext implements Closeable {
 		if (this.context.containsBean(BeanIds.SPRING_SECURITY_FILTER_CHAIN)) {
 			// @formatter:off
 			MockMvc mockMvc = MockMvcBuilders.webAppContextSetup(this.context)
-					.addFilters(this.filters.toArray(new Filter[0]))
-					.apply(springSecurity())
-					.apply(this.deferAddFilter)
-					.build();
+		.addFilters(this.filters.toArray(new Filter[0]))
+		.apply(springSecurity())
+		.apply(this.deferAddFilter)
+		.build();
 			// @formatter:on
 			this.context.getBeanFactory().registerResolvableDependency(MockMvc.class, mockMvc);
 		}
@@ -171,7 +171,7 @@ public class SpringTestContext implements Closeable {
 
 		@Override
 		public RequestPostProcessor beforeMockMvcCreated(ConfigurableMockMvcBuilder<?> builder,
-				WebApplicationContext context) {
+	WebApplicationContext context) {
 			builder.addFilters(this.filters.toArray(new Filter[0]));
 			return null;
 		}

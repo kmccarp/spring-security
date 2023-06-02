@@ -47,7 +47,7 @@ public class DefaultSpringSecurityContextSourceTests {
 	@Test
 	public void instantiationSucceedsWithExpectedProperties() {
 		DefaultSpringSecurityContextSource ctxSrc = new DefaultSpringSecurityContextSource(
-				"ldap://blah:789/dc=springframework,dc=org");
+	"ldap://blah:789/dc=springframework,dc=org");
 		assertThat(ctxSrc.isAnonymousReadOnly()).isFalse();
 		assertThat(ctxSrc.isPooled()).isTrue();
 	}
@@ -55,7 +55,7 @@ public class DefaultSpringSecurityContextSourceTests {
 	@Test
 	public void supportsSpacesInUrl() {
 		DefaultSpringSecurityContextSource contextSource = new DefaultSpringSecurityContextSource(
-				"ldap://myhost:10389/dc=spring%20framework,dc=org");
+	"ldap://myhost:10389/dc=spring%20framework,dc=org");
 		assertThat(contextSource.getBaseLdapPathAsString()).isEqualTo("dc=spring framework,dc=org");
 	}
 
@@ -63,30 +63,30 @@ public class DefaultSpringSecurityContextSourceTests {
 	@Test
 	public void constructorWhenUrlEncodedSpacesWithPlusCharacterThenBaseDnIsProperlyDecoded() {
 		DefaultSpringSecurityContextSource contextSource = new DefaultSpringSecurityContextSource(
-				"ldap://blah:123/dc=spring+framework,dc=org ldap://blah:456/dc=spring+framework,dc=org");
+	"ldap://blah:123/dc=spring+framework,dc=org ldap://blah:456/dc=spring+framework,dc=org");
 		assertThat(contextSource.getBaseLdapPathAsString()).isEqualTo("dc=spring framework,dc=org");
 	}
 
 	@Test
 	public void poolingFlagIsSetWhenAuthenticationDnMatchesManagerUserDn() {
 		EnvExposingDefaultSpringSecurityContextSource ctxSrc = new EnvExposingDefaultSpringSecurityContextSource(
-				"ldap://blah:789/dc=springframework,dc=org");
+	"ldap://blah:789/dc=springframework,dc=org");
 		ctxSrc.setUserDn("manager");
 		ctxSrc.setPassword("password");
 		ctxSrc.afterPropertiesSet();
 		assertThat(ctxSrc.getAuthenticatedEnvForTest("manager", "password"))
-				.containsKey(AbstractContextSource.SUN_LDAP_POOLING_FLAG);
+	.containsKey(AbstractContextSource.SUN_LDAP_POOLING_FLAG);
 	}
 
 	@Test
 	public void poolingFlagIsNotSetWhenAuthenticationDnIsNotManagerUserDn() {
 		EnvExposingDefaultSpringSecurityContextSource ctxSrc = new EnvExposingDefaultSpringSecurityContextSource(
-				"ldap://blah:789/dc=springframework,dc=org");
+	"ldap://blah:789/dc=springframework,dc=org");
 		ctxSrc.setUserDn("manager");
 		ctxSrc.setPassword("password");
 		ctxSrc.afterPropertiesSet();
 		assertThat(ctxSrc.getAuthenticatedEnvForTest("user", "password"))
-				.doesNotContainKey(AbstractContextSource.SUN_LDAP_POOLING_FLAG);
+	.doesNotContainKey(AbstractContextSource.SUN_LDAP_POOLING_FLAG);
 	}
 
 	// SEC-1145. Confirms that there is no issue here with pooling.
@@ -97,13 +97,13 @@ public class DefaultSpringSecurityContextSourceTests {
 		// com.sun.jndi.ldap.LdapPoolManager.showStats(System.out);
 		// Now get it gain, with wrong password. Should fail.
 		assertThatExceptionOfType(AuthenticationException.class).isThrownBy(() -> this.contextSource
-				.getContext("uid=Bob,ou=people,dc=springframework,dc=org", "wrongpassword").close());
+	.getContext("uid=Bob,ou=people,dc=springframework,dc=org", "wrongpassword").close());
 	}
 
 	@Test
 	public void serverUrlWithSpacesIsSupported() {
 		DefaultSpringSecurityContextSource contextSource = new DefaultSpringSecurityContextSource(
-				this.contextSource.getUrls()[0] + "ou=space%20cadets,dc=springframework,dc=org");
+	this.contextSource.getUrls()[0] + "ou=space%20cadets,dc=springframework,dc=org");
 		assertThat(contextSource.getBaseLdapPathAsString()).isEqualTo("ou=space cadets,dc=springframework,dc=org");
 		contextSource.afterPropertiesSet();
 		contextSource.getContext("uid=space cadet,ou=space cadets,dc=springframework,dc=org", "spacecadetspassword");
@@ -114,7 +114,7 @@ public class DefaultSpringSecurityContextSourceTests {
 		List<String> serverUrls = new ArrayList<>();
 		assertThatIllegalArgumentException().isThrownBy(() -> {
 			DefaultSpringSecurityContextSource ctxSrc = new DefaultSpringSecurityContextSource(serverUrls,
-					"dc=springframework,dc=org");
+		"dc=springframework,dc=org");
 			ctxSrc.afterPropertiesSet();
 		});
 	}
@@ -126,7 +126,7 @@ public class DefaultSpringSecurityContextSourceTests {
 		serverUrls.add("ldap://bar:389");
 		serverUrls.add("ldaps://blah:636");
 		DefaultSpringSecurityContextSource ctxSrc = new DefaultSpringSecurityContextSource(serverUrls,
-				"dc=springframework,dc=org");
+	"dc=springframework,dc=org");
 
 		assertThat(ctxSrc.isAnonymousReadOnly()).isFalse();
 		assertThat(ctxSrc.isPooled()).isTrue();
@@ -154,7 +154,7 @@ public class DefaultSpringSecurityContextSourceTests {
 		serverUrls.add("ldap://ad2.example.org:389");
 		serverUrls.add("ldaps://ad3.example.org:636");
 		DefaultSpringSecurityContextSource contextSource = new DefaultSpringSecurityContextSource(serverUrls,
-				"dc=spring framework,dc=org");
+	"dc=spring framework,dc=org");
 		assertThat(contextSource.getBaseLdapPathAsString()).isEqualTo("dc=spring framework,dc=org");
 	}
 
@@ -166,7 +166,7 @@ public class DefaultSpringSecurityContextSourceTests {
 		// this url should be rejected because the root DN goes into a separate parameter
 		serverUrls.add("ldap://bar:389/dc=foobar,dc=org");
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new DefaultSpringSecurityContextSource(serverUrls, "dc=springframework,dc=org"));
+	.isThrownBy(() -> new DefaultSpringSecurityContextSource(serverUrls, "dc=springframework,dc=org"));
 	}
 
 	static class EnvExposingDefaultSpringSecurityContextSource extends DefaultSpringSecurityContextSource {

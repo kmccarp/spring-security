@@ -110,14 +110,14 @@ public class RoleHierarchyImpl implements RoleHierarchy {
 	public void setHierarchy(String roleHierarchyStringRepresentation) {
 		this.roleHierarchyStringRepresentation = roleHierarchyStringRepresentation;
 		logger.debug(LogMessage.format("setHierarchy() - The following role hierarchy was set: %s",
-				roleHierarchyStringRepresentation));
+	roleHierarchyStringRepresentation));
 		buildRolesReachableInOneStepMap();
 		buildRolesReachableInOneOrMoreStepsMap();
 	}
 
 	@Override
 	public Collection<GrantedAuthority> getReachableGrantedAuthorities(
-			Collection<? extends GrantedAuthority> authorities) {
+Collection<? extends GrantedAuthority> authorities) {
 		if (authorities == null || authorities.isEmpty()) {
 			return AuthorityUtils.NO_AUTHORITIES;
 		}
@@ -147,8 +147,8 @@ public class RoleHierarchyImpl implements RoleHierarchy {
 			}
 		}
 		logger.debug(LogMessage.format(
-				"getReachableGrantedAuthorities() - From the roles %s one can reach %s in zero or more steps.",
-				authorities, reachableRoles));
+	"getReachableGrantedAuthorities() - From the roles %s one can reach %s in zero or more steps.",
+	authorities, reachableRoles));
 		return new ArrayList<>(reachableRoles);
 	}
 
@@ -174,8 +174,8 @@ public class RoleHierarchyImpl implements RoleHierarchy {
 				}
 				rolesReachableInOneStepSet.add(lowerRole);
 				logger.debug(LogMessage.format(
-						"buildRolesReachableInOneStepMap() - From role %s one can reach role %s in one step.",
-						higherRole, lowerRole));
+			"buildRolesReachableInOneStepMap() - From role %s one can reach role %s in one step.",
+			higherRole, lowerRole));
 			}
 		}
 	}
@@ -197,7 +197,7 @@ public class RoleHierarchyImpl implements RoleHierarchy {
 				GrantedAuthority lowerRole = rolesToVisitSet.iterator().next();
 				rolesToVisitSet.remove(lowerRole);
 				if (!visitedRolesSet.add(lowerRole)
-						|| !this.rolesReachableInOneStepMap.containsKey(lowerRole.getAuthority())) {
+			|| !this.rolesReachableInOneStepMap.containsKey(lowerRole.getAuthority())) {
 					continue; // Already visited role or role with missing hierarchy
 				}
 				else if (roleName.equals(lowerRole.getAuthority())) {
@@ -207,8 +207,8 @@ public class RoleHierarchyImpl implements RoleHierarchy {
 			}
 			this.rolesReachableInOneOrMoreStepsMap.put(roleName, visitedRolesSet);
 			logger.debug(LogMessage.format(
-					"buildRolesReachableInOneOrMoreStepsMap() - From role %s one can reach %s in one or more steps.",
-					roleName, visitedRolesSet));
+		"buildRolesReachableInOneOrMoreStepsMap() - From role %s one can reach %s in one or more steps.",
+		roleName, visitedRolesSet));
 		}
 
 	}

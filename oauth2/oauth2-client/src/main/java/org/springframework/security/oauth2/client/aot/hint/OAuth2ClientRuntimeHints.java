@@ -34,7 +34,7 @@ class OAuth2ClientRuntimeHints implements RuntimeHintsRegistrar {
 
 	private void registerOAuth2ClientSchemaFilesHints(RuntimeHints hints) {
 		hints.resources().registerPattern("org/springframework/security/oauth2/client/oauth2-client-schema.sql")
-				.registerPattern("org/springframework/security/oauth2/client/oauth2-client-schema-postgres.sql");
+	.registerPattern("org/springframework/security/oauth2/client/oauth2-client-schema-postgres.sql");
 	}
 
 }

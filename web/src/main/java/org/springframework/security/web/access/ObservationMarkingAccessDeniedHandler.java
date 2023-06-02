@@ -36,7 +36,7 @@ public final class ObservationMarkingAccessDeniedHandler implements AccessDenied
 
 	@Override
 	public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException exception)
-			throws IOException, ServletException {
+throws IOException, ServletException {
 		Observation observation = this.registry.getCurrentObservation();
 		if (observation != null) {
 			observation.error(exception);

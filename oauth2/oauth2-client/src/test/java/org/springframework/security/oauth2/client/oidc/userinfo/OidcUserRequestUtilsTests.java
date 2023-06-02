@@ -42,7 +42,7 @@ public class OidcUserRequestUtilsTests {
 	OidcIdToken idToken = TestOidcIdTokens.idToken().build();
 
 	OAuth2AccessToken accessToken = new OAuth2AccessToken(OAuth2AccessToken.TokenType.BEARER, "token", Instant.now(),
-			Instant.now().plus(Duration.ofDays(1)), Collections.singleton("read:user"));
+Instant.now().plus(Duration.ofDays(1)), Collections.singleton("read:user"));
 
 	@Test
 	public void shouldRetrieveUserInfoWhenEndpointDefinedAndScopesOverlapThenTrue() {

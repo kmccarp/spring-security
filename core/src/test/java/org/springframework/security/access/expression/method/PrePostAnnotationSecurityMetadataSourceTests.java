@@ -47,7 +47,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class PrePostAnnotationSecurityMetadataSourceTests {
 
 	private PrePostAnnotationSecurityMetadataSource mds = new PrePostAnnotationSecurityMetadataSource(
-			new ExpressionBasedAnnotationAttributeFactory(new DefaultMethodSecurityExpressionHandler()));
+new ExpressionBasedAnnotationAttributeFactory(new DefaultMethodSecurityExpressionHandler()));
 
 	private MockMethodInvocation voidImpl1;
 
@@ -74,15 +74,15 @@ public class PrePostAnnotationSecurityMetadataSourceTests {
 		this.voidImpl3 = new MockMethodInvocation(new ReturnVoidImpl3(), ReturnVoid.class, "doSomething", List.class);
 		this.listImpl1 = new MockMethodInvocation(new ReturnAListImpl1(), ReturnAList.class, "doSomething", List.class);
 		this.notherListImpl1 = new MockMethodInvocation(new ReturnAnotherListImpl1(), ReturnAnotherList.class,
-				"doSomething", List.class);
+	"doSomething", List.class);
 		this.notherListImpl2 = new MockMethodInvocation(new ReturnAnotherListImpl2(), ReturnAnotherList.class,
-				"doSomething", List.class);
+	"doSomething", List.class);
 		this.annotatedAtClassLevel = new MockMethodInvocation(new CustomAnnotationAtClassLevel(), ReturnVoid.class,
-				"doSomething", List.class);
+	"doSomething", List.class);
 		this.annotatedAtInterfaceLevel = new MockMethodInvocation(new CustomAnnotationAtInterfaceLevel(),
-				ReturnVoid2.class, "doSomething", List.class);
+	ReturnVoid2.class, "doSomething", List.class);
 		this.annotatedAtMethodLevel = new MockMethodInvocation(new CustomAnnotationAtMethodLevel(), ReturnVoid.class,
-				"doSomething", List.class);
+	"doSomething", List.class);
 	}
 
 	@Test
@@ -164,7 +164,7 @@ public class PrePostAnnotationSecurityMetadataSourceTests {
 	@Test
 	public void customAnnotationAtInterfaceLevelIsDetected() {
 		ConfigAttribute[] attrs = this.mds.getAttributes(this.annotatedAtInterfaceLevel)
-				.toArray(new ConfigAttribute[0]);
+	.toArray(new ConfigAttribute[0]);
 		assertThat(attrs).hasSize(1);
 	}
 
@@ -180,7 +180,7 @@ public class PrePostAnnotationSecurityMetadataSourceTests {
 		Collection<ConfigAttribute> attributes = this.mds.getAttributes(mi);
 		assertThat(attributes).hasSize(1);
 		Expression expression = (Expression) ReflectionTestUtils.getField(attributes.iterator().next(),
-				"authorizeExpression");
+	"authorizeExpression");
 		assertThat(expression.getExpressionString()).isEqualTo("hasRole('ROLE_PERSON')");
 	}
 
@@ -275,7 +275,7 @@ public class PrePostAnnotationSecurityMetadataSourceTests {
 
 	}
 
-	@Target({ ElementType.METHOD, ElementType.TYPE })
+	@Target({ElementType.METHOD, ElementType.TYPE})
 	@Retention(RetentionPolicy.RUNTIME)
 	@Inherited
 	@PreAuthorize("customAnnotationExpression")

@@ -97,23 +97,23 @@ public class NimbusReactiveOpaqueTokenIntrospector implements ReactiveOpaqueToke
 	public Mono<OAuth2AuthenticatedPrincipal> introspect(String token) {
 		// @formatter:off
 		return Mono.just(token)
-				.flatMap(this::makeRequest)
-				.flatMap(this::adaptToNimbusResponse)
-				.map(this::parseNimbusResponse)
-				.map(this::castToNimbusSuccess)
-				.doOnNext((response) -> validate(token, response))
-				.map(this::convertClaimsSet)
-				.onErrorMap((e) -> !(e instanceof OAuth2IntrospectionException), this::onError);
+	.flatMap(this::makeRequest)
+	.flatMap(this::adaptToNimbusResponse)
+	.map(this::parseNimbusResponse)
+	.map(this::castToNimbusSuccess)
+	.doOnNext((response) -> validate(token, response))
+	.map(this::convertClaimsSet)
+	.onErrorMap((e) -> !(e instanceof OAuth2IntrospectionException), this::onError);
 		// @formatter:on
 	}
 
 	private Mono<ClientResponse> makeRequest(String token) {
 		// @formatter:off
 		return this.webClient.post()
-				.uri(this.introspectionUri)
-				.header(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE)
-				.body(BodyInserters.fromFormData("token", token))
-				.exchange();
+	.uri(this.introspectionUri)
+	.header(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE)
+	.body(BodyInserters.fromFormData("token", token))
+	.exchange();
 		// @formatter:on
 	}
 
@@ -122,7 +122,7 @@ public class NimbusReactiveOpaqueTokenIntrospector implements ReactiveOpaqueToke
 			this.logger.trace("Did not receive Content-Type from introspection endpoint in response");
 
 			return new OAuth2IntrospectionException(
-					"Introspection endpoint response was invalid, as no Content-Type header was provided");
+		"Introspection endpoint response was invalid, as no Content-Type header was provided");
 		});
 
 		// Nimbus expects JSON, but does not appear to validate this header first.
@@ -130,7 +130,7 @@ public class NimbusReactiveOpaqueTokenIntrospector implements ReactiveOpaqueToke
 			this.logger.trace("Did not receive JSON-compatible Content-Type from introspection endpoint in response");
 
 			throw new OAuth2IntrospectionException("Introspection endpoint response was invalid, as content type '"
-					+ contentType + "' is not compatible with JSON");
+		+ contentType + "' is not compatible with JSON");
 		}
 
 		HTTPResponse response = new HTTPResponse(responseEntity.rawStatusCode());
@@ -140,10 +140,10 @@ public class NimbusReactiveOpaqueTokenIntrospector implements ReactiveOpaqueToke
 
 			// @formatter:off
 			return responseEntity.bodyToFlux(DataBuffer.class)
-					.map(DataBufferUtils::release)
-					.then(Mono.error(new OAuth2IntrospectionException(
-							"Introspection endpoint responded with HTTP status code " + response.getStatusCode()))
-					);
+		.map(DataBufferUtils::release)
+		.then(Mono.error(new OAuth2IntrospectionException(
+	"Introspection endpoint responded with HTTP status code " + response.getStatusCode()))
+		);
 			// @formatter:on
 		}
 		return responseEntity.bodyToMono(String.class).doOnNext(response::setContent).map((body) -> response);

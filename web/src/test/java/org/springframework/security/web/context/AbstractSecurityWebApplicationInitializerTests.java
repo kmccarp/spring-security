@@ -54,7 +54,7 @@ import static org.mockito.Mockito.verify;
 public class AbstractSecurityWebApplicationInitializerTests {
 
 	private static final EnumSet<DispatcherType> DEFAULT_DISPATCH = EnumSet.of(DispatcherType.REQUEST,
-			DispatcherType.ERROR, DispatcherType.ASYNC, DispatcherType.FORWARD, DispatcherType.INCLUDE);
+DispatcherType.ERROR, DispatcherType.ASYNC, DispatcherType.FORWARD, DispatcherType.INCLUDE);
 
 	@Test
 	public void onStartupWhenDefaultContextThenRegistersSpringSecurityFilterChain() {
@@ -116,7 +116,7 @@ public class AbstractSecurityWebApplicationInitializerTests {
 		}.onStartup(context);
 		assertProxyDefaults(proxyCaptor.getValue());
 		verify(registration).addMappingForUrlPatterns(
-				EnumSet.of(DispatcherType.REQUEST, DispatcherType.ERROR, DispatcherType.FORWARD), false, "/*");
+	EnumSet.of(DispatcherType.REQUEST, DispatcherType.ERROR, DispatcherType.FORWARD), false, "/*");
 		verify(registration).setAsyncSupported(true);
 		verifyNoAddListener(context);
 	}
@@ -135,7 +135,7 @@ public class AbstractSecurityWebApplicationInitializerTests {
 		}.onStartup(context);
 		DelegatingFilterProxy proxy = proxyCaptor.getValue();
 		assertThat(proxy.getContextAttribute())
-				.isEqualTo("org.springframework.web.servlet.FrameworkServlet.CONTEXT.dispatcher");
+	.isEqualTo("org.springframework.web.servlet.FrameworkServlet.CONTEXT.dispatcher");
 		assertThat(proxy).hasFieldOrPropertyWithValue("targetBeanName", "springSecurityFilterChain");
 		verify(registration).addMappingForUrlPatterns(DEFAULT_DISPATCH, false, "/*");
 		verify(registration).setAsyncSupported(true);
@@ -147,7 +147,7 @@ public class AbstractSecurityWebApplicationInitializerTests {
 		ServletContext context = mock(ServletContext.class);
 		assertThatIllegalStateException().isThrownBy(() -> new AbstractSecurityWebApplicationInitializer() {
 		}.onStartup(context)).withMessage("Duplicate Filter registration for 'springSecurityFilterChain'. "
-				+ "Check to ensure the Filter is only configured once.");
+	+ "Check to ensure the Filter is only configured once.");
 	}
 
 	@Test
@@ -189,7 +189,7 @@ public class AbstractSecurityWebApplicationInitializerTests {
 			}
 
 		}.onStartup(context)).withMessage(
-				"Duplicate Filter registration for 'object'. Check to ensure the Filter is only configured once.");
+	"Duplicate Filter registration for 'object'. Check to ensure the Filter is only configured once.");
 		assertProxyDefaults(proxyCaptor.getValue());
 		verify(registration).addMappingForUrlPatterns(DEFAULT_DISPATCH, false, "/*");
 		verify(context).addFilter(anyString(), eq(filter1));
@@ -269,7 +269,7 @@ public class AbstractSecurityWebApplicationInitializerTests {
 			}
 
 		}.onStartup(context)).withMessage(
-				"Duplicate Filter registration for 'object'. " + "Check to ensure the Filter is only configured once.");
+	"Duplicate Filter registration for 'object'. " + "Check to ensure the Filter is only configured once.");
 		assertProxyDefaults(proxyCaptor.getValue());
 		verify(registration).addMappingForUrlPatterns(DEFAULT_DISPATCH, false, "/*");
 		verify(context).addFilter(anyString(), eq(filter1));
@@ -318,8 +318,8 @@ public class AbstractSecurityWebApplicationInitializerTests {
 		ArgumentCaptor<DelegatingFilterProxy> proxyCaptor = ArgumentCaptor.forClass(DelegatingFilterProxy.class);
 		given(context.addFilter(eq("springSecurityFilterChain"), proxyCaptor.capture())).willReturn(registration);
 		ArgumentCaptor<Set<SessionTrackingMode>> modesCaptor = ArgumentCaptor
-				.forClass(new HashSet<SessionTrackingMode>() {
-				}.getClass());
+	.forClass(new HashSet<SessionTrackingMode>() {
+	}.getClass());
 		willDoNothing().given(context).setSessionTrackingModes(modesCaptor.capture());
 		new AbstractSecurityWebApplicationInitializer() {
 		}.onStartup(context);
@@ -336,8 +336,8 @@ public class AbstractSecurityWebApplicationInitializerTests {
 		ArgumentCaptor<DelegatingFilterProxy> proxyCaptor = ArgumentCaptor.forClass(DelegatingFilterProxy.class);
 		given(context.addFilter(eq("springSecurityFilterChain"), proxyCaptor.capture())).willReturn(registration);
 		ArgumentCaptor<Set<SessionTrackingMode>> modesCaptor = ArgumentCaptor
-				.forClass(new HashSet<SessionTrackingMode>() {
-				}.getClass());
+	.forClass(new HashSet<SessionTrackingMode>() {
+	}.getClass());
 		willDoNothing().given(context).setSessionTrackingModes(modesCaptor.capture());
 		new AbstractSecurityWebApplicationInitializer() {
 			@Override
@@ -354,7 +354,7 @@ public class AbstractSecurityWebApplicationInitializerTests {
 	@Test
 	public void defaultFilterNameEqualsSpringSecurityFilterChain() {
 		assertThat(AbstractSecurityWebApplicationInitializer.DEFAULT_FILTER_NAME)
-				.isEqualTo("springSecurityFilterChain");
+	.isEqualTo("springSecurityFilterChain");
 	}
 
 	private static void verifyNoAddListener(ServletContext context) {

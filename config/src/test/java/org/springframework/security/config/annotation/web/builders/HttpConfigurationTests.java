@@ -68,10 +68,10 @@ public class HttpConfigurationTests {
 	@Test
 	public void configureWhenAddFilterUnregisteredThenThrowsBeanCreationException() {
 		assertThatExceptionOfType(BeanCreationException.class)
-				.isThrownBy(() -> this.spring.register(UnregisteredFilterConfig.class).autowire())
-				.withMessageContaining("The Filter class " + UnregisteredFilter.class.getName()
-						+ " does not have a registered order and cannot be added without a specified order."
-						+ " Consider using addFilterBefore or addFilterAfter instead.");
+	.isThrownBy(() -> this.spring.register(UnregisteredFilterConfig.class).autowire())
+	.withMessageContaining("The Filter class " + UnregisteredFilter.class.getName()
++ " does not have a registered order and cannot be added without a specified order."
++ " Consider using addFilterBefore or addFilterAfter instead.");
 	}
 
 	// https://github.com/spring-projects/spring-security-javaconfig/issues/104
@@ -81,7 +81,7 @@ public class HttpConfigurationTests {
 		this.spring.register(CasAuthenticationFilterConfig.class).autowire();
 		this.mockMvc.perform(get("/"));
 		verify(CasAuthenticationFilterConfig.CAS_AUTHENTICATION_FILTER).doFilter(any(ServletRequest.class),
-				any(ServletResponse.class), any(FilterChain.class));
+	any(ServletResponse.class), any(FilterChain.class));
 	}
 
 	@Test
@@ -101,7 +101,7 @@ public class HttpConfigurationTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.addFilter(new UnregisteredFilter());
+		.addFilter(new UnregisteredFilter());
 			// @formatter:on
 			return http.build();
 		}
@@ -117,7 +117,7 @@ public class HttpConfigurationTests {
 
 		@Override
 		protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
-				FilterChain filterChain) throws ServletException, IOException {
+	FilterChain filterChain) throws ServletException, IOException {
 			filterChain.doFilter(request, response);
 		}
 
@@ -130,7 +130,7 @@ public class HttpConfigurationTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-					.addFilter(CAS_AUTHENTICATION_FILTER);
+		.addFilter(CAS_AUTHENTICATION_FILTER);
 			// @formatter:on
 			return http.build();
 		}
@@ -148,14 +148,14 @@ public class HttpConfigurationTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.securityMatchers()
-					.requestMatchers(new AntPathRequestMatcher("/api/**"))
-					.requestMatchers(new AntPathRequestMatcher("/oauth/**"))
-					.and()
-				.authorizeRequests()
-					.anyRequest().hasRole("USER")
-					.and()
-				.httpBasic();
+		.securityMatchers()
+		.requestMatchers(new AntPathRequestMatcher("/api/**"))
+		.requestMatchers(new AntPathRequestMatcher("/oauth/**"))
+		.and()
+		.authorizeRequests()
+		.anyRequest().hasRole("USER")
+		.and()
+		.httpBasic();
 			return http.build();
 			// @formatter:on
 		}

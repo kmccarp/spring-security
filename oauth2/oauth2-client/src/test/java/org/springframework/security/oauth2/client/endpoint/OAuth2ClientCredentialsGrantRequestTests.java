@@ -39,13 +39,13 @@ public class OAuth2ClientCredentialsGrantRequestTests {
 	public void setup() {
 		// @formatter:off
 		this.clientRegistration = ClientRegistration.withRegistrationId("registration-1")
-				.clientId("client-1")
-				.clientSecret("secret")
-				.clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
-				.authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
-				.scope("read", "write")
-				.tokenUri("https://provider.com/oauth2/token")
-				.build();
+	.clientId("client-1")
+	.clientSecret("secret")
+	.clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
+	.authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
+	.scope("read", "write")
+	.tokenUri("https://provider.com/oauth2/token")
+	.build();
 		// @formatter:on
 	}
 
@@ -57,7 +57,7 @@ public class OAuth2ClientCredentialsGrantRequestTests {
 	@Test
 	public void constructorWhenValidParametersProvidedThenCreated() {
 		OAuth2ClientCredentialsGrantRequest clientCredentialsGrantRequest = new OAuth2ClientCredentialsGrantRequest(
-				this.clientRegistration);
+	this.clientRegistration);
 		assertThat(clientCredentialsGrantRequest.getClientRegistration()).isEqualTo(this.clientRegistration);
 		assertThat(clientCredentialsGrantRequest.getGrantType()).isEqualTo(AuthorizationGrantType.CLIENT_CREDENTIALS);
 	}

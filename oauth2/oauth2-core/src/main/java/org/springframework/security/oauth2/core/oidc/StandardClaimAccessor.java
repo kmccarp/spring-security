@@ -197,7 +197,7 @@ public interface StandardClaimAccessor extends ClaimAccessor {
 	default AddressStandardClaim getAddress() {
 		Map<String, Object> addressFields = this.getClaimAsMap(StandardClaimNames.ADDRESS);
 		return (!CollectionUtils.isEmpty(addressFields) ? new DefaultAddressStandardClaim.Builder(addressFields).build()
-				: new DefaultAddressStandardClaim.Builder().build());
+	: new DefaultAddressStandardClaim.Builder().build());
 	}
 
 	/**

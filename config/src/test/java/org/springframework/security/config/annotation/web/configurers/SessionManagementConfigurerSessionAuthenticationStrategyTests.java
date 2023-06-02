@@ -58,7 +58,7 @@ public class SessionManagementConfigurerSessionAuthenticationStrategyTests {
 		this.spring.register(CustomSessionAuthenticationStrategyConfig.class).autowire();
 		this.mvc.perform(formLogin().user("user").password("password"));
 		verify(CustomSessionAuthenticationStrategyConfig.customSessionAuthenticationStrategy).onAuthentication(
-				any(Authentication.class), any(HttpServletRequest.class), any(HttpServletResponse.class));
+	any(Authentication.class), any(HttpServletRequest.class), any(HttpServletResponse.class));
 	}
 
 	@Configuration
@@ -66,16 +66,16 @@ public class SessionManagementConfigurerSessionAuthenticationStrategyTests {
 	static class CustomSessionAuthenticationStrategyConfig {
 
 		static SessionAuthenticationStrategy customSessionAuthenticationStrategy = mock(
-				SessionAuthenticationStrategy.class);
+	SessionAuthenticationStrategy.class);
 
 		@Bean
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.formLogin()
-					.and()
-				.sessionManagement()
-					.sessionAuthenticationStrategy(customSessionAuthenticationStrategy);
+		.formLogin()
+		.and()
+		.sessionManagement()
+		.sessionAuthenticationStrategy(customSessionAuthenticationStrategy);
 			// @formatter:on
 			return http.build();
 		}

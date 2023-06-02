@@ -79,16 +79,16 @@ public class PermitAllSupportTests {
 	@Test
 	public void configureWhenNotAuthorizeRequestsThenException() {
 		assertThatExceptionOfType(BeanCreationException.class)
-				.isThrownBy(() -> this.spring.register(NoAuthorizedUrlsConfig.class).autowire()).withMessageContaining(
-						"permitAll only works with either HttpSecurity.authorizeRequests() or HttpSecurity.authorizeHttpRequests()");
+	.isThrownBy(() -> this.spring.register(NoAuthorizedUrlsConfig.class).autowire()).withMessageContaining(
+	"permitAll only works with either HttpSecurity.authorizeRequests() or HttpSecurity.authorizeHttpRequests()");
 	}
 
 	@Test
 	public void configureWhenBothAuthorizeRequestsAndAuthorizeHttpRequestsThenException() {
 		assertThatExceptionOfType(BeanCreationException.class)
-				.isThrownBy(() -> this.spring.register(PermitAllConfigWithBothConfigs.class).autowire())
-				.withMessageContaining(
-						"permitAll only works with either HttpSecurity.authorizeRequests() or HttpSecurity.authorizeHttpRequests()");
+	.isThrownBy(() -> this.spring.register(PermitAllConfigWithBothConfigs.class).autowire())
+	.withMessageContaining(
+"permitAll only works with either HttpSecurity.authorizeRequests() or HttpSecurity.authorizeHttpRequests()");
 	}
 
 	@Configuration
@@ -99,12 +99,12 @@ public class PermitAllSupportTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests()
-					.anyRequest().authenticated()
-					.and()
-				.formLogin()
-					.loginPage("/xyz").permitAll()
-					.loginProcessingUrl("/abc?def").permitAll();
+		.authorizeRequests()
+		.anyRequest().authenticated()
+		.and()
+		.formLogin()
+		.loginPage("/xyz").permitAll()
+		.loginProcessingUrl("/abc?def").permitAll();
 			return http.build();
 			// @formatter:on
 		}
@@ -119,12 +119,12 @@ public class PermitAllSupportTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-					.authorizeHttpRequests()
-						.anyRequest().authenticated()
-						.and()
-					.formLogin()
-						.loginPage("/xyz").permitAll()
-						.loginProcessingUrl("/abc?def").permitAll();
+		.authorizeHttpRequests()
+		.anyRequest().authenticated()
+		.and()
+		.formLogin()
+		.loginPage("/xyz").permitAll()
+		.loginProcessingUrl("/abc?def").permitAll();
 			return http.build();
 			// @formatter:on
 		}
@@ -139,15 +139,15 @@ public class PermitAllSupportTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-					.authorizeRequests()
-						.anyRequest().authenticated()
-						.and()
-					.authorizeHttpRequests()
-						.anyRequest().authenticated()
-						.and()
-					.formLogin()
-						.loginPage("/xyz").permitAll()
-						.loginProcessingUrl("/abc?def").permitAll();
+		.authorizeRequests()
+		.anyRequest().authenticated()
+		.and()
+		.authorizeHttpRequests()
+		.anyRequest().authenticated()
+		.and()
+		.formLogin()
+		.loginPage("/xyz").permitAll()
+		.loginProcessingUrl("/abc?def").permitAll();
 			return http.build();
 			// @formatter:on
 		}
@@ -162,8 +162,8 @@ public class PermitAllSupportTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.formLogin()
-					.permitAll();
+		.formLogin()
+		.permitAll();
 			return http.build();
 			// @formatter:on
 		}

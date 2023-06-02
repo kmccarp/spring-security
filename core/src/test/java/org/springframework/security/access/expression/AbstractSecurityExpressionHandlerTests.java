@@ -42,7 +42,7 @@ public class AbstractSecurityExpressionHandlerTests {
 		this.handler = new AbstractSecurityExpressionHandler<Object>() {
 			@Override
 			protected SecurityExpressionOperations createSecurityExpressionRoot(Authentication authentication,
-					Object o) {
+		Object o) {
 				return new SecurityExpressionRoot(authentication) {
 				};
 			}
@@ -53,9 +53,9 @@ public class AbstractSecurityExpressionHandlerTests {
 	public void beanNamesAreCorrectlyResolved() {
 		this.handler.setApplicationContext(new AnnotationConfigApplicationContext(TestConfiguration.class));
 		Expression expression = this.handler.getExpressionParser()
-				.parseExpression("@number10.compareTo(@number20) < 0");
+	.parseExpression("@number10.compareTo(@number20) < 0");
 		assertThat(expression.getValue(this.handler.createEvaluationContext(mock(Authentication.class), new Object())))
-				.isEqualTo(true);
+	.isEqualTo(true);
 	}
 
 	@Test

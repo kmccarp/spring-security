@@ -46,7 +46,7 @@ public final class SimpleRedirectSessionInformationExpiredStrategy implements Se
 	}
 
 	public SimpleRedirectSessionInformationExpiredStrategy(String invalidSessionUrl,
-			RedirectStrategy redirectStrategy) {
+RedirectStrategy redirectStrategy) {
 		Assert.isTrue(UrlUtils.isValidRedirectUrl(invalidSessionUrl), "url must start with '/' or with 'http(s)'");
 		this.destinationUrl = invalidSessionUrl;
 		this.redirectStrategy = redirectStrategy;

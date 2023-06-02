@@ -43,7 +43,7 @@ public class AnonymousAuthenticationToken extends AbstractAuthenticationToken im
 	 * @throws IllegalArgumentException if a <code>null</code> was passed
 	 */
 	public AnonymousAuthenticationToken(String key, Object principal,
-			Collection<? extends GrantedAuthority> authorities) {
+Collection<? extends GrantedAuthority> authorities) {
 		this(extractKeyHash(key), principal, authorities);
 	}
 
@@ -55,7 +55,7 @@ public class AnonymousAuthenticationToken extends AbstractAuthenticationToken im
 	 * @since 4.2
 	 */
 	private AnonymousAuthenticationToken(Integer keyHash, Object principal,
-			Collection<? extends GrantedAuthority> authorities) {
+Collection<? extends GrantedAuthority> authorities) {
 		super(authorities);
 		Assert.isTrue(principal != null && !"".equals(principal), "principal cannot be null or empty");
 		Assert.notEmpty(authorities, "authorities cannot be null or empty");

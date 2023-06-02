@@ -41,12 +41,12 @@ public class SessionManagementConfigServlet31Tests {
 
 	// @formatter:off
 	private static final String XML_AUTHENTICATION_MANAGER = "<authentication-manager>"
-			+ "  <authentication-provider>"
-			+ "    <user-service>"
-			+ "      <user name='user' password='{noop}password' authorities='ROLE_USER' />"
-			+ "    </user-service>"
-			+ "  </authentication-provider>"
-			+ "</authentication-manager>";
++ "  <authentication-provider>"
++ "    <user-service>"
++ "      <user name='user' password='{noop}password' authorities='ROLE_USER' />"
++ "    </user-service>"
++ "  </authentication-provider>"
++ "</authentication-manager>";
 	// @formatter:on
 
 	MockHttpServletRequest request;
@@ -85,12 +85,12 @@ public class SessionManagementConfigServlet31Tests {
 		String id = request.getSession().getId();
 		// @formatter:off
 		loadContext("<http>\n"
-				+ "        <intercept-url pattern=\"/**\" access=\"authenticated\"/>\n"
-				+ "        <form-login/>\n"
-				+ "        <session-management/>\n"
-				+ "        <csrf disabled='true'/>\n"
-				+ "    </http>"
-				+ XML_AUTHENTICATION_MANAGER);
+	+ "        <intercept-url pattern=\"/**\" access=\"authenticated\"/>\n"
+	+ "        <form-login/>\n"
+	+ "        <session-management/>\n"
+	+ "        <csrf disabled='true'/>\n"
+	+ "    </http>"
+	+ XML_AUTHENTICATION_MANAGER);
 		// @formatter:on
 		this.springSecurityFilterChain.doFilter(request, this.response, this.chain);
 		assertThat(request.getSession().getId()).isNotEqualTo(id);
@@ -108,12 +108,12 @@ public class SessionManagementConfigServlet31Tests {
 		String id = request.getSession().getId();
 		// @formatter:off
 		loadContext("<http>\n"
-				+ "        <intercept-url pattern=\"/**\" access=\"authenticated\"/>\n"
-				+ "        <form-login/>\n"
-				+ "        <session-management session-fixation-protection='changeSessionId'/>\n"
-				+ "        <csrf disabled='true'/>\n"
-				+ "    </http>"
-				+ XML_AUTHENTICATION_MANAGER);
+	+ "        <intercept-url pattern=\"/**\" access=\"authenticated\"/>\n"
+	+ "        <form-login/>\n"
+	+ "        <session-management session-fixation-protection='changeSessionId'/>\n"
+	+ "        <csrf disabled='true'/>\n"
+	+ "    </http>"
+	+ XML_AUTHENTICATION_MANAGER);
 		// @formatter:on
 		this.springSecurityFilterChain.doFilter(request, this.response, this.chain);
 		assertThat(request.getSession().getId()).isNotEqualTo(id);

@@ -33,7 +33,7 @@ final class GrantedAuthorityDefaultsParserUtils {
 	}
 
 	static RootBeanDefinition registerWithDefaultRolePrefix(ParserContext pc,
-			Class<? extends AbstractGrantedAuthorityDefaultsBeanFactory> beanFactoryClass) {
+Class<? extends AbstractGrantedAuthorityDefaultsBeanFactory> beanFactoryClass) {
 		RootBeanDefinition beanFactoryDefinition = new RootBeanDefinition(beanFactoryClass);
 		String beanFactoryRef = pc.getReaderContext().generateBeanName(beanFactoryDefinition);
 		pc.getRegistry().registerBeanDefinition(beanFactoryRef, beanFactoryDefinition);
@@ -50,10 +50,10 @@ final class GrantedAuthorityDefaultsParserUtils {
 		@Override
 		public final void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
 			String[] grantedAuthorityDefaultsBeanNames = applicationContext
-					.getBeanNamesForType(GrantedAuthorityDefaults.class);
+		.getBeanNamesForType(GrantedAuthorityDefaults.class);
 			if (grantedAuthorityDefaultsBeanNames.length == 1) {
 				GrantedAuthorityDefaults grantedAuthorityDefaults = applicationContext
-						.getBean(grantedAuthorityDefaultsBeanNames[0], GrantedAuthorityDefaults.class);
+			.getBean(grantedAuthorityDefaultsBeanNames[0], GrantedAuthorityDefaults.class);
 				this.rolePrefix = grantedAuthorityDefaults.getRolePrefix();
 			}
 		}

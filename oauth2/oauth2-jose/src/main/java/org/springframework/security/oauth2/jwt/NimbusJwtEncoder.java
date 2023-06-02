@@ -121,17 +121,17 @@ public final class NimbusJwtEncoder implements JwtEncoder {
 		}
 		catch (Exception ex) {
 			throw new JwtEncodingException(String.format(ENCODING_ERROR_MESSAGE_TEMPLATE,
-					"Failed to select a JWK signing key -> " + ex.getMessage()), ex);
+		"Failed to select a JWK signing key -> " + ex.getMessage()), ex);
 		}
 
 		if (jwks.size() > 1) {
 			throw new JwtEncodingException(String.format(ENCODING_ERROR_MESSAGE_TEMPLATE,
-					"Found multiple JWK signing keys for algorithm '" + headers.getAlgorithm().getName() + "'"));
+		"Found multiple JWK signing keys for algorithm '" + headers.getAlgorithm().getName() + "'"));
 		}
 
 		if (jwks.isEmpty()) {
 			throw new JwtEncodingException(
-					String.format(ENCODING_ERROR_MESSAGE_TEMPLATE, "Failed to select a JWK signing key"));
+		String.format(ENCODING_ERROR_MESSAGE_TEMPLATE, "Failed to select a JWK signing key"));
 		}
 
 		return jwks.get(0);
@@ -149,7 +149,7 @@ public final class NimbusJwtEncoder implements JwtEncoder {
 		}
 		catch (JOSEException ex) {
 			throw new JwtEncodingException(
-					String.format(ENCODING_ERROR_MESSAGE_TEMPLATE, "Failed to sign the JWT -> " + ex.getMessage()), ex);
+		String.format(ENCODING_ERROR_MESSAGE_TEMPLATE, "Failed to sign the JWT -> " + ex.getMessage()), ex);
 		}
 		return signedJwt.serialize();
 	}
@@ -160,22 +160,22 @@ public final class NimbusJwtEncoder implements JwtEncoder {
 		if (JWSAlgorithm.Family.RSA.contains(jwsAlgorithm) || JWSAlgorithm.Family.EC.contains(jwsAlgorithm)) {
 			// @formatter:off
 			return new JWKMatcher.Builder()
-					.keyType(KeyType.forAlgorithm(jwsAlgorithm))
-					.keyID(headers.getKeyId())
-					.keyUses(KeyUse.SIGNATURE, null)
-					.algorithms(jwsAlgorithm, null)
-					.x509CertSHA256Thumbprint(Base64URL.from(headers.getX509SHA256Thumbprint()))
-					.build();
+		.keyType(KeyType.forAlgorithm(jwsAlgorithm))
+		.keyID(headers.getKeyId())
+		.keyUses(KeyUse.SIGNATURE, null)
+		.algorithms(jwsAlgorithm, null)
+		.x509CertSHA256Thumbprint(Base64URL.from(headers.getX509SHA256Thumbprint()))
+		.build();
 			// @formatter:on
 		}
 		else if (JWSAlgorithm.Family.HMAC_SHA.contains(jwsAlgorithm)) {
 			// @formatter:off
 			return new JWKMatcher.Builder()
-					.keyType(KeyType.forAlgorithm(jwsAlgorithm))
-					.keyID(headers.getKeyId())
-					.privateOnly(true)
-					.algorithms(jwsAlgorithm, null)
-					.build();
+		.keyType(KeyType.forAlgorithm(jwsAlgorithm))
+		.keyID(headers.getKeyId())
+		.privateOnly(true)
+		.algorithms(jwsAlgorithm, null)
+		.build();
 			// @formatter:on
 		}
 
@@ -209,7 +209,7 @@ public final class NimbusJwtEncoder implements JwtEncoder {
 		}
 		catch (JOSEException ex) {
 			throw new JwtEncodingException(String.format(ENCODING_ERROR_MESSAGE_TEMPLATE,
-					"Failed to create a JWS Signer -> " + ex.getMessage()), ex);
+		"Failed to create a JWS Signer -> " + ex.getMessage()), ex);
 		}
 	}
 
@@ -227,7 +227,7 @@ public final class NimbusJwtEncoder implements JwtEncoder {
 			}
 			catch (Exception ex) {
 				throw new JwtEncodingException(String.format(ENCODING_ERROR_MESSAGE_TEMPLATE,
-						"Unable to convert '" + JoseHeaderNames.JWK + "' JOSE header"), ex);
+			"Unable to convert '" + JoseHeaderNames.JWK + "' JOSE header"), ex);
 			}
 		}
 
@@ -345,7 +345,7 @@ public final class NimbusJwtEncoder implements JwtEncoder {
 		}
 		catch (Exception ex) {
 			throw new JwtEncodingException(String.format(ENCODING_ERROR_MESSAGE_TEMPLATE,
-					"Unable to convert '" + header + "' JOSE header to a URI"), ex);
+		"Unable to convert '" + header + "' JOSE header to a URI"), ex);
 		}
 	}
 

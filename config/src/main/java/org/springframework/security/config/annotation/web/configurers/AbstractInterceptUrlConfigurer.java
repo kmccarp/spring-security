@@ -63,8 +63,7 @@ import org.springframework.security.web.access.intercept.FilterSecurityIntercept
  * @deprecated Use {@link AuthorizeHttpRequestsConfigurer} instead
  */
 @Deprecated
-public abstract class AbstractInterceptUrlConfigurer<C extends AbstractInterceptUrlConfigurer<C, H>, H extends HttpSecurityBuilder<H>>
-		extends AbstractHttpConfigurer<C, H> {
+public abstract class AbstractInterceptUrlConfigurer<C extends AbstractInterceptUrlConfigurer<C, H>, H extends HttpSecurityBuilder<H>>extends AbstractHttpConfigurer<C, H> {
 
 	private Boolean filterSecurityInterceptorOncePerRequest;
 
@@ -80,7 +79,7 @@ public abstract class AbstractInterceptUrlConfigurer<C extends AbstractIntercept
 			return;
 		}
 		FilterSecurityInterceptor securityInterceptor = createFilterSecurityInterceptor(http, metadataSource,
-				http.getSharedObject(AuthenticationManager.class));
+	http.getSharedObject(AuthenticationManager.class));
 		if (this.filterSecurityInterceptorOncePerRequest != null) {
 			securityInterceptor.setObserveOncePerRequest(this.filterSecurityInterceptorOncePerRequest);
 		}
@@ -140,8 +139,8 @@ public abstract class AbstractInterceptUrlConfigurer<C extends AbstractIntercept
 	 * @throws Exception
 	 */
 	private FilterSecurityInterceptor createFilterSecurityInterceptor(H http,
-			FilterInvocationSecurityMetadataSource metadataSource, AuthenticationManager authenticationManager)
-			throws Exception {
+FilterInvocationSecurityMetadataSource metadataSource, AuthenticationManager authenticationManager)
+throws Exception {
 		FilterSecurityInterceptor securityInterceptor = new FilterSecurityInterceptor();
 		securityInterceptor.setSecurityMetadataSource(metadataSource);
 		securityInterceptor.setAccessDecisionManager(getAccessDecisionManager(http));
@@ -152,7 +151,7 @@ public abstract class AbstractInterceptUrlConfigurer<C extends AbstractIntercept
 	}
 
 	public abstract class AbstractInterceptUrlRegistry<R extends AbstractInterceptUrlRegistry<R, T>, T>
-			extends AbstractConfigAttributeRequestMatcherRegistry<T> {
+extends AbstractConfigAttributeRequestMatcherRegistry<T> {
 
 		AbstractInterceptUrlRegistry() {
 		}

@@ -71,13 +71,13 @@ public class AclEntryAfterInvocationProvider extends AbstractAclProvider impleme
 	}
 
 	public AclEntryAfterInvocationProvider(AclService aclService, String processConfigAttribute,
-			List<Permission> requirePermission) {
+List<Permission> requirePermission) {
 		super(aclService, processConfigAttribute, requirePermission);
 	}
 
 	@Override
 	public Object decide(Authentication authentication, Object object, Collection<ConfigAttribute> config,
-			Object returnedObject) throws AccessDeniedException {
+Object returnedObject) throws AccessDeniedException {
 
 		if (returnedObject == null) {
 			// AclManager interface contract prohibits nulls
@@ -103,8 +103,8 @@ public class AclEntryAfterInvocationProvider extends AbstractAclProvider impleme
 
 			logger.debug("Denying access");
 			throw new AccessDeniedException(this.messages.getMessage("AclEntryAfterInvocationProvider.noPermission",
-					new Object[] { authentication.getName(), returnedObject },
-					"Authentication {0} has NO permissions to the domain object {1}"));
+		new Object[]{authentication.getName(), returnedObject},
+		"Authentication {0} has NO permissions to the domain object {1}"));
 		}
 
 		return returnedObject;

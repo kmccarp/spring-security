@@ -34,7 +34,7 @@ public class UsernamePasswordAuthenticationTokenTests {
 	@Test
 	public void authenticatedPropertyContractIsSatisfied() {
 		UsernamePasswordAuthenticationToken grantedToken = UsernamePasswordAuthenticationToken.authenticated("Test",
-				"Password", AuthorityUtils.NO_AUTHORITIES);
+	"Password", AuthorityUtils.NO_AUTHORITIES);
 		// check default given we passed some GrantedAuthorty[]s (well, we passed empty
 		// list)
 		assertThat(grantedToken.isAuthenticated()).isTrue();
@@ -45,7 +45,7 @@ public class UsernamePasswordAuthenticationTokenTests {
 		// Now let's create a UsernamePasswordAuthenticationToken without any
 		// GrantedAuthorty[]s (different constructor)
 		UsernamePasswordAuthenticationToken noneGrantedToken = UsernamePasswordAuthenticationToken
-				.unauthenticated("Test", "Password");
+	.unauthenticated("Test", "Password");
 		assertThat(!noneGrantedToken.isAuthenticated()).isTrue();
 		// check we're allowed to still set it to untrusted
 		noneGrantedToken.setAuthenticated(false);
@@ -57,7 +57,7 @@ public class UsernamePasswordAuthenticationTokenTests {
 	@Test
 	public void gettersReturnCorrectData() {
 		UsernamePasswordAuthenticationToken token = UsernamePasswordAuthenticationToken.authenticated("Test",
-				"Password", AuthorityUtils.createAuthorityList("ROLE_ONE", "ROLE_TWO"));
+	"Password", AuthorityUtils.createAuthorityList("ROLE_ONE", "ROLE_TWO"));
 		assertThat(token.getPrincipal()).isEqualTo("Test");
 		assertThat(token.getCredentials()).isEqualTo("Password");
 		assertThat(AuthorityUtils.authorityListToSet(token.getAuthorities())).contains("ROLE_ONE");
@@ -68,20 +68,20 @@ public class UsernamePasswordAuthenticationTokenTests {
 	public void testNoArgConstructorDoesntExist() throws Exception {
 		Class<?> clazz = UsernamePasswordAuthenticationToken.class;
 		assertThatExceptionOfType(NoSuchMethodException.class)
-				.isThrownBy(() -> clazz.getDeclaredConstructor((Class[]) null));
+	.isThrownBy(() -> clazz.getDeclaredConstructor((Class[]) null));
 	}
 
 	@Test
 	public void unauthenticatedFactoryMethodResultsUnauthenticatedToken() {
 		UsernamePasswordAuthenticationToken grantedToken = UsernamePasswordAuthenticationToken.unauthenticated("Test",
-				"Password");
+	"Password");
 		assertThat(grantedToken.isAuthenticated()).isFalse();
 	}
 
 	@Test
 	public void authenticatedFactoryMethodResultsAuthenticatedToken() {
 		UsernamePasswordAuthenticationToken grantedToken = UsernamePasswordAuthenticationToken.authenticated("Test",
-				"Password", AuthorityUtils.NO_AUTHORITIES);
+	"Password", AuthorityUtils.NO_AUTHORITIES);
 		assertThat(grantedToken.isAuthenticated()).isTrue();
 	}
 

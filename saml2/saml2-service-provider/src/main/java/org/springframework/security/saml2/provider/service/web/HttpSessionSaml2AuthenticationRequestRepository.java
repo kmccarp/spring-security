@@ -30,11 +30,10 @@ import org.springframework.security.saml2.provider.service.authentication.Abstra
  * @author Marcus Da Coregio
  * @since 5.6
  */
-public class HttpSessionSaml2AuthenticationRequestRepository
-		implements Saml2AuthenticationRequestRepository<AbstractSaml2AuthenticationRequest> {
+public class HttpSessionSaml2AuthenticationRequestRepositoryimplements Saml2AuthenticationRequestRepository<AbstractSaml2AuthenticationRequest> {
 
 	private static final String DEFAULT_SAML2_AUTHN_REQUEST_ATTR_NAME = HttpSessionSaml2AuthenticationRequestRepository.class
-			.getName().concat(".SAML2_AUTHN_REQUEST");
+.getName().concat(".SAML2_AUTHN_REQUEST");
 
 	private String saml2AuthnRequestAttributeName = DEFAULT_SAML2_AUTHN_REQUEST_ATTR_NAME;
 
@@ -49,7 +48,7 @@ public class HttpSessionSaml2AuthenticationRequestRepository
 
 	@Override
 	public void saveAuthenticationRequest(AbstractSaml2AuthenticationRequest authenticationRequest,
-			HttpServletRequest request, HttpServletResponse response) {
+HttpServletRequest request, HttpServletResponse response) {
 		if (authenticationRequest == null) {
 			removeAuthenticationRequest(request, response);
 			return;
@@ -60,7 +59,7 @@ public class HttpSessionSaml2AuthenticationRequestRepository
 
 	@Override
 	public AbstractSaml2AuthenticationRequest removeAuthenticationRequest(HttpServletRequest request,
-			HttpServletResponse response) {
+HttpServletResponse response) {
 		AbstractSaml2AuthenticationRequest authenticationRequest = loadAuthenticationRequest(request);
 		if (authenticationRequest == null) {
 			return null;

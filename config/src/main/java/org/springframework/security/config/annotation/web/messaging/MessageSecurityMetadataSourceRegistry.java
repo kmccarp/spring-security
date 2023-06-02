@@ -214,7 +214,7 @@ public class MessageSecurityMetadataSourceRegistry {
 	 * customization.
 	 */
 	public MessageSecurityMetadataSourceRegistry expressionHandler(
-			SecurityExpressionHandler<Message<Object>> expressionHandler) {
+SecurityExpressionHandler<Message<Object>> expressionHandler) {
 		Assert.notNull(expressionHandler, "expressionHandler cannot be null");
 		this.expressionHandler = expressionHandler;
 		return this;
@@ -235,7 +235,7 @@ public class MessageSecurityMetadataSourceRegistry {
 			matcherToExpression.put(entry.getKey().build(), entry.getValue());
 		}
 		return ExpressionBasedMessageSecurityMetadataSourceFactory
-				.createExpressionMessageMetadataSource(matcherToExpression, this.expressionHandler);
+	.createExpressionMessageMetadataSource(matcherToExpression, this.expressionHandler);
 	}
 
 	/**
@@ -260,7 +260,7 @@ public class MessageSecurityMetadataSourceRegistry {
 		Assert.notNull(role, "role cannot be null");
 		if (role.startsWith("ROLE_")) {
 			throw new IllegalArgumentException(
-					"role should not start with 'ROLE_' since it is automatically inserted. Got '" + role + "'");
+		"role should not start with 'ROLE_' since it is automatically inserted. Got '" + role + "'");
 		}
 		return "hasRole('ROLE_" + role + "')";
 	}
@@ -443,15 +443,15 @@ public class MessageSecurityMetadataSourceRegistry {
 		public MessageMatcher<?> build() {
 			if (this.type == null) {
 				return new SimpDestinationMessageMatcher(this.pattern,
-						MessageSecurityMetadataSourceRegistry.this.pathMatcher);
+			MessageSecurityMetadataSourceRegistry.this.pathMatcher);
 			}
 			if (SimpMessageType.MESSAGE == this.type) {
 				return SimpDestinationMessageMatcher.createMessageMatcher(this.pattern,
-						MessageSecurityMetadataSourceRegistry.this.pathMatcher);
+			MessageSecurityMetadataSourceRegistry.this.pathMatcher);
 			}
 			if (SimpMessageType.SUBSCRIBE == this.type) {
 				return SimpDestinationMessageMatcher.createSubscribeMatcher(this.pattern,
-						MessageSecurityMetadataSourceRegistry.this.pathMatcher);
+			MessageSecurityMetadataSourceRegistry.this.pathMatcher);
 			}
 			throw new IllegalStateException(this.type + " is not supported since it does not have a destination");
 		}

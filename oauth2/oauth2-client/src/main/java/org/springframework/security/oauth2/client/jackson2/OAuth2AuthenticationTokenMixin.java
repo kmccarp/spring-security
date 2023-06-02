@@ -37,15 +37,14 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
  * @see OAuth2ClientJackson2Module
  */
 @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS)
-@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY, getterVisibility = JsonAutoDetect.Visibility.NONE,
-		isGetterVisibility = JsonAutoDetect.Visibility.NONE)
-@JsonIgnoreProperties(value = { "authenticated" }, ignoreUnknown = true)
+@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY, getterVisibility = JsonAutoDetect.Visibility.NONE,isGetterVisibility = JsonAutoDetect.Visibility.NONE)
+@JsonIgnoreProperties(value = {"authenticated"}, ignoreUnknown = true)
 abstract class OAuth2AuthenticationTokenMixin {
 
 	@JsonCreator
 	OAuth2AuthenticationTokenMixin(@JsonProperty("principal") OAuth2User principal,
-			@JsonProperty("authorities") Collection<? extends GrantedAuthority> authorities,
-			@JsonProperty("authorizedClientRegistrationId") String authorizedClientRegistrationId) {
+@JsonProperty("authorities") Collection<? extends GrantedAuthority> authorities,
+@JsonProperty("authorizedClientRegistrationId") String authorizedClientRegistrationId) {
 	}
 
 }

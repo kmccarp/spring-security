@@ -34,8 +34,7 @@ import static org.mockito.Mockito.verify;
  * @see CurrentSecurityContextSchedulingTaskExecutorTests
  * @see ExplicitSecurityContextSchedulingTaskExecutorTests
  */
-public abstract class AbstractSecurityContextSchedulingTaskExecutorTests
-		extends AbstractDelegatingSecurityContextAsyncTaskExecutorTests {
+public abstract class AbstractSecurityContextSchedulingTaskExecutorTestsextends AbstractDelegatingSecurityContextAsyncTaskExecutorTests {
 
 	@Mock
 	protected SchedulingTaskExecutor taskExecutorDelegate;

@@ -41,7 +41,7 @@ public class JwtIssuerValidatorTests {
 		Jwt jwt = TestJwts.jwt().claim("iss", ISSUER).build();
 		// @formatter:off
 		assertThat(this.validator.validate(jwt))
-				.isEqualTo(OAuth2TokenValidatorResult.success());
+	.isEqualTo(OAuth2TokenValidatorResult.success());
 		// @formatter:on
 	}
 
@@ -82,7 +82,7 @@ public class JwtIssuerValidatorTests {
 		JwtIssuerValidator validator = new JwtIssuerValidator("issuer");
 		// @formatter:off
 		assertThat(validator.validate(jwt))
-				.isEqualTo(OAuth2TokenValidatorResult.success());
+	.isEqualTo(OAuth2TokenValidatorResult.success());
 		// @formatter:on
 	}
 
@@ -90,7 +90,7 @@ public class JwtIssuerValidatorTests {
 	public void validateWhenJwtIsNullThenThrowsIllegalArgumentException() {
 		// @formatter:off
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> this.validator.validate(null));
+	.isThrownBy(() -> this.validator.validate(null));
 		// @formatter:on
 	}
 
@@ -98,7 +98,7 @@ public class JwtIssuerValidatorTests {
 	public void constructorWhenNullIssuerIsGivenThenThrowsIllegalArgumentException() {
 		// @formatter:off
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new JwtIssuerValidator(null));
+	.isThrownBy(() -> new JwtIssuerValidator(null));
 		// @formatter:on
 	}
 

@@ -215,15 +215,15 @@ public final class ResolvableMethod {
 
 	private String formatMethod() {
 		return (method().getName() + Arrays.stream(this.method.getParameters()).map(this::formatParameter)
-				.collect(Collectors.joining(",\n\t", "(\n\t", "\n)")));
+	.collect(Collectors.joining(",\n\t", "(\n\t", "\n)")));
 	}
 
 	private String formatParameter(Parameter param) {
 		Annotation[] anns = param.getAnnotations();
 		return (anns.length > 0)
-				? Arrays.stream(anns).map(this::formatAnnotation).collect(Collectors.joining(",", "[", "]")) + " "
-						+ param
-				: param.toString();
+	? Arrays.stream(anns).map(this::formatAnnotation).collect(Collectors.joining(",", "[", "]")) + " "
+	+ param
+	: param.toString();
 	}
 
 	private String formatAnnotation(Annotation annotation) {
@@ -238,7 +238,7 @@ public final class ResolvableMethod {
 
 	private static ResolvableType toResolvableType(Class<?> type, Class<?>... generics) {
 		return (ObjectUtils.isEmpty(generics) ? ResolvableType.forClass(type)
-				: ResolvableType.forClassWithGenerics(type, generics));
+	: ResolvableType.forClassWithGenerics(type, generics));
 	}
 
 	private static ResolvableType toResolvableType(Class<?> type, ResolvableType generic, ResolvableType... generics) {
@@ -268,7 +268,7 @@ public final class ResolvableMethod {
 		else {
 			Enhancer enhancer = new Enhancer();
 			enhancer.setSuperclass(type);
-			enhancer.setInterfaces(new Class<?>[] { Supplier.class });
+			enhancer.setInterfaces(new Class<?>[]{Supplier.class});
 			enhancer.setNamingPolicy(SpringNamingPolicy.INSTANCE);
 			enhancer.setCallbackType(org.springframework.cglib.proxy.MethodInterceptor.class);
 			Class<?> proxyClass = enhancer.createClass();
@@ -287,11 +287,11 @@ public final class ResolvableMethod {
 				}
 				catch (Throwable ex) {
 					throw new IllegalStateException(
-							"Unable to instantiate proxy " + "via both Objenesis and default constructor fails as well",
-							ex);
+				"Unable to instantiate proxy " + "via both Objenesis and default constructor fails as well",
+				ex);
 				}
 			}
-			((Factory) proxy).setCallbacks(new Callback[] { interceptor });
+			((Factory) proxy).setCallbacks(new Callback[]{interceptor});
 			return (T) proxy;
 		}
 	}
@@ -327,7 +327,7 @@ public final class ResolvableMethod {
 		 */
 		public Builder<T> argTypes(Class<?>... argTypes) {
 			addFilter("argTypes=" + Arrays.toString(argTypes), (method) -> ObjectUtils.isEmpty(argTypes)
-					? method.getParameterCount() == 0 : Arrays.equals(method.getParameterTypes(), argTypes));
+		? method.getParameterCount() == 0 : Arrays.equals(method.getParameterTypes(), argTypes));
 			return this;
 		}
 
@@ -350,7 +350,7 @@ public final class ResolvableMethod {
 		public final Builder<T> annotPresent(Class<? extends Annotation>... annotationTypes) {
 			String message = "annotationPresent=" + Arrays.toString(annotationTypes);
 			addFilter(message, (candidate) -> Arrays.stream(annotationTypes)
-					.allMatch((annotType) -> AnnotatedElementUtils.findMergedAnnotation(candidate, annotType) != null));
+		.allMatch((annotType) -> AnnotatedElementUtils.findMergedAnnotation(candidate, annotType) != null));
 			return this;
 		}
 
@@ -363,7 +363,7 @@ public final class ResolvableMethod {
 			addFilter(message, (candidate) -> {
 				if (annotationTypes.length != 0) {
 					return Arrays.stream(annotationTypes).noneMatch(
-							(annotType) -> AnnotatedElementUtils.findMergedAnnotation(candidate, annotType) != null);
+				(annotType) -> AnnotatedElementUtils.findMergedAnnotation(candidate, annotType) != null);
 				}
 				else {
 					return candidate.getAnnotations().length == 0;
@@ -423,7 +423,7 @@ public final class ResolvableMethod {
 
 		private String formatMethods(Set<Method> methods) {
 			return "\nMatched:\n" + methods.stream().map(Method::toGenericString)
-					.collect(Collectors.joining(",\n\t", "[\n\t", "\n]"));
+		.collect(Collectors.joining(",\n\t", "[\n\t", "\n]"));
 		}
 
 		public ResolvableMethod mockCall(Consumer<T> invoker) {
@@ -482,7 +482,7 @@ public final class ResolvableMethod {
 		 * @param generics optional extra generic types
 		 */
 		public MethodParameter resolveReturnType(Class<?> returnType, ResolvableType generic,
-				ResolvableType... generics) {
+	ResolvableType... generics) {
 			return returning(returnType, generic, generics).method().returnType();
 		}
 
@@ -493,12 +493,12 @@ public final class ResolvableMethod {
 		@Override
 		public String toString() {
 			return "ResolvableMethod.Builder[\n" + "\tobjectClass = " + this.objectClass.getName() + ",\n"
-					+ "\tfilters = " + formatFilters() + "\n]";
+		+ "\tfilters = " + formatFilters() + "\n]";
 		}
 
 		private String formatFilters() {
 			return this.filters.stream().map(Object::toString)
-					.collect(Collectors.joining(",\n\t\t", "[\n\t\t", "\n\t]"));
+		.collect(Collectors.joining(",\n\t\t", "[\n\t\t", "\n\t]"));
 		}
 
 	}
@@ -585,8 +585,8 @@ public final class ResolvableMethod {
 		@SafeVarargs
 		public final ArgResolver annotNotPresent(Class<? extends Annotation>... annotationTypes) {
 			this.filters.add((param) -> (annotationTypes.length > 0)
-					? Arrays.stream(annotationTypes).noneMatch(param::hasParameterAnnotation)
-					: param.getParameterAnnotations().length == 0);
+		? Arrays.stream(annotationTypes).noneMatch(param::hasParameterAnnotation)
+		: param.getParameterAnnotations().length == 0);
 			return this;
 		}
 
@@ -622,7 +622,7 @@ public final class ResolvableMethod {
 			List<MethodParameter> matches = applyFilters();
 			Assert.state(!matches.isEmpty(), () -> "No matching arg in method\n" + formatMethod());
 			Assert.state(matches.size() == 1,
-					() -> "Multiple matching args in method\n" + formatMethod() + "\nMatches:\n\t" + matches);
+		() -> "Multiple matching args in method\n" + formatMethod() + "\nMatches:\n\t" + matches);
 			return matches.get(0);
 		}
 
@@ -641,7 +641,7 @@ public final class ResolvableMethod {
 	}
 
 	private static class MethodInvocationInterceptor
-			implements org.springframework.cglib.proxy.MethodInterceptor, MethodInterceptor {
+implements org.springframework.cglib.proxy.MethodInterceptor, MethodInterceptor {
 
 		private Method invokedMethod;
 

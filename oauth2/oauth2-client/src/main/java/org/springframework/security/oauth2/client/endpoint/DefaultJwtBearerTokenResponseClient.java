@@ -51,8 +51,7 @@ import org.springframework.web.client.RestTemplate;
  * @see <a target="_blank" href="https://tools.ietf.org/html/rfc7521#section-4.1">Section
  * 4.1 Using Assertions as Authorization Grants</a>
  */
-public final class DefaultJwtBearerTokenResponseClient
-		implements OAuth2AccessTokenResponseClient<JwtBearerGrantRequest> {
+public final class DefaultJwtBearerTokenResponseClientimplements OAuth2AccessTokenResponseClient<JwtBearerGrantRequest> {
 
 	private static final String INVALID_TOKEN_RESPONSE_ERROR_CODE = "invalid_token_response";
 
@@ -62,7 +61,7 @@ public final class DefaultJwtBearerTokenResponseClient
 
 	public DefaultJwtBearerTokenResponseClient() {
 		RestTemplate restTemplate = new RestTemplate(
-				Arrays.asList(new FormHttpMessageConverter(), new OAuth2AccessTokenResponseHttpMessageConverter()));
+	Arrays.asList(new FormHttpMessageConverter(), new OAuth2AccessTokenResponseHttpMessageConverter()));
 		restTemplate.setErrorHandler(new OAuth2ErrorResponseErrorHandler());
 		this.restOperations = restTemplate;
 	}
@@ -86,9 +85,9 @@ public final class DefaultJwtBearerTokenResponseClient
 		}
 		catch (RestClientException ex) {
 			OAuth2Error oauth2Error = new OAuth2Error(INVALID_TOKEN_RESPONSE_ERROR_CODE,
-					"An error occurred while attempting to retrieve the OAuth 2.0 Access Token Response: "
-							+ ex.getMessage(),
-					null);
+		"An error occurred while attempting to retrieve the OAuth 2.0 Access Token Response: "
+	+ ex.getMessage(),
+		null);
 			throw new OAuth2AuthorizationException(oauth2Error, ex);
 		}
 	}

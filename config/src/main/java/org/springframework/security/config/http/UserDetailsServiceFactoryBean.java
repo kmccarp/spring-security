@@ -69,7 +69,7 @@ public class UserDetailsServiceFactoryBean implements ApplicationContextAware {
 			if (!beans.isEmpty()) {
 				if (beans.size() > 1) {
 					throw new ApplicationContextException("More than one AuthenticationUserDetailsService registered."
-							+ " Please use a specific Id reference.");
+				+ " Please use a specific Id reference.");
 				}
 				return (AuthenticationUserDetailsService) beans.values().toArray()[0];
 			}
@@ -88,7 +88,7 @@ public class UserDetailsServiceFactoryBean implements ApplicationContextAware {
 			}
 			else {
 				throw new ApplicationContextException(
-						"Bean '" + name + "' must be a UserDetailsService or an" + " AuthenticationUserDetailsService");
+			"Bean '" + name + "' must be a UserDetailsService or an" + " AuthenticationUserDetailsService");
 			}
 		}
 		return new UserDetailsByNameServiceWrapper(uds);
@@ -109,7 +109,7 @@ public class UserDetailsServiceFactoryBean implements ApplicationContextAware {
 		}
 		if (beans.size() > 1) {
 			throw new ApplicationContextException("More than one UserDetailsService registered. Please "
-					+ "use a specific Id reference in <remember-me/> or <x509 /> elements.");
+		+ "use a specific Id reference in <remember-me/> or <x509 /> elements.");
 		}
 		return (UserDetailsService) beans.values().toArray()[0];
 	}

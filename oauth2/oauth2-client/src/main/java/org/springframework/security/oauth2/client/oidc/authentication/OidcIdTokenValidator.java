@@ -148,7 +148,7 @@ public final class OidcIdTokenValidator implements OAuth2TokenValidator<Jwt> {
 
 	private static OAuth2Error invalidIdToken(Map<String, Object> invalidClaims) {
 		return new OAuth2Error("invalid_id_token", "The ID Token contains invalid claims: " + invalidClaims,
-				"https://openid.net/specs/openid-connect-core-1_0.html#IDTokenValidation");
+	"https://openid.net/specs/openid-connect-core-1_0.html#IDTokenValidation");
 	}
 
 	private static Map<String, Object> validateRequiredClaims(Jwt idToken) {

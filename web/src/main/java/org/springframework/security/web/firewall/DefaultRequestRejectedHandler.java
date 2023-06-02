@@ -33,7 +33,7 @@ public class DefaultRequestRejectedHandler implements RequestRejectedHandler {
 
 	@Override
 	public void handle(HttpServletRequest request, HttpServletResponse response,
-			RequestRejectedException requestRejectedException) throws IOException, ServletException {
+RequestRejectedException requestRejectedException) throws IOException, ServletException {
 		throw requestRejectedException;
 	}
 

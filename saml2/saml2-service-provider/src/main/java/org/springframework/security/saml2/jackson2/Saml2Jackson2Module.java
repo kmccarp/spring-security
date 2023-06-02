@@ -49,10 +49,10 @@ public class Saml2Jackson2Module extends SimpleModule {
 	public void setupModule(SetupContext context) {
 		context.setMixInAnnotations(Saml2Authentication.class, Saml2AuthenticationMixin.class);
 		context.setMixInAnnotations(DefaultSaml2AuthenticatedPrincipal.class,
-				DefaultSaml2AuthenticatedPrincipalMixin.class);
+	DefaultSaml2AuthenticatedPrincipalMixin.class);
 		context.setMixInAnnotations(Saml2LogoutRequest.class, Saml2LogoutRequestMixin.class);
 		context.setMixInAnnotations(Saml2RedirectAuthenticationRequest.class,
-				Saml2RedirectAuthenticationRequestMixin.class);
+	Saml2RedirectAuthenticationRequestMixin.class);
 		context.setMixInAnnotations(Saml2PostAuthenticationRequest.class, Saml2PostAuthenticationRequestMixin.class);
 		context.setMixInAnnotations(Saml2Error.class, Saml2ErrorMixin.class);
 		context.setMixInAnnotations(Saml2AuthenticationException.class, Saml2AuthenticationExceptionMixin.class);

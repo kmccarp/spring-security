@@ -51,7 +51,7 @@ public class WebMvcSecurityConfiguration implements WebMvcConfigurer {
 	public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
 		argumentResolvers.add(new AuthenticationPrincipalArgumentResolver());
 		argumentResolvers
-				.add(new org.springframework.security.web.bind.support.AuthenticationPrincipalArgumentResolver());
+	.add(new org.springframework.security.web.bind.support.AuthenticationPrincipalArgumentResolver());
 	}
 
 	@Bean

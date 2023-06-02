@@ -53,12 +53,12 @@ class Saml2LogoutRequestMixinTests {
 	@Test
 	void shouldDeserialize() throws Exception {
 		Saml2LogoutRequest logoutRequest = this.mapper.readValue(TestSaml2JsonPayloads.DEFAULT_LOGOUT_REQUEST_JSON,
-				Saml2LogoutRequest.class);
+	Saml2LogoutRequest.class);
 
 		assertThat(logoutRequest).isNotNull();
 		assertThat(logoutRequest.getId()).isEqualTo(TestSaml2JsonPayloads.ID);
 		assertThat(logoutRequest.getRelyingPartyRegistrationId())
-				.isEqualTo(TestSaml2JsonPayloads.RELYINGPARTY_REGISTRATION_ID);
+	.isEqualTo(TestSaml2JsonPayloads.RELYINGPARTY_REGISTRATION_ID);
 		assertThat(logoutRequest.getSamlRequest()).isEqualTo(TestSaml2JsonPayloads.SAML_REQUEST);
 		assertThat(logoutRequest.getRelayState()).isEqualTo(TestSaml2JsonPayloads.RELAY_STATE);
 		assertThat(logoutRequest.getLocation()).isEqualTo(TestSaml2JsonPayloads.LOCATION);

@@ -37,7 +37,7 @@ public class ForceEagerSessionCreationFilter extends OncePerRequestFilter {
 
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
-			throws ServletException, IOException {
+throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		if (this.logger.isDebugEnabled() && session.isNew()) {
 			this.logger.debug(LogMessage.format("Created session eagerly"));

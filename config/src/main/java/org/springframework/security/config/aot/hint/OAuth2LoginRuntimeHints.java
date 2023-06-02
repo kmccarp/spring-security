@@ -32,7 +32,7 @@ class OAuth2LoginRuntimeHints implements RuntimeHintsRegistrar {
 	@Override
 	public void registerHints(RuntimeHints hints, ClassLoader classLoader) {
 		hints.reflection().registerTypeIfPresent(classLoader, "org.springframework.security.oauth2.jwt.JwtDecoder",
-				MemberCategory.INVOKE_PUBLIC_METHODS);
+	MemberCategory.INVOKE_PUBLIC_METHODS);
 	}
 
 }

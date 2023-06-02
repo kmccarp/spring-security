@@ -97,7 +97,7 @@ final class DefaultWASUsernameAndGroupsExtractor implements WASUsernameAndGroups
 	private static Subject getRunAsSubject() {
 		logger.debug("Retrieving WebSphere RunAs subject");
 		// get Subject: WSSubject.getCallerSubject ();
-		return (Subject) invokeMethod(getRunAsSubjectMethod(), null, new Object[] {});
+		return (Subject) invokeMethod(getRunAsSubjectMethod(), null, new Object[]{});
 	}
 
 	/**
@@ -123,11 +123,11 @@ final class DefaultWASUsernameAndGroupsExtractor implements WASUsernameAndGroups
 			context = new InitialContext();
 			Object objRef = context.lookup(USER_REGISTRY);
 			Object userReg = invokeMethod(getNarrowMethod(), null, objRef,
-					Class.forName("com.ibm.websphere.security.UserRegistry"));
+		Class.forName("com.ibm.websphere.security.UserRegistry"));
 			logger.debug(LogMessage.format("Determining WebSphere groups for user %s using WebSphere UserRegistry %s",
-					securityName, userReg));
+		securityName, userReg));
 			final Collection<String> groups = (Collection<String>) invokeMethod(getGroupsForUserMethod(), userReg,
-					new Object[] { securityName });
+		new Object[]{securityName});
 			logger.debug(LogMessage.format("Groups for user %s: %s", securityName, groups));
 			return new ArrayList<String>(groups);
 		}
@@ -157,7 +157,7 @@ final class DefaultWASUsernameAndGroupsExtractor implements WASUsernameAndGroups
 		}
 		catch (IllegalArgumentException | IllegalAccessException | InvocationTargetException ex) {
 			String message = "Error while invoking method " + method.getClass().getName() + "." + method.getName() + "("
-					+ Arrays.asList(args) + ")";
+		+ Arrays.asList(args) + ")";
 			logger.error(message, ex);
 			throw new RuntimeException(message, ex);
 		}
@@ -179,7 +179,7 @@ final class DefaultWASUsernameAndGroupsExtractor implements WASUsernameAndGroups
 		}
 		catch (NoSuchMethodException ex) {
 			logger.error("Required method " + methodName + " with parameter types (" + Arrays.asList(parameterTypeNames)
-					+ ") not found on class " + className);
+		+ ") not found on class " + className);
 			throw new RuntimeException("Required class" + className + " not found", ex);
 		}
 	}
@@ -187,7 +187,7 @@ final class DefaultWASUsernameAndGroupsExtractor implements WASUsernameAndGroups
 	private static Method getRunAsSubjectMethod() {
 		if (getRunAsSubject == null) {
 			getRunAsSubject = getMethod("com.ibm.websphere.security.auth.WSSubject", "getRunAsSubject",
-					new String[] {});
+		new String[]{});
 		}
 		return getRunAsSubject;
 	}
@@ -195,7 +195,7 @@ final class DefaultWASUsernameAndGroupsExtractor implements WASUsernameAndGroups
 	private static Method getGroupsForUserMethod() {
 		if (getGroupsForUser == null) {
 			getGroupsForUser = getMethod("com.ibm.websphere.security.UserRegistry", "getGroupsForUser",
-					new String[] { "java.lang.String" });
+		new String[]{"java.lang.String"});
 		}
 		return getGroupsForUser;
 	}
@@ -203,7 +203,7 @@ final class DefaultWASUsernameAndGroupsExtractor implements WASUsernameAndGroups
 	private static Method getSecurityNameMethod() {
 		if (getSecurityName == null) {
 			getSecurityName = getMethod("com.ibm.websphere.security.cred.WSCredential", "getSecurityName",
-					new String[] {});
+		new String[]{});
 		}
 		return getSecurityName;
 	}
@@ -211,7 +211,7 @@ final class DefaultWASUsernameAndGroupsExtractor implements WASUsernameAndGroups
 	private static Method getNarrowMethod() {
 		if (narrow == null) {
 			narrow = getMethod(PORTABLE_REMOTE_OBJECT_CLASSNAME, "narrow",
-					new String[] { Object.class.getName(), Class.class.getName() });
+		new String[]{Object.class.getName(), Class.class.getName()});
 		}
 		return narrow;
 	}

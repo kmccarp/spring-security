@@ -32,8 +32,7 @@ import org.springframework.security.messaging.access.intercept.MessageAuthorizat
  * @author Josh Cummings
  * @since 5.8
  */
-public final class MessageAuthorizationContextSecurityExpressionHandler
-		implements SecurityExpressionHandler<MessageAuthorizationContext<?>> {
+public final class MessageAuthorizationContextSecurityExpressionHandlerimplements SecurityExpressionHandler<MessageAuthorizationContext<?>> {
 
 	private final SecurityExpressionHandler<Message<?>> delegate;
 
@@ -43,7 +42,7 @@ public final class MessageAuthorizationContextSecurityExpressionHandler
 	}
 
 	public MessageAuthorizationContextSecurityExpressionHandler(
-			SecurityExpressionHandler<Message<?>> expressionHandler) {
+SecurityExpressionHandler<Message<?>> expressionHandler) {
 		this.delegate = expressionHandler;
 	}
 
@@ -54,13 +53,13 @@ public final class MessageAuthorizationContextSecurityExpressionHandler
 
 	@Override
 	public EvaluationContext createEvaluationContext(Authentication authentication,
-			MessageAuthorizationContext<?> message) {
+MessageAuthorizationContext<?> message) {
 		return createEvaluationContext(() -> authentication, message);
 	}
 
 	@Override
 	public EvaluationContext createEvaluationContext(Supplier<Authentication> authentication,
-			MessageAuthorizationContext<?> message) {
+MessageAuthorizationContext<?> message) {
 		EvaluationContext context = this.delegate.createEvaluationContext(authentication, message.getMessage());
 		Map<String, String> variables = message.getVariables();
 		if (variables != null) {

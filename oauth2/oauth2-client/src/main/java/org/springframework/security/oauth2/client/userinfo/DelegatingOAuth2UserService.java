@@ -41,8 +41,7 @@ import org.springframework.util.Assert;
  * @see OAuth2UserRequest
  * @see OAuth2User
  */
-public class DelegatingOAuth2UserService<R extends OAuth2UserRequest, U extends OAuth2User>
-		implements OAuth2UserService<R, U> {
+public class DelegatingOAuth2UserService<R extends OAuth2UserRequest, U extends OAuth2User>implements OAuth2UserService<R, U> {
 
 	private final List<OAuth2UserService<R, U>> userServices;
 
@@ -60,10 +59,10 @@ public class DelegatingOAuth2UserService<R extends OAuth2UserRequest, U extends 
 		Assert.notNull(userRequest, "userRequest cannot be null");
 		// @formatter:off
 		return this.userServices.stream()
-				.map((userService) -> userService.loadUser(userRequest))
-				.filter(Objects::nonNull)
-				.findFirst()
-				.orElse(null);
+	.map((userService) -> userService.loadUser(userRequest))
+	.filter(Objects::nonNull)
+	.findFirst()
+	.orElse(null);
 		// @formatter:on
 	}
 

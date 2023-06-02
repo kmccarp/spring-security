@@ -86,11 +86,10 @@ import org.springframework.web.filter.GenericFilterBean;
  * @author Tadaya Tsuyukubo
  * @since 2.0
  */
-public abstract class AbstractPreAuthenticatedProcessingFilter extends GenericFilterBean
-		implements ApplicationEventPublisherAware {
+public abstract class AbstractPreAuthenticatedProcessingFilter extends GenericFilterBeanimplements ApplicationEventPublisherAware {
 
 	private SecurityContextHolderStrategy securityContextHolderStrategy = SecurityContextHolder
-			.getContextHolderStrategy();
+.getContextHolderStrategy();
 
 	private ApplicationEventPublisher eventPublisher = null;
 
@@ -133,18 +132,18 @@ public abstract class AbstractPreAuthenticatedProcessingFilter extends GenericFi
 	 */
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
-			throws IOException, ServletException {
+throws IOException, ServletException {
 		if (this.requiresAuthenticationRequestMatcher.matches((HttpServletRequest) request)) {
 			if (logger.isDebugEnabled()) {
 				logger.debug(LogMessage.of(
-						() -> "Authenticating " + this.securityContextHolderStrategy.getContext().getAuthentication()));
+			() -> "Authenticating " + this.securityContextHolderStrategy.getContext().getAuthentication()));
 			}
 			doAuthenticate((HttpServletRequest) request, (HttpServletResponse) response);
 		}
 		else {
 			if (logger.isTraceEnabled()) {
 				logger.trace(LogMessage.format("Did not authenticate since request did not match [%s]",
-						this.requiresAuthenticationRequestMatcher));
+			this.requiresAuthenticationRequestMatcher));
 			}
 		}
 		chain.doFilter(request, response);
@@ -177,7 +176,7 @@ public abstract class AbstractPreAuthenticatedProcessingFilter extends GenericFi
 			return false;
 		}
 		this.logger.debug(LogMessage.format("Pre-authenticated principal has changed to %s and will be reauthenticated",
-				principal));
+	principal));
 		return true;
 	}
 
@@ -185,7 +184,7 @@ public abstract class AbstractPreAuthenticatedProcessingFilter extends GenericFi
 	 * Do the actual authentication for a pre-authenticated user.
 	 */
 	private void doAuthenticate(HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+throws IOException, ServletException {
 		Object principal = getPreAuthenticatedPrincipal(request);
 		if (principal == null) {
 			this.logger.debug("No pre-authenticated principal found in request");
@@ -195,7 +194,7 @@ public abstract class AbstractPreAuthenticatedProcessingFilter extends GenericFi
 		Object credentials = getPreAuthenticatedCredentials(request);
 		try {
 			PreAuthenticatedAuthenticationToken authenticationRequest = new PreAuthenticatedAuthenticationToken(
-					principal, credentials);
+		principal, credentials);
 			authenticationRequest.setDetails(this.authenticationDetailsSource.buildDetails(request));
 			Authentication authenticationResult = this.authenticationManager.authenticate(authenticationRequest);
 			successfulAuthentication(request, response, authenticationResult);
@@ -213,7 +212,7 @@ public abstract class AbstractPreAuthenticatedProcessingFilter extends GenericFi
 	 * manager into the secure context.
 	 */
 	protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response,
-			Authentication authResult) throws IOException, ServletException {
+Authentication authResult) throws IOException, ServletException {
 		this.logger.debug(LogMessage.format("Authentication success: %s", authResult));
 		SecurityContext context = this.securityContextHolderStrategy.createEmptyContext();
 		context.setAuthentication(authResult);
@@ -234,7 +233,7 @@ public abstract class AbstractPreAuthenticatedProcessingFilter extends GenericFi
 	 * Caches the failure exception as a request attribute
 	 */
 	protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response,
-			AuthenticationException failed) throws IOException, ServletException {
+AuthenticationException failed) throws IOException, ServletException {
 		this.securityContextHolderStrategy.clearContext();
 		this.logger.debug("Cleared security context due to exception", failed);
 		request.setAttribute(WebAttributes.AUTHENTICATION_EXCEPTION, failed);
@@ -267,7 +266,7 @@ public abstract class AbstractPreAuthenticatedProcessingFilter extends GenericFi
 	 * @param authenticationDetailsSource The AuthenticationDetailsSource to use
 	 */
 	public void setAuthenticationDetailsSource(
-			AuthenticationDetailsSource<HttpServletRequest, ?> authenticationDetailsSource) {
+AuthenticationDetailsSource<HttpServletRequest, ?> authenticationDetailsSource) {
 		Assert.notNull(authenticationDetailsSource, "AuthenticationDetailsSource required");
 		this.authenticationDetailsSource = authenticationDetailsSource;
 	}
@@ -370,7 +369,7 @@ public abstract class AbstractPreAuthenticatedProcessingFilter extends GenericFi
 		@Override
 		public boolean matches(HttpServletRequest request) {
 			Authentication currentUser = AbstractPreAuthenticatedProcessingFilter.this.securityContextHolderStrategy
-					.getContext().getAuthentication();
+		.getContext().getAuthentication();
 			if (currentUser == null) {
 				return true;
 			}
@@ -381,7 +380,7 @@ public abstract class AbstractPreAuthenticatedProcessingFilter extends GenericFi
 				return false;
 			}
 			AbstractPreAuthenticatedProcessingFilter.this.logger
-					.debug("Pre-authenticated principal has changed and will be reauthenticated");
+		.debug("Pre-authenticated principal has changed and will be reauthenticated");
 			if (AbstractPreAuthenticatedProcessingFilter.this.invalidateSessionOnPrincipalChange) {
 				AbstractPreAuthenticatedProcessingFilter.this.securityContextHolderStrategy.clearContext();
 				HttpSession session = request.getSession(false);

@@ -38,8 +38,7 @@ import org.springframework.util.StringUtils;
 /**
  * @author Eddú Meléndez
  */
-public class UnboundIdContainer
-		implements EmbeddedLdapServerContainer, InitializingBean, DisposableBean, Lifecycle, ApplicationContextAware {
+public class UnboundIdContainerimplements EmbeddedLdapServerContainer, InitializingBean, DisposableBean, Lifecycle, ApplicationContextAware {
 
 	private InMemoryDirectoryServer directoryServer;
 

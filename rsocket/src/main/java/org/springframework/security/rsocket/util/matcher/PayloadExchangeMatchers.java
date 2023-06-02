@@ -35,7 +35,7 @@ public final class PayloadExchangeMatchers {
 			@Override
 			public Mono<MatchResult> matches(PayloadExchange exchange) {
 				return PayloadExchangeType.SETUP.equals(exchange.getType()) ? MatchResult.match()
-						: MatchResult.notMatch();
+			: MatchResult.notMatch();
 			}
 
 		};

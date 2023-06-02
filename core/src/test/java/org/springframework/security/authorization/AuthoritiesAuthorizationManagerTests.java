@@ -42,7 +42,7 @@ class AuthoritiesAuthorizationManagerTests {
 	void setRoleHierarchyWhenNullThenIllegalArgumentException() {
 		AuthoritiesAuthorizationManager manager = new AuthoritiesAuthorizationManager();
 		assertThatIllegalArgumentException().isThrownBy(() -> manager.setRoleHierarchy(null))
-				.withMessage("roleHierarchy cannot be null");
+	.withMessage("roleHierarchy cannot be null");
 	}
 
 	@Test
@@ -80,7 +80,7 @@ class AuthoritiesAuthorizationManagerTests {
 		roleHierarchy.setHierarchy("ROLE_ADMIN > ROLE_USER");
 		manager.setRoleHierarchy(roleHierarchy);
 		Supplier<Authentication> authentication = () -> new TestingAuthenticationToken("user", "password",
-				"ROLE_ADMIN");
+	"ROLE_ADMIN");
 		assertThat(manager.check(authentication, Collections.singleton("ROLE_USER")).isGranted()).isTrue();
 	}
 

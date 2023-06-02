@@ -37,9 +37,9 @@ public final class ServerHttpSecurityConfigurationBuilder {
 
 	public static ServerHttpSecurity httpWithDefaultAuthentication() {
 		ReactiveUserDetailsService reactiveUserDetailsService = ReactiveAuthenticationTestConfiguration
-				.userDetailsService();
+	.userDetailsService();
 		ReactiveAuthenticationManager authenticationManager = new UserDetailsRepositoryReactiveAuthenticationManager(
-				reactiveUserDetailsService);
+	reactiveUserDetailsService);
 		return http().authenticationManager(authenticationManager);
 	}
 

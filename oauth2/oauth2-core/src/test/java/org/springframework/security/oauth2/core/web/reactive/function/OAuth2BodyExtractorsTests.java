@@ -85,46 +85,46 @@ public class OAuth2BodyExtractorsTests {
 	@Test
 	public void oauth2AccessTokenResponseWhenInvalidJsonThenException() {
 		BodyExtractor<Mono<OAuth2AccessTokenResponse>, ReactiveHttpInputMessage> extractor = OAuth2BodyExtractors
-				.oauth2AccessTokenResponse();
+	.oauth2AccessTokenResponse();
 		MockClientHttpResponse response = new MockClientHttpResponse(HttpStatus.OK);
 		response.getHeaders().setContentType(MediaType.APPLICATION_JSON);
 		response.setBody("{");
 		Mono<OAuth2AccessTokenResponse> result = extractor.extract(response, this.context);
 		// @formatter:off
 		assertThatExceptionOfType(OAuth2AuthorizationException.class)
-				.isThrownBy(result::block)
-				.withMessageContaining("An error occurred parsing the Access Token response");
+	.isThrownBy(result::block)
+	.withMessageContaining("An error occurred parsing the Access Token response");
 		// @formatter:on
 	}
 
 	@Test
 	public void oauth2AccessTokenResponseWhenEmptyThenException() {
 		BodyExtractor<Mono<OAuth2AccessTokenResponse>, ReactiveHttpInputMessage> extractor = OAuth2BodyExtractors
-				.oauth2AccessTokenResponse();
+	.oauth2AccessTokenResponse();
 		MockClientHttpResponse response = new MockClientHttpResponse(HttpStatus.OK);
 		Mono<OAuth2AccessTokenResponse> result = extractor.extract(response, this.context);
 		// @formatter:off
 		assertThatExceptionOfType(OAuth2AuthorizationException.class)
-				.isThrownBy(result::block)
-				.withMessageContaining("Empty OAuth 2.0 Access Token Response");
+	.isThrownBy(result::block)
+	.withMessageContaining("Empty OAuth 2.0 Access Token Response");
 		// @formatter:on
 	}
 
 	@Test
 	public void oauth2AccessTokenResponseWhenValidThenCreated() {
 		BodyExtractor<Mono<OAuth2AccessTokenResponse>, ReactiveHttpInputMessage> extractor = OAuth2BodyExtractors
-				.oauth2AccessTokenResponse();
+	.oauth2AccessTokenResponse();
 		MockClientHttpResponse response = new MockClientHttpResponse(HttpStatus.OK);
 		response.getHeaders().setContentType(MediaType.APPLICATION_JSON);
 		// @formatter:off
 		response.setBody(
-				"{\n"
-			+ "       \"access_token\":\"2YotnFZFEjr1zCsicMWpAA\",\n"
-			+ "       \"token_type\":\"Bearer\",\n"
-			+ "       \"expires_in\":3600,\n"
-			+ "       \"refresh_token\":\"tGzv3JOkF0XG5Qx2TlKWIA\",\n"
-			+ "       \"example_parameter\":\"example_value\"\n"
-			+ "     }");
+	"{\n"
++ "       \"access_token\":\"2YotnFZFEjr1zCsicMWpAA\",\n"
++ "       \"token_type\":\"Bearer\",\n"
++ "       \"expires_in\":3600,\n"
++ "       \"refresh_token\":\"tGzv3JOkF0XG5Qx2TlKWIA\",\n"
++ "       \"example_parameter\":\"example_value\"\n"
++ "     }");
 		// @formatter:on
 		Instant now = Instant.now();
 		OAuth2AccessTokenResponse result = extractor.extract(response, this.context).block();
@@ -139,19 +139,19 @@ public class OAuth2BodyExtractorsTests {
 	// gh-6087
 	public void oauth2AccessTokenResponseWhenMultipleAttributeTypesThenCreated() {
 		BodyExtractor<Mono<OAuth2AccessTokenResponse>, ReactiveHttpInputMessage> extractor = OAuth2BodyExtractors
-				.oauth2AccessTokenResponse();
+	.oauth2AccessTokenResponse();
 		MockClientHttpResponse response = new MockClientHttpResponse(HttpStatus.OK);
 		response.getHeaders().setContentType(MediaType.APPLICATION_JSON);
 		// @formatter:off
 		response.setBody(
-				"{\n"
-			+ "       \"access_token\":\"2YotnFZFEjr1zCsicMWpAA\",\n"
-			+ "       \"token_type\":\"Bearer\",\n"
-			+ "       \"expires_in\":3600,\n"
-			+ "       \"refresh_token\":\"tGzv3JOkF0XG5Qx2TlKWIA\",\n"
-			+ "       \"subjson\":{}, \n"
-			+ "		  \"list\":[]  \n"
-			+ "     }");
+	"{\n"
++ "       \"access_token\":\"2YotnFZFEjr1zCsicMWpAA\",\n"
++ "       \"token_type\":\"Bearer\",\n"
++ "       \"expires_in\":3600,\n"
++ "       \"refresh_token\":\"tGzv3JOkF0XG5Qx2TlKWIA\",\n"
++ "       \"subjson\":{}, \n"
++ "		  \"list\":[]  \n"
++ "     }");
 		// @formatter:on
 		Instant now = Instant.now();
 		OAuth2AccessTokenResponse result = extractor.extract(response, this.context).block();

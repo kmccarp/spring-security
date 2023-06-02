@@ -48,7 +48,7 @@ import org.springframework.web.server.ServerWebExchange;
 public class ServerBearerTokenAuthenticationConverter implements ServerAuthenticationConverter {
 
 	private static final Pattern authorizationPattern = Pattern.compile("^Bearer (?<token>[a-zA-Z0-9-._~+/]+=*)$",
-			Pattern.CASE_INSENSITIVE);
+Pattern.CASE_INSENSITIVE);
 
 	private boolean allowUriQueryParameter = false;
 
@@ -72,7 +72,7 @@ public class ServerBearerTokenAuthenticationConverter implements ServerAuthentic
 		if (authorizationHeaderToken != null) {
 			if (parameterToken != null) {
 				BearerTokenError error = BearerTokenErrors
-						.invalidRequest("Found multiple bearer tokens in the request");
+			.invalidRequest("Found multiple bearer tokens in the request");
 				throw new OAuth2AuthenticationException(error);
 			}
 			return authorizationHeaderToken;

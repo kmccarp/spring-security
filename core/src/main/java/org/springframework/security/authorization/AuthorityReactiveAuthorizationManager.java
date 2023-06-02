@@ -46,11 +46,11 @@ public class AuthorityReactiveAuthorizationManager<T> implements ReactiveAuthori
 	public Mono<AuthorizationDecision> check(Mono<Authentication> authentication, T object) {
 		// @formatter:off
 		return authentication.filter(Authentication::isAuthenticated)
-				.flatMapIterable(Authentication::getAuthorities)
-				.map(GrantedAuthority::getAuthority)
-				.any((grantedAuthority) -> this.authorities.stream().anyMatch((authority) -> authority.getAuthority().equals(grantedAuthority)))
-				.map((granted) -> ((AuthorizationDecision) new AuthorityAuthorizationDecision(granted, this.authorities)))
-				.defaultIfEmpty(new AuthorityAuthorizationDecision(false, this.authorities));
+	.flatMapIterable(Authentication::getAuthorities)
+	.map(GrantedAuthority::getAuthority)
+	.any((grantedAuthority) -> this.authorities.stream().anyMatch((authority) -> authority.getAuthority().equals(grantedAuthority)))
+	.map((granted) -> ((AuthorizationDecision) new AuthorityAuthorizationDecision(granted, this.authorities)))
+	.defaultIfEmpty(new AuthorityAuthorizationDecision(false, this.authorities));
 		// @formatter:on
 	}
 

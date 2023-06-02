@@ -52,7 +52,7 @@ public enum PasswordPolicyErrorStatus {
 	MUST_SUPPLY_OLD_PASSWORD("ppolicy.must.supply.old.password", "The old password must be supplied"),
 
 	INSUFFICIENT_PASSWORD_QUALITY("ppolicy.insufficient.password.quality",
-			"The supplied password is of insufficient quality"),
+"The supplied password is of insufficient quality"),
 
 	PASSWORD_TOO_SHORT("ppolicy.password.too.short", "The supplied password is too short"),
 

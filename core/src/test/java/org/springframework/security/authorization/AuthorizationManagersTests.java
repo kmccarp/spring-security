@@ -30,7 +30,7 @@ class AuthorizationManagersTests {
 	@Test
 	void checkAnyOfWhenOneGrantedThenGrantedDecision() {
 		AuthorizationManager<?> composed = AuthorizationManagers.anyOf((a, o) -> new AuthorizationDecision(false),
-				(a, o) -> new AuthorizationDecision(true));
+	(a, o) -> new AuthorizationDecision(true));
 		AuthorizationDecision decision = composed.check(null, null);
 		assertThat(decision).isNotNull();
 		assertThat(decision.isGranted()).isTrue();
@@ -39,7 +39,7 @@ class AuthorizationManagersTests {
 	@Test
 	void checkAnyOfWhenOneAbstainedThenAbstainedDecision() {
 		AuthorizationManager<?> composed = AuthorizationManagers.anyOf((a, o) -> new AuthorizationDecision(false),
-				(a, o) -> null);
+	(a, o) -> null);
 		AuthorizationDecision decision = composed.check(null, null);
 		assertThat(decision).isNull();
 	}
@@ -55,7 +55,7 @@ class AuthorizationManagersTests {
 	@Test
 	void checkAllOfWhenAllGrantedThenGrantedDecision() {
 		AuthorizationManager<?> composed = AuthorizationManagers.allOf((a, o) -> new AuthorizationDecision(true),
-				(a, o) -> new AuthorizationDecision(true));
+	(a, o) -> new AuthorizationDecision(true));
 		AuthorizationDecision decision = composed.check(null, null);
 		assertThat(decision).isNotNull();
 		assertThat(decision.isGranted()).isTrue();
@@ -64,7 +64,7 @@ class AuthorizationManagersTests {
 	@Test
 	void checkAllOfWhenOneAbstainedThenGrantedDecision() {
 		AuthorizationManager<?> composed = AuthorizationManagers.allOf((a, o) -> new AuthorizationDecision(true),
-				(a, o) -> null);
+	(a, o) -> null);
 		AuthorizationDecision decision = composed.check(null, null);
 		assertThat(decision).isNotNull();
 		assertThat(decision.isGranted()).isTrue();
@@ -73,7 +73,7 @@ class AuthorizationManagersTests {
 	@Test
 	void checkAllOfWhenOneDeniedThenDeniedDecision() {
 		AuthorizationManager<?> composed = AuthorizationManagers.allOf((a, o) -> new AuthorizationDecision(true),
-				(a, o) -> new AuthorizationDecision(false));
+	(a, o) -> new AuthorizationDecision(false));
 		AuthorizationDecision decision = composed.check(null, null);
 		assertThat(decision).isNotNull();
 		assertThat(decision.isGranted()).isFalse();

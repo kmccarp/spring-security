@@ -63,7 +63,7 @@ public class Jwt extends AbstractOAuth2Token implements JwtClaimAccessor {
 	 *
 	 */
 	public Jwt(String tokenValue, Instant issuedAt, Instant expiresAt, Map<String, Object> headers,
-			Map<String, Object> claims) {
+Map<String, Object> claims) {
 		super(tokenValue, issuedAt, expiresAt);
 		Assert.notEmpty(headers, "headers cannot be empty");
 		Assert.notEmpty(claims, "claims cannot be empty");

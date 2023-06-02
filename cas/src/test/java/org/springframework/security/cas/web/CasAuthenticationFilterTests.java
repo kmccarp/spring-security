@@ -83,7 +83,7 @@ public class CasAuthenticationFilterTests {
 			throw new BadCredentialsException("Rejected");
 		});
 		assertThatExceptionOfType(AuthenticationException.class).isThrownBy(
-				() -> filter.attemptAuthentication(new MockHttpServletRequest(), new MockHttpServletResponse()));
+	() -> filter.attemptAuthentication(new MockHttpServletRequest(), new MockHttpServletResponse()));
 	}
 
 	@Test
@@ -129,12 +129,12 @@ public class CasAuthenticationFilterTests {
 		request.setParameter(properties.getArtifactParameter(), "value");
 		assertThat(filter.requiresAuthentication(request, response)).isTrue();
 		SecurityContextHolder.getContext().setAuthentication(new AnonymousAuthenticationToken("key", "principal",
-				AuthorityUtils.createAuthorityList("ROLE_ANONYMOUS")));
+	AuthorityUtils.createAuthorityList("ROLE_ANONYMOUS")));
 		assertThat(filter.requiresAuthentication(request, response)).isTrue();
 		SecurityContextHolder.getContext().setAuthentication(new TestingAuthenticationToken("un", "principal"));
 		assertThat(filter.requiresAuthentication(request, response)).isTrue();
 		SecurityContextHolder.getContext()
-				.setAuthentication(new TestingAuthenticationToken("un", "principal", "ROLE_ANONYMOUS"));
+	.setAuthentication(new TestingAuthenticationToken("un", "principal", "ROLE_ANONYMOUS"));
 		assertThat(filter.requiresAuthentication(request, response)).isFalse();
 	}
 
@@ -170,7 +170,7 @@ public class CasAuthenticationFilterTests {
 		filter.afterPropertiesSet();
 		filter.doFilter(request, response, chain);
 		assertThat(SecurityContextHolder.getContext().getAuthentication()).isNotNull()
-				.withFailMessage("Authentication should not be null");
+	.withFailMessage("Authentication should not be null");
 		verify(chain).doFilter(request, response);
 		verifyNoInteractions(successHandler);
 		// validate for when the filterProcessUrl matches

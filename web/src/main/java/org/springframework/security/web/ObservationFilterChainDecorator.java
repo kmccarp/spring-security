@@ -78,7 +78,7 @@ public final class ObservationFilterChainDecorator implements FilterChainProxy.F
 		return (req, res) -> {
 			AroundFilterObservation parent = observation((HttpServletRequest) req);
 			Observation observation = Observation.createNotStarted(SECURED_OBSERVATION_NAME, this.registry)
-					.contextualName("secured request");
+		.contextualName("secured request");
 			parent.wrap(FilterObservation.create(observation).wrap(original)).doFilter(req, res);
 		};
 	}
@@ -86,7 +86,7 @@ public final class ObservationFilterChainDecorator implements FilterChainProxy.F
 	private FilterChain wrapUnsecured(FilterChain original) {
 		return (req, res) -> {
 			Observation observation = Observation.createNotStarted(UNSECURED_OBSERVATION_NAME, this.registry)
-					.contextualName("unsecured request");
+		.contextualName("unsecured request");
 			FilterObservation.create(observation).wrap(original).doFilter(req, res);
 		};
 	}
@@ -218,7 +218,7 @@ public final class ObservationFilterChainDecorator implements FilterChainProxy.F
 
 		@Override
 		public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
-				throws IOException, ServletException {
+	throws IOException, ServletException {
 			if (this.position == 1) {
 				AroundFilterObservation parent = parent((HttpServletRequest) request);
 				parent.wrap(this::wrapFilter).doFilter(request, response, chain);
@@ -229,7 +229,7 @@ public final class ObservationFilterChainDecorator implements FilterChainProxy.F
 		}
 
 		private void wrapFilter(ServletRequest request, ServletResponse response, FilterChain chain)
-				throws IOException, ServletException {
+	throws IOException, ServletException {
 			AroundFilterObservation parent = observation((HttpServletRequest) request);
 			if (parent.before().getContext() instanceof FilterChainObservationContext parentBefore) {
 				parentBefore.setChainSize(this.size);
@@ -286,7 +286,7 @@ public final class ObservationFilterChainDecorator implements FilterChainProxy.F
 			private final ObservationReference after;
 
 			private final AtomicReference<ObservationReference> reference = new AtomicReference<>(
-					ObservationReference.NOOP);
+		ObservationReference.NOOP);
 
 			SimpleAroundFilterObservation(Observation before, Observation after) {
 				this.before = new ObservationReference(before);
@@ -546,7 +546,7 @@ public final class ObservationFilterChainDecorator implements FilterChainProxy.F
 	}
 
 	static final class FilterChainObservationConvention
-			implements ObservationConvention<FilterChainObservationContext> {
+implements ObservationConvention<FilterChainObservationContext> {
 
 		static final String CHAIN_OBSERVATION_NAME = "spring.security.filterchains";
 
@@ -571,10 +571,10 @@ public final class ObservationFilterChainDecorator implements FilterChainProxy.F
 		@Override
 		public KeyValues getLowCardinalityKeyValues(FilterChainObservationContext context) {
 			return KeyValues.of(CHAIN_SIZE_NAME, String.valueOf(context.getChainSize()))
-					.and(CHAIN_POSITION_NAME, String.valueOf(context.getChainPosition()))
-					.and(FILTER_SECTION_NAME, context.getFilterSection())
-					.and(FILTER_NAME, (StringUtils.hasText(context.getFilterName())) ? context.getFilterName()
-							: KeyValue.NONE_VALUE);
+		.and(CHAIN_POSITION_NAME, String.valueOf(context.getChainPosition()))
+		.and(FILTER_SECTION_NAME, context.getFilterSection())
+		.and(FILTER_NAME, (StringUtils.hasText(context.getFilterName())) ? context.getFilterName()
+	: KeyValue.NONE_VALUE);
 		}
 
 		@Override

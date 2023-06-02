@@ -38,8 +38,7 @@ import org.springframework.util.StringUtils;
  * @see <a target="_blank" href="https://tools.ietf.org/html/rfc7523#section-2.1">Section
  * 2.1 Using JWTs as Authorization Grants</a>
  */
-public class JwtBearerGrantRequestEntityConverter
-		extends AbstractOAuth2AuthorizationGrantRequestEntityConverter<JwtBearerGrantRequest> {
+public class JwtBearerGrantRequestEntityConverterextends AbstractOAuth2AuthorizationGrantRequestEntityConverter<JwtBearerGrantRequest> {
 
 	@Override
 	protected MultiValueMap<String, String> createParameters(JwtBearerGrantRequest jwtBearerGrantRequest) {
@@ -49,7 +48,7 @@ public class JwtBearerGrantRequestEntityConverter
 		parameters.add(OAuth2ParameterNames.ASSERTION, jwtBearerGrantRequest.getJwt().getTokenValue());
 		if (!CollectionUtils.isEmpty(clientRegistration.getScopes())) {
 			parameters.add(OAuth2ParameterNames.SCOPE,
-					StringUtils.collectionToDelimitedString(clientRegistration.getScopes(), " "));
+		StringUtils.collectionToDelimitedString(clientRegistration.getScopes(), " "));
 		}
 		if (ClientAuthenticationMethod.CLIENT_SECRET_POST.equals(clientRegistration.getClientAuthenticationMethod())) {
 			parameters.add(OAuth2ParameterNames.CLIENT_ID, clientRegistration.getClientId());

@@ -63,7 +63,7 @@ public class OpenSamlLogoutResponseValidator implements Saml2LogoutResponseValid
 		XMLObjectProviderRegistry registry = ConfigurationService.get(XMLObjectProviderRegistry.class);
 		this.parserPool = registry.getParserPool();
 		this.unmarshaller = (LogoutResponseUnmarshaller) XMLObjectProviderRegistrySupport.getUnmarshallerFactory()
-				.getUnmarshaller(LogoutResponse.DEFAULT_ELEMENT_NAME);
+	.getUnmarshaller(LogoutResponse.DEFAULT_ELEMENT_NAME);
 	}
 
 	/**
@@ -77,8 +77,8 @@ public class OpenSamlLogoutResponseValidator implements Saml2LogoutResponseValid
 		byte[] b = Saml2Utils.samlDecode(response.getSamlResponse());
 		LogoutResponse logoutResponse = parse(inflateIfRequired(response, b));
 		return Saml2LogoutValidatorResult.withErrors().errors(verifySignature(response, logoutResponse, registration))
-				.errors(validateRequest(logoutResponse, registration))
-				.errors(validateLogoutRequest(logoutResponse, request.getId())).build();
+	.errors(validateRequest(logoutResponse, registration))
+	.errors(validateLogoutRequest(logoutResponse, request.getId())).build();
 	}
 
 	private String inflateIfRequired(Saml2LogoutResponse response, byte[] b) {
@@ -91,7 +91,7 @@ public class OpenSamlLogoutResponseValidator implements Saml2LogoutResponseValid
 	private LogoutResponse parse(String response) throws Saml2Exception {
 		try {
 			Document document = this.parserPool
-					.parse(new ByteArrayInputStream(response.getBytes(StandardCharsets.UTF_8)));
+		.parse(new ByteArrayInputStream(response.getBytes(StandardCharsets.UTF_8)));
 			Element element = document.getDocumentElement();
 			return (LogoutResponse) this.unmarshaller.unmarshall(element);
 		}
@@ -101,7 +101,7 @@ public class OpenSamlLogoutResponseValidator implements Saml2LogoutResponseValid
 	}
 
 	private Consumer<Collection<Saml2Error>> verifySignature(Saml2LogoutResponse response,
-			LogoutResponse logoutResponse, RelyingPartyRegistration registration) {
+LogoutResponse logoutResponse, RelyingPartyRegistration registration) {
 		return (errors) -> {
 			VerifierPartial partial = OpenSamlVerificationUtils.verifySignature(logoutResponse, registration);
 			if (logoutResponse.isSigned()) {
@@ -114,7 +114,7 @@ public class OpenSamlLogoutResponseValidator implements Saml2LogoutResponseValid
 	}
 
 	private Consumer<Collection<Saml2Error>> validateRequest(LogoutResponse response,
-			RelyingPartyRegistration registration) {
+RelyingPartyRegistration registration) {
 		return (errors) -> {
 			validateIssuer(response, registration).accept(errors);
 			validateDestination(response, registration).accept(errors);
@@ -123,7 +123,7 @@ public class OpenSamlLogoutResponseValidator implements Saml2LogoutResponseValid
 	}
 
 	private Consumer<Collection<Saml2Error>> validateIssuer(LogoutResponse response,
-			RelyingPartyRegistration registration) {
+RelyingPartyRegistration registration) {
 		return (errors) -> {
 			if (response.getIssuer() == null) {
 				errors.add(new Saml2Error(Saml2ErrorCodes.INVALID_ISSUER, "Failed to find issuer in LogoutResponse"));
@@ -132,23 +132,23 @@ public class OpenSamlLogoutResponseValidator implements Saml2LogoutResponseValid
 			String issuer = response.getIssuer().getValue();
 			if (!issuer.equals(registration.getAssertingPartyDetails().getEntityId())) {
 				errors.add(
-						new Saml2Error(Saml2ErrorCodes.INVALID_ISSUER, "Failed to match issuer to configured issuer"));
+			new Saml2Error(Saml2ErrorCodes.INVALID_ISSUER, "Failed to match issuer to configured issuer"));
 			}
 		};
 	}
 
 	private Consumer<Collection<Saml2Error>> validateDestination(LogoutResponse response,
-			RelyingPartyRegistration registration) {
+RelyingPartyRegistration registration) {
 		return (errors) -> {
 			if (response.getDestination() == null) {
 				errors.add(new Saml2Error(Saml2ErrorCodes.INVALID_DESTINATION,
-						"Failed to find destination in LogoutResponse"));
+			"Failed to find destination in LogoutResponse"));
 				return;
 			}
 			String destination = response.getDestination();
 			if (!destination.equals(registration.getSingleLogoutServiceResponseLocation())) {
 				errors.add(new Saml2Error(Saml2ErrorCodes.INVALID_DESTINATION,
-						"Failed to match destination to configured destination"));
+			"Failed to match destination to configured destination"));
 			}
 		};
 	}
@@ -180,7 +180,7 @@ public class OpenSamlLogoutResponseValidator implements Saml2LogoutResponseValid
 				return;
 			}
 			errors.add(new Saml2Error(Saml2ErrorCodes.INVALID_RESPONSE,
-					"LogoutResponse InResponseTo doesn't match ID of associated LogoutRequest"));
+		"LogoutResponse InResponseTo doesn't match ID of associated LogoutRequest"));
 		};
 	}
 

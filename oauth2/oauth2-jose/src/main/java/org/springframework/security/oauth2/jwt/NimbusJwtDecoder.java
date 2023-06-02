@@ -91,7 +91,7 @@ public final class NimbusJwtDecoder implements JwtDecoder {
 	private final JWTProcessor<SecurityContext> jwtProcessor;
 
 	private Converter<Map<String, Object>, Map<String, Object>> claimSetConverter = MappedJwtClaimSetConverter
-			.withDefaults(Collections.emptyMap());
+.withDefaults(Collections.emptyMap());
 
 	private OAuth2TokenValidator<Jwt> jwtValidator = JwtValidators.createDefault();
 
@@ -157,9 +157,9 @@ public final class NimbusJwtDecoder implements JwtDecoder {
 			Map<String, Object> claims = this.claimSetConverter.convert(jwtClaimsSet.getClaims());
 			// @formatter:off
 			return Jwt.withTokenValue(token)
-					.headers((h) -> h.putAll(headers))
-					.claims((c) -> c.putAll(claims))
-					.build();
+		.headers((h) -> h.putAll(headers))
+		.claims((c) -> c.putAll(claims))
+		.build();
 			// @formatter:on
 		}
 		catch (RemoteKeySourceException ex) {
@@ -220,7 +220,7 @@ public final class NimbusJwtDecoder implements JwtDecoder {
 	public static JwkSetUriJwtDecoderBuilder withIssuerLocation(String issuer) {
 		return new JwkSetUriJwtDecoderBuilder((rest) -> {
 			Map<String, Object> configuration = JwtDecoderProviderConfigurationUtils
-					.getConfigurationForIssuerLocation(issuer, rest);
+		.getConfigurationForIssuerLocation(issuer, rest);
 			JwtDecoderProviderConfigurationUtils.validateIssuer(configuration, issuer);
 			return configuration.get("jwks_uri").toString();
 		}, JwtDecoderProviderConfigurationUtils::getJWSAlgorithms);
@@ -264,7 +264,7 @@ public final class NimbusJwtDecoder implements JwtDecoder {
 		private Function<RestOperations, String> jwkSetUri;
 
 		private Function<JWKSource<SecurityContext>, Set<JWSAlgorithm>> defaultAlgorithms = (source) -> Set
-				.of(JWSAlgorithm.RS256);
+	.of(JWSAlgorithm.RS256);
 
 		private Set<SignatureAlgorithm> signatureAlgorithms = new HashSet<>();
 
@@ -282,7 +282,7 @@ public final class NimbusJwtDecoder implements JwtDecoder {
 		}
 
 		private JwkSetUriJwtDecoderBuilder(Function<RestOperations, String> jwkSetUri,
-				Function<JWKSource<SecurityContext>, Set<JWSAlgorithm>> defaultAlgorithms) {
+	Function<JWKSource<SecurityContext>, Set<JWSAlgorithm>> defaultAlgorithms) {
 			Assert.notNull(jwkSetUri, "jwkSetUri function cannot be null");
 			Assert.notNull(defaultAlgorithms, "defaultAlgorithms function cannot be null");
 			this.jwkSetUri = jwkSetUri;
@@ -355,7 +355,7 @@ public final class NimbusJwtDecoder implements JwtDecoder {
 		 * @since 5.4
 		 */
 		public JwkSetUriJwtDecoderBuilder jwtProcessorCustomizer(
-				Consumer<ConfigurableJWTProcessor<SecurityContext>> jwtProcessorCustomizer) {
+	Consumer<ConfigurableJWTProcessor<SecurityContext>> jwtProcessorCustomizer) {
 			Assert.notNull(jwtProcessorCustomizer, "jwtProcessorCustomizer cannot be null");
 			this.jwtProcessorCustomizer = jwtProcessorCustomizer;
 			return this;
@@ -538,7 +538,7 @@ public final class NimbusJwtDecoder implements JwtDecoder {
 		 * @since 5.4
 		 */
 		public PublicKeyJwtDecoderBuilder jwtProcessorCustomizer(
-				Consumer<ConfigurableJWTProcessor<SecurityContext>> jwtProcessorCustomizer) {
+	Consumer<ConfigurableJWTProcessor<SecurityContext>> jwtProcessorCustomizer) {
 			Assert.notNull(jwtProcessorCustomizer, "jwtProcessorCustomizer cannot be null");
 			this.jwtProcessorCustomizer = jwtProcessorCustomizer;
 			return this;
@@ -546,8 +546,8 @@ public final class NimbusJwtDecoder implements JwtDecoder {
 
 		JWTProcessor<SecurityContext> processor() {
 			Assert.state(JWSAlgorithm.Family.RSA.contains(this.jwsAlgorithm),
-					() -> "The provided key is of type RSA; however the signature algorithm is of some other type: "
-							+ this.jwsAlgorithm + ". Please indicate one of RS256, RS384, or RS512.");
+		() -> "The provided key is of type RSA; however the signature algorithm is of some other type: "
+	+ this.jwsAlgorithm + ". Please indicate one of RS256, RS384, or RS512.");
 			JWSKeySelector<SecurityContext> jwsKeySelector = new SingleKeyJWSKeySelector<>(this.jwsAlgorithm, this.key);
 			DefaultJWTProcessor<SecurityContext> jwtProcessor = new DefaultJWTProcessor<>();
 			jwtProcessor.setJWSKeySelector(jwsKeySelector);
@@ -613,7 +613,7 @@ public final class NimbusJwtDecoder implements JwtDecoder {
 		 * @since 5.4
 		 */
 		public SecretKeyJwtDecoderBuilder jwtProcessorCustomizer(
-				Consumer<ConfigurableJWTProcessor<SecurityContext>> jwtProcessorCustomizer) {
+	Consumer<ConfigurableJWTProcessor<SecurityContext>> jwtProcessorCustomizer) {
 			Assert.notNull(jwtProcessorCustomizer, "jwtProcessorCustomizer cannot be null");
 			this.jwtProcessorCustomizer = jwtProcessorCustomizer;
 			return this;
@@ -629,7 +629,7 @@ public final class NimbusJwtDecoder implements JwtDecoder {
 
 		JWTProcessor<SecurityContext> processor() {
 			JWSKeySelector<SecurityContext> jwsKeySelector = new SingleKeyJWSKeySelector<>(this.jwsAlgorithm,
-					this.secretKey);
+		this.secretKey);
 			DefaultJWTProcessor<SecurityContext> jwtProcessor = new DefaultJWTProcessor<>();
 			jwtProcessor.setJWSKeySelector(jwsKeySelector);
 			// Spring Security validates the claim set independent from Nimbus

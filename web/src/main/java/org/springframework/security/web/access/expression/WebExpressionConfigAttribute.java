@@ -34,7 +34,7 @@ class WebExpressionConfigAttribute implements ConfigAttribute, EvaluationContext
 	private final EvaluationContextPostProcessor<FilterInvocation> postProcessor;
 
 	WebExpressionConfigAttribute(Expression authorizeExpression,
-			EvaluationContextPostProcessor<FilterInvocation> postProcessor) {
+EvaluationContextPostProcessor<FilterInvocation> postProcessor) {
 		this.authorizeExpression = authorizeExpression;
 		this.postProcessor = postProcessor;
 	}

@@ -64,7 +64,7 @@ public class DefaultFilterInvocationSecurityMetadataSource implements FilterInvo
 	 * @param requestMap order-preserving map of request definitions to attribute lists
 	 */
 	public DefaultFilterInvocationSecurityMetadataSource(
-			LinkedHashMap<RequestMatcher, Collection<ConfigAttribute>> requestMap) {
+LinkedHashMap<RequestMatcher, Collection<ConfigAttribute>> requestMap) {
 		this.requestMap = requestMap;
 	}
 
@@ -86,7 +86,7 @@ public class DefaultFilterInvocationSecurityMetadataSource implements FilterInvo
 			else {
 				if (this.logger.isTraceEnabled()) {
 					this.logger.trace(LogMessage.format("Did not match request to %s - %s (%d/%d)", entry.getKey(),
-							entry.getValue(), ++count, this.requestMap.size()));
+				entry.getValue(), ++count, this.requestMap.size()));
 				}
 			}
 		}

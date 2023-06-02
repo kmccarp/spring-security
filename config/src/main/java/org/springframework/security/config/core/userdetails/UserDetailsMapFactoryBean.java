@@ -65,7 +65,7 @@ public class UserDetailsMapFactoryBean implements FactoryBean<Collection<UserDet
 			editor.setAsText(property);
 			UserAttribute attr = (UserAttribute) editor.getValue();
 			Assert.state(attr != null, () -> "The entry with username '" + name + "' and value '" + property
-					+ "' could not be converted to a UserDetails.");
+		+ "' could not be converted to a UserDetails.");
 			String password = attr.getPassword();
 			boolean disabled = !attr.isEnabled();
 			List<GrantedAuthority> authorities = attr.getAuthorities();

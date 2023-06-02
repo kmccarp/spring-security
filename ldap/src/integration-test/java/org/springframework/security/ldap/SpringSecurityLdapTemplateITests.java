@@ -91,9 +91,9 @@ public class SpringSecurityLdapTemplateITests {
 	@Test
 	public void namingExceptionIsTranslatedCorrectly() {
 		assertThatExceptionOfType(UncategorizedLdapException.class)
-				.isThrownBy(() -> this.template.executeReadOnly((ContextExecutor) (dirContext) -> {
-					throw new NamingException();
-				}));
+	.isThrownBy(() -> this.template.executeReadOnly((ContextExecutor) (dirContext) -> {
+		throw new NamingException();
+	}));
 	}
 
 	@Test
@@ -101,7 +101,7 @@ public class SpringSecurityLdapTemplateITests {
 		String param = "uid=ben,ou=people,dc=springframework,dc=org";
 
 		Set<String> values = this.template.searchForSingleAttributeValues("ou=groups", "(member={0})",
-				new String[] { param }, "ou");
+	new String[]{param}, "ou");
 
 		assertThat(values).as("Expected 3 results from search").hasSize(3);
 		assertThat(values.contains("developer")).isTrue();
@@ -112,7 +112,7 @@ public class SpringSecurityLdapTemplateITests {
 	@Test
 	public void testMultiAttributeRetrievalWithNullAttributeNames() {
 		Set<Map<String, List<String>>> values = this.template.searchForMultipleAttributeValues("ou=people", "(uid={0})",
-				new String[] { "bob" }, null);
+	new String[]{"bob"}, null);
 		assertThat(values).hasSize(1);
 		Map<String, List<String>> record = values.iterator().next();
 		assertAttributeValue(record, "uid", "bob");
@@ -125,7 +125,7 @@ public class SpringSecurityLdapTemplateITests {
 	@Test
 	public void testMultiAttributeRetrievalWithZeroLengthAttributeNames() {
 		Set<Map<String, List<String>>> values = this.template.searchForMultipleAttributeValues("ou=people", "(uid={0})",
-				new String[] { "bob" }, new String[0]);
+	new String[]{"bob"}, new String[0]);
 		assertThat(values).hasSize(1);
 		Map<String, List<String>> record = values.iterator().next();
 		assertAttributeValue(record, "uid", "bob");
@@ -138,7 +138,7 @@ public class SpringSecurityLdapTemplateITests {
 	@Test
 	public void testMultiAttributeRetrievalWithSpecifiedAttributeNames() {
 		Set<Map<String, List<String>>> values = this.template.searchForMultipleAttributeValues("ou=people", "(uid={0})",
-				new String[] { "bob" }, new String[] { "uid", "cn", "sn" });
+	new String[]{"bob"}, new String[]{"uid", "cn", "sn"});
 		assertThat(values).hasSize(1);
 		Map<String, List<String>> record = values.iterator().next();
 		assertAttributeValue(record, "uid", "bob");
@@ -161,7 +161,7 @@ public class SpringSecurityLdapTemplateITests {
 		String param = "uid=ben,ou=people,dc=springframework,dc=org";
 
 		Set<String> values = this.template.searchForSingleAttributeValues("ou=groups", "(member={0})",
-				new String[] { param }, "mail");
+	new String[]{param}, "mail");
 
 		assertThat(values).isEmpty();
 	}
@@ -171,7 +171,7 @@ public class SpringSecurityLdapTemplateITests {
 		String param = "cn=mouse\\, jerry,ou=people,dc=springframework,dc=org";
 
 		Set<String> values = this.template.searchForSingleAttributeValues("ou=groups", "(member={0})",
-				new String[] { param }, "cn");
+	new String[]{param}, "cn");
 
 		assertThat(values).hasSize(1);
 	}
@@ -192,7 +192,7 @@ public class SpringSecurityLdapTemplateITests {
 		String param = "cn=mouse\\, jerry,ou=people,dc=springframework,dc=org";
 
 		javax.naming.NamingEnumeration<SearchResult> results = ctx.search("ou=groups,dc=springframework,dc=org",
-				"(member={0})", new String[] { param }, controls);
+	"(member={0})", new String[]{param}, controls);
 
 		assertThat(results.hasMore()).as("Expected a result").isTrue();
 	}
@@ -201,7 +201,7 @@ public class SpringSecurityLdapTemplateITests {
 	public void searchForSingleEntryWithEscapedCharsInDnSucceeds() {
 		String param = "mouse, jerry";
 
-		this.template.searchForSingleEntry("ou=people", "(cn={0})", new String[] { param });
+		this.template.searchForSingleEntry("ou=people", "(cn={0})", new String[]{param});
 	}
 
 }

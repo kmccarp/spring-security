@@ -37,8 +37,8 @@ public class ClientAuthorizationRequiredException extends ClientAuthorizationExc
 	 */
 	public ClientAuthorizationRequiredException(String clientRegistrationId) {
 		super(new OAuth2Error(CLIENT_AUTHORIZATION_REQUIRED_ERROR_CODE,
-				"Authorization required for Client Registration Id: " + clientRegistrationId, null),
-				clientRegistrationId);
+"Authorization required for Client Registration Id: " + clientRegistrationId, null),
+	clientRegistrationId);
 	}
 
 }

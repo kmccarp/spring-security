@@ -115,13 +115,13 @@ public class CsrfFilterTests {
 		CsrfToken attrToken = (CsrfToken) this.request.getAttribute(this.csrfAttrName);
 		// no CsrfToken should have been saved yet
 		verify(this.tokenRepository, times(0)).saveToken(any(CsrfToken.class), any(HttpServletRequest.class),
-				any(HttpServletResponse.class));
+	any(HttpServletResponse.class));
 		verify(this.filterChain).doFilter(this.request, this.response);
 		// access the token
 		attrToken.getToken();
 		// now the CsrfToken should have been saved
 		verify(this.tokenRepository).saveToken(eq(this.token), any(HttpServletRequest.class),
-				any(HttpServletResponse.class));
+	any(HttpServletResponse.class));
 	}
 
 	@Test
@@ -167,7 +167,7 @@ public class CsrfFilterTests {
 
 	@Test
 	public void doFilterAccessDeniedIncorrectTokenPresentHeaderPreferredOverParameter()
-			throws ServletException, IOException {
+throws ServletException, IOException {
 		given(this.requestMatcher.matches(this.request)).willReturn(true);
 		DeferredCsrfToken deferredCsrfToken = new TestDeferredCsrfToken(this.token, false);
 		given(this.tokenRepository.loadDeferredToken(this.request, this.response)).willReturn(deferredCsrfToken);
@@ -229,7 +229,7 @@ public class CsrfFilterTests {
 
 	@Test
 	public void doFilterIsCsrfRequestExistingTokenHeaderPreferredOverInvalidParam()
-			throws ServletException, IOException {
+throws ServletException, IOException {
 		given(this.requestMatcher.matches(this.request)).willReturn(true);
 		DeferredCsrfToken deferredCsrfToken = new TestDeferredCsrfToken(this.token, false);
 		given(this.tokenRepository.loadDeferredToken(this.request, this.response)).willReturn(deferredCsrfToken);
@@ -262,7 +262,7 @@ public class CsrfFilterTests {
 		verify(this.filterChain).doFilter(this.request, this.response);
 		verifyNoMoreInteractions(this.deniedHandler);
 		verify(this.tokenRepository, never()).saveToken(any(CsrfToken.class), any(HttpServletRequest.class),
-				any(HttpServletResponse.class));
+	any(HttpServletResponse.class));
 	}
 
 	@Test
@@ -291,7 +291,7 @@ public class CsrfFilterTests {
 		for (String method : Arrays.asList("GET", "TRACE", "OPTIONS", "HEAD")) {
 			resetRequestResponse();
 			given(this.tokenRepository.loadDeferredToken(this.request, this.response))
-					.willReturn(new TestDeferredCsrfToken(this.token, false));
+		.willReturn(new TestDeferredCsrfToken(this.token, false));
 			this.request.setMethod(method);
 			this.filter.doFilter(this.request, this.response, this.filterChain);
 			verify(this.filterChain).doFilter(this.request, this.response);
@@ -312,11 +312,11 @@ public class CsrfFilterTests {
 		for (String method : Arrays.asList("get", "TrAcE", "oPTIOnS", "hEaD")) {
 			resetRequestResponse();
 			given(this.tokenRepository.loadDeferredToken(this.request, this.response))
-					.willReturn(new TestDeferredCsrfToken(this.token, false));
+		.willReturn(new TestDeferredCsrfToken(this.token, false));
 			this.request.setMethod(method);
 			this.filter.doFilter(this.request, this.response, this.filterChain);
 			verify(this.deniedHandler).handle(eq(this.request), eq(this.response),
-					any(InvalidCsrfTokenException.class));
+		any(InvalidCsrfTokenException.class));
 			verifyNoMoreInteractions(this.filterChain);
 		}
 	}
@@ -328,11 +328,11 @@ public class CsrfFilterTests {
 		for (String method : Arrays.asList("POST", "PUT", "PATCH", "DELETE", "INVALID")) {
 			resetRequestResponse();
 			given(this.tokenRepository.loadDeferredToken(this.request, this.response))
-					.willReturn(new TestDeferredCsrfToken(this.token, false));
+		.willReturn(new TestDeferredCsrfToken(this.token, false));
 			this.request.setMethod(method);
 			this.filter.doFilter(this.request, this.response, this.filterChain);
 			verify(this.deniedHandler).handle(eq(this.request), eq(this.response),
-					any(InvalidCsrfTokenException.class));
+		any(InvalidCsrfTokenException.class));
 			verifyNoMoreInteractions(this.filterChain);
 		}
 	}
@@ -443,7 +443,7 @@ public class CsrfFilterTests {
 	// This ensures that the HttpSession on get requests unless the CsrfToken is used
 	@Test
 	public void doFilterWhenCsrfRequestAttributeNameThenNoCsrfTokenMethodInvokedOnGet()
-			throws ServletException, IOException {
+throws ServletException, IOException {
 		CsrfFilter filter = createCsrfFilter(this.tokenRepository);
 		String csrfAttrName = "_csrf";
 		CsrfTokenRequestAttributeHandler requestHandler = new XorCsrfTokenRequestAttributeHandler();

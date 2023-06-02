@@ -54,7 +54,7 @@ import org.springframework.web.filter.GenericFilterBean;
 public class LogoutFilter extends GenericFilterBean {
 
 	private SecurityContextHolderStrategy securityContextHolderStrategy = SecurityContextHolder
-			.getContextHolderStrategy();
+.getContextHolderStrategy();
 
 	private RequestMatcher logoutRequestMatcher;
 
@@ -78,7 +78,7 @@ public class LogoutFilter extends GenericFilterBean {
 	public LogoutFilter(String logoutSuccessUrl, LogoutHandler... handlers) {
 		this.handler = new CompositeLogoutHandler(handlers);
 		Assert.isTrue(!StringUtils.hasLength(logoutSuccessUrl) || UrlUtils.isValidRedirectUrl(logoutSuccessUrl),
-				() -> logoutSuccessUrl + " isn't a valid redirect URL");
+	() -> logoutSuccessUrl + " isn't a valid redirect URL");
 		SimpleUrlLogoutSuccessHandler urlLogoutSuccessHandler = new SimpleUrlLogoutSuccessHandler();
 		if (StringUtils.hasText(logoutSuccessUrl)) {
 			urlLogoutSuccessHandler.setDefaultTargetUrl(logoutSuccessUrl);
@@ -89,12 +89,12 @@ public class LogoutFilter extends GenericFilterBean {
 
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
-			throws IOException, ServletException {
+throws IOException, ServletException {
 		doFilter((HttpServletRequest) request, (HttpServletResponse) response, chain);
 	}
 
 	private void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
-			throws IOException, ServletException {
+throws IOException, ServletException {
 		if (requiresLogout(request, response)) {
 			Authentication auth = this.securityContextHolderStrategy.getContext().getAuthentication();
 			if (this.logger.isDebugEnabled()) {

@@ -65,7 +65,7 @@ public final class AuthorityAuthorizationManager<T> implements AuthorizationMana
 	public static <T> AuthorityAuthorizationManager<T> hasRole(String role) {
 		Assert.notNull(role, "role cannot be null");
 		Assert.isTrue(!role.startsWith(ROLE_PREFIX), () -> role + " should not start with " + ROLE_PREFIX + " since "
-				+ ROLE_PREFIX + " is automatically prepended when using hasRole. Consider using hasAuthority instead.");
+	+ ROLE_PREFIX + " is automatically prepended when using hasRole. Consider using hasAuthority instead.");
 		return hasAuthority(ROLE_PREFIX + role);
 	}
 
@@ -126,8 +126,8 @@ public final class AuthorityAuthorizationManager<T> implements AuthorizationMana
 		for (int i = 0; i < roles.length; i++) {
 			String role = roles[i];
 			Assert.isTrue(rolePrefix.isEmpty() || !role.startsWith(rolePrefix), () -> role + " should not start with "
-					+ rolePrefix + " since " + rolePrefix
-					+ " is automatically prepended when using hasAnyRole. Consider using hasAnyAuthority instead.");
+		+ rolePrefix + " since " + rolePrefix
+		+ " is automatically prepended when using hasAnyRole. Consider using hasAnyAuthority instead.");
 			result[i] = rolePrefix + role;
 		}
 		return result;

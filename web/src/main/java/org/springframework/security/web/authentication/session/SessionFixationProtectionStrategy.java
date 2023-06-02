@@ -85,7 +85,7 @@ public class SessionFixationProtectionStrategy extends AbstractSessionFixationPr
 		HttpSession session = request.getSession();
 		String originalSessionId = session.getId();
 		this.logger.debug(LogMessage.of(() -> "Invalidating session with Id '" + originalSessionId + "' "
-				+ (this.migrateSessionAttributes ? "and" : "without") + " migrating attributes."));
+	+ (this.migrateSessionAttributes ? "and" : "without") + " migrating attributes."));
 		Map<String, Object> attributesToMigrate = extractAttributes(session);
 		int maxInactiveIntervalToMigrate = session.getMaxInactiveInterval();
 		session.invalidate();

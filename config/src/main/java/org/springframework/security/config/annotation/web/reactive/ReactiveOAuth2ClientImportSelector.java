@@ -51,8 +51,8 @@ final class ReactiveOAuth2ClientImportSelector implements ImportSelector {
 
 	static {
 		oauth2ClientPresent = ClassUtils.isPresent(
-				"org.springframework.security.oauth2.client.registration.ClientRegistration",
-				ReactiveOAuth2ClientImportSelector.class.getClassLoader());
+	"org.springframework.security.oauth2.client.registration.ClientRegistration",
+	ReactiveOAuth2ClientImportSelector.class.getClassLoader());
 	}
 
 	@Override
@@ -60,8 +60,8 @@ final class ReactiveOAuth2ClientImportSelector implements ImportSelector {
 		if (!oauth2ClientPresent) {
 			return new String[0];
 		}
-		return new String[] { "org.springframework.security.config.annotation.web.reactive."
-				+ "ReactiveOAuth2ClientImportSelector$OAuth2ClientWebFluxSecurityConfiguration" };
+		return new String[]{"org.springframework.security.config.annotation.web.reactive."
+	+ "ReactiveOAuth2ClientImportSelector$OAuth2ClientWebFluxSecurityConfiguration"};
 	}
 
 	@Configuration(proxyBeanMethods = false)
@@ -124,9 +124,9 @@ final class ReactiveOAuth2ClientImportSelector implements ImportSelector {
 			ReactiveOAuth2AuthorizedClientManager authorizedClientManager = null;
 			if (this.authorizedClientRepository != null && this.clientRegistrationRepository != null) {
 				ReactiveOAuth2AuthorizedClientProvider authorizedClientProvider = ReactiveOAuth2AuthorizedClientProviderBuilder
-						.builder().authorizationCode().refreshToken().clientCredentials().password().build();
+			.builder().authorizationCode().refreshToken().clientCredentials().password().build();
 				DefaultReactiveOAuth2AuthorizedClientManager defaultReactiveOAuth2AuthorizedClientManager = new DefaultReactiveOAuth2AuthorizedClientManager(
-						this.clientRegistrationRepository, getAuthorizedClientRepository());
+			this.clientRegistrationRepository, getAuthorizedClientRepository());
 				defaultReactiveOAuth2AuthorizedClientManager.setAuthorizedClientProvider(authorizedClientProvider);
 				authorizedClientManager = defaultReactiveOAuth2AuthorizedClientManager;
 			}

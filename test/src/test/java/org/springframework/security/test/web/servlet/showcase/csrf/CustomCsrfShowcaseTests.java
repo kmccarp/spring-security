@@ -60,7 +60,7 @@ public class CustomCsrfShowcaseTests {
 	@BeforeEach
 	public void setup() {
 		this.mvc = MockMvcBuilders.webAppContextSetup(this.context).defaultRequest(get("/").with(csrf()))
-				.apply(springSecurity()).build();
+	.apply(springSecurity()).build();
 	}
 
 	@Test
@@ -82,8 +82,8 @@ public class CustomCsrfShowcaseTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.csrf()
-					.csrfTokenRepository(repo());
+		.csrf()
+		.csrfTokenRepository(repo());
 			return http.build();
 			// @formatter:on
 		}
@@ -92,8 +92,8 @@ public class CustomCsrfShowcaseTests {
 		void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 			// @formatter:off
 			auth
-				.inMemoryAuthentication()
-					.withUser("user").password("password").roles("USER");
+		.inMemoryAuthentication()
+		.withUser("user").password("password").roles("USER");
 			// @formatter:on
 		}
 

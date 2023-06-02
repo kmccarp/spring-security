@@ -77,32 +77,32 @@ public final class RefreshTokenOAuth2AuthorizedClientProvider implements OAuth2A
 		Assert.notNull(context, "context cannot be null");
 		OAuth2AuthorizedClient authorizedClient = context.getAuthorizedClient();
 		if (authorizedClient == null || authorizedClient.getRefreshToken() == null
-				|| !hasTokenExpired(authorizedClient.getAccessToken())) {
+	|| !hasTokenExpired(authorizedClient.getAccessToken())) {
 			return null;
 		}
 		Object requestScope = context.getAttribute(OAuth2AuthorizationContext.REQUEST_SCOPE_ATTRIBUTE_NAME);
 		Set<String> scopes = Collections.emptySet();
 		if (requestScope != null) {
 			Assert.isInstanceOf(String[].class, requestScope, "The context attribute must be of type String[] '"
-					+ OAuth2AuthorizationContext.REQUEST_SCOPE_ATTRIBUTE_NAME + "'");
+		+ OAuth2AuthorizationContext.REQUEST_SCOPE_ATTRIBUTE_NAME + "'");
 			scopes = new HashSet<>(Arrays.asList((String[]) requestScope));
 		}
 		OAuth2RefreshTokenGrantRequest refreshTokenGrantRequest = new OAuth2RefreshTokenGrantRequest(
-				authorizedClient.getClientRegistration(), authorizedClient.getAccessToken(),
-				authorizedClient.getRefreshToken(), scopes);
+	authorizedClient.getClientRegistration(), authorizedClient.getAccessToken(),
+	authorizedClient.getRefreshToken(), scopes);
 		OAuth2AccessTokenResponse tokenResponse = getTokenResponse(authorizedClient, refreshTokenGrantRequest);
 		return new OAuth2AuthorizedClient(context.getAuthorizedClient().getClientRegistration(),
-				context.getPrincipal().getName(), tokenResponse.getAccessToken(), tokenResponse.getRefreshToken());
+	context.getPrincipal().getName(), tokenResponse.getAccessToken(), tokenResponse.getRefreshToken());
 	}
 
 	private OAuth2AccessTokenResponse getTokenResponse(OAuth2AuthorizedClient authorizedClient,
-			OAuth2RefreshTokenGrantRequest refreshTokenGrantRequest) {
+OAuth2RefreshTokenGrantRequest refreshTokenGrantRequest) {
 		try {
 			return this.accessTokenResponseClient.getTokenResponse(refreshTokenGrantRequest);
 		}
 		catch (OAuth2AuthorizationException ex) {
 			throw new ClientAuthorizationException(ex.getError(),
-					authorizedClient.getClientRegistration().getRegistrationId(), ex);
+		authorizedClient.getClientRegistration().getRegistrationId(), ex);
 		}
 	}
 
@@ -117,7 +117,7 @@ public final class RefreshTokenOAuth2AuthorizedClientProvider implements OAuth2A
 	 * credential at the Token Endpoint for the {@code refresh_token} grant
 	 */
 	public void setAccessTokenResponseClient(
-			OAuth2AccessTokenResponseClient<OAuth2RefreshTokenGrantRequest> accessTokenResponseClient) {
+OAuth2AccessTokenResponseClient<OAuth2RefreshTokenGrantRequest> accessTokenResponseClient) {
 		Assert.notNull(accessTokenResponseClient, "accessTokenResponseClient cannot be null");
 		this.accessTokenResponseClient = accessTokenResponseClient;
 	}

@@ -37,12 +37,11 @@ import org.springframework.util.MultiValueMap;
  * @see OAuth2AuthorizationCodeGrantRequest
  * @see RequestEntity
  */
-public class OAuth2AuthorizationCodeGrantRequestEntityConverter
-		extends AbstractOAuth2AuthorizationGrantRequestEntityConverter<OAuth2AuthorizationCodeGrantRequest> {
+public class OAuth2AuthorizationCodeGrantRequestEntityConverterextends AbstractOAuth2AuthorizationGrantRequestEntityConverter<OAuth2AuthorizationCodeGrantRequest> {
 
 	@Override
 	protected MultiValueMap<String, String> createParameters(
-			OAuth2AuthorizationCodeGrantRequest authorizationCodeGrantRequest) {
+OAuth2AuthorizationCodeGrantRequest authorizationCodeGrantRequest) {
 		ClientRegistration clientRegistration = authorizationCodeGrantRequest.getClientRegistration();
 		OAuth2AuthorizationExchange authorizationExchange = authorizationCodeGrantRequest.getAuthorizationExchange();
 		MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
@@ -50,12 +49,12 @@ public class OAuth2AuthorizationCodeGrantRequestEntityConverter
 		parameters.add(OAuth2ParameterNames.CODE, authorizationExchange.getAuthorizationResponse().getCode());
 		String redirectUri = authorizationExchange.getAuthorizationRequest().getRedirectUri();
 		String codeVerifier = authorizationExchange.getAuthorizationRequest()
-				.getAttribute(PkceParameterNames.CODE_VERIFIER);
+	.getAttribute(PkceParameterNames.CODE_VERIFIER);
 		if (redirectUri != null) {
 			parameters.add(OAuth2ParameterNames.REDIRECT_URI, redirectUri);
 		}
 		if (!ClientAuthenticationMethod.CLIENT_SECRET_BASIC
-				.equals(clientRegistration.getClientAuthenticationMethod())) {
+	.equals(clientRegistration.getClientAuthenticationMethod())) {
 			parameters.add(OAuth2ParameterNames.CLIENT_ID, clientRegistration.getClientId());
 		}
 		if (ClientAuthenticationMethod.CLIENT_SECRET_POST.equals(clientRegistration.getClientAuthenticationMethod())) {

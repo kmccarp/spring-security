@@ -121,7 +121,7 @@ public final class Saml2X509Credential {
 	}
 
 	private Saml2X509Credential(PrivateKey privateKey, boolean keyRequired, X509Certificate certificate,
-			Saml2X509CredentialType... types) {
+Saml2X509CredentialType... types) {
 		Assert.notNull(certificate, "certificate cannot be null");
 		Assert.notEmpty(types, "credentials types cannot be empty");
 		if (keyRequired) {
@@ -202,7 +202,7 @@ public final class Saml2X509Credential {
 		}
 		Saml2X509Credential that = (Saml2X509Credential) o;
 		return Objects.equals(this.privateKey, that.privateKey) && this.certificate.equals(that.certificate)
-				&& this.credentialTypes.equals(that.credentialTypes);
+	&& this.credentialTypes.equals(that.credentialTypes);
 	}
 
 	@Override

@@ -46,7 +46,7 @@ public final class OAuth2AuthorizationContext {
 	 * client}.
 	 */
 	public static final String REQUEST_SCOPE_ATTRIBUTE_NAME = OAuth2AuthorizationContext.class.getName()
-			.concat(".REQUEST_SCOPE");
+.concat(".REQUEST_SCOPE");
 
 	/**
 	 * The name of the {@link #getAttribute(String) attribute} in the context associated
@@ -216,7 +216,7 @@ public final class OAuth2AuthorizationContext {
 			}
 			context.principal = this.principal;
 			context.attributes = Collections.unmodifiableMap(CollectionUtils.isEmpty(this.attributes)
-					? Collections.emptyMap() : new LinkedHashMap<>(this.attributes));
+		? Collections.emptyMap() : new LinkedHashMap<>(this.attributes));
 			return context;
 		}
 

@@ -46,7 +46,7 @@ public class CorsBeanDefinitionParser {
 
 	static {
 		mvcPresent = ClassUtils.isPresent(HANDLER_MAPPING_INTROSPECTOR,
-				CorsBeanDefinitionParser.class.getClassLoader());
+	CorsBeanDefinitionParser.class.getClassLoader());
 	}
 
 	public BeanMetadataElement parse(Element element, ParserContext parserContext) {

@@ -42,7 +42,7 @@ import org.springframework.security.oauth2.core.endpoint.PkceParameterNames;
 public final class OAuth2AuthorizationRequestCustomizers {
 
 	private static final StringKeyGenerator DEFAULT_SECURE_KEY_GENERATOR = new Base64StringKeyGenerator(
-			Base64.getUrlEncoder().withoutPadding(), 96);
+Base64.getUrlEncoder().withoutPadding(), 96);
 
 	private OAuth2AuthorizationRequestCustomizers() {
 	}

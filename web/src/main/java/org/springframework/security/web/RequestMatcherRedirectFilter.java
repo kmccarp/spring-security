@@ -58,7 +58,7 @@ public final class RequestMatcherRedirectFilter extends OncePerRequestFilter {
 	 */
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
-			throws ServletException, IOException {
+throws ServletException, IOException {
 
 		if (this.requestMatcher.matches(request)) {
 			this.redirectStrategy.sendRedirect(request, response, this.redirectUrl);

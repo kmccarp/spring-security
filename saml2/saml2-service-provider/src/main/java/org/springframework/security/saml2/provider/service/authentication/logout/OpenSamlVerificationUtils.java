@@ -107,24 +107,24 @@ final class OpenSamlVerificationUtils {
 		Collection<Saml2Error> redirect(RedirectSignature signature) {
 			if (signature.getAlgorithm() == null) {
 				return Collections.singletonList(new Saml2Error(Saml2ErrorCodes.INVALID_SIGNATURE,
-						"Missing signature algorithm for object [" + this.id + "]"));
+			"Missing signature algorithm for object [" + this.id + "]"));
 			}
 			if (!signature.hasSignature()) {
 				return Collections.singletonList(new Saml2Error(Saml2ErrorCodes.INVALID_SIGNATURE,
-						"Missing signature for object [" + this.id + "]"));
+			"Missing signature for object [" + this.id + "]"));
 			}
 			Collection<Saml2Error> errors = new ArrayList<>();
 			String algorithmUri = signature.getAlgorithm();
 			try {
 				if (!this.trustEngine.validate(signature.getSignature(), signature.getContent(), algorithmUri,
-						this.criteria, null)) {
+			this.criteria, null)) {
 					errors.add(new Saml2Error(Saml2ErrorCodes.INVALID_SIGNATURE,
-							"Invalid signature for object [" + this.id + "]"));
+				"Invalid signature for object [" + this.id + "]"));
 				}
 			}
 			catch (Exception ex) {
 				errors.add(new Saml2Error(Saml2ErrorCodes.INVALID_SIGNATURE,
-						"Invalid signature for object [" + this.id + "]: "));
+			"Invalid signature for object [" + this.id + "]: "));
 			}
 			return errors;
 		}
@@ -137,18 +137,18 @@ final class OpenSamlVerificationUtils {
 			}
 			catch (Exception ex) {
 				errors.add(new Saml2Error(Saml2ErrorCodes.INVALID_SIGNATURE,
-						"Invalid signature for object [" + this.id + "]: "));
+			"Invalid signature for object [" + this.id + "]: "));
 			}
 
 			try {
 				if (!this.trustEngine.validate(signature, this.criteria)) {
 					errors.add(new Saml2Error(Saml2ErrorCodes.INVALID_SIGNATURE,
-							"Invalid signature for object [" + this.id + "]"));
+				"Invalid signature for object [" + this.id + "]"));
 				}
 			}
 			catch (Exception ex) {
 				errors.add(new Saml2Error(Saml2ErrorCodes.INVALID_SIGNATURE,
-						"Invalid signature for object [" + this.id + "]: "));
+			"Invalid signature for object [" + this.id + "]: "));
 			}
 
 			return errors;
@@ -165,7 +165,7 @@ final class OpenSamlVerificationUtils {
 		private SignatureTrustEngine trustEngine(RelyingPartyRegistration registration) {
 			Set<Credential> credentials = new HashSet<>();
 			Collection<Saml2X509Credential> keys = registration.getAssertingPartyDetails()
-					.getVerificationX509Credentials();
+		.getVerificationX509Credentials();
 			for (Saml2X509Credential key : keys) {
 				BasicX509Credential cred = new BasicX509Credential(key.getCertificate());
 				cred.setUsageType(UsageType.SIGNING);
@@ -174,7 +174,7 @@ final class OpenSamlVerificationUtils {
 			}
 			CredentialResolver credentialsResolver = new CollectionCredentialResolver(credentials);
 			return new ExplicitKeySignatureTrustEngine(credentialsResolver,
-					DefaultSecurityConfigurationBootstrap.buildBasicInlineKeyInfoCredentialResolver());
+		DefaultSecurityConfigurationBootstrap.buildBasicInlineKeyInfoCredentialResolver());
 		}
 
 		private static class RedirectSignature {
@@ -194,7 +194,7 @@ final class OpenSamlVerificationUtils {
 					this.signature = null;
 				}
 				Map<String, String> queryParams = UriComponentsBuilder.newInstance().query(request.getParametersQuery())
-						.build(true).getQueryParams().toSingleValueMap();
+			.build(true).getQueryParams().toSingleValueMap();
 				this.content = getContent(Saml2ParameterNames.SAML_REQUEST, request.getRelayState(), queryParams);
 			}
 
@@ -207,22 +207,22 @@ final class OpenSamlVerificationUtils {
 					this.signature = null;
 				}
 				Map<String, String> queryParams = UriComponentsBuilder.newInstance()
-						.query(response.getParametersQuery()).build(true).getQueryParams().toSingleValueMap();
+			.query(response.getParametersQuery()).build(true).getQueryParams().toSingleValueMap();
 				this.content = getContent(Saml2ParameterNames.SAML_RESPONSE, response.getRelayState(), queryParams);
 			}
 
 			static byte[] getContent(String samlObject, String relayState, final Map<String, String> queryParams) {
 				if (Objects.nonNull(relayState)) {
 					return String
-							.format("%s=%s&%s=%s&%s=%s", samlObject, queryParams.get(samlObject),
-									Saml2ParameterNames.RELAY_STATE, queryParams.get(Saml2ParameterNames.RELAY_STATE),
-									Saml2ParameterNames.SIG_ALG, queryParams.get(Saml2ParameterNames.SIG_ALG))
-							.getBytes(StandardCharsets.UTF_8);
+				.format("%s=%s&%s=%s&%s=%s", samlObject, queryParams.get(samlObject),
+			Saml2ParameterNames.RELAY_STATE, queryParams.get(Saml2ParameterNames.RELAY_STATE),
+			Saml2ParameterNames.SIG_ALG, queryParams.get(Saml2ParameterNames.SIG_ALG))
+				.getBytes(StandardCharsets.UTF_8);
 				}
 				else {
 					return String.format("%s=%s&%s=%s", samlObject, queryParams.get(samlObject),
-							Saml2ParameterNames.SIG_ALG, queryParams.get(Saml2ParameterNames.SIG_ALG))
-							.getBytes(StandardCharsets.UTF_8);
+				Saml2ParameterNames.SIG_ALG, queryParams.get(Saml2ParameterNames.SIG_ALG))
+				.getBytes(StandardCharsets.UTF_8);
 				}
 			}
 

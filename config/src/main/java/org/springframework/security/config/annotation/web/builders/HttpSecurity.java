@@ -140,8 +140,7 @@ import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
  * @since 3.2
  * @see EnableWebSecurity
  */
-public final class HttpSecurity extends AbstractConfiguredSecurityBuilder<DefaultSecurityFilterChain, HttpSecurity>
-		implements SecurityBuilder<DefaultSecurityFilterChain>, HttpSecurityBuilder<HttpSecurity> {
+public final class HttpSecurity extends AbstractConfiguredSecurityBuilder<DefaultSecurityFilterChain, HttpSecurity>implements SecurityBuilder<DefaultSecurityFilterChain>, HttpSecurityBuilder<HttpSecurity> {
 
 	private static final String HANDLER_MAPPING_INTROSPECTOR_BEAN_NAME = "mvcHandlerMappingIntrospector";
 
@@ -173,7 +172,7 @@ public final class HttpSecurity extends AbstractConfiguredSecurityBuilder<Defaul
 	 */
 	@SuppressWarnings("unchecked")
 	public HttpSecurity(ObjectPostProcessor<Object> objectPostProcessor,
-			AuthenticationManagerBuilder authenticationBuilder, Map<Class<?>, Object> sharedObjects) {
+AuthenticationManagerBuilder authenticationBuilder, Map<Class<?>, Object> sharedObjects) {
 		super(objectPostProcessor);
 		Assert.notNull(authenticationBuilder, "authenticationBuilder cannot be null");
 		setSharedObject(AuthenticationManagerBuilder.class, authenticationBuilder);
@@ -567,7 +566,7 @@ public final class HttpSecurity extends AbstractConfiguredSecurityBuilder<Defaul
 	 * @throws Exception
 	 */
 	public HttpSecurity sessionManagement(
-			Customizer<SessionManagementConfigurer<HttpSecurity>> sessionManagementCustomizer) throws Exception {
+Customizer<SessionManagementConfigurer<HttpSecurity>> sessionManagementCustomizer) throws Exception {
 		sessionManagementCustomizer.customize(getOrApply(new SessionManagementConfigurer<>()));
 		return HttpSecurity.this;
 	}
@@ -675,7 +674,7 @@ public final class HttpSecurity extends AbstractConfiguredSecurityBuilder<Defaul
 	 * @see #requiresChannel()
 	 */
 	public HttpSecurity portMapper(Customizer<PortMapperConfigurer<HttpSecurity>> portMapperCustomizer)
-			throws Exception {
+throws Exception {
 		portMapperCustomizer.customize(getOrApply(new PortMapperConfigurer<>()));
 		return HttpSecurity.this;
 	}
@@ -991,7 +990,7 @@ public final class HttpSecurity extends AbstractConfiguredSecurityBuilder<Defaul
 	 * @throws Exception
 	 */
 	public HttpSecurity rememberMe(Customizer<RememberMeConfigurer<HttpSecurity>> rememberMeCustomizer)
-			throws Exception {
+throws Exception {
 		rememberMeCustomizer.customize(getOrApply(new RememberMeConfigurer<>()));
 		return HttpSecurity.this;
 	}
@@ -1090,7 +1089,7 @@ public final class HttpSecurity extends AbstractConfiguredSecurityBuilder<Defaul
 	 */
 	@Deprecated
 	public ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry authorizeRequests()
-			throws Exception {
+throws Exception {
 		ApplicationContext context = getContext();
 		return getOrApply(new ExpressionUrlAuthorizationConfigurer<>(context)).getRegistry();
 	}
@@ -1205,11 +1204,11 @@ public final class HttpSecurity extends AbstractConfiguredSecurityBuilder<Defaul
 	 */
 	@Deprecated
 	public HttpSecurity authorizeRequests(
-			Customizer<ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry> authorizeRequestsCustomizer)
-			throws Exception {
+Customizer<ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry> authorizeRequestsCustomizer)
+throws Exception {
 		ApplicationContext context = getContext();
 		authorizeRequestsCustomizer
-				.customize(getOrApply(new ExpressionUrlAuthorizationConfigurer<>(context)).getRegistry());
+	.customize(getOrApply(new ExpressionUrlAuthorizationConfigurer<>(context)).getRegistry());
 		return HttpSecurity.this;
 	}
 
@@ -1321,7 +1320,7 @@ public final class HttpSecurity extends AbstractConfiguredSecurityBuilder<Defaul
 	 */
 	@Deprecated(since = "6.1", forRemoval = true)
 	public AuthorizeHttpRequestsConfigurer<HttpSecurity>.AuthorizationManagerRequestMatcherRegistry authorizeHttpRequests()
-			throws Exception {
+throws Exception {
 		ApplicationContext context = getContext();
 		return getOrApply(new AuthorizeHttpRequestsConfigurer<>(context)).getRegistry();
 	}
@@ -1435,11 +1434,11 @@ public final class HttpSecurity extends AbstractConfiguredSecurityBuilder<Defaul
 	 * @since 5.5
 	 */
 	public HttpSecurity authorizeHttpRequests(
-			Customizer<AuthorizeHttpRequestsConfigurer<HttpSecurity>.AuthorizationManagerRequestMatcherRegistry> authorizeHttpRequestsCustomizer)
-			throws Exception {
+Customizer<AuthorizeHttpRequestsConfigurer<HttpSecurity>.AuthorizationManagerRequestMatcherRegistry> authorizeHttpRequestsCustomizer)
+throws Exception {
 		ApplicationContext context = getContext();
 		authorizeHttpRequestsCustomizer
-				.customize(getOrApply(new AuthorizeHttpRequestsConfigurer<>(context)).getRegistry());
+	.customize(getOrApply(new AuthorizeHttpRequestsConfigurer<>(context)).getRegistry());
 		return HttpSecurity.this;
 	}
 
@@ -1494,7 +1493,7 @@ public final class HttpSecurity extends AbstractConfiguredSecurityBuilder<Defaul
 	 * @throws Exception
 	 */
 	public HttpSecurity requestCache(Customizer<RequestCacheConfigurer<HttpSecurity>> requestCacheCustomizer)
-			throws Exception {
+throws Exception {
 		requestCacheCustomizer.customize(getOrApply(new RequestCacheConfigurer<>()));
 		return HttpSecurity.this;
 	}
@@ -1547,7 +1546,7 @@ public final class HttpSecurity extends AbstractConfiguredSecurityBuilder<Defaul
 	 * @throws Exception
 	 */
 	public HttpSecurity exceptionHandling(
-			Customizer<ExceptionHandlingConfigurer<HttpSecurity>> exceptionHandlingCustomizer) throws Exception {
+Customizer<ExceptionHandlingConfigurer<HttpSecurity>> exceptionHandlingCustomizer) throws Exception {
 		exceptionHandlingCustomizer.customize(getOrApply(new ExceptionHandlingConfigurer<>()));
 		return HttpSecurity.this;
 	}
@@ -1594,7 +1593,7 @@ public final class HttpSecurity extends AbstractConfiguredSecurityBuilder<Defaul
 	 * @throws Exception
 	 */
 	public HttpSecurity securityContext(Customizer<SecurityContextConfigurer<HttpSecurity>> securityContextCustomizer)
-			throws Exception {
+throws Exception {
 		securityContextCustomizer.customize(getOrApply(new SecurityContextConfigurer<>()));
 		return HttpSecurity.this;
 	}
@@ -1638,7 +1637,7 @@ public final class HttpSecurity extends AbstractConfiguredSecurityBuilder<Defaul
 	 * @throws Exception
 	 */
 	public HttpSecurity servletApi(Customizer<ServletApiConfigurer<HttpSecurity>> servletApiCustomizer)
-			throws Exception {
+throws Exception {
 		servletApiCustomizer.customize(getOrApply(new ServletApiConfigurer<>()));
 		return HttpSecurity.this;
 	}
@@ -2319,7 +2318,7 @@ public final class HttpSecurity extends AbstractConfiguredSecurityBuilder<Defaul
 	 * @since 5.2
 	 */
 	public HttpSecurity saml2Login(Customizer<Saml2LoginConfigurer<HttpSecurity>> saml2LoginCustomizer)
-			throws Exception {
+throws Exception {
 		saml2LoginCustomizer.customize(getOrApply(new Saml2LoginConfigurer<>()));
 		return HttpSecurity.this;
 	}
@@ -2388,7 +2387,7 @@ public final class HttpSecurity extends AbstractConfiguredSecurityBuilder<Defaul
 	 * @since 5.6
 	 */
 	public HttpSecurity saml2Logout(Customizer<Saml2LogoutConfigurer<HttpSecurity>> saml2LogoutCustomizer)
-			throws Exception {
+throws Exception {
 		saml2LogoutCustomizer.customize(getOrApply(new Saml2LogoutConfigurer<>(getContext())));
 		return HttpSecurity.this;
 	}
@@ -2508,7 +2507,7 @@ public final class HttpSecurity extends AbstractConfiguredSecurityBuilder<Defaul
 	 * @since 6.1
 	 */
 	public HttpSecurity saml2Metadata(Customizer<Saml2MetadataConfigurer<HttpSecurity>> saml2MetadataConfigurer)
-			throws Exception {
+throws Exception {
 		saml2MetadataConfigurer.customize(getOrApply(new Saml2MetadataConfigurer<>(getContext())));
 		return HttpSecurity.this;
 	}
@@ -2760,7 +2759,7 @@ public final class HttpSecurity extends AbstractConfiguredSecurityBuilder<Defaul
 	 * @see org.springframework.security.oauth2.client.registration.ClientRegistrationRepository
 	 */
 	public HttpSecurity oauth2Login(Customizer<OAuth2LoginConfigurer<HttpSecurity>> oauth2LoginCustomizer)
-			throws Exception {
+throws Exception {
 		oauth2LoginCustomizer.customize(getOrApply(new OAuth2LoginConfigurer<>()));
 		return HttpSecurity.this;
 	}
@@ -2816,7 +2815,7 @@ public final class HttpSecurity extends AbstractConfiguredSecurityBuilder<Defaul
 	 * Framework</a>
 	 */
 	public HttpSecurity oauth2Client(Customizer<OAuth2ClientConfigurer<HttpSecurity>> oauth2ClientCustomizer)
-			throws Exception {
+throws Exception {
 		oauth2ClientCustomizer.customize(getOrApply(new OAuth2ClientConfigurer<>()));
 		return HttpSecurity.this;
 	}
@@ -2835,7 +2834,7 @@ public final class HttpSecurity extends AbstractConfiguredSecurityBuilder<Defaul
 	@Deprecated(since = "6.1", forRemoval = true)
 	public OAuth2ResourceServerConfigurer<HttpSecurity> oauth2ResourceServer() throws Exception {
 		OAuth2ResourceServerConfigurer<HttpSecurity> configurer = getOrApply(
-				new OAuth2ResourceServerConfigurer<>(getContext()));
+	new OAuth2ResourceServerConfigurer<>(getContext()));
 		this.postProcess(configurer);
 		return configurer;
 	}
@@ -2885,9 +2884,9 @@ public final class HttpSecurity extends AbstractConfiguredSecurityBuilder<Defaul
 	 * Framework</a>
 	 */
 	public HttpSecurity oauth2ResourceServer(
-			Customizer<OAuth2ResourceServerConfigurer<HttpSecurity>> oauth2ResourceServerCustomizer) throws Exception {
+Customizer<OAuth2ResourceServerConfigurer<HttpSecurity>> oauth2ResourceServerCustomizer) throws Exception {
 		OAuth2ResourceServerConfigurer<HttpSecurity> configurer = getOrApply(
-				new OAuth2ResourceServerConfigurer<>(getContext()));
+	new OAuth2ResourceServerConfigurer<>(getContext()));
 		this.postProcess(configurer);
 		oauth2ResourceServerCustomizer.customize(configurer);
 		return HttpSecurity.this;
@@ -2987,8 +2986,8 @@ public final class HttpSecurity extends AbstractConfiguredSecurityBuilder<Defaul
 	 * @throws Exception
 	 */
 	public HttpSecurity requiresChannel(
-			Customizer<ChannelSecurityConfigurer<HttpSecurity>.ChannelRequestMatcherRegistry> requiresChannelCustomizer)
-			throws Exception {
+Customizer<ChannelSecurityConfigurer<HttpSecurity>.ChannelRequestMatcherRegistry> requiresChannelCustomizer)
+throws Exception {
 		ApplicationContext context = getContext();
 		requiresChannelCustomizer.customize(getOrApply(new ChannelSecurityConfigurer<>(context)).getRegistry());
 		return HttpSecurity.this;
@@ -3115,7 +3114,7 @@ public final class HttpSecurity extends AbstractConfiguredSecurityBuilder<Defaul
 	 * @since 5.6
 	 */
 	public HttpSecurity passwordManagement(
-			Customizer<PasswordManagementConfigurer<HttpSecurity>> passwordManagementCustomizer) throws Exception {
+Customizer<PasswordManagementConfigurer<HttpSecurity>> passwordManagementCustomizer) throws Exception {
 		passwordManagementCustomizer.customize(getOrApply(new PasswordManagementConfigurer<>()));
 		return HttpSecurity.this;
 	}
@@ -3158,11 +3157,11 @@ public final class HttpSecurity extends AbstractConfiguredSecurityBuilder<Defaul
 	@Override
 	protected DefaultSecurityFilterChain performBuild() {
 		ExpressionUrlAuthorizationConfigurer<?> expressionConfigurer = getConfigurer(
-				ExpressionUrlAuthorizationConfigurer.class);
+	ExpressionUrlAuthorizationConfigurer.class);
 		AuthorizeHttpRequestsConfigurer<?> httpConfigurer = getConfigurer(AuthorizeHttpRequestsConfigurer.class);
 		boolean oneConfigurerPresent = expressionConfigurer == null ^ httpConfigurer == null;
 		Assert.state((expressionConfigurer == null && httpConfigurer == null) || oneConfigurerPresent,
-				"authorizeHttpRequests cannot be used in conjunction with authorizeRequests. Please select just one.");
+	"authorizeHttpRequests cannot be used in conjunction with authorizeRequests. Please select just one.");
 		this.filters.sort(OrderComparator.INSTANCE);
 		List<Filter> sortedFilters = new ArrayList<>(this.filters.size());
 		for (Filter filter : this.filters) {
@@ -3201,7 +3200,7 @@ public final class HttpSecurity extends AbstractConfiguredSecurityBuilder<Defaul
 		Integer registeredFilterOrder = this.filterOrders.getOrder(registeredFilter);
 		if (registeredFilterOrder == null) {
 			throw new IllegalArgumentException(
-					"The Filter class " + registeredFilter.getName() + " does not have a registered order");
+		"The Filter class " + registeredFilter.getName() + " does not have a registered order");
 		}
 		int order = registeredFilterOrder + offset;
 		this.filters.add(new OrderedFilter(filter, order));
@@ -3214,7 +3213,7 @@ public final class HttpSecurity extends AbstractConfiguredSecurityBuilder<Defaul
 		Integer order = this.filterOrders.getOrder(filter.getClass());
 		if (order == null) {
 			throw new IllegalArgumentException("The Filter class " + filter.getClass().getName()
-					+ " does not have a registered order and cannot be added without a specified order. Consider using addFilterBefore or addFilterAfter instead.");
+		+ " does not have a registered order and cannot be added without a specified order. Consider using addFilterBefore or addFilterAfter instead.");
 		}
 		this.filters.add(new OrderedFilter(filter, order));
 		return this;
@@ -3549,11 +3548,11 @@ public final class HttpSecurity extends AbstractConfiguredSecurityBuilder<Defaul
 		ObjectPostProcessor<Object> opp = getContext().getBean(ObjectPostProcessor.class);
 		if (!getContext().containsBean(HANDLER_MAPPING_INTROSPECTOR_BEAN_NAME)) {
 			throw new NoSuchBeanDefinitionException("A Bean named " + HANDLER_MAPPING_INTROSPECTOR_BEAN_NAME
-					+ " of type " + HandlerMappingIntrospector.class.getName()
-					+ " is required to use MvcRequestMatcher. Please ensure Spring Security & Spring MVC are configured in a shared ApplicationContext.");
+		+ " of type " + HandlerMappingIntrospector.class.getName()
+		+ " is required to use MvcRequestMatcher. Please ensure Spring Security & Spring MVC are configured in a shared ApplicationContext.");
 		}
 		HandlerMappingIntrospector introspector = getContext().getBean(HANDLER_MAPPING_INTROSPECTOR_BEAN_NAME,
-				HandlerMappingIntrospector.class);
+	HandlerMappingIntrospector.class);
 		List<RequestMatcher> matchers = new ArrayList<>(mvcPatterns.length);
 		for (String mvcPattern : mvcPatterns) {
 			MvcRequestMatcher matcher = new MvcRequestMatcher(introspector, mvcPattern);
@@ -3573,7 +3572,7 @@ public final class HttpSecurity extends AbstractConfiguredSecurityBuilder<Defaul
 	 */
 	@SuppressWarnings("unchecked")
 	private <C extends SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity>> C getOrApply(C configurer)
-			throws Exception {
+throws Exception {
 		C existingConfig = (C) getConfigurer(configurer.getClass());
 		if (existingConfig != null) {
 			return existingConfig;
@@ -3663,7 +3662,7 @@ public final class HttpSecurity extends AbstractConfiguredSecurityBuilder<Defaul
 
 		@Override
 		public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
-				throws IOException, ServletException {
+	throws IOException, ServletException {
 			this.filter.doFilter(servletRequest, servletResponse, filterChain);
 		}
 

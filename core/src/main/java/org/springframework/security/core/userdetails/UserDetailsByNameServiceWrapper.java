@@ -29,8 +29,7 @@ import org.springframework.util.Assert;
  * @author Scott Battaglia
  * @since 2.0
  */
-public class UserDetailsByNameServiceWrapper<T extends Authentication>
-		implements AuthenticationUserDetailsService<T>, InitializingBean {
+public class UserDetailsByNameServiceWrapper<T extends Authentication>implements AuthenticationUserDetailsService<T>, InitializingBean {
 
 	private UserDetailsService userDetailsService = null;
 

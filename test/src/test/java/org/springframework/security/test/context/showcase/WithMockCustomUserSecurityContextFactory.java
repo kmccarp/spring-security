@@ -32,7 +32,7 @@ public class WithMockCustomUserSecurityContextFactory implements WithSecurityCon
 		SecurityContext context = SecurityContextHolder.createEmptyContext();
 		CustomUserDetails principal = new CustomUserDetails(customUser.name(), customUser.username());
 		Authentication auth = UsernamePasswordAuthenticationToken.authenticated(principal, "password",
-				principal.getAuthorities());
+	principal.getAuthorities());
 		context.setAuthentication(auth);
 		return context;
 	}

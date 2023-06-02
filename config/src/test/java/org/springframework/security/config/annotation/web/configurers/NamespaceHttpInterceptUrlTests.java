@@ -92,7 +92,7 @@ public class NamespaceHttpInterceptUrlTests {
 		MockHttpServletRequestBuilder postWithUser = post("/admin/post").with(authentication(user("ROLE_USER")));
 		this.mvc.perform(postWithUser).andExpect(status().isForbidden());
 		MockHttpServletRequestBuilder requestWithAdmin = post("/admin/post").with(csrf())
-				.with(authentication(user("ROLE_ADMIN")));
+	.with(authentication(user("ROLE_ADMIN")));
 		this.mvc.perform(requestWithAdmin).andExpect(status().isOk());
 	}
 
@@ -106,7 +106,7 @@ public class NamespaceHttpInterceptUrlTests {
 
 	private static Authentication user(String role) {
 		return UsernamePasswordAuthenticationToken.authenticated("user", null,
-				AuthorityUtils.createAuthorityList(role));
+	AuthorityUtils.createAuthorityList(role));
 	}
 
 	@Configuration
@@ -118,24 +118,24 @@ public class NamespaceHttpInterceptUrlTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests().requestMatchers(
-					// the line below is similar to intercept-url@pattern:
-					//    <intercept-url pattern="/users**" access="hasRole('ROLE_ADMIN')"/>
-					//" access="hasRole('ROLE_ADMIN')"/>
-"/users**", "/sessions/**").hasRole("ADMIN").requestMatchers(
-					// the line below is similar to intercept-url@method:
-					//    <intercept-url pattern="/admin/post" access="hasRole('ROLE_ADMIN')" method="POST"/>
-					//" access="hasRole('ROLE_ADMIN')" method="POST"/>
-HttpMethod.POST, "/admin/post", "/admin/another-post/**").hasRole("ADMIN")
-					.requestMatchers("/signup").permitAll()
-					.anyRequest().hasRole("USER")
-					.and()
-				.requiresChannel().requestMatchers("/login", "/secured/**")
-					// NOTE: channel security is configured separately of authorization (i.e. intercept-url@access
-					// the line below is similar to intercept-url@requires-channel="https":
-					//    <intercept-url pattern="/login" requires-channel="https"/>
-					//" requires-channel="https"/>
-				.requiresSecure().anyRequest().requiresInsecure();
+		.authorizeRequests().requestMatchers(
+		// the line below is similar to intercept-url@pattern:
+		//    <intercept-url pattern="/users**" access="hasRole('ROLE_ADMIN')"/>
+		//" access="hasRole('ROLE_ADMIN')"/>
+		"/users**", "/sessions/**").hasRole("ADMIN").requestMatchers(
+		// the line below is similar to intercept-url@method:
+		//    <intercept-url pattern="/admin/post" access="hasRole('ROLE_ADMIN')" method="POST"/>
+		//" access="hasRole('ROLE_ADMIN')" method="POST"/>
+		HttpMethod.POST, "/admin/post", "/admin/another-post/**").hasRole("ADMIN")
+		.requestMatchers("/signup").permitAll()
+		.anyRequest().hasRole("USER")
+		.and()
+		.requiresChannel().requestMatchers("/login", "/secured/**")
+		// NOTE: channel security is configured separately of authorization (i.e. intercept-url@access
+		// the line below is similar to intercept-url@requires-channel="https":
+		//    <intercept-url pattern="/login" requires-channel="https"/>
+		//" requires-channel="https"/>
+		.requiresSecure().anyRequest().requiresInsecure();
 			// @formatter:on
 			return http.build();
 		}

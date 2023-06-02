@@ -92,7 +92,7 @@ public class AbstractAuthorizeTagTests {
 	public void privilegeEvaluatorFromRequestUsesSecurityContextHolderStrategy() throws IOException {
 		SecurityContextHolderStrategy strategy = mock(SecurityContextHolderStrategy.class);
 		given(strategy.getContext()).willReturn(new SecurityContextImpl(
-				new TestingAuthenticationToken("user", "password", AuthorityUtils.NO_AUTHORITIES)));
+	new TestingAuthenticationToken("user", "password", AuthorityUtils.NO_AUTHORITIES)));
 		GenericWebApplicationContext wac = new GenericWebApplicationContext();
 		wac.registerBean(SecurityContextHolderStrategy.class, () -> strategy);
 		wac.refresh();
@@ -113,7 +113,7 @@ public class AbstractAuthorizeTagTests {
 		this.tag.setUrl(uri);
 		WebApplicationContext wac = mock(WebApplicationContext.class);
 		given(wac.getBeansOfType(WebInvocationPrivilegeEvaluator.class))
-				.willReturn(Collections.singletonMap("wipe", expected));
+	.willReturn(Collections.singletonMap("wipe", expected));
 		given(wac.getBeanNamesForType(SecurityContextHolderStrategy.class)).willReturn(new String[0]);
 		this.servletContext.setAttribute("org.springframework.web.servlet.FrameworkServlet.CONTEXT.dispatcher", wac);
 		this.tag.authorizeUsingUrlCheck();
@@ -128,7 +128,7 @@ public class AbstractAuthorizeTagTests {
 		this.tag.setAccess("permitAll");
 		WebApplicationContext wac = mock(WebApplicationContext.class);
 		given(wac.getBeansOfType(SecurityExpressionHandler.class))
-				.willReturn(Collections.<String, SecurityExpressionHandler>singletonMap("wipe", expected));
+	.willReturn(Collections.<String, SecurityExpressionHandler>singletonMap("wipe", expected));
 		given(wac.getBeanNamesForType(SecurityContextHolderStrategy.class)).willReturn(new String[0]);
 		this.servletContext.setAttribute("org.springframework.web.servlet.FrameworkServlet.CONTEXT.dispatcher", wac);
 		assertThat(this.tag.authorize()).isTrue();

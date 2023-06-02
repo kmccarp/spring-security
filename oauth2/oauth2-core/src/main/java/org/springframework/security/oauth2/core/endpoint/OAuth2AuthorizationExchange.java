@@ -42,7 +42,7 @@ public final class OAuth2AuthorizationExchange {
 	 * Response}
 	 */
 	public OAuth2AuthorizationExchange(OAuth2AuthorizationRequest authorizationRequest,
-			OAuth2AuthorizationResponse authorizationResponse) {
+OAuth2AuthorizationResponse authorizationResponse) {
 		Assert.notNull(authorizationRequest, "authorizationRequest cannot be null");
 		Assert.notNull(authorizationResponse, "authorizationResponse cannot be null");
 		this.authorizationRequest = authorizationRequest;

@@ -57,7 +57,7 @@ public abstract class TextEscapeUtils {
 				char low = s.charAt(i + 1);
 				if (!Character.isLowSurrogate(low)) {
 					throw new IllegalArgumentException(
-							"Expected low surrogate character but found value = " + (int) low);
+				"Expected low surrogate character but found value = " + (int) low);
 				}
 				int codePoint = Character.toCodePoint(ch, low);
 				if (Character.isDefined(codePoint)) {

@@ -174,7 +174,7 @@ public abstract class AbstractAuthorizeTag {
 
 	private SecurityContext getContext() {
 		ApplicationContext appContext = SecurityWebApplicationContextUtils
-				.findRequiredWebApplicationContext(getServletContext());
+	.findRequiredWebApplicationContext(getServletContext());
 		String[] names = appContext.getBeanNamesForType(SecurityContextHolderStrategy.class);
 		if (names.length == 1) {
 			SecurityContextHolderStrategy strategy = appContext.getBean(SecurityContextHolderStrategy.class);
@@ -183,34 +183,34 @@ public abstract class AbstractAuthorizeTag {
 		return SecurityContextHolder.getContext();
 	}
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@SuppressWarnings({"unchecked", "rawtypes"})
 	private SecurityExpressionHandler<FilterInvocation> getExpressionHandler() throws IOException {
 		ApplicationContext appContext = SecurityWebApplicationContextUtils
-				.findRequiredWebApplicationContext(getServletContext());
+	.findRequiredWebApplicationContext(getServletContext());
 		Map<String, SecurityExpressionHandler> handlers = appContext.getBeansOfType(SecurityExpressionHandler.class);
 		for (SecurityExpressionHandler handler : handlers.values()) {
 			if (FilterInvocation.class.equals(
-					GenericTypeResolver.resolveTypeArgument(handler.getClass(), SecurityExpressionHandler.class))) {
+		GenericTypeResolver.resolveTypeArgument(handler.getClass(), SecurityExpressionHandler.class))) {
 				return handler;
 			}
 		}
 		throw new IOException("No visible WebSecurityExpressionHandler instance could be found in the application "
-				+ "context. There must be at least one in order to support expressions in JSP 'authorize' tags.");
+	+ "context. There must be at least one in order to support expressions in JSP 'authorize' tags.");
 	}
 
 	private WebInvocationPrivilegeEvaluator getPrivilegeEvaluator() throws IOException {
 		WebInvocationPrivilegeEvaluator privEvaluatorFromRequest = (WebInvocationPrivilegeEvaluator) getRequest()
-				.getAttribute(WebAttributes.WEB_INVOCATION_PRIVILEGE_EVALUATOR_ATTRIBUTE);
+	.getAttribute(WebAttributes.WEB_INVOCATION_PRIVILEGE_EVALUATOR_ATTRIBUTE);
 		if (privEvaluatorFromRequest != null) {
 			return privEvaluatorFromRequest;
 		}
 		ApplicationContext ctx = SecurityWebApplicationContextUtils
-				.findRequiredWebApplicationContext(getServletContext());
+	.findRequiredWebApplicationContext(getServletContext());
 		Map<String, WebInvocationPrivilegeEvaluator> wipes = ctx.getBeansOfType(WebInvocationPrivilegeEvaluator.class);
 		if (wipes.size() == 0) {
 			throw new IOException(
-					"No visible WebInvocationPrivilegeEvaluator instance could be found in the application "
-							+ "context. There must be at least one in order to support the use of URL access checks in 'authorize' tags.");
+		"No visible WebInvocationPrivilegeEvaluator instance could be found in the application "
+	+ "context. There must be at least one in order to support the use of URL access checks in 'authorize' tags.");
 		}
 		return (WebInvocationPrivilegeEvaluator) wipes.values().toArray()[0];
 	}

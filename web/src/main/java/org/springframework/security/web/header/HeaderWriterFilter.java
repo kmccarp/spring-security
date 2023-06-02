@@ -67,7 +67,7 @@ public class HeaderWriterFilter extends OncePerRequestFilter {
 
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
-			throws ServletException, IOException {
+throws ServletException, IOException {
 		if (this.shouldWriteHeadersEagerly) {
 			doHeadersBefore(request, response, filterChain);
 		}
@@ -77,13 +77,13 @@ public class HeaderWriterFilter extends OncePerRequestFilter {
 	}
 
 	private void doHeadersBefore(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
-			throws IOException, ServletException {
+throws IOException, ServletException {
 		writeHeaders(request, response);
 		filterChain.doFilter(request, response);
 	}
 
 	private void doHeadersAfter(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
-			throws IOException, ServletException {
+throws IOException, ServletException {
 		HeaderWriterResponse headerWriterResponse = new HeaderWriterResponse(request, response);
 		HeaderWriterRequest headerWriterRequest = new HeaderWriterRequest(request, headerWriterResponse);
 		try {

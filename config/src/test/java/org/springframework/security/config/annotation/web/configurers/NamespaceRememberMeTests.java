@@ -87,25 +87,25 @@ public class NamespaceRememberMeTests {
 		Cookie rememberMe = result.getResponse().getCookie("remember-me");
 		assertThat(rememberMe).isNotNull();
 		this.mvc.perform(get("/authentication-class").cookie(rememberMe))
-				.andExpect(content().string(RememberMeAuthenticationToken.class.getName()));
+	.andExpect(content().string(RememberMeAuthenticationToken.class.getName()));
 		// @formatter:off
 		MockHttpServletRequestBuilder logoutRequest = post("/logout")
-				.with(csrf())
-				.session(session)
-				.cookie(rememberMe);
+	.with(csrf())
+	.session(session)
+	.cookie(rememberMe);
 		result = this.mvc.perform(logoutRequest)
-				.andExpect(redirectedUrl("/login?logout"))
-				.andReturn();
+	.andExpect(redirectedUrl("/login?logout"))
+	.andReturn();
 		// @formatter:on
 		rememberMe = result.getResponse().getCookie("remember-me");
 		assertThat(rememberMe).isNotNull().extracting(Cookie::getMaxAge).isEqualTo(0);
 		// @formatter:off
 		MockHttpServletRequestBuilder authenticationClassRequest = post("/authentication-class")
-				.with(csrf())
-				.cookie(rememberMe);
+	.with(csrf())
+	.cookie(rememberMe);
 		this.mvc.perform(authenticationClassRequest)
-				.andExpect(redirectedUrl("http://localhost/login"))
-				.andReturn();
+	.andExpect(redirectedUrl("http://localhost/login"))
+	.andReturn();
 		// @formatter:on
 	}
 
@@ -117,10 +117,10 @@ public class NamespaceRememberMeTests {
 		this.spring.register(RememberMeServicesRefConfig.class).autowire();
 		this.mvc.perform(get("/"));
 		verify(RememberMeServicesRefConfig.REMEMBER_ME_SERVICES).autoLogin(any(HttpServletRequest.class),
-				any(HttpServletResponse.class));
+	any(HttpServletResponse.class));
 		this.mvc.perform(post("/login").with(csrf()));
 		verify(RememberMeServicesRefConfig.REMEMBER_ME_SERVICES).loginFail(any(HttpServletRequest.class),
-				any(HttpServletResponse.class));
+	any(HttpServletResponse.class));
 	}
 
 	@Test
@@ -133,7 +133,7 @@ public class NamespaceRememberMeTests {
 		assertThat(rememberMe).isNotNull();
 		this.mvc.perform(get("/somewhere").cookie(rememberMe));
 		verify(AuthSuccessConfig.SUCCESS_HANDLER).onAuthenticationSuccess(any(HttpServletRequest.class),
-				any(HttpServletResponse.class), any(Authentication.class));
+	any(HttpServletResponse.class), any(Authentication.class));
 	}
 
 	@Test
@@ -142,22 +142,22 @@ public class NamespaceRememberMeTests {
 		MockHttpServletRequestBuilder requestWithRememberme = post("/without-key/login").with(rememberMeLogin());
 		// @formatter:off
 		Cookie withoutKey = this.mvc.perform(requestWithRememberme)
-				.andReturn()
-				.getResponse()
-				.getCookie("remember-me");
+	.andReturn()
+	.getResponse()
+	.getCookie("remember-me");
 		// @formatter:on
 		MockHttpServletRequestBuilder somewhereRequest = get("/somewhere").cookie(withoutKey);
 		// @formatter:off
 		this.mvc.perform(somewhereRequest)
-				.andExpect(status().isFound())
-				.andExpect(redirectedUrl("http://localhost/login"));
+	.andExpect(status().isFound())
+	.andExpect(redirectedUrl("http://localhost/login"));
 		MockHttpServletRequestBuilder loginWithRememberme = post("/login").with(rememberMeLogin());
 		Cookie withKey = this.mvc.perform(loginWithRememberme)
-				.andReturn()
-				.getResponse()
-				.getCookie("remember-me");
+	.andReturn()
+	.getResponse()
+	.getCookie("remember-me");
 		this.mvc.perform(get("/somewhere").cookie(withKey))
-				.andExpect(status().isNotFound());
+	.andExpect(status().isNotFound());
 		// @formatter:on
 	}
 
@@ -178,9 +178,9 @@ public class NamespaceRememberMeTests {
 		this.spring.register(TokenValiditySecondsConfig.class).autowire();
 		// @formatter:off
 		Cookie expiredRememberMe = this.mvc.perform(post("/login").with(rememberMeLogin()))
-				.andReturn()
-				.getResponse()
-				.getCookie("remember-me");
+	.andReturn()
+	.getResponse()
+	.getCookie("remember-me");
 		// @formatter:on
 		assertThat(expiredRememberMe).extracting(Cookie::getMaxAge).isEqualTo(314);
 	}
@@ -190,9 +190,9 @@ public class NamespaceRememberMeTests {
 		this.spring.register(RememberMeConfig.class).autowire();
 		// @formatter:off
 		Cookie expiredRememberMe = this.mvc.perform(post("/login").with(rememberMeLogin()))
-				.andReturn()
-				.getResponse()
-				.getCookie("remember-me");
+	.andReturn()
+	.getResponse()
+	.getCookie("remember-me");
 		// @formatter:on
 		assertThat(expiredRememberMe).extracting(Cookie::getMaxAge).isEqualTo(AbstractRememberMeServices.TWO_WEEKS_S);
 	}
@@ -202,9 +202,9 @@ public class NamespaceRememberMeTests {
 		this.spring.register(UseSecureCookieConfig.class).autowire();
 		// @formatter:off
 		Cookie secureCookie = this.mvc.perform(post("/login").with(rememberMeLogin()))
-				.andReturn()
-				.getResponse()
-				.getCookie("remember-me");
+	.andReturn()
+	.getResponse()
+	.getCookie("remember-me");
 		// @formatter:on
 		assertThat(secureCookie).extracting(Cookie::getSecure).isEqualTo(true);
 	}
@@ -214,9 +214,9 @@ public class NamespaceRememberMeTests {
 		this.spring.register(RememberMeConfig.class).autowire();
 		// @formatter:off
 		Cookie secureCookie = this.mvc.perform(post("/login").with(rememberMeLogin()).secure(true))
-				.andReturn()
-				.getResponse()
-				.getCookie("remember-me");
+	.andReturn()
+	.getResponse()
+	.getCookie("remember-me");
 		// @formatter:on
 		assertThat(secureCookie).extracting(Cookie::getSecure).isEqualTo(true);
 	}
@@ -227,9 +227,9 @@ public class NamespaceRememberMeTests {
 		MockHttpServletRequestBuilder loginWithRememberme = post("/login").with(rememberMeLogin("rememberMe", true));
 		// @formatter:off
 		Cookie rememberMe = this.mvc.perform(loginWithRememberme)
-				.andReturn()
-				.getResponse()
-				.getCookie("remember-me");
+	.andReturn()
+	.getResponse()
+	.getCookie("remember-me");
 		// @formatter:on
 		assertThat(rememberMe).isNotNull();
 	}
@@ -240,9 +240,9 @@ public class NamespaceRememberMeTests {
 		this.spring.register(RememberMeCookieNameConfig.class).autowire();
 		// @formatter:off
 		Cookie rememberMe = this.mvc.perform(post("/login").with(rememberMeLogin()))
-				.andReturn()
-				.getResponse()
-				.getCookie("rememberMe");
+	.andReturn()
+	.getResponse()
+	.getCookie("rememberMe");
 		// @formatter:on
 		assertThat(rememberMe).isNotNull();
 	}
@@ -287,12 +287,12 @@ public class NamespaceRememberMeTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests()
-					.anyRequest().hasRole("USER")
-					.and()
-				.formLogin()
-					.and()
-				.rememberMe();
+		.authorizeRequests()
+		.anyRequest().hasRole("USER")
+		.and()
+		.formLogin()
+		.and()
+		.rememberMe();
 			return http.build();
 			// @formatter:on
 		}
@@ -313,10 +313,10 @@ public class NamespaceRememberMeTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.formLogin()
-					.and()
-				.rememberMe()
-					.rememberMeServices(REMEMBER_ME_SERVICES);
+		.formLogin()
+		.and()
+		.rememberMe()
+		.rememberMeServices(REMEMBER_ME_SERVICES);
 			return http.build();
 			// @formatter:on
 		}
@@ -333,10 +333,10 @@ public class NamespaceRememberMeTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.formLogin()
-					.and()
-				.rememberMe()
-					.authenticationSuccessHandler(SUCCESS_HANDLER);
+		.formLogin()
+		.and()
+		.rememberMe()
+		.authenticationSuccessHandler(SUCCESS_HANDLER);
 			return http.build();
 			// @formatter:on
 		}
@@ -352,12 +352,12 @@ public class NamespaceRememberMeTests {
 		SecurityFilterChain withoutKeyFilterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.securityMatcher(new AntPathRequestMatcher("/without-key/**"))
-				.authorizeHttpRequests((requests) -> requests.anyRequest().authenticated())
-				.formLogin()
-					.loginProcessingUrl("/without-key/login")
-					.and()
-				.rememberMe();
+		.securityMatcher(new AntPathRequestMatcher("/without-key/**"))
+		.authorizeHttpRequests((requests) -> requests.anyRequest().authenticated())
+		.formLogin()
+		.loginProcessingUrl("/without-key/login")
+		.and()
+		.rememberMe();
 			return http.build();
 			// @formatter:on
 		}
@@ -367,13 +367,13 @@ public class NamespaceRememberMeTests {
 		SecurityFilterChain keyFilterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests()
-					.anyRequest().authenticated()
-					.and()
-				.formLogin()
-					.and()
-				.rememberMe()
-					.key("KeyConfig");
+		.authorizeRequests()
+		.anyRequest().authenticated()
+		.and()
+		.formLogin()
+		.and()
+		.rememberMe()
+		.key("KeyConfig");
 			return http.build();
 			// @formatter:on
 		}
@@ -392,10 +392,10 @@ public class NamespaceRememberMeTests {
 			// tokenRepository.setDataSource(dataSource);
 			// @formatter:off
 			http
-				.formLogin()
-					.and()
-				.rememberMe()
-					.tokenRepository(TOKEN_REPOSITORY);
+		.formLogin()
+		.and()
+		.rememberMe()
+		.tokenRepository(TOKEN_REPOSITORY);
 			return http.build();
 			// @formatter:on
 		}
@@ -410,13 +410,13 @@ public class NamespaceRememberMeTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests()
-					.anyRequest().authenticated()
-					.and()
-				.formLogin()
-					.and()
-				.rememberMe()
-					.tokenValiditySeconds(314);
+		.authorizeRequests()
+		.anyRequest().authenticated()
+		.and()
+		.formLogin()
+		.and()
+		.rememberMe()
+		.tokenValiditySeconds(314);
 			return http.build();
 			// @formatter:on
 		}
@@ -431,10 +431,10 @@ public class NamespaceRememberMeTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.formLogin()
-					.and()
-				.rememberMe()
-					.useSecureCookie(true);
+		.formLogin()
+		.and()
+		.rememberMe()
+		.useSecureCookie(true);
 			return http.build();
 			// @formatter:on
 		}
@@ -449,10 +449,10 @@ public class NamespaceRememberMeTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.formLogin()
-					.and()
-				.rememberMe()
-					.rememberMeParameter("rememberMe");
+		.formLogin()
+		.and()
+		.rememberMe()
+		.rememberMeParameter("rememberMe");
 			return http.build();
 			// @formatter:on
 		}
@@ -467,10 +467,10 @@ public class NamespaceRememberMeTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.formLogin()
-					.and()
-				.rememberMe()
-					.rememberMeCookieName("rememberMe");
+		.formLogin()
+		.and()
+		.rememberMe()
+		.rememberMeCookieName("rememberMe");
 			return http.build();
 			// @formatter:on
 		}
@@ -487,9 +487,9 @@ public class NamespaceRememberMeTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.formLogin()
-					.and()
-				.rememberMe();
+		.formLogin()
+		.and()
+		.rememberMe();
 			// @formatter:on
 			return http.build();
 		}
@@ -511,10 +511,10 @@ public class NamespaceRememberMeTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.formLogin()
-					.and()
-				.rememberMe()
-					.userDetailsService(USERDETAILS_SERVICE);
+		.formLogin()
+		.and()
+		.rememberMe()
+		.userDetailsService(USERDETAILS_SERVICE);
 			return http.build();
 			// @formatter:on
 		}
@@ -526,13 +526,13 @@ public class NamespaceRememberMeTests {
 		@Bean
 		UserDetailsService userDetailsService() {
 			return new InMemoryUserDetailsManager(
-			// @formatter:off
-					User.withDefaultPasswordEncoder()
-							.username("user")
-							.password("password")
-							.roles("USER")
-							.build());
-					// @formatter:on
+		// @formatter:off
+		User.withDefaultPasswordEncoder()
+	.username("user")
+	.password("password")
+	.roles("USER")
+	.build());
+			// @formatter:on
 		}
 
 	}

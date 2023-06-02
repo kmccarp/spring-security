@@ -52,7 +52,7 @@ public final class DelegatingReactiveOAuth2AuthorizedClientProvider implements R
 	 * {@link ReactiveOAuth2AuthorizedClientProvider}(s)
 	 */
 	public DelegatingReactiveOAuth2AuthorizedClientProvider(
-			ReactiveOAuth2AuthorizedClientProvider... authorizedClientProviders) {
+ReactiveOAuth2AuthorizedClientProvider... authorizedClientProviders) {
 		Assert.notEmpty(authorizedClientProviders, "authorizedClientProviders cannot be empty");
 		this.authorizedClientProviders = Collections.unmodifiableList(Arrays.asList(authorizedClientProviders));
 	}
@@ -64,7 +64,7 @@ public final class DelegatingReactiveOAuth2AuthorizedClientProvider implements R
 	 * {@link OAuth2AuthorizedClientProvider}(s)
 	 */
 	public DelegatingReactiveOAuth2AuthorizedClientProvider(
-			List<ReactiveOAuth2AuthorizedClientProvider> authorizedClientProviders) {
+List<ReactiveOAuth2AuthorizedClientProvider> authorizedClientProviders) {
 		Assert.notEmpty(authorizedClientProviders, "authorizedClientProviders cannot be empty");
 		this.authorizedClientProviders = Collections.unmodifiableList(new ArrayList<>(authorizedClientProviders));
 	}
@@ -73,7 +73,7 @@ public final class DelegatingReactiveOAuth2AuthorizedClientProvider implements R
 	public Mono<OAuth2AuthorizedClient> authorize(OAuth2AuthorizationContext context) {
 		Assert.notNull(context, "context cannot be null");
 		return Flux.fromIterable(this.authorizedClientProviders)
-				.concatMap((authorizedClientProvider) -> authorizedClientProvider.authorize(context)).next();
+	.concatMap((authorizedClientProvider) -> authorizedClientProvider.authorize(context)).next();
 	}
 
 }

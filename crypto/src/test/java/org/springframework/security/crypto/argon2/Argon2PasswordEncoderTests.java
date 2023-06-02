@@ -115,7 +115,7 @@ public class Argon2PasswordEncoderTests {
 		injectPredictableSaltGen();
 		String hash = this.encoder.encode("sometestpassword");
 		assertThat(hash).isEqualTo(
-				"$argon2id$v=19$m=4096,t=3,p=1$QUFBQUFBQUFBQUFBQUFBQQ$hmmTNyJlwbb6HAvFoHFWF+u03fdb0F2qA+39oPlcAqo");
+	"$argon2id$v=19$m=4096,t=3,p=1$QUFBQUFBQUFBQUFBQUFBQQ$hmmTNyJlwbb6HAvFoHFWF+u03fdb0F2qA+39oPlcAqo");
 	}
 
 	@Test
@@ -124,7 +124,7 @@ public class Argon2PasswordEncoderTests {
 		injectPredictableSaltGen();
 		String hash = this.encoder.encode("sometestpassword");
 		assertThat(hash).isEqualTo(
-				"$argon2id$v=19$m=512,t=5,p=4$QUFBQUFBQUFBQUFBQUFBQQ$PNv4C3K50bz3rmON+LtFpdisD7ePieLNq+l5iUHgc1k");
+	"$argon2id$v=19$m=512,t=5,p=4$QUFBQUFBQUFBQUFBQUFBQQ$PNv4C3K50bz3rmON+LtFpdisD7ePieLNq+l5iUHgc1k");
 	}
 
 	@Test
@@ -133,7 +133,7 @@ public class Argon2PasswordEncoderTests {
 		injectPredictableSaltGen();
 		String hash = this.encoder.encode("sometestpassword");
 		assertThat(hash).isEqualTo(
-				"$argon2id$v=19$m=16384,t=2,p=1$QUFBQUFBQUFBQUFBQUFBQQ$zGt5MiNPSUOo4/7jBcJMayCPfcsLJ4c0WUxhwGDIYPw");
+	"$argon2id$v=19$m=16384,t=2,p=1$QUFBQUFBQUFBQUFBQUFBQQ$zGt5MiNPSUOo4/7jBcJMayCPfcsLJ4c0WUxhwGDIYPw");
 	}
 
 	@Test

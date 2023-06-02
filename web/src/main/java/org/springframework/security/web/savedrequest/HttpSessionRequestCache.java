@@ -62,7 +62,7 @@ public class HttpSessionRequestCache implements RequestCache {
 		if (!this.requestMatcher.matches(request)) {
 			if (this.logger.isTraceEnabled()) {
 				this.logger.trace(
-						LogMessage.format("Did not save request since it did not match [%s]", this.requestMatcher));
+			LogMessage.format("Did not save request since it did not match [%s]", this.requestMatcher));
 			}
 			return;
 		}
@@ -72,7 +72,7 @@ public class HttpSessionRequestCache implements RequestCache {
 			// AbstractAuthenticationProcessingFilter
 			// for redirection after successful authentication (SEC-29)
 			DefaultSavedRequest savedRequest = new DefaultSavedRequest(request, this.portResolver,
-					this.matchingRequestParameterName);
+		this.matchingRequestParameterName);
 			request.getSession().setAttribute(this.sessionAttrName, savedRequest);
 			if (this.logger.isDebugEnabled()) {
 				this.logger.debug(LogMessage.format("Saved request %s to session", savedRequest.getRedirectUrl()));
@@ -101,9 +101,9 @@ public class HttpSessionRequestCache implements RequestCache {
 	@Override
 	public HttpServletRequest getMatchingRequest(HttpServletRequest request, HttpServletResponse response) {
 		if (this.matchingRequestParameterName != null
-				&& request.getParameter(this.matchingRequestParameterName) == null) {
+	&& request.getParameter(this.matchingRequestParameterName) == null) {
 			this.logger.trace(
-					"matchingRequestParameterName is required for getMatchingRequest to lookup a value, but not provided");
+		"matchingRequestParameterName is required for getMatchingRequest to lookup a value, but not provided");
 			return null;
 		}
 		SavedRequest saved = getRequest(request, response);
@@ -114,7 +114,7 @@ public class HttpSessionRequestCache implements RequestCache {
 		if (!matchesSavedRequest(request, saved)) {
 			if (this.logger.isTraceEnabled()) {
 				this.logger.trace(LogMessage.format("Did not match request %s to the saved one %s",
-						UrlUtils.buildRequestUrl(request), saved));
+			UrlUtils.buildRequestUrl(request), saved));
 			}
 			return null;
 		}

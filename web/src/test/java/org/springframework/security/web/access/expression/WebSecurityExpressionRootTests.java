@@ -42,7 +42,7 @@ public class WebSecurityExpressionRootTests {
 		// IPv4
 		request.setRemoteAddr("192.168.1.1");
 		WebSecurityExpressionRoot root = new WebSecurityExpressionRoot(mock(Authentication.class),
-				new FilterInvocation(request, mock(HttpServletResponse.class), mock(FilterChain.class)));
+	new FilterInvocation(request, mock(HttpServletResponse.class), mock(FilterChain.class)));
 		assertThat(root.hasIpAddress("192.168.1.1")).isTrue();
 		// IPv6 Address
 		request.setRemoteAddr("fa:db8:85a3::8a2e:370:7334");
@@ -54,7 +54,7 @@ public class WebSecurityExpressionRootTests {
 		MockHttpServletRequest request = new MockHttpServletRequest();
 		request.setRequestURI("/test");
 		WebSecurityExpressionRoot root = new WebSecurityExpressionRoot(mock(Authentication.class),
-				new FilterInvocation(request, mock(HttpServletResponse.class), mock(FilterChain.class)));
+	new FilterInvocation(request, mock(HttpServletResponse.class), mock(FilterChain.class)));
 		for (int i = 0; i < 255; i++) {
 			request.setRemoteAddr("192.168.1." + i);
 			assertThat(root.hasIpAddress("192.168.1.0/24")).isTrue();

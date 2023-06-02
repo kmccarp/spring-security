@@ -45,7 +45,7 @@ public class DelegatingJwtGrantedAuthoritiesConverter implements Converter<Jwt, 
 	 * @param authoritiesConverters the {@link Collection} of {@link Converter}s to use
 	 */
 	public DelegatingJwtGrantedAuthoritiesConverter(
-			Collection<Converter<Jwt, Collection<GrantedAuthority>>> authoritiesConverters) {
+Collection<Converter<Jwt, Collection<GrantedAuthority>>> authoritiesConverters) {
 		Assert.notNull(authoritiesConverters, "authoritiesConverters cannot be null");
 		this.authoritiesConverters = new ArrayList<>(authoritiesConverters);
 	}
@@ -57,7 +57,7 @@ public class DelegatingJwtGrantedAuthoritiesConverter implements Converter<Jwt, 
 	 */
 	@SafeVarargs
 	public DelegatingJwtGrantedAuthoritiesConverter(
-			Converter<Jwt, Collection<GrantedAuthority>>... authoritiesConverters) {
+Converter<Jwt, Collection<GrantedAuthority>>... authoritiesConverters) {
 		this(Arrays.asList(authoritiesConverters));
 	}
 

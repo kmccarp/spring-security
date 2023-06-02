@@ -155,10 +155,10 @@ public class JaasAuthenticationProvider extends AbstractJaasAuthenticationProvid
 		Assert.notNull(this.loginConfig, () -> "loginConfig must be set on " + getClass());
 		configureJaas(this.loginConfig);
 		Assert.notNull(Configuration.getConfiguration(),
-				"As per https://java.sun.com/j2se/1.5.0/docs/api/javax/security/auth/login/Configuration.html "
-						+ "\"If a Configuration object was set via the Configuration.setConfiguration method, then that object is "
-						+ "returned. Otherwise, a default Configuration object is returned\". Your JRE returned null to "
-						+ "Configuration.getConfiguration().");
+	"As per https://java.sun.com/j2se/1.5.0/docs/api/javax/security/auth/login/Configuration.html "
++ "\"If a Configuration object was set via the Configuration.setConfiguration method, then that object is "
++ "returned. Otherwise, a default Configuration object is returned\". Your JRE returned null to "
++ "Configuration.getConfiguration().");
 	}
 
 	@Override

@@ -56,29 +56,29 @@ public class OAuth2RefreshTokenGrantRequestTests {
 	@Test
 	public void constructorWhenClientRegistrationIsNullThenThrowIllegalArgumentException() {
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new OAuth2RefreshTokenGrantRequest(null, this.accessToken, this.refreshToken))
-				.withMessage("clientRegistration cannot be null");
+	.isThrownBy(() -> new OAuth2RefreshTokenGrantRequest(null, this.accessToken, this.refreshToken))
+	.withMessage("clientRegistration cannot be null");
 	}
 
 	@Test
 	public void constructorWhenAccessTokenIsNullThenThrowIllegalArgumentException() {
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new OAuth2RefreshTokenGrantRequest(this.clientRegistration, null, this.refreshToken))
-				.withMessage("accessToken cannot be null");
+	.isThrownBy(() -> new OAuth2RefreshTokenGrantRequest(this.clientRegistration, null, this.refreshToken))
+	.withMessage("accessToken cannot be null");
 	}
 
 	@Test
 	public void constructorWhenRefreshTokenIsNullThenThrowIllegalArgumentException() {
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new OAuth2RefreshTokenGrantRequest(this.clientRegistration, this.accessToken, null))
-				.withMessage("refreshToken cannot be null");
+	.isThrownBy(() -> new OAuth2RefreshTokenGrantRequest(this.clientRegistration, this.accessToken, null))
+	.withMessage("refreshToken cannot be null");
 	}
 
 	@Test
 	public void constructorWhenValidParametersProvidedThenCreated() {
 		Set<String> scopes = new HashSet<>(Arrays.asList("read", "write"));
 		OAuth2RefreshTokenGrantRequest refreshTokenGrantRequest = new OAuth2RefreshTokenGrantRequest(
-				this.clientRegistration, this.accessToken, this.refreshToken, scopes);
+	this.clientRegistration, this.accessToken, this.refreshToken, scopes);
 		assertThat(refreshTokenGrantRequest.getClientRegistration()).isSameAs(this.clientRegistration);
 		assertThat(refreshTokenGrantRequest.getAccessToken()).isSameAs(this.accessToken);
 		assertThat(refreshTokenGrantRequest.getRefreshToken()).isSameAs(this.refreshToken);

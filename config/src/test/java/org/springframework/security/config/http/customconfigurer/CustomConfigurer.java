@@ -43,16 +43,16 @@ public class CustomConfigurer extends SecurityConfigurerAdapter<DefaultSecurityF
 		context.getAutowireCapableBeanFactory().autowireBean(this);
 		// @formatter:off
 		http
-			.authorizeRequests()
-				.requestMatchers(new AntPathRequestMatcher(this.permitAllPattern)).permitAll()
-				.anyRequest().authenticated();
+	.authorizeRequests()
+	.requestMatchers(new AntPathRequestMatcher(this.permitAllPattern)).permitAll()
+	.anyRequest().authenticated();
 		// @formatter:on
 		if (http.getConfigurer(FormLoginConfigurer.class) == null) {
 			// only apply if formLogin() was not invoked by the user
 			// @formatter:off
 			http
-				.formLogin()
-					.loginPage(this.loginPage);
+		.formLogin()
+		.loginPage(this.loginPage);
 			// @formatter:on
 		}
 	}

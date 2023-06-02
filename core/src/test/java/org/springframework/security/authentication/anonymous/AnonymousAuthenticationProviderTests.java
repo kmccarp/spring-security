@@ -40,7 +40,7 @@ public class AnonymousAuthenticationProviderTests {
 	public void testDetectsAnInvalidKey() {
 		AnonymousAuthenticationProvider aap = new AnonymousAuthenticationProvider("qwerty");
 		AnonymousAuthenticationToken token = new AnonymousAuthenticationToken("WRONG_KEY", "Test",
-				AuthorityUtils.createAuthorityList("ROLE_ONE", "ROLE_TWO"));
+	AuthorityUtils.createAuthorityList("ROLE_ONE", "ROLE_TWO"));
 		assertThatExceptionOfType(BadCredentialsException.class).isThrownBy(() -> aap.authenticate(token));
 	}
 
@@ -68,7 +68,7 @@ public class AnonymousAuthenticationProviderTests {
 	public void testNormalOperation() {
 		AnonymousAuthenticationProvider aap = new AnonymousAuthenticationProvider("qwerty");
 		AnonymousAuthenticationToken token = new AnonymousAuthenticationToken("qwerty", "Test",
-				AuthorityUtils.createAuthorityList("ROLE_ONE", "ROLE_TWO"));
+	AuthorityUtils.createAuthorityList("ROLE_ONE", "ROLE_TWO"));
 		Authentication result = aap.authenticate(token);
 		assertThat(token).isEqualTo(result);
 	}

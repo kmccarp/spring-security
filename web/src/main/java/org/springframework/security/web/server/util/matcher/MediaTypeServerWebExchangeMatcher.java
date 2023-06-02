@@ -67,7 +67,7 @@ public class MediaTypeServerWebExchangeMatcher implements ServerWebExchangeMatch
 	public MediaTypeServerWebExchangeMatcher(Collection<MediaType> matchingMediaTypes) {
 		Assert.notEmpty(matchingMediaTypes, "matchingMediaTypes cannot be null");
 		Assert.noNullElements(matchingMediaTypes,
-				() -> "matchingMediaTypes cannot contain null. Got " + matchingMediaTypes);
+	() -> "matchingMediaTypes cannot contain null. Got " + matchingMediaTypes);
 		this.matchingMediaTypes = matchingMediaTypes;
 	}
 
@@ -96,7 +96,7 @@ public class MediaTypeServerWebExchangeMatcher implements ServerWebExchangeMatch
 			for (MediaType matchingMediaType : this.matchingMediaTypes) {
 				boolean isCompatibleWith = matchingMediaType.isCompatibleWith(httpRequestMediaType);
 				this.logger.debug(LogMessage.format("%s .isCompatibleWith %s = %s", matchingMediaType,
-						httpRequestMediaType, isCompatibleWith));
+			httpRequestMediaType, isCompatibleWith));
 				if (isCompatibleWith) {
 					return MatchResult.match();
 				}
@@ -144,14 +144,14 @@ public class MediaTypeServerWebExchangeMatcher implements ServerWebExchangeMatch
 		catch (InvalidMediaTypeException ex) {
 			String value = exchange.getRequest().getHeaders().getFirst("Accept");
 			throw new NotAcceptableStatusException(
-					"Could not parse 'Accept' header [" + value + "]: " + ex.getMessage());
+		"Could not parse 'Accept' header [" + value + "]: " + ex.getMessage());
 		}
 	}
 
 	@Override
 	public String toString() {
 		return "MediaTypeRequestMatcher [matchingMediaTypes=" + this.matchingMediaTypes + ", useEquals="
-				+ this.useEquals + ", ignoredMediaTypes=" + this.ignoredMediaTypes + "]";
+	+ this.useEquals + ", ignoredMediaTypes=" + this.ignoredMediaTypes + "]";
 	}
 
 }

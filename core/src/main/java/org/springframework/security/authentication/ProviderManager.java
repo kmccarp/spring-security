@@ -136,9 +136,9 @@ public class ProviderManager implements AuthenticationManager, MessageSourceAwar
 
 	private void checkState() {
 		Assert.isTrue(this.parent != null || !this.providers.isEmpty(),
-				"A parent AuthenticationManager or a list of AuthenticationProviders is required");
+	"A parent AuthenticationManager or a list of AuthenticationProviders is required");
 		Assert.isTrue(!CollectionUtils.contains(this.providers.iterator(), null),
-				"providers list cannot contain null values");
+	"providers list cannot contain null values");
 	}
 
 	/**
@@ -176,7 +176,7 @@ public class ProviderManager implements AuthenticationManager, MessageSourceAwar
 			}
 			if (logger.isTraceEnabled()) {
 				logger.trace(LogMessage.format("Authenticating request with %s (%d/%d)",
-						provider.getClass().getSimpleName(), ++currentPosition, size));
+			provider.getClass().getSimpleName(), ++currentPosition, size));
 			}
 			try {
 				result = provider.authenticate(authentication);
@@ -232,7 +232,7 @@ public class ProviderManager implements AuthenticationManager, MessageSourceAwar
 		// Parent was null, or didn't authenticate (or throw an exception).
 		if (lastException == null) {
 			lastException = new ProviderNotFoundException(this.messages.getMessage("ProviderManager.providerNotFound",
-					new Object[] { toTest.getName() }, "No AuthenticationProvider found for {0}"));
+		new Object[]{toTest.getName()}, "No AuthenticationProvider found for {0}"));
 		}
 		// If the parent AuthenticationManager was attempted and failed then it will
 		// publish an AbstractAuthenticationFailureEvent

@@ -25,18 +25,18 @@ import org.springframework.security.access.prepost.PrePostInvocationAttributeFac
 public class PythonInterpreterPrePostInvocationAttributeFactory implements PrePostInvocationAttributeFactory {
 
 	public PythonInterpreterPrePostInvocationAttributeFactory() {
-		PythonInterpreter.initialize(System.getProperties(), null, new String[] {});
+		PythonInterpreter.initialize(System.getProperties(), null, new String[]{});
 	}
 
 	@Override
 	public PreInvocationAttribute createPreInvocationAttribute(String preFilterAttribute, String filterObject,
-			String preAuthorizeAttribute) {
+String preAuthorizeAttribute) {
 		return new PythonInterpreterPreInvocationAttribute(preAuthorizeAttribute);
 	}
 
 	@Override
 	public PostInvocationAttribute createPostInvocationAttribute(String postFilterAttribute,
-			String postAuthorizeAttribute) {
+String postAuthorizeAttribute) {
 		return null;
 	}
 

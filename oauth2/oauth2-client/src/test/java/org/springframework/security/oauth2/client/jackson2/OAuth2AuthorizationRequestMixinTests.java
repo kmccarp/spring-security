@@ -57,8 +57,8 @@ public class OAuth2AuthorizationRequestMixinTests {
 		additionalParameters.put("param2", "value2");
 		// @formatter:off
 		this.authorizationRequestBuilder = TestOAuth2AuthorizationRequests.request()
-				.scope("read", "write")
-				.additionalParameters(additionalParameters);
+	.scope("read", "write")
+	.additionalParameters(additionalParameters);
 		// @formatter:on
 	}
 
@@ -74,11 +74,11 @@ public class OAuth2AuthorizationRequestMixinTests {
 	public void serializeWhenRequiredAttributesOnlyThenSerializes() throws Exception {
 		// @formatter:off
 		OAuth2AuthorizationRequest authorizationRequest = this.authorizationRequestBuilder
-				.scopes(null)
-				.state(null)
-				.additionalParameters(Map::clear)
-				.attributes(Map::clear)
-				.build();
+	.scopes(null)
+	.state(null)
+	.additionalParameters(Map::clear)
+	.attributes(Map::clear)
+	.build();
 		// @formatter:on
 		String expectedJson = asJson(authorizationRequest);
 		String json = this.mapper.writeValueAsString(authorizationRequest);
@@ -89,7 +89,7 @@ public class OAuth2AuthorizationRequestMixinTests {
 	public void deserializeWhenMixinNotRegisteredThenThrowJsonProcessingException() {
 		String json = asJson(this.authorizationRequestBuilder.build());
 		assertThatExceptionOfType(JsonProcessingException.class)
-				.isThrownBy(() -> new ObjectMapper().readValue(json, OAuth2AuthorizationRequest.class));
+	.isThrownBy(() -> new ObjectMapper().readValue(json, OAuth2AuthorizationRequest.class));
 	}
 
 	@Test
@@ -98,7 +98,7 @@ public class OAuth2AuthorizationRequestMixinTests {
 		String json = asJson(expectedAuthorizationRequest);
 		OAuth2AuthorizationRequest authorizationRequest = this.mapper.readValue(json, OAuth2AuthorizationRequest.class);
 		assertThat(authorizationRequest.getAuthorizationUri())
-				.isEqualTo(expectedAuthorizationRequest.getAuthorizationUri());
+	.isEqualTo(expectedAuthorizationRequest.getAuthorizationUri());
 		assertThat(authorizationRequest.getGrantType()).isEqualTo(expectedAuthorizationRequest.getGrantType());
 		assertThat(authorizationRequest.getResponseType()).isEqualTo(expectedAuthorizationRequest.getResponseType());
 		assertThat(authorizationRequest.getClientId()).isEqualTo(expectedAuthorizationRequest.getClientId());
@@ -106,26 +106,26 @@ public class OAuth2AuthorizationRequestMixinTests {
 		assertThat(authorizationRequest.getScopes()).isEqualTo(expectedAuthorizationRequest.getScopes());
 		assertThat(authorizationRequest.getState()).isEqualTo(expectedAuthorizationRequest.getState());
 		assertThat(authorizationRequest.getAdditionalParameters())
-				.containsExactlyEntriesOf(expectedAuthorizationRequest.getAdditionalParameters());
+	.containsExactlyEntriesOf(expectedAuthorizationRequest.getAdditionalParameters());
 		assertThat(authorizationRequest.getAuthorizationRequestUri())
-				.isEqualTo(expectedAuthorizationRequest.getAuthorizationRequestUri());
+	.isEqualTo(expectedAuthorizationRequest.getAuthorizationRequestUri());
 		assertThat(authorizationRequest.getAttributes())
-				.containsExactlyEntriesOf(expectedAuthorizationRequest.getAttributes());
+	.containsExactlyEntriesOf(expectedAuthorizationRequest.getAttributes());
 	}
 
 	@Test
 	public void deserializeWhenRequiredAttributesOnlyThenDeserializes() throws Exception {
 		// @formatter:off
 		OAuth2AuthorizationRequest expectedAuthorizationRequest = this.authorizationRequestBuilder.scopes(null)
-				.state(null)
-				.additionalParameters(Map::clear)
-				.attributes(Map::clear)
-				.build();
+	.state(null)
+	.additionalParameters(Map::clear)
+	.attributes(Map::clear)
+	.build();
 		// @formatter:on
 		String json = asJson(expectedAuthorizationRequest);
 		OAuth2AuthorizationRequest authorizationRequest = this.mapper.readValue(json, OAuth2AuthorizationRequest.class);
 		assertThat(authorizationRequest.getAuthorizationUri())
-				.isEqualTo(expectedAuthorizationRequest.getAuthorizationUri());
+	.isEqualTo(expectedAuthorizationRequest.getAuthorizationUri());
 		assertThat(authorizationRequest.getGrantType()).isEqualTo(expectedAuthorizationRequest.getGrantType());
 		assertThat(authorizationRequest.getResponseType()).isEqualTo(expectedAuthorizationRequest.getResponseType());
 		assertThat(authorizationRequest.getClientId()).isEqualTo(expectedAuthorizationRequest.getClientId());
@@ -134,7 +134,7 @@ public class OAuth2AuthorizationRequestMixinTests {
 		assertThat(authorizationRequest.getState()).isNull();
 		assertThat(authorizationRequest.getAdditionalParameters()).isEmpty();
 		assertThat(authorizationRequest.getAuthorizationRequestUri())
-				.isEqualTo(expectedAuthorizationRequest.getAuthorizationRequestUri());
+	.isEqualTo(expectedAuthorizationRequest.getAuthorizationRequestUri());
 		assertThat(authorizationRequest.getAttributes()).isEmpty();
 	}
 
@@ -143,8 +143,8 @@ public class OAuth2AuthorizationRequestMixinTests {
 		OAuth2AuthorizationRequest authorizationRequest = this.authorizationRequestBuilder.build();
 		String json = asJson(authorizationRequest).replace("authorization_code", "client_credentials");
 		assertThatExceptionOfType(JsonParseException.class)
-				.isThrownBy(() -> this.mapper.readValue(json, OAuth2AuthorizationRequest.class))
-				.withMessageContaining("Invalid authorizationGrantType");
+	.isThrownBy(() -> this.mapper.readValue(json, OAuth2AuthorizationRequest.class))
+	.withMessageContaining("Invalid authorizationGrantType");
 	}
 
 	private static String asJson(OAuth2AuthorizationRequest authorizationRequest) {
@@ -155,40 +155,40 @@ public class OAuth2AuthorizationRequestMixinTests {
 		String additionalParameters = "\"@class\": \"java.util.Collections$UnmodifiableMap\"";
 		if (!CollectionUtils.isEmpty(authorizationRequest.getAdditionalParameters())) {
 			additionalParameters += "," + authorizationRequest.getAdditionalParameters().keySet().stream().map(
-					(key) -> "\"" + key + "\": \"" + authorizationRequest.getAdditionalParameters().get(key) + "\"")
-					.collect(Collectors.joining(","));
+		(key) -> "\"" + key + "\": \"" + authorizationRequest.getAdditionalParameters().get(key) + "\"")
+		.collect(Collectors.joining(","));
 		}
 		String attributes = "\"@class\": \"java.util.Collections$UnmodifiableMap\"";
 		if (!CollectionUtils.isEmpty(authorizationRequest.getAttributes())) {
 			attributes += "," + authorizationRequest.getAttributes().keySet().stream()
-					.map((key) -> "\"" + key + "\": \"" + authorizationRequest.getAttributes().get(key) + "\"")
-					.collect(Collectors.joining(","));
+		.map((key) -> "\"" + key + "\": \"" + authorizationRequest.getAttributes().get(key) + "\"")
+		.collect(Collectors.joining(","));
 		}
 		// @formatter:off
 		return "{\n" +
-				"  \"@class\": \"org.springframework.security.oauth2.core.endpoint.OAuth2AuthorizationRequest\",\n" +
-				"  \"authorizationUri\": \"" + authorizationRequest.getAuthorizationUri() + "\",\n" +
-				"  \"authorizationGrantType\": {\n" +
-				"    \"value\": \"" + authorizationRequest.getGrantType().getValue() + "\"\n" +
-				"  },\n" +
-				"  \"responseType\": {\n" +
-				"    \"value\": \"" + authorizationRequest.getResponseType().getValue() + "\"\n" +
-				"  },\n" +
-				"  \"clientId\": \"" + authorizationRequest.getClientId() + "\",\n" +
-				"  \"redirectUri\": \"" + authorizationRequest.getRedirectUri() + "\",\n" +
-				"  \"scopes\": [\n" +
-				"    \"java.util.Collections$UnmodifiableSet\",\n" +
-				"    [" + scopes + "]\n" +
-				"  ],\n" +
-				"  \"state\": " + ((authorizationRequest.getState() != null) ? "\"" + authorizationRequest.getState() + "\"" : "null") + ",\n" +
-				"  \"additionalParameters\": {\n" +
-				"    " + additionalParameters + "\n" +
-				"  },\n" +
-				"  \"authorizationRequestUri\": \"" + authorizationRequest.getAuthorizationRequestUri() + "\",\n" +
-				"  \"attributes\": {\n" +
-				"    " + attributes + "\n" +
-				"  }\n" +
-				"}";
+	"  \"@class\": \"org.springframework.security.oauth2.core.endpoint.OAuth2AuthorizationRequest\",\n" +
+	"  \"authorizationUri\": \"" + authorizationRequest.getAuthorizationUri() + "\",\n" +
+	"  \"authorizationGrantType\": {\n" +
+	"    \"value\": \"" + authorizationRequest.getGrantType().getValue() + "\"\n" +
+	"  },\n" +
+	"  \"responseType\": {\n" +
+	"    \"value\": \"" + authorizationRequest.getResponseType().getValue() + "\"\n" +
+	"  },\n" +
+	"  \"clientId\": \"" + authorizationRequest.getClientId() + "\",\n" +
+	"  \"redirectUri\": \"" + authorizationRequest.getRedirectUri() + "\",\n" +
+	"  \"scopes\": [\n" +
+	"    \"java.util.Collections$UnmodifiableSet\",\n" +
+	"    [" + scopes + "]\n" +
+	"  ],\n" +
+	"  \"state\": " + ((authorizationRequest.getState() != null) ? "\"" + authorizationRequest.getState() + "\"" : "null") + ",\n" +
+	"  \"additionalParameters\": {\n" +
+	"    " + additionalParameters + "\n" +
+	"  },\n" +
+	"  \"authorizationRequestUri\": \"" + authorizationRequest.getAuthorizationRequestUri() + "\",\n" +
+	"  \"attributes\": {\n" +
+	"    " + attributes + "\n" +
+	"  }\n" +
+	"}";
 		// @formatter:on
 	}
 

@@ -79,7 +79,7 @@ public class FilterSecurityInterceptor extends AbstractSecurityInterceptor imple
 	 */
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
-			throws IOException, ServletException {
+throws IOException, ServletException {
 		invoke(new FilterInvocation(request, response, chain));
 	}
 
@@ -124,7 +124,7 @@ public class FilterSecurityInterceptor extends AbstractSecurityInterceptor imple
 
 	private boolean isApplied(FilterInvocation filterInvocation) {
 		return (filterInvocation.getRequest() != null)
-				&& (filterInvocation.getRequest().getAttribute(FILTER_APPLIED) != null);
+	&& (filterInvocation.getRequest().getAttribute(FILTER_APPLIED) != null);
 	}
 
 	/**

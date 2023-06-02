@@ -60,11 +60,11 @@ final class AuthorizationAnnotationUtils {
 	 */
 	static <A extends Annotation> A findUniqueAnnotation(Method method, Class<A> annotationType) {
 		MergedAnnotations mergedAnnotations = MergedAnnotations.from(method,
-				MergedAnnotations.SearchStrategy.TYPE_HIERARCHY, RepeatableContainers.none());
+	MergedAnnotations.SearchStrategy.TYPE_HIERARCHY, RepeatableContainers.none());
 		if (hasDuplicate(mergedAnnotations, annotationType)) {
 			throw new AnnotationConfigurationException("Found more than one annotation of type " + annotationType
-					+ " attributed to " + method
-					+ " Please remove the duplicate annotations and publish a bean to handle your authorization logic.");
+		+ " attributed to " + method
+		+ " Please remove the duplicate annotations and publish a bean to handle your authorization logic.");
 		}
 		return AnnotationUtils.findAnnotation(method, annotationType);
 	}
@@ -84,17 +84,17 @@ final class AuthorizationAnnotationUtils {
 	 */
 	static <A extends Annotation> A findUniqueAnnotation(Class<?> type, Class<A> annotationType) {
 		MergedAnnotations mergedAnnotations = MergedAnnotations.from(type,
-				MergedAnnotations.SearchStrategy.TYPE_HIERARCHY, RepeatableContainers.none());
+	MergedAnnotations.SearchStrategy.TYPE_HIERARCHY, RepeatableContainers.none());
 		if (hasDuplicate(mergedAnnotations, annotationType)) {
 			throw new AnnotationConfigurationException("Found more than one annotation of type " + annotationType
-					+ " attributed to " + type
-					+ " Please remove the duplicate annotations and publish a bean to handle your authorization logic.");
+		+ " attributed to " + type
+		+ " Please remove the duplicate annotations and publish a bean to handle your authorization logic.");
 		}
 		return AnnotationUtils.findAnnotation(type, annotationType);
 	}
 
 	private static <A extends Annotation> boolean hasDuplicate(MergedAnnotations mergedAnnotations,
-			Class<A> annotationType) {
+Class<A> annotationType) {
 		boolean alreadyFound = false;
 		for (MergedAnnotation<Annotation> mergedAnnotation : mergedAnnotations) {
 			if (isSynthetic(mergedAnnotation.getSource())) {

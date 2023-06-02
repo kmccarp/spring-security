@@ -45,7 +45,7 @@ public class UserServiceBeanDefinitionParserTests {
 	@Test
 	public void userServiceWithValidPropertiesFileWorksSuccessfully() {
 		setContext("<user-service id='service' "
-				+ "properties='classpath:org/springframework/security/config/users.properties'/>");
+	+ "properties='classpath:org/springframework/security/config/users.properties'/>");
 		UserDetailsService userService = (UserDetailsService) this.appContext.getBean("service");
 		userService.loadUserByUsername("bob");
 		userService.loadUserByUsername("joe");
@@ -55,8 +55,8 @@ public class UserServiceBeanDefinitionParserTests {
 	public void userServiceWithEmbeddedUsersWorksSuccessfully() {
 		// @formatter:off
 		setContext("<user-service id='service'>"
-				+ "    <user name='joe' password='joespassword' authorities='ROLE_A'/>"
-				+ "</user-service>");
+	+ "    <user name='joe' password='joespassword' authorities='ROLE_A'/>"
+	+ "</user-service>");
 		// @formatter:on
 		UserDetailsService userService = (UserDetailsService) this.appContext.getBean("service");
 		userService.loadUserByUsername("joe");
@@ -69,9 +69,9 @@ public class UserServiceBeanDefinitionParserTests {
 		System.setProperty("principal.authorities", "ROLE_A,ROLE_B");
 		// @formatter:off
 		setContext("<b:bean class='org.springframework.beans.factory.config.PropertyPlaceholderConfigurer'/>"
-				+ "<user-service id='service'>"
-				+ "    <user name='${principal.name}' password='${principal.pass}' authorities='${principal.authorities}'/>"
-				+ "</user-service>");
+	+ "<user-service id='service'>"
+	+ "    <user name='${principal.name}' password='${principal.pass}' authorities='${principal.authorities}'/>"
+	+ "</user-service>");
 		// @formatter:on
 		UserDetailsService userService = (UserDetailsService) this.appContext.getBean("service");
 		UserDetails joe = userService.loadUserByUsername("joe");
@@ -83,8 +83,8 @@ public class UserServiceBeanDefinitionParserTests {
 	public void embeddedUsersWithNoPasswordIsGivenGeneratedValue() {
 		// @formatter:off
 		setContext("<user-service id='service'>"
-				+ "    <user name='joe' authorities='ROLE_A'/>"
-				+ "</user-service>");
+	+ "    <user name='joe' authorities='ROLE_A'/>"
+	+ "</user-service>");
 		// @formatter:on
 		UserDetailsService userService = (UserDetailsService) this.appContext.getBean("service");
 		UserDetails joe = userService.loadUserByUsername("joe");
@@ -96,9 +96,9 @@ public class UserServiceBeanDefinitionParserTests {
 	public void disabledAndEmbeddedFlagsAreSupported() {
 		// @formatter:off
 		setContext("<user-service id='service'>"
-				+ "    <user name='joe' password='joespassword' authorities='ROLE_A' locked='true'/>"
-				+ "    <user name='Bob' password='bobspassword' authorities='ROLE_A' disabled='true'/>"
-				+ "</user-service>");
+	+ "    <user name='joe' password='joespassword' authorities='ROLE_A' locked='true'/>"
+	+ "    <user name='Bob' password='bobspassword' authorities='ROLE_A' disabled='true'/>"
+	+ "</user-service>");
 		// @formatter:on
 		UserDetailsService userService = (UserDetailsService) this.appContext.getBean("service");
 		UserDetails joe = userService.loadUserByUsername("joe");
@@ -111,10 +111,10 @@ public class UserServiceBeanDefinitionParserTests {
 	@Test
 	public void userWithBothPropertiesAndEmbeddedUsersThrowsException() {
 		assertThatExceptionOfType(FatalBeanException.class).isThrownBy(() ->
-		// @formatter:off
-			setContext("<user-service id='service' properties='doesntmatter.props'>"
-					+ "    <user name='joe' password='joespassword' authorities='ROLE_A'/>"
-					+ "</user-service>")
+	// @formatter:off
+	setContext("<user-service id='service' properties='doesntmatter.props'>"
++ "    <user name='joe' password='joespassword' authorities='ROLE_A'/>"
++ "</user-service>")
 		// @formatter:on
 		);
 	}
@@ -122,14 +122,14 @@ public class UserServiceBeanDefinitionParserTests {
 	@Test
 	public void multipleTopLevelUseWithoutIdThrowsException() {
 		assertThatExceptionOfType(FatalBeanException.class).isThrownBy(() -> setContext(
-				"<user-service properties='classpath:org/springframework/security/config/users.properties'/>"
-						+ "<user-service properties='classpath:org/springframework/security/config/users.properties'/>"));
+	"<user-service properties='classpath:org/springframework/security/config/users.properties'/>"
++ "<user-service properties='classpath:org/springframework/security/config/users.properties'/>"));
 	}
 
 	@Test
 	public void userServiceWithMissingPropertiesFileThrowsException() {
 		assertThatExceptionOfType(FatalBeanException.class).isThrownBy(
-				() -> setContext("<user-service id='service' properties='classpath:doesntexist.properties'/>"));
+	() -> setContext("<user-service id='service' properties='classpath:doesntexist.properties'/>"));
 	}
 
 	private void setContext(String context) {

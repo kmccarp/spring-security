@@ -80,7 +80,7 @@ public class PasswordPolicyResponseControlTests {
 	// }
 	@Test
 	public void openLDAP33SecondsTillPasswordExpiryCtrlIsParsedCorrectly() {
-		byte[] ctrlBytes = { 0x30, 0x05, (byte) 0xA0, 0x03, (byte) 0xA0, 0x1, 0x21 };
+		byte[] ctrlBytes = {0x30, 0x05, (byte) 0xA0, 0x03, (byte) 0xA0, 0x1, 0x21};
 		PasswordPolicyResponseControl ctrl = new PasswordPolicyResponseControl(ctrlBytes);
 		assertThat(ctrl.hasWarning()).isTrue();
 		assertThat(ctrl.getTimeBeforeExpiration()).isEqualTo(33);
@@ -88,13 +88,13 @@ public class PasswordPolicyResponseControlTests {
 
 	@Test
 	public void openLDAP496GraceLoginsRemainingCtrlIsParsedCorrectly() {
-		byte[] ctrlBytes = { 0x30, 0x06, (byte) 0xA0, 0x04, (byte) 0xA1, 0x02, 0x01, (byte) 0xF0 };
+		byte[] ctrlBytes = {0x30, 0x06, (byte) 0xA0, 0x04, (byte) 0xA1, 0x02, 0x01, (byte) 0xF0};
 		PasswordPolicyResponseControl ctrl = new PasswordPolicyResponseControl(ctrlBytes);
 		assertThat(ctrl.hasWarning()).isTrue();
 		assertThat(ctrl.getGraceLoginsRemaining()).isEqualTo(496);
 	}
 
-	static final byte[] OPENLDAP_5_LOGINS_REMAINING_CTRL = { 0x30, 0x05, (byte) 0xA0, 0x03, (byte) 0xA1, 0x01, 0x05 };
+	static final byte[] OPENLDAP_5_LOGINS_REMAINING_CTRL = {0x30, 0x05, (byte) 0xA0, 0x03, (byte) 0xA1, 0x01, 0x05};
 
 	@Test
 	public void openLDAP5GraceLoginsRemainingCtrlIsParsedCorrectly() {
@@ -103,7 +103,7 @@ public class PasswordPolicyResponseControlTests {
 		assertThat(ctrl.getGraceLoginsRemaining()).isEqualTo(5);
 	}
 
-	static final byte[] OPENLDAP_LOCKED_CTRL = { 0x30, 0x03, (byte) 0xA1, 0x01, 0x01 };
+	static final byte[] OPENLDAP_LOCKED_CTRL = {0x30, 0x03, (byte) 0xA1, 0x01, 0x01};
 
 	@Test
 	public void openLDAPAccountLockedCtrlIsParsedCorrectly() {
@@ -114,7 +114,7 @@ public class PasswordPolicyResponseControlTests {
 
 	@Test
 	public void openLDAPPasswordExpiredCtrlIsParsedCorrectly() {
-		byte[] ctrlBytes = { 0x30, 0x03, (byte) 0xA1, 0x01, 0x00 };
+		byte[] ctrlBytes = {0x30, 0x03, (byte) 0xA1, 0x01, 0x00};
 		PasswordPolicyResponseControl ctrl = new PasswordPolicyResponseControl(ctrlBytes);
 		assertThat(ctrl.hasError() && ctrl.isExpired()).isTrue();
 		assertThat(ctrl.hasWarning()).isFalse();

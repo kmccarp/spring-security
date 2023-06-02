@@ -64,7 +64,7 @@ public class JdbcUserDetailsManagerTests {
 	private static final String SELECT_JOE_AUTHORITIES_SQL = "select * from authorities where username = 'joe'";
 
 	private static final UserDetails joe = new User("joe", "password", true, true, true, true,
-			AuthorityUtils.createAuthorityList("A", "C", "B"));
+AuthorityUtils.createAuthorityList("A", "C", "B"));
 
 	private static TestDataSource dataSource;
 
@@ -101,10 +101,10 @@ public class JdbcUserDetailsManagerTests {
 		this.manager.initDao();
 		this.template = this.manager.getJdbcTemplate();
 		this.template.execute("create table users(username varchar(20) not null primary key,"
-				+ "password varchar(20) not null, enabled boolean not null)");
+	+ "password varchar(20) not null, enabled boolean not null)");
 		this.template
-				.execute("create table authorities (username varchar(20) not null, authority varchar(20) not null, "
-						+ "constraint fk_authorities_users foreign key(username) references users(username))");
+	.execute("create table authorities (username varchar(20) not null, authority varchar(20) not null, "
++ "constraint fk_authorities_users foreign key(username) references users(username))");
 		PopulatedDatabase.createGroupTables(this.template);
 		PopulatedDatabase.insertGroupData(this.template);
 	}
@@ -124,11 +124,11 @@ public class JdbcUserDetailsManagerTests {
 		this.template.execute("alter table users add column acc_expired boolean default false not null");
 		this.template.execute("alter table users add column creds_expired boolean default false not null");
 		this.manager.setUsersByUsernameQuery(
-				"select username,password,enabled, acc_locked, acc_expired, creds_expired from users where username = ?");
+	"select username,password,enabled, acc_locked, acc_expired, creds_expired from users where username = ?");
 		this.manager.setCreateUserSql(
-				"insert into users (username, password, enabled, acc_locked, acc_expired, creds_expired) values (?,?,?,?,?,?)");
+	"insert into users (username, password, enabled, acc_locked, acc_expired, creds_expired) values (?,?,?,?,?,?)");
 		this.manager.setUpdateUserSql(
-				"update users set password = ?, enabled = ?, acc_locked=?, acc_expired=?, creds_expired=? where username = ?");
+	"update users set password = ?, enabled = ?, acc_locked=?, acc_expired=?, creds_expired=? where username = ?");
 	}
 
 	@Test
@@ -142,7 +142,7 @@ public class JdbcUserDetailsManagerTests {
 	public void createUserInsertsCorrectDataWithLocking() {
 		setUpAccLockingColumns();
 		UserDetails user = new User("joe", "pass", true, false, true, false,
-				AuthorityUtils.createAuthorityList("A", "B"));
+	AuthorityUtils.createAuthorityList("A", "B"));
 		this.manager.createUser(user);
 		UserDetails user2 = this.manager.loadUserByUsername(user.getUsername());
 		assertThat(user2).isEqualToComparingFieldByField(user);
@@ -161,7 +161,7 @@ public class JdbcUserDetailsManagerTests {
 	public void updateUserChangesDataCorrectlyAndClearsCache() {
 		insertJoe();
 		User newJoe = new User("joe", "newpassword", false, true, true, true,
-				AuthorityUtils.createAuthorityList(new String[] { "D", "F", "E" }));
+	AuthorityUtils.createAuthorityList(new String[]{"D", "F", "E"}));
 		this.manager.updateUser(newJoe);
 		UserDetails joe = this.manager.loadUserByUsername("joe");
 		assertThat(joe).isEqualTo(newJoe);
@@ -173,7 +173,7 @@ public class JdbcUserDetailsManagerTests {
 		setUpAccLockingColumns();
 		insertJoe();
 		User newJoe = new User("joe", "newpassword", false, false, false, true,
-				AuthorityUtils.createAuthorityList("D", "F", "E"));
+	AuthorityUtils.createAuthorityList("D", "F", "E"));
 		this.manager.updateUser(newJoe);
 		UserDetails joe = this.manager.loadUserByUsername(newJoe.getUsername());
 		assertThat(joe).isEqualToComparingFieldByField(newJoe);
@@ -195,7 +195,7 @@ public class JdbcUserDetailsManagerTests {
 	@Test
 	public void changePasswordFailsForUnauthenticatedUser() {
 		assertThatExceptionOfType(AccessDeniedException.class)
-				.isThrownBy(() -> this.manager.changePassword("password", "newPassword"));
+	.isThrownBy(() -> this.manager.changePassword("password", "newPassword"));
 	}
 
 	@Test
@@ -246,7 +246,7 @@ public class JdbcUserDetailsManagerTests {
 		given(am.authenticate(any(Authentication.class))).willThrow(new BadCredentialsException(""));
 		this.manager.setAuthenticationManager(am);
 		assertThatExceptionOfType(BadCredentialsException.class)
-				.isThrownBy(() -> this.manager.changePassword("password", "newPassword"));
+	.isThrownBy(() -> this.manager.changePassword("password", "newPassword"));
 		// Check password hasn't changed.
 		UserDetails newJoe = this.manager.loadUserByUsername("joe");
 		assertThat(newJoe.getPassword()).isEqualTo("password");
@@ -279,7 +279,7 @@ public class JdbcUserDetailsManagerTests {
 	public void createGroupInsertsCorrectData() {
 		this.manager.createGroup("TEST_GROUP", AuthorityUtils.createAuthorityList("ROLE_X", "ROLE_Y"));
 		List roles = this.template.queryForList("select ga.authority from groups g, group_authorities ga "
-				+ "where ga.group_id = g.id " + "and g.group_name = 'TEST_GROUP'");
+	+ "where ga.group_id = g.id " + "and g.group_name = 'TEST_GROUP'");
 		assertThat(roles).hasSize(2);
 	}
 
@@ -298,7 +298,7 @@ public class JdbcUserDetailsManagerTests {
 	public void renameGroupIsSuccessful() {
 		this.manager.renameGroup("GROUP_0", "GROUP_X");
 		assertThat(this.template.queryForObject("select id from groups where group_name = 'GROUP_X'", Integer.class))
-				.isZero();
+	.isZero();
 	}
 
 	@Test
@@ -311,13 +311,13 @@ public class JdbcUserDetailsManagerTests {
 	public void removeUserFromGroupDeletesGroupMemberRow() {
 		this.manager.removeUserFromGroup("jerry", "GROUP_1");
 		assertThat(this.template.queryForList("select group_id from group_members where username = 'jerry'"))
-				.hasSize(1);
+	.hasSize(1);
 	}
 
 	@Test
 	public void findGroupAuthoritiesReturnsCorrectAuthorities() {
 		assertThat(AuthorityUtils.createAuthorityList("ROLE_A"))
-				.isEqualTo(this.manager.findGroupAuthorities("GROUP_0"));
+	.isEqualTo(this.manager.findGroupAuthorities("GROUP_0"));
 	}
 
 	@Test
@@ -325,7 +325,7 @@ public class JdbcUserDetailsManagerTests {
 		GrantedAuthority auth = new SimpleGrantedAuthority("ROLE_X");
 		this.manager.addGroupAuthority("GROUP_0", auth);
 		this.template.queryForObject(
-				"select authority from group_authorities where authority = 'ROLE_X' and group_id = 0", String.class);
+	"select authority from group_authorities where authority = 'ROLE_X' and group_id = 0", String.class);
 	}
 
 	@Test
@@ -360,14 +360,14 @@ public class JdbcUserDetailsManagerTests {
 	public void createNewAuthenticationUsesNullPasswordToKeepPassordsSave() {
 		insertJoe();
 		UsernamePasswordAuthenticationToken currentAuth = UsernamePasswordAuthenticationToken.authenticated("joe", null,
-				AuthorityUtils.createAuthorityList("ROLE_USER"));
+	AuthorityUtils.createAuthorityList("ROLE_USER"));
 		Authentication updatedAuth = this.manager.createNewAuthentication(currentAuth, "new");
 		assertThat(updatedAuth.getCredentials()).isNull();
 	}
 
 	private Authentication authenticateJoe() {
 		UsernamePasswordAuthenticationToken auth = UsernamePasswordAuthenticationToken.authenticated("joe", "password",
-				joe.getAuthorities());
+	joe.getAuthorities());
 		SecurityContextHolder.getContext().setAuthentication(auth);
 		return auth;
 	}

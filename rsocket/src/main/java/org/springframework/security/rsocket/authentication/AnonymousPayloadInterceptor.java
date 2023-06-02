@@ -83,9 +83,9 @@ public class AnonymousPayloadInterceptor implements PayloadInterceptor, Ordered 
 	public Mono<Void> intercept(PayloadExchange exchange, PayloadInterceptorChain chain) {
 		return ReactiveSecurityContextHolder.getContext().switchIfEmpty(Mono.defer(() -> {
 			AnonymousAuthenticationToken authentication = new AnonymousAuthenticationToken(this.key, this.principal,
-					this.authorities);
+		this.authorities);
 			return chain.next(exchange).contextWrite(ReactiveSecurityContextHolder.withAuthentication(authentication))
-					.then(Mono.empty());
+		.then(Mono.empty());
 		})).flatMap((securityContext) -> chain.next(exchange));
 	}
 

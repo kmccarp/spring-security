@@ -46,11 +46,11 @@ public class JdbcUserServiceBeanDefinitionParserTests {
 
 	// @formatter:off
 	private static String DATA_SOURCE = "    <b:bean id='populator' class='org.springframework.security.config.DataSourcePopulator'>"
-			+ "        <b:property name='dataSource' ref='dataSource'/>"
-			+ "    </b:bean>"
-			+ "    <b:bean id='dataSource' class='org.springframework.security.TestDataSource'>"
-			+ "        <b:constructor-arg value='jdbcnamespaces'/>"
-			+ "    </b:bean>";
++ "        <b:property name='dataSource' ref='dataSource'/>"
++ "    </b:bean>"
++ "    <b:bean id='dataSource' class='org.springframework.security.TestDataSource'>"
++ "        <b:constructor-arg value='jdbcnamespaces'/>"
++ "    </b:bean>";
 	// @formatter:on
 
 	private InMemoryXmlApplicationContext appContext;
@@ -65,7 +65,7 @@ public class JdbcUserServiceBeanDefinitionParserTests {
 	@Test
 	public void beanNameIsCorrect() {
 		assertThat(JdbcUserDetailsManager.class.getName())
-				.isEqualTo(new JdbcUserServiceBeanDefinitionParser().getBeanClassName(mock(Element.class)));
+	.isEqualTo(new JdbcUserServiceBeanDefinitionParser().getBeanClassName(mock(Element.class)));
 	}
 
 	@Test
@@ -87,10 +87,10 @@ public class JdbcUserServiceBeanDefinitionParserTests {
 		String authoritiesQuery = "select username, authority from authorities where username = ? and 1 = 1";
 		// @formatter:off
 		setContext("<jdbc-user-service id='myUserService' "
-				+ "data-source-ref='dataSource' "
-				+ "users-by-username-query='" + userQuery + "' "
-				+ "authorities-by-username-query='" + authoritiesQuery
-				+ "'/>" + DATA_SOURCE);
+	+ "data-source-ref='dataSource' "
+	+ "users-by-username-query='" + userQuery + "' "
+	+ "authorities-by-username-query='" + authoritiesQuery
+	+ "'/>" + DATA_SOURCE);
 		// @formatter:on
 		JdbcUserDetailsManager mgr = (JdbcUserDetailsManager) this.appContext.getBean("myUserService");
 		assertThat(FieldUtils.getFieldValue(mgr, "usersByUsernameQuery")).isEqualTo(userQuery);
@@ -101,7 +101,7 @@ public class JdbcUserServiceBeanDefinitionParserTests {
 	@Test
 	public void groupQueryIsParsedCorrectly() throws Exception {
 		setContext("<jdbc-user-service id='myUserService' " + "data-source-ref='dataSource' "
-				+ "group-authorities-by-username-query='blah blah'/>" + DATA_SOURCE);
+	+ "group-authorities-by-username-query='blah blah'/>" + DATA_SOURCE);
 		JdbcUserDetailsManager mgr = (JdbcUserDetailsManager) this.appContext.getBean("myUserService");
 		assertThat(FieldUtils.getFieldValue(mgr, "groupAuthoritiesByUsernameQuery")).isEqualTo("blah blah");
 		assertThat((Boolean) FieldUtils.getFieldValue(mgr, "enableGroups")).isTrue();
@@ -110,9 +110,9 @@ public class JdbcUserServiceBeanDefinitionParserTests {
 	@Test
 	public void cacheRefIsparsedCorrectly() {
 		setContext("<jdbc-user-service id='myUserService' cache-ref='userCache' data-source-ref='dataSource'/>"
-				+ DATA_SOURCE + USER_CACHE_XML);
+	+ DATA_SOURCE + USER_CACHE_XML);
 		CachingUserDetailsService cachingUserService = (CachingUserDetailsService) this.appContext
-				.getBean("myUserService" + AbstractUserDetailsServiceBeanDefinitionParser.CACHING_SUFFIX);
+	.getBean("myUserService" + AbstractUserDetailsServiceBeanDefinitionParser.CACHING_SUFFIX);
 		assertThat(this.appContext.getBean("userCache")).isSameAs(cachingUserService.getUserCache());
 		assertThat(cachingUserService.loadUserByUsername("rod")).isNotNull();
 		assertThat(cachingUserService.loadUserByUsername("rod")).isNotNull();
@@ -122,11 +122,11 @@ public class JdbcUserServiceBeanDefinitionParserTests {
 	public void isSupportedByAuthenticationProviderElement() {
 		// @formatter:off
 		setContext("<authentication-manager>"
-				+ "  <authentication-provider>"
-				+ "    <jdbc-user-service data-source-ref='dataSource'/>"
-				+ "  </authentication-provider>"
-				+ "</authentication-manager>"
-				+ DATA_SOURCE);
+	+ "  <authentication-provider>"
+	+ "    <jdbc-user-service data-source-ref='dataSource'/>"
+	+ "  </authentication-provider>"
+	+ "</authentication-manager>"
+	+ DATA_SOURCE);
 		// @formatter:on
 		AuthenticationManager mgr = (AuthenticationManager) this.appContext.getBean(BeanIds.AUTHENTICATION_MANAGER);
 		mgr.authenticate(UsernamePasswordAuthenticationToken.unauthenticated("rod", "koala"));
@@ -136,25 +136,25 @@ public class JdbcUserServiceBeanDefinitionParserTests {
 	public void cacheIsInjectedIntoAuthenticationProvider() {
 		// @formatter:off
 		setContext("<authentication-manager>"
-				+ "  <authentication-provider>"
-				+ "    <jdbc-user-service cache-ref='userCache' data-source-ref='dataSource'/>"
-				+ "  </authentication-provider>"
-				+ "</authentication-manager>"
-				+ DATA_SOURCE
-				+ USER_CACHE_XML);
+	+ "  <authentication-provider>"
+	+ "    <jdbc-user-service cache-ref='userCache' data-source-ref='dataSource'/>"
+	+ "  </authentication-provider>"
+	+ "</authentication-manager>"
+	+ DATA_SOURCE
+	+ USER_CACHE_XML);
 		// @formatter:on
 		ProviderManager mgr = (ProviderManager) this.appContext.getBean(BeanIds.AUTHENTICATION_MANAGER);
 		DaoAuthenticationProvider provider = (DaoAuthenticationProvider) mgr.getProviders().get(0);
 		assertThat(this.appContext.getBean("userCache")).isSameAs(provider.getUserCache());
 		provider.authenticate(UsernamePasswordAuthenticationToken.unauthenticated("rod", "koala"));
 		assertThat(provider.getUserCache().getUserFromCache("rod")).isNotNull()
-				.withFailMessage("Cache should contain user after authentication");
+	.withFailMessage("Cache should contain user after authentication");
 	}
 
 	@Test
 	public void rolePrefixIsUsedWhenSet() {
 		setContext("<jdbc-user-service id='myUserService' role-prefix='PREFIX_' data-source-ref='dataSource'/>"
-				+ DATA_SOURCE);
+	+ DATA_SOURCE);
 		JdbcUserDetailsManager mgr = (JdbcUserDetailsManager) this.appContext.getBean("myUserService");
 		UserDetails rod = mgr.loadUserByUsername("rod");
 		assertThat(AuthorityUtils.authorityListToSet(rod.getAuthorities())).contains("PREFIX_ROLE_SUPERVISOR");

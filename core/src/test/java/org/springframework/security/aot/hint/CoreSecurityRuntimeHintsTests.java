@@ -67,81 +67,81 @@ class CoreSecurityRuntimeHintsTests {
 	@BeforeEach
 	void setup() {
 		SpringFactoriesLoader.forResourceLocation("META-INF/spring/aot.factories").load(RuntimeHintsRegistrar.class)
-				.forEach((registrar) -> registrar.registerHints(this.hints, ClassUtils.getDefaultClassLoader()));
+	.forEach((registrar) -> registrar.registerHints(this.hints, ClassUtils.getDefaultClassLoader()));
 	}
 
 	@Test
 	void springSecurityMessagesBundleHasHints() {
 		assertThat(RuntimeHintsPredicates.resource().forBundle("org.springframework.security.messages"))
-				.accepts(this.hints);
+	.accepts(this.hints);
 	}
 
 	@Test
 	void securityExpressionOperationsHasHints() {
 		assertThat(RuntimeHintsPredicates.reflection().onType(SecurityExpressionOperations.class)
-				.withMemberCategories(MemberCategory.DECLARED_FIELDS, MemberCategory.INVOKE_DECLARED_METHODS))
-						.accepts(this.hints);
+	.withMemberCategories(MemberCategory.DECLARED_FIELDS, MemberCategory.INVOKE_DECLARED_METHODS))
+	.accepts(this.hints);
 	}
 
 	@Test
 	void securityExpressionRootHasHints() {
 		assertThat(RuntimeHintsPredicates.reflection().onType(SecurityExpressionRoot.class)
-				.withMemberCategories(MemberCategory.DECLARED_FIELDS, MemberCategory.INVOKE_DECLARED_METHODS))
-						.accepts(this.hints);
+	.withMemberCategories(MemberCategory.DECLARED_FIELDS, MemberCategory.INVOKE_DECLARED_METHODS))
+	.accepts(this.hints);
 	}
 
 	@ParameterizedTest
 	@MethodSource("getAuthenticationEvents")
 	void exceptionEventsHasHints(Class<? extends AbstractAuthenticationEvent> event) {
 		assertThat(RuntimeHintsPredicates.reflection().onType(event)
-				.withMemberCategory(MemberCategory.INVOKE_DECLARED_CONSTRUCTORS)).accepts(this.hints);
+	.withMemberCategory(MemberCategory.INVOKE_DECLARED_CONSTRUCTORS)).accepts(this.hints);
 	}
 
 	@Test
 	void methodSecurityExpressionRootHasHints() {
 		assertThat(RuntimeHintsPredicates.reflection()
-				.onType(TypeReference
-						.of("org.springframework.security.access.expression.method.MethodSecurityExpressionRoot"))
-				.withMemberCategories(MemberCategory.INVOKE_PUBLIC_METHODS)).accepts(this.hints);
+	.onType(TypeReference
+.of("org.springframework.security.access.expression.method.MethodSecurityExpressionRoot"))
+	.withMemberCategories(MemberCategory.INVOKE_PUBLIC_METHODS)).accepts(this.hints);
 	}
 
 	@Test
 	void abstractAuthenticationTokenHasHints() {
 		assertThat(RuntimeHintsPredicates.reflection().onType(AbstractAuthenticationToken.class)
-				.withMemberCategories(MemberCategory.INVOKE_PUBLIC_METHODS)).accepts(this.hints);
+	.withMemberCategories(MemberCategory.INVOKE_PUBLIC_METHODS)).accepts(this.hints);
 	}
 
 	private static Stream<Class<? extends AbstractAuthenticationEvent>> getAuthenticationEvents() {
 		return Stream.of(AuthenticationFailureBadCredentialsEvent.class,
-				AuthenticationFailureCredentialsExpiredEvent.class, AuthenticationFailureDisabledEvent.class,
-				AuthenticationFailureExpiredEvent.class, AuthenticationFailureLockedEvent.class,
-				AuthenticationFailureProviderNotFoundEvent.class, AuthenticationFailureProxyUntrustedEvent.class,
-				AuthenticationFailureServiceExceptionEvent.class);
+	AuthenticationFailureCredentialsExpiredEvent.class, AuthenticationFailureDisabledEvent.class,
+	AuthenticationFailureExpiredEvent.class, AuthenticationFailureLockedEvent.class,
+	AuthenticationFailureProviderNotFoundEvent.class, AuthenticationFailureProxyUntrustedEvent.class,
+	AuthenticationFailureServiceExceptionEvent.class);
 	}
 
 	@ParameterizedTest
 	@MethodSource("getAuthenticationExceptions")
 	void exceptionHasHints(Class<? extends AuthenticationException> exception) {
 		assertThat(RuntimeHintsPredicates.reflection().onType(exception)
-				.withMemberCategory(MemberCategory.INVOKE_DECLARED_CONSTRUCTORS)).accepts(this.hints);
+	.withMemberCategory(MemberCategory.INVOKE_DECLARED_CONSTRUCTORS)).accepts(this.hints);
 	}
 
 	private static Stream<Class<? extends AuthenticationException>> getAuthenticationExceptions() {
 		return Stream.of(AuthenticationServiceException.class, AccountExpiredException.class,
-				BadCredentialsException.class, CredentialsExpiredException.class, DisabledException.class,
-				LockedException.class, UsernameNotFoundException.class, ProviderNotFoundException.class);
+	BadCredentialsException.class, CredentialsExpiredException.class, DisabledException.class,
+	LockedException.class, UsernameNotFoundException.class, ProviderNotFoundException.class);
 	}
 
 	@Test
 	void defaultJdbcSchemaFileHasHints() {
 		assertThat(RuntimeHintsPredicates.resource()
-				.forResource("org/springframework/security/core/userdetails/jdbc/users.ddl")).accepts(this.hints);
+	.forResource("org/springframework/security/core/userdetails/jdbc/users.ddl")).accepts(this.hints);
 	}
 
 	@Test
 	void securityContextHasHints() {
 		assertThat(RuntimeHintsPredicates.reflection().onType(SecurityContextImpl.class)
-				.withMemberCategories(MemberCategory.INVOKE_PUBLIC_METHODS)).accepts(this.hints);
+	.withMemberCategories(MemberCategory.INVOKE_PUBLIC_METHODS)).accepts(this.hints);
 	}
 
 }

@@ -75,7 +75,7 @@ public class DefaultSpringSecurityContextSource extends LdapContextSource {
 			urls.add(url.substring(0, url.lastIndexOf(urlRootDn)));
 			this.logger.info(LogMessage.format("Configure with URL %s and root DN %s", url, urlRootDn));
 			Assert.isTrue(rootDn == null || rootDn.equals(urlRootDn),
-					"Root DNs must be the same when using multiple URLs");
+		"Root DNs must be the same when using multiple URLs");
 			rootDn = (rootDn != null) ? rootDn : urlRootDn;
 		}
 		setUrls(urls.toArray(new String[0]));
@@ -89,7 +89,7 @@ public class DefaultSpringSecurityContextSource extends LdapContextSource {
 				super.setupEnvironment(env, dn, password);
 				// Remove the pooling flag unless authenticating as the 'manager' user.
 				if (!DefaultSpringSecurityContextSource.this.userDn.equals(dn)
-						&& env.containsKey(SUN_LDAP_POOLING_FLAG)) {
+			&& env.containsKey(SUN_LDAP_POOLING_FLAG)) {
 					DefaultSpringSecurityContextSource.this.logger.trace("Removing pooling flag for user " + dn);
 					env.remove(SUN_LDAP_POOLING_FLAG);
 				}

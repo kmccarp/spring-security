@@ -38,7 +38,7 @@ public class BearerTokenMetadata {
 	 */
 	@Deprecated
 	public static final MimeType BEARER_AUTHENTICATION_MIME_TYPE = new MediaType("message",
-			"x.rsocket.authentication.bearer.v0");
+"x.rsocket.authentication.bearer.v0");
 
 	private final String token;
 

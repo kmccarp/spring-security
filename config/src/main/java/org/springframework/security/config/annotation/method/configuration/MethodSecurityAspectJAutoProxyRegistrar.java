@@ -47,23 +47,23 @@ class MethodSecurityAspectJAutoProxyRegistrar implements ImportBeanDefinitionReg
 	@Override
 	public void registerBeanDefinitions(AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry) {
 		registerBeanDefinition("preFilterAuthorizationMethodInterceptor",
-				"org.springframework.security.authorization.method.aspectj.PreFilterAspect", "preFilterAspect$0",
-				registry);
+	"org.springframework.security.authorization.method.aspectj.PreFilterAspect", "preFilterAspect$0",
+	registry);
 		registerBeanDefinition("postFilterAuthorizationMethodInterceptor",
-				"org.springframework.security.authorization.method.aspectj.PostFilterAspect", "postFilterAspect$0",
-				registry);
+	"org.springframework.security.authorization.method.aspectj.PostFilterAspect", "postFilterAspect$0",
+	registry);
 		registerBeanDefinition("preAuthorizeAuthorizationMethodInterceptor",
-				"org.springframework.security.authorization.method.aspectj.PreAuthorizeAspect", "preAuthorizeAspect$0",
-				registry);
+	"org.springframework.security.authorization.method.aspectj.PreAuthorizeAspect", "preAuthorizeAspect$0",
+	registry);
 		registerBeanDefinition("postAuthorizeAuthorizationMethodInterceptor",
-				"org.springframework.security.authorization.method.aspectj.PostAuthorizeAspect",
-				"postAuthorizeAspect$0", registry);
+	"org.springframework.security.authorization.method.aspectj.PostAuthorizeAspect",
+	"postAuthorizeAspect$0", registry);
 		registerBeanDefinition("securedAuthorizationMethodInterceptor",
-				"org.springframework.security.authorization.method.aspectj.SecuredAspect", "securedAspect$0", registry);
+	"org.springframework.security.authorization.method.aspectj.SecuredAspect", "securedAspect$0", registry);
 	}
 
 	private void registerBeanDefinition(String beanName, String aspectClassName, String aspectBeanName,
-			BeanDefinitionRegistry registry) {
+BeanDefinitionRegistry registry) {
 		if (!registry.containsBeanDefinition(beanName)) {
 			return;
 		}

@@ -57,7 +57,7 @@ public final class IpAddressMatcher implements RequestMatcher {
 		}
 		this.requiredAddress = parseAddress(ipAddress);
 		Assert.isTrue(this.requiredAddress.getAddress().length * 8 >= this.nMaskBits,
-				String.format("IP address %s is too short for bitmask of length %d", ipAddress, this.nMaskBits));
+	String.format("IP address %s is too short for bitmask of length %d", ipAddress, this.nMaskBits));
 	}
 
 	@Override

@@ -30,9 +30,9 @@ public class BaseAuthenticationConfig {
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		// @formatter:off
 		auth
-			.inMemoryAuthentication()
-				.withUser("user").password("password").roles("USER").and()
-				.withUser("admin").password("password").roles("USER", "ADMIN");
+	.inMemoryAuthentication()
+	.withUser("user").password("password").roles("USER").and()
+	.withUser("admin").password("password").roles("USER", "ADMIN");
 		// @formatter:on
 	}
 

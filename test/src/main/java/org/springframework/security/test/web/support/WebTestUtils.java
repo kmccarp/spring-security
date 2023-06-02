@@ -84,7 +84,7 @@ public abstract class WebTestUtils {
 	 * @param securityContextRepository the {@link SecurityContextRepository} to set
 	 */
 	public static void setSecurityContextRepository(HttpServletRequest request,
-			SecurityContextRepository securityContextRepository) {
+SecurityContextRepository securityContextRepository) {
 		SecurityContextPersistenceFilter filter = findFilter(request, SecurityContextPersistenceFilter.class);
 		if (filter != null) {
 			ReflectionTestUtils.setField(filter, "repo", securityContextRepository);
@@ -166,7 +166,7 @@ public abstract class WebTestUtils {
 			return result;
 		}
 		WebApplicationContext webApplicationContext = WebApplicationContextUtils
-				.getWebApplicationContext(servletContext);
+	.getWebApplicationContext(servletContext);
 		if (webApplicationContext == null) {
 			return null;
 		}

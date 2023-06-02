@@ -69,7 +69,7 @@ public abstract class AbstractLdapAuthenticator implements LdapAuthenticator, In
 	@Override
 	public void afterPropertiesSet() {
 		Assert.isTrue((this.userDnFormat != null) || (this.userSearch != null),
-				"Either an LdapUserSearch or DN pattern (or both) must be supplied.");
+	"Either an LdapUserSearch or DN pattern (or both) must be supplied.");
 	}
 
 	protected ContextSource getContextSource() {
@@ -92,7 +92,7 @@ public abstract class AbstractLdapAuthenticator implements LdapAuthenticator, In
 			return Collections.emptyList();
 		}
 		List<String> userDns = new ArrayList<>(this.userDnFormat.length);
-		String[] args = new String[] { LdapEncoder.nameEncode(username) };
+		String[] args = new String[]{LdapEncoder.nameEncode(username)};
 		synchronized (this.userDnFormat) {
 			for (MessageFormat formatter : this.userDnFormat) {
 				userDns.add(formatter.format(args));

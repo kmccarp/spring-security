@@ -40,6 +40,6 @@ public interface RequestRejectedHandler {
 	 * @throws ServletException in the event of a ServletException
 	 */
 	void handle(HttpServletRequest request, HttpServletResponse response,
-			RequestRejectedException requestRejectedException) throws IOException, ServletException;
+RequestRejectedException requestRejectedException) throws IOException, ServletException;
 
 }

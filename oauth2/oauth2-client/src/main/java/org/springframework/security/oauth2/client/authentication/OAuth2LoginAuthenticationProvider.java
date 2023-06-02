@@ -81,11 +81,11 @@ public class OAuth2LoginAuthenticationProvider implements AuthenticationProvider
 	 * End-User from the UserInfo Endpoint
 	 */
 	public OAuth2LoginAuthenticationProvider(
-			OAuth2AccessTokenResponseClient<OAuth2AuthorizationCodeGrantRequest> accessTokenResponseClient,
-			OAuth2UserService<OAuth2UserRequest, OAuth2User> userService) {
+OAuth2AccessTokenResponseClient<OAuth2AuthorizationCodeGrantRequest> accessTokenResponseClient,
+OAuth2UserService<OAuth2UserRequest, OAuth2User> userService) {
 		Assert.notNull(userService, "userService cannot be null");
 		this.authorizationCodeAuthenticationProvider = new OAuth2AuthorizationCodeAuthenticationProvider(
-				accessTokenResponseClient);
+	accessTokenResponseClient);
 		this.userService = userService;
 	}
 
@@ -96,7 +96,7 @@ public class OAuth2LoginAuthenticationProvider implements AuthenticationProvider
 		// https://openid.net/specs/openid-connect-core-1_0.html#AuthRequest scope
 		// REQUIRED. OpenID Connect requests MUST contain the "openid" scope value.
 		if (loginAuthenticationToken.getAuthorizationExchange().getAuthorizationRequest().getScopes()
-				.contains("openid")) {
+	.contains("openid")) {
 			// This is an OpenID Connect Authentication Request so return null
 			// and let OidcAuthorizationCodeAuthenticationProvider handle it instead
 			return null;
@@ -104,9 +104,9 @@ public class OAuth2LoginAuthenticationProvider implements AuthenticationProvider
 		OAuth2AuthorizationCodeAuthenticationToken authorizationCodeAuthenticationToken;
 		try {
 			authorizationCodeAuthenticationToken = (OAuth2AuthorizationCodeAuthenticationToken) this.authorizationCodeAuthenticationProvider
-					.authenticate(new OAuth2AuthorizationCodeAuthenticationToken(
-							loginAuthenticationToken.getClientRegistration(),
-							loginAuthenticationToken.getAuthorizationExchange()));
+		.authenticate(new OAuth2AuthorizationCodeAuthenticationToken(
+	loginAuthenticationToken.getClientRegistration(),
+	loginAuthenticationToken.getAuthorizationExchange()));
 		}
 		catch (OAuth2AuthorizationException ex) {
 			OAuth2Error oauth2Error = ex.getError();
@@ -115,12 +115,12 @@ public class OAuth2LoginAuthenticationProvider implements AuthenticationProvider
 		OAuth2AccessToken accessToken = authorizationCodeAuthenticationToken.getAccessToken();
 		Map<String, Object> additionalParameters = authorizationCodeAuthenticationToken.getAdditionalParameters();
 		OAuth2User oauth2User = this.userService.loadUser(new OAuth2UserRequest(
-				loginAuthenticationToken.getClientRegistration(), accessToken, additionalParameters));
+	loginAuthenticationToken.getClientRegistration(), accessToken, additionalParameters));
 		Collection<? extends GrantedAuthority> mappedAuthorities = this.authoritiesMapper
-				.mapAuthorities(oauth2User.getAuthorities());
+	.mapAuthorities(oauth2User.getAuthorities());
 		OAuth2LoginAuthenticationToken authenticationResult = new OAuth2LoginAuthenticationToken(
-				loginAuthenticationToken.getClientRegistration(), loginAuthenticationToken.getAuthorizationExchange(),
-				oauth2User, mappedAuthorities, accessToken, authorizationCodeAuthenticationToken.getRefreshToken());
+	loginAuthenticationToken.getClientRegistration(), loginAuthenticationToken.getAuthorizationExchange(),
+	oauth2User, mappedAuthorities, accessToken, authorizationCodeAuthenticationToken.getRefreshToken());
 		authenticationResult.setDetails(loginAuthenticationToken.getDetails());
 		return authenticationResult;
 	}

@@ -36,25 +36,25 @@ public class PreAuthenticatedAuthenticationTokenMixinTests extends AbstractMixin
 
 	// @formatter:off
 	private static final String PREAUTH_JSON = "{"
-		+ "\"@class\": \"org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken\","
-		+ "\"principal\": \"principal\", "
-		+ "\"credentials\": \"credentials\", "
-		+ "\"authenticated\": true, "
-		+ "\"details\": null, "
-		+ "\"authorities\": " + SimpleGrantedAuthorityMixinTests.AUTHORITIES_ARRAYLIST_JSON
-	+ "}";
++ "\"@class\": \"org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken\","
++ "\"principal\": \"principal\", "
++ "\"credentials\": \"credentials\", "
++ "\"authenticated\": true, "
++ "\"details\": null, "
++ "\"authorities\": " + SimpleGrantedAuthorityMixinTests.AUTHORITIES_ARRAYLIST_JSON
++ "}";
 	// @formatter:on
 	PreAuthenticatedAuthenticationToken expected;
 
 	@BeforeEach
 	public void setupExpected() {
 		this.expected = new PreAuthenticatedAuthenticationToken("principal", "credentials",
-				AuthorityUtils.createAuthorityList("ROLE_USER"));
+	AuthorityUtils.createAuthorityList("ROLE_USER"));
 	}
 
 	@Test
 	public void serializeWhenPrincipalCredentialsAuthoritiesThenSuccess()
-			throws JsonProcessingException, JSONException {
+throws JsonProcessingException, JSONException {
 		String serializedJson = this.mapper.writeValueAsString(this.expected);
 		JSONAssert.assertEquals(PREAUTH_JSON, serializedJson, true);
 	}
@@ -62,7 +62,7 @@ public class PreAuthenticatedAuthenticationTokenMixinTests extends AbstractMixin
 	@Test
 	public void deserializeAuthenticatedUsernamePasswordAuthenticationTokenMixinTest() throws Exception {
 		PreAuthenticatedAuthenticationToken deserialized = this.mapper.readValue(PREAUTH_JSON,
-				PreAuthenticatedAuthenticationToken.class);
+	PreAuthenticatedAuthenticationToken.class);
 		assertThat(deserialized).isNotNull();
 		assertThat(deserialized.isAuthenticated()).isTrue();
 		assertThat(deserialized.getAuthorities()).isEqualTo(this.expected.getAuthorities());

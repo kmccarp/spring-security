@@ -68,14 +68,14 @@ public class AclEntryAfterInvocationCollectionFilteringProvider extends Abstract
 	protected static final Log logger = LogFactory.getLog(AclEntryAfterInvocationCollectionFilteringProvider.class);
 
 	public AclEntryAfterInvocationCollectionFilteringProvider(AclService aclService,
-			List<Permission> requirePermission) {
+List<Permission> requirePermission) {
 		super(aclService, "AFTER_ACL_COLLECTION_READ", requirePermission);
 	}
 
 	@Override
 	@SuppressWarnings("unchecked")
 	public Object decide(Authentication authentication, Object object, Collection<ConfigAttribute> config,
-			Object returnedObject) throws AccessDeniedException {
+Object returnedObject) throws AccessDeniedException {
 		if (returnedObject == null) {
 			logger.debug("Return object is null, skipping");
 			return null;
@@ -114,7 +114,7 @@ public class AclEntryAfterInvocationCollectionFilteringProvider extends Abstract
 			return new ArrayFilterer((Object[]) returnedObject);
 		}
 		throw new AuthorizationServiceException("A Collection or an array (or null) was required as the "
-				+ "returnedObject, but the returnedObject was: " + returnedObject);
+	+ "returnedObject, but the returnedObject was: " + returnedObject);
 	}
 
 }

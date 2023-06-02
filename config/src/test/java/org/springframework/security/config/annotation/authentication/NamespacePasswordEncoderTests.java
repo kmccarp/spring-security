@@ -77,9 +77,9 @@ public class NamespacePasswordEncoderTests {
 			BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 			// @formatter:off
 			auth
-				.inMemoryAuthentication()
-				.withUser("user").password(encoder.encode("password")).roles("USER").and()
-				.passwordEncoder(encoder);
+		.inMemoryAuthentication()
+		.withUser("user").password(encoder.encode("password")).roles("USER").and()
+		.passwordEncoder(encoder);
 			// @formatter:on
 		}
 
@@ -94,11 +94,11 @@ public class NamespacePasswordEncoderTests {
 			BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 			// @formatter:off
 			auth
-				.jdbcAuthentication()
-				.withDefaultSchema()
-				.dataSource(dataSource())
-				.withUser("user").password(encoder.encode("password")).roles("USER").and()
-				.passwordEncoder(encoder);
+		.jdbcAuthentication()
+		.withDefaultSchema()
+		.dataSource(dataSource())
+		.withUser("user").password(encoder.encode("password")).roles("USER").and()
+		.passwordEncoder(encoder);
 			// @formatter:on
 		}
 
@@ -119,16 +119,16 @@ public class NamespacePasswordEncoderTests {
 			BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 			// @formatter:off
 			UserDetails user = User.withUsername("user")
-				.passwordEncoder(encoder::encode)
-				.password("password")
-				.roles("USER")
-				.build();
+		.passwordEncoder(encoder::encode)
+		.password("password")
+		.roles("USER")
+		.build();
 			// @formatter:on
 			InMemoryUserDetailsManager uds = new InMemoryUserDetailsManager(user);
 			// @formatter:off
 			auth
-				.userDetailsService(uds)
-				.passwordEncoder(encoder);
+		.userDetailsService(uds)
+		.passwordEncoder(encoder);
 			// @formatter:on
 		}
 

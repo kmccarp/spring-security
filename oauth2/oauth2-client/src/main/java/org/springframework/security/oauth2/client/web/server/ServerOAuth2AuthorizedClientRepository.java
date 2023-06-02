@@ -55,7 +55,7 @@ public interface ServerOAuth2AuthorizedClientRepository {
 	 * @return the {@link OAuth2AuthorizedClient} or {@code null} if not available
 	 */
 	<T extends OAuth2AuthorizedClient> Mono<T> loadAuthorizedClient(String clientRegistrationId,
-			Authentication principal, ServerWebExchange exchange);
+Authentication principal, ServerWebExchange exchange);
 
 	/**
 	 * Saves the {@link OAuth2AuthorizedClient} associating it to the provided End-User
@@ -65,7 +65,7 @@ public interface ServerOAuth2AuthorizedClientRepository {
 	 * @param exchange the {@code ServerWebExchange}
 	 */
 	Mono<Void> saveAuthorizedClient(OAuth2AuthorizedClient authorizedClient, Authentication principal,
-			ServerWebExchange exchange);
+ServerWebExchange exchange);
 
 	/**
 	 * Removes the {@link OAuth2AuthorizedClient} associated to the provided client
@@ -75,6 +75,6 @@ public interface ServerOAuth2AuthorizedClientRepository {
 	 * @param exchange the {@code ServerWebExchange}
 	 */
 	Mono<Void> removeAuthorizedClient(String clientRegistrationId, Authentication principal,
-			ServerWebExchange exchange);
+ServerWebExchange exchange);
 
 }

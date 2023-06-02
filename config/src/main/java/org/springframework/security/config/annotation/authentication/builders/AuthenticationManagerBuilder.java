@@ -49,9 +49,7 @@ import org.springframework.util.Assert;
  * @author Rob Winch
  * @since 3.2
  */
-public class AuthenticationManagerBuilder
-		extends AbstractConfiguredSecurityBuilder<AuthenticationManager, AuthenticationManagerBuilder>
-		implements ProviderManagerBuilder<AuthenticationManagerBuilder> {
+public class AuthenticationManagerBuilderextends AbstractConfiguredSecurityBuilder<AuthenticationManager, AuthenticationManagerBuilder>implements ProviderManagerBuilder<AuthenticationManagerBuilder> {
 
 	private final Log logger = LogFactory.getLog(getClass());
 
@@ -128,7 +126,7 @@ public class AuthenticationManagerBuilder
 	 * @throws Exception if an error occurs when adding the in memory authentication
 	 */
 	public InMemoryUserDetailsManagerConfigurer<AuthenticationManagerBuilder> inMemoryAuthentication()
-			throws Exception {
+throws Exception {
 		return apply(new InMemoryUserDetailsManagerConfigurer<>());
 	}
 
@@ -177,7 +175,7 @@ public class AuthenticationManagerBuilder
 	 * based authentication
 	 */
 	public <T extends UserDetailsService> DaoAuthenticationConfigurer<AuthenticationManagerBuilder, T> userDetailsService(
-			T userDetailsService) throws Exception {
+T userDetailsService) throws Exception {
 		this.defaultUserDetailsService = userDetailsService;
 		return apply(new DaoAuthenticationConfigurer<>(userDetailsService));
 	}
@@ -226,7 +224,7 @@ public class AuthenticationManagerBuilder
 			return null;
 		}
 		ProviderManager providerManager = new ProviderManager(this.authenticationProviders,
-				this.parentAuthenticationManager);
+	this.parentAuthenticationManager);
 		if (this.eraseCredentials != null) {
 			providerManager.setEraseCredentialsAfterAuthentication(this.eraseCredentials);
 		}
@@ -275,7 +273,7 @@ public class AuthenticationManagerBuilder
 	 * @throws Exception if an error occurs
 	 */
 	private <C extends UserDetailsAwareConfigurer<AuthenticationManagerBuilder, ? extends UserDetailsService>> C apply(
-			C configurer) throws Exception {
+C configurer) throws Exception {
 		this.defaultUserDetailsService = configurer.getUserDetailsService();
 		return super.apply(configurer);
 	}

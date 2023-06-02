@@ -65,7 +65,7 @@ public class OAuth2LoginAuthenticationToken extends AbstractAuthenticationToken 
 	 * @param authorizationExchange the authorization exchange
 	 */
 	public OAuth2LoginAuthenticationToken(ClientRegistration clientRegistration,
-			OAuth2AuthorizationExchange authorizationExchange) {
+OAuth2AuthorizationExchange authorizationExchange) {
 		super(Collections.emptyList());
 		Assert.notNull(clientRegistration, "clientRegistration cannot be null");
 		Assert.notNull(authorizationExchange, "authorizationExchange cannot be null");
@@ -85,8 +85,8 @@ public class OAuth2LoginAuthenticationToken extends AbstractAuthenticationToken 
 	 * @param accessToken the access token credential
 	 */
 	public OAuth2LoginAuthenticationToken(ClientRegistration clientRegistration,
-			OAuth2AuthorizationExchange authorizationExchange, OAuth2User principal,
-			Collection<? extends GrantedAuthority> authorities, OAuth2AccessToken accessToken) {
+OAuth2AuthorizationExchange authorizationExchange, OAuth2User principal,
+Collection<? extends GrantedAuthority> authorities, OAuth2AccessToken accessToken) {
 		this(clientRegistration, authorizationExchange, principal, authorities, accessToken, null);
 	}
 
@@ -102,9 +102,9 @@ public class OAuth2LoginAuthenticationToken extends AbstractAuthenticationToken 
 	 * @param refreshToken the refresh token credential
 	 */
 	public OAuth2LoginAuthenticationToken(ClientRegistration clientRegistration,
-			OAuth2AuthorizationExchange authorizationExchange, OAuth2User principal,
-			Collection<? extends GrantedAuthority> authorities, OAuth2AccessToken accessToken,
-			@Nullable OAuth2RefreshToken refreshToken) {
+OAuth2AuthorizationExchange authorizationExchange, OAuth2User principal,
+Collection<? extends GrantedAuthority> authorities, OAuth2AccessToken accessToken,
+@Nullable OAuth2RefreshToken refreshToken) {
 		super(authorities);
 		Assert.notNull(clientRegistration, "clientRegistration cannot be null");
 		Assert.notNull(authorizationExchange, "authorizationExchange cannot be null");

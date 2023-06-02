@@ -60,7 +60,7 @@ public final class OAuth2AuthorizedClientId implements Serializable {
 		}
 		OAuth2AuthorizedClientId that = (OAuth2AuthorizedClientId) obj;
 		return Objects.equals(this.clientRegistrationId, that.clientRegistrationId)
-				&& Objects.equals(this.principalName, that.principalName);
+	&& Objects.equals(this.principalName, that.principalName);
 	}
 
 	@Override

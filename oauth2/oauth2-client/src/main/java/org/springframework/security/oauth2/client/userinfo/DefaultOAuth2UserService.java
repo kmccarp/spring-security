@@ -88,20 +88,20 @@ public class DefaultOAuth2UserService implements OAuth2UserService<OAuth2UserReq
 	public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
 		Assert.notNull(userRequest, "userRequest cannot be null");
 		if (!StringUtils
-				.hasText(userRequest.getClientRegistration().getProviderDetails().getUserInfoEndpoint().getUri())) {
+	.hasText(userRequest.getClientRegistration().getProviderDetails().getUserInfoEndpoint().getUri())) {
 			OAuth2Error oauth2Error = new OAuth2Error(MISSING_USER_INFO_URI_ERROR_CODE,
-					"Missing required UserInfo Uri in UserInfoEndpoint for Client Registration: "
-							+ userRequest.getClientRegistration().getRegistrationId(),
-					null);
+		"Missing required UserInfo Uri in UserInfoEndpoint for Client Registration: "
+	+ userRequest.getClientRegistration().getRegistrationId(),
+		null);
 			throw new OAuth2AuthenticationException(oauth2Error, oauth2Error.toString());
 		}
 		String userNameAttributeName = userRequest.getClientRegistration().getProviderDetails().getUserInfoEndpoint()
-				.getUserNameAttributeName();
+	.getUserNameAttributeName();
 		if (!StringUtils.hasText(userNameAttributeName)) {
 			OAuth2Error oauth2Error = new OAuth2Error(MISSING_USER_NAME_ATTRIBUTE_ERROR_CODE,
-					"Missing required \"user name\" attribute name in UserInfoEndpoint for Client Registration: "
-							+ userRequest.getClientRegistration().getRegistrationId(),
-					null);
+		"Missing required \"user name\" attribute name in UserInfoEndpoint for Client Registration: "
+	+ userRequest.getClientRegistration().getRegistrationId(),
+		null);
 			throw new OAuth2AuthenticationException(oauth2Error, oauth2Error.toString());
 		}
 		RequestEntity<?> request = this.requestEntityConverter.convert(userRequest);
@@ -125,32 +125,32 @@ public class DefaultOAuth2UserService implements OAuth2UserService<OAuth2UserReq
 			StringBuilder errorDetails = new StringBuilder();
 			errorDetails.append("Error details: [");
 			errorDetails.append("UserInfo Uri: ")
-					.append(userRequest.getClientRegistration().getProviderDetails().getUserInfoEndpoint().getUri());
+		.append(userRequest.getClientRegistration().getProviderDetails().getUserInfoEndpoint().getUri());
 			errorDetails.append(", Error Code: ").append(oauth2Error.getErrorCode());
 			if (oauth2Error.getDescription() != null) {
 				errorDetails.append(", Error Description: ").append(oauth2Error.getDescription());
 			}
 			errorDetails.append("]");
 			oauth2Error = new OAuth2Error(INVALID_USER_INFO_RESPONSE_ERROR_CODE,
-					"An error occurred while attempting to retrieve the UserInfo Resource: " + errorDetails.toString(),
-					null);
+		"An error occurred while attempting to retrieve the UserInfo Resource: " + errorDetails.toString(),
+		null);
 			throw new OAuth2AuthenticationException(oauth2Error, oauth2Error.toString(), ex);
 		}
 		catch (UnknownContentTypeException ex) {
 			String errorMessage = "An error occurred while attempting to retrieve the UserInfo Resource from '"
-					+ userRequest.getClientRegistration().getProviderDetails().getUserInfoEndpoint().getUri()
-					+ "': response contains invalid content type '" + ex.getContentType().toString() + "'. "
-					+ "The UserInfo Response should return a JSON object (content type 'application/json') "
-					+ "that contains a collection of name and value pairs of the claims about the authenticated End-User. "
-					+ "Please ensure the UserInfo Uri in UserInfoEndpoint for Client Registration '"
-					+ userRequest.getClientRegistration().getRegistrationId() + "' conforms to the UserInfo Endpoint, "
-					+ "as defined in OpenID Connect 1.0: 'https://openid.net/specs/openid-connect-core-1_0.html#UserInfo'";
+		+ userRequest.getClientRegistration().getProviderDetails().getUserInfoEndpoint().getUri()
+		+ "': response contains invalid content type '" + ex.getContentType().toString() + "'. "
+		+ "The UserInfo Response should return a JSON object (content type 'application/json') "
+		+ "that contains a collection of name and value pairs of the claims about the authenticated End-User. "
+		+ "Please ensure the UserInfo Uri in UserInfoEndpoint for Client Registration '"
+		+ userRequest.getClientRegistration().getRegistrationId() + "' conforms to the UserInfo Endpoint, "
+		+ "as defined in OpenID Connect 1.0: 'https://openid.net/specs/openid-connect-core-1_0.html#UserInfo'";
 			OAuth2Error oauth2Error = new OAuth2Error(INVALID_USER_INFO_RESPONSE_ERROR_CODE, errorMessage, null);
 			throw new OAuth2AuthenticationException(oauth2Error, oauth2Error.toString(), ex);
 		}
 		catch (RestClientException ex) {
 			OAuth2Error oauth2Error = new OAuth2Error(INVALID_USER_INFO_RESPONSE_ERROR_CODE,
-					"An error occurred while attempting to retrieve the UserInfo Resource: " + ex.getMessage(), null);
+		"An error occurred while attempting to retrieve the UserInfo Resource: " + ex.getMessage(), null);
 			throw new OAuth2AuthenticationException(oauth2Error, oauth2Error.toString(), ex);
 		}
 	}

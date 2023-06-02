@@ -68,6 +68,7 @@ public final class ReactiveOidcIdTokenDecoderFactory implements ReactiveJwtDecod
 	private static final String MISSING_SIGNATURE_VERIFIER_ERROR_CODE = "missing_signature_verifier";
 
 	private static final Map<JwsAlgorithm, String> JCA_ALGORITHM_MAPPINGS;
+
 	static {
 		Map<JwsAlgorithm, String> mappings = new HashMap<JwsAlgorithm, String>();
 		mappings.put(MacAlgorithm.HS256, "HmacSHA256");
@@ -77,17 +78,17 @@ public final class ReactiveOidcIdTokenDecoderFactory implements ReactiveJwtDecod
 	}
 
 	private static final ClaimTypeConverter DEFAULT_CLAIM_TYPE_CONVERTER = new ClaimTypeConverter(
-			createDefaultClaimTypeConverters());
+createDefaultClaimTypeConverters());
 
 	private final Map<String, ReactiveJwtDecoder> jwtDecoders = new ConcurrentHashMap<>();
 
 	private Function<ClientRegistration, OAuth2TokenValidator<Jwt>> jwtValidatorFactory = new DefaultOidcIdTokenValidatorFactory();
 
 	private Function<ClientRegistration, JwsAlgorithm> jwsAlgorithmResolver = (
-			clientRegistration) -> SignatureAlgorithm.RS256;
+clientRegistration) -> SignatureAlgorithm.RS256;
 
 	private Function<ClientRegistration, Converter<Map<String, Object>, Map<String, Object>>> claimTypeConverterFactory = (
-			clientRegistration) -> DEFAULT_CLAIM_TYPE_CONVERTER;
+clientRegistration) -> DEFAULT_CLAIM_TYPE_CONVERTER;
 
 	/**
 	 * Returns the default {@link Converter}'s used for type conversion of claim values
@@ -101,7 +102,7 @@ public final class ReactiveOidcIdTokenDecoderFactory implements ReactiveJwtDecod
 		Converter<Object, ?> urlConverter = getConverter(TypeDescriptor.valueOf(URL.class));
 		Converter<Object, ?> stringConverter = getConverter(TypeDescriptor.valueOf(String.class));
 		Converter<Object, ?> collectionStringConverter = getConverter(
-				TypeDescriptor.collection(Collection.class, TypeDescriptor.valueOf(String.class)));
+	TypeDescriptor.collection(Collection.class, TypeDescriptor.valueOf(String.class)));
 		Map<String, Converter<Object, ?>> converters = new HashMap<>();
 		converters.put(IdTokenClaimNames.ISS, urlConverter);
 		converters.put(IdTokenClaimNames.AUD, collectionStringConverter);
@@ -119,7 +120,7 @@ public final class ReactiveOidcIdTokenDecoderFactory implements ReactiveJwtDecod
 	private static Converter<Object, ?> getConverter(TypeDescriptor targetDescriptor) {
 		final TypeDescriptor sourceDescriptor = TypeDescriptor.valueOf(Object.class);
 		return (source) -> ClaimConversionService.getSharedInstance().convert(source, sourceDescriptor,
-				targetDescriptor);
+	targetDescriptor);
 	}
 
 	@Override
@@ -129,7 +130,7 @@ public final class ReactiveOidcIdTokenDecoderFactory implements ReactiveJwtDecod
 			NimbusReactiveJwtDecoder jwtDecoder = buildDecoder(clientRegistration);
 			jwtDecoder.setJwtValidator(this.jwtValidatorFactory.apply(clientRegistration));
 			Converter<Map<String, Object>, Map<String, Object>> claimTypeConverter = this.claimTypeConverterFactory
-					.apply(clientRegistration);
+		.apply(clientRegistration);
 			if (claimTypeConverter != null) {
 				jwtDecoder.setClaimSetConverter(claimTypeConverter);
 			}
@@ -157,14 +158,14 @@ public final class ReactiveOidcIdTokenDecoderFactory implements ReactiveJwtDecod
 			String jwkSetUri = clientRegistration.getProviderDetails().getJwkSetUri();
 			if (!StringUtils.hasText(jwkSetUri)) {
 				OAuth2Error oauth2Error = new OAuth2Error(MISSING_SIGNATURE_VERIFIER_ERROR_CODE,
-						"Failed to find a Signature Verifier for Client Registration: '"
-								+ clientRegistration.getRegistrationId()
-								+ "'. Check to ensure you have configured the JwkSet URI.",
-						null);
+			"Failed to find a Signature Verifier for Client Registration: '"
+		+ clientRegistration.getRegistrationId()
+		+ "'. Check to ensure you have configured the JwkSet URI.",
+			null);
 				throw new OAuth2AuthenticationException(oauth2Error, oauth2Error.toString());
 			}
 			return NimbusReactiveJwtDecoder.withJwkSetUri(jwkSetUri).jwsAlgorithm((SignatureAlgorithm) jwsAlgorithm)
-					.build();
+		.build();
 		}
 		if (jwsAlgorithm != null && MacAlgorithm.class.isAssignableFrom(jwsAlgorithm.getClass())) {
 			// https://openid.net/specs/openid-connect-core-1_0.html#IDTokenValidation
@@ -181,22 +182,22 @@ public final class ReactiveOidcIdTokenDecoderFactory implements ReactiveJwtDecod
 			String clientSecret = clientRegistration.getClientSecret();
 			if (!StringUtils.hasText(clientSecret)) {
 				OAuth2Error oauth2Error = new OAuth2Error(MISSING_SIGNATURE_VERIFIER_ERROR_CODE,
-						"Failed to find a Signature Verifier for Client Registration: '"
-								+ clientRegistration.getRegistrationId()
-								+ "'. Check to ensure you have configured the client secret.",
-						null);
+			"Failed to find a Signature Verifier for Client Registration: '"
+		+ clientRegistration.getRegistrationId()
+		+ "'. Check to ensure you have configured the client secret.",
+			null);
 				throw new OAuth2AuthenticationException(oauth2Error, oauth2Error.toString());
 			}
 			SecretKeySpec secretKeySpec = new SecretKeySpec(clientSecret.getBytes(StandardCharsets.UTF_8),
-					JCA_ALGORITHM_MAPPINGS.get(jwsAlgorithm));
+		JCA_ALGORITHM_MAPPINGS.get(jwsAlgorithm));
 			return NimbusReactiveJwtDecoder.withSecretKey(secretKeySpec).macAlgorithm((MacAlgorithm) jwsAlgorithm)
-					.build();
+		.build();
 		}
 		OAuth2Error oauth2Error = new OAuth2Error(MISSING_SIGNATURE_VERIFIER_ERROR_CODE,
-				"Failed to find a Signature Verifier for Client Registration: '"
-						+ clientRegistration.getRegistrationId()
-						+ "'. Check to ensure you have configured a valid JWS Algorithm: '" + jwsAlgorithm + "'",
-				null);
+	"Failed to find a Signature Verifier for Client Registration: '"
++ clientRegistration.getRegistrationId()
++ "'. Check to ensure you have configured a valid JWS Algorithm: '" + jwsAlgorithm + "'",
+	null);
 		throw new OAuth2AuthenticationException(oauth2Error, oauth2Error.toString());
 	}
 
@@ -234,7 +235,7 @@ public final class ReactiveOidcIdTokenDecoderFactory implements ReactiveJwtDecod
 	 * client}
 	 */
 	public void setClaimTypeConverterFactory(
-			Function<ClientRegistration, Converter<Map<String, Object>, Map<String, Object>>> claimTypeConverterFactory) {
+Function<ClientRegistration, Converter<Map<String, Object>, Map<String, Object>>> claimTypeConverterFactory) {
 		Assert.notNull(claimTypeConverterFactory, "claimTypeConverterFactory cannot be null");
 		this.claimTypeConverterFactory = claimTypeConverterFactory;
 	}

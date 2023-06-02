@@ -79,9 +79,9 @@ public class JdbcAclServiceTests {
 	public void setUp() {
 		// @formatter:off
 		this.embeddedDatabase = new EmbeddedDatabaseBuilder()
-			.addScript("createAclSchemaWithAclClassIdType.sql")
-			.addScript("db/sql/test_data_hierarchy.sql")
-			.build();
+	.addScript("createAclSchemaWithAclClassIdType.sql")
+	.addScript("db/sql/test_data_hierarchy.sql")
+	.build();
 		// @formatter:on
 
 		this.aclService = new JdbcAclService(this.jdbcOperations, this.lookupStrategy);
@@ -101,14 +101,14 @@ public class JdbcAclServiceTests {
 		ObjectIdentity objectIdentity = new ObjectIdentityImpl(Object.class, 1);
 		List<Sid> sids = Arrays.<Sid>asList(new PrincipalSid("user"));
 		assertThatExceptionOfType(NotFoundException.class)
-				.isThrownBy(() -> this.aclService.readAclById(objectIdentity, sids));
+	.isThrownBy(() -> this.aclService.readAclById(objectIdentity, sids));
 	}
 
 	@Test
 	public void findOneChildren() {
 		List<ObjectIdentity> result = new ArrayList<>();
 		result.add(new ObjectIdentityImpl(Object.class, "5577"));
-		Object[] args = { "1", "org.springframework.security.acls.jdbc.JdbcAclServiceTests$MockLongIdDomainObject" };
+		Object[] args = {"1", "org.springframework.security.acls.jdbc.JdbcAclServiceTests$MockLongIdDomainObject"};
 		given(this.jdbcOperations.query(anyString(), eq(args), any(RowMapper.class))).willReturn(result);
 		ObjectIdentity objectIdentity = new ObjectIdentityImpl(MockLongIdDomainObject.class, 1L);
 		List<ObjectIdentity> objectIdentities = this.aclService.findChildren(objectIdentity);
@@ -168,20 +168,20 @@ public class JdbcAclServiceTests {
 		assertThat(objectIdentities.size()).isEqualTo(1);
 		assertThat(objectIdentities.get(0).getType()).isEqualTo("costcenter");
 		assertThat(objectIdentities.get(0).getIdentifier())
-				.isEqualTo(UUID.fromString("25d93b3f-c3aa-4814-9d5e-c7c96ced7762"));
+	.isEqualTo(UUID.fromString("25d93b3f-c3aa-4814-9d5e-c7c96ced7762"));
 	}
 
 	@Test
 	public void setObjectIdentityGeneratorWhenNullThenThrowsIllegalArgumentException() {
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> this.aclServiceIntegration.setObjectIdentityGenerator(null))
-				.withMessage("objectIdentityGenerator cannot be null");
+	.isThrownBy(() -> this.aclServiceIntegration.setObjectIdentityGenerator(null))
+	.withMessage("objectIdentityGenerator cannot be null");
 	}
 
 	@Test
 	public void findChildrenWhenObjectIdentityGeneratorSetThenUsed() {
 		this.aclServiceIntegration
-				.setObjectIdentityGenerator((id, type) -> new ObjectIdentityImpl(type, "prefix:" + id));
+	.setObjectIdentityGenerator((id, type) -> new ObjectIdentityImpl(type, "prefix:" + id));
 
 		ObjectIdentity objectIdentity = new ObjectIdentityImpl("location", "US");
 		this.aclServiceIntegration.setAclClassIdSupported(true);

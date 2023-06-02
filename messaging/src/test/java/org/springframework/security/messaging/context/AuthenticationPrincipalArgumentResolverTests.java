@@ -100,14 +100,14 @@ public class AuthenticationPrincipalArgumentResolverTests {
 	public void resolveArgumentUserDetails() throws Exception {
 		setAuthenticationPrincipal(new User("user", "password", AuthorityUtils.createAuthorityList("ROLE_USER")));
 		assertThat(this.resolver.resolveArgument(showUserAnnotationUserDetails(), null))
-				.isEqualTo(this.expectedPrincipal);
+	.isEqualTo(this.expectedPrincipal);
 	}
 
 	@Test
 	public void resolveArgumentCustomUserPrincipal() throws Exception {
 		setAuthenticationPrincipal(new CustomUserPrincipal());
 		assertThat(this.resolver.resolveArgument(showUserAnnotationCustomUserPrincipal(), null))
-				.isEqualTo(this.expectedPrincipal);
+	.isEqualTo(this.expectedPrincipal);
 	}
 
 	@Test
@@ -151,14 +151,14 @@ public class AuthenticationPrincipalArgumentResolverTests {
 	public void resolveArgumentErrorOnInvalidType() throws Exception {
 		setAuthenticationPrincipal(new CustomUserPrincipal());
 		assertThatExceptionOfType(ClassCastException.class)
-				.isThrownBy(() -> this.resolver.resolveArgument(showUserAnnotationErrorOnInvalidType(), null));
+	.isThrownBy(() -> this.resolver.resolveArgument(showUserAnnotationErrorOnInvalidType(), null));
 	}
 
 	@Test
 	public void resolveArgumentCustomserErrorOnInvalidType() throws Exception {
 		setAuthenticationPrincipal(new CustomUserPrincipal());
 		assertThatExceptionOfType(ClassCastException.class).isThrownBy(
-				() -> this.resolver.resolveArgument(showUserAnnotationCurrentUserErrorOnInvalidType(), null));
+	() -> this.resolver.resolveArgument(showUserAnnotationCurrentUserErrorOnInvalidType(), null));
 	}
 
 	@Test
@@ -219,17 +219,17 @@ public class AuthenticationPrincipalArgumentResolverTests {
 	private void setAuthenticationPrincipal(Object principal) {
 		this.expectedPrincipal = principal;
 		SecurityContextHolder.getContext()
-				.setAuthentication(new TestingAuthenticationToken(this.expectedPrincipal, "password", "ROLE_USER"));
+	.setAuthentication(new TestingAuthenticationToken(this.expectedPrincipal, "password", "ROLE_USER"));
 	}
 
-	@Target({ ElementType.PARAMETER })
+	@Target({ElementType.PARAMETER})
 	@Retention(RetentionPolicy.RUNTIME)
 	@AuthenticationPrincipal
 	static @interface CurrentUser {
 
 	}
 
-	@Target({ ElementType.PARAMETER })
+	@Target({ElementType.PARAMETER})
 	@Retention(RetentionPolicy.RUNTIME)
 	@AuthenticationPrincipal(errorOnInvalidType = true)
 	static @interface CurrentUserErrorOnInvalidType {
@@ -245,7 +245,7 @@ public class AuthenticationPrincipalArgumentResolverTests {
 		}
 
 		public void showUserAnnotationErrorOnInvalidType(
-				@AuthenticationPrincipal(errorOnInvalidType = true) String user) {
+	@AuthenticationPrincipal(errorOnInvalidType = true) String user) {
 		}
 
 		public void showUserAnnotationCurrentUserErrorOnInvalidType(@CurrentUserErrorOnInvalidType String user) {
@@ -267,7 +267,7 @@ public class AuthenticationPrincipalArgumentResolverTests {
 		}
 
 		public void showUserSpelCopy(@AuthenticationPrincipal(
-				expression = "new org.springframework.security.messaging.context.AuthenticationPrincipalArgumentResolverTests$CopyUserPrincipal(#this)") CopyUserPrincipal user) {
+	expression = "new org.springframework.security.messaging.context.AuthenticationPrincipalArgumentResolverTests$CopyUserPrincipal(#this)") CopyUserPrincipal user) {
 		}
 
 		public void showUserSpelPrimitive(@AuthenticationPrincipal(expression = "id") int id) {

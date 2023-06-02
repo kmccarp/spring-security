@@ -44,8 +44,7 @@ import org.springframework.util.Assert;
  * @see AbstractHttpMessageConverter
  * @see OAuth2AccessTokenResponse
  */
-public class OAuth2AccessTokenResponseHttpMessageConverter
-		extends AbstractHttpMessageConverter<OAuth2AccessTokenResponse> {
+public class OAuth2AccessTokenResponseHttpMessageConverterextends AbstractHttpMessageConverter<OAuth2AccessTokenResponse> {
 
 	private static final Charset DEFAULT_CHARSET = StandardCharsets.UTF_8;
 
@@ -70,31 +69,31 @@ public class OAuth2AccessTokenResponseHttpMessageConverter
 	@Override
 	@SuppressWarnings("unchecked")
 	protected OAuth2AccessTokenResponse readInternal(Class<? extends OAuth2AccessTokenResponse> clazz,
-			HttpInputMessage inputMessage) throws HttpMessageNotReadableException {
+HttpInputMessage inputMessage) throws HttpMessageNotReadableException {
 		try {
 			Map<String, Object> tokenResponseParameters = (Map<String, Object>) this.jsonMessageConverter
-					.read(STRING_OBJECT_MAP.getType(), null, inputMessage);
+		.read(STRING_OBJECT_MAP.getType(), null, inputMessage);
 			return this.accessTokenResponseConverter.convert(tokenResponseParameters);
 		}
 		catch (Exception ex) {
 			throw new HttpMessageNotReadableException(
-					"An error occurred reading the OAuth 2.0 Access Token Response: " + ex.getMessage(), ex,
-					inputMessage);
+		"An error occurred reading the OAuth 2.0 Access Token Response: " + ex.getMessage(), ex,
+		inputMessage);
 		}
 	}
 
 	@Override
 	protected void writeInternal(OAuth2AccessTokenResponse tokenResponse, HttpOutputMessage outputMessage)
-			throws HttpMessageNotWritableException {
+throws HttpMessageNotWritableException {
 		try {
 			Map<String, Object> tokenResponseParameters = this.accessTokenResponseParametersConverter
-					.convert(tokenResponse);
+		.convert(tokenResponse);
 			this.jsonMessageConverter.write(tokenResponseParameters, STRING_OBJECT_MAP.getType(),
-					MediaType.APPLICATION_JSON, outputMessage);
+		MediaType.APPLICATION_JSON, outputMessage);
 		}
 		catch (Exception ex) {
 			throw new HttpMessageNotWritableException(
-					"An error occurred writing the OAuth 2.0 Access Token Response: " + ex.getMessage(), ex);
+		"An error occurred writing the OAuth 2.0 Access Token Response: " + ex.getMessage(), ex);
 		}
 	}
 
@@ -106,7 +105,7 @@ public class OAuth2AccessTokenResponseHttpMessageConverter
 	 * @since 5.6
 	 */
 	public final void setAccessTokenResponseConverter(
-			Converter<Map<String, Object>, OAuth2AccessTokenResponse> accessTokenResponseConverter) {
+Converter<Map<String, Object>, OAuth2AccessTokenResponse> accessTokenResponseConverter) {
 		Assert.notNull(accessTokenResponseConverter, "accessTokenResponseConverter cannot be null");
 		this.accessTokenResponseConverter = accessTokenResponseConverter;
 	}
@@ -120,7 +119,7 @@ public class OAuth2AccessTokenResponseHttpMessageConverter
 	 * @since 5.6
 	 */
 	public final void setAccessTokenResponseParametersConverter(
-			Converter<OAuth2AccessTokenResponse, Map<String, Object>> accessTokenResponseParametersConverter) {
+Converter<OAuth2AccessTokenResponse, Map<String, Object>> accessTokenResponseParametersConverter) {
 		Assert.notNull(accessTokenResponseParametersConverter, "accessTokenResponseParametersConverter cannot be null");
 		this.accessTokenResponseParametersConverter = accessTokenResponseParametersConverter;
 	}

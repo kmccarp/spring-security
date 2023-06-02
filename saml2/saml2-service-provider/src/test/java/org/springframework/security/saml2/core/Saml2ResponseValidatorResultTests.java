@@ -76,9 +76,8 @@ public class Saml2ResponseValidatorResultTests {
 	public void concatErrorWhenNullThenIllegalArgument() {
 		// @formatter:off
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> Saml2ResponseValidatorResult.failure(DETAIL)
-						.concat((Saml2Error) null)
-				);
+	.isThrownBy(() -> Saml2ResponseValidatorResult.failure(DETAIL).concat((Saml2Error) null)
+	);
 		// @formatter:on
 	}
 
@@ -86,9 +85,8 @@ public class Saml2ResponseValidatorResultTests {
 	public void concatResultWhenNullThenIllegalArgument() {
 		// @formatter:off
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> Saml2ResponseValidatorResult.failure(DETAIL)
-						.concat((Saml2ResponseValidatorResult) null)
-				);
+	.isThrownBy(() -> Saml2ResponseValidatorResult.failure(DETAIL).concat((Saml2ResponseValidatorResult) null)
+	);
 		// @formatter:on
 	}
 

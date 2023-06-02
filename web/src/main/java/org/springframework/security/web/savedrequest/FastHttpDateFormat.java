@@ -43,9 +43,9 @@ public final class FastHttpDateFormat {
 	 * The set of SimpleDateFormat formats to use in <code>getDateHeader()</code>.
 	 */
 	protected static final SimpleDateFormat[] formats = {
-			new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss zzz", Locale.US),
-			new SimpleDateFormat("EEEEEE, dd-MMM-yy HH:mm:ss zzz", Locale.US),
-			new SimpleDateFormat("EEE MMMM d HH:mm:ss yyyy", Locale.US) };
+new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss zzz", Locale.US),
+new SimpleDateFormat("EEEEEE, dd-MMM-yy HH:mm:ss zzz", Locale.US),
+new SimpleDateFormat("EEE MMMM d HH:mm:ss yyyy", Locale.US)};
 
 	/**
 	 * GMT time zone - all HTTP dates are on GMT

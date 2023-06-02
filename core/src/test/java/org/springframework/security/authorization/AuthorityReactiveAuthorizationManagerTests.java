@@ -62,8 +62,8 @@ public class AuthorityReactiveAuthorizationManagerTests {
 		Mono<AuthorizationDecision> result = this.manager.check(Mono.error(new RuntimeException("ooops")), null);
 		// @formatter:off
 		StepVerifier.create(result)
-				.expectError()
-				.verify();
+	.expectError()
+	.verify();
 		// @formatter:on
 	}
 
@@ -93,7 +93,7 @@ public class AuthorityReactiveAuthorizationManagerTests {
 	public void checkWhenHasCustomAuthorityAndAuthorizedThenReturnTrue() {
 		GrantedAuthority customGrantedAuthority = () -> "ADMIN";
 		this.authentication = new TestingAuthenticationToken("rob", "secret",
-				Collections.singletonList(customGrantedAuthority));
+	Collections.singletonList(customGrantedAuthority));
 		boolean granted = this.manager.check(Mono.just(this.authentication), null).block().isGranted();
 		assertThat(granted).isTrue();
 	}
@@ -102,7 +102,7 @@ public class AuthorityReactiveAuthorizationManagerTests {
 	public void checkWhenHasCustomAuthorityAndAuthenticatedAndWrongAuthoritiesThenReturnFalse() {
 		GrantedAuthority customGrantedAuthority = () -> "USER";
 		this.authentication = new TestingAuthenticationToken("rob", "secret",
-				Collections.singletonList(customGrantedAuthority));
+	Collections.singletonList(customGrantedAuthority));
 		boolean granted = this.manager.check(Mono.just(this.authentication), null).block().isGranted();
 		assertThat(granted).isFalse();
 	}
@@ -127,7 +127,7 @@ public class AuthorityReactiveAuthorizationManagerTests {
 	public void checkWhenHasAnyRoleAndAuthorizedThenReturnTrue() {
 		this.manager = AuthorityReactiveAuthorizationManager.hasAnyRole("GENERAL", "USER", "TEST");
 		this.authentication = new TestingAuthenticationToken("rob", "secret", "ROLE_USER", "ROLE_AUDITING",
-				"ROLE_ADMIN");
+	"ROLE_ADMIN");
 		boolean granted = this.manager.check(Mono.just(this.authentication), null).block().isGranted();
 		assertThat(granted).isTrue();
 	}
@@ -143,37 +143,37 @@ public class AuthorityReactiveAuthorizationManagerTests {
 	@Test
 	public void hasRoleWhenNullThenException() {
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> AuthorityReactiveAuthorizationManager.hasRole((String) null));
+	.isThrownBy(() -> AuthorityReactiveAuthorizationManager.hasRole((String) null));
 	}
 
 	@Test
 	public void hasAuthorityWhenNullThenException() {
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> AuthorityReactiveAuthorizationManager.hasAuthority((String) null));
+	.isThrownBy(() -> AuthorityReactiveAuthorizationManager.hasAuthority((String) null));
 	}
 
 	@Test
 	public void hasAnyRoleWhenNullThenException() {
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> AuthorityReactiveAuthorizationManager.hasAnyRole((String) null));
+	.isThrownBy(() -> AuthorityReactiveAuthorizationManager.hasAnyRole((String) null));
 	}
 
 	@Test
 	public void hasAnyAuthorityWhenNullThenException() {
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> AuthorityReactiveAuthorizationManager.hasAnyAuthority((String) null));
+	.isThrownBy(() -> AuthorityReactiveAuthorizationManager.hasAnyAuthority((String) null));
 	}
 
 	@Test
 	public void hasAnyRoleWhenOneIsNullThenException() {
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> AuthorityReactiveAuthorizationManager.hasAnyRole("ROLE_ADMIN", (String) null));
+	.isThrownBy(() -> AuthorityReactiveAuthorizationManager.hasAnyRole("ROLE_ADMIN", (String) null));
 	}
 
 	@Test
 	public void hasAnyAuthorityWhenOneIsNullThenException() {
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> AuthorityReactiveAuthorizationManager.hasAnyAuthority("ADMIN", (String) null));
+	.isThrownBy(() -> AuthorityReactiveAuthorizationManager.hasAnyAuthority("ADMIN", (String) null));
 	}
 
 }

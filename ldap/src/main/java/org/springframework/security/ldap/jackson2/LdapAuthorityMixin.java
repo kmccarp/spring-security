@@ -42,7 +42,7 @@ abstract class LdapAuthorityMixin {
 
 	@JsonCreator
 	LdapAuthorityMixin(@JsonProperty("role") String role, @JsonProperty("dn") String dn,
-			@JsonProperty("attributes") Map<String, List<String>> attributes) {
+@JsonProperty("attributes") Map<String, List<String>> attributes) {
 	}
 
 }

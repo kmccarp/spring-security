@@ -70,8 +70,7 @@ import org.springframework.util.Assert;
  * @see Saml2MetadataFilter
  * @see RelyingPartyRegistrationRepository
  */
-public class Saml2MetadataConfigurer<H extends HttpSecurityBuilder<H>>
-		extends AbstractHttpConfigurer<Saml2LogoutConfigurer<H>, H> {
+public class Saml2MetadataConfigurer<H extends HttpSecurityBuilder<H>>extends AbstractHttpConfigurer<Saml2LogoutConfigurer<H>, H> {
 
 	private final ApplicationContext context;
 
@@ -104,7 +103,7 @@ public class Saml2MetadataConfigurer<H extends HttpSecurityBuilder<H>>
 		Assert.hasText(metadataUrl, "metadataUrl cannot be empty");
 		this.metadataResponseResolver = (registrations) -> {
 			RequestMatcherMetadataResponseResolver metadata = new RequestMatcherMetadataResponseResolver(registrations,
-					new OpenSamlMetadataResolver());
+		new OpenSamlMetadataResolver());
 			metadata.setRequestMatcher(new AntPathRequestMatcher(metadataUrl));
 			return metadata;
 		};

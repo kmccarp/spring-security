@@ -42,8 +42,7 @@ import org.apereo.cas.client.proxy.ProxyRetriever;
  * @see org.springframework.security.jackson2.SecurityJackson2Modules
  */
 @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.PROPERTY)
-@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY, getterVisibility = JsonAutoDetect.Visibility.NONE,
-		isGetterVisibility = JsonAutoDetect.Visibility.NONE)
+@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY, getterVisibility = JsonAutoDetect.Visibility.NONE,isGetterVisibility = JsonAutoDetect.Visibility.NONE)
 @JsonIgnoreProperties(ignoreUnknown = true)
 class AttributePrincipalImplMixin {
 
@@ -58,9 +57,9 @@ class AttributePrincipalImplMixin {
 	 */
 	@JsonCreator
 	AttributePrincipalImplMixin(@JsonProperty("name") String name,
-			@JsonProperty("attributes") Map<String, Object> attributes,
-			@JsonProperty("proxyGrantingTicket") String proxyGrantingTicket,
-			@JsonProperty("proxyRetriever") ProxyRetriever proxyRetriever) {
+@JsonProperty("attributes") Map<String, Object> attributes,
+@JsonProperty("proxyGrantingTicket") String proxyGrantingTicket,
+@JsonProperty("proxyRetriever") ProxyRetriever proxyRetriever) {
 	}
 
 }

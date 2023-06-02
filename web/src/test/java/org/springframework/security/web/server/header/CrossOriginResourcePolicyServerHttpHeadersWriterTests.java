@@ -42,7 +42,7 @@ class CrossOriginResourcePolicyServerHttpHeadersWriterTests {
 	@Test
 	void setResourcePolicyWhenNullThenThrowsIllegalArgument() {
 		assertThatIllegalArgumentException().isThrownBy(() -> this.writer.setPolicy(null))
-				.withMessage("resourcePolicy cannot be null");
+	.withMessage("resourcePolicy cannot be null");
 	}
 
 	@Test
@@ -55,12 +55,12 @@ class CrossOriginResourcePolicyServerHttpHeadersWriterTests {
 	@Test
 	void writeHeadersWhenResponseHeaderExistsThenDontOverride() {
 		this.exchange.getResponse().getHeaders().add(CrossOriginResourcePolicyServerHttpHeadersWriter.RESOURCE_POLICY,
-				"same-origin");
+	"same-origin");
 		this.writer.writeHttpHeaders(this.exchange);
 		HttpHeaders headers = this.exchange.getResponse().getHeaders();
 		assertThat(headers).hasSize(1);
 		assertThat(headers.get(CrossOriginResourcePolicyServerHttpHeadersWriter.RESOURCE_POLICY))
-				.containsOnly("same-origin");
+	.containsOnly("same-origin");
 	}
 
 	@Test
@@ -70,7 +70,7 @@ class CrossOriginResourcePolicyServerHttpHeadersWriterTests {
 		HttpHeaders headers = this.exchange.getResponse().getHeaders();
 		assertThat(headers).hasSize(1);
 		assertThat(headers.get(CrossOriginResourcePolicyServerHttpHeadersWriter.RESOURCE_POLICY))
-				.containsOnly("same-origin");
+	.containsOnly("same-origin");
 	}
 
 }

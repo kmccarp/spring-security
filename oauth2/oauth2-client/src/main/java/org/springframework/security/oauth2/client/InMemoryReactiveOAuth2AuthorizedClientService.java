@@ -50,7 +50,7 @@ public final class InMemoryReactiveOAuth2AuthorizedClientService implements Reac
 	 * @param clientRegistrationRepository the repository of client registrations
 	 */
 	public InMemoryReactiveOAuth2AuthorizedClientService(
-			ReactiveClientRegistrationRepository clientRegistrationRepository) {
+ReactiveClientRegistrationRepository clientRegistrationRepository) {
 		Assert.notNull(clientRegistrationRepository, "clientRegistrationRepository cannot be null");
 		this.clientRegistrationRepository = clientRegistrationRepository;
 	}
@@ -58,12 +58,12 @@ public final class InMemoryReactiveOAuth2AuthorizedClientService implements Reac
 	@Override
 	@SuppressWarnings("unchecked")
 	public <T extends OAuth2AuthorizedClient> Mono<T> loadAuthorizedClient(String clientRegistrationId,
-			String principalName) {
+String principalName) {
 		Assert.hasText(clientRegistrationId, "clientRegistrationId cannot be empty");
 		Assert.hasText(principalName, "principalName cannot be empty");
 		return (Mono<T>) this.clientRegistrationRepository.findByRegistrationId(clientRegistrationId)
-				.map((clientRegistration) -> new OAuth2AuthorizedClientId(clientRegistrationId, principalName))
-				.flatMap((identifier) -> Mono.justOrEmpty(this.authorizedClients.get(identifier)));
+	.map((clientRegistration) -> new OAuth2AuthorizedClientId(clientRegistrationId, principalName))
+	.flatMap((identifier) -> Mono.justOrEmpty(this.authorizedClients.get(identifier)));
 	}
 
 	@Override
@@ -72,7 +72,7 @@ public final class InMemoryReactiveOAuth2AuthorizedClientService implements Reac
 		Assert.notNull(principal, "principal cannot be null");
 		return Mono.fromRunnable(() -> {
 			OAuth2AuthorizedClientId identifier = new OAuth2AuthorizedClientId(
-					authorizedClient.getClientRegistration().getRegistrationId(), principal.getName());
+		authorizedClient.getClientRegistration().getRegistrationId(), principal.getName());
 			this.authorizedClients.put(identifier, authorizedClient);
 		});
 	}
@@ -83,9 +83,9 @@ public final class InMemoryReactiveOAuth2AuthorizedClientService implements Reac
 		Assert.hasText(principalName, "principalName cannot be empty");
 		// @formatter:off
 		return this.clientRegistrationRepository.findByRegistrationId(clientRegistrationId)
-				.map((clientRegistration) -> new OAuth2AuthorizedClientId(clientRegistrationId, principalName))
-				.doOnNext(this.authorizedClients::remove)
-				.then(Mono.empty());
+	.map((clientRegistration) -> new OAuth2AuthorizedClientId(clientRegistrationId, principalName))
+	.doOnNext(this.authorizedClients::remove)
+	.then(Mono.empty());
 		// @formatter:on
 	}
 

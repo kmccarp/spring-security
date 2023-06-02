@@ -44,20 +44,19 @@ import org.springframework.util.Assert;
  * @author Eddú Meléndez
  * @since 3.0
  */
-public final class ExpressionBasedFilterInvocationSecurityMetadataSource
-		extends DefaultFilterInvocationSecurityMetadataSource {
+public final class ExpressionBasedFilterInvocationSecurityMetadataSourceextends DefaultFilterInvocationSecurityMetadataSource {
 
 	private static final Log logger = LogFactory.getLog(ExpressionBasedFilterInvocationSecurityMetadataSource.class);
 
 	public ExpressionBasedFilterInvocationSecurityMetadataSource(
-			LinkedHashMap<RequestMatcher, Collection<ConfigAttribute>> requestMap,
-			SecurityExpressionHandler<FilterInvocation> expressionHandler) {
+LinkedHashMap<RequestMatcher, Collection<ConfigAttribute>> requestMap,
+SecurityExpressionHandler<FilterInvocation> expressionHandler) {
 		super(processMap(requestMap, expressionHandler.getExpressionParser()));
 		Assert.notNull(expressionHandler, "A non-null SecurityExpressionHandler is required");
 	}
 
 	private static LinkedHashMap<RequestMatcher, Collection<ConfigAttribute>> processMap(
-			LinkedHashMap<RequestMatcher, Collection<ConfigAttribute>> requestMap, ExpressionParser parser) {
+LinkedHashMap<RequestMatcher, Collection<ConfigAttribute>> requestMap, ExpressionParser parser) {
 		Assert.notNull(parser, "SecurityExpressionHandler returned a null parser object");
 		LinkedHashMap<RequestMatcher, Collection<ConfigAttribute>> processed = new LinkedHashMap<>(requestMap);
 		requestMap.forEach((request, value) -> process(parser, request, value, processed::put));
@@ -65,7 +64,7 @@ public final class ExpressionBasedFilterInvocationSecurityMetadataSource
 	}
 
 	private static void process(ExpressionParser parser, RequestMatcher request, Collection<ConfigAttribute> value,
-			BiConsumer<RequestMatcher, Collection<ConfigAttribute>> consumer) {
+BiConsumer<RequestMatcher, Collection<ConfigAttribute>> consumer) {
 		String expression = getExpression(request, value);
 		if (logger.isDebugEnabled()) {
 			logger.debug(LogMessage.format("Adding web access control expression [%s] for %s", expression, request));
@@ -106,7 +105,7 @@ public final class ExpressionBasedFilterInvocationSecurityMetadataSource
 	}
 
 	static class RequestVariablesExtractorEvaluationContextPostProcessor
-			extends AbstractVariableEvaluationContextPostProcessor {
+extends AbstractVariableEvaluationContextPostProcessor {
 
 		private final RequestMatcher matcher;
 

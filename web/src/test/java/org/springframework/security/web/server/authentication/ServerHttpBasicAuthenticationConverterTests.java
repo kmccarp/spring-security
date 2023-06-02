@@ -43,7 +43,7 @@ public class ServerHttpBasicAuthenticationConverterTests {
 	@Test
 	public void setCredentialsCharsetWhenNullThenThrowsIllegalArgumentException() {
 		assertThatIllegalArgumentException().isThrownBy(() -> this.converter.setCredentialsCharset(null))
-				.withMessage("credentialsCharset cannot be null");
+	.withMessage("credentialsCharset cannot be null");
 	}
 
 	@Test
@@ -79,9 +79,9 @@ public class ServerHttpBasicAuthenticationConverterTests {
 	@Test
 	public void applyWhenUserPasswordThenAuthentication() {
 		Mono<Authentication> result = apply(
-				this.request.header(HttpHeaders.AUTHORIZATION, "Basic dXNlcjpwYXNzd29yZA=="));
+	this.request.header(HttpHeaders.AUTHORIZATION, "Basic dXNlcjpwYXNzd29yZA=="));
 		UsernamePasswordAuthenticationToken authentication = result.cast(UsernamePasswordAuthenticationToken.class)
-				.block();
+	.block();
 		assertThat(authentication.getPrincipal()).isEqualTo("user");
 		assertThat(authentication.getCredentials()).isEqualTo("password");
 	}
@@ -89,9 +89,9 @@ public class ServerHttpBasicAuthenticationConverterTests {
 	@Test
 	public void applyWhenUserPasswordHasColonThenAuthentication() {
 		Mono<Authentication> result = apply(
-				this.request.header(HttpHeaders.AUTHORIZATION, "Basic dXNlcjpwYXNzOndvcmQ="));
+	this.request.header(HttpHeaders.AUTHORIZATION, "Basic dXNlcjpwYXNzOndvcmQ="));
 		UsernamePasswordAuthenticationToken authentication = result.cast(UsernamePasswordAuthenticationToken.class)
-				.block();
+	.block();
 		assertThat(authentication.getPrincipal()).isEqualTo("user");
 		assertThat(authentication.getCredentials()).isEqualTo("pass:word");
 	}
@@ -99,9 +99,9 @@ public class ServerHttpBasicAuthenticationConverterTests {
 	@Test
 	public void applyWhenLowercaseSchemeThenAuthentication() {
 		Mono<Authentication> result = apply(
-				this.request.header(HttpHeaders.AUTHORIZATION, "basic dXNlcjpwYXNzd29yZA=="));
+	this.request.header(HttpHeaders.AUTHORIZATION, "basic dXNlcjpwYXNzd29yZA=="));
 		UsernamePasswordAuthenticationToken authentication = result.cast(UsernamePasswordAuthenticationToken.class)
-				.block();
+	.block();
 		assertThat(authentication.getPrincipal()).isEqualTo("user");
 		assertThat(authentication.getCredentials()).isEqualTo("password");
 	}
@@ -109,16 +109,16 @@ public class ServerHttpBasicAuthenticationConverterTests {
 	@Test
 	public void applyWhenWrongSchemeThenEmpty() {
 		Mono<Authentication> result = apply(
-				this.request.header(HttpHeaders.AUTHORIZATION, "token dXNlcjpwYXNzd29yZA=="));
+	this.request.header(HttpHeaders.AUTHORIZATION, "token dXNlcjpwYXNzd29yZA=="));
 		assertThat(result.block()).isNull();
 	}
 
 	@Test
 	public void applyWhenNonAsciiThenAuthentication() {
 		Mono<Authentication> result = apply(
-				this.request.header(HttpHeaders.AUTHORIZATION, "Basic w7xzZXI6cGFzc3fDtnJk"));
+	this.request.header(HttpHeaders.AUTHORIZATION, "Basic w7xzZXI6cGFzc3fDtnJk"));
 		UsernamePasswordAuthenticationToken authentication = result.cast(UsernamePasswordAuthenticationToken.class)
-				.block();
+	.block();
 		assertThat(authentication.getPrincipal()).isEqualTo("üser");
 		assertThat(authentication.getCredentials()).isEqualTo("passwörd");
 	}
@@ -127,9 +127,9 @@ public class ServerHttpBasicAuthenticationConverterTests {
 	public void applyWhenIsoOnlyAsciiThenAuthentication() {
 		this.converter.setCredentialsCharset(StandardCharsets.ISO_8859_1);
 		Mono<Authentication> result = apply(
-				this.request.header(HttpHeaders.AUTHORIZATION, "Basic dXNlcjpwYXNzd29yZA=="));
+	this.request.header(HttpHeaders.AUTHORIZATION, "Basic dXNlcjpwYXNzd29yZA=="));
 		UsernamePasswordAuthenticationToken authentication = result.cast(UsernamePasswordAuthenticationToken.class)
-				.block();
+	.block();
 		assertThat(authentication.getPrincipal()).isEqualTo("user");
 		assertThat(authentication.getCredentials()).isEqualTo("password");
 	}
@@ -138,9 +138,9 @@ public class ServerHttpBasicAuthenticationConverterTests {
 	public void applyWhenIsoNonAsciiThenAuthentication() {
 		this.converter.setCredentialsCharset(StandardCharsets.ISO_8859_1);
 		Mono<Authentication> result = apply(
-				this.request.header(HttpHeaders.AUTHORIZATION, "Basic /HNlcjpwYXNzd/ZyZA=="));
+	this.request.header(HttpHeaders.AUTHORIZATION, "Basic /HNlcjpwYXNzd/ZyZA=="));
 		UsernamePasswordAuthenticationToken authentication = result.cast(UsernamePasswordAuthenticationToken.class)
-				.block();
+	.block();
 		assertThat(authentication.getPrincipal()).isEqualTo("üser");
 		assertThat(authentication.getCredentials()).isEqualTo("passwörd");
 	}

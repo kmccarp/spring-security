@@ -51,19 +51,19 @@ public class MethodSecurityEvaluationContextTests {
 	public void lookupVariableWhenParameterNameNullThenNotSet() {
 		Class<String> type = String.class;
 		Method method = ReflectionUtils.findMethod(String.class, "contains", CharSequence.class);
-		doReturn(new String[] { null }).when(this.paramNameDiscoverer).getParameterNames(method);
-		doReturn(new Object[] { null }).when(this.methodInvocation).getArguments();
+		doReturn(new String[]{null}).when(this.paramNameDiscoverer).getParameterNames(method);
+		doReturn(new Object[]{null}).when(this.methodInvocation).getArguments();
 		doReturn(type).when(this.methodInvocation).getThis();
 		doReturn(method).when(this.methodInvocation).getMethod();
 		NotNullVariableMethodSecurityEvaluationContext context = new NotNullVariableMethodSecurityEvaluationContext(
-				this.authentication, this.methodInvocation, this.paramNameDiscoverer);
+	this.authentication, this.methodInvocation, this.paramNameDiscoverer);
 		context.lookupVariable("testVariable");
 	}
 
 	private static class NotNullVariableMethodSecurityEvaluationContext extends MethodSecurityEvaluationContext {
 
 		NotNullVariableMethodSecurityEvaluationContext(Authentication auth, MethodInvocation mi,
-				ParameterNameDiscoverer parameterNameDiscoverer) {
+	ParameterNameDiscoverer parameterNameDiscoverer) {
 			super(auth, mi, parameterNameDiscoverer);
 		}
 

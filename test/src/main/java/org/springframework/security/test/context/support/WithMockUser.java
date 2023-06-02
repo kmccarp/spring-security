@@ -51,7 +51,7 @@ import org.springframework.test.web.servlet.MockMvc;
  * @author Rob Winch
  * @since 4.0
  */
-@Target({ ElementType.METHOD, ElementType.TYPE })
+@Target({ElementType.METHOD, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
 @Documented
@@ -85,7 +85,7 @@ public @interface WithMockUser {
 	 * </p>
 	 * @return
 	 */
-	String[] roles() default { "USER" };
+	String[] roles() default {"USER"};
 
 	/**
 	 * <p>

@@ -47,8 +47,8 @@ public class WebTestClientHtmlUnitDriverBuilderTests {
 		WebTestClient webTestClient = WebTestClient.bindToController(new HelloWorldController()).build();
 		// @formatter:off
 		WebDriver driver = WebTestClientHtmlUnitDriverBuilder
-				.webTestClientSetup(webTestClient)
-				.build();
+	.webTestClientSetup(webTestClient)
+	.build();
 		// @formatter:on
 		driver.get("http://localhost/");
 		assertThat(driver.getPageSource()).contains("Hello World");
@@ -58,11 +58,11 @@ public class WebTestClientHtmlUnitDriverBuilderTests {
 	public void cookies() {
 		// @formatter:off
 		WebTestClient webTestClient = WebTestClient
-				.bindToController(new CookieController())
-				.build();
+	.bindToController(new CookieController())
+	.build();
 		WebDriver driver = WebTestClientHtmlUnitDriverBuilder
-				.webTestClientSetup(webTestClient)
-				.build();
+	.webTestClientSetup(webTestClient)
+	.build();
 		// @formatter:on
 		driver.get("http://localhost/cookie");
 		assertThat(driver.getPageSource()).contains("theCookie");
@@ -78,13 +78,13 @@ public class WebTestClientHtmlUnitDriverBuilderTests {
 		String index() {
 			// @formatter:off
 			return "<html>\n"
-				+ "<head>\n"
-				+ "<title>Hello World</title>\n"
-				+ "</head>\n"
-				+ "<body>\n"
-				+ "<h1>Hello World</h1>\n"
-				+ "</body>\n"
-				+ "</html>";
+		+ "<head>\n"
+		+ "<title>Hello World</title>\n"
+		+ "</head>\n"
+		+ "<body>\n"
+		+ "<h1>Hello World</h1>\n"
+		+ "</body>\n"
+		+ "</html>";
 			// @formatter:on
 		}
 
@@ -98,15 +98,15 @@ public class WebTestClientHtmlUnitDriverBuilderTests {
 		String view(@CookieValue(required = false) String cookieName) {
 			// @formatter:off
 			return "<html>\n"
-				+ "<head>\n"
-				+ "<title>Hello World</title>\n"
-				+ "</head>\n"
-				+ "<body>\n"
-				+ "<h1>"
-				+ TextEscapeUtils.escapeEntities(cookieName)
-				+ "</h1>\n"
-				+ "</body>\n"
-				+ "</html>";
+		+ "<head>\n"
+		+ "<title>Hello World</title>\n"
+		+ "</head>\n"
+		+ "<body>\n"
+		+ "<h1>"
+		+ TextEscapeUtils.escapeEntities(cookieName)
+		+ "</h1>\n"
+		+ "</body>\n"
+		+ "</html>";
 			// @formatter:on
 		}
 

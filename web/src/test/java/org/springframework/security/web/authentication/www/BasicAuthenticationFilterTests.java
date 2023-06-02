@@ -73,10 +73,10 @@ public class BasicAuthenticationFilterTests {
 	public void setUp() {
 		SecurityContextHolder.clearContext();
 		UsernamePasswordAuthenticationToken rodRequest = UsernamePasswordAuthenticationToken.unauthenticated("rod",
-				"koala");
+	"koala");
 		rodRequest.setDetails(new WebAuthenticationDetails(new MockHttpServletRequest()));
 		Authentication rod = UsernamePasswordAuthenticationToken.authenticated("rod", "koala",
-				AuthorityUtils.createAuthorityList("ROLE_1"));
+	AuthorityUtils.createAuthorityList("ROLE_1"));
 		this.manager = mock(AuthenticationManager.class);
 		given(this.manager.authenticate(rodRequest)).willReturn(rod);
 		given(this.manager.authenticate(not(eq(rodRequest)))).willThrow(new BadCredentialsException(""));
@@ -294,10 +294,10 @@ public class BasicAuthenticationFilterTests {
 	public void doFilterWhenTokenAndFilterCharsetMatchDefaultThenAuthenticated() throws Exception {
 		SecurityContextHolder.clearContext();
 		UsernamePasswordAuthenticationToken rodRequest = UsernamePasswordAuthenticationToken.unauthenticated("rod",
-				"äöü");
+	"äöü");
 		rodRequest.setDetails(new WebAuthenticationDetails(new MockHttpServletRequest()));
 		Authentication rod = UsernamePasswordAuthenticationToken.authenticated("rod", "äöü",
-				AuthorityUtils.createAuthorityList("ROLE_1"));
+	AuthorityUtils.createAuthorityList("ROLE_1"));
 		this.manager = mock(AuthenticationManager.class);
 		given(this.manager.authenticate(rodRequest)).willReturn(rod);
 		given(this.manager.authenticate(not(eq(rodRequest)))).willThrow(new BadCredentialsException(""));
@@ -305,7 +305,7 @@ public class BasicAuthenticationFilterTests {
 		String token = "rod:äöü";
 		MockHttpServletRequest request = new MockHttpServletRequest();
 		request.addHeader("Authorization",
-				"Basic " + CodecTestUtils.encodeBase64(token.getBytes(StandardCharsets.UTF_8)));
+	"Basic " + CodecTestUtils.encodeBase64(token.getBytes(StandardCharsets.UTF_8)));
 		request.setServletPath("/some_file.html");
 		MockHttpServletResponse response = new MockHttpServletResponse();
 		// Test
@@ -322,10 +322,10 @@ public class BasicAuthenticationFilterTests {
 	public void doFilterWhenTokenAndFilterCharsetMatchNonDefaultThenAuthenticated() throws Exception {
 		SecurityContextHolder.clearContext();
 		UsernamePasswordAuthenticationToken rodRequest = UsernamePasswordAuthenticationToken.unauthenticated("rod",
-				"äöü");
+	"äöü");
 		rodRequest.setDetails(new WebAuthenticationDetails(new MockHttpServletRequest()));
 		Authentication rod = UsernamePasswordAuthenticationToken.authenticated("rod", "äöü",
-				AuthorityUtils.createAuthorityList("ROLE_1"));
+	AuthorityUtils.createAuthorityList("ROLE_1"));
 		this.manager = mock(AuthenticationManager.class);
 		given(this.manager.authenticate(rodRequest)).willReturn(rod);
 		given(this.manager.authenticate(not(eq(rodRequest)))).willThrow(new BadCredentialsException(""));
@@ -334,7 +334,7 @@ public class BasicAuthenticationFilterTests {
 		String token = "rod:äöü";
 		MockHttpServletRequest request = new MockHttpServletRequest();
 		request.addHeader("Authorization",
-				"Basic " + CodecTestUtils.encodeBase64(token.getBytes(StandardCharsets.ISO_8859_1)));
+	"Basic " + CodecTestUtils.encodeBase64(token.getBytes(StandardCharsets.ISO_8859_1)));
 		request.setServletPath("/some_file.html");
 		MockHttpServletResponse response = new MockHttpServletResponse();
 		// Test
@@ -346,17 +346,17 @@ public class BasicAuthenticationFilterTests {
 		assertThat(SecurityContextHolder.getContext().getAuthentication().getName()).isEqualTo("rod");
 		assertThat(SecurityContextHolder.getContext().getAuthentication().getCredentials()).isEqualTo("äöü");
 		assertThat(request.getAttribute(RequestAttributeSecurityContextRepository.DEFAULT_REQUEST_ATTR_NAME))
-				.isNotNull();
+	.isNotNull();
 	}
 
 	@Test
 	public void doFilterWhenTokenAndFilterCharsetDoNotMatchThenUnauthorized() throws Exception {
 		SecurityContextHolder.clearContext();
 		UsernamePasswordAuthenticationToken rodRequest = UsernamePasswordAuthenticationToken.unauthenticated("rod",
-				"äöü");
+	"äöü");
 		rodRequest.setDetails(new WebAuthenticationDetails(new MockHttpServletRequest()));
 		Authentication rod = UsernamePasswordAuthenticationToken.authenticated("rod", "äöü",
-				AuthorityUtils.createAuthorityList("ROLE_1"));
+	AuthorityUtils.createAuthorityList("ROLE_1"));
 		this.manager = mock(AuthenticationManager.class);
 		given(this.manager.authenticate(rodRequest)).willReturn(rod);
 		given(this.manager.authenticate(not(eq(rodRequest)))).willThrow(new BadCredentialsException(""));
@@ -365,7 +365,7 @@ public class BasicAuthenticationFilterTests {
 		String token = "rod:äöü";
 		MockHttpServletRequest request = new MockHttpServletRequest();
 		request.addHeader("Authorization",
-				"Basic " + CodecTestUtils.encodeBase64(token.getBytes(StandardCharsets.UTF_8)));
+	"Basic " + CodecTestUtils.encodeBase64(token.getBytes(StandardCharsets.UTF_8)));
 		request.setServletPath("/some_file.html");
 		MockHttpServletResponse response = new MockHttpServletResponse();
 		// Test
@@ -417,7 +417,7 @@ public class BasicAuthenticationFilterTests {
 		SecurityContextHolderStrategy securityContextHolderStrategy = SecurityContextHolder.getContextHolderStrategy();
 		SecurityContext securityContext = securityContextHolderStrategy.createEmptyContext();
 		Authentication authentication = UsernamePasswordAuthenticationToken.authenticated("rod", "koala",
-				AuthorityUtils.createAuthorityList("USER"));
+	AuthorityUtils.createAuthorityList("USER"));
 		securityContext.setAuthentication(authentication);
 		securityContextHolderStrategy.setContext(securityContext);
 
@@ -439,7 +439,7 @@ public class BasicAuthenticationFilterTests {
 		SecurityContextHolderStrategy securityContextHolderStrategy = SecurityContextHolder.getContextHolderStrategy();
 		SecurityContext securityContext = securityContextHolderStrategy.createEmptyContext();
 		Authentication authentication = UsernamePasswordAuthenticationToken.authenticated("user", "password",
-				AuthorityUtils.createAuthorityList("USER"));
+	AuthorityUtils.createAuthorityList("USER"));
 		securityContext.setAuthentication(authentication);
 		securityContextHolderStrategy.setContext(securityContext);
 
@@ -463,7 +463,7 @@ public class BasicAuthenticationFilterTests {
 
 	@Test
 	public void doFilterWhenUsernameChangesAndNotUsernamePasswordAuthenticationTokenThenAuthenticationIsRequired()
-			throws Exception {
+throws Exception {
 		SecurityContextHolderStrategy securityContextHolderStrategy = SecurityContextHolder.getContextHolderStrategy();
 		SecurityContext securityContext = securityContextHolderStrategy.createEmptyContext();
 		Authentication authentication = new TestingAuthenticationToken("user", "password", "USER");

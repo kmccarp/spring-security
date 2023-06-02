@@ -58,7 +58,7 @@ public class Saml2LogoutResponseFilterTests {
 	LogoutSuccessHandler logoutSuccessHandler = mock(LogoutSuccessHandler.class);
 
 	Saml2LogoutResponseFilter logoutResponseProcessingFilter = new Saml2LogoutResponseFilter(
-			this.relyingPartyRegistrationResolver, this.logoutResponseValidator, this.logoutSuccessHandler);
+this.relyingPartyRegistrationResolver, this.logoutResponseValidator, this.logoutSuccessHandler);
 
 	@BeforeEach
 	public void setUp() {
@@ -81,7 +81,7 @@ public class Saml2LogoutResponseFilterTests {
 		RelyingPartyRegistration registration = TestRelyingPartyRegistrations.full().build();
 		given(this.relyingPartyRegistrationResolver.resolve(request, "registration-id")).willReturn(registration);
 		Saml2LogoutRequest logoutRequest = Saml2LogoutRequest.withRelyingPartyRegistration(registration)
-				.samlRequest("request").build();
+	.samlRequest("request").build();
 		given(this.logoutRequestRepository.removeLogoutRequest(request, response)).willReturn(logoutRequest);
 		given(this.logoutResponseValidator.validate(any())).willReturn(Saml2LogoutValidatorResult.success());
 		this.logoutResponseProcessingFilter.doFilterInternal(request, response, new MockFilterChain());
@@ -98,10 +98,10 @@ public class Saml2LogoutResponseFilterTests {
 		request.setParameter(Saml2ParameterNames.SAML_RESPONSE, "response");
 		MockHttpServletResponse response = new MockHttpServletResponse();
 		RelyingPartyRegistration registration = TestRelyingPartyRegistrations.full()
-				.singleLogoutServiceBinding(Saml2MessageBinding.REDIRECT).build();
+	.singleLogoutServiceBinding(Saml2MessageBinding.REDIRECT).build();
 		given(this.relyingPartyRegistrationResolver.resolve(request, "registration-id")).willReturn(registration);
 		Saml2LogoutRequest logoutRequest = Saml2LogoutRequest.withRelyingPartyRegistration(registration)
-				.samlRequest("request").build();
+	.samlRequest("request").build();
 		given(this.logoutRequestRepository.removeLogoutRequest(request, response)).willReturn(logoutRequest);
 		given(this.logoutResponseValidator.validate(any())).willReturn(Saml2LogoutValidatorResult.success());
 		this.logoutResponseProcessingFilter.doFilterInternal(request, response, new MockFilterChain());
@@ -143,10 +143,10 @@ public class Saml2LogoutResponseFilterTests {
 		RelyingPartyRegistration registration = TestRelyingPartyRegistrations.full().build();
 		given(this.relyingPartyRegistrationResolver.resolve(request, "registration-id")).willReturn(registration);
 		Saml2LogoutRequest logoutRequest = Saml2LogoutRequest.withRelyingPartyRegistration(registration)
-				.samlRequest("request").build();
+	.samlRequest("request").build();
 		given(this.logoutRequestRepository.removeLogoutRequest(request, response)).willReturn(logoutRequest);
 		given(this.logoutResponseValidator.validate(any()))
-				.willReturn(Saml2LogoutValidatorResult.withErrors(new Saml2Error("error", "description")).build());
+	.willReturn(Saml2LogoutValidatorResult.withErrors(new Saml2Error("error", "description")).build());
 		this.logoutResponseProcessingFilter.doFilterInternal(request, response, new MockFilterChain());
 		verify(this.logoutResponseValidator).validate(any());
 		verifyNoInteractions(this.logoutSuccessHandler);
@@ -161,10 +161,10 @@ public class Saml2LogoutResponseFilterTests {
 		request.setParameter(Saml2ParameterNames.SAML_RESPONSE, "response");
 		MockHttpServletResponse response = new MockHttpServletResponse();
 		RelyingPartyRegistration registration = TestRelyingPartyRegistrations.full().singleLogoutServiceLocation(null)
-				.singleLogoutServiceResponseLocation(null).build();
+	.singleLogoutServiceResponseLocation(null).build();
 		given(this.relyingPartyRegistrationResolver.resolve(any(), any())).willReturn(registration);
 		Saml2LogoutRequest logoutRequest = Saml2LogoutRequest.withRelyingPartyRegistration(registration)
-				.samlRequest("request").build();
+	.samlRequest("request").build();
 		given(this.logoutRequestRepository.removeLogoutRequest(request, response)).willReturn(logoutRequest);
 		this.logoutResponseProcessingFilter.doFilterInternal(request, response, new MockFilterChain());
 		assertThat(response.getStatus()).isEqualTo(401);

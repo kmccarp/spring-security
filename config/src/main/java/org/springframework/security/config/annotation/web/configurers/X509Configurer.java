@@ -76,8 +76,7 @@ import org.springframework.security.web.context.RequestAttributeSecurityContextR
  * @author Rob Winch
  * @since 3.2
  */
-public final class X509Configurer<H extends HttpSecurityBuilder<H>>
-		extends AbstractHttpConfigurer<X509Configurer<H>, H> {
+public final class X509Configurer<H extends HttpSecurityBuilder<H>>extends AbstractHttpConfigurer<X509Configurer<H>, H> {
 
 	private X509AuthenticationFilter x509AuthenticationFilter;
 
@@ -123,7 +122,7 @@ public final class X509Configurer<H extends HttpSecurityBuilder<H>>
 	 * @return the {@link X509Configurer} to use
 	 */
 	public X509Configurer<H> authenticationDetailsSource(
-			AuthenticationDetailsSource<HttpServletRequest, PreAuthenticatedGrantedAuthoritiesWebAuthenticationDetails> authenticationDetailsSource) {
+AuthenticationDetailsSource<HttpServletRequest, PreAuthenticatedGrantedAuthoritiesWebAuthenticationDetails> authenticationDetailsSource) {
 		this.authenticationDetailsSource = authenticationDetailsSource;
 		return this;
 	}
@@ -149,7 +148,7 @@ public final class X509Configurer<H extends HttpSecurityBuilder<H>>
 	 * @return the {@link X509Configurer} for further customizations
 	 */
 	public X509Configurer<H> authenticationUserDetailsService(
-			AuthenticationUserDetailsService<PreAuthenticatedAuthenticationToken> authenticationUserDetailsService) {
+AuthenticationUserDetailsService<PreAuthenticatedAuthenticationToken> authenticationUserDetailsService) {
 		this.authenticationUserDetailsService = authenticationUserDetailsService;
 		return this;
 	}
@@ -174,7 +173,7 @@ public final class X509Configurer<H extends HttpSecurityBuilder<H>>
 		PreAuthenticatedAuthenticationProvider authenticationProvider = new PreAuthenticatedAuthenticationProvider();
 		authenticationProvider.setPreAuthenticatedUserDetailsService(getAuthenticationUserDetailsService(http));
 		http.authenticationProvider(authenticationProvider).setSharedObject(AuthenticationEntryPoint.class,
-				new Http403ForbiddenEntryPoint());
+	new Http403ForbiddenEntryPoint());
 	}
 
 	@Override
@@ -202,7 +201,7 @@ public final class X509Configurer<H extends HttpSecurityBuilder<H>>
 	}
 
 	private AuthenticationUserDetailsService<PreAuthenticatedAuthenticationToken> getAuthenticationUserDetailsService(
-			H http) {
+H http) {
 		if (this.authenticationUserDetailsService == null) {
 			userDetailsService(getSharedOrBean(http, UserDetailsService.class));
 		}

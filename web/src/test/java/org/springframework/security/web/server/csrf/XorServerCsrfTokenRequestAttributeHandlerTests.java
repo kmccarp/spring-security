@@ -46,7 +46,7 @@ import static org.mockito.Mockito.verify;
  */
 public class XorServerCsrfTokenRequestAttributeHandlerTests {
 
-	private static final byte[] XOR_CSRF_TOKEN_BYTES = new byte[] { 1, 1, 1, 96, 99, 98 };
+	private static final byte[] XOR_CSRF_TOKEN_BYTES = new byte[]{1, 1, 1, 96, 99, 98};
 
 	private static final String XOR_CSRF_TOKEN_VALUE = Base64.getEncoder().encodeToString(XOR_CSRF_TOKEN_BYTES);
 
@@ -70,8 +70,8 @@ public class XorServerCsrfTokenRequestAttributeHandlerTests {
 	public void setSecureRandomWhenNullThenThrowsIllegalArgumentException() {
 		// @formatter:off
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> this.handler.setSecureRandom(null))
-				.withMessage("secureRandom cannot be null");
+	.isThrownBy(() -> this.handler.setSecureRandom(null))
+	.withMessage("secureRandom cannot be null");
 		// @formatter:on
 	}
 
@@ -79,8 +79,8 @@ public class XorServerCsrfTokenRequestAttributeHandlerTests {
 	public void handleWhenExchangeIsNullThenThrowsIllegalArgumentException() {
 		// @formatter:off
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> this.handler.handle(null, Mono.just(this.token)))
-				.withMessage("exchange cannot be null");
+	.isThrownBy(() -> this.handler.handle(null, Mono.just(this.token)))
+	.withMessage("exchange cannot be null");
 		// @formatter:on
 	}
 
@@ -88,8 +88,8 @@ public class XorServerCsrfTokenRequestAttributeHandlerTests {
 	public void handleWhenCsrfTokenIsNullThenThrowsIllegalArgumentException() {
 		// @formatter:off
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> this.handler.handle(this.exchange, null))
-				.withMessage("csrfToken cannot be null");
+	.isThrownBy(() -> this.handler.handle(this.exchange, null))
+	.withMessage("csrfToken cannot be null");
 		// @formatter:on
 	}
 
@@ -113,8 +113,8 @@ public class XorServerCsrfTokenRequestAttributeHandlerTests {
 		assertThat(csrfTokenAttribute).isNotNull();
 		// @formatter:off
 		StepVerifier.create(csrfTokenAttribute)
-				.assertNext((csrfToken) -> assertThat(csrfToken.getToken()).isEqualTo(XOR_CSRF_TOKEN_VALUE))
-				.verifyComplete();
+	.assertNext((csrfToken) -> assertThat(csrfToken.getToken()).isEqualTo(XOR_CSRF_TOKEN_VALUE))
+	.verifyComplete();
 		// @formatter:on
 		verify(this.secureRandom).nextBytes(anyByteArray());
 	}
@@ -134,8 +134,8 @@ public class XorServerCsrfTokenRequestAttributeHandlerTests {
 	public void resolveCsrfTokenValueWhenExchangeIsNullThenThrowsIllegalArgumentException() {
 		// @formatter:off
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> this.handler.resolveCsrfTokenValue(null, this.token))
-				.withMessage("exchange cannot be null");
+	.isThrownBy(() -> this.handler.resolveCsrfTokenValue(null, this.token))
+	.withMessage("exchange cannot be null");
 		// @formatter:on
 	}
 
@@ -143,8 +143,8 @@ public class XorServerCsrfTokenRequestAttributeHandlerTests {
 	public void resolveCsrfTokenValueWhenCsrfTokenIsNullThenThrowsIllegalArgumentException() {
 		// @formatter:off
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> this.handler.resolveCsrfTokenValue(this.exchange, null))
-				.withMessage("csrfToken cannot be null");
+	.isThrownBy(() -> this.handler.resolveCsrfTokenValue(this.exchange, null))
+	.withMessage("csrfToken cannot be null");
 		// @formatter:on
 	}
 
@@ -157,8 +157,8 @@ public class XorServerCsrfTokenRequestAttributeHandlerTests {
 	@Test
 	public void resolveCsrfTokenValueWhenFormDataSetThenReturnsTokenValue() {
 		this.exchange = MockServerWebExchange.builder(MockServerHttpRequest.post("/")
-				.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-				.body(this.token.getParameterName() + "=" + XOR_CSRF_TOKEN_VALUE)).build();
+	.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+	.body(this.token.getParameterName() + "=" + XOR_CSRF_TOKEN_VALUE)).build();
 		Mono<String> csrfToken = this.handler.resolveCsrfTokenValue(this.exchange, this.token);
 		StepVerifier.create(csrfToken).expectNext(this.token.getToken()).verifyComplete();
 	}
@@ -166,8 +166,8 @@ public class XorServerCsrfTokenRequestAttributeHandlerTests {
 	@Test
 	public void resolveCsrfTokenValueWhenHeaderSetThenReturnsTokenValue() {
 		this.exchange = MockServerWebExchange.builder(MockServerHttpRequest.post("/")
-				.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-				.header(this.token.getHeaderName(), XOR_CSRF_TOKEN_VALUE)).build();
+	.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+	.header(this.token.getHeaderName(), XOR_CSRF_TOKEN_VALUE)).build();
 		Mono<String> csrfToken = this.handler.resolveCsrfTokenValue(this.exchange, this.token);
 		StepVerifier.create(csrfToken).expectNext(this.token.getToken()).verifyComplete();
 	}
@@ -175,9 +175,9 @@ public class XorServerCsrfTokenRequestAttributeHandlerTests {
 	@Test
 	public void resolveCsrfTokenValueWhenHeaderAndFormDataSetThenFormDataIsPreferred() {
 		this.exchange = MockServerWebExchange.builder(MockServerHttpRequest.post("/")
-				.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-				.header(this.token.getHeaderName(), "header")
-				.body(this.token.getParameterName() + "=" + XOR_CSRF_TOKEN_VALUE)).build();
+	.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+	.header(this.token.getHeaderName(), "header")
+	.body(this.token.getParameterName() + "=" + XOR_CSRF_TOKEN_VALUE)).build();
 		Mono<String> csrfToken = this.handler.resolveCsrfTokenValue(this.exchange, this.token);
 		StepVerifier.create(csrfToken).expectNext(this.token.getToken()).verifyComplete();
 	}

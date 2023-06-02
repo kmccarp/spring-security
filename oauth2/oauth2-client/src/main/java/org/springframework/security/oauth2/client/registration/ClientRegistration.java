@@ -166,16 +166,16 @@ public final class ClientRegistration implements Serializable {
 	public String toString() {
 		// @formatter:off
 		return "ClientRegistration{"
-				+ "registrationId='" + this.registrationId + '\''
-				+ ", clientId='" + this.clientId + '\''
-				+ ", clientSecret='" + this.clientSecret + '\''
-				+ ", clientAuthenticationMethod=" + this.clientAuthenticationMethod
-				+ ", authorizationGrantType=" + this.authorizationGrantType
-				+ ", redirectUri='" + this.redirectUri
-				+ '\'' + ", scopes=" + this.scopes
-				+ ", providerDetails=" + this.providerDetails
-				+ ", clientName='" + this.clientName + '\''
-				+ '}';
+	+ "registrationId='" + this.registrationId + '\''
+	+ ", clientId='" + this.clientId + '\''
+	+ ", clientSecret='" + this.clientSecret + '\''
+	+ ", clientAuthenticationMethod=" + this.clientAuthenticationMethod
+	+ ", authorizationGrantType=" + this.authorizationGrantType
+	+ ", redirectUri='" + this.redirectUri
+	+ '\'' + ", scopes=" + this.scopes
+	+ ", providerDetails=" + this.providerDetails
+	+ ", clientName='" + this.clientName + '\''
+	+ '}';
 		// @formatter:on
 	}
 
@@ -332,8 +332,8 @@ public final class ClientRegistration implements Serializable {
 		private static final Log logger = LogFactory.getLog(Builder.class);
 
 		private static final List<AuthorizationGrantType> AUTHORIZATION_GRANT_TYPES = Arrays.asList(
-				AuthorizationGrantType.AUTHORIZATION_CODE, AuthorizationGrantType.CLIENT_CREDENTIALS,
-				AuthorizationGrantType.REFRESH_TOKEN, AuthorizationGrantType.PASSWORD);
+	AuthorizationGrantType.AUTHORIZATION_CODE, AuthorizationGrantType.CLIENT_CREDENTIALS,
+	AuthorizationGrantType.REFRESH_TOKEN, AuthorizationGrantType.PASSWORD);
 
 		private String registrationId;
 
@@ -620,19 +620,19 @@ public final class ClientRegistration implements Serializable {
 			clientRegistration.clientId = this.clientId;
 			clientRegistration.clientSecret = StringUtils.hasText(this.clientSecret) ? this.clientSecret : "";
 			clientRegistration.clientAuthenticationMethod = (this.clientAuthenticationMethod != null)
-					? this.clientAuthenticationMethod : deduceClientAuthenticationMethod(clientRegistration);
+		? this.clientAuthenticationMethod : deduceClientAuthenticationMethod(clientRegistration);
 			clientRegistration.authorizationGrantType = this.authorizationGrantType;
 			clientRegistration.redirectUri = this.redirectUri;
 			clientRegistration.scopes = this.scopes;
 			clientRegistration.providerDetails = createProviderDetails(clientRegistration);
 			clientRegistration.clientName = StringUtils.hasText(this.clientName) ? this.clientName
-					: this.registrationId;
+		: this.registrationId;
 			return clientRegistration;
 		}
 
 		private ClientAuthenticationMethod deduceClientAuthenticationMethod(ClientRegistration clientRegistration) {
 			if (AuthorizationGrantType.AUTHORIZATION_CODE.equals(this.authorizationGrantType)
-					&& !StringUtils.hasText(this.clientSecret)) {
+		&& !StringUtils.hasText(this.clientSecret)) {
 				return ClientAuthenticationMethod.NONE;
 			}
 			return ClientAuthenticationMethod.CLIENT_SECRET_BASIC;
@@ -653,7 +653,7 @@ public final class ClientRegistration implements Serializable {
 
 		private void validateAuthorizationCodeGrantType() {
 			Assert.isTrue(AuthorizationGrantType.AUTHORIZATION_CODE.equals(this.authorizationGrantType),
-					() -> "authorizationGrantType must be " + AuthorizationGrantType.AUTHORIZATION_CODE.getValue());
+		() -> "authorizationGrantType must be " + AuthorizationGrantType.AUTHORIZATION_CODE.getValue());
 			Assert.hasText(this.registrationId, "registrationId cannot be empty");
 			Assert.hasText(this.clientId, "clientId cannot be empty");
 			Assert.hasText(this.redirectUri, "redirectUri cannot be empty");
@@ -663,7 +663,7 @@ public final class ClientRegistration implements Serializable {
 
 		private void validateClientCredentialsGrantType() {
 			Assert.isTrue(AuthorizationGrantType.CLIENT_CREDENTIALS.equals(this.authorizationGrantType),
-					() -> "authorizationGrantType must be " + AuthorizationGrantType.CLIENT_CREDENTIALS.getValue());
+		() -> "authorizationGrantType must be " + AuthorizationGrantType.CLIENT_CREDENTIALS.getValue());
 			Assert.hasText(this.registrationId, "registrationId cannot be empty");
 			Assert.hasText(this.clientId, "clientId cannot be empty");
 			Assert.hasText(this.tokenUri, "tokenUri cannot be empty");
@@ -671,7 +671,7 @@ public final class ClientRegistration implements Serializable {
 
 		private void validatePasswordGrantType() {
 			Assert.isTrue(AuthorizationGrantType.PASSWORD.equals(this.authorizationGrantType),
-					() -> "authorizationGrantType must be " + AuthorizationGrantType.PASSWORD.getValue());
+		() -> "authorizationGrantType must be " + AuthorizationGrantType.PASSWORD.getValue());
 			Assert.hasText(this.registrationId, "registrationId cannot be empty");
 			Assert.hasText(this.clientId, "clientId cannot be empty");
 			Assert.hasText(this.tokenUri, "tokenUri cannot be empty");
@@ -680,10 +680,10 @@ public final class ClientRegistration implements Serializable {
 		private void validateAuthorizationGrantTypes() {
 			for (AuthorizationGrantType authorizationGrantType : AUTHORIZATION_GRANT_TYPES) {
 				if (authorizationGrantType.getValue().equalsIgnoreCase(this.authorizationGrantType.getValue())
-						&& !authorizationGrantType.equals(this.authorizationGrantType)) {
+			&& !authorizationGrantType.equals(this.authorizationGrantType)) {
 					logger.warn(LogMessage.format(
-							"AuthorizationGrantType: %s does not match the pre-defined constant %s and won't match a valid OAuth2AuthorizedClientProvider",
-							this.authorizationGrantType, authorizationGrantType));
+				"AuthorizationGrantType: %s does not match the pre-defined constant %s and won't match a valid OAuth2AuthorizedClientProvider",
+				this.authorizationGrantType, authorizationGrantType));
 				}
 			}
 		}
@@ -699,7 +699,7 @@ public final class ClientRegistration implements Serializable {
 
 		private static boolean validateScope(String scope) {
 			return scope == null || scope.chars().allMatch((c) -> withinTheRangeOf(c, 0x21, 0x21)
-					|| withinTheRangeOf(c, 0x23, 0x5B) || withinTheRangeOf(c, 0x5D, 0x7E));
+		|| withinTheRangeOf(c, 0x23, 0x5B) || withinTheRangeOf(c, 0x5D, 0x7E));
 		}
 
 		private static boolean withinTheRangeOf(int c, int min, int max) {

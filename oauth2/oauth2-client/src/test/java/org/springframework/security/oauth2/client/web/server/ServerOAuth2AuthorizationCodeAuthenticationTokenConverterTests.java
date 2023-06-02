@@ -60,27 +60,27 @@ public class ServerOAuth2AuthorizationCodeAuthenticationTokenConverterTests {
 
 	// @formatter:off
 	private ClientRegistration clientRegistration = ClientRegistration.withRegistrationId(this.clientRegistrationId)
-			.redirectUri("{baseUrl}/{action}/oauth2/code/{registrationId}")
-			.clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
-			.authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
-			.scope("read:user")
-			.authorizationUri("https://github.com/login/oauth/authorize")
-			.tokenUri("https://github.com/login/oauth/access_token")
-			.userInfoUri("https://api.github.com/user")
-			.userNameAttributeName("id")
-			.clientName("GitHub")
-			.clientId("clientId")
-			.clientSecret("clientSecret")
-			.build();
+.redirectUri("{baseUrl}/{action}/oauth2/code/{registrationId}")
+.clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
+.authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
+.scope("read:user")
+.authorizationUri("https://github.com/login/oauth/authorize")
+.tokenUri("https://github.com/login/oauth/access_token")
+.userInfoUri("https://api.github.com/user")
+.userNameAttributeName("id")
+.clientName("GitHub")
+.clientId("clientId")
+.clientSecret("clientSecret")
+.build();
 	// @formatter:on
 
 	// @formatter:off
 	private OAuth2AuthorizationRequest.Builder authorizationRequest = OAuth2AuthorizationRequest.authorizationCode()
-			.authorizationUri("https://example.com/oauth2/authorize")
-			.clientId("client-id")
-			.redirectUri("http://localhost/client-1")
-			.state("state")
-			.attributes(Collections.singletonMap(OAuth2ParameterNames.REGISTRATION_ID, this.clientRegistrationId));
+.authorizationUri("https://example.com/oauth2/authorize")
+.clientId("client-id")
+.redirectUri("http://localhost/client-1")
+.state("state")
+.attributes(Collections.singletonMap(OAuth2ParameterNames.REGISTRATION_ID, this.clientRegistrationId));
 	// @formatter:on
 
 	private final MockServerHttpRequest.BaseBuilder<?> request = MockServerHttpRequest.get("/");
@@ -90,7 +90,7 @@ public class ServerOAuth2AuthorizationCodeAuthenticationTokenConverterTests {
 	@BeforeEach
 	public void setup() {
 		this.converter = new ServerOAuth2AuthorizationCodeAuthenticationTokenConverter(
-				this.clientRegistrationRepository);
+	this.clientRegistrationRepository);
 		this.converter.setAuthorizationRequestRepository(this.authorizationRequestRepository);
 	}
 
@@ -104,40 +104,40 @@ public class ServerOAuth2AuthorizationCodeAuthenticationTokenConverterTests {
 	public void applyWhenAttributesMissingThenOAuth2AuthorizationException() {
 		this.authorizationRequest.attributes(Map::clear);
 		given(this.authorizationRequestRepository.removeAuthorizationRequest(any()))
-				.willReturn(Mono.just(this.authorizationRequest.build()));
+	.willReturn(Mono.just(this.authorizationRequest.build()));
 		assertThatExceptionOfType(OAuth2AuthorizationException.class).isThrownBy(() -> applyConverter())
-				.withMessageContaining(
-						ServerOAuth2AuthorizationCodeAuthenticationTokenConverter.CLIENT_REGISTRATION_NOT_FOUND_ERROR_CODE);
+	.withMessageContaining(
+ServerOAuth2AuthorizationCodeAuthenticationTokenConverter.CLIENT_REGISTRATION_NOT_FOUND_ERROR_CODE);
 	}
 
 	@Test
 	public void applyWhenClientRegistrationMissingThenOAuth2AuthorizationException() {
 		given(this.authorizationRequestRepository.removeAuthorizationRequest(any()))
-				.willReturn(Mono.just(this.authorizationRequest.build()));
+	.willReturn(Mono.just(this.authorizationRequest.build()));
 		given(this.clientRegistrationRepository.findByRegistrationId(any())).willReturn(Mono.empty());
 		assertThatExceptionOfType(OAuth2AuthorizationException.class).isThrownBy(() -> applyConverter())
-				.withMessageContaining(
-						ServerOAuth2AuthorizationCodeAuthenticationTokenConverter.CLIENT_REGISTRATION_NOT_FOUND_ERROR_CODE);
+	.withMessageContaining(
+ServerOAuth2AuthorizationCodeAuthenticationTokenConverter.CLIENT_REGISTRATION_NOT_FOUND_ERROR_CODE);
 	}
 
 	@Test
 	public void applyWhenCodeParameterNotFoundThenErrorCode() {
 		this.request.queryParam(OAuth2ParameterNames.ERROR, "error");
 		given(this.authorizationRequestRepository.removeAuthorizationRequest(any()))
-				.willReturn(Mono.just(this.authorizationRequest.build()));
+	.willReturn(Mono.just(this.authorizationRequest.build()));
 		given(this.clientRegistrationRepository.findByRegistrationId(any()))
-				.willReturn(Mono.just(this.clientRegistration));
+	.willReturn(Mono.just(this.clientRegistration));
 		assertThat(applyConverter().getAuthorizationExchange().getAuthorizationResponse().getError().getErrorCode())
-				.isEqualTo("error");
+	.isEqualTo("error");
 	}
 
 	@Test
 	public void applyWhenCodeParameterFoundThenCode() {
 		this.request.queryParam(OAuth2ParameterNames.CODE, "code");
 		given(this.authorizationRequestRepository.removeAuthorizationRequest(any()))
-				.willReturn(Mono.just(this.authorizationRequest.build()));
+	.willReturn(Mono.just(this.authorizationRequest.build()));
 		given(this.clientRegistrationRepository.findByRegistrationId(any()))
-				.willReturn(Mono.just(this.clientRegistration));
+	.willReturn(Mono.just(this.clientRegistration));
 		OAuth2AuthorizationCodeAuthenticationToken result = applyConverter();
 		OAuth2AuthorizationResponse exchange = result.getAuthorizationExchange().getAuthorizationResponse();
 		assertThat(exchange.getError()).isNull();

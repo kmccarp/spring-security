@@ -58,9 +58,9 @@ public class Gh3409Tests {
 	public void setup() {
 		// @formatter:off
 		this.mockMvc = MockMvcBuilders
-			.webAppContextSetup(this.context)
-			.apply(springSecurity())
-			.build();
+	.webAppContextSetup(this.context)
+	.apply(springSecurity())
+	.build();
 		// @formatter:on
 	}
 
@@ -69,11 +69,11 @@ public class Gh3409Tests {
 	public void unauthenticatedAnonymousUser() throws Exception {
 		// @formatter:off
 		this.mockMvc
-			.perform(get("/public/")
-			.with(securityContext(new SecurityContextImpl())));
+	.perform(get("/public/")
+.with(securityContext(new SecurityContextImpl())));
 		this.mockMvc
-			.perform(get("/public/"))
-			.andExpect(unauthenticated());
+	.perform(get("/public/"))
+	.andExpect(unauthenticated());
 		// @formatter:on
 	}
 
@@ -81,11 +81,11 @@ public class Gh3409Tests {
 	public void unauthenticatedNullAuthenitcation() throws Exception {
 		// @formatter:off
 		this.mockMvc
-			.perform(get("/")
-			.with(securityContext(new SecurityContextImpl())));
+	.perform(get("/")
+.with(securityContext(new SecurityContextImpl())));
 		this.mockMvc
-			.perform(get("/"))
-			.andExpect(unauthenticated());
+	.perform(get("/"))
+	.andExpect(unauthenticated());
 		// @formatter:on
 	}
 
@@ -98,12 +98,12 @@ public class Gh3409Tests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests()
-					.requestMatchers("/public/**").permitAll()
-					.anyRequest().authenticated()
-					.and()
-				.formLogin().and()
-				.httpBasic();
+		.authorizeRequests()
+		.requestMatchers("/public/**").permitAll()
+		.anyRequest().authenticated()
+		.and()
+		.formLogin().and()
+		.httpBasic();
 			return http.build();
 			// @formatter:on
 		}

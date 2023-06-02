@@ -60,19 +60,19 @@ class PreAuthenticatedAuthenticationTokenDeserializer extends JsonDeserializer<P
 	 */
 	@Override
 	public PreAuthenticatedAuthenticationToken deserialize(JsonParser jp, DeserializationContext ctxt)
-			throws IOException, JsonProcessingException {
+throws IOException, JsonProcessingException {
 		ObjectMapper mapper = (ObjectMapper) jp.getCodec();
 		JsonNode jsonNode = mapper.readTree(jp);
 		Boolean authenticated = readJsonNode(jsonNode, "authenticated").asBoolean();
 		JsonNode principalNode = readJsonNode(jsonNode, "principal");
 		Object principal = (!principalNode.isObject()) ? principalNode.asText()
-				: mapper.readValue(principalNode.traverse(mapper), Object.class);
+	: mapper.readValue(principalNode.traverse(mapper), Object.class);
 		Object credentials = readJsonNode(jsonNode, "credentials").asText();
 		List<GrantedAuthority> authorities = mapper.readValue(readJsonNode(jsonNode, "authorities").traverse(mapper),
-				GRANTED_AUTHORITY_LIST);
+	GRANTED_AUTHORITY_LIST);
 		PreAuthenticatedAuthenticationToken token = (!authenticated)
-				? new PreAuthenticatedAuthenticationToken(principal, credentials)
-				: new PreAuthenticatedAuthenticationToken(principal, credentials, authorities);
+	? new PreAuthenticatedAuthenticationToken(principal, credentials)
+	: new PreAuthenticatedAuthenticationToken(principal, credentials, authorities);
 		token.setDetails(readJsonNode(jsonNode, "details"));
 		return token;
 	}

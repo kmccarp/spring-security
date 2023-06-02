@@ -55,7 +55,7 @@ public interface OAuth2AuthorizedClientRepository {
 	 * @return the {@link OAuth2AuthorizedClient} or {@code null} if not available
 	 */
 	<T extends OAuth2AuthorizedClient> T loadAuthorizedClient(String clientRegistrationId, Authentication principal,
-			HttpServletRequest request);
+HttpServletRequest request);
 
 	/**
 	 * Saves the {@link OAuth2AuthorizedClient} associating it to the provided End-User
@@ -66,7 +66,7 @@ public interface OAuth2AuthorizedClientRepository {
 	 * @param response the {@code HttpServletResponse}
 	 */
 	void saveAuthorizedClient(OAuth2AuthorizedClient authorizedClient, Authentication principal,
-			HttpServletRequest request, HttpServletResponse response);
+HttpServletRequest request, HttpServletResponse response);
 
 	/**
 	 * Removes the {@link OAuth2AuthorizedClient} associated to the provided client
@@ -77,6 +77,6 @@ public interface OAuth2AuthorizedClientRepository {
 	 * @param response the {@code HttpServletResponse}
 	 */
 	void removeAuthorizedClient(String clientRegistrationId, Authentication principal, HttpServletRequest request,
-			HttpServletResponse response);
+HttpServletResponse response);
 
 }

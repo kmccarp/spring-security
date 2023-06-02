@@ -64,7 +64,7 @@ public final class CsrfAuthenticationStrategy implements SessionAuthenticationSt
 
 	@Override
 	public void onAuthentication(Authentication authentication, HttpServletRequest request,
-			HttpServletResponse response) throws SessionAuthenticationException {
+HttpServletResponse response) throws SessionAuthenticationException {
 		boolean containsToken = this.tokenRepository.loadToken(request) != null;
 		if (containsToken) {
 			this.tokenRepository.saveToken(null, request, response);

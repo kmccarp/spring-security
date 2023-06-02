@@ -89,8 +89,8 @@ public class HttpBasicConfigurerTests {
 		this.spring.register(DefaultsLambdaEntryPointConfig.class).autowire();
 		// @formatter:off
 		this.mvc.perform(get("/"))
-				.andExpect(status().isUnauthorized())
-				.andExpect(header().string("WWW-Authenticate", "Basic realm=\"Realm\""));
+	.andExpect(status().isUnauthorized())
+	.andExpect(header().string("WWW-Authenticate", "Basic realm=\"Realm\""));
 		// @formatter:on
 	}
 
@@ -100,8 +100,8 @@ public class HttpBasicConfigurerTests {
 		this.spring.register(DefaultsEntryPointConfig.class).autowire();
 		// @formatter:off
 		this.mvc.perform(get("/"))
-				.andExpect(status().isUnauthorized())
-				.andExpect(header().string("WWW-Authenticate", "Basic realm=\"Realm\""));
+	.andExpect(status().isUnauthorized())
+	.andExpect(header().string("WWW-Authenticate", "Basic realm=\"Realm\""));
 		// @formatter:on
 	}
 
@@ -110,7 +110,7 @@ public class HttpBasicConfigurerTests {
 		this.spring.register(CustomAuthenticationEntryPointConfig.class).autowire();
 		this.mvc.perform(get("/"));
 		verify(CustomAuthenticationEntryPointConfig.ENTRY_POINT).commence(any(HttpServletRequest.class),
-				any(HttpServletResponse.class), any(AuthenticationException.class));
+	any(HttpServletResponse.class), any(AuthenticationException.class));
 	}
 
 	@Test
@@ -118,7 +118,7 @@ public class HttpBasicConfigurerTests {
 		this.spring.register(DuplicateDoesNotOverrideConfig.class).autowire();
 		this.mvc.perform(get("/"));
 		verify(DuplicateDoesNotOverrideConfig.ENTRY_POINT).commence(any(HttpServletRequest.class),
-				any(HttpServletResponse.class), any(AuthenticationException.class));
+	any(HttpServletResponse.class), any(AuthenticationException.class));
 	}
 
 	// SEC-3019
@@ -126,7 +126,7 @@ public class HttpBasicConfigurerTests {
 	public void httpBasicWhenRememberMeConfiguredThenSetsRememberMeCookie() throws Exception {
 		this.spring.register(BasicUsesRememberMeConfig.class).autowire();
 		MockHttpServletRequestBuilder rememberMeRequest = get("/").with(httpBasic("user", "password"))
-				.param("remember-me", "true");
+	.param("remember-me", "true");
 		this.mvc.perform(rememberMeRequest).andExpect(cookie().exists("remember-me"));
 	}
 
@@ -134,17 +134,17 @@ public class HttpBasicConfigurerTests {
 	public void httpBasicWhenDefaultsThenAcceptsBasicCredentials() throws Exception {
 		this.spring.register(HttpBasic.class, Users.class, Home.class).autowire();
 		this.mvc.perform(get("/").with(httpBasic("user", "password"))).andExpect(status().isOk())
-				.andExpect(content().string("user"));
+	.andExpect(content().string("user"));
 	}
 
 	@Test
 	public void httpBasicWhenCustomSecurityContextHolderStrategyThenUses() throws Exception {
 		this.spring.register(HttpBasic.class, Users.class, Home.class, SecurityContextChangedListenerConfig.class)
-				.autowire();
+	.autowire();
 		this.mvc.perform(get("/").with(httpBasic("user", "password"))).andExpect(status().isOk())
-				.andExpect(content().string("user"));
+	.andExpect(content().string("user"));
 		SecurityContextChangedListener listener = this.spring.getContext()
-				.getBean(SecurityContextChangedListener.class);
+	.getBean(SecurityContextChangedListener.class);
 		verify(listener).securityContextChanged(setAuthentication(UsernamePasswordAuthenticationToken.class));
 	}
 
@@ -152,9 +152,9 @@ public class HttpBasicConfigurerTests {
 	public void httpBasicWhenUsingCustomSecurityContextRepositoryThenUses() throws Exception {
 		this.spring.register(CustomSecurityContextRepositoryConfig.class, Users.class, Home.class).autowire();
 		this.mvc.perform(get("/").with(httpBasic("user", "password"))).andExpect(status().isOk())
-				.andExpect(content().string("user"));
+	.andExpect(content().string("user"));
 		verify(CustomSecurityContextRepositoryConfig.SECURITY_CONTEXT_REPOSITORY)
-				.saveContext(any(SecurityContext.class), any(HttpServletRequest.class), any(HttpServletResponse.class));
+	.saveContext(any(SecurityContext.class), any(HttpServletRequest.class), any(HttpServletResponse.class));
 	}
 
 	@Configuration
@@ -167,7 +167,7 @@ public class HttpBasicConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.httpBasic();
+		.httpBasic();
 			return http.build();
 			// @formatter:on
 		}
@@ -196,11 +196,11 @@ public class HttpBasicConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests((authorizeRequests) ->
-					authorizeRequests
-						.anyRequest().authenticated()
-				)
-				.httpBasic(withDefaults());
+		.authorizeRequests((authorizeRequests) ->
+	authorizeRequests
+.anyRequest().authenticated()
+		)
+		.httpBasic(withDefaults());
 			// @formatter:on
 			return http.build();
 		}
@@ -220,10 +220,10 @@ public class HttpBasicConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests()
-					.anyRequest().authenticated()
-					.and()
-				.httpBasic();
+		.authorizeRequests()
+		.anyRequest().authenticated()
+		.and()
+		.httpBasic();
 			// @formatter:on
 			return http.build();
 		}
@@ -245,11 +245,11 @@ public class HttpBasicConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests()
-					.anyRequest().authenticated()
-					.and()
-				.httpBasic()
-					.authenticationEntryPoint(ENTRY_POINT);
+		.authorizeRequests()
+		.anyRequest().authenticated()
+		.and()
+		.httpBasic()
+		.authenticationEntryPoint(ENTRY_POINT);
 			// @formatter:on
 			return http.build();
 		}
@@ -271,13 +271,13 @@ public class HttpBasicConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests()
-					.anyRequest().authenticated()
-					.and()
-				.httpBasic()
-					.authenticationEntryPoint(ENTRY_POINT)
-					.and()
-				.httpBasic();
+		.authorizeRequests()
+		.anyRequest().authenticated()
+		.and()
+		.httpBasic()
+		.authenticationEntryPoint(ENTRY_POINT)
+		.and()
+		.httpBasic();
 			// @formatter:on
 			return http.build();
 		}
@@ -297,9 +297,9 @@ public class HttpBasicConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.httpBasic()
-					.and()
-				.rememberMe();
+		.httpBasic()
+		.and()
+		.rememberMe();
 			return http.build();
 			// @formatter:on
 		}
@@ -307,13 +307,13 @@ public class HttpBasicConfigurerTests {
 		@Bean
 		UserDetailsService userDetailsService() {
 			return new InMemoryUserDetailsManager(
-			// @formatter:off
-					org.springframework.security.core.userdetails.User.withDefaultPasswordEncoder()
-							.username("user")
-							.password("password")
-							.roles("USER")
-							.build()
-					// @formatter:on
+		// @formatter:off
+		org.springframework.security.core.userdetails.User.withDefaultPasswordEncoder()
+	.username("user")
+	.password("password")
+	.roles("USER")
+	.build()
+			// @formatter:on
 			);
 		}
 
@@ -326,7 +326,7 @@ public class HttpBasicConfigurerTests {
 		@Bean
 		SecurityFilterChain web(HttpSecurity http) throws Exception {
 			http.authorizeHttpRequests((authorize) -> authorize.anyRequest().authenticated())
-					.httpBasic(Customizer.withDefaults());
+		.httpBasic(Customizer.withDefaults());
 
 			return http.build();
 		}
@@ -343,8 +343,8 @@ public class HttpBasicConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.httpBasic()
-					.securityContextRepository(SECURITY_CONTEXT_REPOSITORY);
+		.httpBasic()
+		.securityContextRepository(SECURITY_CONTEXT_REPOSITORY);
 			// @formatter:on
 			return http.build();
 		}
@@ -357,13 +357,13 @@ public class HttpBasicConfigurerTests {
 		@Bean
 		UserDetailsService userDetailsService() {
 			return new InMemoryUserDetailsManager(
-			// @formatter:off
-					User.withDefaultPasswordEncoder()
-							.username("user")
-							.password("password")
-							.roles("USER")
-							.build()
-					// @formatter:on
+		// @formatter:off
+		User.withDefaultPasswordEncoder()
+	.username("user")
+	.password("password")
+	.roles("USER")
+	.build()
+			// @formatter:on
 			);
 		}
 

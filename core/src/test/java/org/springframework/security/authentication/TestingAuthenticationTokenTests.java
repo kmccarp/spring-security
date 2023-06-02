@@ -38,14 +38,14 @@ public class TestingAuthenticationTokenTests {
 	@Test
 	public void constructorWhenArityAuthoritiesThenAuthenticated() {
 		TestingAuthenticationToken authenticated = new TestingAuthenticationToken("principal", "credentials",
-				"authority");
+	"authority");
 		assertThat(authenticated.isAuthenticated()).isTrue();
 	}
 
 	@Test
 	public void constructorWhenCollectionAuthoritiesThenAuthenticated() {
 		TestingAuthenticationToken authenticated = new TestingAuthenticationToken("principal", "credentials",
-				Arrays.asList(new SimpleGrantedAuthority("authority")));
+	Arrays.asList(new SimpleGrantedAuthority("authority")));
 		assertThat(authenticated.isAuthenticated()).isTrue();
 	}
 

@@ -49,25 +49,25 @@ public class RequestCacheTests {
 	public void defaultFormLoginRequestCache() {
 		// @formatter:off
 		SecurityWebFilterChain securityWebFilter = this.http
-				.authorizeExchange()
-					.anyExchange().authenticated()
-					.and()
-				.formLogin().and()
-				.build();
+	.authorizeExchange()
+	.anyExchange().authenticated()
+	.and()
+	.formLogin().and()
+	.build();
 		WebTestClient webTestClient = WebTestClient
-				.bindToController(new SecuredPageController(), new WebTestClientBuilder.Http200RestController())
-				.webFilter(new WebFilterChainProxy(securityWebFilter))
-				.build();
+	.bindToController(new SecuredPageController(), new WebTestClientBuilder.Http200RestController())
+	.webFilter(new WebFilterChainProxy(securityWebFilter))
+	.build();
 		WebDriver driver = WebTestClientHtmlUnitDriverBuilder
-				.webTestClientSetup(webTestClient)
-				.build();
+	.webTestClientSetup(webTestClient)
+	.build();
 		// @formatter:on
 		DefaultLoginPage loginPage = SecuredPage.to(driver, DefaultLoginPage.class).assertAt();
 		// @formatter:off
 		SecuredPage securedPage = loginPage.loginForm()
-				.username("user")
-				.password("password")
-				.submit(SecuredPage.class);
+	.username("user")
+	.password("password")
+	.submit(SecuredPage.class);
 		// @formatter:on
 		securedPage.assertAt();
 	}
@@ -76,28 +76,28 @@ public class RequestCacheTests {
 	public void requestCacheNoOp() {
 		// @formatter:off
 		SecurityWebFilterChain securityWebFilter = this.http
-				.authorizeExchange()
-					.anyExchange().authenticated()
-					.and()
-				.formLogin().and()
-				.requestCache()
-					.requestCache(NoOpServerRequestCache.getInstance())
-					.and()
-				.build();
+	.authorizeExchange()
+	.anyExchange().authenticated()
+	.and()
+	.formLogin().and()
+	.requestCache()
+	.requestCache(NoOpServerRequestCache.getInstance())
+	.and()
+	.build();
 		WebTestClient webTestClient = WebTestClient
-				.bindToController(new SecuredPageController(), new WebTestClientBuilder.Http200RestController())
-				.webFilter(new WebFilterChainProxy(securityWebFilter))
-				.build();
+	.bindToController(new SecuredPageController(), new WebTestClientBuilder.Http200RestController())
+	.webFilter(new WebFilterChainProxy(securityWebFilter))
+	.build();
 		WebDriver driver = WebTestClientHtmlUnitDriverBuilder
-				.webTestClientSetup(webTestClient)
-				.build();
+	.webTestClientSetup(webTestClient)
+	.build();
 		// @formatter:on
 		DefaultLoginPage loginPage = SecuredPage.to(driver, DefaultLoginPage.class).assertAt();
 		// @formatter:off
 		HomePage securedPage = loginPage.loginForm()
-				.username("user")
-				.password("password")
-				.submit(HomePage.class);
+	.username("user")
+	.password("password")
+	.submit(HomePage.class);
 		// @formatter:on
 		securedPage.assertAt();
 	}
@@ -106,28 +106,26 @@ public class RequestCacheTests {
 	public void requestWhenCustomRequestCacheInLambdaThenCustomCacheUsed() {
 		// @formatter:off
 		SecurityWebFilterChain securityWebFilter = this.http
-				.authorizeExchange((exchange) -> exchange
-						.anyExchange().authenticated()
-				)
-				.formLogin(withDefaults())
-				.requestCache((requestCache) -> requestCache
-						.requestCache(NoOpServerRequestCache.getInstance())
-				)
-				.build();
+	.authorizeExchange((exchange) -> exchange.anyExchange().authenticated()
+	)
+	.formLogin(withDefaults())
+	.requestCache((requestCache) -> requestCache.requestCache(NoOpServerRequestCache.getInstance())
+	)
+	.build();
 		WebTestClient webTestClient = WebTestClient
-				.bindToController(new SecuredPageController(), new WebTestClientBuilder.Http200RestController())
-				.webFilter(new WebFilterChainProxy(securityWebFilter))
-				.build();
+	.bindToController(new SecuredPageController(), new WebTestClientBuilder.Http200RestController())
+	.webFilter(new WebFilterChainProxy(securityWebFilter))
+	.build();
 		WebDriver driver = WebTestClientHtmlUnitDriverBuilder
-				.webTestClientSetup(webTestClient)
-				.build();
+	.webTestClientSetup(webTestClient)
+	.build();
 		// @formatter:on
 		DefaultLoginPage loginPage = SecuredPage.to(driver, DefaultLoginPage.class).assertAt();
 		// @formatter:off
 		HomePage securedPage = loginPage.loginForm()
-				.username("user")
-				.password("password")
-				.submit(HomePage.class);
+	.username("user")
+	.password("password")
+	.submit(HomePage.class);
 		// @formatter:on
 		securedPage.assertAt();
 	}
@@ -159,14 +157,14 @@ public class RequestCacheTests {
 		public String login(ServerWebExchange exchange) {
 			// @formatter:off
 			return "<!DOCTYPE html>\n"
-				+ "<html lang=\"en\">\n"
-				+ "  <head>\n"
-				+ "    <title>Secured</title>\n"
-				+ "  </head>\n"
-				+ "  <body>\n"
-				+ "    <h1>Secured</h1>\n"
-				+ "  </body>\n"
-				+ "</html>";
+		+ "<html lang=\"en\">\n"
+		+ "  <head>\n"
+		+ "    <title>Secured</title>\n"
+		+ "  </head>\n"
+		+ "  <body>\n"
+		+ "    <h1>Secured</h1>\n"
+		+ "  </body>\n"
+		+ "</html>";
 			// @formatter:on
 		}
 

@@ -94,7 +94,7 @@ public class InetOrgPersonTests {
 		DirContextAdapter ctx1 = createUserContext();
 		DirContextAdapter ctx2 = new DirContextAdapter();
 		ctx1.setAttributeValues("objectclass",
-				new String[] { "top", "person", "organizationalPerson", "inetOrgPerson" });
+	new String[]{"top", "person", "organizationalPerson", "inetOrgPerson"});
 		ctx2.setDn(new DistinguishedName("ignored=ignored"));
 		InetOrgPerson p = (InetOrgPerson) (new InetOrgPerson.Essence(ctx1)).createUserDetails();
 		p.populateContext(ctx2);
@@ -107,7 +107,7 @@ public class InetOrgPersonTests {
 		DirContextAdapter ctx2 = new DirContextAdapter();
 		ctx2.setDn(new DistinguishedName("ignored=ignored"));
 		ctx1.setAttributeValues("objectclass",
-				new String[] { "top", "person", "organizationalPerson", "inetOrgPerson" });
+	new String[]{"top", "person", "organizationalPerson", "inetOrgPerson"});
 		InetOrgPerson p = (InetOrgPerson) (new InetOrgPerson.Essence(ctx1)).createUserDetails();
 		InetOrgPerson p2 = (InetOrgPerson) new InetOrgPerson.Essence(p).createUserDetails();
 		p2.populateContext(ctx2);

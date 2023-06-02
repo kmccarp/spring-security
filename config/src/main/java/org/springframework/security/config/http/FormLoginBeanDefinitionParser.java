@@ -63,7 +63,7 @@ public class FormLoginBeanDefinitionParser {
 	private static final String ATT_FORM_LOGIN_AUTHENTICATION_FAILURE_URL = "authentication-failure-url";
 
 	private static final String DEF_FORM_LOGIN_AUTHENTICATION_FAILURE_URL = DefaultLoginPageGeneratingFilter.DEFAULT_LOGIN_PAGE_URL
-			+ "?" + DefaultLoginPageGeneratingFilter.ERROR_PARAMETER_NAME;
++ "?" + DefaultLoginPageGeneratingFilter.ERROR_PARAMETER_NAME;
 
 	private static final String ATT_SUCCESS_HANDLER_REF = "authentication-success-handler-ref";
 
@@ -98,8 +98,8 @@ public class FormLoginBeanDefinitionParser {
 	private String loginProcessingUrl;
 
 	FormLoginBeanDefinitionParser(String defaultLoginProcessingUrl, String loginMethod, String filterClassName,
-			BeanReference requestCache, BeanReference sessionStrategy, boolean allowSessionCreation,
-			BeanReference portMapper, BeanReference portResolver) {
+BeanReference requestCache, BeanReference sessionStrategy, boolean allowSessionCreation,
+BeanReference portMapper, BeanReference portResolver) {
 		this.defaultLoginProcessingUrl = defaultLoginProcessingUrl;
 		this.loginMethod = loginMethod;
 		this.filterClassName = filterClassName;
@@ -149,8 +149,8 @@ public class FormLoginBeanDefinitionParser {
 			passwordParameter = elt.getAttribute(ATT_PASSWORD_PARAMETER);
 		}
 		this.filterBean = createFilterBean(loginUrl, defaultTargetUrl, alwaysUseDefault, this.loginPage,
-				authenticationFailureUrl, successHandlerRef, failureHandlerRef, authDetailsSourceRef,
-				authenticationFailureForwardUrl, authenticationSuccessForwardUrl);
+	authenticationFailureUrl, successHandlerRef, failureHandlerRef, authDetailsSourceRef,
+	authenticationFailureForwardUrl, authenticationSuccessForwardUrl);
 		if (StringUtils.hasText(usernameParameter)) {
 			this.filterBean.getPropertyValues().addPropertyValue("usernameParameter", usernameParameter);
 		}
@@ -159,7 +159,7 @@ public class FormLoginBeanDefinitionParser {
 		}
 		this.filterBean.setSource(source);
 		BeanDefinitionBuilder entryPointBuilder = BeanDefinitionBuilder
-				.rootBeanDefinition(LoginUrlAuthenticationEntryPoint.class);
+	.rootBeanDefinition(LoginUrlAuthenticationEntryPoint.class);
 		entryPointBuilder.getRawBeanDefinition().setSource(source);
 		entryPointBuilder.addConstructorArgValue((this.loginPage != null) ? this.loginPage : DEF_LOGIN_PAGE);
 		entryPointBuilder.addPropertyValue("portMapper", this.portMapper);
@@ -169,16 +169,16 @@ public class FormLoginBeanDefinitionParser {
 	}
 
 	private RootBeanDefinition createFilterBean(String loginUrl, String defaultTargetUrl, String alwaysUseDefault,
-			String loginPage, String authenticationFailureUrl, String successHandlerRef, String failureHandlerRef,
-			String authDetailsSourceRef, String authenticationFailureForwardUrl,
-			String authenticationSuccessForwardUrl) {
+String loginPage, String authenticationFailureUrl, String successHandlerRef, String failureHandlerRef,
+String authDetailsSourceRef, String authenticationFailureForwardUrl,
+String authenticationSuccessForwardUrl) {
 		BeanDefinitionBuilder filterBuilder = BeanDefinitionBuilder.rootBeanDefinition(this.filterClassName);
 		if (!StringUtils.hasText(loginUrl)) {
 			loginUrl = this.defaultLoginProcessingUrl;
 		}
 		this.loginProcessingUrl = loginUrl;
 		BeanDefinitionBuilder matcherBuilder = BeanDefinitionBuilder
-				.rootBeanDefinition("org.springframework.security.web.util.matcher.AntPathRequestMatcher");
+	.rootBeanDefinition("org.springframework.security.web.util.matcher.AntPathRequestMatcher");
 		matcherBuilder.addConstructorArgValue(loginUrl);
 		if (this.loginMethod != null) {
 			matcherBuilder.addConstructorArgValue("POST");
@@ -189,19 +189,19 @@ public class FormLoginBeanDefinitionParser {
 		}
 		else if (StringUtils.hasText(authenticationSuccessForwardUrl)) {
 			BeanDefinitionBuilder forwardSuccessHandler = BeanDefinitionBuilder
-					.rootBeanDefinition(ForwardAuthenticationSuccessHandler.class);
+		.rootBeanDefinition(ForwardAuthenticationSuccessHandler.class);
 			forwardSuccessHandler.addConstructorArgValue(authenticationSuccessForwardUrl);
 			filterBuilder.addPropertyValue("authenticationSuccessHandler", forwardSuccessHandler.getBeanDefinition());
 		}
 		else {
 			BeanDefinitionBuilder successHandler = BeanDefinitionBuilder
-					.rootBeanDefinition(SavedRequestAwareAuthenticationSuccessHandler.class);
+		.rootBeanDefinition(SavedRequestAwareAuthenticationSuccessHandler.class);
 			if ("true".equals(alwaysUseDefault)) {
 				successHandler.addPropertyValue("alwaysUseDefaultTargetUrl", Boolean.TRUE);
 			}
 			successHandler.addPropertyValue("requestCache", this.requestCache);
 			successHandler.addPropertyValue("defaultTargetUrl",
-					StringUtils.hasText(defaultTargetUrl) ? defaultTargetUrl : DEF_FORM_LOGIN_TARGET_URL);
+		StringUtils.hasText(defaultTargetUrl) ? defaultTargetUrl : DEF_FORM_LOGIN_TARGET_URL);
 			filterBuilder.addPropertyValue("authenticationSuccessHandler", successHandler.getBeanDefinition());
 		}
 		if (StringUtils.hasText(authDetailsSourceRef)) {
@@ -215,13 +215,13 @@ public class FormLoginBeanDefinitionParser {
 		}
 		else if (StringUtils.hasText(authenticationFailureForwardUrl)) {
 			BeanDefinitionBuilder forwardFailureHandler = BeanDefinitionBuilder
-					.rootBeanDefinition(ForwardAuthenticationFailureHandler.class);
+		.rootBeanDefinition(ForwardAuthenticationFailureHandler.class);
 			forwardFailureHandler.addConstructorArgValue(authenticationFailureForwardUrl);
 			filterBuilder.addPropertyValue("authenticationFailureHandler", forwardFailureHandler.getBeanDefinition());
 		}
 		else {
 			BeanDefinitionBuilder failureHandler = BeanDefinitionBuilder
-					.rootBeanDefinition(SimpleUrlAuthenticationFailureHandler.class);
+		.rootBeanDefinition(SimpleUrlAuthenticationFailureHandler.class);
 			if (!StringUtils.hasText(authenticationFailureUrl)) {
 				// Fall back to re-displaying the custom login page, if one was specified.
 				if (StringUtils.hasText(loginPage)) {

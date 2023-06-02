@@ -84,7 +84,7 @@ public class X509ConfigurerTests {
 		X509Certificate certificate = loadCert("rodatexampledotcom.cer");
 		// @formatter:off
 		this.mvc.perform(get("/").with(x509(certificate)))
-				.andExpect(authenticated().withUsername("rod"));
+	.andExpect(authenticated().withUsername("rod"));
 		// @formatter:on
 	}
 
@@ -94,7 +94,7 @@ public class X509ConfigurerTests {
 		X509Certificate certificate = loadCert("rod.cer");
 		// @formatter:off
 		this.mvc.perform(get("/").with(x509(certificate)))
-				.andExpect(authenticated().withUsername("rod"));
+	.andExpect(authenticated().withUsername("rod"));
 		// @formatter:on
 	}
 
@@ -104,12 +104,12 @@ public class X509ConfigurerTests {
 		X509Certificate certificate = loadCert("rod.cer");
 		// @formatter:off
 		this.mvc.perform(get("/").with(x509(certificate)))
-				.andExpect(authenticated().withUsername("rod"));
+	.andExpect(authenticated().withUsername("rod"));
 		// @formatter:on
 		SecurityContextHolderStrategy strategy = this.spring.getContext().getBean(SecurityContextHolderStrategy.class);
 		verify(strategy, atLeastOnce()).getContext();
 		SecurityContextChangedListener listener = this.spring.getContext()
-				.getBean(SecurityContextChangedListener.class);
+	.getBean(SecurityContextChangedListener.class);
 		verify(listener).securityContextChanged(setAuthentication(PreAuthenticatedAuthenticationToken.class));
 	}
 
@@ -119,7 +119,7 @@ public class X509ConfigurerTests {
 		X509Certificate certificate = loadCert("rodatexampledotcom.cer");
 		// @formatter:off
 		this.mvc.perform(get("/").with(x509(certificate)))
-				.andExpect(authenticated().withUsername("rod"));
+	.andExpect(authenticated().withUsername("rod"));
 		// @formatter:on
 	}
 
@@ -129,7 +129,7 @@ public class X509ConfigurerTests {
 		X509Certificate certificate = loadCert("rod.cer");
 		// @formatter:off
 		this.mvc.perform(get("/").with(x509(certificate)))
-				.andExpect(authenticated().withUsername("rod"));
+	.andExpect(authenticated().withUsername("rod"));
 		// @formatter:on
 	}
 
@@ -139,7 +139,7 @@ public class X509ConfigurerTests {
 		X509Certificate certificate = loadCert("rod.cer");
 		// @formatter:off
 		this.mvc.perform(get("/").with(x509(certificate)))
-				.andExpect(authenticated().withUsername("rod"));
+	.andExpect(authenticated().withUsername("rod"));
 		// @formatter:on
 	}
 
@@ -150,8 +150,8 @@ public class X509ConfigurerTests {
 		X509Certificate certificate = loadCert("rodatexampledotcom.cer");
 		// @formatter:off
 		this.mvc.perform(get("/").with(x509(certificate)))
-				.andExpect((result) -> assertThat(result.getRequest().getSession(false)).isNull())
-				.andExpect(authenticated().withUsername("rod"));
+	.andExpect((result) -> assertThat(result.getRequest().getSession(false)).isNull())
+	.andExpect(authenticated().withUsername("rod"));
 		// @formatter:on
 	}
 
@@ -175,7 +175,7 @@ public class X509ConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.x509();
+		.x509();
 			return http.build();
 			// @formatter:on
 		}
@@ -204,10 +204,10 @@ public class X509ConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.x509()
-					.subjectPrincipalRegex("CN=(.*?)@example.com(?:,|$)")
-					.and()
-				.x509();
+		.x509()
+		.subjectPrincipalRegex("CN=(.*?)@example.com(?:,|$)")
+		.and()
+		.x509();
 			// @formatter:on
 			return http.build();
 		}
@@ -215,7 +215,7 @@ public class X509ConfigurerTests {
 		@Bean
 		UserDetailsService userDetailsService() {
 			UserDetails user = User.withDefaultPasswordEncoder().username("rod").password("password")
-					.roles("USER", "ADMIN").build();
+		.roles("USER", "ADMIN").build();
 			return new InMemoryUserDetailsManager(user);
 		}
 
@@ -229,7 +229,7 @@ public class X509ConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.x509(withDefaults());
+		.x509(withDefaults());
 			// @formatter:on
 			return http.build();
 		}
@@ -237,7 +237,7 @@ public class X509ConfigurerTests {
 		@Bean
 		UserDetailsService userDetailsService() {
 			UserDetails user = User.withDefaultPasswordEncoder().username("rod").password("password")
-					.roles("USER", "ADMIN").build();
+		.roles("USER", "ADMIN").build();
 			return new InMemoryUserDetailsManager(user);
 		}
 
@@ -251,10 +251,10 @@ public class X509ConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.x509((x509) ->
-					x509
-						.subjectPrincipalRegex("CN=(.*?)@example.com(?:,|$)")
-				);
+		.x509((x509) ->
+	x509
+.subjectPrincipalRegex("CN=(.*?)@example.com(?:,|$)")
+		);
 			// @formatter:on
 			return http.build();
 		}
@@ -262,7 +262,7 @@ public class X509ConfigurerTests {
 		@Bean
 		UserDetailsService userDetailsService() {
 			UserDetails user = User.withDefaultPasswordEncoder().username("rod").password("password")
-					.roles("USER", "ADMIN").build();
+		.roles("USER", "ADMIN").build();
 			return new InMemoryUserDetailsManager(user);
 		}
 
@@ -276,7 +276,7 @@ public class X509ConfigurerTests {
 		SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.x509(withDefaults());
+		.x509(withDefaults());
 			// @formatter:on
 			return http.build();
 		}
@@ -285,11 +285,11 @@ public class X509ConfigurerTests {
 		UserDetailsService userDetailsService() {
 			// @formatter:off
 			return new InMemoryUserDetailsManager(
-					User.withDefaultPasswordEncoder()
-							.username("rod")
-							.password("password")
-							.roles("USER", "ADMIN")
-							.build()
+		User.withDefaultPasswordEncoder()
+	.username("rod")
+	.password("password")
+	.roles("USER", "ADMIN")
+	.build()
 			);
 			// @formatter:on
 		}
@@ -304,15 +304,15 @@ public class X509ConfigurerTests {
 		SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			UserDetailsService customUserDetailsService = new InMemoryUserDetailsManager(
-					User.withDefaultPasswordEncoder()
-							.username("rod")
-							.password("password")
-							.roles("USER", "ADMIN")
-							.build());
+		User.withDefaultPasswordEncoder()
+	.username("rod")
+	.password("password")
+	.roles("USER", "ADMIN")
+	.build());
 			http
-				.x509((x509) -> x509
-					.userDetailsService(customUserDetailsService)
-				);
+		.x509((x509) -> x509
+.userDetailsService(customUserDetailsService)
+		);
 			// @formatter:on
 			return http.build();
 		}
@@ -333,8 +333,8 @@ public class X509ConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.sessionManagement((session) -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-				.x509((x509) -> x509.subjectPrincipalRegex("CN=(.*?)@example.com(?:,|$)"));
+		.sessionManagement((session) -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+		.x509((x509) -> x509.subjectPrincipalRegex("CN=(.*?)@example.com(?:,|$)"));
 			// @formatter:on
 			return http.build();
 		}
@@ -342,7 +342,7 @@ public class X509ConfigurerTests {
 		@Bean
 		UserDetailsService userDetailsService() {
 			UserDetails user = User.withDefaultPasswordEncoder().username("rod").password("password")
-					.roles("USER", "ADMIN").build();
+		.roles("USER", "ADMIN").build();
 			return new InMemoryUserDetailsManager(user);
 		}
 

@@ -52,15 +52,15 @@ public class AuthorizationManagerAfterMethodInterceptorTests {
 	public void instantiateWhenMethodMatcherNullThenException() {
 		AuthorizationManager<MethodInvocationResult> mockAuthorizationManager = mock(AuthorizationManager.class);
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new AuthorizationManagerAfterMethodInterceptor(null, mockAuthorizationManager))
-				.withMessage("pointcut cannot be null");
+	.isThrownBy(() -> new AuthorizationManagerAfterMethodInterceptor(null, mockAuthorizationManager))
+	.withMessage("pointcut cannot be null");
 	}
 
 	@Test
 	public void instantiateWhenAuthorizationManagerNullThenException() {
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new AuthorizationManagerAfterMethodInterceptor(mock(Pointcut.class), null))
-				.withMessage("authorizationManager cannot be null");
+	.isThrownBy(() -> new AuthorizationManagerAfterMethodInterceptor(mock(Pointcut.class), null))
+	.withMessage("authorizationManager cannot be null");
 	}
 
 	@Test
@@ -70,7 +70,7 @@ public class AuthorizationManagerAfterMethodInterceptorTests {
 		given(mockMethodInvocation.proceed()).willReturn(result.getResult());
 		AuthorizationManager<MethodInvocationResult> mockAuthorizationManager = mock(AuthorizationManager.class);
 		AuthorizationManagerAfterMethodInterceptor advice = new AuthorizationManagerAfterMethodInterceptor(
-				Pointcut.TRUE, mockAuthorizationManager);
+	Pointcut.TRUE, mockAuthorizationManager);
 		Object returnedObject = advice.invoke(mockMethodInvocation);
 		assertThat(returnedObject).isEqualTo(result.getResult());
 		verify(mockAuthorizationManager).check(any(Supplier.class), any(MethodInvocationResult.class));
@@ -83,9 +83,9 @@ public class AuthorizationManagerAfterMethodInterceptorTests {
 		given(strategy.getContext()).willReturn(new SecurityContextImpl(authentication));
 		MethodInvocation invocation = mock(MethodInvocation.class);
 		AuthorizationManager<MethodInvocationResult> authorizationManager = AuthenticatedAuthorizationManager
-				.authenticated();
+	.authenticated();
 		AuthorizationManagerAfterMethodInterceptor advice = new AuthorizationManagerAfterMethodInterceptor(
-				Pointcut.TRUE, authorizationManager);
+	Pointcut.TRUE, authorizationManager);
 		advice.setSecurityContextHolderStrategy(strategy);
 		advice.invoke(invocation);
 		verify(strategy).getContext();
@@ -94,15 +94,15 @@ public class AuthorizationManagerAfterMethodInterceptorTests {
 	@Test
 	public void configureWhenAuthorizationEventPublisherIsNullThenIllegalArgument() {
 		AuthorizationManagerAfterMethodInterceptor advice = new AuthorizationManagerAfterMethodInterceptor(
-				Pointcut.TRUE, AuthenticatedAuthorizationManager.authenticated());
+	Pointcut.TRUE, AuthenticatedAuthorizationManager.authenticated());
 		assertThatIllegalArgumentException().isThrownBy(() -> advice.setAuthorizationEventPublisher(null))
-				.withMessage("eventPublisher cannot be null");
+	.withMessage("eventPublisher cannot be null");
 	}
 
 	@Test
 	public void invokeWhenAuthorizationEventPublisherThenUses() throws Throwable {
 		AuthorizationManagerAfterMethodInterceptor advice = new AuthorizationManagerAfterMethodInterceptor(
-				Pointcut.TRUE, AuthenticatedAuthorizationManager.authenticated());
+	Pointcut.TRUE, AuthenticatedAuthorizationManager.authenticated());
 		AuthorizationEventPublisher eventPublisher = mock(AuthorizationEventPublisher.class);
 		advice.setAuthorizationEventPublisher(eventPublisher);
 
@@ -116,7 +116,7 @@ public class AuthorizationManagerAfterMethodInterceptorTests {
 
 		advice.invoke(mockMethodInvocation);
 		verify(eventPublisher).publishAuthorizationEvent(any(Supplier.class), any(MethodInvocationResult.class),
-				any(AuthorizationDecision.class));
+	any(AuthorizationDecision.class));
 	}
 
 }

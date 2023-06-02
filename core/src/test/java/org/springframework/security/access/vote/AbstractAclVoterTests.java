@@ -41,7 +41,7 @@ public class AbstractAclVoterTests {
 
 		@Override
 		public int vote(Authentication authentication, MethodInvocation object,
-				Collection<ConfigAttribute> attributes) {
+	Collection<ConfigAttribute> attributes) {
 			return 0;
 		}
 	};
@@ -63,7 +63,7 @@ public class AbstractAclVoterTests {
 	public void correctArgumentIsSelectedFromMultipleArgs() {
 		this.voter.setProcessDomainObjectClass(String.class);
 		MethodInvocation mi = MethodInvocationUtils.create(new TestClass(), "methodTakingAListAndAString",
-				new ArrayList<>(), "The Argument");
+	new ArrayList<>(), "The Argument");
 		assertThat(this.voter.getDomainObjectInstance(mi)).isEqualTo("The Argument");
 	}
 

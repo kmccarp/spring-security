@@ -51,8 +51,8 @@ public final class DelegatingAccessDeniedHandler implements AccessDeniedHandler 
 	 * if none of the handlers matches.
 	 */
 	public DelegatingAccessDeniedHandler(
-			LinkedHashMap<Class<? extends AccessDeniedException>, AccessDeniedHandler> handlers,
-			AccessDeniedHandler defaultHandler) {
+LinkedHashMap<Class<? extends AccessDeniedException>, AccessDeniedHandler> handlers,
+AccessDeniedHandler defaultHandler) {
 		Assert.notEmpty(handlers, "handlers cannot be null or empty");
 		Assert.notNull(defaultHandler, "defaultHandler cannot be null");
 		this.handlers = handlers;
@@ -61,7 +61,7 @@ public final class DelegatingAccessDeniedHandler implements AccessDeniedHandler 
 
 	@Override
 	public void handle(HttpServletRequest request, HttpServletResponse response,
-			AccessDeniedException accessDeniedException) throws IOException, ServletException {
+AccessDeniedException accessDeniedException) throws IOException, ServletException {
 		for (Entry<Class<? extends AccessDeniedException>, AccessDeniedHandler> entry : this.handlers.entrySet()) {
 			Class<? extends AccessDeniedException> handlerClass = entry.getKey();
 			if (handlerClass.isAssignableFrom(accessDeniedException.getClass())) {

@@ -48,7 +48,7 @@ public class DelegatingJwtGrantedAuthoritiesConverterTests {
 	@Test
 	public void convertWhenConverterThenAuthorities() {
 		DelegatingJwtGrantedAuthoritiesConverter converter = new DelegatingJwtGrantedAuthoritiesConverter(
-				((jwt) -> AuthorityUtils.createAuthorityList("one")));
+	((jwt) -> AuthorityUtils.createAuthorityList("one")));
 		Jwt jwt = TestJwts.jwt().build();
 		Collection<GrantedAuthority> authorities = converter.convert(jwt);
 		assertThat(authorityListToOrderedSet(authorities)).containsExactly("one");
@@ -67,8 +67,8 @@ public class DelegatingJwtGrantedAuthoritiesConverterTests {
 	@Test
 	public void constructorWhenAuthoritiesConverterIsNullThenIllegalArgumentException() {
 		assertThatExceptionOfType(IllegalArgumentException.class)
-				.isThrownBy(() -> new DelegatingJwtGrantedAuthoritiesConverter(
-						(Collection<Converter<Jwt, Collection<GrantedAuthority>>>) null));
+	.isThrownBy(() -> new DelegatingJwtGrantedAuthoritiesConverter(
+(Collection<Converter<Jwt, Collection<GrantedAuthority>>>) null));
 	}
 
 	private Collection<String> authorityListToOrderedSet(Collection<GrantedAuthority> grantedAuthorities) {

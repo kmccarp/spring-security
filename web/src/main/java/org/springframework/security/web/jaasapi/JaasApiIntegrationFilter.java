@@ -55,7 +55,7 @@ import org.springframework.web.filter.GenericFilterBean;
 public class JaasApiIntegrationFilter extends GenericFilterBean {
 
 	private SecurityContextHolderStrategy securityContextHolderStrategy = SecurityContextHolder
-			.getContextHolderStrategy();
+.getContextHolderStrategy();
 
 	private boolean createEmptySubject;
 
@@ -78,12 +78,12 @@ public class JaasApiIntegrationFilter extends GenericFilterBean {
 	 */
 	@Override
 	public final void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
-			throws ServletException, IOException {
+throws ServletException, IOException {
 
 		Subject subject = obtainSubject(request);
 		if (subject == null && this.createEmptySubject) {
 			this.logger.debug("Subject returned was null and createEmptySubject is true; "
-					+ "creating new empty subject to run as.");
+		+ "creating new empty subject to run as.");
 			subject = new Subject();
 		}
 		if (subject == null) {

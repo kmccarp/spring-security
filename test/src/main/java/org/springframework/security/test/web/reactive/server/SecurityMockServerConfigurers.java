@@ -124,7 +124,7 @@ public final class SecurityMockServerConfigurers {
 	 * @return the configurer to use
 	 */
 	public static <T extends WebTestClientConfigurer & MockServerConfigurer> T mockAuthentication(
-			Authentication authentication) {
+Authentication authentication) {
 		return (T) new MutatorWebTestClientConfigurer(() -> Mono.just(authentication).map(SecurityContextImpl::new));
 	}
 
@@ -136,7 +136,7 @@ public final class SecurityMockServerConfigurers {
 	 */
 	public static <T extends WebTestClientConfigurer & MockServerConfigurer> T mockUser(UserDetails userDetails) {
 		return mockAuthentication(UsernamePasswordAuthenticationToken.authenticated(userDetails,
-				userDetails.getPassword(), userDetails.getAuthorities()));
+	userDetails.getPassword(), userDetails.getAuthorities()));
 	}
 
 	/**
@@ -192,7 +192,7 @@ public final class SecurityMockServerConfigurers {
 	 */
 	public static OAuth2LoginMutator mockOAuth2Login() {
 		OAuth2AccessToken accessToken = new OAuth2AccessToken(OAuth2AccessToken.TokenType.BEARER, "access-token", null,
-				null, Collections.singleton("read"));
+	null, Collections.singleton("read"));
 		return new OAuth2LoginMutator(accessToken);
 	}
 
@@ -205,7 +205,7 @@ public final class SecurityMockServerConfigurers {
 	 */
 	public static OidcLoginMutator mockOidcLogin() {
 		OAuth2AccessToken accessToken = new OAuth2AccessToken(OAuth2AccessToken.TokenType.BEARER, "access-token", null,
-				null, Collections.singleton("read"));
+	null, Collections.singleton("read"));
 		return new OidcLoginMutator(accessToken);
 	}
 
@@ -254,7 +254,7 @@ public final class SecurityMockServerConfigurers {
 
 		@Override
 		public void afterConfigurerAdded(WebTestClient.Builder builder,
-				@Nullable WebHttpHandlerBuilder httpHandlerBuilder, @Nullable ClientHttpConnector connector) {
+	@Nullable WebHttpHandlerBuilder httpHandlerBuilder, @Nullable ClientHttpConnector connector) {
 			CsrfWebFilter filter = new CsrfWebFilter();
 			filter.setRequireCsrfProtectionMatcher((e) -> ServerWebExchangeMatcher.MatchResult.notMatch());
 			httpHandlerBuilder.filters((filters) -> filters.add(0, filter));
@@ -370,8 +370,8 @@ public final class SecurityMockServerConfigurers {
 
 		@Override
 		public void afterConfigurerAdded(WebTestClient.Builder builder,
-				@Nullable WebHttpHandlerBuilder webHttpHandlerBuilder,
-				@Nullable ClientHttpConnector clientHttpConnector) {
+	@Nullable WebHttpHandlerBuilder webHttpHandlerBuilder,
+	@Nullable ClientHttpConnector clientHttpConnector) {
 			configurer().afterConfigurerAdded(builder, webHttpHandlerBuilder, clientHttpConnector);
 		}
 
@@ -396,8 +396,8 @@ public final class SecurityMockServerConfigurers {
 
 		@Override
 		public void afterConfigurerAdded(WebTestClient.Builder builder,
-				@Nullable WebHttpHandlerBuilder webHttpHandlerBuilder,
-				@Nullable ClientHttpConnector clientHttpConnector) {
+	@Nullable WebHttpHandlerBuilder webHttpHandlerBuilder,
+	@Nullable ClientHttpConnector clientHttpConnector) {
 			webHttpHandlerBuilder.filters(addSetupMutatorFilter());
 		}
 
@@ -433,7 +433,7 @@ public final class SecurityMockServerConfigurers {
 			if (context != null) {
 				exchange.getAttributes().remove(ATTRIBUTE_NAME);
 				return webFilterChain.filter(exchange)
-						.contextWrite(ReactiveSecurityContextHolder.withSecurityContext(context.get()));
+			.contextWrite(ReactiveSecurityContextHolder.withSecurityContext(context.get()));
 			}
 			return webFilterChain.filter(exchange);
 		}
@@ -474,7 +474,7 @@ public final class SecurityMockServerConfigurers {
 		 */
 		public JwtMutator jwt(Consumer<Jwt.Builder> jwtBuilderConsumer) {
 			Jwt.Builder jwtBuilder = Jwt.withTokenValue("token").header("alg", "none").claim(JwtClaimNames.SUB, "user")
-					.claim("scope", "read");
+		.claim("scope", "read");
 			jwtBuilderConsumer.accept(jwtBuilder);
 			this.jwt = jwtBuilder.build();
 			return this;
@@ -537,7 +537,7 @@ public final class SecurityMockServerConfigurers {
 
 		@Override
 		public void afterConfigurerAdded(WebTestClient.Builder builder,
-				@Nullable WebHttpHandlerBuilder httpHandlerBuilder, @Nullable ClientHttpConnector connector) {
+	@Nullable WebHttpHandlerBuilder httpHandlerBuilder, @Nullable ClientHttpConnector connector) {
 			httpHandlerBuilder.filter((exchange, chain) -> {
 				CsrfWebFilter.skipExchange(exchange);
 				return chain.filter(exchange);
@@ -547,7 +547,7 @@ public final class SecurityMockServerConfigurers {
 
 		private <T extends WebTestClientConfigurer & MockServerConfigurer> T configurer() {
 			return mockAuthentication(
-					new JwtAuthenticationToken(this.jwt, this.authoritiesConverter.convert(this.jwt)));
+		new JwtAuthenticationToken(this.jwt, this.authoritiesConverter.convert(this.jwt)));
 		}
 
 	}
@@ -631,7 +631,7 @@ public final class SecurityMockServerConfigurers {
 
 		@Override
 		public void afterConfigurerAdded(WebTestClient.Builder builder,
-				@Nullable WebHttpHandlerBuilder httpHandlerBuilder, @Nullable ClientHttpConnector connector) {
+	@Nullable WebHttpHandlerBuilder httpHandlerBuilder, @Nullable ClientHttpConnector connector) {
 			httpHandlerBuilder.filter((exchange, chain) -> {
 				CsrfWebFilter.skipExchange(exchange);
 				return chain.filter(exchange);
@@ -643,7 +643,7 @@ public final class SecurityMockServerConfigurers {
 			OAuth2AuthenticatedPrincipal principal = this.principal.get();
 			OAuth2AccessToken accessToken = getOAuth2AccessToken(principal);
 			BearerTokenAuthentication token = new BearerTokenAuthentication(principal, accessToken,
-					principal.getAuthorities());
+		principal.getAuthorities());
 			return mockAuthentication(token);
 		}
 
@@ -676,7 +676,7 @@ public final class SecurityMockServerConfigurers {
 
 		private Collection<GrantedAuthority> getAuthorities(Collection<?> scopes) {
 			return scopes.stream().map((scope) -> new SimpleGrantedAuthority("SCOPE_" + scope))
-					.collect(Collectors.toList());
+		.collect(Collectors.toList());
 		}
 
 		private OAuth2AccessToken getOAuth2AccessToken(OAuth2AuthenticatedPrincipal principal) {
@@ -789,7 +789,7 @@ public final class SecurityMockServerConfigurers {
 		public void beforeServerCreated(WebHttpHandlerBuilder builder) {
 			OAuth2AuthenticationToken token = getToken();
 			mockOAuth2Client().accessToken(this.accessToken).clientRegistration(this.clientRegistration)
-					.principalName(token.getPrincipal().getName()).beforeServerCreated(builder);
+		.principalName(token.getPrincipal().getName()).beforeServerCreated(builder);
 			mockAuthentication(token).beforeServerCreated(builder);
 		}
 
@@ -797,29 +797,29 @@ public final class SecurityMockServerConfigurers {
 		public void afterConfigureAdded(WebTestClient.MockServerSpec<?> serverSpec) {
 			OAuth2AuthenticationToken token = getToken();
 			mockOAuth2Client().accessToken(this.accessToken).clientRegistration(this.clientRegistration)
-					.principalName(token.getPrincipal().getName()).afterConfigureAdded(serverSpec);
+		.principalName(token.getPrincipal().getName()).afterConfigureAdded(serverSpec);
 			mockAuthentication(token).afterConfigureAdded(serverSpec);
 		}
 
 		@Override
 		public void afterConfigurerAdded(WebTestClient.Builder builder,
-				@Nullable WebHttpHandlerBuilder httpHandlerBuilder, @Nullable ClientHttpConnector connector) {
+	@Nullable WebHttpHandlerBuilder httpHandlerBuilder, @Nullable ClientHttpConnector connector) {
 			OAuth2AuthenticationToken token = getToken();
 			mockOAuth2Client().accessToken(this.accessToken).clientRegistration(this.clientRegistration)
-					.principalName(token.getPrincipal().getName())
-					.afterConfigurerAdded(builder, httpHandlerBuilder, connector);
+		.principalName(token.getPrincipal().getName())
+		.afterConfigurerAdded(builder, httpHandlerBuilder, connector);
 			mockAuthentication(token).afterConfigurerAdded(builder, httpHandlerBuilder, connector);
 		}
 
 		private OAuth2AuthenticationToken getToken() {
 			OAuth2User oauth2User = this.oauth2User.get();
 			return new OAuth2AuthenticationToken(oauth2User, oauth2User.getAuthorities(),
-					this.clientRegistration.getRegistrationId());
+		this.clientRegistration.getRegistrationId());
 		}
 
 		private ClientRegistration.Builder clientRegistrationBuilder() {
 			return ClientRegistration.withRegistrationId("test").authorizationGrantType(AuthorizationGrantType.PASSWORD)
-					.clientId("test-client").tokenUri("https://token-uri.example.org");
+		.clientId("test-client").tokenUri("https://token-uri.example.org");
 		}
 
 		private Collection<GrantedAuthority> defaultAuthorities() {
@@ -949,7 +949,7 @@ public final class SecurityMockServerConfigurers {
 		public void beforeServerCreated(WebHttpHandlerBuilder builder) {
 			OAuth2AuthenticationToken token = getToken();
 			mockOAuth2Client().accessToken(this.accessToken).principalName(token.getPrincipal().getName())
-					.clientRegistration(this.clientRegistration).beforeServerCreated(builder);
+		.clientRegistration(this.clientRegistration).beforeServerCreated(builder);
 			mockAuthentication(token).beforeServerCreated(builder);
 		}
 
@@ -957,29 +957,29 @@ public final class SecurityMockServerConfigurers {
 		public void afterConfigureAdded(WebTestClient.MockServerSpec<?> serverSpec) {
 			OAuth2AuthenticationToken token = getToken();
 			mockOAuth2Client().accessToken(this.accessToken).principalName(token.getPrincipal().getName())
-					.clientRegistration(this.clientRegistration).afterConfigureAdded(serverSpec);
+		.clientRegistration(this.clientRegistration).afterConfigureAdded(serverSpec);
 			mockAuthentication(token).afterConfigureAdded(serverSpec);
 		}
 
 		@Override
 		public void afterConfigurerAdded(WebTestClient.Builder builder,
-				@Nullable WebHttpHandlerBuilder httpHandlerBuilder, @Nullable ClientHttpConnector connector) {
+	@Nullable WebHttpHandlerBuilder httpHandlerBuilder, @Nullable ClientHttpConnector connector) {
 			OAuth2AuthenticationToken token = getToken();
 			mockOAuth2Client().accessToken(this.accessToken).principalName(token.getPrincipal().getName())
-					.clientRegistration(this.clientRegistration)
-					.afterConfigurerAdded(builder, httpHandlerBuilder, connector);
+		.clientRegistration(this.clientRegistration)
+		.afterConfigurerAdded(builder, httpHandlerBuilder, connector);
 			mockAuthentication(token).afterConfigurerAdded(builder, httpHandlerBuilder, connector);
 		}
 
 		private ClientRegistration.Builder clientRegistrationBuilder() {
 			return ClientRegistration.withRegistrationId("test").authorizationGrantType(AuthorizationGrantType.PASSWORD)
-					.clientId("test-client").tokenUri("https://token-uri.example.org");
+		.clientId("test-client").tokenUri("https://token-uri.example.org");
 		}
 
 		private OAuth2AuthenticationToken getToken() {
 			OidcUser oidcUser = this.oidcUser.get();
 			return new OAuth2AuthenticationToken(oidcUser, oidcUser.getAuthorities(),
-					this.clientRegistration.getRegistrationId());
+		this.clientRegistration.getRegistrationId());
 		}
 
 		private Collection<GrantedAuthority> getAuthorities() {
@@ -1024,7 +1024,7 @@ public final class SecurityMockServerConfigurers {
 		private String principalName = "user";
 
 		private OAuth2AccessToken accessToken = new OAuth2AccessToken(OAuth2AccessToken.TokenType.BEARER,
-				"access-token", null, null, Collections.singleton("read"));
+	"access-token", null, null, Collections.singleton("read"));
 
 		private OAuth2ClientMutator() {
 		}
@@ -1055,7 +1055,7 @@ public final class SecurityMockServerConfigurers {
 		 * for further configuration
 		 */
 		public OAuth2ClientMutator clientRegistration(
-				Consumer<ClientRegistration.Builder> clientRegistrationConfigurer) {
+	Consumer<ClientRegistration.Builder> clientRegistrationConfigurer) {
 			ClientRegistration.Builder builder = clientRegistrationBuilder();
 			clientRegistrationConfigurer.accept(builder);
 			this.clientRegistration = builder.build();
@@ -1096,7 +1096,7 @@ public final class SecurityMockServerConfigurers {
 
 		@Override
 		public void afterConfigurerAdded(WebTestClient.Builder builder,
-				@Nullable WebHttpHandlerBuilder httpHandlerBuilder, @Nullable ClientHttpConnector connector) {
+	@Nullable WebHttpHandlerBuilder httpHandlerBuilder, @Nullable ClientHttpConnector connector) {
 			httpHandlerBuilder.filters(addAuthorizedClientFilter());
 		}
 
@@ -1104,27 +1104,27 @@ public final class SecurityMockServerConfigurers {
 			OAuth2AuthorizedClient client = getClient();
 			return (filters) -> filters.add(0, (exchange, chain) -> {
 				ServerOAuth2AuthorizedClientRepository authorizedClientRepository = OAuth2ClientServerTestUtils
-						.getAuthorizedClientRepository(exchange);
+			.getAuthorizedClientRepository(exchange);
 				if (!(authorizedClientRepository instanceof TestOAuth2AuthorizedClientRepository)) {
 					authorizedClientRepository = new TestOAuth2AuthorizedClientRepository(authorizedClientRepository);
 					OAuth2ClientServerTestUtils.setAuthorizedClientRepository(exchange, authorizedClientRepository);
 				}
 				TestOAuth2AuthorizedClientRepository.enable(exchange);
 				return authorizedClientRepository.saveAuthorizedClient(client, null, exchange)
-						.then(chain.filter(exchange));
+			.then(chain.filter(exchange));
 			});
 		}
 
 		private OAuth2AuthorizedClient getClient() {
 			Assert.notNull(this.clientRegistration,
-					"Please specify a ClientRegistration via one of the clientRegistration methods");
+		"Please specify a ClientRegistration via one of the clientRegistration methods");
 			return new OAuth2AuthorizedClient(this.clientRegistration, this.principalName, this.accessToken);
 		}
 
 		private ClientRegistration.Builder clientRegistrationBuilder() {
 			return ClientRegistration.withRegistrationId(this.registrationId)
-					.authorizationGrantType(AuthorizationGrantType.PASSWORD).clientId("test-client")
-					.clientSecret("test-secret").tokenUri("https://idp.example.org/oauth/token");
+		.authorizationGrantType(AuthorizationGrantType.PASSWORD).clientId("test-client")
+		.clientSecret("test-secret").tokenUri("https://idp.example.org/oauth/token");
 		}
 
 		/**
@@ -1134,7 +1134,7 @@ public final class SecurityMockServerConfigurers {
 		private static final class TestOAuth2AuthorizedClientManager implements ReactiveOAuth2AuthorizedClientManager {
 
 			static final String ENABLED_ATTR_NAME = TestOAuth2AuthorizedClientManager.class.getName()
-					.concat(".ENABLED");
+		.concat(".ENABLED");
 
 			private final ReactiveOAuth2AuthorizedClientManager delegate;
 
@@ -1149,7 +1149,7 @@ public final class SecurityMockServerConfigurers {
 				ServerWebExchange exchange = authorizeRequest.getAttribute(ServerWebExchange.class.getName());
 				if (isEnabled(exchange)) {
 					return this.authorizedClientRepository.loadAuthorizedClient(
-							authorizeRequest.getClientRegistrationId(), authorizeRequest.getPrincipal(), exchange);
+				authorizeRequest.getClientRegistrationId(), authorizeRequest.getPrincipal(), exchange);
 				}
 				return this.delegate.authorize(authorizeRequest);
 			}
@@ -1173,7 +1173,7 @@ public final class SecurityMockServerConfigurers {
 			static final String TOKEN_ATTR_NAME = TestOAuth2AuthorizedClientRepository.class.getName().concat(".TOKEN");
 
 			static final String ENABLED_ATTR_NAME = TestOAuth2AuthorizedClientRepository.class.getName()
-					.concat(".ENABLED");
+		.concat(".ENABLED");
 
 			private final ServerOAuth2AuthorizedClientRepository delegate;
 
@@ -1183,7 +1183,7 @@ public final class SecurityMockServerConfigurers {
 
 			@Override
 			public <T extends OAuth2AuthorizedClient> Mono<T> loadAuthorizedClient(String clientRegistrationId,
-					Authentication principal, ServerWebExchange exchange) {
+		Authentication principal, ServerWebExchange exchange) {
 				if (isEnabled(exchange)) {
 					return Mono.just(exchange.getAttribute(TOKEN_ATTR_NAME));
 				}
@@ -1192,7 +1192,7 @@ public final class SecurityMockServerConfigurers {
 
 			@Override
 			public Mono<Void> saveAuthorizedClient(OAuth2AuthorizedClient authorizedClient, Authentication principal,
-					ServerWebExchange exchange) {
+		ServerWebExchange exchange) {
 				if (isEnabled(exchange)) {
 					exchange.getAttributes().put(TOKEN_ATTR_NAME, authorizedClient);
 					return Mono.empty();
@@ -1202,7 +1202,7 @@ public final class SecurityMockServerConfigurers {
 
 			@Override
 			public Mono<Void> removeAuthorizedClient(String clientRegistrationId, Authentication principal,
-					ServerWebExchange exchange) {
+		ServerWebExchange exchange) {
 				if (isEnabled(exchange)) {
 					exchange.getAttributes().remove(TOKEN_ATTR_NAME);
 					return Mono.empty();
@@ -1243,7 +1243,7 @@ public final class SecurityMockServerConfigurers {
 				}
 				if (manager instanceof DefaultReactiveOAuth2AuthorizedClientManager) {
 					return (ServerOAuth2AuthorizedClientRepository) ReflectionTestUtils.getField(manager,
-							"authorizedClientRepository");
+				"authorizedClientRepository");
 				}
 				if (manager instanceof TestOAuth2AuthorizedClientManager) {
 					return ((TestOAuth2AuthorizedClientManager) manager).authorizedClientRepository;
@@ -1252,7 +1252,7 @@ public final class SecurityMockServerConfigurers {
 			}
 
 			static void setAuthorizedClientRepository(ServerWebExchange exchange,
-					ServerOAuth2AuthorizedClientRepository repository) {
+		ServerOAuth2AuthorizedClientRepository repository) {
 				ReactiveOAuth2AuthorizedClientManager manager = getOAuth2AuthorizedClientManager(exchange);
 				if (manager == null) {
 					return;
@@ -1271,13 +1271,13 @@ public final class SecurityMockServerConfigurers {
 
 			static ReactiveOAuth2AuthorizedClientManager getOAuth2AuthorizedClientManager(ServerWebExchange exchange) {
 				OAuth2AuthorizedClientArgumentResolver resolver = findResolver(exchange,
-						OAuth2AuthorizedClientArgumentResolver.class);
+			OAuth2AuthorizedClientArgumentResolver.class);
 				if (resolver == null) {
 					return (authorizeRequest) -> DEFAULT_CLIENT_REPO.loadAuthorizedClient(
-							authorizeRequest.getClientRegistrationId(), authorizeRequest.getPrincipal(), exchange);
+				authorizeRequest.getClientRegistrationId(), authorizeRequest.getPrincipal(), exchange);
 				}
 				return (ReactiveOAuth2AuthorizedClientManager) ReflectionTestUtils.getField(resolver,
-						"authorizedClientManager");
+			"authorizedClientManager");
 			}
 
 			/**
@@ -1288,9 +1288,9 @@ public final class SecurityMockServerConfigurers {
 			 * @param manager the {@link ReactiveOAuth2AuthorizedClientManager} to set
 			 */
 			static void setOAuth2AuthorizedClientManager(ServerWebExchange exchange,
-					ReactiveOAuth2AuthorizedClientManager manager) {
+		ReactiveOAuth2AuthorizedClientManager manager) {
 				OAuth2AuthorizedClientArgumentResolver resolver = findResolver(exchange,
-						OAuth2AuthorizedClientArgumentResolver.class);
+			OAuth2AuthorizedClientArgumentResolver.class);
 				if (resolver == null) {
 					return;
 				}
@@ -1299,10 +1299,10 @@ public final class SecurityMockServerConfigurers {
 
 			@SuppressWarnings("unchecked")
 			static <T extends HandlerMethodArgumentResolver> T findResolver(ServerWebExchange exchange,
-					Class<T> resolverClass) {
+		Class<T> resolverClass) {
 				if (!ClassUtils.isPresent(
-						"org.springframework.web.reactive.result.method.annotation.RequestMappingHandlerAdapter",
-						null)) {
+			"org.springframework.web.reactive.result.method.annotation.RequestMappingHandlerAdapter",
+			null)) {
 					return null;
 				}
 				return WebFluxClasspathGuard.findResolver(exchange, resolverClass);
@@ -1311,7 +1311,7 @@ public final class SecurityMockServerConfigurers {
 			private static class WebFluxClasspathGuard {
 
 				static <T extends HandlerMethodArgumentResolver> T findResolver(ServerWebExchange exchange,
-						Class<T> resolverClass) {
+			Class<T> resolverClass) {
 					RequestMappingHandlerAdapter handlerAdapter = getRequestMappingHandlerAdapter(exchange);
 					if (handlerAdapter == null) {
 						return null;
@@ -1321,7 +1321,7 @@ public final class SecurityMockServerConfigurers {
 						return null;
 					}
 					List<HandlerMethodArgumentResolver> resolvers = (List<HandlerMethodArgumentResolver>) ReflectionTestUtils
-							.invokeGetterMethod(configurer, "customResolvers");
+				.invokeGetterMethod(configurer, "customResolvers");
 					if (resolvers == null) {
 						return null;
 					}
@@ -1334,7 +1334,7 @@ public final class SecurityMockServerConfigurers {
 				}
 
 				private static RequestMappingHandlerAdapter getRequestMappingHandlerAdapter(
-						ServerWebExchange exchange) {
+			ServerWebExchange exchange) {
 					ApplicationContext context = exchange.getApplicationContext();
 					if (context != null) {
 						String[] names = context.getBeanNamesForType(RequestMappingHandlerAdapter.class);

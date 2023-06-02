@@ -47,7 +47,7 @@ public final class MessageMatcherDelegatingAuthorizationManager implements Autho
 	private final List<Entry<AuthorizationManager<MessageAuthorizationContext<?>>>> mappings;
 
 	private MessageMatcherDelegatingAuthorizationManager(
-			List<Entry<AuthorizationManager<MessageAuthorizationContext<?>>>> mappings) {
+List<Entry<AuthorizationManager<MessageAuthorizationContext<?>>>> mappings) {
 		Assert.notEmpty(mappings, "mappings cannot be empty");
 		this.mappings = mappings;
 	}

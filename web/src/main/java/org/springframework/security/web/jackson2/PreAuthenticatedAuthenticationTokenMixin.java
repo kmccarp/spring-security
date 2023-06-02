@@ -47,8 +47,7 @@ import org.springframework.security.jackson2.SimpleGrantedAuthorityMixin;
  * @see SecurityJackson2Modules
  */
 @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.PROPERTY, property = "@class")
-@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY, getterVisibility = JsonAutoDetect.Visibility.NONE,
-		isGetterVisibility = JsonAutoDetect.Visibility.NONE)
+@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY, getterVisibility = JsonAutoDetect.Visibility.NONE,isGetterVisibility = JsonAutoDetect.Visibility.NONE)
 @JsonDeserialize(using = PreAuthenticatedAuthenticationTokenDeserializer.class)
 abstract class PreAuthenticatedAuthenticationTokenMixin {
 

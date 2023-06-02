@@ -98,9 +98,9 @@ final class Saml2LoginBeanDefinitionParser implements BeanDefinitionParser {
 	private BeanDefinition saml2AuthenticationUrlToProviderName;
 
 	Saml2LoginBeanDefinitionParser(List<BeanDefinition> csrfIgnoreRequestMatchers, BeanReference portMapper,
-			BeanReference portResolver, BeanReference requestCache, boolean allowSessionCreation,
-			BeanReference authenticationManager, BeanReference authenticationFilterSecurityContextRepositoryRef,
-			List<BeanReference> authenticationProviders, Map<BeanDefinition, BeanMetadataElement> entryPoints) {
+BeanReference portResolver, BeanReference requestCache, boolean allowSessionCreation,
+BeanReference authenticationManager, BeanReference authenticationFilterSecurityContextRepositoryRef,
+List<BeanReference> authenticationProviders, Map<BeanDefinition, BeanMetadataElement> entryPoints) {
 		this.csrfIgnoreRequestMatchers = csrfIgnoreRequestMatchers;
 		this.portMapper = portMapper;
 		this.portResolver = portResolver;
@@ -119,34 +119,34 @@ final class Saml2LoginBeanDefinitionParser implements BeanDefinitionParser {
 			this.loginProcessingUrl = loginProcessingUrl;
 		}
 		BeanDefinition saml2LoginBeanConfig = BeanDefinitionBuilder.rootBeanDefinition(Saml2LoginBeanConfig.class)
-				.getBeanDefinition();
+	.getBeanDefinition();
 		String saml2LoginBeanConfigId = pc.getReaderContext().generateBeanName(saml2LoginBeanConfig);
 		pc.registerBeanComponent(new BeanComponentDefinition(saml2LoginBeanConfig, saml2LoginBeanConfigId));
 		registerDefaultCsrfOverride();
 		BeanMetadataElement relyingPartyRegistrationRepository = Saml2LoginBeanDefinitionParserUtils
-				.getRelyingPartyRegistrationRepository(element);
+	.getRelyingPartyRegistrationRepository(element);
 		BeanMetadataElement authenticationRequestRepository = Saml2LoginBeanDefinitionParserUtils
-				.getAuthenticationRequestRepository(element);
+	.getAuthenticationRequestRepository(element);
 		BeanMetadataElement authenticationRequestResolver = Saml2LoginBeanDefinitionParserUtils
-				.getAuthenticationRequestResolver(element);
+	.getAuthenticationRequestResolver(element);
 		if (authenticationRequestResolver == null) {
 			authenticationRequestResolver = Saml2LoginBeanDefinitionParserUtils
-					.createDefaultAuthenticationRequestResolver(relyingPartyRegistrationRepository);
+		.createDefaultAuthenticationRequestResolver(relyingPartyRegistrationRepository);
 		}
 		BeanMetadataElement authenticationConverter = Saml2LoginBeanDefinitionParserUtils
-				.getAuthenticationConverter(element);
+	.getAuthenticationConverter(element);
 		if (authenticationConverter == null) {
 			if (!this.loginProcessingUrl.contains("{registrationId}")) {
 				pc.getReaderContext().error("loginProcessingUrl must contain {registrationId} path variable", element);
 			}
 			authenticationConverter = Saml2LoginBeanDefinitionParserUtils
-					.createDefaultAuthenticationConverter(relyingPartyRegistrationRepository);
+		.createDefaultAuthenticationConverter(relyingPartyRegistrationRepository);
 		}
 		// Configure the Saml2WebSsoAuthenticationFilter
 		BeanDefinitionBuilder saml2WebSsoAuthenticationFilterBuilder = BeanDefinitionBuilder
-				.rootBeanDefinition(Saml2WebSsoAuthenticationFilter.class)
-				.addConstructorArgValue(authenticationConverter).addConstructorArgValue(this.loginProcessingUrl)
-				.addPropertyValue("authenticationRequestRepository", authenticationRequestRepository);
+	.rootBeanDefinition(Saml2WebSsoAuthenticationFilter.class)
+	.addConstructorArgValue(authenticationConverter).addConstructorArgValue(this.loginProcessingUrl)
+	.addPropertyValue("authenticationRequestRepository", authenticationRequestRepository);
 		resolveLoginPage(element, pc);
 		resolveAuthenticationSuccessHandler(element, saml2WebSsoAuthenticationFilterBuilder);
 		resolveAuthenticationFailureHandler(element, saml2WebSsoAuthenticationFilterBuilder);
@@ -154,37 +154,37 @@ final class Saml2LoginBeanDefinitionParser implements BeanDefinitionParser {
 		resolveSecurityContextRepository(element, saml2WebSsoAuthenticationFilterBuilder);
 		// Configure the Saml2WebSsoAuthenticationRequestFilter
 		this.saml2WebSsoAuthenticationRequestFilter = BeanDefinitionBuilder
-				.rootBeanDefinition(Saml2WebSsoAuthenticationRequestFilter.class)
-				.addConstructorArgValue(authenticationRequestResolver)
-				.addPropertyValue("authenticationRequestRepository", authenticationRequestRepository)
-				.getBeanDefinition();
+	.rootBeanDefinition(Saml2WebSsoAuthenticationRequestFilter.class)
+	.addConstructorArgValue(authenticationRequestResolver)
+	.addPropertyValue("authenticationRequestRepository", authenticationRequestRepository)
+	.getBeanDefinition();
 		BeanDefinition saml2AuthenticationProvider = Saml2LoginBeanDefinitionParserUtils.createAuthenticationProvider();
 		this.authenticationProviders.add(
-				new RuntimeBeanReference(pc.getReaderContext().registerWithGeneratedName(saml2AuthenticationProvider)));
+	new RuntimeBeanReference(pc.getReaderContext().registerWithGeneratedName(saml2AuthenticationProvider)));
 		this.saml2AuthenticationUrlToProviderName = BeanDefinitionBuilder.rootBeanDefinition(Map.class)
-				.setFactoryMethodOnBean("getAuthenticationUrlToProviderName", saml2LoginBeanConfigId)
-				.getBeanDefinition();
+	.setFactoryMethodOnBean("getAuthenticationUrlToProviderName", saml2LoginBeanConfigId)
+	.getBeanDefinition();
 		return saml2WebSsoAuthenticationFilterBuilder.getBeanDefinition();
 	}
 
 	private void resolveAuthenticationManager(Element element,
-			BeanDefinitionBuilder saml2WebSsoAuthenticationFilterBuilder) {
+BeanDefinitionBuilder saml2WebSsoAuthenticationFilterBuilder) {
 		String authenticationManagerRef = element.getAttribute(ATT_AUTHENTICATION_MANAGER_REF);
 		if (StringUtils.hasText(authenticationManagerRef)) {
 			saml2WebSsoAuthenticationFilterBuilder.addPropertyReference("authenticationManager",
-					authenticationManagerRef);
+		authenticationManagerRef);
 		}
 		else {
 			saml2WebSsoAuthenticationFilterBuilder.addPropertyValue("authenticationManager",
-					this.authenticationManager);
+		this.authenticationManager);
 		}
 	}
 
 	private void resolveSecurityContextRepository(Element element,
-			BeanDefinitionBuilder saml2WebSsoAuthenticationFilterBuilder) {
+BeanDefinitionBuilder saml2WebSsoAuthenticationFilterBuilder) {
 		if (this.authenticationFilterSecurityContextRepositoryRef != null) {
 			saml2WebSsoAuthenticationFilterBuilder.addPropertyValue("securityContextRepository",
-					this.authenticationFilterSecurityContextRepositoryRef);
+		this.authenticationFilterSecurityContextRepositoryRef);
 		}
 	}
 
@@ -195,23 +195,23 @@ final class Saml2LoginBeanDefinitionParser implements BeanDefinitionParser {
 		if (StringUtils.hasText(loginPage)) {
 			WebConfigUtils.validateHttpRedirect(loginPage, parserContext, source);
 			saml2LoginAuthenticationEntryPoint = BeanDefinitionBuilder
-					.rootBeanDefinition(LoginUrlAuthenticationEntryPoint.class).addConstructorArgValue(loginPage)
-					.addPropertyValue("portMapper", this.portMapper).addPropertyValue("portResolver", this.portResolver)
-					.getBeanDefinition();
+		.rootBeanDefinition(LoginUrlAuthenticationEntryPoint.class).addConstructorArgValue(loginPage)
+		.addPropertyValue("portMapper", this.portMapper).addPropertyValue("portResolver", this.portResolver)
+		.getBeanDefinition();
 		}
 		else {
 			Map<String, String> identityProviderUrlMap = getIdentityProviderUrlMap(element);
 			if (identityProviderUrlMap.size() == 1) {
 				String loginUrl = identityProviderUrlMap.entrySet().iterator().next().getKey();
 				saml2LoginAuthenticationEntryPoint = BeanDefinitionBuilder
-						.rootBeanDefinition(LoginUrlAuthenticationEntryPoint.class).addConstructorArgValue(loginUrl)
-						.addPropertyValue("portMapper", this.portMapper)
-						.addPropertyValue("portResolver", this.portResolver).getBeanDefinition();
+			.rootBeanDefinition(LoginUrlAuthenticationEntryPoint.class).addConstructorArgValue(loginUrl)
+			.addPropertyValue("portMapper", this.portMapper)
+			.addPropertyValue("portResolver", this.portResolver).getBeanDefinition();
 			}
 		}
 		if (saml2LoginAuthenticationEntryPoint != null) {
 			BeanDefinitionBuilder requestMatcherBuilder = BeanDefinitionBuilder
-					.rootBeanDefinition(AntPathRequestMatcher.class);
+		.rootBeanDefinition(AntPathRequestMatcher.class);
 			requestMatcherBuilder.addConstructorArgValue(this.loginProcessingUrl);
 			BeanDefinition requestMatcher = requestMatcherBuilder.getBeanDefinition();
 			this.entryPoints.put(requestMatcher, saml2LoginAuthenticationEntryPoint);
@@ -219,42 +219,42 @@ final class Saml2LoginBeanDefinitionParser implements BeanDefinitionParser {
 	}
 
 	private void resolveAuthenticationFailureHandler(Element element,
-			BeanDefinitionBuilder saml2WebSsoAuthenticationFilterBuilder) {
+BeanDefinitionBuilder saml2WebSsoAuthenticationFilterBuilder) {
 		String authenticationFailureHandlerRef = element.getAttribute(ATT_AUTHENTICATION_FAILURE_HANDLER_REF);
 		if (StringUtils.hasText(authenticationFailureHandlerRef)) {
 			saml2WebSsoAuthenticationFilterBuilder.addPropertyReference("authenticationFailureHandler",
-					authenticationFailureHandlerRef);
+		authenticationFailureHandlerRef);
 		}
 		else {
 			BeanDefinitionBuilder failureHandlerBuilder = BeanDefinitionBuilder.rootBeanDefinition(
-					"org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler");
+		"org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler");
 			failureHandlerBuilder.addConstructorArgValue(
-					DEFAULT_LOGIN_URI + "?" + DefaultLoginPageGeneratingFilter.ERROR_PARAMETER_NAME);
+		DEFAULT_LOGIN_URI + "?" + DefaultLoginPageGeneratingFilter.ERROR_PARAMETER_NAME);
 			failureHandlerBuilder.addPropertyValue("allowSessionCreation", this.allowSessionCreation);
 			saml2WebSsoAuthenticationFilterBuilder.addPropertyValue("authenticationFailureHandler",
-					failureHandlerBuilder.getBeanDefinition());
+		failureHandlerBuilder.getBeanDefinition());
 		}
 	}
 
 	private void resolveAuthenticationSuccessHandler(Element element,
-			BeanDefinitionBuilder saml2WebSsoAuthenticationFilterBuilder) {
+BeanDefinitionBuilder saml2WebSsoAuthenticationFilterBuilder) {
 		String authenticationSuccessHandlerRef = element.getAttribute(ATT_AUTHENTICATION_SUCCESS_HANDLER_REF);
 		if (StringUtils.hasText(authenticationSuccessHandlerRef)) {
 			saml2WebSsoAuthenticationFilterBuilder.addPropertyReference("authenticationSuccessHandler",
-					authenticationSuccessHandlerRef);
+		authenticationSuccessHandlerRef);
 		}
 		else {
 			BeanDefinitionBuilder successHandlerBuilder = BeanDefinitionBuilder.rootBeanDefinition(
-					"org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler")
-					.addPropertyValue("requestCache", this.requestCache);
+		"org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler")
+		.addPropertyValue("requestCache", this.requestCache);
 			saml2WebSsoAuthenticationFilterBuilder.addPropertyValue("authenticationSuccessHandler",
-					successHandlerBuilder.getBeanDefinition());
+		successHandlerBuilder.getBeanDefinition());
 		}
 	}
 
 	private void registerDefaultCsrfOverride() {
 		BeanDefinitionBuilder requestMatcherBuilder = BeanDefinitionBuilder
-				.rootBeanDefinition(AntPathRequestMatcher.class);
+	.rootBeanDefinition(AntPathRequestMatcher.class);
 		requestMatcherBuilder.addConstructorArgValue(this.loginProcessingUrl);
 		BeanDefinition requestMatcher = requestMatcherBuilder.getBeanDefinition();
 		this.csrfIgnoreRequestMatchers.add(requestMatcher);
@@ -263,15 +263,15 @@ final class Saml2LoginBeanDefinitionParser implements BeanDefinitionParser {
 	private Map<String, String> getIdentityProviderUrlMap(Element element) {
 		Map<String, String> idps = new LinkedHashMap<>();
 		Element relyingPartyRegistrationsElt = DomUtils.getChildElementByTagName(
-				element.getOwnerDocument().getDocumentElement(), Elements.RELYING_PARTY_REGISTRATIONS);
+	element.getOwnerDocument().getDocumentElement(), Elements.RELYING_PARTY_REGISTRATIONS);
 		String authenticationRequestProcessingUrl = DEFAULT_AUTHENTICATION_REQUEST_PROCESSING_URL;
 		if (relyingPartyRegistrationsElt != null) {
 			List<Element> relyingPartyRegList = DomUtils.getChildElementsByTagName(relyingPartyRegistrationsElt,
-					ELT_RELYING_PARTY_REGISTRATION);
+		ELT_RELYING_PARTY_REGISTRATION);
 			for (Element relyingPartyReg : relyingPartyRegList) {
 				String registrationId = relyingPartyReg.getAttribute(ELT_REGISTRATION_ID);
 				idps.put(authenticationRequestProcessingUrl.replace("{registrationId}", registrationId),
-						registrationId);
+			registrationId);
 			}
 		}
 		return idps;
@@ -292,14 +292,14 @@ final class Saml2LoginBeanDefinitionParser implements BeanDefinitionParser {
 
 		private ApplicationContext context;
 
-		@SuppressWarnings({ "unchecked", "unused" })
+		@SuppressWarnings({"unchecked", "unused"})
 		Map<String, String> getAuthenticationUrlToProviderName() {
 			Iterable<RelyingPartyRegistration> relyingPartyRegistrations = null;
 			RelyingPartyRegistrationRepository relyingPartyRegistrationRepository = this.context
-					.getBean(RelyingPartyRegistrationRepository.class);
+		.getBean(RelyingPartyRegistrationRepository.class);
 			ResolvableType type = ResolvableType.forInstance(relyingPartyRegistrationRepository).as(Iterable.class);
 			if (type != ResolvableType.NONE
-					&& RelyingPartyRegistration.class.isAssignableFrom(type.resolveGenerics()[0])) {
+		&& RelyingPartyRegistration.class.isAssignableFrom(type.resolveGenerics()[0])) {
 				relyingPartyRegistrations = (Iterable<RelyingPartyRegistration>) relyingPartyRegistrationRepository;
 			}
 			if (relyingPartyRegistrations == null) {
@@ -308,8 +308,8 @@ final class Saml2LoginBeanDefinitionParser implements BeanDefinitionParser {
 			String authenticationRequestProcessingUrl = DEFAULT_AUTHENTICATION_REQUEST_PROCESSING_URL;
 			Map<String, String> saml2AuthenticationUrlToProviderName = new HashMap<>();
 			relyingPartyRegistrations.forEach((registration) -> saml2AuthenticationUrlToProviderName.put(
-					authenticationRequestProcessingUrl.replace("{registrationId}", registration.getRegistrationId()),
-					registration.getRegistrationId()));
+		authenticationRequestProcessingUrl.replace("{registrationId}", registration.getRegistrationId()),
+		registration.getRegistrationId()));
 			return saml2AuthenticationUrlToProviderName;
 		}
 

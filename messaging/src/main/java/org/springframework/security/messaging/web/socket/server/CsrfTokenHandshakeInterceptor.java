@@ -42,10 +42,10 @@ public final class CsrfTokenHandshakeInterceptor implements HandshakeInterceptor
 
 	@Override
 	public boolean beforeHandshake(ServerHttpRequest request, ServerHttpResponse response, WebSocketHandler wsHandler,
-			Map<String, Object> attributes) {
+Map<String, Object> attributes) {
 		HttpServletRequest httpRequest = ((ServletServerHttpRequest) request).getServletRequest();
 		DeferredCsrfToken deferredCsrfToken = (DeferredCsrfToken) httpRequest
-				.getAttribute(DeferredCsrfToken.class.getName());
+	.getAttribute(DeferredCsrfToken.class.getName());
 		if (deferredCsrfToken == null) {
 			return true;
 		}
@@ -55,14 +55,14 @@ public final class CsrfTokenHandshakeInterceptor implements HandshakeInterceptor
 		// This is required because the original token could hold a reference to the
 		// HttpServletRequest/Response of the handshake request.
 		CsrfToken resolvedCsrfToken = new DefaultCsrfToken(csrfToken.getHeaderName(), csrfToken.getParameterName(),
-				csrfToken.getToken());
+	csrfToken.getToken());
 		attributes.put(CsrfToken.class.getName(), resolvedCsrfToken);
 		return true;
 	}
 
 	@Override
 	public void afterHandshake(ServerHttpRequest request, ServerHttpResponse response, WebSocketHandler wsHandler,
-			Exception exception) {
+Exception exception) {
 	}
 
 }

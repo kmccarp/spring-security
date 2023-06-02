@@ -70,8 +70,8 @@ public class HttpConfigTests {
 		this.spring.configLocations(this.xml("Minimal")).autowire();
 		// @formatter:off
 		this.mvc.perform(get("/"))
-				.andExpect(status().isFound())
-				.andExpect(redirectedUrl("http://localhost/login"));
+	.andExpect(status().isFound())
+	.andExpect(redirectedUrl("http://localhost/login"));
 		// @formatter:on
 	}
 
@@ -80,8 +80,8 @@ public class HttpConfigTests {
 		this.spring.configLocations(this.xml("MinimalAuthorizationManager")).autowire();
 		// @formatter:off
 		this.mvc.perform(get("/"))
-				.andExpect(status().isFound())
-				.andExpect(redirectedUrl("http://localhost/login"));
+	.andExpect(status().isFound())
+	.andExpect(redirectedUrl("http://localhost/login"));
 		// @formatter:on
 	}
 
@@ -89,12 +89,12 @@ public class HttpConfigTests {
 	public void getWhenUsingAuthorizationManagerThenRedirectsToLogin() throws Exception {
 		this.spring.configLocations(this.xml("AuthorizationManager")).autowire();
 		AuthorizationManager<HttpServletRequest> authorizationManager = this.spring.getContext()
-				.getBean(AuthorizationManager.class);
+	.getBean(AuthorizationManager.class);
 		given(authorizationManager.check(any(), any())).willReturn(new AuthorizationDecision(false));
 		// @formatter:off
 		this.mvc.perform(get("/"))
-				.andExpect(status().isFound())
-				.andExpect(redirectedUrl("http://localhost/login"));
+	.andExpect(status().isFound())
+	.andExpect(redirectedUrl("http://localhost/login"));
 		// @formatter:on
 		verify(authorizationManager).check(any(), any());
 	}
@@ -116,7 +116,7 @@ public class HttpConfigTests {
 		this.spring.configLocations(this.xml("WithObservationRegistry")).autowire();
 		// @formatter:off
 		this.mvc.perform(get("/").with(httpBasic("user", "password")))
-				.andExpect(status().isNotFound());
+	.andExpect(status().isNotFound());
 		// @formatter:on
 		ObservationHandler<Observation.Context> handler = this.spring.getContext().getBean(ObservationHandler.class);
 		ArgumentCaptor<Observation.Context> captor = ArgumentCaptor.forClass(Observation.Context.class);

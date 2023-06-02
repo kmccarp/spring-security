@@ -68,14 +68,14 @@ final class SecurityMockMvcConfigurer extends MockMvcConfigurerAdapter {
 
 	@Override
 	public RequestPostProcessor beforeMockMvcCreated(ConfigurableMockMvcBuilder<?> builder,
-			WebApplicationContext context) {
+WebApplicationContext context) {
 		String securityBeanId = BeanIds.SPRING_SECURITY_FILTER_CHAIN;
 		if (getSpringSecurityFilterChain() == null && context.containsBean(securityBeanId)) {
 			setSpringSecurityFilterChain(context.getBean(securityBeanId, Filter.class));
 		}
 		Assert.state(getSpringSecurityFilterChain() != null,
-				() -> "springSecurityFilterChain cannot be null. Ensure a Bean with the name " + securityBeanId
-						+ " implementing Filter is present or inject the Filter to be used.");
+	() -> "springSecurityFilterChain cannot be null. Ensure a Bean with the name " + securityBeanId
++ " implementing Filter is present or inject the Filter to be used.");
 		// This is used by other test support to obtain the FilterChainProxy
 		context.getServletContext().setAttribute(BeanIds.SPRING_SECURITY_FILTER_CHAIN, getSpringSecurityFilterChain());
 		return testSecurityContext();
@@ -116,8 +116,8 @@ final class SecurityMockMvcConfigurer extends MockMvcConfigurerAdapter {
 		Filter getDelegate() {
 			Filter result = this.delegate;
 			Assert.state(result != null,
-					() -> "delegate cannot be null. Ensure a Bean with the name " + BeanIds.SPRING_SECURITY_FILTER_CHAIN
-							+ " implementing Filter is present or inject the Filter to be used.");
+		() -> "delegate cannot be null. Ensure a Bean with the name " + BeanIds.SPRING_SECURITY_FILTER_CHAIN
+	+ " implementing Filter is present or inject the Filter to be used.");
 			return result;
 		}
 
@@ -128,7 +128,7 @@ final class SecurityMockMvcConfigurer extends MockMvcConfigurerAdapter {
 
 		@Override
 		public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
-				throws IOException, ServletException {
+	throws IOException, ServletException {
 			getDelegate().doFilter(request, response, chain);
 		}
 

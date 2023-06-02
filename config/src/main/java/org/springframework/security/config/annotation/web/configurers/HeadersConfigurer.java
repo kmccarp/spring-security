@@ -76,8 +76,7 @@ import org.springframework.util.Assert;
  * @author Daniel Garnier-Moiroux
  * @since 3.2
  */
-public class HeadersConfigurer<H extends HttpSecurityBuilder<H>>
-		extends AbstractHttpConfigurer<HeadersConfigurer<H>, H> {
+public class HeadersConfigurer<H extends HttpSecurityBuilder<H>>extends AbstractHttpConfigurer<HeadersConfigurer<H>, H> {
 
 	private List<HeaderWriter> headerWriters = new ArrayList<>();
 
@@ -362,7 +361,7 @@ public class HeadersConfigurer<H extends HttpSecurityBuilder<H>>
 	 * @see ContentSecurityPolicyHeaderWriter
 	 */
 	public HeadersConfigurer<H> contentSecurityPolicy(
-			Customizer<ContentSecurityPolicyConfig> contentSecurityCustomizer) {
+Customizer<ContentSecurityPolicyConfig> contentSecurityCustomizer) {
 		this.contentSecurityPolicy.writer = new ContentSecurityPolicyHeaderWriter();
 		contentSecurityCustomizer.customize(this.contentSecurityPolicy);
 		return HeadersConfigurer.this;
@@ -401,7 +400,7 @@ public class HeadersConfigurer<H extends HttpSecurityBuilder<H>>
 		List<HeaderWriter> writers = getHeaderWriters();
 		if (writers.isEmpty()) {
 			throw new IllegalStateException(
-					"Headers security is enabled, but no headers will be added. Either add headers or disable headers security");
+		"Headers security is enabled, but no headers will be added. Either add headers or disable headers security");
 		}
 		HeaderWriterFilter headersFilter = new HeaderWriterFilter(writers);
 		headersFilter = postProcess(headersFilter);
@@ -623,7 +622,7 @@ public class HeadersConfigurer<H extends HttpSecurityBuilder<H>>
 	 * @see CrossOriginOpenerPolicyHeaderWriter
 	 */
 	public HeadersConfigurer<H> crossOriginOpenerPolicy(
-			Customizer<CrossOriginOpenerPolicyConfig> crossOriginOpenerPolicyCustomizer) {
+Customizer<CrossOriginOpenerPolicyConfig> crossOriginOpenerPolicyCustomizer) {
 		this.crossOriginOpenerPolicy.writer = new CrossOriginOpenerPolicyHeaderWriter();
 		crossOriginOpenerPolicyCustomizer.customize(this.crossOriginOpenerPolicy);
 		return HeadersConfigurer.this;
@@ -667,7 +666,7 @@ public class HeadersConfigurer<H extends HttpSecurityBuilder<H>>
 	 * @see CrossOriginEmbedderPolicyHeaderWriter
 	 */
 	public HeadersConfigurer<H> crossOriginEmbedderPolicy(
-			Customizer<CrossOriginEmbedderPolicyConfig> crossOriginEmbedderPolicyCustomizer) {
+Customizer<CrossOriginEmbedderPolicyConfig> crossOriginEmbedderPolicyCustomizer) {
 		this.crossOriginEmbedderPolicy.writer = new CrossOriginEmbedderPolicyHeaderWriter();
 		crossOriginEmbedderPolicyCustomizer.customize(this.crossOriginEmbedderPolicy);
 		return HeadersConfigurer.this;
@@ -711,7 +710,7 @@ public class HeadersConfigurer<H extends HttpSecurityBuilder<H>>
 	 * @see CrossOriginResourcePolicyHeaderWriter
 	 */
 	public HeadersConfigurer<H> crossOriginResourcePolicy(
-			Customizer<CrossOriginResourcePolicyConfig> crossOriginResourcePolicyCustomizer) {
+Customizer<CrossOriginResourcePolicyConfig> crossOriginResourcePolicyCustomizer) {
 		this.crossOriginResourcePolicy.writer = new CrossOriginResourcePolicyHeaderWriter();
 		crossOriginResourcePolicyCustomizer.customize(this.crossOriginResourcePolicy);
 		return HeadersConfigurer.this;
@@ -1353,7 +1352,7 @@ public class HeadersConfigurer<H extends HttpSecurityBuilder<H>>
 		 * @throws IllegalArgumentException if openerPolicy is null
 		 */
 		public CrossOriginOpenerPolicyConfig policy(
-				CrossOriginOpenerPolicyHeaderWriter.CrossOriginOpenerPolicy openerPolicy) {
+	CrossOriginOpenerPolicyHeaderWriter.CrossOriginOpenerPolicy openerPolicy) {
 			this.writer.setPolicy(openerPolicy);
 			return this;
 		}
@@ -1387,7 +1386,7 @@ public class HeadersConfigurer<H extends HttpSecurityBuilder<H>>
 		 * @throws IllegalArgumentException if embedderPolicy is null
 		 */
 		public CrossOriginEmbedderPolicyConfig policy(
-				CrossOriginEmbedderPolicyHeaderWriter.CrossOriginEmbedderPolicy embedderPolicy) {
+	CrossOriginEmbedderPolicyHeaderWriter.CrossOriginEmbedderPolicy embedderPolicy) {
 			this.writer.setPolicy(embedderPolicy);
 			return this;
 		}
@@ -1421,7 +1420,7 @@ public class HeadersConfigurer<H extends HttpSecurityBuilder<H>>
 		 * @throws IllegalArgumentException if resourcePolicy is null
 		 */
 		public CrossOriginResourcePolicyConfig policy(
-				CrossOriginResourcePolicyHeaderWriter.CrossOriginResourcePolicy resourcePolicy) {
+	CrossOriginResourcePolicyHeaderWriter.CrossOriginResourcePolicy resourcePolicy) {
 			this.writer.setPolicy(resourcePolicy);
 			return this;
 		}

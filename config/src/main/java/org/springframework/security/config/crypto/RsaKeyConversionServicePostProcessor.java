@@ -54,7 +54,7 @@ public class RsaKeyConversionServicePostProcessor implements BeanFactoryPostProc
 	private ResourceKeyConverterAdapter<RSAPublicKey> x509 = new ResourceKeyConverterAdapter<>(RsaKeyConverters.x509());
 
 	private ResourceKeyConverterAdapter<RSAPrivateKey> pkcs8 = new ResourceKeyConverterAdapter<>(
-			RsaKeyConverters.pkcs8());
+RsaKeyConverters.pkcs8());
 
 	public void setResourceLoader(ResourceLoader resourceLoader) {
 		Assert.notNull(resourceLoader, "resourceLoader cannot be null");
@@ -83,7 +83,7 @@ public class RsaKeyConversionServicePostProcessor implements BeanFactoryPostProc
 
 	private boolean hasUserDefinedConversionService(ConfigurableListableBeanFactory beanFactory) {
 		return beanFactory.containsBean(CONVERSION_SERVICE_BEAN_NAME)
-				&& beanFactory.isTypeMatch(CONVERSION_SERVICE_BEAN_NAME, ConversionService.class);
+	&& beanFactory.isTypeMatch(CONVERSION_SERVICE_BEAN_NAME, ConversionService.class);
 	}
 
 	private static class ConverterPropertyEditorAdapter<T> extends PropertyEditorSupport {
@@ -144,7 +144,7 @@ public class RsaKeyConversionServicePostProcessor implements BeanFactoryPostProc
 
 		private Converter<String, InputStream> pemInputStreamConverter() {
 			return (source) -> source.startsWith("-----") ? toInputStream(source)
-					: toInputStream(this.resourceLoader.getResource(source));
+		: toInputStream(this.resourceLoader.getResource(source));
 		}
 
 		private InputStream toInputStream(String raw) {

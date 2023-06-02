@@ -47,17 +47,17 @@ final class Jsr250MethodSecurityConfiguration {
 	@Bean
 	@Role(BeanDefinition.ROLE_INFRASTRUCTURE)
 	static MethodInterceptor jsr250AuthorizationMethodInterceptor(
-			ObjectProvider<GrantedAuthorityDefaults> defaultsProvider,
-			ObjectProvider<SecurityContextHolderStrategy> strategyProvider,
-			ObjectProvider<ObservationRegistry> registryProvider) {
+ObjectProvider<GrantedAuthorityDefaults> defaultsProvider,
+ObjectProvider<SecurityContextHolderStrategy> strategyProvider,
+ObjectProvider<ObservationRegistry> registryProvider) {
 		Jsr250AuthorizationManager jsr250 = new Jsr250AuthorizationManager();
 		defaultsProvider.ifAvailable((d) -> jsr250.setRolePrefix(d.getRolePrefix()));
 		SecurityContextHolderStrategy strategy = strategyProvider
-				.getIfAvailable(SecurityContextHolder::getContextHolderStrategy);
+	.getIfAvailable(SecurityContextHolder::getContextHolderStrategy);
 		AuthorizationManager<MethodInvocation> manager = new DeferringObservationAuthorizationManager<>(
-				registryProvider, jsr250);
+	registryProvider, jsr250);
 		AuthorizationManagerBeforeMethodInterceptor interceptor = AuthorizationManagerBeforeMethodInterceptor
-				.jsr250(manager);
+	.jsr250(manager);
 		interceptor.setSecurityContextHolderStrategy(strategy);
 		return interceptor;
 	}

@@ -69,9 +69,9 @@ public class NamespaceHttpFormLoginTests {
 		this.mvc.perform(post("/login").with(csrf())).andExpect(redirectedUrl("/login?error"));
 		// @formatter:off
 		MockHttpServletRequestBuilder loginRequest = post("/login")
-				.param("username", "user")
-				.param("password", "password")
-				.with(csrf());
+	.param("username", "user")
+	.param("password", "password")
+	.with(csrf());
 		// @formatter:on
 		this.mvc.perform(loginRequest).andExpect(redirectedUrl("/"));
 	}
@@ -81,12 +81,12 @@ public class NamespaceHttpFormLoginTests {
 		this.spring.register(FormLoginCustomConfig.class, UserDetailsServiceConfig.class).autowire();
 		this.mvc.perform(get("/")).andExpect(redirectedUrl("http://localhost/authentication/login"));
 		this.mvc.perform(post("/authentication/login/process").with(csrf()))
-				.andExpect(redirectedUrl("/authentication/login?failed"));
+	.andExpect(redirectedUrl("/authentication/login?failed"));
 		// @formatter:off
 		MockHttpServletRequestBuilder request = post("/authentication/login/process")
-				.param("username", "user")
-				.param("password", "password")
-				.with(csrf());
+	.param("username", "user")
+	.param("password", "password")
+	.with(csrf());
 		// @formatter:on
 		this.mvc.perform(request).andExpect(redirectedUrl("/default"));
 	}
@@ -99,9 +99,9 @@ public class NamespaceHttpFormLoginTests {
 		verifyBean(WebAuthenticationDetailsSource.class).buildDetails(any(HttpServletRequest.class));
 		// @formatter:off
 		MockHttpServletRequestBuilder loginRequest = post("/login")
-				.param("username", "user")
-				.param("password", "password")
-				.with(csrf());
+	.param("username", "user")
+	.param("password", "password")
+	.with(csrf());
 		// @formatter:on
 		this.mvc.perform(loginRequest).andExpect(redirectedUrl("/custom/targetUrl"));
 	}
@@ -124,10 +124,10 @@ public class NamespaceHttpFormLoginTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests()
-					.anyRequest().hasRole("USER")
-					.and()
-				.formLogin();
+		.authorizeRequests()
+		.anyRequest().hasRole("USER")
+		.and()
+		.formLogin();
 			return http.build();
 			// @formatter:on
 		}
@@ -143,16 +143,16 @@ public class NamespaceHttpFormLoginTests {
 			boolean alwaysUseDefaultSuccess = true;
 			// @formatter:off
 			http
-				.authorizeRequests()
-					.anyRequest().hasRole("USER")
-					.and()
-				.formLogin()
-					.usernameParameter("username") // form-login@username-parameter
-					.passwordParameter("password") // form-login@password-parameter
-					.loginPage("/authentication/login") // form-login@login-page
-					.failureUrl("/authentication/login?failed") // form-login@authentication-failure-url
-					.loginProcessingUrl("/authentication/login/process") // form-login@login-processing-url
-					.defaultSuccessUrl("/default", alwaysUseDefaultSuccess);
+		.authorizeRequests()
+		.anyRequest().hasRole("USER")
+		.and()
+		.formLogin()
+		.usernameParameter("username") // form-login@username-parameter
+		.passwordParameter("password") // form-login@password-parameter
+		.loginPage("/authentication/login") // form-login@login-page
+		.failureUrl("/authentication/login?failed") // form-login@authentication-failure-url
+		.loginProcessingUrl("/authentication/login/process") // form-login@login-processing-url
+		.defaultSuccessUrl("/default", alwaysUseDefaultSuccess);
 			return http.build(); // form-login@default-target-url / form-login@always-use-default-target
 			// @formatter:on
 		}
@@ -169,15 +169,15 @@ public class NamespaceHttpFormLoginTests {
 			successHandler.setDefaultTargetUrl("/custom/targetUrl");
 			// @formatter:off
 			http
-				.authorizeRequests()
-					.anyRequest().hasRole("USER")
-					.and()
-				.formLogin()
-					.loginPage("/login")
-					.failureHandler(new SimpleUrlAuthenticationFailureHandler("/custom/failure")) // form-login@authentication-failure-handler-ref
-					.successHandler(successHandler) // form-login@authentication-success-handler-ref
-					.authenticationDetailsSource(authenticationDetailsSource()) // form-login@authentication-details-source-ref
-					.and();
+		.authorizeRequests()
+		.anyRequest().hasRole("USER")
+		.and()
+		.formLogin()
+		.loginPage("/login")
+		.failureHandler(new SimpleUrlAuthenticationFailureHandler("/custom/failure")) // form-login@authentication-failure-handler-ref
+		.successHandler(successHandler) // form-login@authentication-success-handler-ref
+		.authenticationDetailsSource(authenticationDetailsSource()) // form-login@authentication-details-source-ref
+		.and();
 			return http.build();
 			// @formatter:on
 		}
@@ -195,13 +195,13 @@ public class NamespaceHttpFormLoginTests {
 		@Bean
 		UserDetailsService userDetailsService() {
 			return new InMemoryUserDetailsManager(
-			// @formatter:off
-					User.withDefaultPasswordEncoder()
-							.username("user")
-							.password("password")
-							.roles("USER")
-							.build());
-					// @formatter:on
+		// @formatter:off
+		User.withDefaultPasswordEncoder()
+	.username("user")
+	.password("password")
+	.roles("USER")
+	.build());
+			// @formatter:on
 		}
 
 	}

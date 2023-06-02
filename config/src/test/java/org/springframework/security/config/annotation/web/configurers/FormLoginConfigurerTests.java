@@ -98,11 +98,11 @@ public class FormLoginConfigurerTests {
 		this.spring.register(FormLoginConfig.class).autowire();
 		// @formatter:off
 		SecurityMockMvcRequestBuilders.FormLoginRequestBuilder loginRequest = formLogin()
-				.user("username", "user")
-				.password("password", "password");
+	.user("username", "user")
+	.password("password", "password");
 		this.mockMvc.perform(loginRequest)
-				.andExpect(status().isFound())
-				.andExpect(redirectedUrl("/"));
+	.andExpect(status().isFound())
+	.andExpect(redirectedUrl("/"));
 		// @formatter:on
 	}
 
@@ -111,16 +111,16 @@ public class FormLoginConfigurerTests {
 		this.spring.register(FormLoginConfig.class, SecurityContextChangedListenerConfig.class).autowire();
 		// @formatter:off
 		SecurityMockMvcRequestBuilders.FormLoginRequestBuilder loginRequest = formLogin()
-				.user("username", "user")
-				.password("password", "password");
+	.user("username", "user")
+	.password("password", "password");
 		this.mockMvc.perform(loginRequest)
-				.andExpect(status().isFound())
-				.andExpect(redirectedUrl("/"));
+	.andExpect(status().isFound())
+	.andExpect(redirectedUrl("/"));
 		// @formatter:on
 		SecurityContextHolderStrategy strategy = this.spring.getContext().getBean(SecurityContextHolderStrategy.class);
 		verify(strategy, atLeastOnce()).getContext();
 		SecurityContextChangedListener listener = this.spring.getContext()
-				.getBean(SecurityContextChangedListener.class);
+	.getBean(SecurityContextChangedListener.class);
 		verify(listener).securityContextChanged(setAuthentication(UsernamePasswordAuthenticationToken.class));
 	}
 
@@ -129,8 +129,8 @@ public class FormLoginConfigurerTests {
 		this.spring.register(FormLoginConfig.class).autowire();
 		// @formatter:off
 		this.mockMvc.perform(formLogin().user("invalid"))
-				.andExpect(status().isFound())
-				.andExpect(redirectedUrl("/login?error"));
+	.andExpect(status().isFound())
+	.andExpect(redirectedUrl("/login?error"));
 		// @formatter:on
 	}
 
@@ -139,8 +139,8 @@ public class FormLoginConfigurerTests {
 		this.spring.register(FormLoginConfig.class).autowire();
 		// @formatter:off
 		this.mockMvc.perform(formLogin())
-				.andExpect(status().isFound())
-				.andExpect(redirectedUrl("/"));
+	.andExpect(status().isFound())
+	.andExpect(redirectedUrl("/"));
 		// @formatter:on
 	}
 
@@ -161,8 +161,8 @@ public class FormLoginConfigurerTests {
 		this.spring.register(FormLoginConfig.class).autowire();
 		// @formatter:off
 		this.mockMvc.perform(get("/private"))
-				.andExpect(status().isFound())
-				.andExpect(redirectedUrl("http://localhost/login"));
+	.andExpect(status().isFound())
+	.andExpect(redirectedUrl("http://localhost/login"));
 		// @formatter:on
 	}
 
@@ -171,11 +171,11 @@ public class FormLoginConfigurerTests {
 		this.spring.register(FormLoginInLambdaConfig.class).autowire();
 		// @formatter:off
 		SecurityMockMvcRequestBuilders.FormLoginRequestBuilder loginRequest = formLogin()
-				.user("username", "user")
-				.password("password", "password");
+	.user("username", "user")
+	.password("password", "password");
 		this.mockMvc.perform(loginRequest)
-				.andExpect(status().isFound())
-				.andExpect(redirectedUrl("/"));
+	.andExpect(status().isFound())
+	.andExpect(redirectedUrl("/"));
 		// @formatter:on
 	}
 
@@ -184,8 +184,8 @@ public class FormLoginConfigurerTests {
 		this.spring.register(FormLoginInLambdaConfig.class).autowire();
 		// @formatter:off
 		this.mockMvc.perform(formLogin().user("invalid"))
-				.andExpect(status().isFound())
-				.andExpect(redirectedUrl("/login?error"));
+	.andExpect(status().isFound())
+	.andExpect(redirectedUrl("/login?error"));
 		// @formatter:on
 	}
 
@@ -194,8 +194,8 @@ public class FormLoginConfigurerTests {
 		this.spring.register(FormLoginInLambdaConfig.class).autowire();
 		// @formatter:off
 		this.mockMvc.perform(formLogin())
-				.andExpect(status().isFound())
-				.andExpect(redirectedUrl("/"));
+	.andExpect(status().isFound())
+	.andExpect(redirectedUrl("/"));
 		// @formatter:on
 	}
 
@@ -216,8 +216,8 @@ public class FormLoginConfigurerTests {
 		this.spring.register(FormLoginInLambdaConfig.class).autowire();
 		// @formatter:off
 		this.mockMvc.perform(get("/private"))
-				.andExpect(status().isFound())
-				.andExpect(redirectedUrl("http://localhost/login"));
+	.andExpect(status().isFound())
+	.andExpect(redirectedUrl("http://localhost/login"));
 		// @formatter:on
 	}
 
@@ -226,8 +226,8 @@ public class FormLoginConfigurerTests {
 		this.spring.register(FormLoginConfigPermitAll.class).autowire();
 		// @formatter:off
 		this.mockMvc.perform(get("/login"))
-				.andExpect(status().isOk())
-				.andExpect(redirectedUrl(null));
+	.andExpect(status().isOk())
+	.andExpect(redirectedUrl(null));
 		// @formatter:on
 	}
 
@@ -236,8 +236,8 @@ public class FormLoginConfigurerTests {
 		this.spring.register(FormLoginConfigPermitAll.class).autowire();
 		// @formatter:off
 		this.mockMvc.perform(get("/login?error"))
-				.andExpect(status().isOk())
-				.andExpect(redirectedUrl(null));
+	.andExpect(status().isOk())
+	.andExpect(redirectedUrl(null));
 		// @formatter:on
 	}
 
@@ -246,8 +246,8 @@ public class FormLoginConfigurerTests {
 		this.spring.register(FormLoginConfigPermitAll.class).autowire();
 		// @formatter:off
 		this.mockMvc.perform(formLogin().user("invalid"))
-				.andExpect(status().isFound())
-				.andExpect(redirectedUrl("/login?error"));
+	.andExpect(status().isFound())
+	.andExpect(redirectedUrl("/login?error"));
 		// @formatter:on
 	}
 
@@ -269,8 +269,8 @@ public class FormLoginConfigurerTests {
 		SecurityMockMvcRequestBuilders.FormLoginRequestBuilder request = formLogin("/authenticate").user("invalid");
 		// @formatter:off
 		this.mockMvc.perform(request)
-				.andExpect(status().isFound())
-				.andExpect(redirectedUrl("/authenticate?error"));
+	.andExpect(status().isFound())
+	.andExpect(redirectedUrl("/authenticate?error"));
 		// @formatter:on
 	}
 
@@ -297,8 +297,8 @@ public class FormLoginConfigurerTests {
 		this.spring.register(FormLoginLoginProcessingUrlConfig.class).autowire();
 		// @formatter:off
 		this.mockMvc.perform(formLogin("/loginCheck"))
-				.andExpect(status().isFound())
-				.andExpect(redirectedUrl("/"));
+	.andExpect(status().isFound())
+	.andExpect(redirectedUrl("/"));
 		// @formatter:on
 	}
 
@@ -307,8 +307,8 @@ public class FormLoginConfigurerTests {
 		this.spring.register(FormLoginLoginProcessingUrlInLambdaConfig.class).autowire();
 		// @formatter:off
 		this.mockMvc.perform(formLogin("/loginCheck"))
-				.andExpect(status().isFound())
-				.andExpect(redirectedUrl("/"));
+	.andExpect(status().isFound())
+	.andExpect(redirectedUrl("/"));
 		// @formatter:on
 	}
 
@@ -319,8 +319,8 @@ public class FormLoginConfigurerTests {
 		this.spring.register(FormLoginUsesPortMapperConfig.class).autowire();
 		// @formatter:off
 		this.mockMvc.perform(get("http://localhost:9090"))
-				.andExpect(status().isFound())
-				.andExpect(redirectedUrl("https://localhost:9443/login"));
+	.andExpect(status().isFound())
+	.andExpect(redirectedUrl("https://localhost:9443/login"));
 		// @formatter:on
 		verify(FormLoginUsesPortMapperConfig.PORT_MAPPER).lookupHttpsPort(any());
 	}
@@ -330,8 +330,8 @@ public class FormLoginConfigurerTests {
 		this.spring.register(PermitAllIgnoresFailureHandlerConfig.class).autowire();
 		// @formatter:off
 		this.mockMvc.perform(get("/login?error"))
-				.andExpect(status().isFound())
-				.andExpect(redirectedUrl("http://localhost/login"));
+	.andExpect(status().isFound())
+	.andExpect(redirectedUrl("http://localhost/login"));
 		// @formatter:on
 	}
 
@@ -339,7 +339,7 @@ public class FormLoginConfigurerTests {
 	public void formLoginWhenInvokedTwiceThenUsesOriginalUsernameParameter() throws Exception {
 		this.spring.register(DuplicateInvocationsDoesNotOverrideConfig.class).autowire();
 		SecurityMockMvcRequestBuilders.FormLoginRequestBuilder loginRequest = formLogin().user("custom-username",
-				"user");
+	"user");
 		this.mockMvc.perform(loginRequest).andExpect(authenticated());
 	}
 
@@ -361,7 +361,7 @@ public class FormLoginConfigurerTests {
 		ObjectPostProcessorConfig.objectPostProcessor = spy(ReflectingObjectPostProcessor.class);
 		this.spring.register(ObjectPostProcessorConfig.class).autowire();
 		verify(ObjectPostProcessorConfig.objectPostProcessor)
-				.postProcess(any(UsernamePasswordAuthenticationFilter.class));
+	.postProcess(any(UsernamePasswordAuthenticationFilter.class));
 	}
 
 	@Test
@@ -388,9 +388,9 @@ public class FormLoginConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.formLogin().and()
-				.requestCache()
-					.requestCache(this.requestCache);
+		.formLogin().and()
+		.requestCache()
+		.requestCache(this.requestCache);
 			return http.build();
 			// @formatter:on
 		}
@@ -422,11 +422,11 @@ public class FormLoginConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests()
-					.anyRequest().hasRole("USER")
-					.and()
-				.formLogin()
-					.loginPage("/login");
+		.authorizeRequests()
+		.anyRequest().hasRole("USER")
+		.and()
+		.formLogin()
+		.loginPage("/login");
 			// @formatter:on
 			return http.build();
 		}
@@ -446,11 +446,11 @@ public class FormLoginConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests((authorizeRequests) ->
-					authorizeRequests
-						.anyRequest().hasRole("USER")
-				)
-				.formLogin(withDefaults());
+		.authorizeRequests((authorizeRequests) ->
+	authorizeRequests
+.anyRequest().hasRole("USER")
+		)
+		.formLogin(withDefaults());
 			// @formatter:on
 			return http.build();
 		}
@@ -470,11 +470,11 @@ public class FormLoginConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests()
-					.anyRequest().hasRole("USER")
-					.and()
-				.formLogin()
-					.permitAll();
+		.authorizeRequests()
+		.anyRequest().hasRole("USER")
+		.and()
+		.formLogin()
+		.permitAll();
 			return http.build();
 			// @formatter:on
 		}
@@ -489,15 +489,15 @@ public class FormLoginConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests()
-					.anyRequest().hasRole("USER")
-					.and()
-				.formLogin()
-					.loginPage("/authenticate")
-					.permitAll()
-					.and()
-				.logout()
-					.permitAll();
+		.authorizeRequests()
+		.anyRequest().hasRole("USER")
+		.and()
+		.formLogin()
+		.loginPage("/authenticate")
+		.permitAll()
+		.and()
+		.logout()
+		.permitAll();
 			return http.build();
 			// @formatter:on
 		}
@@ -512,16 +512,16 @@ public class FormLoginConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests((authorizeRequests) ->
-					authorizeRequests
-						.anyRequest().hasRole("USER")
-				)
-				.formLogin((formLogin) ->
-					formLogin
-						.loginPage("/authenticate")
-						.permitAll()
-				)
-				.logout(LogoutConfigurer::permitAll);
+		.authorizeRequests((authorizeRequests) ->
+	authorizeRequests
+.anyRequest().hasRole("USER")
+		)
+		.formLogin((formLogin) ->
+	formLogin
+.loginPage("/authenticate")
+.permitAll()
+		)
+		.logout(LogoutConfigurer::permitAll);
 			return http.build();
 			// @formatter:on
 		}
@@ -536,21 +536,21 @@ public class FormLoginConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests()
-					.anyRequest().authenticated()
-					.and()
-				.formLogin()
-					.loginProcessingUrl("/loginCheck")
-					.loginPage("/login")
-					.defaultSuccessUrl("/", true)
-					.passwordParameter("password")
-					.usernameParameter("username")
-					.permitAll()
-					.and()
-				.logout()
-					.logoutSuccessUrl("/login")
-					.logoutUrl("/logout")
-					.deleteCookies("JSESSIONID");
+		.authorizeRequests()
+		.anyRequest().authenticated()
+		.and()
+		.formLogin()
+		.loginProcessingUrl("/loginCheck")
+		.loginPage("/login")
+		.defaultSuccessUrl("/", true)
+		.passwordParameter("password")
+		.usernameParameter("username")
+		.permitAll()
+		.and()
+		.logout()
+		.logoutSuccessUrl("/login")
+		.logoutUrl("/logout")
+		.deleteCookies("JSESSIONID");
 			// @formatter:on
 			return http.build();
 		}
@@ -570,23 +570,23 @@ public class FormLoginConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests((authorizeRequests) ->
-					authorizeRequests
-						.anyRequest().authenticated()
-				)
-				.formLogin((formLogin) ->
-					formLogin
-						.loginProcessingUrl("/loginCheck")
-						.loginPage("/login")
-						.defaultSuccessUrl("/", true)
-						.permitAll()
-				)
-				.logout((logout) ->
-					logout
-						.logoutSuccessUrl("/login")
-						.logoutUrl("/logout")
-						.deleteCookies("JSESSIONID")
-				);
+		.authorizeRequests((authorizeRequests) ->
+	authorizeRequests
+.anyRequest().authenticated()
+		)
+		.formLogin((formLogin) ->
+	formLogin
+.loginProcessingUrl("/loginCheck")
+.loginPage("/login")
+.defaultSuccessUrl("/", true)
+.permitAll()
+		)
+		.logout((logout) ->
+	logout
+.logoutSuccessUrl("/login")
+.logoutUrl("/logout")
+.deleteCookies("JSESSIONID")
+		);
 			// @formatter:on
 			return http.build();
 		}
@@ -608,17 +608,17 @@ public class FormLoginConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests()
-					.anyRequest().hasRole("USER")
-					.and()
-				.formLogin()
-					.permitAll()
-					.and()
-				.portMapper()
-					.portMapper(PORT_MAPPER);
+		.authorizeRequests()
+		.anyRequest().hasRole("USER")
+		.and()
+		.formLogin()
+		.permitAll()
+		.and()
+		.portMapper()
+		.portMapper(PORT_MAPPER);
 			// @formatter:on
 			LoginUrlAuthenticationEntryPoint authenticationEntryPoint = (LoginUrlAuthenticationEntryPoint) http
-					.getConfigurer(FormLoginConfigurer.class).getAuthenticationEntryPoint();
+		.getConfigurer(FormLoginConfigurer.class).getAuthenticationEntryPoint();
 			authenticationEntryPoint.setForceHttps(true);
 			return http.build();
 		}
@@ -635,12 +635,12 @@ public class FormLoginConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests()
-					.anyRequest().hasRole("USER")
-					.and()
-				.formLogin()
-					.failureHandler(FAILURE_HANDLER)
-					.permitAll();
+		.authorizeRequests()
+		.anyRequest().hasRole("USER")
+		.and()
+		.formLogin()
+		.failureHandler(FAILURE_HANDLER)
+		.permitAll();
 			return http.build();
 			// @formatter:on
 		}
@@ -655,10 +655,10 @@ public class FormLoginConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.formLogin()
-					.usernameParameter("custom-username")
-					.and()
-				.formLogin();
+		.formLogin()
+		.usernameParameter("custom-username")
+		.and()
+		.formLogin();
 			// @formatter:on
 			return http.build();
 		}
@@ -678,15 +678,15 @@ public class FormLoginConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.csrf()
-					.disable()
-				.authorizeRequests()
-					.anyRequest().authenticated()
-					.and()
-				.formLogin()
-					.failureForwardUrl("/failure_forward_url")
-					.successForwardUrl("/success_forward_url")
-					.permitAll();
+		.csrf()
+		.disable()
+		.authorizeRequests()
+		.anyRequest().authenticated()
+		.and()
+		.formLogin()
+		.failureForwardUrl("/failure_forward_url")
+		.successForwardUrl("/success_forward_url")
+		.permitAll();
 			// @formatter:on
 			return http.build();
 		}
@@ -708,9 +708,9 @@ public class FormLoginConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.exceptionHandling()
-					.and()
-				.formLogin();
+		.exceptionHandling()
+		.and()
+		.formLogin();
 			return http.build();
 			// @formatter:on
 		}

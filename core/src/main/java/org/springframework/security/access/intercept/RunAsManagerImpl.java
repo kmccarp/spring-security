@@ -66,17 +66,17 @@ public class RunAsManagerImpl implements RunAsManager, InitializingBean {
 	@Override
 	public void afterPropertiesSet() {
 		Assert.notNull(this.key,
-				"A Key is required and should match that configured for the RunAsImplAuthenticationProvider");
+	"A Key is required and should match that configured for the RunAsImplAuthenticationProvider");
 	}
 
 	@Override
 	public Authentication buildRunAs(Authentication authentication, Object object,
-			Collection<ConfigAttribute> attributes) {
+Collection<ConfigAttribute> attributes) {
 		List<GrantedAuthority> newAuthorities = new ArrayList<>();
 		for (ConfigAttribute attribute : attributes) {
 			if (this.supports(attribute)) {
 				GrantedAuthority extraAuthority = new SimpleGrantedAuthority(
-						getRolePrefix() + attribute.getAttribute());
+			getRolePrefix() + attribute.getAttribute());
 				newAuthorities.add(extraAuthority);
 			}
 		}
@@ -86,7 +86,7 @@ public class RunAsManagerImpl implements RunAsManager, InitializingBean {
 		// Add existing authorities
 		newAuthorities.addAll(authentication.getAuthorities());
 		return new RunAsUserToken(this.key, authentication.getPrincipal(), authentication.getCredentials(),
-				newAuthorities, authentication.getClass());
+	newAuthorities, authentication.getClass());
 	}
 
 	public String getKey() {

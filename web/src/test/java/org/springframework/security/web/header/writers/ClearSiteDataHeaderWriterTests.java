@@ -49,7 +49,7 @@ public class ClearSiteDataHeaderWriterTests {
 	@Test
 	public void createInstanceWhenMissingSourceThenThrowsException() {
 		assertThatExceptionOfType(Exception.class).isThrownBy(() -> new ClearSiteDataHeaderWriter())
-				.withMessage("directives cannot be empty or null");
+	.withMessage("directives cannot be empty or null");
 	}
 
 	@Test
@@ -70,10 +70,10 @@ public class ClearSiteDataHeaderWriterTests {
 	@Test
 	public void writeHeaderWhenRequestIsSecureThenHeaderValueMatchesPassedSources() {
 		ClearSiteDataHeaderWriter headerWriter = new ClearSiteDataHeaderWriter(Directive.CACHE, Directive.COOKIES,
-				Directive.STORAGE, Directive.EXECUTION_CONTEXTS);
+	Directive.STORAGE, Directive.EXECUTION_CONTEXTS);
 		headerWriter.writeHeaders(this.request, this.response);
 		assertThat(this.response.getHeader(HEADER_NAME))
-				.isEqualTo("\"cache\", \"cookies\", \"storage\", \"executionContexts\"");
+	.isEqualTo("\"cache\", \"cookies\", \"storage\", \"executionContexts\"");
 	}
 
 }

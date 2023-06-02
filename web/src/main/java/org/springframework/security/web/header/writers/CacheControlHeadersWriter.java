@@ -58,7 +58,7 @@ public final class CacheControlHeadersWriter implements HeaderWriter {
 	@Override
 	public void writeHeaders(HttpServletRequest request, HttpServletResponse response) {
 		if (hasHeader(response, CACHE_CONTROL) || hasHeader(response, EXPIRES) || hasHeader(response, PRAGMA)
-				|| response.getStatus() == HttpStatus.NOT_MODIFIED.value()) {
+	|| response.getStatus() == HttpStatus.NOT_MODIFIED.value()) {
 			return;
 		}
 		this.delegate.writeHeaders(request, response);

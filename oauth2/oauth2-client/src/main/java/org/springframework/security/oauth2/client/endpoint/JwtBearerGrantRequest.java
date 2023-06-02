@@ -44,7 +44,7 @@ public class JwtBearerGrantRequest extends AbstractOAuth2AuthorizationGrantReque
 	public JwtBearerGrantRequest(ClientRegistration clientRegistration, Jwt jwt) {
 		super(AuthorizationGrantType.JWT_BEARER, clientRegistration);
 		Assert.isTrue(AuthorizationGrantType.JWT_BEARER.equals(clientRegistration.getAuthorizationGrantType()),
-				"clientRegistration.authorizationGrantType must be AuthorizationGrantType.JWT_BEARER");
+	"clientRegistration.authorizationGrantType must be AuthorizationGrantType.JWT_BEARER");
 		Assert.notNull(jwt, "jwt cannot be null");
 		this.jwt = jwt;
 	}

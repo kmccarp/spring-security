@@ -76,8 +76,8 @@ public class PreAuthenticatedGrantedAuthoritiesUserDetailsServiceTests {
 		// PreAuthenticatedGrantedAuthoritiesUserDetailsService
 		// assertThat(password).isEqualTo(ud.getPassword());
 		assertThat(gas.containsAll(ud.getAuthorities()) && ud.getAuthorities().containsAll(gas)).withFailMessage(
-				"GrantedAuthority collections do not match; result: " + ud.getAuthorities() + ", expected: " + gas)
-				.isTrue();
+	"GrantedAuthority collections do not match; result: " + ud.getAuthorities() + ", expected: " + gas)
+	.isTrue();
 	}
 
 }

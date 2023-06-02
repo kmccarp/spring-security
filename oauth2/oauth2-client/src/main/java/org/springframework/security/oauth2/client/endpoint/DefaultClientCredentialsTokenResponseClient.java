@@ -53,8 +53,7 @@ import org.springframework.web.client.RestTemplate;
  * "https://tools.ietf.org/html/rfc6749#section-4.4.3">Section 4.4.3 Access Token Response
  * (Client Credentials Grant)</a>
  */
-public final class DefaultClientCredentialsTokenResponseClient
-		implements OAuth2AccessTokenResponseClient<OAuth2ClientCredentialsGrantRequest> {
+public final class DefaultClientCredentialsTokenResponseClientimplements OAuth2AccessTokenResponseClient<OAuth2ClientCredentialsGrantRequest> {
 
 	private static final String INVALID_TOKEN_RESPONSE_ERROR_CODE = "invalid_token_response";
 
@@ -64,14 +63,14 @@ public final class DefaultClientCredentialsTokenResponseClient
 
 	public DefaultClientCredentialsTokenResponseClient() {
 		RestTemplate restTemplate = new RestTemplate(
-				Arrays.asList(new FormHttpMessageConverter(), new OAuth2AccessTokenResponseHttpMessageConverter()));
+	Arrays.asList(new FormHttpMessageConverter(), new OAuth2AccessTokenResponseHttpMessageConverter()));
 		restTemplate.setErrorHandler(new OAuth2ErrorResponseErrorHandler());
 		this.restOperations = restTemplate;
 	}
 
 	@Override
 	public OAuth2AccessTokenResponse getTokenResponse(
-			OAuth2ClientCredentialsGrantRequest clientCredentialsGrantRequest) {
+OAuth2ClientCredentialsGrantRequest clientCredentialsGrantRequest) {
 		Assert.notNull(clientCredentialsGrantRequest, "clientCredentialsGrantRequest cannot be null");
 		RequestEntity<?> request = this.requestEntityConverter.convert(clientCredentialsGrantRequest);
 		ResponseEntity<OAuth2AccessTokenResponse> response = getResponse(request);
@@ -89,9 +88,9 @@ public final class DefaultClientCredentialsTokenResponseClient
 		}
 		catch (RestClientException ex) {
 			OAuth2Error oauth2Error = new OAuth2Error(INVALID_TOKEN_RESPONSE_ERROR_CODE,
-					"An error occurred while attempting to retrieve the OAuth 2.0 Access Token Response: "
-							+ ex.getMessage(),
-					null);
+		"An error occurred while attempting to retrieve the OAuth 2.0 Access Token Response: "
+	+ ex.getMessage(),
+		null);
 			throw new OAuth2AuthorizationException(oauth2Error, ex);
 		}
 	}
@@ -104,7 +103,7 @@ public final class DefaultClientCredentialsTokenResponseClient
 	 * {@link RequestEntity} representation of the Access Token Request
 	 */
 	public void setRequestEntityConverter(
-			Converter<OAuth2ClientCredentialsGrantRequest, RequestEntity<?>> requestEntityConverter) {
+Converter<OAuth2ClientCredentialsGrantRequest, RequestEntity<?>> requestEntityConverter) {
 		Assert.notNull(requestEntityConverter, "requestEntityConverter cannot be null");
 		this.requestEntityConverter = requestEntityConverter;
 	}

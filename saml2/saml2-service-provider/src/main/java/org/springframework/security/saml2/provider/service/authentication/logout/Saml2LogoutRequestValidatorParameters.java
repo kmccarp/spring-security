@@ -40,7 +40,7 @@ public class Saml2LogoutRequestValidatorParameters {
 	 * @param authentication the current user
 	 */
 	public Saml2LogoutRequestValidatorParameters(Saml2LogoutRequest request, RelyingPartyRegistration registration,
-			Authentication authentication) {
+Authentication authentication) {
 		this.request = request;
 		this.registration = registration;
 		this.authentication = authentication;

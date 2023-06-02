@@ -121,7 +121,7 @@ public class OAuth2LoginAuthenticationFilter extends AbstractAuthenticationProce
 	 * @param authorizedClientService the authorized client service
 	 */
 	public OAuth2LoginAuthenticationFilter(ClientRegistrationRepository clientRegistrationRepository,
-			OAuth2AuthorizedClientService authorizedClientService) {
+OAuth2AuthorizedClientService authorizedClientService) {
 		this(clientRegistrationRepository, authorizedClientService, DEFAULT_FILTER_PROCESSES_URI);
 	}
 
@@ -134,10 +134,10 @@ public class OAuth2LoginAuthenticationFilter extends AbstractAuthenticationProce
 	 * the authentication requests
 	 */
 	public OAuth2LoginAuthenticationFilter(ClientRegistrationRepository clientRegistrationRepository,
-			OAuth2AuthorizedClientService authorizedClientService, String filterProcessesUrl) {
+OAuth2AuthorizedClientService authorizedClientService, String filterProcessesUrl) {
 		this(clientRegistrationRepository,
-				new AuthenticatedPrincipalOAuth2AuthorizedClientRepository(authorizedClientService),
-				filterProcessesUrl);
+	new AuthenticatedPrincipalOAuth2AuthorizedClientRepository(authorizedClientService),
+	filterProcessesUrl);
 	}
 
 	/**
@@ -150,7 +150,7 @@ public class OAuth2LoginAuthenticationFilter extends AbstractAuthenticationProce
 	 * @since 5.1
 	 */
 	public OAuth2LoginAuthenticationFilter(ClientRegistrationRepository clientRegistrationRepository,
-			OAuth2AuthorizedClientRepository authorizedClientRepository, String filterProcessesUrl) {
+OAuth2AuthorizedClientRepository authorizedClientRepository, String filterProcessesUrl) {
 		super(filterProcessesUrl);
 		Assert.notNull(clientRegistrationRepository, "clientRegistrationRepository cannot be null");
 		Assert.notNull(authorizedClientRepository, "authorizedClientRepository cannot be null");
@@ -160,14 +160,14 @@ public class OAuth2LoginAuthenticationFilter extends AbstractAuthenticationProce
 
 	@Override
 	public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
-			throws AuthenticationException {
+throws AuthenticationException {
 		MultiValueMap<String, String> params = OAuth2AuthorizationResponseUtils.toMultiMap(request.getParameterMap());
 		if (!OAuth2AuthorizationResponseUtils.isAuthorizationResponse(params)) {
 			OAuth2Error oauth2Error = new OAuth2Error(OAuth2ErrorCodes.INVALID_REQUEST);
 			throw new OAuth2AuthenticationException(oauth2Error, oauth2Error.toString());
 		}
 		OAuth2AuthorizationRequest authorizationRequest = this.authorizationRequestRepository
-				.removeAuthorizationRequest(request, response);
+	.removeAuthorizationRequest(request, response);
 		if (authorizationRequest == null) {
 			OAuth2Error oauth2Error = new OAuth2Error(AUTHORIZATION_REQUEST_NOT_FOUND_ERROR_CODE);
 			throw new OAuth2AuthenticationException(oauth2Error, oauth2Error.toString());
@@ -176,30 +176,30 @@ public class OAuth2LoginAuthenticationFilter extends AbstractAuthenticationProce
 		ClientRegistration clientRegistration = this.clientRegistrationRepository.findByRegistrationId(registrationId);
 		if (clientRegistration == null) {
 			OAuth2Error oauth2Error = new OAuth2Error(CLIENT_REGISTRATION_NOT_FOUND_ERROR_CODE,
-					"Client Registration not found with Id: " + registrationId, null);
+		"Client Registration not found with Id: " + registrationId, null);
 			throw new OAuth2AuthenticationException(oauth2Error, oauth2Error.toString());
 		}
 		// @formatter:off
 		String redirectUri = UriComponentsBuilder.fromHttpUrl(UrlUtils.buildFullRequestUrl(request))
-				.replaceQuery(null)
-				.build()
-				.toUriString();
+	.replaceQuery(null)
+	.build()
+	.toUriString();
 		// @formatter:on
 		OAuth2AuthorizationResponse authorizationResponse = OAuth2AuthorizationResponseUtils.convert(params,
-				redirectUri);
+	redirectUri);
 		Object authenticationDetails = this.authenticationDetailsSource.buildDetails(request);
 		OAuth2LoginAuthenticationToken authenticationRequest = new OAuth2LoginAuthenticationToken(clientRegistration,
-				new OAuth2AuthorizationExchange(authorizationRequest, authorizationResponse));
+	new OAuth2AuthorizationExchange(authorizationRequest, authorizationResponse));
 		authenticationRequest.setDetails(authenticationDetails);
 		OAuth2LoginAuthenticationToken authenticationResult = (OAuth2LoginAuthenticationToken) this
-				.getAuthenticationManager().authenticate(authenticationRequest);
+	.getAuthenticationManager().authenticate(authenticationRequest);
 		OAuth2AuthenticationToken oauth2Authentication = this.authenticationResultConverter
-				.convert(authenticationResult);
+	.convert(authenticationResult);
 		Assert.notNull(oauth2Authentication, "authentication result cannot be null");
 		oauth2Authentication.setDetails(authenticationDetails);
 		OAuth2AuthorizedClient authorizedClient = new OAuth2AuthorizedClient(
-				authenticationResult.getClientRegistration(), oauth2Authentication.getName(),
-				authenticationResult.getAccessToken(), authenticationResult.getRefreshToken());
+	authenticationResult.getClientRegistration(), oauth2Authentication.getName(),
+	authenticationResult.getAccessToken(), authenticationResult.getRefreshToken());
 
 		this.authorizedClientRepository.saveAuthorizedClient(authorizedClient, oauth2Authentication, request, response);
 		return oauth2Authentication;
@@ -211,7 +211,7 @@ public class OAuth2LoginAuthenticationFilter extends AbstractAuthenticationProce
 	 * {@link OAuth2AuthorizationRequest}'s
 	 */
 	public final void setAuthorizationRequestRepository(
-			AuthorizationRequestRepository<OAuth2AuthorizationRequest> authorizationRequestRepository) {
+AuthorizationRequestRepository<OAuth2AuthorizationRequest> authorizationRequestRepository) {
 		Assert.notNull(authorizationRequestRepository, "authorizationRequestRepository cannot be null");
 		this.authorizationRequestRepository = authorizationRequestRepository;
 	}
@@ -225,14 +225,14 @@ public class OAuth2LoginAuthenticationFilter extends AbstractAuthenticationProce
 	 * @since 5.6
 	 */
 	public final void setAuthenticationResultConverter(
-			Converter<OAuth2LoginAuthenticationToken, OAuth2AuthenticationToken> authenticationResultConverter) {
+Converter<OAuth2LoginAuthenticationToken, OAuth2AuthenticationToken> authenticationResultConverter) {
 		Assert.notNull(authenticationResultConverter, "authenticationResultConverter cannot be null");
 		this.authenticationResultConverter = authenticationResultConverter;
 	}
 
 	private OAuth2AuthenticationToken createAuthenticationResult(OAuth2LoginAuthenticationToken authenticationResult) {
 		return new OAuth2AuthenticationToken(authenticationResult.getPrincipal(), authenticationResult.getAuthorities(),
-				authenticationResult.getClientRegistration().getRegistrationId());
+	authenticationResult.getClientRegistration().getRegistrationId());
 	}
 
 }

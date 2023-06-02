@@ -53,8 +53,8 @@ public class HttpsRedirectSpecTests {
 	public void setApplicationContext(ApplicationContext context) {
 		// @formatter:off
 		this.client = WebTestClient
-				.bindToApplicationContext(context)
-				.build();
+	.bindToApplicationContext(context)
+	.build();
 		// @formatter:on
 	}
 
@@ -63,9 +63,9 @@ public class HttpsRedirectSpecTests {
 		this.spring.register(RedirectToHttpConfig.class).autowire();
 		// @formatter:off
 		this.client.get()
-				.uri("https://localhost")
-				.exchange()
-				.expectStatus().isNotFound();
+	.uri("https://localhost")
+	.exchange()
+	.expectStatus().isNotFound();
 		// @formatter:on
 	}
 
@@ -74,10 +74,10 @@ public class HttpsRedirectSpecTests {
 		this.spring.register(RedirectToHttpConfig.class).autowire();
 		// @formatter:off
 		this.client.get()
-				.uri("http://localhost")
-				.exchange()
-				.expectStatus().isFound()
-				.expectHeader().valueEquals(HttpHeaders.LOCATION, "https://localhost");
+	.uri("http://localhost")
+	.exchange()
+	.expectStatus().isFound()
+	.expectHeader().valueEquals(HttpHeaders.LOCATION, "https://localhost");
 		// @formatter:on
 	}
 
@@ -86,10 +86,10 @@ public class HttpsRedirectSpecTests {
 		this.spring.register(RedirectToHttpsInLambdaConfig.class).autowire();
 		// @formatter:off
 		this.client.get()
-				.uri("http://localhost")
-				.exchange()
-				.expectStatus().isFound()
-				.expectHeader().valueEquals(HttpHeaders.LOCATION, "https://localhost");
+	.uri("http://localhost")
+	.exchange()
+	.expectStatus().isFound()
+	.expectHeader().valueEquals(HttpHeaders.LOCATION, "https://localhost");
 		// @formatter:on
 	}
 
@@ -98,14 +98,14 @@ public class HttpsRedirectSpecTests {
 		this.spring.register(SometimesRedirectToHttpsConfig.class).autowire();
 		// @formatter:off
 		this.client.get()
-				.uri("http://localhost:8080")
-				.exchange()
-				.expectStatus().isNotFound();
+	.uri("http://localhost:8080")
+	.exchange()
+	.expectStatus().isNotFound();
 		this.client.get()
-				.uri("http://localhost:8080/secure")
-				.exchange()
-				.expectStatus().isFound()
-				.expectHeader().valueEquals(HttpHeaders.LOCATION, "https://localhost:8443/secure");
+	.uri("http://localhost:8080/secure")
+	.exchange()
+	.expectStatus().isFound()
+	.expectHeader().valueEquals(HttpHeaders.LOCATION, "https://localhost:8443/secure");
 		// @formatter:on
 	}
 
@@ -114,14 +114,14 @@ public class HttpsRedirectSpecTests {
 		this.spring.register(SometimesRedirectToHttpsInLambdaConfig.class).autowire();
 		// @formatter:off
 		this.client.get()
-				.uri("http://localhost:8080")
-				.exchange()
-				.expectStatus().isNotFound();
+	.uri("http://localhost:8080")
+	.exchange()
+	.expectStatus().isNotFound();
 		this.client.get()
-				.uri("http://localhost:8080/secure")
-				.exchange()
-				.expectStatus().isFound()
-				.expectHeader().valueEquals(HttpHeaders.LOCATION, "https://localhost:8443/secure");
+	.uri("http://localhost:8080/secure")
+	.exchange()
+	.expectStatus().isFound()
+	.expectHeader().valueEquals(HttpHeaders.LOCATION, "https://localhost:8443/secure");
 		// @formatter:on
 	}
 
@@ -132,10 +132,10 @@ public class HttpsRedirectSpecTests {
 		given(portMapper.lookupHttpsPort(4080)).willReturn(4443);
 		// @formatter:off
 		this.client.get()
-				.uri("http://localhost:4080")
-				.exchange()
-				.expectStatus().isFound()
-				.expectHeader().valueEquals(HttpHeaders.LOCATION, "https://localhost:4443");
+	.uri("http://localhost:4080")
+	.exchange()
+	.expectStatus().isFound()
+	.expectHeader().valueEquals(HttpHeaders.LOCATION, "https://localhost:4443");
 		// @formatter:on
 	}
 
@@ -146,10 +146,10 @@ public class HttpsRedirectSpecTests {
 		given(portMapper.lookupHttpsPort(4080)).willReturn(4443);
 		// @formatter:off
 		this.client.get()
-				.uri("http://localhost:4080")
-				.exchange()
-				.expectStatus().isFound()
-				.expectHeader().valueEquals(HttpHeaders.LOCATION, "https://localhost:4443");
+	.uri("http://localhost:4080")
+	.exchange()
+	.expectStatus().isFound()
+	.expectHeader().valueEquals(HttpHeaders.LOCATION, "https://localhost:4443");
 		// @formatter:on
 	}
 
@@ -162,7 +162,7 @@ public class HttpsRedirectSpecTests {
 		SecurityWebFilterChain springSecurity(ServerHttpSecurity http) {
 			// @formatter:off
 			http
-				.redirectToHttps();
+		.redirectToHttps();
 			// @formatter:on
 			return http.build();
 		}
@@ -178,7 +178,7 @@ public class HttpsRedirectSpecTests {
 		SecurityWebFilterChain springSecurity(ServerHttpSecurity http) {
 			// @formatter:off
 			http
-				.redirectToHttps(withDefaults());
+		.redirectToHttps(withDefaults());
 			// @formatter:on
 			return http.build();
 		}
@@ -194,8 +194,8 @@ public class HttpsRedirectSpecTests {
 		SecurityWebFilterChain springSecurity(ServerHttpSecurity http) {
 			// @formatter:off
 			http
-				.redirectToHttps()
-					.httpsRedirectWhen(new PathPatternParserServerWebExchangeMatcher("/secure"));
+		.redirectToHttps()
+		.httpsRedirectWhen(new PathPatternParserServerWebExchangeMatcher("/secure"));
 			// @formatter:on
 			return http.build();
 		}
@@ -211,10 +211,10 @@ public class HttpsRedirectSpecTests {
 		SecurityWebFilterChain springSecurity(ServerHttpSecurity http) {
 			// @formatter:off
 			http
-				.redirectToHttps((redirectToHttps) ->
-					redirectToHttps
-						.httpsRedirectWhen(new PathPatternParserServerWebExchangeMatcher("/secure"))
-				);
+		.redirectToHttps((redirectToHttps) ->
+	redirectToHttps
+.httpsRedirectWhen(new PathPatternParserServerWebExchangeMatcher("/secure"))
+		);
 			// @formatter:on
 			return http.build();
 		}
@@ -230,8 +230,8 @@ public class HttpsRedirectSpecTests {
 		SecurityWebFilterChain springSecurity(ServerHttpSecurity http) {
 			// @formatter:off
 			http
-				.redirectToHttps()
-					.portMapper(portMapper());
+		.redirectToHttps()
+		.portMapper(portMapper());
 			// @formatter:on
 			return http.build();
 		}
@@ -252,10 +252,10 @@ public class HttpsRedirectSpecTests {
 		SecurityWebFilterChain springSecurity(ServerHttpSecurity http) {
 			// @formatter:off
 			http
-				.redirectToHttps((redirectToHttps) ->
-					redirectToHttps
-						.portMapper(portMapper())
-				);
+		.redirectToHttps((redirectToHttps) ->
+	redirectToHttps
+.portMapper(portMapper())
+		);
 			// @formatter:on
 			return http.build();
 		}

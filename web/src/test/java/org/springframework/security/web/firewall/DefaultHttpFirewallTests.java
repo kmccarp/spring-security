@@ -27,8 +27,8 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
  */
 public class DefaultHttpFirewallTests {
 
-	public String[] unnormalizedPaths = { "/..", "/./path/", "/path/path/.", "/path/path//.", "./path/../path//.",
-			"./path", ".//path", "." };
+	public String[] unnormalizedPaths = {"/..", "/./path/", "/path/path/.", "/path/path//.", "./path/../path//.",
+"./path", ".//path", "."};
 
 	@Test
 	public void unnormalizedPathsAreRejected() {
@@ -37,10 +37,10 @@ public class DefaultHttpFirewallTests {
 			MockHttpServletRequest request = new MockHttpServletRequest();
 			request.setServletPath(path);
 			assertThatExceptionOfType(RequestRejectedException.class)
-					.isThrownBy(() -> fw.getFirewalledRequest(request));
+		.isThrownBy(() -> fw.getFirewalledRequest(request));
 			request.setPathInfo(path);
 			assertThatExceptionOfType(RequestRejectedException.class)
-					.isThrownBy(() -> fw.getFirewalledRequest(request));
+		.isThrownBy(() -> fw.getFirewalledRequest(request));
 		}
 	}
 

@@ -63,8 +63,7 @@ import org.springframework.security.web.util.matcher.RequestMatcher;
  * @author Rob Winch
  * @since 3.2
  */
-public final class ExceptionHandlingConfigurer<H extends HttpSecurityBuilder<H>>
-		extends AbstractHttpConfigurer<ExceptionHandlingConfigurer<H>, H> {
+public final class ExceptionHandlingConfigurer<H extends HttpSecurityBuilder<H>>extends AbstractHttpConfigurer<ExceptionHandlingConfigurer<H>, H> {
 
 	private AuthenticationEntryPoint authenticationEntryPoint;
 
@@ -119,7 +118,7 @@ public final class ExceptionHandlingConfigurer<H extends HttpSecurityBuilder<H>>
 	 * @since 5.1
 	 */
 	public ExceptionHandlingConfigurer<H> defaultAccessDeniedHandlerFor(AccessDeniedHandler deniedHandler,
-			RequestMatcher preferredMatcher) {
+RequestMatcher preferredMatcher) {
 		this.defaultDeniedHandlerMappings.put(preferredMatcher, deniedHandler);
 		return this;
 	}
@@ -159,7 +158,7 @@ public final class ExceptionHandlingConfigurer<H extends HttpSecurityBuilder<H>>
 	 * @return the {@link ExceptionHandlingConfigurer} for further customizations
 	 */
 	public ExceptionHandlingConfigurer<H> defaultAuthenticationEntryPointFor(AuthenticationEntryPoint entryPoint,
-			RequestMatcher preferredMatcher) {
+RequestMatcher preferredMatcher) {
 		this.defaultEntryPointMappings.put(preferredMatcher, entryPoint);
 		return this;
 	}
@@ -184,7 +183,7 @@ public final class ExceptionHandlingConfigurer<H extends HttpSecurityBuilder<H>>
 	public void configure(H http) {
 		AuthenticationEntryPoint entryPoint = getAuthenticationEntryPoint(http);
 		ExceptionTranslationFilter exceptionTranslationFilter = new ExceptionTranslationFilter(entryPoint,
-				getRequestCache(http));
+	getRequestCache(http));
 		AccessDeniedHandler deniedHandler = getAccessDeniedHandler(http);
 		exceptionTranslationFilter.setAccessDeniedHandler(deniedHandler);
 		exceptionTranslationFilter.setSecurityContextHolderStrategy(getSecurityContextHolderStrategy());
@@ -230,7 +229,7 @@ public final class ExceptionHandlingConfigurer<H extends HttpSecurityBuilder<H>>
 			return this.defaultDeniedHandlerMappings.values().iterator().next();
 		}
 		return new RequestMatcherDelegatingAccessDeniedHandler(this.defaultDeniedHandlerMappings,
-				new AccessDeniedHandlerImpl());
+	new AccessDeniedHandlerImpl());
 	}
 
 	private AuthenticationEntryPoint createDefaultEntryPoint(H http) {
@@ -241,7 +240,7 @@ public final class ExceptionHandlingConfigurer<H extends HttpSecurityBuilder<H>>
 			return this.defaultEntryPointMappings.values().iterator().next();
 		}
 		DelegatingAuthenticationEntryPoint entryPoint = new DelegatingAuthenticationEntryPoint(
-				this.defaultEntryPointMappings);
+	this.defaultEntryPointMappings);
 		entryPoint.setDefaultEntryPoint(this.defaultEntryPointMappings.values().iterator().next());
 		return entryPoint;
 	}

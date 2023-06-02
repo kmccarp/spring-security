@@ -58,14 +58,14 @@ final class PostFilterExpressionAttributeRegistry extends AbstractExpressionAttr
 			return ExpressionAttribute.NULL_ATTRIBUTE;
 		}
 		Expression postFilterExpression = this.expressionHandler.getExpressionParser()
-				.parseExpression(postFilter.value());
+	.parseExpression(postFilter.value());
 		return new ExpressionAttribute(postFilterExpression);
 	}
 
 	private PostFilter findPostFilterAnnotation(Method method) {
 		PostFilter postFilter = AuthorizationAnnotationUtils.findUniqueAnnotation(method, PostFilter.class);
 		return (postFilter != null) ? postFilter
-				: AuthorizationAnnotationUtils.findUniqueAnnotation(method.getDeclaringClass(), PostFilter.class);
+	: AuthorizationAnnotationUtils.findUniqueAnnotation(method.getDeclaringClass(), PostFilter.class);
 	}
 
 }

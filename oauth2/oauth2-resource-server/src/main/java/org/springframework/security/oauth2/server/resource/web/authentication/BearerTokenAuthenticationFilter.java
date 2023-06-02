@@ -69,12 +69,12 @@ public class BearerTokenAuthenticationFilter extends OncePerRequestFilter {
 	private final AuthenticationManagerResolver<HttpServletRequest> authenticationManagerResolver;
 
 	private SecurityContextHolderStrategy securityContextHolderStrategy = SecurityContextHolder
-			.getContextHolderStrategy();
+.getContextHolderStrategy();
 
 	private AuthenticationEntryPoint authenticationEntryPoint = new BearerTokenAuthenticationEntryPoint();
 
 	private AuthenticationFailureHandler authenticationFailureHandler = new AuthenticationEntryPointFailureHandler(
-			(request, response, exception) -> this.authenticationEntryPoint.commence(request, response, exception));
+(request, response, exception) -> this.authenticationEntryPoint.commence(request, response, exception));
 
 	private BearerTokenResolver bearerTokenResolver = new DefaultBearerTokenResolver();
 
@@ -87,7 +87,7 @@ public class BearerTokenAuthenticationFilter extends OncePerRequestFilter {
 	 * @param authenticationManagerResolver
 	 */
 	public BearerTokenAuthenticationFilter(
-			AuthenticationManagerResolver<HttpServletRequest> authenticationManagerResolver) {
+AuthenticationManagerResolver<HttpServletRequest> authenticationManagerResolver) {
 		Assert.notNull(authenticationManagerResolver, "authenticationManagerResolver cannot be null");
 		this.authenticationManagerResolver = authenticationManagerResolver;
 	}
@@ -113,7 +113,7 @@ public class BearerTokenAuthenticationFilter extends OncePerRequestFilter {
 	 */
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
-			throws ServletException, IOException {
+throws ServletException, IOException {
 		String token;
 		try {
 			token = this.bearerTokenResolver.resolve(request);
@@ -212,7 +212,7 @@ public class BearerTokenAuthenticationFilter extends OncePerRequestFilter {
 	 * @since 5.5
 	 */
 	public void setAuthenticationDetailsSource(
-			AuthenticationDetailsSource<HttpServletRequest, ?> authenticationDetailsSource) {
+AuthenticationDetailsSource<HttpServletRequest, ?> authenticationDetailsSource) {
 		Assert.notNull(authenticationDetailsSource, "authenticationDetailsSource cannot be null");
 		this.authenticationDetailsSource = authenticationDetailsSource;
 	}

@@ -32,7 +32,7 @@ import org.springframework.security.core.Authentication;
 public class AuthorizationGrantedEvent<T> extends AuthorizationEvent {
 
 	public AuthorizationGrantedEvent(Supplier<Authentication> authentication, T object,
-			AuthorizationDecision decision) {
+AuthorizationDecision decision) {
 		super(authentication, object, decision);
 	}
 

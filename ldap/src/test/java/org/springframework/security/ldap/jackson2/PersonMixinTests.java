@@ -44,23 +44,23 @@ public class PersonMixinTests {
 
 	// @formatter:off
 	private static final String PERSON_JSON = "{"
-			+ "\"@class\": \"org.springframework.security.ldap.userdetails.Person\", "
-			+ "\"dn\": \"ignored=ignored\","
-			+ "\"username\": \"ghengis\","
-			+ "\"password\": \"" + USER_PASSWORD + "\","
-			+ "\"givenName\": \"Ghengis\","
-			+ "\"sn\": \"Khan\","
-			+ "\"cn\": [\"java.util.Arrays$ArrayList\",[\"Ghengis Khan\"]],"
-			+ "\"description\": \"Scary\","
-			+ "\"telephoneNumber\": \"+442075436521\","
-			+ "\"accountNonExpired\": true, "
-			+ "\"accountNonLocked\": true, "
-			+ "\"credentialsNonExpired\": true, "
-			+ "\"enabled\": true, "
-			+ "\"authorities\": " + AUTHORITIES_ARRAYLIST_JSON + ","
-			+ "\"graceLoginsRemaining\": " + Integer.MAX_VALUE + ","
-			+ "\"timeBeforeExpiration\": " + Integer.MAX_VALUE
-			+ "}";
++ "\"@class\": \"org.springframework.security.ldap.userdetails.Person\", "
++ "\"dn\": \"ignored=ignored\","
++ "\"username\": \"ghengis\","
++ "\"password\": \"" + USER_PASSWORD + "\","
++ "\"givenName\": \"Ghengis\","
++ "\"sn\": \"Khan\","
++ "\"cn\": [\"java.util.Arrays$ArrayList\",[\"Ghengis Khan\"]],"
++ "\"description\": \"Scary\","
++ "\"telephoneNumber\": \"+442075436521\","
++ "\"accountNonExpired\": true, "
++ "\"accountNonLocked\": true, "
++ "\"credentialsNonExpired\": true, "
++ "\"enabled\": true, "
++ "\"authorities\": " + AUTHORITIES_ARRAYLIST_JSON + ","
++ "\"graceLoginsRemaining\": " + Integer.MAX_VALUE + ","
++ "\"timeBeforeExpiration\": " + Integer.MAX_VALUE
++ "}";
 	// @formatter:on
 
 	private ObjectMapper mapper;
@@ -83,7 +83,7 @@ public class PersonMixinTests {
 
 	@Test
 	public void serializeWhenEraseCredentialInvokedThenUserPasswordIsNull()
-			throws JsonProcessingException, JSONException {
+throws JsonProcessingException, JSONException {
 		PersonContextMapper mapper = new PersonContextMapper();
 		Person p = (Person) mapper.mapUserFromContext(createUserContext(), "ghengis", AuthorityUtils.NO_AUTHORITIES);
 		p.eraseCredentials();
@@ -94,14 +94,14 @@ public class PersonMixinTests {
 	@Test
 	public void deserializeWhenMixinNotRegisteredThenThrowJsonProcessingException() {
 		assertThatExceptionOfType(JsonProcessingException.class)
-				.isThrownBy(() -> new ObjectMapper().readValue(PERSON_JSON, Person.class));
+	.isThrownBy(() -> new ObjectMapper().readValue(PERSON_JSON, Person.class));
 	}
 
 	@Test
 	public void deserializeWhenMixinRegisteredThenDeserializes() throws Exception {
 		PersonContextMapper mapper = new PersonContextMapper();
 		Person expectedAuthentication = (Person) mapper.mapUserFromContext(createUserContext(), "ghengis",
-				AuthorityUtils.NO_AUTHORITIES);
+	AuthorityUtils.NO_AUTHORITIES);
 
 		Person authentication = this.mapper.readValue(PERSON_JSON, Person.class);
 		assertThat(authentication.getAuthorities()).containsExactlyElementsOf(expectedAuthentication.getAuthorities());
@@ -113,14 +113,14 @@ public class PersonMixinTests {
 		assertThat(authentication.getGivenName()).isEqualTo(expectedAuthentication.getGivenName());
 		assertThat(authentication.getTelephoneNumber()).isEqualTo(expectedAuthentication.getTelephoneNumber());
 		assertThat(authentication.getGraceLoginsRemaining())
-				.isEqualTo(expectedAuthentication.getGraceLoginsRemaining());
+	.isEqualTo(expectedAuthentication.getGraceLoginsRemaining());
 		assertThat(authentication.getTimeBeforeExpiration())
-				.isEqualTo(expectedAuthentication.getTimeBeforeExpiration());
+	.isEqualTo(expectedAuthentication.getTimeBeforeExpiration());
 		assertThat(authentication.isAccountNonExpired()).isEqualTo(expectedAuthentication.isAccountNonExpired());
 		assertThat(authentication.isAccountNonLocked()).isEqualTo(expectedAuthentication.isAccountNonLocked());
 		assertThat(authentication.isEnabled()).isEqualTo(expectedAuthentication.isEnabled());
 		assertThat(authentication.isCredentialsNonExpired())
-				.isEqualTo(expectedAuthentication.isCredentialsNonExpired());
+	.isEqualTo(expectedAuthentication.isCredentialsNonExpired());
 	}
 
 	private DirContextAdapter createUserContext() {

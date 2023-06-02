@@ -106,11 +106,11 @@ public abstract class AbstractOAuth2Token implements OAuth2Token, Serializable {
 			return false;
 		}
 		if ((this.getIssuedAt() != null) ? !this.getIssuedAt().equals(other.getIssuedAt())
-				: other.getIssuedAt() != null) {
+	: other.getIssuedAt() != null) {
 			return false;
 		}
 		return (this.getExpiresAt() != null) ? this.getExpiresAt().equals(other.getExpiresAt())
-				: other.getExpiresAt() == null;
+	: other.getExpiresAt() == null;
 	}
 
 	@Override

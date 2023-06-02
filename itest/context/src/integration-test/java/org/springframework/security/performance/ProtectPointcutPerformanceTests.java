@@ -35,7 +35,7 @@ import static org.assertj.core.api.Assertions.fail;
 /**
  * @author Luke Taylor
  */
-@ContextConfiguration(locations = { "/protect-pointcut-performance-app-context.xml" })
+@ContextConfiguration(locations = {"/protect-pointcut-performance-app-context.xml"})
 @ExtendWith(SpringExtension.class)
 public class ProtectPointcutPerformanceTests implements ApplicationContextAware {
 

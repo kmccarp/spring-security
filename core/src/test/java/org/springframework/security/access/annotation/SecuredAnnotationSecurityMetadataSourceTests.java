@@ -55,7 +55,7 @@ public class SecuredAnnotationSecurityMetadataSourceTests {
 	public void genericsSuperclassDeclarationsAreIncludedWhenSubclassesOverride() {
 		Method method = null;
 		try {
-			method = DepartmentServiceImpl.class.getMethod("someUserMethod3", new Class[] { Department.class });
+			method = DepartmentServiceImpl.class.getMethod("someUserMethod3", new Class[]{Department.class});
 		}
 		catch (NoSuchMethodException unexpected) {
 			fail("Should be a superMethod called 'someUserMethod3' on class!");
@@ -70,7 +70,7 @@ public class SecuredAnnotationSecurityMetadataSourceTests {
 		}
 		Method superMethod = null;
 		try {
-			superMethod = DepartmentServiceImpl.class.getMethod("someUserMethod3", new Class[] { Entity.class });
+			superMethod = DepartmentServiceImpl.class.getMethod("someUserMethod3", new Class[]{Entity.class});
 		}
 		catch (NoSuchMethodException unexpected) {
 			fail("Should be a superMethod called 'someUserMethod3' on class!");
@@ -101,7 +101,7 @@ public class SecuredAnnotationSecurityMetadataSourceTests {
 	public void methodLevelAttributesAreFound() {
 		Method method = null;
 		try {
-			method = BusinessService.class.getMethod("someUserAndAdminMethod", new Class[] {});
+			method = BusinessService.class.getMethod("someUserAndAdminMethod", new Class[]{});
 		}
 		catch (NoSuchMethodException unexpected) {
 			fail("Should be a method called 'someUserAndAdminMethod' on class!");
@@ -129,7 +129,7 @@ public class SecuredAnnotationSecurityMetadataSourceTests {
 	@Test
 	public void customAnnotationAttributesAreFound() {
 		SecuredAnnotationSecurityMetadataSource mds = new SecuredAnnotationSecurityMetadataSource(
-				new CustomSecurityAnnotationMetadataExtractor());
+	new CustomSecurityAnnotationMetadataExtractor());
 		Collection<ConfigAttribute> attrs = mds.findAttributes(CustomAnnotatedService.class);
 		assertThat(attrs).containsOnly(SecurityEnum.ADMIN);
 	}
@@ -137,7 +137,7 @@ public class SecuredAnnotationSecurityMetadataSourceTests {
 	@Test
 	public void annotatedAnnotationAtClassLevelIsDetected() throws Exception {
 		MockMethodInvocation annotatedAtClassLevel = new MockMethodInvocation(new AnnotatedAnnotationAtClassLevel(),
-				ReturnVoid.class, "doSomething", List.class);
+	ReturnVoid.class, "doSomething", List.class);
 		ConfigAttribute[] attrs = this.mds.getAttributes(annotatedAtClassLevel).toArray(new ConfigAttribute[0]);
 		assertThat(attrs).hasSize(1);
 		assertThat(attrs).extracting("attribute").containsOnly("CUSTOM");
@@ -146,7 +146,7 @@ public class SecuredAnnotationSecurityMetadataSourceTests {
 	@Test
 	public void annotatedAnnotationAtInterfaceLevelIsDetected() throws Exception {
 		MockMethodInvocation annotatedAtInterfaceLevel = new MockMethodInvocation(
-				new AnnotatedAnnotationAtInterfaceLevel(), ReturnVoid2.class, "doSomething", List.class);
+	new AnnotatedAnnotationAtInterfaceLevel(), ReturnVoid2.class, "doSomething", List.class);
 		ConfigAttribute[] attrs = this.mds.getAttributes(annotatedAtInterfaceLevel).toArray(new ConfigAttribute[0]);
 		assertThat(attrs).hasSize(1);
 		assertThat(attrs).extracting("attribute").containsOnly("CUSTOM");
@@ -155,7 +155,7 @@ public class SecuredAnnotationSecurityMetadataSourceTests {
 	@Test
 	public void annotatedAnnotationAtMethodLevelIsDetected() throws Exception {
 		MockMethodInvocation annotatedAtMethodLevel = new MockMethodInvocation(new AnnotatedAnnotationAtMethodLevel(),
-				ReturnVoid.class, "doSomething", List.class);
+	ReturnVoid.class, "doSomething", List.class);
 		ConfigAttribute[] attrs = this.mds.getAttributes(annotatedAtMethodLevel).toArray(new ConfigAttribute[0]);
 		assertThat(attrs).hasSize(1);
 		assertThat(attrs).extracting("attribute").containsOnly("CUSTOM");
@@ -180,7 +180,7 @@ public class SecuredAnnotationSecurityMetadataSourceTests {
 
 	interface DepartmentService extends BusinessService {
 
-		@Secured({ "ROLE_USER" })
+		@Secured({"ROLE_USER"})
 		Department someUserMethod3(Department dept);
 
 	}
@@ -189,7 +189,7 @@ public class SecuredAnnotationSecurityMetadataSourceTests {
 	class DepartmentServiceImpl extends BusinessServiceImpl<Department> implements DepartmentService {
 
 		@Override
-		@Secured({ "ROLE_ADMIN" })
+		@Secured({"ROLE_ADMIN"})
 		public Department someUserMethod3(final Department dept) {
 			return super.someUserMethod3(dept);
 		}
@@ -222,7 +222,7 @@ public class SecuredAnnotationSecurityMetadataSourceTests {
 
 	}
 
-	@Target({ ElementType.METHOD, ElementType.TYPE })
+	@Target({ElementType.METHOD, ElementType.TYPE})
 	@Retention(RetentionPolicy.RUNTIME)
 	@interface CustomSecurityAnnotation {
 
@@ -240,7 +240,7 @@ public class SecuredAnnotationSecurityMetadataSourceTests {
 
 	}
 
-	@Target({ ElementType.METHOD, ElementType.TYPE })
+	@Target({ElementType.METHOD, ElementType.TYPE})
 	@Retention(RetentionPolicy.RUNTIME)
 	@Inherited
 	@Secured("CUSTOM")

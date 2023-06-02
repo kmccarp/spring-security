@@ -69,7 +69,7 @@ import org.springframework.web.filter.GenericFilterBean;
 public class ConcurrentSessionFilter extends GenericFilterBean {
 
 	private SecurityContextHolderStrategy securityContextHolderStrategy = SecurityContextHolder
-			.getContextHolderStrategy();
+.getContextHolderStrategy();
 
 	private final SessionRegistry sessionRegistry;
 
@@ -99,7 +99,7 @@ public class ConcurrentSessionFilter extends GenericFilterBean {
 	public ConcurrentSessionFilter(SessionRegistry sessionRegistry, String expiredUrl) {
 		Assert.notNull(sessionRegistry, "SessionRegistry required");
 		Assert.isTrue(expiredUrl == null || UrlUtils.isValidRedirectUrl(expiredUrl),
-				() -> expiredUrl + " isn't a valid redirect URL");
+	() -> expiredUrl + " isn't a valid redirect URL");
 		this.expiredUrl = expiredUrl;
 		this.sessionRegistry = sessionRegistry;
 		this.sessionInformationExpiredStrategy = (event) -> {
@@ -111,7 +111,7 @@ public class ConcurrentSessionFilter extends GenericFilterBean {
 	}
 
 	public ConcurrentSessionFilter(SessionRegistry sessionRegistry,
-			SessionInformationExpiredStrategy sessionInformationExpiredStrategy) {
+SessionInformationExpiredStrategy sessionInformationExpiredStrategy) {
 		Assert.notNull(sessionRegistry, "sessionRegistry required");
 		Assert.notNull(sessionInformationExpiredStrategy, "sessionInformationExpiredStrategy cannot be null");
 		this.sessionRegistry = sessionRegistry;
@@ -125,12 +125,12 @@ public class ConcurrentSessionFilter extends GenericFilterBean {
 
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
-			throws IOException, ServletException {
+throws IOException, ServletException {
 		doFilter((HttpServletRequest) request, (HttpServletResponse) response, chain);
 	}
 
 	private void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
-			throws IOException, ServletException {
+throws IOException, ServletException {
 		HttpSession session = request.getSession(false);
 		if (session != null) {
 			SessionInformation info = this.sessionRegistry.getSessionInformation(session.getId());
@@ -138,10 +138,10 @@ public class ConcurrentSessionFilter extends GenericFilterBean {
 				if (info.isExpired()) {
 					// Expired - abort processing
 					this.logger.debug(LogMessage
-							.of(() -> "Requested session ID " + request.getRequestedSessionId() + " has expired."));
+				.of(() -> "Requested session ID " + request.getRequestedSessionId() + " has expired."));
 					doLogout(request, response);
 					this.sessionInformationExpiredStrategy
-							.onExpiredSessionDetected(new SessionInformationExpiredEvent(info, request, response));
+				.onExpiredSessionDetected(new SessionInformationExpiredEvent(info, request, response));
 					return;
 				}
 				// Non-expired - update last request date/time
@@ -216,13 +216,13 @@ public class ConcurrentSessionFilter extends GenericFilterBean {
 	 * @since 4.2
 	 */
 	private static final class ResponseBodySessionInformationExpiredStrategy
-			implements SessionInformationExpiredStrategy {
+implements SessionInformationExpiredStrategy {
 
 		@Override
 		public void onExpiredSessionDetected(SessionInformationExpiredEvent event) throws IOException {
 			HttpServletResponse response = event.getResponse();
 			response.getWriter().print("This session has been expired (possibly due to multiple concurrent "
-					+ "logins being attempted as the same user).");
+		+ "logins being attempted as the same user).");
 			response.flushBuffer();
 		}
 

@@ -197,7 +197,7 @@ class JoseHeader {
 		@SuppressWarnings("unchecked")
 		protected final B getThis() {
 			return (B) this; // avoid unchecked casts in subclasses by using "getThis()"
-								// instead of "(B) this"
+			// instead of "(B) this"
 		}
 
 		/**
@@ -354,7 +354,7 @@ class JoseHeader {
 		private static URL convertAsURL(String header, String value) {
 			URL convertedValue = ClaimConversionService.getSharedInstance().convert(value, URL.class);
 			Assert.isTrue(convertedValue != null,
-					() -> "Unable to convert header '" + header + "' of type '" + value.getClass() + "' to URL.");
+		() -> "Unable to convert header '" + header + "' of type '" + value.getClass() + "' to URL.");
 			return convertedValue;
 		}
 

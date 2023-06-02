@@ -57,7 +57,7 @@ public class NamespaceHttpPortMappingsTests {
 		this.spring.register(HttpInterceptUrlWithPortMapperConfig.class).autowire();
 		this.mvc.perform(get("http://localhost:9080/login")).andExpect(redirectedUrl("https://localhost:9443/login"));
 		this.mvc.perform(get("http://localhost:9080/secured/a"))
-				.andExpect(redirectedUrl("https://localhost:9443/secured/a"));
+	.andExpect(redirectedUrl("https://localhost:9443/secured/a"));
 		this.mvc.perform(get("https://localhost:9443/user")).andExpect(redirectedUrl("http://localhost:9080/user"));
 	}
 
@@ -70,15 +70,15 @@ public class NamespaceHttpPortMappingsTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests()
-					.anyRequest().hasRole("USER")
-					.and()
-				.portMapper()
-					.http(9080).mapsTo(9443)
-					.and()
-				.requiresChannel()
-					.requestMatchers("/login", "/secured/**").requiresSecure()
-					.anyRequest().requiresInsecure();
+		.authorizeRequests()
+		.anyRequest().hasRole("USER")
+		.and()
+		.portMapper()
+		.http(9080).mapsTo(9443)
+		.and()
+		.requiresChannel()
+		.requestMatchers("/login", "/secured/**").requiresSecure()
+		.anyRequest().requiresInsecure();
 			// @formatter:on
 			return http.build();
 		}

@@ -46,7 +46,7 @@ public class PasswordEncoderParser {
 	static final String OPT_HASH_BCRYPT = "bcrypt";
 
 	private static final Map<String, Class<?>> ENCODER_CLASSES = Collections.singletonMap(OPT_HASH_BCRYPT,
-			BCryptPasswordEncoder.class);
+BCryptPasswordEncoder.class);
 
 	private BeanMetadataElement passwordEncoder;
 
@@ -63,7 +63,7 @@ public class PasswordEncoderParser {
 		}
 		String hash = element.getAttribute(ATT_HASH);
 		boolean useBase64 = StringUtils.hasText(element.getAttribute(ATT_BASE_64))
-				&& Boolean.parseBoolean(element.getAttribute(ATT_BASE_64));
+	&& Boolean.parseBoolean(element.getAttribute(ATT_BASE_64));
 		String ref = element.getAttribute(ATT_REF);
 		if (StringUtils.hasText(ref)) {
 			this.passwordEncoder = new RuntimeBeanReference(ref);

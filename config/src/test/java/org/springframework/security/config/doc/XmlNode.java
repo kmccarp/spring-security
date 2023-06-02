@@ -47,8 +47,8 @@ public class XmlNode {
 		NodeList children = this.node.getChildNodes();
 		// @formatter:off
 		return IntStream.range(0, children.getLength())
-				.mapToObj(children::item)
-				.map(XmlNode::new);
+	.mapToObj(children::item)
+	.map(XmlNode::new);
 		// @formatter:on
 	}
 
@@ -59,16 +59,16 @@ public class XmlNode {
 	public Optional<XmlNode> parent() {
 		// @formatter:off
 		return Optional.ofNullable(this.node.getParentNode())
-				.map((parent) -> new XmlNode(parent));
+	.map((parent) -> new XmlNode(parent));
 		// @formatter:on
 	}
 
 	public String attribute(String name) {
 		// @formatter:off
 		return Optional.ofNullable(this.node.getAttributes())
-				.map((attrs) -> attrs.getNamedItem(name))
-				.map((attr) -> attr.getTextContent())
-				.orElse(null);
+	.map((attrs) -> attrs.getNamedItem(name))
+	.map((attr) -> attr.getTextContent())
+	.orElse(null);
 		// @formatter:on
 	}
 

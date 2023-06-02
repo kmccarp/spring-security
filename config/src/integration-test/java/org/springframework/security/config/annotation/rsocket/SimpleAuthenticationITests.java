@@ -78,13 +78,13 @@ public class SimpleAuthenticationITests {
 	public void setup() {
 		// @formatter:off
 		this.server = RSocketServer.create()
-				.payloadDecoder(PayloadDecoder.ZERO_COPY)
-				.interceptors((registry) ->
-					registry.forSocketAcceptor(this.interceptor)
-				)
-				.acceptor(this.handler.responder())
-				.bind(TcpServerTransport.create("localhost", 0))
-				.block();
+	.payloadDecoder(PayloadDecoder.ZERO_COPY)
+	.interceptors((registry) ->
+registry.forSocketAcceptor(this.interceptor)
+	)
+	.acceptor(this.handler.responder())
+	.bind(TcpServerTransport.create("localhost", 0))
+	.block();
 		// @formatter:on
 	}
 
@@ -99,17 +99,15 @@ public class SimpleAuthenticationITests {
 	public void retrieveMonoWhenSecureThenDenied() throws Exception {
 		// @formatter:off
 		this.requester = RSocketRequester.builder()
-			.rsocketStrategies(this.handler.getRSocketStrategies())
-			.connectTcp("localhost", this.server.address().getPort())
-			.block();
+	.rsocketStrategies(this.handler.getRSocketStrategies())
+	.connectTcp("localhost", this.server.address().getPort())
+	.block();
 		// @formatter:on
 		String data = "rob";
 		// @formatter:off
 		assertThatExceptionOfType(ApplicationErrorException.class)
-			.isThrownBy(() -> this.requester.route("secure.retrieve-mono")
-				.data(data).retrieveMono(String.class)
-				.block()
-			);
+	.isThrownBy(() -> this.requester.route("secure.retrieve-mono").data(data).retrieveMono(String.class).block()
+	);
 		// @formatter:on
 		assertThat(this.controller.payloads).isEmpty();
 	}
@@ -117,21 +115,21 @@ public class SimpleAuthenticationITests {
 	@Test
 	public void retrieveMonoWhenAuthorizedThenGranted() {
 		MimeType authenticationMimeType = MimeTypeUtils
-				.parseMimeType(WellKnownMimeType.MESSAGE_RSOCKET_AUTHENTICATION.getString());
+	.parseMimeType(WellKnownMimeType.MESSAGE_RSOCKET_AUTHENTICATION.getString());
 		UsernamePasswordMetadata credentials = new UsernamePasswordMetadata("rob", "password");
 		// @formatter:off
 		this.requester = RSocketRequester.builder()
-			.setupMetadata(credentials, authenticationMimeType)
-			.rsocketStrategies(this.handler.getRSocketStrategies())
-			.connectTcp("localhost", this.server.address().getPort())
-			.block();
+	.setupMetadata(credentials, authenticationMimeType)
+	.rsocketStrategies(this.handler.getRSocketStrategies())
+	.connectTcp("localhost", this.server.address().getPort())
+	.block();
 		// @formatter:on
 		String data = "rob";
 		// @formatter:off
 		String hiRob = this.requester.route("secure.retrieve-mono")
-			.metadata(credentials, authenticationMimeType)
-			.data(data).retrieveMono(String.class)
-			.block();
+	.metadata(credentials, authenticationMimeType)
+	.data(data).retrieveMono(String.class)
+	.block();
 		// @formatter:on
 		assertThat(hiRob).isEqualTo("Hi rob");
 		assertThat(this.controller.payloads).containsOnly(data);
@@ -161,7 +159,7 @@ public class SimpleAuthenticationITests {
 		@Bean
 		PayloadSocketAcceptorInterceptor rsocketInterceptor(RSocketSecurity rsocket) {
 			rsocket.authorizePayload((authorize) -> authorize.anyRequest().authenticated().anyExchange().permitAll())
-					.simpleAuthentication(Customizer.withDefaults());
+		.simpleAuthentication(Customizer.withDefaults());
 			return rsocket.build();
 		}
 
@@ -169,10 +167,10 @@ public class SimpleAuthenticationITests {
 		MapReactiveUserDetailsService uds() {
 			// @formatter:off
 			UserDetails rob = User.withDefaultPasswordEncoder()
-					.username("rob")
-					.password("password")
-					.roles("USER", "ADMIN")
-					.build();
+		.username("rob")
+		.password("password")
+		.roles("USER", "ADMIN")
+		.build();
 			// @formatter:on
 			return new MapReactiveUserDetailsService(rob);
 		}

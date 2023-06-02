@@ -97,12 +97,12 @@ public class ChannelProcessingFilter extends GenericFilterBean {
 		Collection<ConfigAttribute> attributes = this.securityMetadataSource.getAllConfigAttributes();
 		if (attributes == null) {
 			this.logger.warn("Could not validate configuration attributes as the "
-					+ "FilterInvocationSecurityMetadataSource did not return any attributes");
+		+ "FilterInvocationSecurityMetadataSource did not return any attributes");
 			return;
 		}
 		Set<ConfigAttribute> unsupportedAttributes = getUnsupportedAttributes(attributes);
 		Assert.isTrue(unsupportedAttributes.isEmpty(),
-				() -> "Unsupported configuration attributes: " + unsupportedAttributes);
+	() -> "Unsupported configuration attributes: " + unsupportedAttributes);
 		this.logger.info("Validated configuration attributes");
 	}
 
@@ -118,7 +118,7 @@ public class ChannelProcessingFilter extends GenericFilterBean {
 
 	@Override
 	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
-			throws IOException, ServletException {
+throws IOException, ServletException {
 		HttpServletRequest request = (HttpServletRequest) req;
 		HttpServletResponse response = (HttpServletResponse) res;
 		FilterInvocation filterInvocation = new FilterInvocation(request, response, chain);
@@ -146,7 +146,7 @@ public class ChannelProcessingFilter extends GenericFilterBean {
 	}
 
 	public void setSecurityMetadataSource(
-			FilterInvocationSecurityMetadataSource filterInvocationSecurityMetadataSource) {
+FilterInvocationSecurityMetadataSource filterInvocationSecurityMetadataSource) {
 		this.securityMetadataSource = filterInvocationSecurityMetadataSource;
 	}
 

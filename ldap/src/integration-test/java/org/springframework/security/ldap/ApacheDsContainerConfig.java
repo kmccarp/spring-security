@@ -40,7 +40,7 @@ public class ApacheDsContainerConfig implements DisposableBean {
 	@Bean
 	ContextSource contextSource(ApacheDSContainer ldapContainer) throws Exception {
 		return new DefaultSpringSecurityContextSource(
-				"ldap://127.0.0.1:" + ldapContainer.getLocalPort() + "/dc=springframework,dc=org");
+	"ldap://127.0.0.1:" + ldapContainer.getLocalPort() + "/dc=springframework,dc=org");
 	}
 
 	@Override

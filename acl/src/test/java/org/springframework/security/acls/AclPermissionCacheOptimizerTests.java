@@ -39,7 +39,7 @@ import static org.mockito.Mockito.verifyNoMoreInteractions;
 /**
  * @author Luke Taylor
  */
-@SuppressWarnings({ "unchecked" })
+@SuppressWarnings({"unchecked"})
 public class AclPermissionCacheOptimizerTests {
 
 	@Test
@@ -50,8 +50,8 @@ public class AclPermissionCacheOptimizerTests {
 		SidRetrievalStrategy sidStrat = mock(SidRetrievalStrategy.class);
 		pco.setObjectIdentityRetrievalStrategy(oidStrat);
 		pco.setSidRetrievalStrategy(sidStrat);
-		Object[] dos = { new Object(), null, new Object() };
-		ObjectIdentity[] oids = { new ObjectIdentityImpl("A", "1"), new ObjectIdentityImpl("A", "2") };
+		Object[] dos = {new Object(), null, new Object()};
+		ObjectIdentity[] oids = {new ObjectIdentityImpl("A", "1"), new ObjectIdentityImpl("A", "2")};
 		given(oidStrat.getObjectIdentity(dos[0])).willReturn(oids[0]);
 		given(oidStrat.getObjectIdentity(dos[2])).willReturn(oids[1]);
 		pco.cachePermissionsFor(mock(Authentication.class), Arrays.asList(dos));

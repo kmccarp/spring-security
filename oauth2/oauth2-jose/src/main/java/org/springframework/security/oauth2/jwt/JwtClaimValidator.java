@@ -55,7 +55,7 @@ public final class JwtClaimValidator<T> implements OAuth2TokenValidator<Jwt> {
 		this.claim = claim;
 		this.test = test;
 		this.error = new OAuth2Error(OAuth2ErrorCodes.INVALID_TOKEN, "The " + this.claim + " claim is not valid",
-				"https://tools.ietf.org/html/rfc6750#section-3.1");
+	"https://tools.ietf.org/html/rfc6750#section-3.1");
 	}
 
 	@Override

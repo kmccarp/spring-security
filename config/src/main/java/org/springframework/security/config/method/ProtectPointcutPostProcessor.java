@@ -82,7 +82,7 @@ final class ProtectPointcutPostProcessor implements BeanPostProcessor {
 
 	ProtectPointcutPostProcessor(MapBasedMethodSecurityMetadataSource mapBasedMethodSecurityMetadataSource) {
 		Assert.notNull(mapBasedMethodSecurityMetadataSource,
-				"MapBasedMethodSecurityMetadataSource to populate is required");
+	"MapBasedMethodSecurityMetadataSource to populate is required");
 		this.mapBasedMethodSecurityMetadataSource = mapBasedMethodSecurityMetadataSource;
 		// Set up AspectJ pointcut expression parser
 		Set<PointcutPrimitive> supportedPrimitives = new HashSet<>(3);
@@ -97,8 +97,8 @@ final class ProtectPointcutPostProcessor implements BeanPostProcessor {
 		// supportedPrimitives.add(PointcutPrimitive.AT_ARGS);
 		// supportedPrimitives.add(PointcutPrimitive.AT_TARGET);
 		this.parser = PointcutParser
-				.getPointcutParserSupportingSpecifiedPrimitivesAndUsingContextClassloaderForResolution(
-						supportedPrimitives);
+	.getPointcutParserSupportingSpecifiedPrimitivesAndUsingContextClassloaderForResolution(
+supportedPrimitives);
 	}
 
 	@Override
@@ -153,9 +153,9 @@ final class ProtectPointcutPostProcessor implements BeanPostProcessor {
 			List<ConfigAttribute> attr = this.pointcutMap.get(expression.getPointcutExpression());
 			if (logger.isDebugEnabled()) {
 				logger.debug("AspectJ pointcut expression '" + expression.getPointcutExpression()
-						+ "' matches target class '" + targetClass.getName() + "' (bean ID '" + beanName
-						+ "') for method '" + method + "'; registering security configuration attribute '" + attr
-						+ "'");
+			+ "' matches target class '" + targetClass.getName() + "' (bean ID '" + beanName
+			+ "') for method '" + method + "'; registering security configuration attribute '" + attr
+			+ "'");
 			}
 			this.mapBasedMethodSecurityMetadataSource.addSecureMethod(targetClass, method, attr);
 		}
@@ -179,7 +179,7 @@ final class ProtectPointcutPostProcessor implements BeanPostProcessor {
 		this.pointCutExpressions.add(this.parser.parsePointcutExpression(pointcutExpression));
 		if (logger.isDebugEnabled()) {
 			logger.debug("AspectJ pointcut expression '" + pointcutExpression
-					+ "' registered for security configuration attribute '" + definition + "'");
+		+ "' registered for security configuration attribute '" + definition + "'");
 		}
 	}
 

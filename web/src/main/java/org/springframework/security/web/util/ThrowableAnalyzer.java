@@ -92,7 +92,7 @@ public class ThrowableAnalyzer {
 	 * @throws IllegalArgumentException if one of the arguments is invalid
 	 */
 	protected final void registerExtractor(Class<? extends Throwable> throwableType,
-			ThrowableCauseExtractor extractor) {
+ThrowableCauseExtractor extractor) {
 		Assert.notNull(extractor, "Invalid extractor: null");
 		this.extractorMap.put(throwableType, extractor);
 	}
@@ -218,7 +218,7 @@ public class ThrowableAnalyzer {
 		Assert.notNull(throwable, "Invalid throwable: null");
 		Class<? extends Throwable> throwableType = throwable.getClass();
 		Assert.isTrue(expectedBaseType.isAssignableFrom(throwableType), () -> "Invalid type: '"
-				+ throwableType.getName() + "'. Has to be a subclass of '" + expectedBaseType.getName() + "'");
+	+ throwableType.getName() + "'. Has to be a subclass of '" + expectedBaseType.getName() + "'");
 	}
 
 }

@@ -70,7 +70,7 @@ public class BearerTokenAccessDeniedHandlerTests {
 
 	@Test
 	public void handleWhenOAuth2AuthenticatedThenStatus403AndAuthHeaderWithInsufficientScopeErrorAttribute()
-			throws Exception {
+throws Exception {
 		MockHttpServletRequest request = new MockHttpServletRequest();
 		MockHttpServletResponse response = new MockHttpServletResponse();
 		Authentication token = new TestingOAuth2TokenAuthenticationToken(Collections.emptyMap());
@@ -79,9 +79,9 @@ public class BearerTokenAccessDeniedHandlerTests {
 		assertThat(response.getStatus()).isEqualTo(403);
 		// @formatter:off
 		assertThat(response.getHeader("WWW-Authenticate"))
-				.isEqualTo("Bearer error=\"insufficient_scope\", "
-						+ "error_description=\"The request requires higher privileges than provided by the access token.\", "
-						+ "error_uri=\"https://tools.ietf.org/html/rfc6750#section-3.1\"");
+	.isEqualTo("Bearer error=\"insufficient_scope\", "
++ "error_description=\"The request requires higher privileges than provided by the access token.\", "
++ "error_uri=\"https://tools.ietf.org/html/rfc6750#section-3.1\"");
 		// @formatter:on
 	}
 
@@ -91,7 +91,7 @@ public class BearerTokenAccessDeniedHandlerTests {
 	}
 
 	static class TestingOAuth2TokenAuthenticationToken
-			extends AbstractOAuth2TokenAuthenticationToken<TestingOAuth2TokenAuthenticationToken.TestingOAuth2Token> {
+extends AbstractOAuth2TokenAuthenticationToken<TestingOAuth2TokenAuthenticationToken.TestingOAuth2Token> {
 
 		private Map<String, Object> attributes;
 

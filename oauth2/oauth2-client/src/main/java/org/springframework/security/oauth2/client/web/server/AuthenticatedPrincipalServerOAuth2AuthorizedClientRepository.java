@@ -45,8 +45,7 @@ import org.springframework.web.server.ServerWebExchange;
  * @see OAuth2AuthorizedClientService
  * @see HttpSessionOAuth2AuthorizedClientRepository
  */
-public final class AuthenticatedPrincipalServerOAuth2AuthorizedClientRepository
-		implements ServerOAuth2AuthorizedClientRepository {
+public final class AuthenticatedPrincipalServerOAuth2AuthorizedClientRepositoryimplements ServerOAuth2AuthorizedClientRepository {
 
 	private final AuthenticationTrustResolver authenticationTrustResolver = new AuthenticationTrustResolverImpl();
 
@@ -59,7 +58,7 @@ public final class AuthenticatedPrincipalServerOAuth2AuthorizedClientRepository
 	 * @param authorizedClientService the authorized client service
 	 */
 	public AuthenticatedPrincipalServerOAuth2AuthorizedClientRepository(
-			ReactiveOAuth2AuthorizedClientService authorizedClientService) {
+ReactiveOAuth2AuthorizedClientService authorizedClientService) {
 		Assert.notNull(authorizedClientService, "authorizedClientService cannot be null");
 		this.authorizedClientService = authorizedClientService;
 	}
@@ -72,14 +71,14 @@ public final class AuthenticatedPrincipalServerOAuth2AuthorizedClientRepository
 	 * are unauthenticated (or anonymous)
 	 */
 	public void setAnonymousAuthorizedClientRepository(
-			ServerOAuth2AuthorizedClientRepository anonymousAuthorizedClientRepository) {
+ServerOAuth2AuthorizedClientRepository anonymousAuthorizedClientRepository) {
 		Assert.notNull(anonymousAuthorizedClientRepository, "anonymousAuthorizedClientRepository cannot be null");
 		this.anonymousAuthorizedClientRepository = anonymousAuthorizedClientRepository;
 	}
 
 	@Override
 	public <T extends OAuth2AuthorizedClient> Mono<T> loadAuthorizedClient(String clientRegistrationId,
-			Authentication principal, ServerWebExchange exchange) {
+Authentication principal, ServerWebExchange exchange) {
 		if (this.isPrincipalAuthenticated(principal)) {
 			return this.authorizedClientService.loadAuthorizedClient(clientRegistrationId, principal.getName());
 		}
@@ -88,7 +87,7 @@ public final class AuthenticatedPrincipalServerOAuth2AuthorizedClientRepository
 
 	@Override
 	public Mono<Void> saveAuthorizedClient(OAuth2AuthorizedClient authorizedClient, Authentication principal,
-			ServerWebExchange exchange) {
+ServerWebExchange exchange) {
 		if (this.isPrincipalAuthenticated(principal)) {
 			return this.authorizedClientService.saveAuthorizedClient(authorizedClient, principal);
 		}
@@ -97,17 +96,17 @@ public final class AuthenticatedPrincipalServerOAuth2AuthorizedClientRepository
 
 	@Override
 	public Mono<Void> removeAuthorizedClient(String clientRegistrationId, Authentication principal,
-			ServerWebExchange exchange) {
+ServerWebExchange exchange) {
 		if (this.isPrincipalAuthenticated(principal)) {
 			return this.authorizedClientService.removeAuthorizedClient(clientRegistrationId, principal.getName());
 		}
 		return this.anonymousAuthorizedClientRepository.removeAuthorizedClient(clientRegistrationId, principal,
-				exchange);
+	exchange);
 	}
 
 	private boolean isPrincipalAuthenticated(Authentication authentication) {
 		return authentication != null && !this.authenticationTrustResolver.isAnonymous(authentication)
-				&& authentication.isAuthenticated();
+	&& authentication.isAuthenticated();
 	}
 
 }

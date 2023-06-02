@@ -92,7 +92,7 @@ public class WithUserDetailsSecurityContextFactoryTests {
 		String beanName = "secondUserDetailsServiceBean";
 		String username = "user";
 		given(this.beans.getBean(beanName, ReactiveUserDetailsService.class)).willThrow(
-				new BeanNotOfRequiredTypeException("", ReactiveUserDetailsService.class, UserDetailsService.class));
+	new BeanNotOfRequiredTypeException("", ReactiveUserDetailsService.class, UserDetailsService.class));
 		given(this.withUserDetails.value()).willReturn(username);
 		given(this.withUserDetails.userDetailsServiceBeanName()).willReturn(beanName);
 		given(this.userDetailsService.loadUserByUsername(username)).willReturn(this.userDetails);
@@ -122,7 +122,7 @@ public class WithUserDetailsSecurityContextFactoryTests {
 		given(this.withUserDetails.value()).willReturn(username);
 		given(this.withUserDetails.userDetailsServiceBeanName()).willReturn(beanName);
 		given(this.beans.getBean(beanName, ReactiveUserDetailsService.class))
-				.willReturn(this.reactiveUserDetailsService);
+	.willReturn(this.reactiveUserDetailsService);
 		given(this.reactiveUserDetailsService.findByUsername(username)).willReturn(Mono.just(this.userDetails));
 		SecurityContext context = this.factory.createSecurityContext(this.withUserDetails);
 		assertThat(context.getAuthentication()).isInstanceOf(UsernamePasswordAuthenticationToken.class);

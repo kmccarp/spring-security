@@ -39,9 +39,9 @@ public class JwtBearerTokenAuthenticationConverterTests {
 	public void convertWhenJwtThenBearerTokenAuthentication() {
 		// @formatter:off
 		Jwt jwt = Jwt.withTokenValue("token-value")
-				.claim("claim", "value")
-				.header("header", "value")
-				.build();
+	.claim("claim", "value")
+	.header("header", "value")
+	.build();
 		// @formatter:on
 		AbstractAuthenticationToken token = this.converter.convert(jwt);
 		assertThat(token).isInstanceOf(BearerTokenAuthentication.class);
@@ -55,30 +55,30 @@ public class JwtBearerTokenAuthenticationConverterTests {
 	public void convertWhenJwtWithScopeAttributeThenBearerTokenAuthentication() {
 		// @formatter:off
 		Jwt jwt = Jwt.withTokenValue("token-value")
-				.claim("scope", "message:read message:write")
-				.header("header", "value")
-				.build();
+	.claim("scope", "message:read message:write")
+	.header("header", "value")
+	.build();
 		// @formatter:on
 		AbstractAuthenticationToken token = this.converter.convert(jwt);
 		assertThat(token).isInstanceOf(BearerTokenAuthentication.class);
 		BearerTokenAuthentication bearerToken = (BearerTokenAuthentication) token;
 		assertThat(bearerToken.getAuthorities()).containsExactly(new SimpleGrantedAuthority("SCOPE_message:read"),
-				new SimpleGrantedAuthority("SCOPE_message:write"));
+	new SimpleGrantedAuthority("SCOPE_message:write"));
 	}
 
 	@Test
 	public void convertWhenJwtWithScpAttributeThenBearerTokenAuthentication() {
 		// @formatter:off
 		Jwt jwt = Jwt.withTokenValue("token-value")
-				.claim("scp", Arrays.asList("message:read", "message:write"))
-				.header("header", "value")
-				.build();
+	.claim("scp", Arrays.asList("message:read", "message:write"))
+	.header("header", "value")
+	.build();
 		// @formatter:on
 		AbstractAuthenticationToken token = this.converter.convert(jwt);
 		assertThat(token).isInstanceOf(BearerTokenAuthentication.class);
 		BearerTokenAuthentication bearerToken = (BearerTokenAuthentication) token;
 		assertThat(bearerToken.getAuthorities()).containsExactly(new SimpleGrantedAuthority("SCOPE_message:read"),
-				new SimpleGrantedAuthority("SCOPE_message:write"));
+	new SimpleGrantedAuthority("SCOPE_message:write"));
 	}
 
 }

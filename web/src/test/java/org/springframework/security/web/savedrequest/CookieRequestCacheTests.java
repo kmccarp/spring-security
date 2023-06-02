@@ -80,7 +80,7 @@ public class CookieRequestCacheTests {
 	public void getRequestWhenRequestIsWithoutCookiesThenReturnsNullSavedRequest() {
 		CookieRequestCache cookieRequestCache = new CookieRequestCache();
 		SavedRequest savedRequest = cookieRequestCache.getRequest(new MockHttpServletRequest(),
-				new MockHttpServletResponse());
+	new MockHttpServletResponse());
 		assertThat(savedRequest).isNull();
 	}
 
@@ -109,7 +109,7 @@ public class CookieRequestCacheTests {
 		CookieRequestCache cookieRequestCache = new CookieRequestCache();
 		MockHttpServletResponse response = new MockHttpServletResponse();
 		HttpServletRequest matchingRequest = cookieRequestCache.getMatchingRequest(new MockHttpServletRequest(),
-				response);
+	response);
 		assertThat(matchingRequest).isNull();
 		assertThat(response.getCookie(DEFAULT_COOKIE_NAME)).isNull();
 	}

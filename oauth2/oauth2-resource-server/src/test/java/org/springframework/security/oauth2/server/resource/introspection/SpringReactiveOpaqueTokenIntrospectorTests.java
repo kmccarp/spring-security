@@ -64,37 +64,37 @@ public class SpringReactiveOpaqueTokenIntrospectorTests {
 
 	// @formatter:off
 	private static final String ACTIVE_RESPONSE = "{\n"
-			+ "      \"active\": true,\n"
-			+ "      \"client_id\": \"l238j323ds-23ij4\",\n"
-			+ "      \"username\": \"jdoe\",\n"
-			+ "      \"scope\": \"read write dolphin\",\n"
-			+ "      \"sub\": \"Z5O3upPC88QrAjx00dis\",\n"
-			+ "      \"aud\": \"https://protected.example.net/resource\",\n"
-			+ "      \"iss\": \"https://server.example.com/\",\n"
-			+ "      \"exp\": 1419356238,\n"
-			+ "      \"iat\": 1419350238,\n"
-			+ "      \"extension_field\": \"twenty-seven\"\n"
-			+ "     }";
++ "      \"active\": true,\n"
++ "      \"client_id\": \"l238j323ds-23ij4\",\n"
++ "      \"username\": \"jdoe\",\n"
++ "      \"scope\": \"read write dolphin\",\n"
++ "      \"sub\": \"Z5O3upPC88QrAjx00dis\",\n"
++ "      \"aud\": \"https://protected.example.net/resource\",\n"
++ "      \"iss\": \"https://server.example.com/\",\n"
++ "      \"exp\": 1419356238,\n"
++ "      \"iat\": 1419350238,\n"
++ "      \"extension_field\": \"twenty-seven\"\n"
++ "     }";
 	// @formatter:on
 
 	// @formatter:off
 	private static final String INACTIVE_RESPONSE = "{\n"
-			+ "      \"active\": false\n"
-			+ "     }";
++ "      \"active\": false\n"
++ "     }";
 	// @formatter:on
 
 	// @formatter:off
 	private static final String INVALID_RESPONSE = "{\n"
-			+ "      \"client_id\": \"l238j323ds-23ij4\",\n"
-			+ "      \"username\": \"jdoe\",\n"
-			+ "      \"scope\": \"read write dolphin\",\n"
-			+ "      \"sub\": \"Z5O3upPC88QrAjx00dis\",\n"
-			+ "      \"aud\": \"https://protected.example.net/resource\",\n"
-			+ "      \"iss\": \"https://server.example.com/\",\n"
-			+ "      \"exp\": 1419356238,\n"
-			+ "      \"iat\": 1419350238,\n"
-			+ "      \"extension_field\": \"twenty-seven\"\n"
-			+ "     }";
++ "      \"client_id\": \"l238j323ds-23ij4\",\n"
++ "      \"username\": \"jdoe\",\n"
++ "      \"scope\": \"read write dolphin\",\n"
++ "      \"sub\": \"Z5O3upPC88QrAjx00dis\",\n"
++ "      \"aud\": \"https://protected.example.net/resource\",\n"
++ "      \"iss\": \"https://server.example.com/\",\n"
++ "      \"exp\": 1419356238,\n"
++ "      \"iat\": 1419350238,\n"
++ "      \"extension_field\": \"twenty-seven\"\n"
++ "     }";
 	// @formatter:on
 
 	private final ObjectMapper mapper = new ObjectMapper();
@@ -105,22 +105,22 @@ public class SpringReactiveOpaqueTokenIntrospectorTests {
 			server.setDispatcher(requiresAuth(CLIENT_ID, CLIENT_SECRET, ACTIVE_RESPONSE));
 			String introspectUri = server.url("/introspect").toString();
 			SpringReactiveOpaqueTokenIntrospector introspectionClient = new SpringReactiveOpaqueTokenIntrospector(
-					introspectUri, CLIENT_ID, CLIENT_SECRET);
+		introspectUri, CLIENT_ID, CLIENT_SECRET);
 			OAuth2AuthenticatedPrincipal authority = introspectionClient.introspect("token").block();
 			assertThat(authority).isNotNull();
 			// @formatter:off
 			assertThat(authority.getAttributes())
-					.isNotNull()
-					.containsEntry(OAuth2TokenIntrospectionClaimNames.ACTIVE, true)
-					.containsEntry(OAuth2TokenIntrospectionClaimNames.AUD,
-							Arrays.asList("https://protected.example.net/resource"))
-					.containsEntry(OAuth2TokenIntrospectionClaimNames.CLIENT_ID, "l238j323ds-23ij4")
-					.containsEntry(OAuth2TokenIntrospectionClaimNames.EXP, Instant.ofEpochSecond(1419356238))
-					.containsEntry(OAuth2TokenIntrospectionClaimNames.ISS, "https://server.example.com/")
-					.containsEntry(OAuth2TokenIntrospectionClaimNames.SCOPE, Arrays.asList("read", "write", "dolphin"))
-					.containsEntry(OAuth2TokenIntrospectionClaimNames.SUB, "Z5O3upPC88QrAjx00dis")
-					.containsEntry(OAuth2TokenIntrospectionClaimNames.USERNAME, "jdoe")
-					.containsEntry("extension_field", "twenty-seven");
+		.isNotNull()
+		.containsEntry(OAuth2TokenIntrospectionClaimNames.ACTIVE, true)
+		.containsEntry(OAuth2TokenIntrospectionClaimNames.AUD,
+	Arrays.asList("https://protected.example.net/resource"))
+		.containsEntry(OAuth2TokenIntrospectionClaimNames.CLIENT_ID, "l238j323ds-23ij4")
+		.containsEntry(OAuth2TokenIntrospectionClaimNames.EXP, Instant.ofEpochSecond(1419356238))
+		.containsEntry(OAuth2TokenIntrospectionClaimNames.ISS, "https://server.example.com/")
+		.containsEntry(OAuth2TokenIntrospectionClaimNames.SCOPE, Arrays.asList("read", "write", "dolphin"))
+		.containsEntry(OAuth2TokenIntrospectionClaimNames.SUB, "Z5O3upPC88QrAjx00dis")
+		.containsEntry(OAuth2TokenIntrospectionClaimNames.USERNAME, "jdoe")
+		.containsEntry("extension_field", "twenty-seven");
 			// @formatter:on
 		}
 	}
@@ -131,9 +131,9 @@ public class SpringReactiveOpaqueTokenIntrospectorTests {
 			server.setDispatcher(requiresAuth(CLIENT_ID, CLIENT_SECRET, ACTIVE_RESPONSE));
 			String introspectUri = server.url("/introspect").toString();
 			SpringReactiveOpaqueTokenIntrospector introspectionClient = new SpringReactiveOpaqueTokenIntrospector(
-					introspectUri, CLIENT_ID, "wrong");
+		introspectUri, CLIENT_ID, "wrong");
 			assertThatExceptionOfType(OAuth2IntrospectionException.class)
-					.isThrownBy(() -> introspectionClient.introspect("token").block());
+		.isThrownBy(() -> introspectionClient.introspect("token").block());
 
 		}
 	}
@@ -142,10 +142,10 @@ public class SpringReactiveOpaqueTokenIntrospectorTests {
 	public void authenticateWhenInactiveTokenThenInvalidToken() {
 		WebClient webClient = mockResponse(INACTIVE_RESPONSE);
 		SpringReactiveOpaqueTokenIntrospector introspectionClient = new SpringReactiveOpaqueTokenIntrospector(
-				INTROSPECTION_URL, webClient);
+	INTROSPECTION_URL, webClient);
 		assertThatExceptionOfType(BadOpaqueTokenException.class)
-				.isThrownBy(() -> introspectionClient.introspect("token").block())
-				.withMessage("Provided token isn't active");
+	.isThrownBy(() -> introspectionClient.introspect("token").block())
+	.withMessage("Provided token isn't active");
 	}
 
 	@Test
@@ -156,17 +156,17 @@ public class SpringReactiveOpaqueTokenIntrospectorTests {
 		introspectedValues.put(OAuth2TokenIntrospectionClaimNames.NBF, 29348723984L);
 		WebClient webClient = mockResponse(introspectedValues);
 		SpringReactiveOpaqueTokenIntrospector introspectionClient = new SpringReactiveOpaqueTokenIntrospector(
-				INTROSPECTION_URL, webClient);
+	INTROSPECTION_URL, webClient);
 		OAuth2AuthenticatedPrincipal authority = introspectionClient.introspect("token").block();
 		assertThat(authority).isNotNull();
 		// @formatter:off
 		assertThat(authority.getAttributes())
-				.isNotNull()
-				.containsEntry(OAuth2TokenIntrospectionClaimNames.ACTIVE, true)
-				.containsEntry(OAuth2TokenIntrospectionClaimNames.AUD, Arrays.asList("aud"))
-				.containsEntry(OAuth2TokenIntrospectionClaimNames.NBF, Instant.ofEpochSecond(29348723984L))
-				.doesNotContainKey(OAuth2TokenIntrospectionClaimNames.CLIENT_ID)
-				.doesNotContainKey(OAuth2TokenIntrospectionClaimNames.SCOPE);
+	.isNotNull()
+	.containsEntry(OAuth2TokenIntrospectionClaimNames.ACTIVE, true)
+	.containsEntry(OAuth2TokenIntrospectionClaimNames.AUD, Arrays.asList("aud"))
+	.containsEntry(OAuth2TokenIntrospectionClaimNames.NBF, Instant.ofEpochSecond(29348723984L))
+	.doesNotContainKey(OAuth2TokenIntrospectionClaimNames.CLIENT_ID)
+	.doesNotContainKey(OAuth2TokenIntrospectionClaimNames.SCOPE);
 		// @formatter:on
 	}
 
@@ -174,11 +174,11 @@ public class SpringReactiveOpaqueTokenIntrospectorTests {
 	public void authenticateWhenIntrospectionEndpointThrowsExceptionThenInvalidToken() {
 		WebClient webClient = mockResponse(new IllegalStateException("server was unresponsive"));
 		SpringReactiveOpaqueTokenIntrospector introspectionClient = new SpringReactiveOpaqueTokenIntrospector(
-				INTROSPECTION_URL, webClient);
+	INTROSPECTION_URL, webClient);
 		// @formatter:off
 		assertThatExceptionOfType(OAuth2IntrospectionException.class)
-				.isThrownBy(() -> introspectionClient.introspect("token").block())
-				.withMessage("server was unresponsive");
+	.isThrownBy(() -> introspectionClient.introspect("token").block())
+	.withMessage("server was unresponsive");
 		// @formatter:on
 	}
 
@@ -186,35 +186,35 @@ public class SpringReactiveOpaqueTokenIntrospectorTests {
 	public void authenticateWhenIntrospectionTokenReturnsInvalidResponseThenInvalidToken() {
 		WebClient webClient = mockResponse(INVALID_RESPONSE);
 		SpringReactiveOpaqueTokenIntrospector introspectionClient = new SpringReactiveOpaqueTokenIntrospector(
-				INTROSPECTION_URL, webClient);
+	INTROSPECTION_URL, webClient);
 		// @formatter:off
 		assertThatExceptionOfType(OAuth2IntrospectionException.class)
-				.isThrownBy(() -> introspectionClient.introspect("token").block());
+	.isThrownBy(() -> introspectionClient.introspect("token").block());
 		// @formatter:on
 	}
 
 	@Test
 	public void constructorWhenIntrospectionUriIsEmptyThenIllegalArgumentException() {
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new SpringReactiveOpaqueTokenIntrospector("", CLIENT_ID, CLIENT_SECRET));
+	.isThrownBy(() -> new SpringReactiveOpaqueTokenIntrospector("", CLIENT_ID, CLIENT_SECRET));
 	}
 
 	@Test
 	public void constructorWhenClientIdIsEmptyThenIllegalArgumentException() {
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new SpringReactiveOpaqueTokenIntrospector(INTROSPECTION_URL, "", CLIENT_SECRET));
+	.isThrownBy(() -> new SpringReactiveOpaqueTokenIntrospector(INTROSPECTION_URL, "", CLIENT_SECRET));
 	}
 
 	@Test
 	public void constructorWhenClientSecretIsNullThenIllegalArgumentException() {
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new SpringReactiveOpaqueTokenIntrospector(INTROSPECTION_URL, CLIENT_ID, null));
+	.isThrownBy(() -> new SpringReactiveOpaqueTokenIntrospector(INTROSPECTION_URL, CLIENT_ID, null));
 	}
 
 	@Test
 	public void constructorWhenRestOperationsIsNullThenIllegalArgumentException() {
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new SpringReactiveOpaqueTokenIntrospector(INTROSPECTION_URL, null));
+	.isThrownBy(() -> new SpringReactiveOpaqueTokenIntrospector(INTROSPECTION_URL, null));
 	}
 
 	private WebClient mockResponse(String response) {
@@ -263,9 +263,9 @@ public class SpringReactiveOpaqueTokenIntrospectorTests {
 				String authorization = request.getHeader(HttpHeaders.AUTHORIZATION);
 				// @formatter:off
 				return Optional.ofNullable(authorization)
-						.filter((a) -> isAuthorized(authorization, username, password))
-						.map((a) -> ok(response))
-						.orElse(unauthorized());
+			.filter((a) -> isAuthorized(authorization, username, password))
+			.map((a) -> ok(response))
+			.orElse(unauthorized());
 				// @formatter:on
 			}
 		};
@@ -279,7 +279,7 @@ public class SpringReactiveOpaqueTokenIntrospectorTests {
 	private static MockResponse ok(String response) {
 		// @formatter:off
 		return new MockResponse().setBody(response)
-				.setHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
+	.setHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
 		// @formatter:on
 	}
 

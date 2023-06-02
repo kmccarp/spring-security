@@ -41,13 +41,14 @@ public class AnonymousAuthenticationTokenMixinTests extends AbstractMixinTests {
 
 	// @formatter:off
 	private static final String ANONYMOUS_JSON = "{"
-		+ "\"@class\": \"org.springframework.security.authentication.AnonymousAuthenticationToken\", "
-		+ "\"details\": null,"
-		+ "\"principal\": " + UserDeserializerTests.USER_JSON + ","
-		+ "\"authenticated\": true, "
-		+ "\"keyHash\": " + HASH_KEY.hashCode() + ","
-		+ "\"authorities\": " + SimpleGrantedAuthorityMixinTests.AUTHORITIES_ARRAYLIST_JSON
-	+ "}";
++ "\"@class\": \"org.springframework.security.authentication.AnonymousAuthenticationToken\", "
++ "\"details\": null,"
++ "\"principal\": " + UserDeserializerTests.USER_JSON + ","
++ "\"authenticated\": true, "
++ "\"keyHash\": " + HASH_KEY.hashCode() + ","
++ "\"authorities\": " + SimpleGrantedAuthorityMixinTests.AUTHORITIES_ARRAYLIST_JSON
++ "}";
+
 	// @formatter:on
 	@Test
 	public void serializeAnonymousAuthenticationTokenTest() throws JsonProcessingException, JSONException {
@@ -68,15 +69,15 @@ public class AnonymousAuthenticationTokenMixinTests extends AbstractMixinTests {
 	@Test
 	public void deserializeAnonymousAuthenticationTokenWithoutAuthoritiesTest() throws IOException {
 		String jsonString = "{\"@class\": \"org.springframework.security.authentication.AnonymousAuthenticationToken\", \"details\": null,"
-				+ "\"principal\": \"user\", \"authenticated\": true, \"keyHash\": " + HASH_KEY.hashCode() + ","
-				+ "\"authorities\": [\"java.util.ArrayList\", []]}";
+	+ "\"principal\": \"user\", \"authenticated\": true, \"keyHash\": " + HASH_KEY.hashCode() + ","
+	+ "\"authorities\": [\"java.util.ArrayList\", []]}";
 		assertThatExceptionOfType(JsonMappingException.class)
-				.isThrownBy(() -> this.mapper.readValue(jsonString, AnonymousAuthenticationToken.class));
+	.isThrownBy(() -> this.mapper.readValue(jsonString, AnonymousAuthenticationToken.class));
 	}
 
 	@Test
 	public void serializeAnonymousAuthenticationTokenMixinAfterEraseCredentialTest()
-			throws JsonProcessingException, JSONException {
+throws JsonProcessingException, JSONException {
 		User user = createDefaultUser();
 		AnonymousAuthenticationToken token = new AnonymousAuthenticationToken(HASH_KEY, user, user.getAuthorities());
 		token.eraseCredentials();

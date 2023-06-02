@@ -35,14 +35,14 @@ public final class TestJwtClaimsSets {
 
 		// @formatter:off
 		return JwtClaimsSet.builder()
-				.issuer(issuer)
-				.subject("subject")
-				.audience(Collections.singletonList("client-1"))
-				.issuedAt(issuedAt)
-				.notBefore(issuedAt)
-				.expiresAt(expiresAt)
-				.id("jti")
-				.claim("custom-claim-name", "custom-claim-value");
+	.issuer(issuer)
+	.subject("subject")
+	.audience(Collections.singletonList("client-1"))
+	.issuedAt(issuedAt)
+	.notBefore(issuedAt)
+	.expiresAt(expiresAt)
+	.id("jti")
+	.claim("custom-claim-name", "custom-claim-value");
 		// @formatter:on
 	}
 

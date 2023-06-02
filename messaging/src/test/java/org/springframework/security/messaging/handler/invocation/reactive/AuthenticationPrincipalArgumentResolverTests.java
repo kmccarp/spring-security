@@ -57,9 +57,9 @@ public class AuthenticationPrincipalArgumentResolverTests {
 		Authentication authentication = TestAuthentication.authenticatedUser();
 		// @formatter:off
 		Mono<UserDetails> result = (Mono<UserDetails>) this.resolver
-				.resolveArgument(arg0("authenticationPrincipalOnMonoUserDetails"), null)
-				.contextWrite(ReactiveSecurityContextHolder.withAuthentication(authentication))
-				.block();
+	.resolveArgument(arg0("authenticationPrincipalOnMonoUserDetails"), null)
+	.contextWrite(ReactiveSecurityContextHolder.withAuthentication(authentication))
+	.block();
 		// @formatter:on
 		assertThat(result.block()).isEqualTo(authentication.getPrincipal());
 	}
@@ -78,9 +78,9 @@ public class AuthenticationPrincipalArgumentResolverTests {
 		Authentication authentication = TestAuthentication.authenticatedUser();
 		// @formatter:off
 		Mono<UserDetails> result = (Mono<UserDetails>) this.resolver
-				.resolveArgument(arg0("currentUserOnMonoUserDetails"), null)
-				.contextWrite(ReactiveSecurityContextHolder.withAuthentication(authentication))
-				.block();
+	.resolveArgument(arg0("currentUserOnMonoUserDetails"), null)
+	.contextWrite(ReactiveSecurityContextHolder.withAuthentication(authentication))
+	.block();
 		// @formatter:on
 		assertThat(result.block()).isEqualTo(authentication.getPrincipal());
 	}
@@ -94,16 +94,16 @@ public class AuthenticationPrincipalArgumentResolverTests {
 		Authentication authentication = TestAuthentication.authenticatedUser();
 		// @formatter:off
 		Mono<String> result = (Mono<String>) this.resolver
-				.resolveArgument(arg0("authenticationPrincipalExpression"), null)
-				.contextWrite(ReactiveSecurityContextHolder.withAuthentication(authentication))
-				.block();
+	.resolveArgument(arg0("authenticationPrincipalExpression"), null)
+	.contextWrite(ReactiveSecurityContextHolder.withAuthentication(authentication))
+	.block();
 		// @formatter:on
 		assertThat(result.block()).isEqualTo(authentication.getName());
 	}
 
 	@SuppressWarnings("unused")
 	private void authenticationPrincipalExpression(
-			@AuthenticationPrincipal(expression = "username") Mono<String> username) {
+@AuthenticationPrincipal(expression = "username") Mono<String> username) {
 	}
 
 	@Test
@@ -111,8 +111,8 @@ public class AuthenticationPrincipalArgumentResolverTests {
 		CustomUserPrincipal principal = new CustomUserPrincipal();
 		// @formatter:off
 		Mono<Object> result = this.resolver
-				.resolveArgument(arg0("authenticationPrincipalExpressionPrimitive"), null)
-				.contextWrite(ReactiveSecurityContextHolder.withAuthentication(new TestingAuthenticationToken(principal, "password", "ROLE_USER")));
+	.resolveArgument(arg0("authenticationPrincipalExpressionPrimitive"), null)
+	.contextWrite(ReactiveSecurityContextHolder.withAuthentication(new TestingAuthenticationToken(principal, "password", "ROLE_USER")));
 		// @formatter:on
 		assertThat(result.block()).isEqualTo(principal.id);
 	}

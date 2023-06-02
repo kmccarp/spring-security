@@ -35,7 +35,7 @@ import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException
 public class AuthorizationFailureEventTests {
 
 	private final UsernamePasswordAuthenticationToken foo = UsernamePasswordAuthenticationToken.unauthenticated("foo",
-			"bar");
+"bar");
 
 	private List<ConfigAttribute> attributes = SecurityConfig.createList("TEST");
 
@@ -44,32 +44,32 @@ public class AuthorizationFailureEventTests {
 	@Test
 	public void rejectsNullSecureObject() {
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new AuthorizationFailureEvent(null, this.attributes, this.foo, this.exception));
+	.isThrownBy(() -> new AuthorizationFailureEvent(null, this.attributes, this.foo, this.exception));
 	}
 
 	@Test
 	public void rejectsNullAttributesList() {
 		assertThatIllegalArgumentException().isThrownBy(
-				() -> new AuthorizationFailureEvent(new SimpleMethodInvocation(), null, this.foo, this.exception));
+	() -> new AuthorizationFailureEvent(new SimpleMethodInvocation(), null, this.foo, this.exception));
 	}
 
 	@Test
 	public void rejectsNullAuthentication() {
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new AuthorizationFailureEvent(new SimpleMethodInvocation(), this.attributes, null,
-						this.exception));
+	.isThrownBy(() -> new AuthorizationFailureEvent(new SimpleMethodInvocation(), this.attributes, null,
+this.exception));
 	}
 
 	@Test
 	public void rejectsNullException() {
 		assertThatIllegalArgumentException().isThrownBy(
-				() -> new AuthorizationFailureEvent(new SimpleMethodInvocation(), this.attributes, this.foo, null));
+	() -> new AuthorizationFailureEvent(new SimpleMethodInvocation(), this.attributes, this.foo, null));
 	}
 
 	@Test
 	public void gettersReturnCtorSuppliedData() {
 		AuthorizationFailureEvent event = new AuthorizationFailureEvent(new Object(), this.attributes, this.foo,
-				this.exception);
+	this.exception);
 		assertThat(event.getConfigAttributes()).isSameAs(this.attributes);
 		assertThat(event.getAccessDeniedException()).isSameAs(this.exception);
 		assertThat(event.getAuthentication()).isSameAs(this.foo);

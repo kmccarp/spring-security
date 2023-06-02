@@ -73,7 +73,7 @@ public class DefaultPermissionGrantingStrategy implements PermissionGrantingStra
 	 */
 	@Override
 	public boolean isGranted(Acl acl, List<Permission> permission, List<Sid> sids, boolean administrativeMode)
-			throws NotFoundException {
+throws NotFoundException {
 		List<AccessControlEntry> aces = acl.getEntries();
 		AccessControlEntry firstRejection = null;
 		for (Permission p : permission) {

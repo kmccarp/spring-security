@@ -38,7 +38,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 /**
  * @author Josh Cummings
  */
-@ExtendWith({ SpringExtension.class, SpringTestContextExtension.class })
+@ExtendWith({SpringExtension.class, SpringTestContextExtension.class})
 @SecurityTestExecutionListeners
 public class PlaceHolderAndELConfigTests {
 
@@ -55,7 +55,7 @@ public class PlaceHolderAndELConfigTests {
 		this.spring.configLocations(this.xml("UnsecuredPattern")).autowire();
 		// @formatter:off
 		this.mvc.perform(get("/unsecured"))
-				.andExpect(status().isOk());
+	.andExpect(status().isOk());
 		// @formatter:on
 	}
 
@@ -73,14 +73,14 @@ public class PlaceHolderAndELConfigTests {
 		// login-page setting
 		// @formatter:off
 		this.mvc.perform(get("/secured"))
-				.andExpect(redirectedUrl("http://localhost/loginPage"));
+	.andExpect(redirectedUrl("http://localhost/loginPage"));
 		// login-processing-url setting
 		// default-target-url setting
 		this.mvc.perform(post("/loginPage").param("username", "user").param("password", "password"))
-				.andExpect(redirectedUrl("/defaultTarget"));
+	.andExpect(redirectedUrl("/defaultTarget"));
 		// authentication-failure-url setting
 		this.mvc.perform(post("/loginPage").param("username", "user").param("password", "wrong"))
-				.andExpect(redirectedUrl("/authFailure"));
+	.andExpect(redirectedUrl("/authFailure"));
 		// @formatter:on
 	}
 
@@ -98,14 +98,14 @@ public class PlaceHolderAndELConfigTests {
 		// login-page setting
 		// @formatter:off
 		this.mvc.perform(get("/secured"))
-				.andExpect(redirectedUrl("http://localhost/loginPage"));
+	.andExpect(redirectedUrl("http://localhost/loginPage"));
 		// login-processing-url setting
 		// default-target-url setting
 		this.mvc.perform(post("/loginPage").param("username", "user").param("password", "password"))
-				.andExpect(redirectedUrl("/defaultTarget"));
+	.andExpect(redirectedUrl("/defaultTarget"));
 		// authentication-failure-url setting
 		this.mvc.perform(post("/loginPage").param("username", "user").param("password", "wrong"))
-				.andExpect(redirectedUrl("/authFailure"));
+	.andExpect(redirectedUrl("/authFailure"));
 		// @formatter:on
 	}
 
@@ -117,11 +117,11 @@ public class PlaceHolderAndELConfigTests {
 		this.spring.configLocations(this.xml("PortMapping")).autowire();
 		// @formatter:off
 		this.mvc.perform(get("http://localhost:9080/secured"))
-				.andExpect(status().isFound())
-				.andExpect(redirectedUrl("https://localhost:9443/secured"));
+	.andExpect(status().isFound())
+	.andExpect(redirectedUrl("https://localhost:9443/secured"));
 		this.mvc.perform(get("https://localhost:9443/unsecured"))
-				.andExpect(status().isFound())
-				.andExpect(redirectedUrl("http://localhost:9080/unsecured"));
+	.andExpect(status().isFound())
+	.andExpect(redirectedUrl("http://localhost:9080/unsecured"));
 		// @formatter:on
 	}
 
@@ -133,8 +133,8 @@ public class PlaceHolderAndELConfigTests {
 		this.spring.configLocations(this.xml("RequiresChannel")).autowire();
 		// @formatter:off
 		this.mvc.perform(get("http://localhost/secured"))
-				.andExpect(status().isFound())
-				.andExpect(redirectedUrl("https://localhost/secured"));
+	.andExpect(status().isFound())
+	.andExpect(redirectedUrl("https://localhost/secured"));
 		// @formatter:on
 	}
 
@@ -145,7 +145,7 @@ public class PlaceHolderAndELConfigTests {
 		this.spring.configLocations(this.xml("AccessDeniedPage")).autowire();
 		// @formatter:off
 		this.mvc.perform(get("/secured"))
-				.andExpect(forwardedUrl("/go-away"));
+	.andExpect(forwardedUrl("/go-away"));
 		// @formatter:on
 	}
 
@@ -155,7 +155,7 @@ public class PlaceHolderAndELConfigTests {
 		this.spring.configLocations(this.xml("AccessDeniedPageWithSpEL")).autowire();
 		// @formatter:off
 		this.mvc.perform(get("/secured"))
-				.andExpect(forwardedUrl("/go-away"));
+	.andExpect(forwardedUrl("/go-away"));
 		// @formatter:on
 	}
 

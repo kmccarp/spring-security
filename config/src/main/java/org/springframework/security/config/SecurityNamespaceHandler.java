@@ -86,7 +86,7 @@ public final class SecurityNamespaceHandler implements NamespaceHandler {
 		this.logger.info("Spring Security 'config' module version is " + version);
 		if (version.compareTo(coreVersion) != 0) {
 			this.logger.error(
-					"You are running with different versions of the Spring Security 'core' and 'config' modules");
+		"You are running with different versions of the Spring Security 'core' and 'config' modules");
 		}
 	}
 
@@ -94,8 +94,8 @@ public final class SecurityNamespaceHandler implements NamespaceHandler {
 	public BeanDefinition parse(Element element, ParserContext pc) {
 		if (!namespaceMatchesVersion(element)) {
 			pc.getReaderContext().fatal("You cannot use a spring-security-2.0.xsd or spring-security-3.0.xsd or "
-					+ "spring-security-3.1.xsd schema or spring-security-3.2.xsd schema or spring-security-4.0.xsd schema "
-					+ "with Spring Security 6.1. Please update your schema declarations to the 6.1 schema.", element);
+		+ "spring-security-3.1.xsd schema or spring-security-3.2.xsd schema or spring-security-4.0.xsd schema "
+		+ "with Spring Security 6.1. Please update your schema declarations to the 6.1 schema.", element);
 		}
 		String name = pc.getDelegate().getLocalName(element);
 		BeanDefinitionParser parser = this.parsers.get(name);
@@ -108,7 +108,7 @@ public final class SecurityNamespaceHandler implements NamespaceHandler {
 			return parser.parse(element, pc);
 		}
 		if (Elements.HTTP.equals(name) || Elements.FILTER_SECURITY_METADATA_SOURCE.equals(name)
-				|| Elements.FILTER_CHAIN_MAP.equals(name) || Elements.FILTER_CHAIN.equals(name)) {
+	|| Elements.FILTER_CHAIN_MAP.equals(name) || Elements.FILTER_CHAIN.equals(name)) {
 			reportMissingWebClasses(name, pc, element);
 		}
 		else {
@@ -141,12 +141,12 @@ public final class SecurityNamespaceHandler implements NamespaceHandler {
 
 	private void reportUnsupportedNodeType(String name, ParserContext pc, Node node) {
 		pc.getReaderContext().fatal("Security namespace does not support decoration of "
-				+ ((node instanceof Element) ? "element" : "attribute") + " [" + name + "]", node);
+	+ ((node instanceof Element) ? "element" : "attribute") + " [" + name + "]", node);
 	}
 
 	private void reportMissingWebClasses(String nodeName, ParserContext pc, Node node) {
 		String errorMessage = "The classes from the spring-security-web jar "
-				+ "(or one of its dependencies) are not available. You need these to use <" + nodeName + ">";
+	+ "(or one of its dependencies) are not available. You need these to use <" + nodeName + ">";
 		try {
 			ClassUtils.forName(FILTER_CHAIN_PROXY_CLASSNAME, getClass().getClassLoader());
 			// no details available
@@ -175,7 +175,7 @@ public final class SecurityNamespaceHandler implements NamespaceHandler {
 		this.parsers.put(Elements.METHOD_SECURITY, new MethodSecurityBeanDefinitionParser());
 		this.parsers.put(Elements.AUTHENTICATION_MANAGER, new AuthenticationManagerBeanDefinitionParser());
 		this.parsers.put(Elements.METHOD_SECURITY_METADATA_SOURCE,
-				new MethodSecurityMetadataSourceBeanDefinitionParser());
+	new MethodSecurityMetadataSourceBeanDefinitionParser());
 		if (ClassUtils.isPresent(FILTER_CHAIN_PROXY_CLASSNAME, getClass().getClassLoader())) {
 			loadWebParsers();
 		}
@@ -213,14 +213,14 @@ public final class SecurityNamespaceHandler implements NamespaceHandler {
 	 */
 	private boolean namespaceMatchesVersion(Element element) {
 		return matchesVersionInternal(element)
-				&& matchesVersionInternal(element.getOwnerDocument().getDocumentElement());
+	&& matchesVersionInternal(element.getOwnerDocument().getDocumentElement());
 	}
 
 	private boolean matchesVersionInternal(Element element) {
 		String schemaLocation = element.getAttributeNS("http://www.w3.org/2001/XMLSchema-instance", "schemaLocation");
 		return schemaLocation.matches("(?m).*spring-security-6\\.1.*.xsd.*")
-				|| schemaLocation.matches("(?m).*spring-security.xsd.*")
-				|| !schemaLocation.matches("(?m).*spring-security.*");
+	|| schemaLocation.matches("(?m).*spring-security.xsd.*")
+	|| !schemaLocation.matches("(?m).*spring-security.*");
 	}
 
 }

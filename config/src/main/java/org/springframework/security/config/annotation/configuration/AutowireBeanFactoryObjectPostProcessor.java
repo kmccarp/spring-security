@@ -38,8 +38,7 @@ import org.springframework.util.Assert;
  * @author Rob Winch
  * @since 3.2
  */
-final class AutowireBeanFactoryObjectPostProcessor
-		implements ObjectPostProcessor<Object>, DisposableBean, SmartInitializingSingleton {
+final class AutowireBeanFactoryObjectPostProcessorimplements ObjectPostProcessor<Object>, DisposableBean, SmartInitializingSingleton {
 
 	private final Log logger = LogFactory.getLog(getClass());
 

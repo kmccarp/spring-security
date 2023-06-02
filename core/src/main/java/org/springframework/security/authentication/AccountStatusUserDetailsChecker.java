@@ -41,22 +41,22 @@ public class AccountStatusUserDetailsChecker implements UserDetailsChecker, Mess
 		if (!user.isAccountNonLocked()) {
 			this.logger.debug("Failed to authenticate since user account is locked");
 			throw new LockedException(
-					this.messages.getMessage("AccountStatusUserDetailsChecker.locked", "User account is locked"));
+		this.messages.getMessage("AccountStatusUserDetailsChecker.locked", "User account is locked"));
 		}
 		if (!user.isEnabled()) {
 			this.logger.debug("Failed to authenticate since user account is disabled");
 			throw new DisabledException(
-					this.messages.getMessage("AccountStatusUserDetailsChecker.disabled", "User is disabled"));
+		this.messages.getMessage("AccountStatusUserDetailsChecker.disabled", "User is disabled"));
 		}
 		if (!user.isAccountNonExpired()) {
 			this.logger.debug("Failed to authenticate since user account is expired");
 			throw new AccountExpiredException(
-					this.messages.getMessage("AccountStatusUserDetailsChecker.expired", "User account has expired"));
+		this.messages.getMessage("AccountStatusUserDetailsChecker.expired", "User account has expired"));
 		}
 		if (!user.isCredentialsNonExpired()) {
 			this.logger.debug("Failed to authenticate since user account credentials have expired");
 			throw new CredentialsExpiredException(this.messages
-					.getMessage("AccountStatusUserDetailsChecker.credentialsExpired", "User credentials have expired"));
+		.getMessage("AccountStatusUserDetailsChecker.credentialsExpired", "User credentials have expired"));
 		}
 	}
 

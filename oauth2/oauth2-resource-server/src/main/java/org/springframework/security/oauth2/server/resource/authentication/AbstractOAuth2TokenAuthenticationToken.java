@@ -45,8 +45,7 @@ import org.springframework.util.Assert;
  * @see <a target="_blank" href="https://tools.ietf.org/search/rfc7662#section-2.2">2.2
  * Introspection Response</a>
  */
-public abstract class AbstractOAuth2TokenAuthenticationToken<T extends OAuth2Token>
-		extends AbstractAuthenticationToken {
+public abstract class AbstractOAuth2TokenAuthenticationToken<T extends OAuth2Token>extends AbstractAuthenticationToken {
 
 	private static final long serialVersionUID = SpringSecurityCoreVersion.SERIAL_VERSION_UID;
 
@@ -74,7 +73,7 @@ public abstract class AbstractOAuth2TokenAuthenticationToken<T extends OAuth2Tok
 	}
 
 	protected AbstractOAuth2TokenAuthenticationToken(T token, Object principal, Object credentials,
-			Collection<? extends GrantedAuthority> authorities) {
+Collection<? extends GrantedAuthority> authorities) {
 
 		super(authorities);
 		Assert.notNull(token, "token cannot be null");

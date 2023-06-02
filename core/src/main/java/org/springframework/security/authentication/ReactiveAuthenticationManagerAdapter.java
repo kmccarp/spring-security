@@ -49,9 +49,9 @@ public class ReactiveAuthenticationManagerAdapter implements ReactiveAuthenticat
 	public Mono<Authentication> authenticate(Authentication token) {
 		// @formatter:off
 		return Mono.just(token)
-				.publishOn(this.scheduler)
-				.flatMap(this::doAuthenticate)
-				.filter(Authentication::isAuthenticated);
+	.publishOn(this.scheduler)
+	.flatMap(this::doAuthenticate)
+	.filter(Authentication::isAuthenticated);
 		// @formatter:on
 	}
 

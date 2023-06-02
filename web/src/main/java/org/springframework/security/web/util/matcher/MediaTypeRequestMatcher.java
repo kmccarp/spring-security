@@ -177,7 +177,7 @@ public final class MediaTypeRequestMatcher implements RequestMatcher {
 	 * {@link RequestMatcher} return true
 	 */
 	public MediaTypeRequestMatcher(ContentNegotiationStrategy contentNegotiationStrategy,
-			MediaType... matchingMediaTypes) {
+MediaType... matchingMediaTypes) {
 		this(contentNegotiationStrategy, Arrays.asList(matchingMediaTypes));
 	}
 
@@ -188,7 +188,7 @@ public final class MediaTypeRequestMatcher implements RequestMatcher {
 	 * {@link RequestMatcher} return true
 	 */
 	public MediaTypeRequestMatcher(ContentNegotiationStrategy contentNegotiationStrategy,
-			Collection<MediaType> matchingMediaTypes) {
+Collection<MediaType> matchingMediaTypes) {
 		Assert.notNull(contentNegotiationStrategy, "ContentNegotiationStrategy cannot be null");
 		Assert.notEmpty(matchingMediaTypes, "matchingMediaTypes cannot be null or empty");
 		this.contentNegotiationStrategy = contentNegotiationStrategy;
@@ -254,8 +254,8 @@ public final class MediaTypeRequestMatcher implements RequestMatcher {
 	@Override
 	public String toString() {
 		return "MediaTypeRequestMatcher [contentNegotiationStrategy=" + this.contentNegotiationStrategy
-				+ ", matchingMediaTypes=" + this.matchingMediaTypes + ", useEquals=" + this.useEquals
-				+ ", ignoredMediaTypes=" + this.ignoredMediaTypes + "]";
+	+ ", matchingMediaTypes=" + this.matchingMediaTypes + ", useEquals=" + this.useEquals
+	+ ", ignoredMediaTypes=" + this.ignoredMediaTypes + "]";
 	}
 
 }

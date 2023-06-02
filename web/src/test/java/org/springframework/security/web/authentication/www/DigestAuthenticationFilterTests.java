@@ -89,13 +89,13 @@ public class DigestAuthenticationFilterTests {
 	private MockHttpServletRequest request;
 
 	private String createAuthorizationHeader(String username, String realm, String nonce, String uri,
-			String responseDigest, String qop, String nc, String cnonce) {
+String responseDigest, String qop, String nc, String cnonce) {
 		return "Digest username=\"" + username + "\", realm=\"" + realm + "\", nonce=\"" + nonce + "\", uri=\"" + uri
-				+ "\", response=\"" + responseDigest + "\", qop=" + qop + ", nc=" + nc + ", cnonce=\"" + cnonce + "\"";
+	+ "\", response=\"" + responseDigest + "\", qop=" + qop + ", nc=" + nc + ", cnonce=\"" + cnonce + "\"";
 	}
 
 	private MockHttpServletResponse executeFilterInContainerSimulator(Filter filter, final ServletRequest request,
-			final boolean expectChainToProceed) throws ServletException, IOException {
+final boolean expectChainToProceed) throws ServletException, IOException {
 		final MockHttpServletResponse response = new MockHttpServletResponse();
 		final FilterChain chain = mock(FilterChain.class);
 		filter.doFilter(request, response, chain);
@@ -124,7 +124,7 @@ public class DigestAuthenticationFilterTests {
 		SecurityContextHolder.clearContext();
 		// Create User Details Service
 		UserDetailsService uds = (username) -> new User("rod,ok", "koala",
-				AuthorityUtils.createAuthorityList("ROLE_ONE", "ROLE_TWO"));
+	AuthorityUtils.createAuthorityList("ROLE_ONE", "ROLE_TWO"));
 		DigestAuthenticationEntryPoint ep = new DigestAuthenticationEntryPoint();
 		ep.setRealmName(REALM);
 		ep.setKey(KEY);
@@ -139,9 +139,9 @@ public class DigestAuthenticationFilterTests {
 	public void testExpiredNonceReturnsForbiddenWithStaleHeader() throws Exception {
 		String nonce = generateNonce(0);
 		String responseDigest = DigestAuthUtils.generateDigest(false, USERNAME, REALM, PASSWORD, "GET", REQUEST_URI,
-				QOP, nonce, NC, CNONCE);
+	QOP, nonce, NC, CNONCE);
 		this.request.addHeader("Authorization",
-				createAuthorizationHeader(USERNAME, REALM, nonce, REQUEST_URI, responseDigest, QOP, NC, CNONCE));
+	createAuthorizationHeader(USERNAME, REALM, nonce, REQUEST_URI, responseDigest, QOP, NC, CNONCE));
 		Thread.sleep(1000); // ensures token expired
 		MockHttpServletResponse response = executeFilterInContainerSimulator(this.filter, this.request, false);
 		assertThat(SecurityContextHolder.getContext().getAuthentication()).isNull();
@@ -156,9 +156,9 @@ public class DigestAuthenticationFilterTests {
 	public void doFilterWhenNonceHasBadKeyThenGeneratesError() throws Exception {
 		String badNonce = generateNonce(60, "badkey");
 		String responseDigest = DigestAuthUtils.generateDigest(false, USERNAME, REALM, PASSWORD, "GET", REQUEST_URI,
-				QOP, badNonce, NC, CNONCE);
+	QOP, badNonce, NC, CNONCE);
 		this.request.addHeader("Authorization",
-				createAuthorizationHeader(USERNAME, REALM, badNonce, REQUEST_URI, responseDigest, QOP, NC, CNONCE));
+	createAuthorizationHeader(USERNAME, REALM, badNonce, REQUEST_URI, responseDigest, QOP, NC, CNONCE));
 		MockHttpServletResponse response = executeFilterInContainerSimulator(this.filter, this.request, false);
 		assertThat(response.getStatus()).isEqualTo(401);
 		assertThat(SecurityContextHolder.getContext().getAuthentication()).isNull();
@@ -204,9 +204,9 @@ public class DigestAuthenticationFilterTests {
 	public void testNonBase64EncodedNonceReturnsForbidden() throws Exception {
 		String nonce = "NOT_BASE_64_ENCODED";
 		String responseDigest = DigestAuthUtils.generateDigest(false, USERNAME, REALM, PASSWORD, "GET", REQUEST_URI,
-				QOP, nonce, NC, CNONCE);
+	QOP, nonce, NC, CNONCE);
 		this.request.addHeader("Authorization",
-				createAuthorizationHeader(USERNAME, REALM, nonce, REQUEST_URI, responseDigest, QOP, NC, CNONCE));
+	createAuthorizationHeader(USERNAME, REALM, nonce, REQUEST_URI, responseDigest, QOP, NC, CNONCE));
 		MockHttpServletResponse response = executeFilterInContainerSimulator(this.filter, this.request, false);
 		assertThat(SecurityContextHolder.getContext().getAuthentication()).isNull();
 		assertThat(response.getStatus()).isEqualTo(401);
@@ -216,9 +216,9 @@ public class DigestAuthenticationFilterTests {
 	public void testNonceWithIncorrectSignatureForNumericFieldReturnsForbidden() throws Exception {
 		String nonce = CodecTestUtils.encodeBase64("123456:incorrectStringPassword");
 		String responseDigest = DigestAuthUtils.generateDigest(false, USERNAME, REALM, PASSWORD, "GET", REQUEST_URI,
-				QOP, nonce, NC, CNONCE);
+	QOP, nonce, NC, CNONCE);
 		this.request.addHeader("Authorization",
-				createAuthorizationHeader(USERNAME, REALM, nonce, REQUEST_URI, responseDigest, QOP, NC, CNONCE));
+	createAuthorizationHeader(USERNAME, REALM, nonce, REQUEST_URI, responseDigest, QOP, NC, CNONCE));
 		MockHttpServletResponse response = executeFilterInContainerSimulator(this.filter, this.request, false);
 		assertThat(SecurityContextHolder.getContext().getAuthentication()).isNull();
 		assertThat(response.getStatus()).isEqualTo(401);
@@ -228,9 +228,9 @@ public class DigestAuthenticationFilterTests {
 	public void testNonceWithNonNumericFirstElementReturnsForbidden() throws Exception {
 		String nonce = CodecTestUtils.encodeBase64("hello:ignoredSecondElement");
 		String responseDigest = DigestAuthUtils.generateDigest(false, USERNAME, REALM, PASSWORD, "GET", REQUEST_URI,
-				QOP, nonce, NC, CNONCE);
+	QOP, nonce, NC, CNONCE);
 		this.request.addHeader("Authorization",
-				createAuthorizationHeader(USERNAME, REALM, nonce, REQUEST_URI, responseDigest, QOP, NC, CNONCE));
+	createAuthorizationHeader(USERNAME, REALM, nonce, REQUEST_URI, responseDigest, QOP, NC, CNONCE));
 		MockHttpServletResponse response = executeFilterInContainerSimulator(this.filter, this.request, false);
 		assertThat(SecurityContextHolder.getContext().getAuthentication()).isNull();
 		assertThat(response.getStatus()).isEqualTo(401);
@@ -240,9 +240,9 @@ public class DigestAuthenticationFilterTests {
 	public void testNonceWithoutTwoColonSeparatedElementsReturnsForbidden() throws Exception {
 		String nonce = CodecTestUtils.encodeBase64("a base 64 string without a colon");
 		String responseDigest = DigestAuthUtils.generateDigest(false, USERNAME, REALM, PASSWORD, "GET", REQUEST_URI,
-				QOP, nonce, NC, CNONCE);
+	QOP, nonce, NC, CNONCE);
 		this.request.addHeader("Authorization",
-				createAuthorizationHeader(USERNAME, REALM, nonce, REQUEST_URI, responseDigest, QOP, NC, CNONCE));
+	createAuthorizationHeader(USERNAME, REALM, nonce, REQUEST_URI, responseDigest, QOP, NC, CNONCE));
 		MockHttpServletResponse response = executeFilterInContainerSimulator(this.filter, this.request, false);
 		assertThat(SecurityContextHolder.getContext().getAuthentication()).isNull();
 		assertThat(response.getStatus()).isEqualTo(401);
@@ -252,48 +252,48 @@ public class DigestAuthenticationFilterTests {
 	public void testNormalOperationWhenPasswordIsAlreadyEncoded() throws Exception {
 		String encodedPassword = DigestAuthUtils.encodePasswordInA1Format(USERNAME, REALM, PASSWORD);
 		String responseDigest = DigestAuthUtils.generateDigest(true, USERNAME, REALM, encodedPassword, "GET",
-				REQUEST_URI, QOP, NONCE, NC, CNONCE);
+	REQUEST_URI, QOP, NONCE, NC, CNONCE);
 		this.request.addHeader("Authorization",
-				createAuthorizationHeader(USERNAME, REALM, NONCE, REQUEST_URI, responseDigest, QOP, NC, CNONCE));
+	createAuthorizationHeader(USERNAME, REALM, NONCE, REQUEST_URI, responseDigest, QOP, NC, CNONCE));
 		executeFilterInContainerSimulator(this.filter, this.request, true);
 		assertThat(SecurityContextHolder.getContext().getAuthentication()).isNotNull();
 		assertThat(((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername())
-				.isEqualTo(USERNAME);
+	.isEqualTo(USERNAME);
 		assertThat(this.request.getAttribute(RequestAttributeSecurityContextRepository.DEFAULT_REQUEST_ATTR_NAME))
-				.isNotNull();
+	.isNotNull();
 	}
 
 	@Test
 	public void testNormalOperationWhenPasswordNotAlreadyEncoded() throws Exception {
 		String responseDigest = DigestAuthUtils.generateDigest(false, USERNAME, REALM, PASSWORD, "GET", REQUEST_URI,
-				QOP, NONCE, NC, CNONCE);
+	QOP, NONCE, NC, CNONCE);
 		this.request.addHeader("Authorization",
-				createAuthorizationHeader(USERNAME, REALM, NONCE, REQUEST_URI, responseDigest, QOP, NC, CNONCE));
+	createAuthorizationHeader(USERNAME, REALM, NONCE, REQUEST_URI, responseDigest, QOP, NC, CNONCE));
 		executeFilterInContainerSimulator(this.filter, this.request, true);
 		assertThat(SecurityContextHolder.getContext().getAuthentication()).isNotNull();
 		assertThat(((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername())
-				.isEqualTo(USERNAME);
+	.isEqualTo(USERNAME);
 		assertThat(SecurityContextHolder.getContext().getAuthentication().isAuthenticated()).isFalse();
 		assertThat(this.request.getAttribute(RequestAttributeSecurityContextRepository.DEFAULT_REQUEST_ATTR_NAME))
-				.isNotNull();
+	.isNotNull();
 	}
 
 	@Test
 	public void testNormalOperationWhenPasswordNotAlreadyEncodedAndWithoutReAuthentication() throws Exception {
 		String responseDigest = DigestAuthUtils.generateDigest(false, USERNAME, REALM, PASSWORD, "GET", REQUEST_URI,
-				QOP, NONCE, NC, CNONCE);
+	QOP, NONCE, NC, CNONCE);
 		this.request.addHeader("Authorization",
-				createAuthorizationHeader(USERNAME, REALM, NONCE, REQUEST_URI, responseDigest, QOP, NC, CNONCE));
+	createAuthorizationHeader(USERNAME, REALM, NONCE, REQUEST_URI, responseDigest, QOP, NC, CNONCE));
 		this.filter.setCreateAuthenticatedToken(true);
 		executeFilterInContainerSimulator(this.filter, this.request, true);
 		assertThat(SecurityContextHolder.getContext().getAuthentication()).isNotNull();
 		assertThat(((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername())
-				.isEqualTo(USERNAME);
+	.isEqualTo(USERNAME);
 		assertThat(SecurityContextHolder.getContext().getAuthentication().isAuthenticated()).isTrue();
 		assertThat(SecurityContextHolder.getContext().getAuthentication().getAuthorities())
-				.isEqualTo(AuthorityUtils.createAuthorityList("ROLE_ONE", "ROLE_TWO"));
+	.isEqualTo(AuthorityUtils.createAuthorityList("ROLE_ONE", "ROLE_TWO"));
 		assertThat(this.request.getAttribute(RequestAttributeSecurityContextRepository.DEFAULT_REQUEST_ATTR_NAME))
-				.isNotNull();
+	.isNotNull();
 	}
 
 	@Test
@@ -321,9 +321,9 @@ public class DigestAuthenticationFilterTests {
 	public void authenticateUsesCustomSecurityContextHolderStrategy() throws Exception {
 		SecurityContextHolderStrategy securityContextHolderStrategy = spy(new MockSecurityContextHolderStrategy());
 		String responseDigest = DigestAuthUtils.generateDigest(false, USERNAME, REALM, PASSWORD, "GET", REQUEST_URI,
-				QOP, NONCE, NC, CNONCE);
+	QOP, NONCE, NC, CNONCE);
 		this.request.addHeader("Authorization",
-				createAuthorizationHeader(USERNAME, REALM, NONCE, REQUEST_URI, responseDigest, QOP, NC, CNONCE));
+	createAuthorizationHeader(USERNAME, REALM, NONCE, REQUEST_URI, responseDigest, QOP, NC, CNONCE));
 		this.filter.setSecurityContextHolderStrategy(securityContextHolderStrategy);
 		executeFilterInContainerSimulator(this.filter, this.request, true);
 		verify(securityContextHolderStrategy).setContext(any());
@@ -332,17 +332,17 @@ public class DigestAuthenticationFilterTests {
 	@Test
 	public void successfulLoginThenFailedLoginResultsInSessionLosingToken() throws Exception {
 		String responseDigest = DigestAuthUtils.generateDigest(false, USERNAME, REALM, PASSWORD, "GET", REQUEST_URI,
-				QOP, NONCE, NC, CNONCE);
+	QOP, NONCE, NC, CNONCE);
 		this.request.addHeader("Authorization",
-				createAuthorizationHeader(USERNAME, REALM, NONCE, REQUEST_URI, responseDigest, QOP, NC, CNONCE));
+	createAuthorizationHeader(USERNAME, REALM, NONCE, REQUEST_URI, responseDigest, QOP, NC, CNONCE));
 		executeFilterInContainerSimulator(this.filter, this.request, true);
 		assertThat(SecurityContextHolder.getContext().getAuthentication()).isNotNull();
 		// Now retry, giving an invalid nonce
 		responseDigest = DigestAuthUtils.generateDigest(false, USERNAME, REALM, "WRONG_PASSWORD", "GET", REQUEST_URI,
-				QOP, NONCE, NC, CNONCE);
+	QOP, NONCE, NC, CNONCE);
 		this.request = new MockHttpServletRequest();
 		this.request.addHeader("Authorization",
-				createAuthorizationHeader(USERNAME, REALM, NONCE, REQUEST_URI, responseDigest, QOP, NC, CNONCE));
+	createAuthorizationHeader(USERNAME, REALM, NONCE, REQUEST_URI, responseDigest, QOP, NC, CNONCE));
 		MockHttpServletResponse response = executeFilterInContainerSimulator(this.filter, this.request, false);
 		// Check we lost our previous authentication
 		assertThat(SecurityContextHolder.getContext().getAuthentication()).isNull();
@@ -353,9 +353,9 @@ public class DigestAuthenticationFilterTests {
 	public void wrongCnonceBasedOnDigestReturnsForbidden() throws Exception {
 		String cnonce = "NOT_SAME_AS_USED_FOR_DIGEST_COMPUTATION";
 		String responseDigest = DigestAuthUtils.generateDigest(false, USERNAME, REALM, PASSWORD, "GET", REQUEST_URI,
-				QOP, NONCE, NC, "DIFFERENT_CNONCE");
+	QOP, NONCE, NC, "DIFFERENT_CNONCE");
 		this.request.addHeader("Authorization",
-				createAuthorizationHeader(USERNAME, REALM, NONCE, REQUEST_URI, responseDigest, QOP, NC, cnonce));
+	createAuthorizationHeader(USERNAME, REALM, NONCE, REQUEST_URI, responseDigest, QOP, NC, cnonce));
 		MockHttpServletResponse response = executeFilterInContainerSimulator(this.filter, this.request, false);
 		assertThat(SecurityContextHolder.getContext().getAuthentication()).isNull();
 		assertThat(response.getStatus()).isEqualTo(401);
@@ -365,9 +365,9 @@ public class DigestAuthenticationFilterTests {
 	public void wrongDigestReturnsForbidden() throws Exception {
 		String password = "WRONG_PASSWORD";
 		String responseDigest = DigestAuthUtils.generateDigest(false, USERNAME, REALM, password, "GET", REQUEST_URI,
-				QOP, NONCE, NC, CNONCE);
+	QOP, NONCE, NC, CNONCE);
 		this.request.addHeader("Authorization",
-				createAuthorizationHeader(USERNAME, REALM, NONCE, REQUEST_URI, responseDigest, QOP, NC, CNONCE));
+	createAuthorizationHeader(USERNAME, REALM, NONCE, REQUEST_URI, responseDigest, QOP, NC, CNONCE));
 		MockHttpServletResponse response = executeFilterInContainerSimulator(this.filter, this.request, false);
 		assertThat(SecurityContextHolder.getContext().getAuthentication()).isNull();
 		assertThat(response.getStatus()).isEqualTo(401);
@@ -377,9 +377,9 @@ public class DigestAuthenticationFilterTests {
 	public void wrongRealmReturnsForbidden() throws Exception {
 		String realm = "WRONG_REALM";
 		String responseDigest = DigestAuthUtils.generateDigest(false, USERNAME, realm, PASSWORD, "GET", REQUEST_URI,
-				QOP, NONCE, NC, CNONCE);
+	QOP, NONCE, NC, CNONCE);
 		this.request.addHeader("Authorization",
-				createAuthorizationHeader(USERNAME, realm, NONCE, REQUEST_URI, responseDigest, QOP, NC, CNONCE));
+	createAuthorizationHeader(USERNAME, realm, NONCE, REQUEST_URI, responseDigest, QOP, NC, CNONCE));
 		MockHttpServletResponse response = executeFilterInContainerSimulator(this.filter, this.request, false);
 		assertThat(SecurityContextHolder.getContext().getAuthentication()).isNull();
 		assertThat(response.getStatus()).isEqualTo(401);
@@ -388,9 +388,9 @@ public class DigestAuthenticationFilterTests {
 	@Test
 	public void wrongUsernameReturnsForbidden() throws Exception {
 		String responseDigest = DigestAuthUtils.generateDigest(false, "NOT_A_KNOWN_USER", REALM, PASSWORD, "GET",
-				REQUEST_URI, QOP, NONCE, NC, CNONCE);
+	REQUEST_URI, QOP, NONCE, NC, CNONCE);
 		this.request.addHeader("Authorization",
-				createAuthorizationHeader(USERNAME, REALM, NONCE, REQUEST_URI, responseDigest, QOP, NC, CNONCE));
+	createAuthorizationHeader(USERNAME, REALM, NONCE, REQUEST_URI, responseDigest, QOP, NC, CNONCE));
 		MockHttpServletResponse response = executeFilterInContainerSimulator(this.filter, this.request, false);
 		assertThat(SecurityContextHolder.getContext().getAuthentication()).isNull();
 		assertThat(response.getStatus()).isEqualTo(401);
@@ -401,13 +401,13 @@ public class DigestAuthenticationFilterTests {
 	public void authenticationCreatesEmptyContext() throws Exception {
 		SecurityContext existingContext = SecurityContextHolder.createEmptyContext();
 		TestingAuthenticationToken existingAuthentication = new TestingAuthenticationToken("existingauthenitcated",
-				"pass", "ROLE_USER");
+	"pass", "ROLE_USER");
 		existingContext.setAuthentication(existingAuthentication);
 		SecurityContextHolder.setContext(existingContext);
 		String responseDigest = DigestAuthUtils.generateDigest(false, USERNAME, REALM, PASSWORD, "GET", REQUEST_URI,
-				QOP, NONCE, NC, CNONCE);
+	QOP, NONCE, NC, CNONCE);
 		this.request.addHeader("Authorization",
-				createAuthorizationHeader(USERNAME, REALM, NONCE, REQUEST_URI, responseDigest, QOP, NC, CNONCE));
+	createAuthorizationHeader(USERNAME, REALM, NONCE, REQUEST_URI, responseDigest, QOP, NC, CNONCE));
 		this.filter.setCreateAuthenticatedToken(true);
 		executeFilterInContainerSimulator(this.filter, this.request, true);
 		assertThat(existingAuthentication).isSameAs(existingContext.getAuthentication());
@@ -418,18 +418,18 @@ public class DigestAuthenticationFilterTests {
 		SecurityContextRepository securityContextRepository = mock(SecurityContextRepository.class);
 		ArgumentCaptor<SecurityContext> contextArg = ArgumentCaptor.forClass(SecurityContext.class);
 		String responseDigest = DigestAuthUtils.generateDigest(false, USERNAME, REALM, PASSWORD, "GET", REQUEST_URI,
-				QOP, NONCE, NC, CNONCE);
+	QOP, NONCE, NC, CNONCE);
 		this.request.addHeader("Authorization",
-				createAuthorizationHeader(USERNAME, REALM, NONCE, REQUEST_URI, responseDigest, QOP, NC, CNONCE));
+	createAuthorizationHeader(USERNAME, REALM, NONCE, REQUEST_URI, responseDigest, QOP, NC, CNONCE));
 		this.filter.setSecurityContextRepository(securityContextRepository);
 		this.filter.setCreateAuthenticatedToken(true);
 		MockHttpServletResponse response = executeFilterInContainerSimulator(this.filter, this.request, true);
 		assertThat(SecurityContextHolder.getContext().getAuthentication()).isNotNull();
 		assertThat(((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername())
-				.isEqualTo(USERNAME);
+	.isEqualTo(USERNAME);
 		assertThat(SecurityContextHolder.getContext().getAuthentication().isAuthenticated()).isTrue();
 		assertThat(SecurityContextHolder.getContext().getAuthentication().getAuthorities())
-				.isEqualTo(AuthorityUtils.createAuthorityList("ROLE_ONE", "ROLE_TWO"));
+	.isEqualTo(AuthorityUtils.createAuthorityList("ROLE_ONE", "ROLE_TWO"));
 		verify(securityContextRepository).saveContext(contextArg.capture(), eq(this.request), eq(response));
 		assertThat(contextArg.getValue().getAuthentication().getName()).isEqualTo(USERNAME);
 	}

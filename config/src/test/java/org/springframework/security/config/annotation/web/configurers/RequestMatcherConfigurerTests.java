@@ -53,9 +53,9 @@ public class RequestMatcherConfigurerTests {
 		this.spring.register(Sec2908Config.class).autowire();
 		// @formatter:off
 		this.mvc.perform(get("/oauth/abc"))
-				.andExpect(status().isForbidden());
+	.andExpect(status().isForbidden());
 		this.mvc.perform(get("/api/abc"))
-				.andExpect(status().isForbidden());
+	.andExpect(status().isForbidden());
 		// @formatter:on
 	}
 
@@ -64,9 +64,9 @@ public class RequestMatcherConfigurerTests {
 		this.spring.register(AuthorizeRequestInLambdaConfig.class).autowire();
 		// @formatter:off
 		this.mvc.perform(get("/oauth/abc"))
-				.andExpect(status().isForbidden());
+	.andExpect(status().isForbidden());
 		this.mvc.perform(get("/api/abc"))
-				.andExpect(status().isForbidden());
+	.andExpect(status().isForbidden());
 		// @formatter:on
 	}
 
@@ -78,14 +78,14 @@ public class RequestMatcherConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.securityMatchers()
-					.requestMatchers(new AntPathRequestMatcher("/api/**"))
-					.and()
-				.securityMatchers()
-					.requestMatchers(new AntPathRequestMatcher("/oauth/**"))
-					.and()
-				.authorizeRequests()
-					.anyRequest().denyAll();
+		.securityMatchers()
+		.requestMatchers(new AntPathRequestMatcher("/api/**"))
+		.and()
+		.securityMatchers()
+		.requestMatchers(new AntPathRequestMatcher("/oauth/**"))
+		.and()
+		.authorizeRequests()
+		.anyRequest().denyAll();
 			return http.build();
 			// @formatter:on
 		}
@@ -100,18 +100,18 @@ public class RequestMatcherConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.securityMatchers((matchers) ->
-					matchers
-						.requestMatchers(new AntPathRequestMatcher("/api/**"))
-				)
-				.securityMatchers((matchers) ->
-					matchers
-						.requestMatchers(new AntPathRequestMatcher("/oauth/**"))
-				)
-				.authorizeRequests((authorizeRequests) ->
-					authorizeRequests
-						.anyRequest().denyAll()
-				);
+		.securityMatchers((matchers) ->
+	matchers
+.requestMatchers(new AntPathRequestMatcher("/api/**"))
+		)
+		.securityMatchers((matchers) ->
+	matchers
+.requestMatchers(new AntPathRequestMatcher("/oauth/**"))
+		)
+		.authorizeRequests((authorizeRequests) ->
+	authorizeRequests
+.anyRequest().denyAll()
+		);
 			return http.build();
 			// @formatter:on
 		}

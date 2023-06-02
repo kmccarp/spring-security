@@ -49,7 +49,7 @@ public class ForwardAuthenticationSuccessHandler implements AuthenticationSucces
 
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
-			Authentication authentication) throws IOException, ServletException {
+Authentication authentication) throws IOException, ServletException {
 		request.getRequestDispatcher(this.forwardUrl).forward(request, response);
 	}
 

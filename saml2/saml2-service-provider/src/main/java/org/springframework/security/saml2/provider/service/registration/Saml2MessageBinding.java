@@ -26,8 +26,7 @@ package org.springframework.security.saml2.provider.service.registration;
  */
 public enum Saml2MessageBinding {
 
-	POST("urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"), REDIRECT(
-			"urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect");
+	POST("urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"), REDIRECT("urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect");
 
 	private final String urn;
 

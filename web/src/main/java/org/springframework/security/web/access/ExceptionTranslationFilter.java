@@ -84,7 +84,7 @@ import org.springframework.web.filter.GenericFilterBean;
 public class ExceptionTranslationFilter extends GenericFilterBean implements MessageSourceAware {
 
 	private SecurityContextHolderStrategy securityContextHolderStrategy = SecurityContextHolder
-			.getContextHolderStrategy();
+.getContextHolderStrategy();
 
 	private AccessDeniedHandler accessDeniedHandler = new AccessDeniedHandlerImpl();
 
@@ -116,12 +116,12 @@ public class ExceptionTranslationFilter extends GenericFilterBean implements Mes
 
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
-			throws IOException, ServletException {
+throws IOException, ServletException {
 		doFilter((HttpServletRequest) request, (HttpServletResponse) response, chain);
 	}
 
 	private void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
-			throws IOException, ServletException {
+throws IOException, ServletException {
 		try {
 			chain.doFilter(request, response);
 		}
@@ -132,17 +132,17 @@ public class ExceptionTranslationFilter extends GenericFilterBean implements Mes
 			// Try to extract a SpringSecurityException from the stacktrace
 			Throwable[] causeChain = this.throwableAnalyzer.determineCauseChain(ex);
 			RuntimeException securityException = (AuthenticationException) this.throwableAnalyzer
-					.getFirstThrowableOfType(AuthenticationException.class, causeChain);
+		.getFirstThrowableOfType(AuthenticationException.class, causeChain);
 			if (securityException == null) {
 				securityException = (AccessDeniedException) this.throwableAnalyzer
-						.getFirstThrowableOfType(AccessDeniedException.class, causeChain);
+			.getFirstThrowableOfType(AccessDeniedException.class, causeChain);
 			}
 			if (securityException == null) {
 				rethrow(ex);
 			}
 			if (response.isCommitted()) {
 				throw new ServletException("Unable to handle the Spring Security Exception "
-						+ "because the response is already committed.", ex);
+			+ "because the response is already committed.", ex);
 			}
 			handleSpringSecurityException(request, response, chain, securityException);
 		}
@@ -170,7 +170,7 @@ public class ExceptionTranslationFilter extends GenericFilterBean implements Mes
 	}
 
 	private void handleSpringSecurityException(HttpServletRequest request, HttpServletResponse response,
-			FilterChain chain, RuntimeException exception) throws IOException, ServletException {
+FilterChain chain, RuntimeException exception) throws IOException, ServletException {
 		if (exception instanceof AuthenticationException) {
 			handleAuthenticationException(request, response, chain, (AuthenticationException) exception);
 		}
@@ -180,37 +180,37 @@ public class ExceptionTranslationFilter extends GenericFilterBean implements Mes
 	}
 
 	private void handleAuthenticationException(HttpServletRequest request, HttpServletResponse response,
-			FilterChain chain, AuthenticationException exception) throws ServletException, IOException {
+FilterChain chain, AuthenticationException exception) throws ServletException, IOException {
 		this.logger.trace("Sending to authentication entry point since authentication failed", exception);
 		sendStartAuthentication(request, response, chain, exception);
 	}
 
 	private void handleAccessDeniedException(HttpServletRequest request, HttpServletResponse response,
-			FilterChain chain, AccessDeniedException exception) throws ServletException, IOException {
+FilterChain chain, AccessDeniedException exception) throws ServletException, IOException {
 		Authentication authentication = this.securityContextHolderStrategy.getContext().getAuthentication();
 		boolean isAnonymous = this.authenticationTrustResolver.isAnonymous(authentication);
 		if (isAnonymous || this.authenticationTrustResolver.isRememberMe(authentication)) {
 			if (logger.isTraceEnabled()) {
 				logger.trace(LogMessage.format("Sending %s to authentication entry point since access is denied",
-						authentication), exception);
+			authentication), exception);
 			}
 			sendStartAuthentication(request, response, chain,
-					new InsufficientAuthenticationException(
-							this.messages.getMessage("ExceptionTranslationFilter.insufficientAuthentication",
-									"Full authentication is required to access this resource")));
+		new InsufficientAuthenticationException(
+	this.messages.getMessage("ExceptionTranslationFilter.insufficientAuthentication",
+"Full authentication is required to access this resource")));
 		}
 		else {
 			if (logger.isTraceEnabled()) {
 				logger.trace(
-						LogMessage.format("Sending %s to access denied handler since access is denied", authentication),
-						exception);
+			LogMessage.format("Sending %s to access denied handler since access is denied", authentication),
+			exception);
 			}
 			this.accessDeniedHandler.handle(request, response, exception);
 		}
 	}
 
 	protected void sendStartAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain,
-			AuthenticationException reason) throws ServletException, IOException {
+AuthenticationException reason) throws ServletException, IOException {
 		// SEC-112: Clear the SecurityContextHolder's Authentication, as the
 		// existing Authentication is no longer considered valid
 		SecurityContext context = this.securityContextHolderStrategy.createEmptyContext();

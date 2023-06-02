@@ -177,12 +177,12 @@ public class LdapAuthenticationProvider extends AbstractLdapAuthenticationProvid
 			// The only reason a ppolicy exception can occur during a bind is that the
 			// account is locked.
 			throw new LockedException(
-					this.messages.getMessage(ex.getStatus().getErrorCode(), ex.getStatus().getDefaultMessage()));
+		this.messages.getMessage(ex.getStatus().getErrorCode(), ex.getStatus().getDefaultMessage()));
 		}
 		catch (UsernameNotFoundException ex) {
 			if (this.hideUserNotFoundExceptions) {
 				throw new BadCredentialsException(
-						this.messages.getMessage("LdapAuthenticationProvider.badCredentials", "Bad credentials"));
+			this.messages.getMessage("LdapAuthenticationProvider.badCredentials", "Bad credentials"));
 			}
 			throw ex;
 		}
@@ -193,7 +193,7 @@ public class LdapAuthenticationProvider extends AbstractLdapAuthenticationProvid
 
 	@Override
 	protected Collection<? extends GrantedAuthority> loadUserAuthorities(DirContextOperations userData, String username,
-			String password) {
+String password) {
 		return getAuthoritiesPopulator().getGrantedAuthorities(userData, username);
 	}
 

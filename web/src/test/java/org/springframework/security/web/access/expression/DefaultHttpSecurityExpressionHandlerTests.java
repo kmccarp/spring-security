@@ -78,7 +78,7 @@ public class DefaultHttpSecurityExpressionHandlerTests {
 		appContext.registerBeanDefinition("role", bean);
 		this.handler.setApplicationContext(appContext);
 		EvaluationContext ctx = this.handler.createEvaluationContext(mock(Authentication.class),
-				mock(RequestAuthorizationContext.class));
+	mock(RequestAuthorizationContext.class));
 		ExpressionParser parser = this.handler.getExpressionParser();
 		assertThat(parser.parseExpression("@role.getAttribute() == 'ROLE_A'").getValue(ctx, Boolean.class)).isTrue();
 		assertThat(parser.parseExpression("@role.attribute == 'ROLE_A'").getValue(ctx, Boolean.class)).isTrue();
@@ -105,8 +105,8 @@ public class DefaultHttpSecurityExpressionHandlerTests {
 		EvaluationContext context = this.handler.createEvaluationContext(mockAuthenticationSupplier, this.context);
 		verifyNoInteractions(mockAuthenticationSupplier);
 		assertThat(context.getRootObject()).extracting(TypedValue::getValue)
-				.asInstanceOf(InstanceOfAssertFactories.type(WebSecurityExpressionRoot.class))
-				.extracting(SecurityExpressionRoot::getAuthentication).isEqualTo(this.authentication);
+	.asInstanceOf(InstanceOfAssertFactories.type(WebSecurityExpressionRoot.class))
+	.extracting(SecurityExpressionRoot::getAuthentication).isEqualTo(this.authentication);
 		verify(mockAuthenticationSupplier).get();
 	}
 

@@ -62,8 +62,7 @@ import org.springframework.util.Assert;
  * @author Luke Taylor
  * @since 3.0
  */
-public class DefaultAuthenticationEventPublisher
-		implements AuthenticationEventPublisher, ApplicationEventPublisherAware {
+public class DefaultAuthenticationEventPublisherimplements AuthenticationEventPublisher, ApplicationEventPublisherAware {
 
 	private final Log logger = LogFactory.getLog(getClass());
 
@@ -88,9 +87,9 @@ public class DefaultAuthenticationEventPublisher
 		addMapping(AuthenticationServiceException.class.getName(), AuthenticationFailureServiceExceptionEvent.class);
 		addMapping(CredentialsExpiredException.class.getName(), AuthenticationFailureCredentialsExpiredEvent.class);
 		addMapping("org.springframework.security.authentication.cas.ProxyUntrustedException",
-				AuthenticationFailureProxyUntrustedEvent.class);
+	AuthenticationFailureProxyUntrustedEvent.class);
 		addMapping("org.springframework.security.oauth2.server.resource.InvalidBearerTokenException",
-				AuthenticationFailureBadCredentialsEvent.class);
+	AuthenticationFailureBadCredentialsEvent.class);
 	}
 
 	@Override
@@ -125,7 +124,7 @@ public class DefaultAuthenticationEventPublisher
 
 	private Constructor<? extends AbstractAuthenticationEvent> getEventConstructor(AuthenticationException exception) {
 		Constructor<? extends AbstractAuthenticationEvent> eventConstructor = this.exceptionMappings
-				.get(exception.getClass().getName());
+	.get(exception.getClass().getName());
 		return (eventConstructor != null) ? eventConstructor : this.defaultAuthenticationFailureEventConstructor;
 	}
 
@@ -143,7 +142,7 @@ public class DefaultAuthenticationEventPublisher
 	 * @deprecated use {@link #setAdditionalExceptionMappings(Map)}
 	 */
 	@Deprecated
-	@SuppressWarnings({ "unchecked" })
+	@SuppressWarnings({"unchecked"})
 	public void setAdditionalExceptionMappings(Properties additionalExceptionMappings) {
 		Assert.notNull(additionalExceptionMappings, "The exceptionMappings object must not be null");
 		for (Object exceptionClass : additionalExceptionMappings.keySet()) {
@@ -166,7 +165,7 @@ public class DefaultAuthenticationEventPublisher
 	 * @since 5.3
 	 */
 	public void setAdditionalExceptionMappings(
-			Map<Class<? extends AuthenticationException>, Class<? extends AbstractAuthenticationFailureEvent>> mappings) {
+Map<Class<? extends AuthenticationException>, Class<? extends AbstractAuthenticationFailureEvent>> mappings) {
 		Assert.notEmpty(mappings, "The mappings Map must not be empty nor null");
 		for (Map.Entry<Class<? extends AuthenticationException>, Class<? extends AbstractAuthenticationFailureEvent>> entry : mappings
 				.entrySet()) {
@@ -185,28 +184,28 @@ public class DefaultAuthenticationEventPublisher
 	 * class to be fired for unmapped exceptions.
 	 */
 	public void setDefaultAuthenticationFailureEvent(
-			Class<? extends AbstractAuthenticationFailureEvent> defaultAuthenticationFailureEventClass) {
+Class<? extends AbstractAuthenticationFailureEvent> defaultAuthenticationFailureEventClass) {
 		Assert.notNull(defaultAuthenticationFailureEventClass,
-				"defaultAuthenticationFailureEventClass must not be null");
+	"defaultAuthenticationFailureEventClass must not be null");
 		try {
 			this.defaultAuthenticationFailureEventConstructor = defaultAuthenticationFailureEventClass
-					.getConstructor(Authentication.class, AuthenticationException.class);
+		.getConstructor(Authentication.class, AuthenticationException.class);
 		}
 		catch (NoSuchMethodException ex) {
 			throw new RuntimeException("Default Authentication Failure event class "
-					+ defaultAuthenticationFailureEventClass.getName() + " has no suitable constructor");
+		+ defaultAuthenticationFailureEventClass.getName() + " has no suitable constructor");
 		}
 	}
 
 	private void addMapping(String exceptionClass, Class<? extends AbstractAuthenticationFailureEvent> eventClass) {
 		try {
 			Constructor<? extends AbstractAuthenticationEvent> constructor = eventClass
-					.getConstructor(Authentication.class, AuthenticationException.class);
+		.getConstructor(Authentication.class, AuthenticationException.class);
 			this.exceptionMappings.put(exceptionClass, constructor);
 		}
 		catch (NoSuchMethodException ex) {
 			throw new RuntimeException(
-					"Authentication event class " + eventClass.getName() + " has no suitable constructor");
+		"Authentication event class " + eventClass.getName() + " has no suitable constructor");
 		}
 	}
 

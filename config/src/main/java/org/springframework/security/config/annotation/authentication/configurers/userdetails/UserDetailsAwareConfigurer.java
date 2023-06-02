@@ -30,8 +30,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
  * @param <U> the type of {@link UserDetailsService}
  * @author Rob Winch
  */
-public abstract class UserDetailsAwareConfigurer<B extends ProviderManagerBuilder<B>, U extends UserDetailsService>
-		extends SecurityConfigurerAdapter<AuthenticationManager, B> {
+public abstract class UserDetailsAwareConfigurer<B extends ProviderManagerBuilder<B>, U extends UserDetailsService>extends SecurityConfigurerAdapter<AuthenticationManager, B> {
 
 	/**
 	 * Gets the {@link UserDetailsService} or null if it is not available

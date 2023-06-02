@@ -76,17 +76,17 @@ public class DaoAuthenticationProvider extends AbstractUserDetailsAuthentication
 	@Override
 	@SuppressWarnings("deprecation")
 	protected void additionalAuthenticationChecks(UserDetails userDetails,
-			UsernamePasswordAuthenticationToken authentication) throws AuthenticationException {
+UsernamePasswordAuthenticationToken authentication) throws AuthenticationException {
 		if (authentication.getCredentials() == null) {
 			this.logger.debug("Failed to authenticate since no credentials provided");
 			throw new BadCredentialsException(this.messages
-					.getMessage("AbstractUserDetailsAuthenticationProvider.badCredentials", "Bad credentials"));
+		.getMessage("AbstractUserDetailsAuthenticationProvider.badCredentials", "Bad credentials"));
 		}
 		String presentedPassword = authentication.getCredentials().toString();
 		if (!this.passwordEncoder.matches(presentedPassword, userDetails.getPassword())) {
 			this.logger.debug("Failed to authenticate since password does not match stored value");
 			throw new BadCredentialsException(this.messages
-					.getMessage("AbstractUserDetailsAuthenticationProvider.badCredentials", "Bad credentials"));
+		.getMessage("AbstractUserDetailsAuthenticationProvider.badCredentials", "Bad credentials"));
 		}
 	}
 
@@ -97,13 +97,13 @@ public class DaoAuthenticationProvider extends AbstractUserDetailsAuthentication
 
 	@Override
 	protected final UserDetails retrieveUser(String username, UsernamePasswordAuthenticationToken authentication)
-			throws AuthenticationException {
+throws AuthenticationException {
 		prepareTimingAttackProtection();
 		try {
 			UserDetails loadedUser = this.getUserDetailsService().loadUserByUsername(username);
 			if (loadedUser == null) {
 				throw new InternalAuthenticationServiceException(
-						"UserDetailsService returned null, which is an interface contract violation");
+			"UserDetailsService returned null, which is an interface contract violation");
 			}
 			return loadedUser;
 		}
@@ -121,9 +121,9 @@ public class DaoAuthenticationProvider extends AbstractUserDetailsAuthentication
 
 	@Override
 	protected Authentication createSuccessAuthentication(Object principal, Authentication authentication,
-			UserDetails user) {
+UserDetails user) {
 		boolean upgradeEncoding = this.userDetailsPasswordService != null
-				&& this.passwordEncoder.upgradeEncoding(user.getPassword());
+	&& this.passwordEncoder.upgradeEncoding(user.getPassword());
 		if (upgradeEncoding) {
 			String presentedPassword = authentication.getCredentials().toString();
 			String newPassword = this.passwordEncoder.encode(presentedPassword);

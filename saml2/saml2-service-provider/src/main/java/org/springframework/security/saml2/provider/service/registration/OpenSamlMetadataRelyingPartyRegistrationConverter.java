@@ -95,23 +95,23 @@ class OpenSamlMetadataRelyingPartyRegistrationConverter {
 		}
 		if (verification.isEmpty()) {
 			throw new Saml2Exception(
-					"Metadata response is missing verification certificates, necessary for verifying SAML assertions");
+		"Metadata response is missing verification certificates, necessary for verifying SAML assertions");
 		}
 		OpenSamlRelyingPartyRegistration.Builder builder = OpenSamlRelyingPartyRegistration
-				.withAssertingPartyEntityDescriptor(descriptor)
-				.assertingPartyDetails((party) -> party.entityId(descriptor.getEntityID())
-						.wantAuthnRequestsSigned(Boolean.TRUE.equals(idpssoDescriptor.getWantAuthnRequestsSigned()))
-						.verificationX509Credentials((c) -> c.addAll(verification))
-						.encryptionX509Credentials((c) -> c.addAll(encryption)));
+	.withAssertingPartyEntityDescriptor(descriptor)
+	.assertingPartyDetails((party) -> party.entityId(descriptor.getEntityID())
+.wantAuthnRequestsSigned(Boolean.TRUE.equals(idpssoDescriptor.getWantAuthnRequestsSigned()))
+.verificationX509Credentials((c) -> c.addAll(verification))
+.encryptionX509Credentials((c) -> c.addAll(encryption)));
 
 		List<SigningMethod> signingMethods = signingMethods(idpssoDescriptor);
 		for (SigningMethod method : signingMethods) {
 			builder.assertingPartyDetails(
-					(party) -> party.signingAlgorithms((algorithms) -> algorithms.add(method.getAlgorithm())));
+		(party) -> party.signingAlgorithms((algorithms) -> algorithms.add(method.getAlgorithm())));
 		}
 		if (idpssoDescriptor.getSingleSignOnServices().isEmpty()) {
 			throw new Saml2Exception(
-					"Metadata response is missing a SingleSignOnService, necessary for sending AuthnRequests");
+		"Metadata response is missing a SingleSignOnService, necessary for sending AuthnRequests");
 		}
 		for (SingleSignOnService singleSignOnService : idpssoDescriptor.getSingleSignOnServices()) {
 			Saml2MessageBinding binding;
@@ -125,8 +125,8 @@ class OpenSamlMetadataRelyingPartyRegistrationConverter {
 				continue;
 			}
 			builder.assertingPartyDetails(
-					(party) -> party.singleSignOnServiceLocation(singleSignOnService.getLocation())
-							.singleSignOnServiceBinding(binding));
+		(party) -> party.singleSignOnServiceLocation(singleSignOnService.getLocation())
+	.singleSignOnServiceBinding(binding));
 			break;
 		}
 		for (SingleLogoutService singleLogoutService : idpssoDescriptor.getSingleLogoutServices()) {
@@ -141,10 +141,10 @@ class OpenSamlMetadataRelyingPartyRegistrationConverter {
 				continue;
 			}
 			String responseLocation = (singleLogoutService.getResponseLocation() == null)
-					? singleLogoutService.getLocation() : singleLogoutService.getResponseLocation();
+		? singleLogoutService.getLocation() : singleLogoutService.getResponseLocation();
 			builder.assertingPartyDetails(
-					(party) -> party.singleLogoutServiceLocation(singleLogoutService.getLocation())
-							.singleLogoutServiceResponseLocation(responseLocation).singleLogoutServiceBinding(binding));
+		(party) -> party.singleLogoutServiceLocation(singleLogoutService.getLocation())
+	.singleLogoutServiceResponseLocation(responseLocation).singleLogoutServiceBinding(binding));
 			break;
 		}
 

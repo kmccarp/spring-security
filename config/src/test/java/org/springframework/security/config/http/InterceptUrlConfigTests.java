@@ -75,9 +75,9 @@ public class InterceptUrlConfigTests {
 		this.spring.configLocations(this.xml("Sec2256")).autowire();
 		// @formatter:off
 		this.mvc.perform(post("/path").with(userCredentials()))
-				.andExpect(status().isOk());
+	.andExpect(status().isOk());
 		this.mvc.perform(get("/path").with(userCredentials()))
-				.andExpect(status().isOk());
+	.andExpect(status().isOk());
 		// @formatter:on
 	}
 
@@ -89,9 +89,9 @@ public class InterceptUrlConfigTests {
 		this.spring.configLocations(this.xml("Sec2256AuthorizationManager")).autowire();
 		// @formatter:off
 		this.mvc.perform(post("/path").with(userCredentials()))
-				.andExpect(status().isOk());
+	.andExpect(status().isOk());
 		this.mvc.perform(get("/path").with(userCredentials()))
-				.andExpect(status().isOk());
+	.andExpect(status().isOk());
 		// @formatter:on
 		assertThat(this.spring.getContext().getBean(AuthorizationManager.class)).isNotNull();
 	}
@@ -104,11 +104,11 @@ public class InterceptUrlConfigTests {
 		this.spring.configLocations(this.xml("PatchMethod")).autowire();
 		// @formatter:off
 		this.mvc.perform(get("/path").with(userCredentials()))
-				.andExpect(status().isOk());
+	.andExpect(status().isOk());
 		this.mvc.perform(patch("/path").with(userCredentials()))
-				.andExpect(status().isForbidden());
+	.andExpect(status().isForbidden());
 		this.mvc.perform(patch("/path").with(adminCredentials()))
-				.andExpect(status().isOk());
+	.andExpect(status().isOk());
 		// @formatter:on
 	}
 
@@ -120,11 +120,11 @@ public class InterceptUrlConfigTests {
 		this.spring.configLocations(this.xml("PatchMethodAuthorizationManager")).autowire();
 		// @formatter:off
 		this.mvc.perform(get("/path").with(userCredentials()))
-				.andExpect(status().isForbidden());
+	.andExpect(status().isForbidden());
 		this.mvc.perform(patch("/path").with(userCredentials()))
-				.andExpect(status().isForbidden());
+	.andExpect(status().isForbidden());
 		this.mvc.perform(patch("/path").with(adminCredentials()))
-				.andExpect(status().isOk());
+	.andExpect(status().isOk());
 		// @formatter:on
 		assertThat(this.spring.getContext().getBean(AuthorizationManager.class)).isNotNull();
 	}
@@ -134,9 +134,9 @@ public class InterceptUrlConfigTests {
 		this.spring.configLocations(this.xml("HasAnyRole")).autowire();
 		// @formatter:off
 		this.mvc.perform(get("/path").with(userCredentials()))
-				.andExpect(status().isOk());
+	.andExpect(status().isOk());
 		this.mvc.perform(get("/path").with(adminCredentials()))
-				.andExpect(status().isForbidden());
+	.andExpect(status().isForbidden());
 		// @formatter:on
 	}
 
@@ -145,9 +145,9 @@ public class InterceptUrlConfigTests {
 		this.spring.configLocations(this.xml("HasAnyRoleAuthorizationManager")).autowire();
 		// @formatter:off
 		this.mvc.perform(get("/path").with(userCredentials()))
-				.andExpect(status().isOk());
+	.andExpect(status().isOk());
 		this.mvc.perform(get("/path").with(adminCredentials()))
-				.andExpect(status().isForbidden());
+	.andExpect(status().isForbidden());
 		// @formatter:on
 		assertThat(this.spring.getContext().getBean(AuthorizationManager.class)).isNotNull();
 	}
@@ -160,11 +160,11 @@ public class InterceptUrlConfigTests {
 		this.spring.configLocations(this.xml("PathVariables")).autowire();
 		// @formatter:off
 		this.mvc.perform(get("/path/user/path").with(userCredentials()))
-				.andExpect(status().isOk());
+	.andExpect(status().isOk());
 		this.mvc.perform(get("/path/otheruser/path").with(userCredentials()))
-				.andExpect(status().isForbidden());
+	.andExpect(status().isForbidden());
 		this.mvc.perform(get("/path").with(userCredentials()))
-				.andExpect(status().isForbidden());
+	.andExpect(status().isForbidden());
 		// @formatter:on
 	}
 
@@ -173,15 +173,15 @@ public class InterceptUrlConfigTests {
 	 */
 	@Test
 	public void requestWhenUsingPathVariablesAndAuthorizationManagerThenAuthorizesRequestsAccordingly()
-			throws Exception {
+throws Exception {
 		this.spring.configLocations(this.xml("PathVariablesAuthorizationManager")).autowire();
 		// @formatter:off
 		this.mvc.perform(get("/path/user/path").with(userCredentials()))
-				.andExpect(status().isOk());
+	.andExpect(status().isOk());
 		this.mvc.perform(get("/path/otheruser/path").with(userCredentials()))
-				.andExpect(status().isForbidden());
+	.andExpect(status().isForbidden());
 		this.mvc.perform(get("/path").with(userCredentials()))
-				.andExpect(status().isForbidden());
+	.andExpect(status().isForbidden());
 		// @formatter:on
 		assertThat(this.spring.getContext().getBean(AuthorizationManager.class)).isNotNull();
 	}
@@ -194,11 +194,11 @@ public class InterceptUrlConfigTests {
 		this.spring.configLocations(this.xml("CamelCasePathVariables")).autowire();
 		// @formatter:off
 		this.mvc.perform(get("/path/user/path").with(userCredentials()))
-				.andExpect(status().isOk());
+	.andExpect(status().isOk());
 		this.mvc.perform(get("/path/otheruser/path").with(userCredentials()))
-				.andExpect(status().isForbidden());
+	.andExpect(status().isForbidden());
 		this.mvc.perform(get("/PATH/user/path").with(userCredentials()))
-				.andExpect(status().isForbidden());
+	.andExpect(status().isForbidden());
 		// @formatter:on
 	}
 
@@ -207,15 +207,15 @@ public class InterceptUrlConfigTests {
 	 */
 	@Test
 	public void requestWhenUsingCamelCasePathVariablesAndAuthorizationManagerThenAuthorizesRequestsAccordingly()
-			throws Exception {
+throws Exception {
 		this.spring.configLocations(this.xml("CamelCasePathVariablesAuthorizationManager")).autowire();
 		// @formatter:off
 		this.mvc.perform(get("/path/user/path").with(userCredentials()))
-				.andExpect(status().isOk());
+	.andExpect(status().isOk());
 		this.mvc.perform(get("/path/otheruser/path").with(userCredentials()))
-				.andExpect(status().isForbidden());
+	.andExpect(status().isForbidden());
 		this.mvc.perform(get("/PATH/user/path").with(userCredentials()))
-				.andExpect(status().isForbidden());
+	.andExpect(status().isForbidden());
 		// @formatter:on
 		assertThat(this.spring.getContext().getBean(AuthorizationManager.class)).isNotNull();
 	}
@@ -228,9 +228,9 @@ public class InterceptUrlConfigTests {
 		this.spring.configLocations(this.xml("TypeConversionPathVariables")).autowire();
 		// @formatter:off
 		this.mvc.perform(get("/path/1/path").with(userCredentials()))
-				.andExpect(status().isOk());
+	.andExpect(status().isOk());
 		this.mvc.perform(get("/path/2/path").with(userCredentials()))
-				.andExpect(status().isForbidden());
+	.andExpect(status().isForbidden());
 		// @formatter:on
 	}
 
@@ -239,13 +239,13 @@ public class InterceptUrlConfigTests {
 	 */
 	@Test
 	public void requestWhenUsingPathVariablesAndTypeConversionAndAuthorizationManagerThenAuthorizesRequestsAccordingly()
-			throws Exception {
+throws Exception {
 		this.spring.configLocations(this.xml("TypeConversionPathVariablesAuthorizationManager")).autowire();
 		// @formatter:off
 		this.mvc.perform(get("/path/1/path").with(userCredentials()))
-				.andExpect(status().isOk());
+	.andExpect(status().isOk());
 		this.mvc.perform(get("/path/2/path").with(userCredentials()))
-				.andExpect(status().isForbidden());
+	.andExpect(status().isForbidden());
 		// @formatter:on
 		assertThat(this.spring.getContext().getBean(AuthorizationManager.class)).isNotNull();
 	}
@@ -272,25 +272,25 @@ public class InterceptUrlConfigTests {
 		this.spring.configLocations(this.xml("MvcMatchersPathVariables")).autowire();
 		// @formatter:off
 		this.mvc.perform(get("/path/user/path").with(userCredentials()))
-				.andExpect(status().isOk());
+	.andExpect(status().isOk());
 		this.mvc.perform(get("/path/otheruser/path").with(userCredentials()))
-				.andExpect(status().isForbidden());
+	.andExpect(status().isForbidden());
 		this.mvc.perform(get("/PATH/user/path").with(userCredentials()))
-				.andExpect(status().isForbidden());
+	.andExpect(status().isForbidden());
 		// @formatter:on
 	}
 
 	@Test
 	public void requestWhenUsingMvcMatchersAndPathVariablesAndAuthorizationManagerThenAuthorizesRequestsAccordingly()
-			throws Exception {
+throws Exception {
 		this.spring.configLocations(this.xml("MvcMatchersPathVariablesAuthorizationManager")).autowire();
 		// @formatter:off
 		this.mvc.perform(get("/path/user/path").with(userCredentials()))
-				.andExpect(status().isOk());
+	.andExpect(status().isOk());
 		this.mvc.perform(get("/path/otheruser/path").with(userCredentials()))
-				.andExpect(status().isForbidden());
+	.andExpect(status().isForbidden());
 		this.mvc.perform(get("/PATH/user/path").with(userCredentials()))
-				.andExpect(status().isForbidden());
+	.andExpect(status().isForbidden());
 		// @formatter:on
 		assertThat(this.spring.getContext().getBean(AuthorizationManager.class)).isNotNull();
 	}
@@ -303,28 +303,28 @@ public class InterceptUrlConfigTests {
 		context.setServletContext(servletContext);
 		// @formatter:off
 		this.mvc.perform(get("/spring/path").servletPath("/spring"))
-				.andExpect(status().isUnauthorized());
+	.andExpect(status().isUnauthorized());
 		this.mvc.perform(get("/spring/path.html").servletPath("/spring"))
-				.andExpect(status().isUnauthorized());
+	.andExpect(status().isUnauthorized());
 		this.mvc.perform(get("/spring/path/").servletPath("/spring"))
-				.andExpect(status().isUnauthorized());
+	.andExpect(status().isUnauthorized());
 		// @formatter:on
 	}
 
 	@Test
 	public void requestWhenUsingMvcMatchersAndServletPathAndAuthorizationManagerThenAuthorizesRequestsAccordingly()
-			throws Exception {
+throws Exception {
 		this.spring.configLocations(this.xml("MvcMatchersServletPathAuthorizationManager")).autowire();
 		MockServletContext servletContext = mockServletContext("/spring");
 		ConfigurableWebApplicationContext context = this.spring.getContext();
 		context.setServletContext(servletContext);
 		// @formatter:off
 		this.mvc.perform(get("/spring/path").servletPath("/spring"))
-				.andExpect(status().isUnauthorized());
+	.andExpect(status().isUnauthorized());
 		this.mvc.perform(get("/spring/path.html").servletPath("/spring"))
-				.andExpect(status().isUnauthorized());
+	.andExpect(status().isUnauthorized());
 		this.mvc.perform(get("/spring/path/").servletPath("/spring"))
-				.andExpect(status().isUnauthorized());
+	.andExpect(status().isUnauthorized());
 		// @formatter:on
 		assertThat(this.spring.getContext().getBean(AuthorizationManager.class)).isNotNull();
 	}
@@ -332,66 +332,66 @@ public class InterceptUrlConfigTests {
 	@Test
 	public void configureWhenUsingAntMatcherAndServletPathThenThrowsException() {
 		assertThatExceptionOfType(BeanDefinitionParsingException.class)
-				.isThrownBy(() -> this.spring.configLocations(this.xml("AntMatcherServletPath")).autowire());
+	.isThrownBy(() -> this.spring.configLocations(this.xml("AntMatcherServletPath")).autowire());
 	}
 
 	@Test
 	public void configureWhenUsingAntMatcherAndServletPathAndAuthorizationManagerThenThrowsException() {
 		assertThatExceptionOfType(BeanDefinitionParsingException.class).isThrownBy(
-				() -> this.spring.configLocations(this.xml("AntMatcherServletPathAuthorizationManager")).autowire());
+	() -> this.spring.configLocations(this.xml("AntMatcherServletPathAuthorizationManager")).autowire());
 	}
 
 	@Test
 	public void configureWhenUsingRegexMatcherAndServletPathThenThrowsException() {
 		assertThatExceptionOfType(BeanDefinitionParsingException.class)
-				.isThrownBy(() -> this.spring.configLocations(this.xml("RegexMatcherServletPath")).autowire());
+	.isThrownBy(() -> this.spring.configLocations(this.xml("RegexMatcherServletPath")).autowire());
 	}
 
 	@Test
 	public void configureWhenUsingRegexMatcherAndServletPathAndAuthorizationManagerThenThrowsException() {
 		assertThatExceptionOfType(BeanDefinitionParsingException.class).isThrownBy(
-				() -> this.spring.configLocations(this.xml("RegexMatcherServletPathAuthorizationManager")).autowire());
+	() -> this.spring.configLocations(this.xml("RegexMatcherServletPathAuthorizationManager")).autowire());
 	}
 
 	@Test
 	public void configureWhenUsingCiRegexMatcherAndServletPathThenThrowsException() {
 		assertThatExceptionOfType(BeanDefinitionParsingException.class)
-				.isThrownBy(() -> this.spring.configLocations(this.xml("CiRegexMatcherServletPath")).autowire());
+	.isThrownBy(() -> this.spring.configLocations(this.xml("CiRegexMatcherServletPath")).autowire());
 	}
 
 	@Test
 	public void configureWhenUsingCiRegexMatcherAndServletPathAndAuthorizationManagerThenThrowsException() {
 		assertThatExceptionOfType(BeanDefinitionParsingException.class).isThrownBy(() -> this.spring
-				.configLocations(this.xml("CiRegexMatcherServletPathAuthorizationManager")).autowire());
+	.configLocations(this.xml("CiRegexMatcherServletPathAuthorizationManager")).autowire());
 	}
 
 	@Test
 	public void configureWhenUsingDefaultMatcherAndServletPathThenNoException() {
 		assertThatNoException()
-				.isThrownBy(() -> this.spring.configLocations(this.xml("DefaultMatcherServletPath")).autowire());
+	.isThrownBy(() -> this.spring.configLocations(this.xml("DefaultMatcherServletPath")).autowire());
 	}
 
 	@Test
 	public void configureWhenUsingDefaultMatcherAndNoIntrospectorBeanThenException() {
 		assertThatExceptionOfType(BeanCreationException.class)
-				.isThrownBy(() -> this.spring.configLocations(this.xml("DefaultMatcherNoIntrospectorBean")).autowire());
+	.isThrownBy(() -> this.spring.configLocations(this.xml("DefaultMatcherNoIntrospectorBean")).autowire());
 	}
 
 	@Test
 	public void configureWhenUsingDefaultMatcherAndServletPathAndAuthorizationManagerThenNoException() {
 		assertThatNoException().isThrownBy(() -> this.spring
-				.configLocations(this.xml("DefaultMatcherServletPathAuthorizationManager")).autowire());
+	.configLocations(this.xml("DefaultMatcherServletPathAuthorizationManager")).autowire());
 	}
 
 	@Test
 	public void requestWhenUsingFilterAllDispatcherTypesAndAuthorizationManagerThenAuthorizesRequestsAccordingly()
-			throws Exception {
+throws Exception {
 		this.spring.configLocations(this.xml("AuthorizationManagerFilterAllDispatcherTypes")).autowire();
 		// @formatter:off
 		this.mvc.perform(get("/path").with(userCredentials()))
-				.andExpect(status().isOk());
+	.andExpect(status().isOk());
 		this.mvc.perform(get("/path").with(adminCredentials()))
-				.andExpect(status().isForbidden());
+	.andExpect(status().isForbidden());
 		this.mvc.perform(get("/error").with((request) -> {
 			request.setAttribute(WebUtils.ERROR_REQUEST_URI_ATTRIBUTE, "/error");
 			request.setDispatcherType(DispatcherType.ERROR);
@@ -411,9 +411,9 @@ public class InterceptUrlConfigTests {
 		this.spring.configLocations(this.xml("FilterAllDispatcherTypesFalse")).autowire();
 		// @formatter:off
 		this.mvc.perform(get("/path").with(userCredentials()))
-				.andExpect(status().isOk());
+	.andExpect(status().isOk());
 		this.mvc.perform(get("/path").with(adminCredentials()))
-				.andExpect(status().isForbidden());
+	.andExpect(status().isForbidden());
 		this.mvc.perform(get("/error").with((request) -> {
 			request.setAttribute(WebUtils.ERROR_REQUEST_URI_ATTRIBUTE, "/error");
 			request.setDispatcherType(DispatcherType.ERROR);
@@ -441,7 +441,7 @@ public class InterceptUrlConfigTests {
 		final ServletRegistration registration = mock(ServletRegistration.class);
 		given(registration.getMappings()).willReturn(Collections.singleton(servletPath));
 		Answer<Map<String, ? extends ServletRegistration>> answer = (invocation) -> Collections.singletonMap("spring",
-				registration);
+	registration);
 		given(servletContext.getServletRegistrations()).willAnswer(answer);
 		return servletContext;
 	}

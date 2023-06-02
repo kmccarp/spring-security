@@ -41,7 +41,7 @@ public final class UsernamePasswordMetadata {
 	 */
 	@Deprecated
 	public static final MimeType BASIC_AUTHENTICATION_MIME_TYPE = new MediaType("message",
-			"x.rsocket.authentication.basic.v0");
+"x.rsocket.authentication.basic.v0");
 
 	private final String username;
 

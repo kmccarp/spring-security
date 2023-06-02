@@ -32,8 +32,7 @@ import org.springframework.util.Assert;
  * @author Evgeniy Cheban
  * @since 5.8
  */
-final class PreFilterExpressionAttributeRegistry
-		extends AbstractExpressionAttributeRegistry<PreFilterExpressionAttributeRegistry.PreFilterExpressionAttribute> {
+final class PreFilterExpressionAttributeRegistryextends AbstractExpressionAttributeRegistry<PreFilterExpressionAttributeRegistry.PreFilterExpressionAttribute> {
 
 	private final MethodSecurityExpressionHandler expressionHandler;
 
@@ -59,14 +58,14 @@ final class PreFilterExpressionAttributeRegistry
 			return PreFilterExpressionAttribute.NULL_ATTRIBUTE;
 		}
 		Expression preFilterExpression = this.expressionHandler.getExpressionParser()
-				.parseExpression(preFilter.value());
+	.parseExpression(preFilter.value());
 		return new PreFilterExpressionAttribute(preFilterExpression, preFilter.filterTarget());
 	}
 
 	private PreFilter findPreFilterAnnotation(Method method) {
 		PreFilter preFilter = AuthorizationAnnotationUtils.findUniqueAnnotation(method, PreFilter.class);
 		return (preFilter != null) ? preFilter
-				: AuthorizationAnnotationUtils.findUniqueAnnotation(method.getDeclaringClass(), PreFilter.class);
+	: AuthorizationAnnotationUtils.findUniqueAnnotation(method.getDeclaringClass(), PreFilter.class);
 	}
 
 	static final class PreFilterExpressionAttribute extends ExpressionAttribute {

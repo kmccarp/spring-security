@@ -74,7 +74,7 @@ public class OidcIdTokenValidatorTests {
 		OidcIdTokenValidator idTokenValidator = new OidcIdTokenValidator(this.registration.build());
 		// @formatter:off
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> idTokenValidator.setClockSkew(null));
+	.isThrownBy(() -> idTokenValidator.setClockSkew(null));
 		// @formatter:on
 	}
 
@@ -83,7 +83,7 @@ public class OidcIdTokenValidatorTests {
 		OidcIdTokenValidator idTokenValidator = new OidcIdTokenValidator(this.registration.build());
 		// @formatter:off
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> idTokenValidator.setClockSkew(Duration.ofSeconds(-1)));
+	.isThrownBy(() -> idTokenValidator.setClockSkew(Duration.ofSeconds(-1)));
 		// @formatter:on
 	}
 
@@ -92,7 +92,7 @@ public class OidcIdTokenValidatorTests {
 		OidcIdTokenValidator idTokenValidator = new OidcIdTokenValidator(this.registration.build());
 		// @formatter:off
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> idTokenValidator.setClock(null));
+	.isThrownBy(() -> idTokenValidator.setClock(null));
 		// @formatter:on
 	}
 
@@ -101,9 +101,9 @@ public class OidcIdTokenValidatorTests {
 		this.claims.remove(IdTokenClaimNames.ISS);
 		// @formatter:off
 		assertThat(this.validateIdToken())
-				.hasSize(1)
-				.extracting(OAuth2Error::getDescription)
-				.allMatch((msg) -> msg.contains(IdTokenClaimNames.ISS));
+	.hasSize(1)
+	.extracting(OAuth2Error::getDescription)
+	.allMatch((msg) -> msg.contains(IdTokenClaimNames.ISS));
 		// @formatter:on
 	}
 
@@ -116,9 +116,9 @@ public class OidcIdTokenValidatorTests {
 		this.registration = this.registration.issuerUri("https://somethingelse.com");
 		// @formatter:off
 		assertThat(this.validateIdToken())
-				.hasSize(1)
-				.extracting(OAuth2Error::getDescription)
-				.allMatch((msg) -> msg.contains(IdTokenClaimNames.ISS));
+	.hasSize(1)
+	.extracting(OAuth2Error::getDescription)
+	.allMatch((msg) -> msg.contains(IdTokenClaimNames.ISS));
 		// @formatter:on
 	}
 
@@ -137,9 +137,9 @@ public class OidcIdTokenValidatorTests {
 		this.claims.remove(IdTokenClaimNames.SUB);
 		// @formatter:off
 		assertThat(this.validateIdToken())
-				.hasSize(1)
-				.extracting(OAuth2Error::getDescription)
-				.allMatch((msg) -> msg.contains(IdTokenClaimNames.SUB));
+	.hasSize(1)
+	.extracting(OAuth2Error::getDescription)
+	.allMatch((msg) -> msg.contains(IdTokenClaimNames.SUB));
 		// @formatter:on
 	}
 
@@ -148,9 +148,9 @@ public class OidcIdTokenValidatorTests {
 		this.claims.remove(IdTokenClaimNames.AUD);
 		// @formatter:off
 		assertThat(this.validateIdToken())
-				.hasSize(1)
-				.extracting(OAuth2Error::getDescription)
-				.allMatch((msg) -> msg.contains(IdTokenClaimNames.AUD));
+	.hasSize(1)
+	.extracting(OAuth2Error::getDescription)
+	.allMatch((msg) -> msg.contains(IdTokenClaimNames.AUD));
 		// @formatter:on
 	}
 
@@ -159,9 +159,9 @@ public class OidcIdTokenValidatorTests {
 		this.issuedAt = null;
 		// @formatter:off
 		assertThat(this.validateIdToken())
-				.hasSize(1)
-				.extracting(OAuth2Error::getDescription)
-				.allMatch((msg) -> msg.contains(IdTokenClaimNames.IAT));
+	.hasSize(1)
+	.extracting(OAuth2Error::getDescription)
+	.allMatch((msg) -> msg.contains(IdTokenClaimNames.IAT));
 		// @formatter:on
 	}
 
@@ -169,7 +169,7 @@ public class OidcIdTokenValidatorTests {
 	public void validateWhenExpiresAtNullThenHasErrors() {
 		this.expiresAt = null;
 		assertThat(this.validateIdToken()).hasSize(1).extracting(OAuth2Error::getDescription)
-				.allMatch((msg) -> msg.contains(IdTokenClaimNames.EXP));
+	.allMatch((msg) -> msg.contains(IdTokenClaimNames.EXP));
 	}
 
 	@Test
@@ -177,9 +177,9 @@ public class OidcIdTokenValidatorTests {
 		this.claims.put(IdTokenClaimNames.AUD, Arrays.asList("client-id", "other"));
 		// @formatter:off
 		assertThat(this.validateIdToken())
-				.hasSize(1)
-				.extracting(OAuth2Error::getDescription)
-				.allMatch((msg) -> msg.contains(IdTokenClaimNames.AZP));
+	.hasSize(1)
+	.extracting(OAuth2Error::getDescription)
+	.allMatch((msg) -> msg.contains(IdTokenClaimNames.AZP));
 		// @formatter:on
 	}
 
@@ -188,9 +188,9 @@ public class OidcIdTokenValidatorTests {
 		this.claims.put(IdTokenClaimNames.AZP, "other");
 		// @formatter:off
 		assertThat(this.validateIdToken())
-				.hasSize(1)
-				.extracting(OAuth2Error::getDescription)
-				.allMatch((msg) -> msg.contains(IdTokenClaimNames.AZP));
+	.hasSize(1)
+	.extracting(OAuth2Error::getDescription)
+	.allMatch((msg) -> msg.contains(IdTokenClaimNames.AZP));
 		// @formatter:on
 	}
 
@@ -207,9 +207,9 @@ public class OidcIdTokenValidatorTests {
 		this.claims.put(IdTokenClaimNames.AZP, "other-client");
 		// @formatter:off
 		assertThat(this.validateIdToken())
-				.hasSize(1)
-				.extracting(OAuth2Error::getDescription)
-				.allMatch((msg) -> msg.contains(IdTokenClaimNames.AZP));
+	.hasSize(1)
+	.extracting(OAuth2Error::getDescription)
+	.allMatch((msg) -> msg.contains(IdTokenClaimNames.AZP));
 		// @formatter:on
 	}
 
@@ -218,9 +218,9 @@ public class OidcIdTokenValidatorTests {
 		this.claims.put(IdTokenClaimNames.AUD, Collections.singletonList("other-client"));
 		// @formatter:off
 		assertThat(this.validateIdToken())
-				.hasSize(1)
-				.extracting(OAuth2Error::getDescription)
-				.allMatch((msg) -> msg.contains(IdTokenClaimNames.AUD));
+	.hasSize(1)
+	.extracting(OAuth2Error::getDescription)
+	.allMatch((msg) -> msg.contains(IdTokenClaimNames.AUD));
 		// @formatter:on
 	}
 
@@ -239,9 +239,9 @@ public class OidcIdTokenValidatorTests {
 		this.clockSkew = Duration.ofSeconds(0);
 		// @formatter:off
 		assertThat(this.validateIdToken())
-				.hasSize(1)
-				.extracting(OAuth2Error::getDescription)
-				.allMatch((msg) -> msg.contains(IdTokenClaimNames.EXP));
+	.hasSize(1)
+	.extracting(OAuth2Error::getDescription)
+	.allMatch((msg) -> msg.contains(IdTokenClaimNames.EXP));
 		// @formatter:on
 	}
 
@@ -260,9 +260,9 @@ public class OidcIdTokenValidatorTests {
 		this.clockSkew = Duration.ofMinutes(0);
 		// @formatter:off
 		assertThat(this.validateIdToken())
-				.hasSize(1)
-				.extracting(OAuth2Error::getDescription)
-				.allMatch((msg) -> msg.contains(IdTokenClaimNames.IAT));
+	.hasSize(1)
+	.extracting(OAuth2Error::getDescription)
+	.allMatch((msg) -> msg.contains(IdTokenClaimNames.IAT));
 		// @formatter:on
 	}
 
@@ -273,9 +273,9 @@ public class OidcIdTokenValidatorTests {
 		this.clockSkew = Duration.ofSeconds(0);
 		// @formatter:off
 		assertThat(this.validateIdToken())
-				.hasSize(1)
-				.extracting(OAuth2Error::getDescription)
-				.allMatch((msg) -> msg.contains(IdTokenClaimNames.EXP));
+	.hasSize(1)
+	.extracting(OAuth2Error::getDescription)
+	.allMatch((msg) -> msg.contains(IdTokenClaimNames.EXP));
 		// @formatter:on
 	}
 
@@ -287,12 +287,12 @@ public class OidcIdTokenValidatorTests {
 		this.expiresAt = null;
 		// @formatter:off
 		assertThat(this.validateIdToken())
-				.hasSize(1)
-				.extracting(OAuth2Error::getDescription)
-				.allMatch((msg) -> msg.contains(IdTokenClaimNames.SUB))
-				.allMatch((msg) -> msg.contains(IdTokenClaimNames.AUD))
-				.allMatch((msg) -> msg.contains(IdTokenClaimNames.IAT))
-				.allMatch((msg) -> msg.contains(IdTokenClaimNames.EXP));
+	.hasSize(1)
+	.extracting(OAuth2Error::getDescription)
+	.allMatch((msg) -> msg.contains(IdTokenClaimNames.SUB))
+	.allMatch((msg) -> msg.contains(IdTokenClaimNames.AUD))
+	.allMatch((msg) -> msg.contains(IdTokenClaimNames.IAT))
+	.allMatch((msg) -> msg.contains(IdTokenClaimNames.EXP));
 		// @formatter:on
 	}
 
@@ -302,20 +302,20 @@ public class OidcIdTokenValidatorTests {
 		this.claims.remove(IdTokenClaimNames.AUD);
 		// @formatter:off
 		assertThat(this.validateIdToken())
-				.hasSize(1)
-				.extracting(OAuth2Error::getDescription)
-				.allMatch((msg) -> msg.equals("The ID Token contains invalid claims: {sub=null, aud=null}"));
+	.hasSize(1)
+	.extracting(OAuth2Error::getDescription)
+	.allMatch((msg) -> msg.equals("The ID Token contains invalid claims: {sub=null, aud=null}"));
 		// @formatter:on
 	}
 
 	private Collection<OAuth2Error> validateIdToken() {
 		// @formatter:off
 		Jwt idToken = Jwt.withTokenValue("token")
-				.issuedAt(this.issuedAt)
-				.expiresAt(this.expiresAt)
-				.headers((h) -> h.putAll(this.headers))
-				.claims((c) -> c.putAll(this.claims))
-				.build();
+	.issuedAt(this.issuedAt)
+	.expiresAt(this.expiresAt)
+	.headers((h) -> h.putAll(this.headers))
+	.claims((c) -> c.putAll(this.claims))
+	.build();
 		// @formatter:on
 		OidcIdTokenValidator validator = new OidcIdTokenValidator(this.registration.build());
 		validator.setClockSkew(this.clockSkew);

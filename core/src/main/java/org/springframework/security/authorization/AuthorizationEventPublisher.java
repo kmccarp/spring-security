@@ -44,6 +44,6 @@ public interface AuthorizationEventPublisher {
 	 * @param <T> the secured object's type
 	 */
 	<T> void publishAuthorizationEvent(Supplier<Authentication> authentication, T object,
-			AuthorizationDecision decision);
+AuthorizationDecision decision);
 
 }

@@ -45,8 +45,8 @@ public class SimpMessageTypeMatcherTests {
 	public void matchesMessageMessageTrue() {
 		// @formatter:off
 		Message<String> message = MessageBuilder.withPayload("Hi")
-				.setHeader(SimpMessageHeaderAccessor.MESSAGE_TYPE_HEADER, SimpMessageType.MESSAGE)
-				.build();
+	.setHeader(SimpMessageHeaderAccessor.MESSAGE_TYPE_HEADER, SimpMessageType.MESSAGE)
+	.build();
 		// @formatter:on
 		assertThat(this.matcher.matches(message)).isTrue();
 	}
@@ -55,8 +55,8 @@ public class SimpMessageTypeMatcherTests {
 	public void matchesMessageConnectFalse() {
 		// @formatter:off
 		Message<String> message = MessageBuilder.withPayload("Hi")
-				.setHeader(SimpMessageHeaderAccessor.MESSAGE_TYPE_HEADER, SimpMessageType.CONNECT)
-				.build();
+	.setHeader(SimpMessageHeaderAccessor.MESSAGE_TYPE_HEADER, SimpMessageType.CONNECT)
+	.build();
 		// @formatter:on
 		assertThat(this.matcher.matches(message)).isFalse();
 	}

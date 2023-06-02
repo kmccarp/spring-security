@@ -35,14 +35,13 @@ import org.springframework.security.oauth2.core.oidc.user.OidcUserAuthority;
  * @see OAuth2ClientJackson2Module
  */
 @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS)
-@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY, getterVisibility = JsonAutoDetect.Visibility.NONE,
-		isGetterVisibility = JsonAutoDetect.Visibility.NONE)
-@JsonIgnoreProperties(value = { "attributes" }, ignoreUnknown = true)
+@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY, getterVisibility = JsonAutoDetect.Visibility.NONE,isGetterVisibility = JsonAutoDetect.Visibility.NONE)
+@JsonIgnoreProperties(value = {"attributes"}, ignoreUnknown = true)
 abstract class OidcUserAuthorityMixin {
 
 	@JsonCreator
 	OidcUserAuthorityMixin(@JsonProperty("authority") String authority, @JsonProperty("idToken") OidcIdToken idToken,
-			@JsonProperty("userInfo") OidcUserInfo userInfo) {
+@JsonProperty("userInfo") OidcUserInfo userInfo) {
 	}
 
 }

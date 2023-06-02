@@ -53,7 +53,7 @@ public class Saml2AuthenticationToken extends AbstractAuthenticationToken {
 	 * @since 5.6
 	 */
 	public Saml2AuthenticationToken(RelyingPartyRegistration relyingPartyRegistration, String saml2Response,
-			AbstractSaml2AuthenticationRequest authenticationRequest) {
+AbstractSaml2AuthenticationRequest authenticationRequest) {
 		super(Collections.emptyList());
 		Assert.notNull(relyingPartyRegistration, "relyingPartyRegistration cannot be null");
 		Assert.notNull(saml2Response, "saml2Response cannot be null");

@@ -108,15 +108,15 @@ public class JaasApiIntegrationFilterTests {
 
 			@Override
 			public AppConfigurationEntry[] getAppConfigurationEntry(String name) {
-				return new AppConfigurationEntry[] { new AppConfigurationEntry(TestLoginModule.class.getName(),
-						LoginModuleControlFlag.REQUIRED, new HashMap<>()) };
+				return new AppConfigurationEntry[]{new AppConfigurationEntry(TestLoginModule.class.getName(),
+			LoginModuleControlFlag.REQUIRED, new HashMap<>())};
 			}
 		};
 		LoginContext ctx = new LoginContext("SubjectDoAsFilterTest", this.authenticatedSubject, this.callbackHandler,
-				this.testConfiguration);
+	this.testConfiguration);
 		ctx.login();
 		this.token = new JaasAuthenticationToken("username", "password",
-				AuthorityUtils.createAuthorityList("ROLE_ADMIN"), ctx);
+	AuthorityUtils.createAuthorityList("ROLE_ADMIN"), ctx);
 		// just in case someone forgot to clear the context
 		SecurityContextHolder.clearContext();
 	}
@@ -157,7 +157,7 @@ public class JaasApiIntegrationFilterTests {
 	@Test
 	public void obtainSubjectNullSubject() throws Exception {
 		LoginContext ctx = new LoginContext("obtainSubjectNullSubject", null, this.callbackHandler,
-				this.testConfiguration);
+	this.testConfiguration);
 		assertThat(ctx.getSubject()).isNull();
 		this.token = new JaasAuthenticationToken("un", "pwd", AuthorityUtils.createAuthorityList("ROLE_ADMIN"), ctx);
 		SecurityContextHolder.getContext().setAuthentication(this.token);
@@ -205,7 +205,7 @@ public class JaasApiIntegrationFilterTests {
 		MockFilterChain chain = new MockFilterChain() {
 			@Override
 			public void doFilter(ServletRequest request, ServletResponse response)
-					throws IOException, ServletException {
+		throws IOException, ServletException {
 				// See if the subject was updated
 				Subject currentSubject = Subject.getSubject(AccessController.getContext());
 				assertThat(currentSubject).isEqualTo(expectedValue);

@@ -43,22 +43,22 @@ public class PasswordEncoderParserTests {
 	@Test
 	public void passwordEncoderDefaultsToDelegatingPasswordEncoder() throws Exception {
 		this.spring.configLocations(
-				"classpath:org/springframework/security/config/authentication/PasswordEncoderParserTests-default.xml")
-				.mockMvcAfterSpringSecurityOk().autowire();
+	"classpath:org/springframework/security/config/authentication/PasswordEncoderParserTests-default.xml")
+	.mockMvcAfterSpringSecurityOk().autowire();
 		// @formatter:off
 		this.mockMvc.perform(get("/").with(httpBasic("user", "password")))
-				.andExpect(status().isOk());
+	.andExpect(status().isOk());
 		// @formatter:on
 	}
 
 	@Test
 	public void passwordEncoderDefaultsToPasswordEncoderBean() throws Exception {
 		this.spring.configLocations(
-				"classpath:org/springframework/security/config/authentication/PasswordEncoderParserTests-bean.xml")
-				.mockMvcAfterSpringSecurityOk().autowire();
+	"classpath:org/springframework/security/config/authentication/PasswordEncoderParserTests-bean.xml")
+	.mockMvcAfterSpringSecurityOk().autowire();
 		// @formatter:off
 		this.mockMvc.perform(get("/").with(httpBasic("user", "password")))
-				.andExpect(status().isOk());
+	.andExpect(status().isOk());
 		// @formatter:on
 	}
 

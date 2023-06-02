@@ -69,35 +69,35 @@ public class Saml2MetadataConfigurerTests {
 		this.spring.register(DefaultConfig.class).autowire();
 		String filename = "saml-" + registration.getRegistrationId() + "-metadata.xml";
 		this.mvc.perform(get("/saml2/metadata/" + registration.getRegistrationId())).andExpect(status().isOk())
-				.andExpect(header().string(HttpHeaders.CONTENT_DISPOSITION, containsString(filename)))
-				.andExpect(content().string(containsString("md:EntityDescriptor")));
+	.andExpect(header().string(HttpHeaders.CONTENT_DISPOSITION, containsString(filename)))
+	.andExpect(content().string(containsString("md:EntityDescriptor")));
 	}
 
 	@Test
 	void saml2MetadataRegistrationIdWhenWrongIdThenUnauthorized() throws Exception {
 		this.spring.register(DefaultConfig.class).autowire();
 		this.mvc.perform(get("/saml2/metadata/" + registration.getRegistrationId() + "wrong"))
-				.andExpect(status().isUnauthorized());
+	.andExpect(status().isUnauthorized());
 	}
 
 	@Test
 	void saml2MetadataWhenDefaultsThenReturnsMetadata() throws Exception {
 		this.spring.register(DefaultConfig.class).autowire();
 		this.mvc.perform(get("/saml2/metadata")).andExpect(status().isOk())
-				.andExpect(header().string(HttpHeaders.CONTENT_DISPOSITION, containsString("-metadata.xml")))
-				.andExpect(content().string(containsString("md:EntityDescriptor")));
+	.andExpect(header().string(HttpHeaders.CONTENT_DISPOSITION, containsString("-metadata.xml")))
+	.andExpect(content().string(containsString("md:EntityDescriptor")));
 	}
 
 	@Test
 	void saml2MetadataWhenMetadataResponseResolverThenUses() throws Exception {
 		this.spring.register(DefaultConfig.class, MetadataResponseResolverConfig.class).autowire();
 		Saml2MetadataResponseResolver metadataResponseResolver = this.spring.getContext()
-				.getBean(Saml2MetadataResponseResolver.class);
+	.getBean(Saml2MetadataResponseResolver.class);
 		given(metadataResponseResolver.resolve(any(HttpServletRequest.class)))
-				.willReturn(new Saml2MetadataResponse("metadata", "filename"));
+	.willReturn(new Saml2MetadataResponse("metadata", "filename"));
 		this.mvc.perform(get("/saml2/metadata")).andExpect(status().isOk())
-				.andExpect(header().string(HttpHeaders.CONTENT_DISPOSITION, containsString("filename")))
-				.andExpect(content().string(containsString("metadata")));
+	.andExpect(header().string(HttpHeaders.CONTENT_DISPOSITION, containsString("filename")))
+	.andExpect(content().string(containsString("metadata")));
 		verify(metadataResponseResolver).resolve(any(HttpServletRequest.class));
 	}
 
@@ -105,8 +105,8 @@ public class Saml2MetadataConfigurerTests {
 	void saml2MetadataWhenMetadataResponseResolverDslThenUses() throws Exception {
 		this.spring.register(MetadataResponseResolverDslConfig.class).autowire();
 		this.mvc.perform(get("/saml2/metadata")).andExpect(status().isOk())
-				.andExpect(header().string(HttpHeaders.CONTENT_DISPOSITION, containsString("filename")))
-				.andExpect(content().string(containsString("metadata")));
+	.andExpect(header().string(HttpHeaders.CONTENT_DISPOSITION, containsString("filename")))
+	.andExpect(content().string(containsString("metadata")));
 	}
 
 	@Test
@@ -114,8 +114,8 @@ public class Saml2MetadataConfigurerTests {
 		this.spring.register(MetadataUrlConfig.class).autowire();
 		String filename = "saml-" + registration.getRegistrationId() + "-metadata.xml";
 		this.mvc.perform(get("/saml/metadata")).andExpect(status().isOk())
-				.andExpect(header().string(HttpHeaders.CONTENT_DISPOSITION, containsString(filename)))
-				.andExpect(content().string(containsString("md:EntityDescriptor")));
+	.andExpect(header().string(HttpHeaders.CONTENT_DISPOSITION, containsString(filename)))
+	.andExpect(content().string(containsString("md:EntityDescriptor")));
 		this.mvc.perform(get("/saml2/metadata")).andExpect(status().isForbidden());
 	}
 
@@ -128,8 +128,8 @@ public class Saml2MetadataConfigurerTests {
 		SecurityFilterChain filters(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeHttpRequests((authorize) -> authorize.anyRequest().authenticated())
-				.saml2Metadata(Customizer.withDefaults());
+		.authorizeHttpRequests((authorize) -> authorize.anyRequest().authenticated())
+		.saml2Metadata(Customizer.withDefaults());
 			return http.build();
 			// @formatter:on
 		}
@@ -145,8 +145,8 @@ public class Saml2MetadataConfigurerTests {
 		SecurityFilterChain filters(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeHttpRequests((authorize) -> authorize.anyRequest().authenticated())
-				.saml2Metadata((saml2) -> saml2.metadataUrl("/saml/metadata"));
+		.authorizeHttpRequests((authorize) -> authorize.anyRequest().authenticated())
+		.saml2Metadata((saml2) -> saml2.metadataUrl("/saml/metadata"));
 			return http.build();
 			// @formatter:on
 		}
@@ -168,15 +168,15 @@ public class Saml2MetadataConfigurerTests {
 
 		{
 			given(this.metadataResponseResolver.resolve(any(HttpServletRequest.class)))
-					.willReturn(new Saml2MetadataResponse("metadata", "filename"));
+		.willReturn(new Saml2MetadataResponse("metadata", "filename"));
 		}
 
 		@Bean
 		SecurityFilterChain filters(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeHttpRequests((authorize) -> authorize.anyRequest().authenticated())
-				.saml2Metadata((saml2) -> saml2.metadataResponseResolver(this.metadataResponseResolver));
+		.authorizeHttpRequests((authorize) -> authorize.anyRequest().authenticated())
+		.saml2Metadata((saml2) -> saml2.metadataResponseResolver(this.metadataResponseResolver));
 			return http.build();
 			// @formatter:on
 		}

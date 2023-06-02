@@ -47,15 +47,15 @@ final class SecuredMethodSecurityConfiguration {
 	@Bean
 	@Role(BeanDefinition.ROLE_INFRASTRUCTURE)
 	static MethodInterceptor securedAuthorizationMethodInterceptor(
-			ObjectProvider<SecurityContextHolderStrategy> strategyProvider,
-			ObjectProvider<ObservationRegistry> registryProvider) {
+ObjectProvider<SecurityContextHolderStrategy> strategyProvider,
+ObjectProvider<ObservationRegistry> registryProvider) {
 		SecuredAuthorizationManager secured = new SecuredAuthorizationManager();
 		SecurityContextHolderStrategy strategy = strategyProvider
-				.getIfAvailable(SecurityContextHolder::getContextHolderStrategy);
+	.getIfAvailable(SecurityContextHolder::getContextHolderStrategy);
 		AuthorizationManager<MethodInvocation> manager = new DeferringObservationAuthorizationManager<>(
-				registryProvider, secured);
+	registryProvider, secured);
 		AuthorizationManagerBeforeMethodInterceptor interceptor = AuthorizationManagerBeforeMethodInterceptor
-				.secured(manager);
+	.secured(manager);
 		interceptor.setSecurityContextHolderStrategy(strategy);
 		return interceptor;
 	}

@@ -30,7 +30,7 @@ public class TestPermissionEvaluator implements PermissionEvaluator {
 
 	@Override
 	public boolean hasPermission(Authentication authentication, Serializable targetId, String targetType,
-			Object permission) {
+Object permission) {
 		return false;
 	}
 

@@ -37,8 +37,7 @@ import org.springframework.util.StringUtils;
  * @see OAuth2RefreshTokenGrantRequest
  * @see RequestEntity
  */
-public class OAuth2RefreshTokenGrantRequestEntityConverter
-		extends AbstractOAuth2AuthorizationGrantRequestEntityConverter<OAuth2RefreshTokenGrantRequest> {
+public class OAuth2RefreshTokenGrantRequestEntityConverterextends AbstractOAuth2AuthorizationGrantRequestEntityConverter<OAuth2RefreshTokenGrantRequest> {
 
 	@Override
 	protected MultiValueMap<String, String> createParameters(OAuth2RefreshTokenGrantRequest refreshTokenGrantRequest) {
@@ -48,7 +47,7 @@ public class OAuth2RefreshTokenGrantRequestEntityConverter
 		parameters.add(OAuth2ParameterNames.REFRESH_TOKEN, refreshTokenGrantRequest.getRefreshToken().getTokenValue());
 		if (!CollectionUtils.isEmpty(refreshTokenGrantRequest.getScopes())) {
 			parameters.add(OAuth2ParameterNames.SCOPE,
-					StringUtils.collectionToDelimitedString(refreshTokenGrantRequest.getScopes(), " "));
+		StringUtils.collectionToDelimitedString(refreshTokenGrantRequest.getScopes(), " "));
 		}
 		if (ClientAuthenticationMethod.CLIENT_SECRET_POST.equals(clientRegistration.getClientAuthenticationMethod())) {
 			parameters.add(OAuth2ParameterNames.CLIENT_ID, clientRegistration.getClientId());

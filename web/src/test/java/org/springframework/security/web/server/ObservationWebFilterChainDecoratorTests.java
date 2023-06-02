@@ -90,20 +90,20 @@ public class ObservationWebFilterChainDecoratorTests {
 		WebFilterChain chain = mock(WebFilterChain.class);
 		given(chain.filter(any())).willReturn(Mono.empty());
 		WebFilterChain decorated = decorator.decorate(chain,
-				List.of((e, c) -> c.filter(e).then(Mono.deferContextual((context) -> {
-					Observation parentObservation = context.getOrDefault(ObservationThreadLocalAccessor.KEY, null);
-					Observation observation = Observation.createNotStarted("custom", registry)
-							.parentObservation(parentObservation).contextualName("custom").start();
-					return Mono.just("3").doOnSuccess((v) -> observation.stop()).doOnCancel(observation::stop)
-							.doOnError((t) -> {
-								observation.error(t);
-								observation.stop();
-							}).then(Mono.empty());
-				}))));
+	List.of((e, c) -> c.filter(e).then(Mono.deferContextual((context) -> {
+		Observation parentObservation = context.getOrDefault(ObservationThreadLocalAccessor.KEY, null);
+		Observation observation = Observation.createNotStarted("custom", registry)
+	.parentObservation(parentObservation).contextualName("custom").start();
+		return Mono.just("3").doOnSuccess((v) -> observation.stop()).doOnCancel(observation::stop)
+	.doOnError((t) -> {
+		observation.error(t);
+		observation.stop();
+	}).then(Mono.empty());
+	}))));
 		Observation http = Observation.start("http", registry).contextualName("http");
 		try {
 			decorated.filter(MockServerWebExchange.from(MockServerHttpRequest.get("/").build()))
-					.contextWrite((context) -> context.put(ObservationThreadLocalAccessor.KEY, http)).block();
+		.contextWrite((context) -> context.put(ObservationThreadLocalAccessor.KEY, http)).block();
 		}
 		finally {
 			http.stop();
@@ -123,7 +123,7 @@ public class ObservationWebFilterChainDecoratorTests {
 	@ParameterizedTest
 	@MethodSource("decorateFiltersWhenCompletesThenHasSpringSecurityReachedFilterNameTagArguments")
 	void decorateFiltersWhenCompletesThenHasSpringSecurityReachedFilterNameTag(WebFilter filter,
-			String expectedFilterNameTag) {
+String expectedFilterNameTag) {
 		ObservationHandler<Observation.Context> handler = mock(ObservationHandler.class);
 		given(handler.supportsContext(any())).willReturn(true);
 		ObservationRegistry registry = ObservationRegistry.create();
@@ -138,7 +138,7 @@ public class ObservationWebFilterChainDecoratorTests {
 		verify(handler, times(3)).onStop(context.capture());
 
 		assertThat(context.getValue().getLowCardinalityKeyValue("spring.security.reached.filter.name").getValue())
-				.isEqualTo(expectedFilterNameTag);
+	.isEqualTo(expectedFilterNameTag);
 	}
 
 	static Stream<Arguments> decorateFiltersWhenCompletesThenHasSpringSecurityReachedFilterNameTagArguments() {
@@ -153,7 +153,7 @@ public class ObservationWebFilterChainDecoratorTests {
 		};
 
 		return Stream.of(Arguments.of(filterWithName, "BasicAuthenticationFilter"),
-				Arguments.of(filterWithoutName, "none"));
+	Arguments.of(filterWithoutName, "none"));
 	}
 
 	static class BasicAuthenticationFilter implements WebFilter {

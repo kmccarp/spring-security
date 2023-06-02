@@ -73,7 +73,7 @@ public interface ClaimAccessor {
 	 */
 	default String getClaimAsString(String claim) {
 		return !hasClaim(claim) ? null
-				: ClaimConversionService.getSharedInstance().convert(getClaims().get(claim), String.class);
+	: ClaimConversionService.getSharedInstance().convert(getClaims().get(claim), String.class);
 	}
 
 	/**
@@ -92,7 +92,7 @@ public interface ClaimAccessor {
 		Object claimValue = getClaims().get(claim);
 		Boolean convertedValue = ClaimConversionService.getSharedInstance().convert(claimValue, Boolean.class);
 		Assert.notNull(convertedValue,
-				() -> "Unable to convert claim '" + claim + "' of type '" + claimValue.getClass() + "' to Boolean.");
+	() -> "Unable to convert claim '" + claim + "' of type '" + claimValue.getClass() + "' to Boolean.");
 		return convertedValue;
 	}
 
@@ -108,7 +108,7 @@ public interface ClaimAccessor {
 		Object claimValue = getClaims().get(claim);
 		Instant convertedValue = ClaimConversionService.getSharedInstance().convert(claimValue, Instant.class);
 		Assert.isTrue(convertedValue != null,
-				() -> "Unable to convert claim '" + claim + "' of type '" + claimValue.getClass() + "' to Instant.");
+	() -> "Unable to convert claim '" + claim + "' of type '" + claimValue.getClass() + "' to Instant.");
 		return convertedValue;
 	}
 
@@ -124,7 +124,7 @@ public interface ClaimAccessor {
 		Object claimValue = getClaims().get(claim);
 		URL convertedValue = ClaimConversionService.getSharedInstance().convert(claimValue, URL.class);
 		Assert.isTrue(convertedValue != null,
-				() -> "Unable to convert claim '" + claim + "' of type '" + claimValue.getClass() + "' to URL.");
+	() -> "Unable to convert claim '" + claim + "' of type '" + claimValue.getClass() + "' to URL.");
 		return convertedValue;
 	}
 
@@ -144,12 +144,12 @@ public interface ClaimAccessor {
 		}
 		final TypeDescriptor sourceDescriptor = TypeDescriptor.valueOf(Object.class);
 		final TypeDescriptor targetDescriptor = TypeDescriptor.map(Map.class, TypeDescriptor.valueOf(String.class),
-				TypeDescriptor.valueOf(Object.class));
+	TypeDescriptor.valueOf(Object.class));
 		Object claimValue = getClaims().get(claim);
 		Map<String, Object> convertedValue = (Map<String, Object>) ClaimConversionService.getSharedInstance()
-				.convert(claimValue, sourceDescriptor, targetDescriptor);
+	.convert(claimValue, sourceDescriptor, targetDescriptor);
 		Assert.isTrue(convertedValue != null,
-				() -> "Unable to convert claim '" + claim + "' of type '" + claimValue.getClass() + "' to Map.");
+	() -> "Unable to convert claim '" + claim + "' of type '" + claimValue.getClass() + "' to Map.");
 		return convertedValue;
 	}
 
@@ -169,12 +169,12 @@ public interface ClaimAccessor {
 		}
 		final TypeDescriptor sourceDescriptor = TypeDescriptor.valueOf(Object.class);
 		final TypeDescriptor targetDescriptor = TypeDescriptor.collection(List.class,
-				TypeDescriptor.valueOf(String.class));
+	TypeDescriptor.valueOf(String.class));
 		Object claimValue = getClaims().get(claim);
 		List<String> convertedValue = (List<String>) ClaimConversionService.getSharedInstance().convert(claimValue,
-				sourceDescriptor, targetDescriptor);
+	sourceDescriptor, targetDescriptor);
 		Assert.isTrue(convertedValue != null,
-				() -> "Unable to convert claim '" + claim + "' of type '" + claimValue.getClass() + "' to List.");
+	() -> "Unable to convert claim '" + claim + "' of type '" + claimValue.getClass() + "' to List.");
 		return convertedValue;
 	}
 

@@ -44,7 +44,7 @@ public final class Saml2Utils {
 		try {
 			ByteArrayOutputStream out = new ByteArrayOutputStream();
 			DeflaterOutputStream deflaterOutputStream = new DeflaterOutputStream(out,
-					new Deflater(Deflater.DEFLATED, true));
+		new Deflater(Deflater.DEFLATED, true));
 			deflaterOutputStream.write(s.getBytes(StandardCharsets.UTF_8));
 			deflaterOutputStream.finish();
 			return out.toByteArray();

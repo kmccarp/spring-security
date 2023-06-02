@@ -92,7 +92,7 @@ public class PortMapperImpl implements PortMapper {
 			Integer httpPort = Integer.valueOf(entry.getKey());
 			Integer httpsPort = Integer.valueOf(entry.getValue());
 			Assert.isTrue(isInPortRange(httpPort) && isInPortRange(httpsPort),
-					() -> "one or both ports out of legal range: " + httpPort + ", " + httpsPort);
+		() -> "one or both ports out of legal range: " + httpPort + ", " + httpsPort);
 			this.httpsPortMappings.put(httpPort, httpsPort);
 		}
 		Assert.isTrue(!this.httpsPortMappings.isEmpty(), "must map at least one port");

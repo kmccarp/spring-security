@@ -63,7 +63,7 @@ public abstract class AbstractRequestMatcherRegistry<C> {
 
 	static {
 		mvcPresent = ClassUtils.isPresent(HANDLER_MAPPING_INTROSPECTOR,
-				AbstractRequestMatcherRegistry.class.getClassLoader());
+	AbstractRequestMatcherRegistry.class.getClassLoader());
 	}
 
 	protected final void setApplicationContext(ApplicationContext context) {
@@ -100,11 +100,11 @@ public abstract class AbstractRequestMatcherRegistry<C> {
 		ObjectPostProcessor<Object> opp = this.context.getBean(ObjectPostProcessor.class);
 		if (!this.context.containsBean(HANDLER_MAPPING_INTROSPECTOR_BEAN_NAME)) {
 			throw new NoSuchBeanDefinitionException("A Bean named " + HANDLER_MAPPING_INTROSPECTOR_BEAN_NAME
-					+ " of type " + HandlerMappingIntrospector.class.getName()
-					+ " is required to use MvcRequestMatcher. Please ensure Spring Security & Spring MVC are configured in a shared ApplicationContext.");
+		+ " of type " + HandlerMappingIntrospector.class.getName()
+		+ " is required to use MvcRequestMatcher. Please ensure Spring Security & Spring MVC are configured in a shared ApplicationContext.");
 		}
 		HandlerMappingIntrospector introspector = this.context.getBean(HANDLER_MAPPING_INTROSPECTOR_BEAN_NAME,
-				HandlerMappingIntrospector.class);
+	HandlerMappingIntrospector.class);
 		List<MvcRequestMatcher> matchers = new ArrayList<>(mvcPatterns.length);
 		for (String mvcPattern : mvcPatterns) {
 			MvcRequestMatcher matcher = new MvcRequestMatcher(introspector, mvcPattern);

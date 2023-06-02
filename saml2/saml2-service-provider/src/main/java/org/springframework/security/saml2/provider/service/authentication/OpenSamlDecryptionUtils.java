@@ -52,8 +52,7 @@ import org.springframework.security.saml2.provider.service.registration.RelyingP
 final class OpenSamlDecryptionUtils {
 
 	private static final EncryptedKeyResolver encryptedKeyResolver = new ChainingEncryptedKeyResolver(
-			Arrays.asList(new InlineEncryptedKeyResolver(), new EncryptedElementTypeEncryptedKeyResolver(),
-					new SimpleRetrievalMethodEncryptedKeyResolver()));
+Arrays.asList(new InlineEncryptedKeyResolver(), new EncryptedElementTypeEncryptedKeyResolver(),new SimpleRetrievalMethodEncryptedKeyResolver()));
 
 	static void decryptResponseElements(Response response, RelyingPartyRegistration registration) {
 		Decrypter decrypter = decrypter(registration);

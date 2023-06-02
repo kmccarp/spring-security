@@ -40,15 +40,16 @@ public class SecurityContextMixinTests extends AbstractMixinTests {
 
 	// @formatter:off
 	public static final String SECURITY_CONTEXT_JSON = "{"
-		+ "\"@class\": \"org.springframework.security.core.context.SecurityContextImpl\", "
-		+ "\"authentication\": " + UsernamePasswordAuthenticationTokenMixinTests.AUTHENTICATED_STRINGPRINCIPAL_JSON
-	+ "}";
++ "\"@class\": \"org.springframework.security.core.context.SecurityContextImpl\", "
++ "\"authentication\": " + UsernamePasswordAuthenticationTokenMixinTests.AUTHENTICATED_STRINGPRINCIPAL_JSON
++ "}";
+
 	// @formatter:on
 	@Test
 	public void securityContextSerializeTest() throws JsonProcessingException, JSONException {
 		SecurityContext context = new SecurityContextImpl();
 		context.setAuthentication(UsernamePasswordAuthenticationToken.authenticated("admin", "1234",
-				Collections.singleton(new SimpleGrantedAuthority("ROLE_USER"))));
+	Collections.singleton(new SimpleGrantedAuthority("ROLE_USER"))));
 		String actualJson = this.mapper.writeValueAsString(context);
 		JSONAssert.assertEquals(SECURITY_CONTEXT_JSON, actualJson, true);
 	}

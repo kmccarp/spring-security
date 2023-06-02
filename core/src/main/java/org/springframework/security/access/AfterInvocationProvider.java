@@ -35,7 +35,7 @@ import org.springframework.security.core.Authentication;
 public interface AfterInvocationProvider {
 
 	Object decide(Authentication authentication, Object object, Collection<ConfigAttribute> attributes,
-			Object returnedObject) throws AccessDeniedException;
+Object returnedObject) throws AccessDeniedException;
 
 	/**
 	 * Indicates whether this <code>AfterInvocationProvider</code> is able to participate

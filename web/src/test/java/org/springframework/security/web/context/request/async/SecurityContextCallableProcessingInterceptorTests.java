@@ -72,7 +72,7 @@ public class SecurityContextCallableProcessingInterceptorTests {
 	@Test
 	public void specificSecurityContext() throws Exception {
 		SecurityContextCallableProcessingInterceptor interceptor = new SecurityContextCallableProcessingInterceptor(
-				this.securityContext);
+	this.securityContext);
 		interceptor.preProcess(this.webRequest, this.callable);
 		assertThat(SecurityContextHolder.getContext()).isSameAs(this.securityContext);
 		interceptor.postProcess(this.webRequest, this.callable, null);

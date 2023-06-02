@@ -51,47 +51,47 @@ class WithSecurityContextTestRuntimeHintsTests {
 	@BeforeEach
 	void setup() {
 		this.registrar.registerHints(this.hints, WithSecurityContextTestRuntimeHintsTests.class,
-				WithSecurityContextTestRuntimeHintsTests.class.getClassLoader());
+	WithSecurityContextTestRuntimeHintsTests.class.getClassLoader());
 	}
 
 	@Test
 	@WithMockUser
 	void withMockUserHasHints() {
 		assertThat(RuntimeHintsPredicates.reflection()
-				.onType(TypeReference
-						.of("org.springframework.security.test.context.support.WithMockUserSecurityContextFactory"))
-				.withMemberCategory(MemberCategory.INVOKE_DECLARED_CONSTRUCTORS)).accepts(this.hints);
+	.onType(TypeReference
+.of("org.springframework.security.test.context.support.WithMockUserSecurityContextFactory"))
+	.withMemberCategory(MemberCategory.INVOKE_DECLARED_CONSTRUCTORS)).accepts(this.hints);
 	}
 
 	@Test
 	@WithAnonymousUser
 	void withAnonymousUserHasHints() {
 		assertThat(RuntimeHintsPredicates.reflection()
-				.onType(TypeReference.of(
-						"org.springframework.security.test.context.support.WithAnonymousUserSecurityContextFactory"))
-				.withMemberCategory(MemberCategory.INVOKE_DECLARED_CONSTRUCTORS)).accepts(this.hints);
+	.onType(TypeReference.of(
+"org.springframework.security.test.context.support.WithAnonymousUserSecurityContextFactory"))
+	.withMemberCategory(MemberCategory.INVOKE_DECLARED_CONSTRUCTORS)).accepts(this.hints);
 	}
 
 	@Test
 	@WithUserDetails
 	void withUserDetailsHasHints() {
 		assertThat(RuntimeHintsPredicates.reflection()
-				.onType(TypeReference
-						.of("org.springframework.security.test.context.support.WithUserDetailsSecurityContextFactory"))
-				.withMemberCategory(MemberCategory.INVOKE_DECLARED_CONSTRUCTORS)).accepts(this.hints);
+	.onType(TypeReference
+.of("org.springframework.security.test.context.support.WithUserDetailsSecurityContextFactory"))
+	.withMemberCategory(MemberCategory.INVOKE_DECLARED_CONSTRUCTORS)).accepts(this.hints);
 	}
 
 	@Test
 	@WithMockTestUser
 	void withMockTestUserHasHints() {
 		assertThat(RuntimeHintsPredicates.reflection().onType(WithMockTestUserSecurityContextFactory.class)
-				.withMemberCategory(MemberCategory.INVOKE_DECLARED_CONSTRUCTORS)).accepts(this.hints);
+	.withMemberCategory(MemberCategory.INVOKE_DECLARED_CONSTRUCTORS)).accepts(this.hints);
 	}
 
 	@Test
 	void withMockCustomUserOnClassHasHints() {
 		assertThat(RuntimeHintsPredicates.reflection().onType(WithMockCustomUserSecurityContextFactory.class)
-				.withMemberCategory(MemberCategory.INVOKE_DECLARED_CONSTRUCTORS)).accepts(this.hints);
+	.withMemberCategory(MemberCategory.INVOKE_DECLARED_CONSTRUCTORS)).accepts(this.hints);
 	}
 
 	@Retention(RetentionPolicy.RUNTIME)
