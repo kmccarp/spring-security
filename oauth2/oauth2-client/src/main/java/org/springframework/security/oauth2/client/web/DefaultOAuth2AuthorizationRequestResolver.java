@@ -82,7 +82,7 @@ public final class DefaultOAuth2AuthorizationRequestResolver implements OAuth2Au
 
 	private final AntPathRequestMatcher authorizationRequestMatcher;
 
-	private Consumer<OAuth2AuthorizationRequest.Builder> authorizationRequestCustomizer = (customizer) -> {
+	private Consumer<OAuth2AuthorizationRequest.Builder> authorizationRequestCustomizer = customizer -> {
 	};
 
 	/**
@@ -172,7 +172,7 @@ public final class DefaultOAuth2AuthorizationRequestResolver implements OAuth2Au
 		if (AuthorizationGrantType.AUTHORIZATION_CODE.equals(clientRegistration.getAuthorizationGrantType())) {
 			// @formatter:off
 			OAuth2AuthorizationRequest.Builder builder = OAuth2AuthorizationRequest.authorizationCode()
-					.attributes((attrs) ->
+					.attributes(attrs ->
 							attrs.put(OAuth2ParameterNames.REGISTRATION_ID, clientRegistration.getRegistrationId()));
 			// @formatter:on
 			if (!CollectionUtils.isEmpty(clientRegistration.getScopes())
@@ -263,8 +263,8 @@ public final class DefaultOAuth2AuthorizationRequestResolver implements OAuth2Au
 		try {
 			String nonce = DEFAULT_SECURE_KEY_GENERATOR.generateKey();
 			String nonceHash = createHash(nonce);
-			builder.attributes((attrs) -> attrs.put(OidcParameterNames.NONCE, nonce));
-			builder.additionalParameters((params) -> params.put(OidcParameterNames.NONCE, nonceHash));
+			builder.attributes(attrs -> attrs.put(OidcParameterNames.NONCE, nonce));
+			builder.additionalParameters(params -> params.put(OidcParameterNames.NONCE, nonceHash));
 		}
 		catch (NoSuchAlgorithmException ex) {
 		}

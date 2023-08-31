@@ -159,7 +159,7 @@ public class SecurityReactorContextConfigurationResourceServerTests {
 					.uri(this.uri)
 					.retrieve()
 					.bodyToMono(String.class)
-					.flatMap((result) -> this.rest.get()
+					.flatMap(result -> this.rest.get()
 							.uri(this.uri)
 							.retrieve()
 							.bodyToMono(String.class)

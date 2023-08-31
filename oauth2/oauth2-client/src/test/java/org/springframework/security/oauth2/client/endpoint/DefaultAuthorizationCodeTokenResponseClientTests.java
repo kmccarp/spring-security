@@ -192,7 +192,7 @@ public class DefaultAuthorizationCodeTokenResponseClientTests {
 		SecretKeySpec secretKey = new SecretKeySpec(
 				clientRegistration.getClientSecret().getBytes(StandardCharsets.UTF_8), "HmacSHA256");
 		JWK jwk = TestJwks.jwk(secretKey).build();
-		Function<ClientRegistration, JWK> jwkResolver = (registration) -> jwk;
+		Function<ClientRegistration, JWK> jwkResolver = registration -> jwk;
 		configureJwtClientAuthenticationConverter(jwkResolver);
 
 		this.tokenResponseClient.getTokenResponse(authorizationCodeGrantRequest(clientRegistration));
@@ -223,7 +223,7 @@ public class DefaultAuthorizationCodeTokenResponseClientTests {
 
 		// Configure Jwt client authentication converter
 		JWK jwk = TestJwks.DEFAULT_RSA_JWK;
-		Function<ClientRegistration, JWK> jwkResolver = (registration) -> jwk;
+		Function<ClientRegistration, JWK> jwkResolver = registration -> jwk;
 		configureJwtClientAuthenticationConverter(jwkResolver);
 
 		this.tokenResponseClient.getTokenResponse(authorizationCodeGrantRequest(clientRegistration));

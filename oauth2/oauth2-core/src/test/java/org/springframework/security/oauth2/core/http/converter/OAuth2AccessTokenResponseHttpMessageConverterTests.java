@@ -127,7 +127,7 @@ public class OAuth2AccessTokenResponseHttpMessageConverterTests {
 		assertThat(accessTokenResponse.getAccessToken().getScopes()).containsExactly("read", "write");
 		assertThat(accessTokenResponse.getRefreshToken().getTokenValue()).isEqualTo("refresh-token-1234");
 		Map<String, String> additionalParameters = accessTokenResponse.getAdditionalParameters().entrySet().stream()
-				.collect(Collectors.toMap(Map.Entry::getKey, (entry) -> String.valueOf(entry.getValue())));
+				.collect(Collectors.toMap(Map.Entry::getKey, entry -> String.valueOf(entry.getValue())));
 		assertThat(additionalParameters).containsExactly(entry("custom_object_1", "{name1=value1}"),
 				entry("custom_object_2", "[value1, value2]"), entry("custom_parameter_1", "custom-value-1"),
 				entry("custom_parameter_2", "custom-value-2"));

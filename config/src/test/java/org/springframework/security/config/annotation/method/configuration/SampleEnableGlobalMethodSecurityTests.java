@@ -65,7 +65,7 @@ public class SampleEnableGlobalMethodSecurityTests {
 		assertThat(this.methodSecurityService.secured()).isNull();
 		assertThat(this.methodSecurityService.jsr250()).isNull();
 		assertThatExceptionOfType(AccessDeniedException.class)
-				.isThrownBy(() -> this.methodSecurityService.preAuthorize());
+				.isThrownBy(this.methodSecurityService::preAuthorize);
 	}
 
 	@Test

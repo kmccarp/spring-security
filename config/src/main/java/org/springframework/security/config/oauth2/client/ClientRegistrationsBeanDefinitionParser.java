@@ -146,19 +146,19 @@ public final class ClientRegistrationsBeanDefinitionParser implements BeanDefini
 			String providerId = providerElt.getAttribute(ATT_PROVIDER_ID);
 			provider.put(ATT_PROVIDER_ID, providerId);
 			getOptionalIfNotEmpty(parserContext, providerElt.getAttribute(ATT_AUTHORIZATION_URI))
-					.ifPresent((value) -> provider.put(ATT_AUTHORIZATION_URI, value));
+					.ifPresent(value -> provider.put(ATT_AUTHORIZATION_URI, value));
 			getOptionalIfNotEmpty(parserContext, providerElt.getAttribute(ATT_TOKEN_URI))
-					.ifPresent((value) -> provider.put(ATT_TOKEN_URI, value));
+					.ifPresent(value -> provider.put(ATT_TOKEN_URI, value));
 			getOptionalIfNotEmpty(parserContext, providerElt.getAttribute(ATT_USER_INFO_URI))
-					.ifPresent((value) -> provider.put(ATT_USER_INFO_URI, value));
+					.ifPresent(value -> provider.put(ATT_USER_INFO_URI, value));
 			getOptionalIfNotEmpty(parserContext, providerElt.getAttribute(ATT_USER_INFO_AUTHENTICATION_METHOD))
-					.ifPresent((value) -> provider.put(ATT_USER_INFO_AUTHENTICATION_METHOD, value));
+					.ifPresent(value -> provider.put(ATT_USER_INFO_AUTHENTICATION_METHOD, value));
 			getOptionalIfNotEmpty(parserContext, providerElt.getAttribute(ATT_USER_INFO_USER_NAME_ATTRIBUTE))
-					.ifPresent((value) -> provider.put(ATT_USER_INFO_USER_NAME_ATTRIBUTE, value));
+					.ifPresent(value -> provider.put(ATT_USER_INFO_USER_NAME_ATTRIBUTE, value));
 			getOptionalIfNotEmpty(parserContext, providerElt.getAttribute(ATT_JWK_SET_URI))
-					.ifPresent((value) -> provider.put(ATT_JWK_SET_URI, value));
+					.ifPresent(value -> provider.put(ATT_JWK_SET_URI, value));
 			getOptionalIfNotEmpty(parserContext, providerElt.getAttribute(ATT_ISSUER_URI))
-					.ifPresent((value) -> provider.put(ATT_ISSUER_URI, value));
+					.ifPresent(value -> provider.put(ATT_ISSUER_URI, value));
 			providers.put(providerId, provider);
 		}
 		return providers;
@@ -208,7 +208,7 @@ public final class ClientRegistrationsBeanDefinitionParser implements BeanDefini
 	}
 
 	private static Optional<String> getOptionalIfNotEmpty(ParserContext parserContext, String str) {
-		return Optional.ofNullable(str).filter((s) -> !s.isEmpty())
+		return Optional.ofNullable(str).filter(s -> !s.isEmpty())
 				.map(parserContext.getReaderContext().getEnvironment()::resolvePlaceholders);
 	}
 
@@ -245,7 +245,7 @@ public final class ClientRegistrationsBeanDefinitionParser implements BeanDefini
 	private static String getCanonicalName(String name) {
 		StringBuilder canonicalName = new StringBuilder(name.length());
 		name.chars().filter(Character::isLetterOrDigit).map(Character::toLowerCase)
-				.forEach((c) -> canonicalName.append((char) c));
+				.forEach(c -> canonicalName.append((char) c));
 		return canonicalName.toString();
 	}
 

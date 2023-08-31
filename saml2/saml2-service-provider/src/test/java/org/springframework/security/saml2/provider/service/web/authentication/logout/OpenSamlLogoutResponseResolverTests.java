@@ -81,7 +81,7 @@ public class OpenSamlLogoutResponseResolverTests {
 	@Test
 	public void resolvePostWhenAuthenticatedThenSuccess() {
 		RelyingPartyRegistration registration = TestRelyingPartyRegistrations.full()
-				.assertingPartyDetails((party) -> party.singleLogoutServiceBinding(Saml2MessageBinding.POST)).build();
+				.assertingPartyDetails(party -> party.singleLogoutServiceBinding(Saml2MessageBinding.POST)).build();
 		MockHttpServletRequest request = new MockHttpServletRequest();
 		LogoutRequest logoutRequest = TestOpenSamlObjects.assertingPartyLogoutRequest(registration);
 		request.setParameter(Saml2ParameterNames.SAML_REQUEST,
@@ -102,7 +102,7 @@ public class OpenSamlLogoutResponseResolverTests {
 	@Test
 	public void resolvePostWithLineBreaksWhenAuthenticatedThenSuccess() {
 		RelyingPartyRegistration registration = TestRelyingPartyRegistrations.full()
-				.assertingPartyDetails((party) -> party.singleLogoutServiceBinding(Saml2MessageBinding.POST)).build();
+				.assertingPartyDetails(party -> party.singleLogoutServiceBinding(Saml2MessageBinding.POST)).build();
 		MockHttpServletRequest request = new MockHttpServletRequest();
 		LogoutRequest logoutRequest = TestOpenSamlObjects.assertingPartyLogoutRequest(registration);
 		String encoded = new StringBuffer(

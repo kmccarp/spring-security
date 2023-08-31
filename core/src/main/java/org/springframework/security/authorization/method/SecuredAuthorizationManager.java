@@ -81,7 +81,7 @@ public final class SecuredAuthorizationManager implements AuthorizationManager<M
 		Object target = methodInvocation.getThis();
 		Class<?> targetClass = (target != null) ? target.getClass() : null;
 		MethodClassKey cacheKey = new MethodClassKey(method, targetClass);
-		return this.cachedAuthorities.computeIfAbsent(cacheKey, (k) -> resolveAuthorities(method, targetClass));
+		return this.cachedAuthorities.computeIfAbsent(cacheKey, k -> resolveAuthorities(method, targetClass));
 	}
 
 	private Set<String> resolveAuthorities(Method method, Class<?> targetClass) {

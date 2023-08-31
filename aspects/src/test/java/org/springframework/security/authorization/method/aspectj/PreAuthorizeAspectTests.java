@@ -37,15 +37,15 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
  */
 public class PreAuthorizeAspectTests {
 
-	private TestingAuthenticationToken anne = new TestingAuthenticationToken("anne", "", "ROLE_A");
+	private final TestingAuthenticationToken anne = new TestingAuthenticationToken("anne", "", "ROLE_A");
 
 	private MethodInterceptor interceptor;
 
-	private SecuredImpl secured = new SecuredImpl();
+	private final SecuredImpl secured = new SecuredImpl();
 
-	private SecuredImplSubclass securedSub = new SecuredImplSubclass();
+	private final SecuredImplSubclass securedSub = new SecuredImplSubclass();
 
-	private PrePostSecured prePostSecured = new PrePostSecured();
+	private final PrePostSecured prePostSecured = new PrePostSecured();
 
 	@BeforeEach
 	public final void setUp() {
@@ -68,7 +68,7 @@ public class PreAuthorizeAspectTests {
 	@Test
 	public void securedClassMethodDeniesUnauthenticatedAccess() {
 		assertThatExceptionOfType(AuthenticationCredentialsNotFoundException.class)
-				.isThrownBy(() -> this.secured.securedClassMethod());
+				.isThrownBy(this.secured::securedClassMethod);
 	}
 
 	@Test
@@ -80,14 +80,14 @@ public class PreAuthorizeAspectTests {
 	@Test
 	public void internalPrivateCallIsIntercepted() {
 		SecurityContextHolder.getContext().setAuthentication(this.anne);
-		assertThatExceptionOfType(AccessDeniedException.class).isThrownBy(() -> this.secured.publicCallsPrivate());
-		assertThatExceptionOfType(AccessDeniedException.class).isThrownBy(() -> this.securedSub.publicCallsPrivate());
+		assertThatExceptionOfType(AccessDeniedException.class).isThrownBy(this.secured::publicCallsPrivate);
+		assertThatExceptionOfType(AccessDeniedException.class).isThrownBy(this.securedSub::publicCallsPrivate);
 	}
 
 	@Test
 	public void protectedMethodIsIntercepted() {
 		SecurityContextHolder.getContext().setAuthentication(this.anne);
-		assertThatExceptionOfType(AccessDeniedException.class).isThrownBy(() -> this.secured.protectedMethod());
+		assertThatExceptionOfType(AccessDeniedException.class).isThrownBy(this.secured::protectedMethod);
 	}
 
 	@Test

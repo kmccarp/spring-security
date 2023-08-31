@@ -57,7 +57,7 @@ public class AclImpl implements Acl, MutableAcl, AuditableAcl, OwnershipAcl {
 	private Sid owner;
 
 	// includes all SIDs the WHERE clause covered, even if there was no ACE for a SID
-	private List<Sid> loadedSids = null;
+	private List<Sid> loadedSids;
 
 	private boolean entriesInheriting = true;
 
@@ -202,7 +202,7 @@ public class AclImpl implements Acl, MutableAcl, AuditableAcl, OwnershipAcl {
 	public boolean isSidLoaded(List<Sid> sids) {
 		// If loadedSides is null, this indicates all SIDs were loaded
 		// Also return true if the caller didn't specify a SID to find
-		if ((this.loadedSids == null) || (sids == null) || (sids.size() == 0)) {
+		if ((this.loadedSids == null) || (sids == null) || (sids.isEmpty())) {
 			return true;
 		}
 

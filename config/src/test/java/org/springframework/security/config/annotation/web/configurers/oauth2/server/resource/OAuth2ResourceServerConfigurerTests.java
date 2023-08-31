@@ -1522,12 +1522,12 @@ public class OAuth2ResourceServerConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests((authorizeRequests) ->
+				.authorizeRequests(authorizeRequests ->
 					authorizeRequests
 						.requestMatchers("/requires-read-scope").access("hasAuthority('SCOPE_message:read')")
 						.anyRequest().authenticated()
 				)
-				.oauth2ResourceServer((oauth2ResourceServer) ->
+				.oauth2ResourceServer(oauth2ResourceServer ->
 					oauth2ResourceServer
 						.jwt(withDefaults())
 				);
@@ -1574,14 +1574,14 @@ public class OAuth2ResourceServerConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests((authorizeRequests) ->
+				.authorizeRequests(authorizeRequests ->
 					authorizeRequests
 						.requestMatchers("/requires-read-scope").access("hasAuthority('SCOPE_message:read')")
 						.anyRequest().authenticated()
 				)
-				.oauth2ResourceServer((oauth2ResourceServer) ->
+				.oauth2ResourceServer(oauth2ResourceServer ->
 					oauth2ResourceServer
-						.jwt((jwt) ->
+						.jwt(jwt ->
 							jwt
 								.jwkSetUri(this.jwkSetUri)
 						)
@@ -1740,7 +1740,7 @@ public class OAuth2ResourceServerConfigurerTests {
 					.anyRequest().denyAll()
 					.and()
 				.exceptionHandling()
-					.defaultAccessDeniedHandlerFor(new AccessDeniedHandlerImpl(), (request) -> false)
+					.defaultAccessDeniedHandlerFor(new AccessDeniedHandlerImpl(), request -> false)
 					.and()
 				.httpBasic()
 					.and()
@@ -1812,7 +1812,7 @@ public class OAuth2ResourceServerConfigurerTests {
 		Converter<Jwt, AbstractAuthenticationToken> getJwtAuthenticationConverter() {
 			JwtAuthenticationConverter converter = new JwtAuthenticationConverter();
 			converter.setJwtGrantedAuthoritiesConverter(
-					(jwt) -> Collections.singletonList(new SimpleGrantedAuthority("message:read")));
+					jwt -> Collections.singletonList(new SimpleGrantedAuthority("message:read")));
 			return converter;
 		}
 
@@ -1880,11 +1880,11 @@ public class OAuth2ResourceServerConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests((authz) -> authz
+				.authorizeRequests(authz -> authz
 					.anyRequest().authenticated()
 				)
 				.oauth2Login(withDefaults())
-				.oauth2ResourceServer((oauth2) -> oauth2.jwt(withDefaults()));
+				.oauth2ResourceServer(oauth2 -> oauth2.jwt(withDefaults()));
 			return http.build();
 			// @formatter:on
 		}
@@ -2031,10 +2031,10 @@ public class OAuth2ResourceServerConfigurerTests {
 		SecurityFilterChain web(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests((authorize) -> authorize
+				.authorizeRequests(authorize -> authorize
 					.anyRequest().authenticated()
 				)
-				.oauth2ResourceServer((oauth2) -> oauth2
+				.oauth2ResourceServer(oauth2 -> oauth2
 					.jwt(withDefaults())
 					.withObjectPostProcessor(new ObjectPostProcessor<BearerTokenAuthenticationFilter>() {
 						@Override
@@ -2089,13 +2089,13 @@ public class OAuth2ResourceServerConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests((authorizeRequests) ->
+				.authorizeRequests(authorizeRequests ->
 					authorizeRequests
 						.anyRequest().authenticated()
 				)
-				.oauth2ResourceServer((oauth2ResourceServer) ->
+				.oauth2ResourceServer(oauth2ResourceServer ->
 					oauth2ResourceServer
-						.jwt((jwt) ->
+						.jwt(jwt ->
 							jwt
 								.decoder(decoder())
 						)
@@ -2172,11 +2172,11 @@ public class OAuth2ResourceServerConfigurerTests {
 			// @formatter:off
 			http
 					.authenticationManager(this.defaultAuthenticationManager)
-					.authorizeRequests((authz) -> authz
+					.authorizeRequests(authz -> authz
 							.anyRequest().authenticated()
 					)
-					.oauth2ResourceServer((oauth2) -> oauth2
-							.jwt((jwt) -> jwt
+					.oauth2ResourceServer(oauth2 -> oauth2
+							.jwt(jwt -> jwt
 									.authenticationManager(this.jwtAuthenticationManager)
 							)
 					);
@@ -2358,12 +2358,12 @@ public class OAuth2ResourceServerConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests((authorizeRequests) ->
+				.authorizeRequests(authorizeRequests ->
 					authorizeRequests
 						.requestMatchers("/requires-read-scope").hasAuthority("SCOPE_message:read")
 						.anyRequest().authenticated()
 				)
-				.oauth2ResourceServer((oauth2ResourceServer) ->
+				.oauth2ResourceServer(oauth2ResourceServer ->
 					oauth2ResourceServer
 						.opaqueToken(withDefaults())
 				);
@@ -2406,13 +2406,13 @@ public class OAuth2ResourceServerConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests((authorizeRequests) ->
+				.authorizeRequests(authorizeRequests ->
 					authorizeRequests
 						.anyRequest().authenticated()
 				)
-				.oauth2ResourceServer((oauth2ResourceServer) ->
+				.oauth2ResourceServer(oauth2ResourceServer ->
 					oauth2ResourceServer
-						.opaqueToken((opaqueToken) ->
+						.opaqueToken(opaqueToken ->
 							opaqueToken
 								.authenticationManager(authenticationProvider()::authenticate)
 						)
@@ -2441,11 +2441,11 @@ public class OAuth2ResourceServerConfigurerTests {
 			// @formatter:off
 			http
 					.authenticationManager(this.defaultAuthenticationManager)
-					.authorizeRequests((authz) -> authz
+					.authorizeRequests(authz -> authz
 							.anyRequest().authenticated()
 					)
-					.oauth2ResourceServer((oauth2) -> oauth2
-							.opaqueToken((opaque) -> opaque
+					.oauth2ResourceServer(oauth2 -> oauth2
+							.opaqueToken(opaque -> opaque
 									.authenticationManager(this.opaqueTokenAuthenticationManager)
 							)
 					);

@@ -46,7 +46,7 @@ import org.springframework.web.util.HtmlUtils;
  */
 public class LoginPageGeneratingWebFilter implements WebFilter {
 
-	private ServerWebExchangeMatcher matcher = ServerWebExchangeMatchers.pathMatchers(HttpMethod.GET, "/login");
+	private final ServerWebExchangeMatcher matcher = ServerWebExchangeMatchers.pathMatchers(HttpMethod.GET, "/login");
 
 	private Map<String, String> oauth2AuthenticationUrlToClientName = new HashMap<>();
 
@@ -64,7 +64,7 @@ public class LoginPageGeneratingWebFilter implements WebFilter {
 	@Override
 	public Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain) {
 		return this.matcher.matches(exchange).filter(ServerWebExchangeMatcher.MatchResult::isMatch)
-				.switchIfEmpty(chain.filter(exchange).then(Mono.empty())).flatMap((matchResult) -> render(exchange));
+				.switchIfEmpty(chain.filter(exchange).then(Mono.empty())).flatMap(matchResult -> render(exchange));
 	}
 
 	private Mono<Void> render(ServerWebExchange exchange) {
@@ -76,7 +76,7 @@ public class LoginPageGeneratingWebFilter implements WebFilter {
 
 	private Mono<DataBuffer> createBuffer(ServerWebExchange exchange) {
 		Mono<CsrfToken> token = exchange.getAttributeOrDefault(CsrfToken.class.getName(), Mono.empty());
-		return token.map(LoginPageGeneratingWebFilter::csrfToken).defaultIfEmpty("").map((csrfTokenHtmlInput) -> {
+		return token.map(LoginPageGeneratingWebFilter::csrfToken).defaultIfEmpty("").map(csrfTokenHtmlInput -> {
 			byte[] bytes = createPage(exchange, csrfTokenHtmlInput);
 			DataBufferFactory bufferFactory = exchange.getResponse().bufferFactory();
 			return bufferFactory.wrap(bytes);
@@ -118,7 +118,7 @@ public class LoginPageGeneratingWebFilter implements WebFilter {
 		boolean isError = queryParams.containsKey("error");
 		boolean isLogoutSuccess = queryParams.containsKey("logout");
 		StringBuilder page = new StringBuilder();
-		page.append("      <form class=\"form-signin\" method=\"post\" action=\"" + contextPath + "/login\">\n");
+		page.append("      <form class=\"form-signin\" method=\"post\" action=\"").append(contextPath).append("/login\">\n");
 		page.append("        <h2 class=\"form-signin-heading\">Please sign in</h2>\n");
 		page.append(createError(isError));
 		page.append(createLogoutSuccess(isLogoutSuccess));

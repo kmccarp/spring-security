@@ -212,7 +212,7 @@ public class NamespaceHttpAnonymousTests {
 
 		Optional<AnonymousAuthenticationToken> anonymousToken() {
 			return Optional.of(SecurityContextHolder.getContext()).map(SecurityContext::getAuthentication)
-					.filter((a) -> a instanceof AnonymousAuthenticationToken)
+					.filter(AnonymousAuthenticationToken.class::isInstance)
 					.map(AnonymousAuthenticationToken.class::cast);
 		}
 

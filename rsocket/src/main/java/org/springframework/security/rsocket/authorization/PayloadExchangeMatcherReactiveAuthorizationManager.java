@@ -53,9 +53,9 @@ public final class PayloadExchangeMatcherReactiveAuthorizationManager
 	@Override
 	public Mono<AuthorizationDecision> check(Mono<Authentication> authentication, PayloadExchange exchange) {
 		return Flux.fromIterable(this.mappings)
-				.concatMap((mapping) -> mapping.getMatcher().matches(exchange)
+				.concatMap(mapping -> mapping.getMatcher().matches(exchange)
 						.filter(PayloadExchangeMatcher.MatchResult::isMatch).map(MatchResult::getVariables)
-						.flatMap((variables) -> mapping.getEntry().check(authentication,
+						.flatMap(variables -> mapping.getEntry().check(authentication,
 								new PayloadExchangeAuthorizationContext(exchange, variables))))
 				.next().switchIfEmpty(Mono.fromCallable(() -> new AuthorizationDecision(false)));
 	}

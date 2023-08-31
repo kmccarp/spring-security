@@ -65,11 +65,11 @@ public class JwtIssuerReactiveAuthenticationManagerResolverTests {
 
 	private static final String JWK_SET = "{\"keys\":[{\"kty\":\"RSA\",\"e\":\"AQAB\",\"use\":\"sig\",\"kid\":\"one\",\"n\":\"3FlqJr5TRskIQIgdE3Dd7D9lboWdcTUT8a-fJR7MAvQm7XXNoYkm3v7MQL1NYtDvL2l8CAnc0WdSTINU6IRvc5Kqo2Q4csNX9SHOmEfzoROjQqahEcve1jBXluoCXdYuYpx4_1tfRgG6ii4Uhxh6iI8qNMJQX-fLfqhbfYfxBQVRPywBkAbIP4x1EAsbC6FSNmkhCxiMNqEgxaIpY8C2kJdJ_ZIV-WW4noDdzpKqHcwmB8FsrumlVY_DNVvUSDIipiq9PbP4H99TXN1o746oRaNa07rq1hoCgMSSy-85SagCoxlmyE-D-of9SsMY8Ol9t0rdzpobBuhyJ_o5dfvjKw\"}]}";
 
-	private String jwt = jwt("iss", "trusted");
+	private final String jwt = jwt("iss", "trusted");
 
-	private String evil = jwt("iss", "\"");
+	private final String evil = jwt("iss", "\"");
 
-	private String noIssuer = jwt("sub", "sub");
+	private final String noIssuer = jwt("sub", "sub");
 
 	@Test
 	public void resolveWhenUsingFromTrustedIssuersThenReturnsAuthenticationManager() throws Exception {
@@ -156,7 +156,7 @@ public class JwtIssuerReactiveAuthenticationManagerResolverTests {
 			server.enqueue(new MockResponse().setResponseCode(200).setHeader("Content-Type", "application/json")
 					.setBody(JWK_SET));
 			TrustedIssuerJwtAuthenticationManagerResolver resolver = new TrustedIssuerJwtAuthenticationManagerResolver(
-					(iss) -> iss.equals(issuer));
+					iss -> iss.equals(issuer));
 			ReactiveAuthenticationManager authenticationManager = resolver.resolve(issuer).block();
 			ReactiveAuthenticationManager cachedAuthenticationManager = resolver.resolve(issuer).block();
 			assertThat(authenticationManager).isSameAs(cachedAuthenticationManager);
@@ -171,7 +171,7 @@ public class JwtIssuerReactiveAuthenticationManagerResolverTests {
 		// @formatter:off
 		assertThatExceptionOfType(OAuth2AuthenticationException.class)
 				.isThrownBy(() -> authenticationManagerResolver.resolve(null)
-						.flatMap((authenticationManager) -> authenticationManager.authenticate(token))
+						.flatMap(authenticationManager -> authenticationManager.authenticate(token))
 						.block())
 				.withMessageContaining("Invalid issuer");
 		// @formatter:on
@@ -183,8 +183,8 @@ public class JwtIssuerReactiveAuthenticationManagerResolverTests {
 		ReactiveAuthenticationManager authenticationManager = mock(ReactiveAuthenticationManager.class);
 		given(authenticationManager.authenticate(token)).willReturn(Mono.empty());
 		JwtIssuerReactiveAuthenticationManagerResolver authenticationManagerResolver = new JwtIssuerReactiveAuthenticationManagerResolver(
-				(issuer) -> Mono.just(authenticationManager));
-		authenticationManagerResolver.resolve(null).flatMap((manager) -> manager.authenticate(token)).block();
+				issuer -> Mono.just(authenticationManager));
+		authenticationManagerResolver.resolve(null).flatMap(manager -> manager.authenticate(token)).block();
 		verify(authenticationManager).authenticate(any());
 	}
 
@@ -193,21 +193,21 @@ public class JwtIssuerReactiveAuthenticationManagerResolverTests {
 		Authentication token = withBearerToken(this.jwt);
 		Map<String, ReactiveAuthenticationManager> authenticationManagers = new HashMap<>();
 		JwtIssuerReactiveAuthenticationManagerResolver authenticationManagerResolver = new JwtIssuerReactiveAuthenticationManagerResolver(
-				(issuer) -> Mono.justOrEmpty(authenticationManagers.get(issuer)));
+				issuer -> Mono.justOrEmpty(authenticationManagers.get(issuer)));
 		assertThatExceptionOfType(OAuth2AuthenticationException.class)
 				.isThrownBy(() -> authenticationManagerResolver.resolve(null)
-						.flatMap((manager) -> manager.authenticate(token)).block())
+						.flatMap(manager -> manager.authenticate(token)).block())
 				.withMessageContaining("Invalid issuer");
 		ReactiveAuthenticationManager authenticationManager = mock(ReactiveAuthenticationManager.class);
 		given(authenticationManager.authenticate(token)).willReturn(Mono.empty());
 		authenticationManagers.put("trusted", authenticationManager);
-		authenticationManagerResolver.resolve(null).flatMap((manager) -> manager.authenticate(token)).block();
+		authenticationManagerResolver.resolve(null).flatMap(manager -> manager.authenticate(token)).block();
 		verify(authenticationManager).authenticate(token);
 		authenticationManagers.clear();
 		// @formatter:off
 		assertThatExceptionOfType(OAuth2AuthenticationException.class)
 				.isThrownBy(() -> authenticationManagerResolver.resolve(null)
-						.flatMap((manager) -> manager.authenticate(token))
+						.flatMap(manager -> manager.authenticate(token))
 						.block())
 				.withMessageContaining("Invalid issuer");
 		// @formatter:on
@@ -221,7 +221,7 @@ public class JwtIssuerReactiveAuthenticationManagerResolverTests {
 		// @formatter:off
 		assertThatExceptionOfType(OAuth2AuthenticationException.class)
 				.isThrownBy(() -> authenticationManagerResolver.resolve(null)
-						.flatMap((manager) -> manager.authenticate(token))
+						.flatMap(manager -> manager.authenticate(token))
 						.block())
 				.withMessageNotContaining("Invalid issuer");
 		// @formatter:on
@@ -234,7 +234,7 @@ public class JwtIssuerReactiveAuthenticationManagerResolverTests {
 		Authentication token = withBearerToken(this.noIssuer);
 		assertThatExceptionOfType(OAuth2AuthenticationException.class)
 				.isThrownBy(() -> authenticationManagerResolver.resolve(null)
-						.flatMap((manager) -> manager.authenticate(token)).block())
+						.flatMap(manager -> manager.authenticate(token)).block())
 				.withMessageContaining("Missing issuer");
 	}
 
@@ -246,7 +246,7 @@ public class JwtIssuerReactiveAuthenticationManagerResolverTests {
 		// @formatter:off
 		assertThatExceptionOfType(OAuth2AuthenticationException.class)
 				.isThrownBy(() -> authenticationManagerResolver.resolve(null)
-						.flatMap((manager) -> manager.authenticate(token))
+						.flatMap(manager -> manager.authenticate(token))
 						.block())
 				.withMessage("Invalid token");
 		// @formatter:on

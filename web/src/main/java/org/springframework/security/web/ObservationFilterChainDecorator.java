@@ -114,7 +114,7 @@ public final class ObservationFilterChainDecorator implements FilterChainProxy.F
 
 		private final int size;
 
-		private int currentPosition = 0;
+		private int currentPosition;
 
 		private VirtualFilterChain(FilterChain chain, List<ObservationFilter> additionalFilters) {
 			this.originalChain = chain;

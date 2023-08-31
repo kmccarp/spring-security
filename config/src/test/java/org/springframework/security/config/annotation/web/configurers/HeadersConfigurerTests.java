@@ -619,7 +619,7 @@ public class HeadersConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.headers((headers) ->
+				.headers(headers ->
 					headers
 						.defaultsDisabled()
 						.contentTypeOptions(withDefaults())
@@ -689,7 +689,7 @@ public class HeadersConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.headers((headers) ->
+				.headers(headers ->
 					headers
 						.defaultsDisabled()
 						.cacheControl(withDefaults())
@@ -742,7 +742,7 @@ public class HeadersConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.headers((headers) ->
+				.headers(headers ->
 					headers
 						.defaultsDisabled()
 						.xssProtection(withDefaults())
@@ -761,10 +761,10 @@ public class HeadersConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.headers((headers) ->
+				.headers(headers ->
 					headers
 						.defaultsDisabled()
-						.xssProtection((xXssConfig) ->
+						.xssProtection(xXssConfig ->
 							xXssConfig.headerValue(XXssProtectionHeaderWriter.HeaderValue.ENABLED_MODE_BLOCK)
 						)
 				);
@@ -797,9 +797,9 @@ public class HeadersConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.headers((headers) ->
+				.headers(headers ->
 					headers
-						.frameOptions((frameOptionsConfig) -> frameOptionsConfig.sameOrigin())
+						.frameOptions(org.springframework.security.config.annotation.web.configurers.HeadersConfigurer.FrameOptionsConfig::sameOrigin)
 				);
 			return http.build();
 			// @formatter:on
@@ -966,10 +966,10 @@ public class HeadersConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.headers((headers) ->
+				.headers(headers ->
 					headers
 						.defaultsDisabled()
-						.httpPublicKeyPinning((hpkp) ->
+						.httpPublicKeyPinning(hpkp ->
 							hpkp
 								.addSha256Pins("d6qzRu9zOECb90Uez27xWltNsj0e1Md7GkYYkVoZWmM=")
 								.reportUri("https://example.net/pkp-report")
@@ -1024,10 +1024,10 @@ public class HeadersConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.headers((headers) ->
+				.headers(headers ->
 					headers
 						.defaultsDisabled()
-						.contentSecurityPolicy((csp) ->
+						.contentSecurityPolicy(csp ->
 							csp
 								.policyDirectives("default-src 'self'; script-src trustedscripts.example.com")
 								.reportOnly()
@@ -1064,10 +1064,10 @@ public class HeadersConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.headers((headers) ->
+				.headers(headers ->
 					headers
 						.defaultsDisabled()
-						.contentSecurityPolicy((csp) ->
+						.contentSecurityPolicy(csp ->
 								csp.policyDirectives("")
 						)
 				);
@@ -1085,7 +1085,7 @@ public class HeadersConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.headers((headers) ->
+				.headers(headers ->
 					headers
 						.defaultsDisabled()
 						.contentSecurityPolicy(withDefaults())
@@ -1121,7 +1121,7 @@ public class HeadersConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.headers((headers) ->
+				.headers(headers ->
 					headers
 						.defaultsDisabled()
 						.referrerPolicy()
@@ -1157,10 +1157,10 @@ public class HeadersConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.headers((headers) ->
+				.headers(headers ->
 					headers
 						.defaultsDisabled()
-						.referrerPolicy((referrerPolicy) ->
+						.referrerPolicy(referrerPolicy ->
 								referrerPolicy.policy(ReferrerPolicy.SAME_ORIGIN)
 						)
 				);
@@ -1214,7 +1214,7 @@ public class HeadersConfigurerTests {
 			http
 				.headers()
 					.defaultsDisabled()
-					.permissionsPolicy((permissionsPolicy) -> permissionsPolicy.policy("geolocation=(self)"));
+					.permissionsPolicy(permissionsPolicy -> permissionsPolicy.policy("geolocation=(self)"));
 			return http.build();
 			// @formatter:on
 		}
@@ -1249,7 +1249,7 @@ public class HeadersConfigurerTests {
 			http
 				.headers()
 					.defaultsDisabled()
-					.permissionsPolicy((permissionsPolicy) -> permissionsPolicy.policy(null));
+					.permissionsPolicy(permissionsPolicy -> permissionsPolicy.policy(null));
 			return http.build();
 			// @formatter:on
 		}
@@ -1300,10 +1300,10 @@ public class HeadersConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.headers((headers) ->
+				.headers(headers ->
 					headers
 						.defaultsDisabled()
-						.httpStrictTransportSecurity((hstsConfig) -> hstsConfig.preload(true))
+						.httpStrictTransportSecurity(hstsConfig -> hstsConfig.preload(true))
 				);
 			return http.build();
 			// @formatter:on
@@ -1318,15 +1318,15 @@ public class HeadersConfigurerTests {
 		@Bean
 		SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
-			http.headers((headers) -> headers
+			http.headers(headers -> headers
 					.defaultsDisabled()
-					.crossOriginOpenerPolicy((policy) -> policy
+					.crossOriginOpenerPolicy(policy -> policy
 						.policy(CrossOriginOpenerPolicyHeaderWriter.CrossOriginOpenerPolicy.SAME_ORIGIN)
 					)
-					.crossOriginEmbedderPolicy((policy) -> policy
+					.crossOriginEmbedderPolicy(policy -> policy
 						.policy(CrossOriginEmbedderPolicyHeaderWriter.CrossOriginEmbedderPolicy.REQUIRE_CORP)
 					)
-					.crossOriginResourcePolicy((policy) -> policy
+					.crossOriginResourcePolicy(policy -> policy
 						.policy(CrossOriginResourcePolicyHeaderWriter.CrossOriginResourcePolicy.SAME_ORIGIN)
 					)
 			);

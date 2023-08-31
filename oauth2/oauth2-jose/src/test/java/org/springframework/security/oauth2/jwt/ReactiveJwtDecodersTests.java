@@ -360,7 +360,7 @@ public class ReactiveJwtDecodersTests {
 	public String buildResponseWithMissingJwksUri() throws JsonMappingException, JsonProcessingException {
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Object> response = mapper.readValue(DEFAULT_RESPONSE_TEMPLATE,
-				new TypeReference<Map<String, Object>>() {
+				new TypeReference<>() {
 				});
 		response.remove("jwks_uri");
 		return mapper.writeValueAsString(response);

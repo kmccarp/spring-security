@@ -87,8 +87,8 @@ public class LdapBindAuthenticationManagerFactoryITests {
 
 	@Test
 	public void authenticationManagerFactoryWhenCustomAuthoritiesMapperThenUsed() throws Exception {
-		CustomAuthoritiesMapperConfig.AUTHORITIES_MAPPER = ((authorities) -> AuthorityUtils
-				.createAuthorityList("ROLE_CUSTOM"));
+		CustomAuthoritiesMapperConfig.AUTHORITIES_MAPPER = authorities -> AuthorityUtils
+				.createAuthorityList("ROLE_CUSTOM");
 
 		this.spring.register(CustomAuthoritiesMapperConfig.class).autowire();
 

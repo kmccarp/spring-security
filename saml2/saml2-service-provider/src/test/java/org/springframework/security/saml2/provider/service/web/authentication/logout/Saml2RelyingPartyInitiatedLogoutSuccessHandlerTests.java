@@ -84,7 +84,7 @@ public class Saml2RelyingPartyInitiatedLogoutSuccessHandlerTests {
 	@Test
 	public void onLogoutSuccessWhenPostThenPostsToAssertingParty() throws Exception {
 		RelyingPartyRegistration registration = TestRelyingPartyRegistrations.full()
-				.assertingPartyDetails((party) -> party.singleLogoutServiceBinding(Saml2MessageBinding.POST)).build();
+				.assertingPartyDetails(party -> party.singleLogoutServiceBinding(Saml2MessageBinding.POST)).build();
 		Authentication authentication = authentication(registration);
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		Saml2LogoutRequest logoutRequest = Saml2LogoutRequest.withRelyingPartyRegistration(registration)

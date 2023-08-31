@@ -102,7 +102,7 @@ public class OpenSamlLogoutResponseValidator implements Saml2LogoutResponseValid
 
 	private Consumer<Collection<Saml2Error>> verifySignature(Saml2LogoutResponse response,
 			LogoutResponse logoutResponse, RelyingPartyRegistration registration) {
-		return (errors) -> {
+		return errors -> {
 			VerifierPartial partial = OpenSamlVerificationUtils.verifySignature(logoutResponse, registration);
 			if (logoutResponse.isSigned()) {
 				errors.addAll(partial.post(logoutResponse.getSignature()));
@@ -115,7 +115,7 @@ public class OpenSamlLogoutResponseValidator implements Saml2LogoutResponseValid
 
 	private Consumer<Collection<Saml2Error>> validateRequest(LogoutResponse response,
 			RelyingPartyRegistration registration) {
-		return (errors) -> {
+		return errors -> {
 			validateIssuer(response, registration).accept(errors);
 			validateDestination(response, registration).accept(errors);
 			validateStatus(response).accept(errors);
@@ -124,7 +124,7 @@ public class OpenSamlLogoutResponseValidator implements Saml2LogoutResponseValid
 
 	private Consumer<Collection<Saml2Error>> validateIssuer(LogoutResponse response,
 			RelyingPartyRegistration registration) {
-		return (errors) -> {
+		return errors -> {
 			if (response.getIssuer() == null) {
 				errors.add(new Saml2Error(Saml2ErrorCodes.INVALID_ISSUER, "Failed to find issuer in LogoutResponse"));
 				return;
@@ -139,7 +139,7 @@ public class OpenSamlLogoutResponseValidator implements Saml2LogoutResponseValid
 
 	private Consumer<Collection<Saml2Error>> validateDestination(LogoutResponse response,
 			RelyingPartyRegistration registration) {
-		return (errors) -> {
+		return errors -> {
 			if (response.getDestination() == null) {
 				errors.add(new Saml2Error(Saml2ErrorCodes.INVALID_DESTINATION,
 						"Failed to find destination in LogoutResponse"));
@@ -154,7 +154,7 @@ public class OpenSamlLogoutResponseValidator implements Saml2LogoutResponseValid
 	}
 
 	private Consumer<Collection<Saml2Error>> validateStatus(LogoutResponse response) {
-		return (errors) -> {
+		return errors -> {
 			if (response.getStatus() == null) {
 				return;
 			}
@@ -172,7 +172,7 @@ public class OpenSamlLogoutResponseValidator implements Saml2LogoutResponseValid
 	}
 
 	private Consumer<Collection<Saml2Error>> validateLogoutRequest(LogoutResponse response, String id) {
-		return (errors) -> {
+		return errors -> {
 			if (response.getInResponseTo() == null) {
 				return;
 			}

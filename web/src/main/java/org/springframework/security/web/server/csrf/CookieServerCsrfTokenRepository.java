@@ -62,7 +62,7 @@ public final class CookieServerCsrfTokenRepository implements ServerCsrfTokenRep
 
 	private int cookieMaxAge = -1;
 
-	private Consumer<ResponseCookie.ResponseCookieBuilder> cookieCustomizer = (builder) -> {
+	private Consumer<ResponseCookie.ResponseCookieBuilder> cookieCustomizer = builder -> {
 	};
 
 	/**
@@ -84,7 +84,7 @@ public final class CookieServerCsrfTokenRepository implements ServerCsrfTokenRep
 	 */
 	public static CookieServerCsrfTokenRepository withHttpOnlyFalse() {
 		CookieServerCsrfTokenRepository result = new CookieServerCsrfTokenRepository();
-		result.setCookieCustomizer((cookie) -> cookie.httpOnly(false));
+		result.setCookieCustomizer(cookie -> cookie.httpOnly(false));
 		return result;
 	}
 

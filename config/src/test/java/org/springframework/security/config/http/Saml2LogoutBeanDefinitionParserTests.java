@@ -213,7 +213,7 @@ public class Saml2LogoutBeanDefinitionParserTests {
 		RelyingPartyRegistration registration = this.repository.findByRegistrationId("registration-id");
 		Saml2LogoutRequest logoutRequest = Saml2LogoutRequest.withRelyingPartyRegistration(registration)
 				.samlRequest(this.rpLogoutRequest).id(this.rpLogoutRequestId).relayState(this.rpLogoutRequestRelayState)
-				.parameters((params) -> params.put("Signature", this.rpLogoutRequestSignature)).build();
+				.parameters(params -> params.put("Signature", this.rpLogoutRequestSignature)).build();
 		given(getBean(Saml2LogoutRequestResolver.class).resolve(any(), any())).willReturn(logoutRequest);
 		this.mvc.perform(post("/logout").with(authentication(this.saml2User)).with(csrf()));
 		verify(getBean(Saml2LogoutRequestResolver.class)).resolve(any(), any());
@@ -297,7 +297,7 @@ public class Saml2LogoutBeanDefinitionParserTests {
 		RelyingPartyRegistration registration = this.repository.findByRegistrationId("get");
 		Saml2LogoutRequest logoutRequest = Saml2LogoutRequest.withRelyingPartyRegistration(registration)
 				.samlRequest(this.rpLogoutRequest).id(this.rpLogoutRequestId).relayState(this.rpLogoutRequestRelayState)
-				.parameters((params) -> params.put("Signature", this.rpLogoutRequestSignature)).build();
+				.parameters(params -> params.put("Signature", this.rpLogoutRequestSignature)).build();
 		this.logoutRequestRepository.saveLogoutRequest(logoutRequest, this.request, this.response);
 		this.request.setParameter("RelayState", logoutRequest.getRelayState());
 		assertThat(this.logoutRequestRepository.loadLogoutRequest(this.request)).isNotNull();
@@ -314,7 +314,7 @@ public class Saml2LogoutBeanDefinitionParserTests {
 		RelyingPartyRegistration registration = this.repository.findByRegistrationId("registration-id");
 		Saml2LogoutRequest logoutRequest = Saml2LogoutRequest.withRelyingPartyRegistration(registration)
 				.samlRequest(this.rpLogoutRequest).id(this.rpLogoutRequestId).relayState(this.rpLogoutRequestRelayState)
-				.parameters((params) -> params.put("Signature", this.rpLogoutRequestSignature)).build();
+				.parameters(params -> params.put("Signature", this.rpLogoutRequestSignature)).build();
 		this.logoutRequestRepository.saveLogoutRequest(logoutRequest, this.request, this.response);
 		String deflatedApLogoutResponse = Saml2Utils.samlEncode(
 				Saml2Utils.samlInflate(Saml2Utils.samlDecode(this.apLogoutResponse)).getBytes(StandardCharsets.UTF_8));
@@ -331,7 +331,7 @@ public class Saml2LogoutBeanDefinitionParserTests {
 		RelyingPartyRegistration registration = this.repository.findByRegistrationId("get");
 		Saml2LogoutRequest logoutRequest = Saml2LogoutRequest.withRelyingPartyRegistration(registration)
 				.samlRequest(this.rpLogoutRequest).id(this.rpLogoutRequestId).relayState(this.rpLogoutRequestRelayState)
-				.parameters((params) -> params.put("Signature", this.rpLogoutRequestSignature)).build();
+				.parameters(params -> params.put("Signature", this.rpLogoutRequestSignature)).build();
 		given(getBean(Saml2LogoutRequestRepository.class).removeLogoutRequest(any(), any())).willReturn(logoutRequest);
 		given(getBean(Saml2LogoutResponseValidator.class).validate(any()))
 				.willReturn(Saml2LogoutValidatorResult.success());

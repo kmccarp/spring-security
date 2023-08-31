@@ -70,7 +70,7 @@ public class ServerCsrfTokenRequestAttributeHandler implements ServerCsrfTokenRe
 		if (!MediaType.MULTIPART_FORM_DATA.isCompatibleWith(contentType)) {
 			return Mono.empty();
 		}
-		return exchange.getMultipartData().map((d) -> d.getFirst(expected.getParameterName())).cast(FormFieldPart.class)
+		return exchange.getMultipartData().map(d -> d.getFirst(expected.getParameterName())).cast(FormFieldPart.class)
 				.map(FormFieldPart::value);
 	}
 

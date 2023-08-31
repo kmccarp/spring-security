@@ -107,9 +107,9 @@ import org.springframework.util.CollectionUtils;
 public final class SessionManagementConfigurer<H extends HttpSecurityBuilder<H>>
 		extends AbstractHttpConfigurer<SessionManagementConfigurer<H>, H> {
 
-	private final SessionAuthenticationStrategy DEFAULT_SESSION_FIXATION_STRATEGY = createDefaultSessionFixationProtectionStrategy();
+	private final SessionAuthenticationStrategy defaultSessionFixationStrategy = createDefaultSessionFixationProtectionStrategy();
 
-	private SessionAuthenticationStrategy sessionFixationAuthenticationStrategy = this.DEFAULT_SESSION_FIXATION_STRATEGY;
+	private SessionAuthenticationStrategy sessionFixationAuthenticationStrategy = this.defaultSessionFixationStrategy;
 
 	private SessionAuthenticationStrategy sessionAuthenticationStrategy;
 
@@ -119,7 +119,7 @@ public final class SessionManagementConfigurer<H extends HttpSecurityBuilder<H>>
 
 	private SessionInformationExpiredStrategy expiredSessionStrategy;
 
-	private List<SessionAuthenticationStrategy> sessionAuthenticationStrategies = new ArrayList<>();
+	private final List<SessionAuthenticationStrategy> sessionAuthenticationStrategies = new ArrayList<>();
 
 	private SessionRegistry sessionRegistry;
 
@@ -139,7 +139,7 @@ public final class SessionManagementConfigurer<H extends HttpSecurityBuilder<H>>
 
 	private AuthenticationFailureHandler sessionAuthenticationFailureHandler;
 
-	private Set<String> propertiesThatRequireImplicitAuthentication = new HashSet<>();
+	private final Set<String> propertiesThatRequireImplicitAuthentication = new HashSet<>();
 
 	private Boolean requireExplicitAuthenticationStrategy;
 

@@ -281,7 +281,7 @@ public class OAuth2LoginBeanDefinitionParserTests {
 				.build();
 		given(this.accessTokenResponseClient.getTokenResponse(any())).willReturn(accessTokenResponse);
 		Jwt jwt = TestJwts.user();
-		given(this.jwtDecoderFactory.createDecoder(any())).willReturn((token) -> jwt);
+		given(this.jwtDecoderFactory.createDecoder(any())).willReturn(token -> jwt);
 		MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
 		params.add("code", "code123");
 		params.add("state", authorizationRequest.getState());
@@ -330,7 +330,7 @@ public class OAuth2LoginBeanDefinitionParserTests {
 		accessTokenResponse = TestOAuth2AccessTokenResponses.oidcAccessTokenResponse().build();
 		given(this.accessTokenResponseClient.getTokenResponse(any())).willReturn(accessTokenResponse);
 		Jwt jwt = TestJwts.user();
-		given(this.jwtDecoderFactory.createDecoder(any())).willReturn((token) -> jwt);
+		given(this.jwtDecoderFactory.createDecoder(any())).willReturn(token -> jwt);
 		given(this.userAuthoritiesMapper.mapAuthorities(any()))
 				.willReturn((Collection) AuthorityUtils.createAuthorityList("ROLE_OIDC_USER"));
 		// @formatter:off

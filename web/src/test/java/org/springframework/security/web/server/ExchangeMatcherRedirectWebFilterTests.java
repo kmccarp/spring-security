@@ -38,7 +38,7 @@ public class ExchangeMatcherRedirectWebFilterTests {
 	public void filterWhenRequestMatchThenRedirectToSpecifiedUrl() {
 		ExchangeMatcherRedirectWebFilter filter = new ExchangeMatcherRedirectWebFilter(
 				new PathPatternParserServerWebExchangeMatcher("/context"), "/test");
-		FilteringWebHandler handler = new FilteringWebHandler((e) -> e.getResponse().setComplete(),
+		FilteringWebHandler handler = new FilteringWebHandler(e -> e.getResponse().setComplete(),
 				Collections.singletonList(filter));
 
 		WebTestClient client = WebTestClient.bindToWebHandler(handler).build();
@@ -50,7 +50,7 @@ public class ExchangeMatcherRedirectWebFilterTests {
 	public void filterWhenRequestNotMatchThenNextFilter() {
 		ExchangeMatcherRedirectWebFilter filter = new ExchangeMatcherRedirectWebFilter(
 				new PathPatternParserServerWebExchangeMatcher("/context"), "/test");
-		FilteringWebHandler handler = new FilteringWebHandler((e) -> e.getResponse().setComplete(),
+		FilteringWebHandler handler = new FilteringWebHandler(e -> e.getResponse().setComplete(),
 				Collections.singletonList(filter));
 
 		WebTestClient client = WebTestClient.bindToWebHandler(handler).build();

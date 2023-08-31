@@ -435,7 +435,7 @@ public final class OAuth2LoginConfigurer<B extends HttpSecurityBuilder<B>>
 		Map<String, GrantedAuthoritiesMapper> grantedAuthoritiesMapperMap = BeanFactoryUtils
 				.beansOfTypeIncludingAncestors(this.getBuilder().getSharedObject(ApplicationContext.class),
 						GrantedAuthoritiesMapper.class);
-		return (!grantedAuthoritiesMapperMap.isEmpty() ? grantedAuthoritiesMapperMap.values().iterator().next() : null);
+		return !grantedAuthoritiesMapperMap.isEmpty() ? grantedAuthoritiesMapperMap.values().iterator().next() : null;
 	}
 
 	private OAuth2AccessTokenResponseClient<OAuth2AuthorizationCodeGrantRequest> getAccessTokenResponseClient() {
@@ -507,7 +507,7 @@ public final class OAuth2LoginConfigurer<B extends HttpSecurityBuilder<B>>
 				? this.authorizationEndpointConfig.authorizationRequestBaseUri
 				: OAuth2AuthorizationRequestRedirectFilter.DEFAULT_AUTHORIZATION_REQUEST_BASE_URI;
 		Map<String, String> loginUrlToClientName = new HashMap<>();
-		clientRegistrations.forEach((registration) -> {
+		clientRegistrations.forEach(registration -> {
 			if (AuthorizationGrantType.AUTHORIZATION_CODE.equals(registration.getAuthorizationGrantType())) {
 				String authorizationRequestUri = authorizationRequestBaseUri + "/" + registration.getRegistrationId();
 				loginUrlToClientName.put(authorizationRequestUri, registration.getClientName());
@@ -540,7 +540,7 @@ public final class OAuth2LoginConfigurer<B extends HttpSecurityBuilder<B>>
 				? ReflectionUtils.findField(DefaultLoginPageGeneratingFilter.class, "formLoginEnabled") : null;
 		if (formLoginEnabledField != null) {
 			ReflectionUtils.makeAccessible(formLoginEnabledField);
-			return (request) -> Boolean.FALSE
+			return request -> Boolean.FALSE
 					.equals(ReflectionUtils.getField(formLoginEnabledField, defaultLoginPageGeneratingFilter));
 		}
 		return AnyRequestMatcher.INSTANCE;

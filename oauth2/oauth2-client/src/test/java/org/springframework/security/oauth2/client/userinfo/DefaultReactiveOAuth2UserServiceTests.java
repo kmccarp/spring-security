@@ -66,10 +66,10 @@ public class DefaultReactiveOAuth2UserServiceTests {
 
 	private ClientRegistration.Builder clientRegistration;
 
-	private DefaultReactiveOAuth2UserService userService = new DefaultReactiveOAuth2UserService();
+	private final DefaultReactiveOAuth2UserService userService = new DefaultReactiveOAuth2UserService();
 
-	private OAuth2AccessToken accessToken = new OAuth2AccessToken(OAuth2AccessToken.TokenType.BEARER, "access-token",
-			Instant.now(), Instant.now().plus(Duration.ofDays(1)));
+	private final OAuth2AccessToken accessToken = new OAuth2AccessToken(OAuth2AccessToken.TokenType.BEARER, "access-token",
+Instant.now(), Instant.now().plus(Duration.ofDays(1)));
 
 	private MockWebServer server;
 
@@ -98,7 +98,7 @@ public class DefaultReactiveOAuth2UserServiceTests {
 	@Test
 	public void loadUserWhenUserInfoUriIsNullThenThrowOAuth2AuthenticationException() {
 		this.clientRegistration.userInfoUri(null);
-		StepVerifier.create(this.userService.loadUser(oauth2UserRequest())).expectErrorSatisfies((ex) -> assertThat(ex)
+		StepVerifier.create(this.userService.loadUser(oauth2UserRequest())).expectErrorSatisfies(ex -> assertThat(ex)
 				.isInstanceOf(OAuth2AuthenticationException.class).hasMessageContaining("missing_user_info_uri"))
 				.verify();
 	}
@@ -108,7 +108,7 @@ public class DefaultReactiveOAuth2UserServiceTests {
 		this.clientRegistration.userNameAttributeName(null);
 		// @formatter:off
 		StepVerifier.create(this.userService.loadUser(oauth2UserRequest()))
-				.expectErrorSatisfies((ex) -> assertThat(ex)
+				.expectErrorSatisfies(ex -> assertThat(ex)
 						.isInstanceOf(OAuth2AuthenticationException.class)
 						.hasMessageContaining("missing_user_name_attribute")
 				)

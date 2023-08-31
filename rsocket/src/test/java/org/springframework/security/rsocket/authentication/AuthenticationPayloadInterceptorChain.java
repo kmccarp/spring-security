@@ -34,7 +34,7 @@ class AuthenticationPayloadInterceptorChain implements PayloadInterceptorChain {
 	@Override
 	public Mono<Void> next(PayloadExchange exchange) {
 		return ReactiveSecurityContextHolder.getContext().map(SecurityContext::getAuthentication)
-				.doOnNext((a) -> this.setAuthentication(a)).then();
+				.doOnNext(this::setAuthentication).then();
 	}
 
 	Authentication getAuthentication() {

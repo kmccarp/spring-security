@@ -55,7 +55,7 @@ public class WebSessionServerRequestCache implements ServerRequestCache {
 
 	private static final Log logger = LogFactory.getLog(WebSessionServerRequestCache.class);
 
-	private String sessionAttrName = DEFAULT_SAVED_REQUEST_ATTR;
+	private final String sessionAttrName = DEFAULT_SAVED_REQUEST_ATTR;
 
 	private ServerWebExchangeMatcher saveRequestMatcher = createDefaultRequestMacher();
 
@@ -74,7 +74,7 @@ public class WebSessionServerRequestCache implements ServerRequestCache {
 	@Override
 	public Mono<Void> saveRequest(ServerWebExchange exchange) {
 		return this.saveRequestMatcher.matches(exchange).filter(MatchResult::isMatch)
-				.flatMap((m) -> exchange.getSession()).map(WebSession::getAttributes).doOnNext((attrs) -> {
+				.flatMap(m -> exchange.getSession()).map(WebSession::getAttributes).doOnNext(attrs -> {
 					String requestPath = pathInApplication(exchange.getRequest());
 					attrs.put(this.sessionAttrName, requestPath);
 					logger.debug(LogMessage.format("Request added to WebSession: '%s'", requestPath));
@@ -84,7 +84,7 @@ public class WebSessionServerRequestCache implements ServerRequestCache {
 	@Override
 	public Mono<URI> getRedirectUri(ServerWebExchange exchange) {
 		return exchange.getSession()
-				.flatMap((session) -> Mono.justOrEmpty(session.<String>getAttribute(this.sessionAttrName)))
+				.flatMap(session -> Mono.justOrEmpty(session.<String>getAttribute(this.sessionAttrName)))
 				.map(this::createRedirectUri);
 	}
 
@@ -97,14 +97,14 @@ public class WebSessionServerRequestCache implements ServerRequestCache {
 			return Mono.empty();
 		}
 		ServerHttpRequest request = stripMatchingRequestParameterName(exchange.getRequest());
-		return exchange.getSession().map(WebSession::getAttributes).filter((attributes) -> {
+		return exchange.getSession().map(WebSession::getAttributes).filter(attributes -> {
 			String requestPath = pathInApplication(request);
 			boolean removed = attributes.remove(this.sessionAttrName, requestPath);
 			if (removed) {
 				logger.debug(LogMessage.format("Request removed from WebSession: '%s'", requestPath));
 			}
 			return removed;
-		}).map((attributes) -> request);
+		}).map(attributes -> request);
 	}
 
 	/**

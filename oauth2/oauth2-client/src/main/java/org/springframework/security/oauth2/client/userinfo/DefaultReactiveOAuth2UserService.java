@@ -72,10 +72,10 @@ public class DefaultReactiveOAuth2UserService implements ReactiveOAuth2UserServi
 
 	private static final String MISSING_USER_NAME_ATTRIBUTE_ERROR_CODE = "missing_user_name_attribute";
 
-	private static final ParameterizedTypeReference<Map<String, Object>> STRING_OBJECT_MAP = new ParameterizedTypeReference<Map<String, Object>>() {
+	private static final ParameterizedTypeReference<Map<String, Object>> STRING_OBJECT_MAP = new ParameterizedTypeReference<>() {
 	};
 
-	private static final ParameterizedTypeReference<Map<String, String>> STRING_STRING_MAP = new ParameterizedTypeReference<Map<String, String>>() {
+	private static final ParameterizedTypeReference<Map<String, String>> STRING_STRING_MAP = new ParameterizedTypeReference<>() {
 	};
 
 	private WebClient webClient = WebClient.create();
@@ -108,9 +108,9 @@ public class DefaultReactiveOAuth2UserService implements ReactiveOAuth2UserServi
 					authenticationMethod);
 			// @formatter:off
 			Mono<Map<String, Object>> userAttributes = requestHeadersSpec.retrieve()
-					.onStatus(HttpStatusCode::isError, (response) ->
+					.onStatus(HttpStatusCode::isError, response ->
 						parse(response)
-							.map((userInfoErrorResponse) -> {
+							.map(userInfoErrorResponse -> {
 								String description = userInfoErrorResponse.getErrorObject().getDescription();
 								OAuth2Error oauth2Error = new OAuth2Error(INVALID_USER_INFO_RESPONSE_ERROR_CODE, description,
 									null);
@@ -118,7 +118,7 @@ public class DefaultReactiveOAuth2UserService implements ReactiveOAuth2UserServi
 							})
 					)
 					.bodyToMono(DefaultReactiveOAuth2UserService.STRING_OBJECT_MAP);
-			return userAttributes.map((attrs) -> {
+			return userAttributes.map(attrs -> {
 				GrantedAuthority authority = new OAuth2UserAuthority(attrs);
 				Set<GrantedAuthority> authorities = new HashSet<>();
 				authorities.add(authority);
@@ -129,8 +129,8 @@ public class DefaultReactiveOAuth2UserService implements ReactiveOAuth2UserServi
 
 				return new DefaultOAuth2User(authorities, attrs, userNameAttributeName);
 			})
-			.onErrorMap((ex) -> (ex instanceof UnsupportedMediaTypeException ||
-					ex.getCause() instanceof UnsupportedMediaTypeException), (ex) -> {
+			.onErrorMap(ex -> (ex instanceof UnsupportedMediaTypeException ||
+					ex.getCause() instanceof UnsupportedMediaTypeException), ex -> {
 				String contentType = (ex instanceof UnsupportedMediaTypeException) ?
 						((UnsupportedMediaTypeException) ex).getContentType().toString() :
 						((UnsupportedMediaTypeException) ex.getCause()).getContentType().toString();
@@ -148,7 +148,7 @@ public class DefaultReactiveOAuth2UserService implements ReactiveOAuth2UserServi
 						null);
 				throw new OAuth2AuthenticationException(oauth2Error, oauth2Error.toString(), ex);
 			})
-			.onErrorMap((ex) -> {
+			.onErrorMap(ex -> {
 				OAuth2Error oauth2Error = new OAuth2Error(INVALID_USER_INFO_RESPONSE_ERROR_CODE,
 						"An error occurred reading the UserInfo response: " + ex.getMessage(), null);
 				return new OAuth2AuthenticationException(oauth2Error, oauth2Error.toString(), ex);
@@ -172,7 +172,7 @@ public class DefaultReactiveOAuth2UserService implements ReactiveOAuth2UserServi
 		return this.webClient.get()
 				.uri(userInfoUri)
 				.header(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE)
-				.headers((headers) -> headers
+				.headers(headers -> headers
 						.setBearerAuth(userRequest.getAccessToken().getTokenValue())
 				);
 		// @formatter:on
@@ -195,7 +195,7 @@ public class DefaultReactiveOAuth2UserService implements ReactiveOAuth2UserServi
 		}
 		// Other error?
 		return httpResponse.bodyToMono(STRING_STRING_MAP)
-				.map((body) -> new UserInfoErrorResponse(ErrorObject.parse(new JSONObject(body))));
+				.map(body -> new UserInfoErrorResponse(ErrorObject.parse(new JSONObject(body))));
 	}
 
 }

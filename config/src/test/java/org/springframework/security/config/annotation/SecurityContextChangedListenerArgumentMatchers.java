@@ -27,7 +27,7 @@ import static org.mockito.ArgumentMatchers.argThat;
 public final class SecurityContextChangedListenerArgumentMatchers {
 
 	public static SecurityContextChangedEvent setAuthentication(Class<? extends Authentication> authenticationClass) {
-		return argThat(new ArgumentMatcher<SecurityContextChangedEvent>() {
+		return argThat(new ArgumentMatcher<>() {
 			public boolean matches(SecurityContextChangedEvent event) {
 				Authentication previous = authentication(event.getOldContext());
 				Authentication next = authentication(event.getNewContext());

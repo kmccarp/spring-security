@@ -89,7 +89,7 @@ public abstract class AbstractWebClientReactiveOAuth2AccessTokenResponseClient<T
 		// @formatter:off
 		return Mono.defer(() -> this.requestEntityConverter.convert(grantRequest)
 				.exchange()
-				.flatMap((response) -> readTokenResponse(grantRequest, response))
+				.flatMap(response -> readTokenResponse(grantRequest, response))
 		);
 		// @formatter:on
 	}
@@ -121,7 +121,7 @@ public abstract class AbstractWebClientReactiveOAuth2AccessTokenResponseClient<T
 
 	private RequestHeadersSpec<?> populateRequest(T grantRequest) {
 		return this.webClient.post().uri(clientRegistration(grantRequest).getProviderDetails().getTokenUri())
-				.headers((headers) -> {
+				.headers(headers -> {
 					HttpHeaders headersToAdd = getHeadersConverter().convert(grantRequest);
 					if (headersToAdd != null) {
 						headers.addAll(headersToAdd);
@@ -246,7 +246,7 @@ public abstract class AbstractWebClientReactiveOAuth2AccessTokenResponseClient<T
 	 */
 	private Mono<OAuth2AccessTokenResponse> readTokenResponse(T grantRequest, ClientResponse response) {
 		return response.body(this.bodyExtractor)
-				.map((tokenResponse) -> populateTokenResponse(grantRequest, tokenResponse));
+				.map(tokenResponse -> populateTokenResponse(grantRequest, tokenResponse));
 	}
 
 	/**
@@ -319,7 +319,7 @@ public abstract class AbstractWebClientReactiveOAuth2AccessTokenResponseClient<T
 	public final void addHeadersConverter(Converter<T, HttpHeaders> headersConverter) {
 		Assert.notNull(headersConverter, "headersConverter cannot be null");
 		Converter<T, HttpHeaders> currentHeadersConverter = this.headersConverter;
-		this.headersConverter = (authorizationGrantRequest) -> {
+		this.headersConverter = authorizationGrantRequest -> {
 			// Append headers using a Composite Converter
 			HttpHeaders headers = currentHeadersConverter.convert(authorizationGrantRequest);
 			if (headers == null) {
@@ -372,7 +372,7 @@ public abstract class AbstractWebClientReactiveOAuth2AccessTokenResponseClient<T
 	public final void addParametersConverter(Converter<T, MultiValueMap<String, String>> parametersConverter) {
 		Assert.notNull(parametersConverter, "parametersConverter cannot be null");
 		Converter<T, MultiValueMap<String, String>> currentParametersConverter = this.parametersConverter;
-		this.parametersConverter = (authorizationGrantRequest) -> {
+		this.parametersConverter = authorizationGrantRequest -> {
 			MultiValueMap<String, String> parameters = currentParametersConverter.convert(authorizationGrantRequest);
 			if (parameters == null) {
 				parameters = new LinkedMultiValueMap<>();

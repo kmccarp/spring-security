@@ -87,10 +87,7 @@ public class DefaultHttpFirewall implements HttpFirewall {
 		if (this.allowUrlEncodedSlash || uri == null) {
 			return false;
 		}
-		if (uri.contains("%2f") || uri.contains("%2F")) {
-			return true;
-		}
-		return false;
+		return uri.contains("%2f") || uri.contains("%2F");
 	}
 
 	/**

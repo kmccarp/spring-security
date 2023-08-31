@@ -349,7 +349,7 @@ public class WebSecurityConfigurationTests {
 			// @formatter:off
 			return http
 					.securityMatcher(new AntPathRequestMatcher("/role1/**"))
-					.authorizeRequests((authorize) -> authorize
+					.authorizeRequests(authorize -> authorize
 							.anyRequest().hasRole("1")
 					)
 					.build();
@@ -362,7 +362,7 @@ public class WebSecurityConfigurationTests {
 			// @formatter:off
 			return http
 					.securityMatcher(new AntPathRequestMatcher("/role2/**"))
-					.authorizeRequests((authorize) -> authorize
+					.authorizeRequests(authorize -> authorize
 							.anyRequest().hasRole("2")
 					)
 					.build();
@@ -375,7 +375,7 @@ public class WebSecurityConfigurationTests {
 			// @formatter:off
 			return http
 					.securityMatcher(new AntPathRequestMatcher("/role3/**"))
-					.authorizeRequests((authorize) -> authorize
+					.authorizeRequests(authorize -> authorize
 							.anyRequest().hasRole("3")
 					)
 					.build();
@@ -386,7 +386,7 @@ public class WebSecurityConfigurationTests {
 		SecurityFilterChain filterChain4(HttpSecurity http) throws Exception {
 			// @formatter:off
 			return http
-					.authorizeRequests((authorize) -> authorize
+					.authorizeRequests(authorize -> authorize
 						.anyRequest().hasRole("4")
 					)
 					.build();
@@ -406,7 +406,7 @@ public class WebSecurityConfigurationTests {
 			// @formatter:off
 			return http
 					.securityMatcher(new AntPathRequestMatcher("/role1/**"))
-					.authorizeRequests((authorize) -> authorize
+					.authorizeRequests(authorize -> authorize
 							.anyRequest().hasRole("1")
 					)
 					.build();
@@ -443,7 +443,7 @@ public class WebSecurityConfigurationTests {
 
 		@Bean
 		WebSecurityCustomizer webSecurityCustomizer() {
-			return (web) -> web.privilegeEvaluator(PRIVILEGE_EVALUATOR);
+			return web -> web.privilegeEvaluator(PRIVILEGE_EVALUATOR);
 		}
 
 	}
@@ -456,7 +456,7 @@ public class WebSecurityConfigurationTests {
 
 		@Bean
 		WebSecurityCustomizer webSecurityCustomizer() {
-			return (web) -> web.expressionHandler(EXPRESSION_HANDLER);
+			return web -> web.expressionHandler(EXPRESSION_HANDLER);
 		}
 
 		@Bean
@@ -478,7 +478,7 @@ public class WebSecurityConfigurationTests {
 
 		@Bean
 		WebSecurityCustomizer webSecurityCustomizer() {
-			return (web) -> web.expressionHandler(null);
+			return web -> web.expressionHandler(null);
 		}
 
 	}
@@ -560,7 +560,7 @@ public class WebSecurityConfigurationTests {
 		public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			return http
-					.authorizeRequests((authorize) -> authorize
+					.authorizeRequests(authorize -> authorize
 						.anyRequest().authenticated()
 					)
 					.build();
@@ -642,7 +642,7 @@ public class WebSecurityConfigurationTests {
 
 		@Bean
 		public WebSecurityCustomizer webSecurityCustomizer() {
-			return (web) -> web.ignoring().requestMatchers("/ignore1", "/ignore2");
+			return web -> web.ignoring().requestMatchers("/ignore1", "/ignore2");
 		}
 
 	}
@@ -655,7 +655,7 @@ public class WebSecurityConfigurationTests {
 
 		@Bean
 		public WebSecurityCustomizer webSecurityCustomizer() {
-			return (web) -> web.ignoring().requestMatchers("/ignore1", "/ignore2");
+			return web -> web.ignoring().requestMatchers("/ignore1", "/ignore2");
 		}
 
 		@Bean
@@ -663,7 +663,7 @@ public class WebSecurityConfigurationTests {
 			// @formatter:off
 			return http
 					.securityMatcher(new AntPathRequestMatcher("/role1/**"))
-					.authorizeRequests((authorize) -> authorize
+					.authorizeRequests(authorize -> authorize
 							.anyRequest().hasRole("1")
 					)
 					.build();
@@ -681,13 +681,13 @@ public class WebSecurityConfigurationTests {
 		@Order(1)
 		@Bean
 		public WebSecurityCustomizer webSecurityCustomizer1() {
-			return (web) -> web.ignoring().requestMatchers("/ignore1");
+			return web -> web.ignoring().requestMatchers("/ignore1");
 		}
 
 		@Order(2)
 		@Bean
 		public WebSecurityCustomizer webSecurityCustomizer2() {
-			return (web) -> web.ignoring().requestMatchers("/ignore2");
+			return web -> web.ignoring().requestMatchers("/ignore2");
 		}
 
 	}
@@ -701,8 +701,8 @@ public class WebSecurityConfigurationTests {
 		public SecurityFilterChain path1(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.securityMatchers((requests) -> requests.requestMatchers(new AntPathRequestMatcher("/path1/**")))
-				.authorizeRequests((requests) -> requests.anyRequest().authenticated());
+				.securityMatchers(requests -> requests.requestMatchers(new AntPathRequestMatcher("/path1/**")))
+				.authorizeRequests(requests -> requests.anyRequest().authenticated());
 			// @formatter:on
 			return http.build();
 		}
@@ -710,7 +710,7 @@ public class WebSecurityConfigurationTests {
 		@Bean
 		@Order(Ordered.LOWEST_PRECEDENCE)
 		public SecurityFilterChain permitAll(HttpSecurity http) throws Exception {
-			http.authorizeRequests((requests) -> requests.anyRequest().permitAll());
+			http.authorizeRequests(requests -> requests.anyRequest().permitAll());
 			return http.build();
 		}
 
@@ -725,8 +725,8 @@ public class WebSecurityConfigurationTests {
 		public SecurityFilterChain path1(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-					.securityMatchers((requests) -> requests.requestMatchers(new AntPathRequestMatcher("/path1/**")))
-					.authorizeRequests((requests) -> requests.anyRequest().authenticated());
+					.securityMatchers(requests -> requests.requestMatchers(new AntPathRequestMatcher("/path1/**")))
+					.authorizeRequests(requests -> requests.anyRequest().authenticated());
 			// @formatter:on
 			return http.build();
 		}
@@ -734,7 +734,7 @@ public class WebSecurityConfigurationTests {
 		@Bean
 		@Order(Ordered.LOWEST_PRECEDENCE)
 		public SecurityFilterChain permitAll(HttpSecurity http) throws Exception {
-			http.authorizeRequests((requests) -> requests.anyRequest().permitAll());
+			http.authorizeRequests(requests -> requests.anyRequest().permitAll());
 			return http.build();
 		}
 
@@ -750,8 +750,8 @@ public class WebSecurityConfigurationTests {
 		public SecurityFilterChain notAuthorized(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.securityMatchers((requests) -> requests.requestMatchers(new AntPathRequestMatcher("/user")))
-				.authorizeRequests((requests) -> requests.anyRequest().hasRole("USER"));
+				.securityMatchers(requests -> requests.requestMatchers(new AntPathRequestMatcher("/user")))
+				.authorizeRequests(requests -> requests.anyRequest().hasRole("USER"));
 			// @formatter:on
 			return http.build();
 		}
@@ -761,8 +761,8 @@ public class WebSecurityConfigurationTests {
 		public SecurityFilterChain path1(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.securityMatchers((requests) -> requests.requestMatchers(new AntPathRequestMatcher("/admin")))
-				.authorizeRequests((requests) -> requests.anyRequest().hasRole("ADMIN"));
+				.securityMatchers(requests -> requests.requestMatchers(new AntPathRequestMatcher("/admin")))
+				.authorizeRequests(requests -> requests.anyRequest().hasRole("ADMIN"));
 			// @formatter:on
 			return http.build();
 		}
@@ -770,7 +770,7 @@ public class WebSecurityConfigurationTests {
 		@Bean
 		@Order(Ordered.LOWEST_PRECEDENCE)
 		public SecurityFilterChain permitAll(HttpSecurity http) throws Exception {
-			http.authorizeRequests((requests) -> requests.anyRequest().permitAll());
+			http.authorizeRequests(requests -> requests.anyRequest().permitAll());
 			return http.build();
 		}
 
@@ -784,7 +784,7 @@ public class WebSecurityConfigurationTests {
 
 		@Bean
 		public WebSecurityCustomizer webSecurityCustomizer() {
-			return (web) -> web.ignoring().requestMatchers("/ignoring1/**");
+			return web -> web.ignoring().requestMatchers("/ignoring1/**");
 		}
 
 		@Bean
@@ -792,8 +792,8 @@ public class WebSecurityConfigurationTests {
 		public SecurityFilterChain notAuthorized(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-					.securityMatchers((requests) -> requests.requestMatchers(new AntPathRequestMatcher("/user")))
-					.authorizeRequests((requests) -> requests.anyRequest().hasRole("USER"));
+					.securityMatchers(requests -> requests.requestMatchers(new AntPathRequestMatcher("/user")))
+					.authorizeRequests(requests -> requests.anyRequest().hasRole("USER"));
 			// @formatter:on
 			return http.build();
 		}
@@ -803,8 +803,8 @@ public class WebSecurityConfigurationTests {
 		public SecurityFilterChain admin(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-					.securityMatchers((requests) -> requests.requestMatchers(new AntPathRequestMatcher("/admin")))
-					.authorizeRequests((requests) -> requests.anyRequest().hasRole("ADMIN"));
+					.securityMatchers(requests -> requests.requestMatchers(new AntPathRequestMatcher("/admin")))
+					.authorizeRequests(requests -> requests.anyRequest().hasRole("ADMIN"));
 			// @formatter:on
 			return http.build();
 		}
@@ -812,7 +812,7 @@ public class WebSecurityConfigurationTests {
 		@Bean
 		@Order(Ordered.LOWEST_PRECEDENCE)
 		public SecurityFilterChain permitAll(HttpSecurity http) throws Exception {
-			http.authorizeRequests((requests) -> requests.anyRequest().permitAll());
+			http.authorizeRequests(requests -> requests.anyRequest().permitAll());
 			return http.build();
 		}
 

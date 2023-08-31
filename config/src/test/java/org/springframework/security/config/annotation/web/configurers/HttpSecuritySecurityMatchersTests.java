@@ -124,9 +124,9 @@ public class HttpSecuritySecurityMatchersTests {
 		this.request.setServletPath("/path/");
 		this.springSecurityFilterChain.doFilter(this.request, this.response, this.chain);
 		List<RequestMatcher> requestMatchers = this.springSecurityFilterChain.getFilterChains().stream()
-				.map((chain) -> ((DefaultSecurityFilterChain) chain).getRequestMatcher())
-				.map((matcher) -> ReflectionTestUtils.getField(matcher, "requestMatchers"))
-				.map((matchers) -> (List<RequestMatcher>) matchers).findFirst().get();
+				.map(chain -> ((DefaultSecurityFilterChain) chain).getRequestMatcher())
+				.map(matcher -> ReflectionTestUtils.getField(matcher, "requestMatchers"))
+				.map(matchers -> (List<RequestMatcher>) matchers).findFirst().get();
 		assertThat(this.response.getStatus()).isEqualTo(HttpServletResponse.SC_UNAUTHORIZED);
 		assertThat(requestMatchers).hasOnlyElementsOfType(MvcRequestMatcher.class);
 	}
@@ -235,12 +235,12 @@ public class HttpSecuritySecurityMatchersTests {
 		SecurityFilterChain first(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.securityMatchers((requests) -> requests
+				.securityMatchers(requests -> requests
 					.requestMatchers("/test-1")
 					.requestMatchers("/test-2")
 					.requestMatchers("/test-3")
 				)
-				.authorizeHttpRequests((authorize) -> authorize.anyRequest().denyAll())
+				.authorizeHttpRequests(authorize -> authorize.anyRequest().denyAll())
 				.httpBasic(withDefaults());
 			// @formatter:on
 			return http.build();
@@ -250,10 +250,10 @@ public class HttpSecuritySecurityMatchersTests {
 		SecurityFilterChain second(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.securityMatchers((requests) -> requests
+				.securityMatchers(requests -> requests
 					.requestMatchers("/test-1")
 				)
-				.authorizeHttpRequests((authorize) -> authorize
+				.authorizeHttpRequests(authorize -> authorize
 					.anyRequest().permitAll()
 				);
 			// @formatter:on
@@ -389,11 +389,11 @@ public class HttpSecuritySecurityMatchersTests {
 		SecurityFilterChain appSecurity(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.securityMatchers((matchers) -> matchers
+				.securityMatchers(matchers -> matchers
 					.requestMatchers("/path")
 				)
 				.httpBasic(withDefaults())
-				.authorizeHttpRequests((authorize) -> authorize
+				.authorizeHttpRequests(authorize -> authorize
 					.anyRequest().denyAll()
 				);
 			// @formatter:on
@@ -459,12 +459,12 @@ public class HttpSecuritySecurityMatchersTests {
 					.servletPath("/spring");
 			// @formatter:off
 			http
-				.securityMatchers((matchers) -> matchers
+				.securityMatchers(matchers -> matchers
 					.requestMatchers(mvcMatcherBuilder.pattern("/path"))
 					.requestMatchers(mvcMatcherBuilder.pattern("/never-match"))
 				)
 				.httpBasic(withDefaults())
-				.authorizeHttpRequests((authorize) -> authorize
+				.authorizeHttpRequests(authorize -> authorize
 					.anyRequest().denyAll()
 				);
 			// @formatter:on

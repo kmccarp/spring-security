@@ -47,12 +47,12 @@ public class SecurityContextServerWebExchangeWebFilterTests {
 	@Test
 	public void filterWhenExistingContextAndPrincipalNotNullThenContextPopulated() {
 		Mono<Void> result = this.filter
-				.filter(this.exchange, new DefaultWebFilterChain((e) -> e.getPrincipal()
-						.doOnSuccess((contextPrincipal) -> assertThat(contextPrincipal).isEqualTo(this.principal))
-						.flatMap((contextPrincipal) -> Mono.deferContextual(Mono::just))
-						.doOnSuccess((context) -> assertThat(context.<String>get("foo")).isEqualTo("bar")).then(),
+				.filter(this.exchange, new DefaultWebFilterChain(e -> e.getPrincipal()
+						.doOnSuccess(contextPrincipal -> assertThat(contextPrincipal).isEqualTo(this.principal))
+						.flatMap(contextPrincipal -> Mono.deferContextual(Mono::just))
+						.doOnSuccess(context -> assertThat(context.<String>get("foo")).isEqualTo("bar")).then(),
 						Collections.emptyList()))
-				.contextWrite((context) -> context.put("foo", "bar"))
+				.contextWrite(context -> context.put("foo", "bar"))
 				.contextWrite(ReactiveSecurityContextHolder.withAuthentication(this.principal));
 		StepVerifier.create(result).verifyComplete();
 	}
@@ -61,9 +61,9 @@ public class SecurityContextServerWebExchangeWebFilterTests {
 	public void filterWhenPrincipalNotNullThenContextPopulated() {
 		Mono<Void> result = this.filter
 				.filter(this.exchange,
-						new DefaultWebFilterChain((e) -> e.getPrincipal()
+						new DefaultWebFilterChain(e -> e.getPrincipal()
 								.doOnSuccess(
-										(contextPrincipal) -> assertThat(contextPrincipal).isEqualTo(this.principal))
+										contextPrincipal -> assertThat(contextPrincipal).isEqualTo(this.principal))
 								.then(), Collections.emptyList()))
 				.contextWrite(ReactiveSecurityContextHolder.withAuthentication(this.principal));
 		StepVerifier.create(result).verifyComplete();
@@ -73,9 +73,9 @@ public class SecurityContextServerWebExchangeWebFilterTests {
 	public void filterWhenPrincipalNullThenContextEmpty() {
 		Authentication defaultAuthentication = new TestingAuthenticationToken("anonymouse", "anonymous", "TEST");
 		Mono<Void> result = this.filter.filter(this.exchange,
-				new DefaultWebFilterChain((e) -> e.getPrincipal().defaultIfEmpty(defaultAuthentication)
+				new DefaultWebFilterChain(e -> e.getPrincipal().defaultIfEmpty(defaultAuthentication)
 						.doOnSuccess(
-								(contextPrincipal) -> assertThat(contextPrincipal).isEqualTo(defaultAuthentication))
+								contextPrincipal -> assertThat(contextPrincipal).isEqualTo(defaultAuthentication))
 						.then(), Collections.emptyList()));
 		StepVerifier.create(result).verifyComplete();
 	}

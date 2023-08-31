@@ -157,11 +157,11 @@ public final class Saml2LogoutResponseFilter extends OncePerRequestFilter {
 		Saml2LogoutResponse logoutResponse = Saml2LogoutResponse.withRelyingPartyRegistration(registration)
 				.samlResponse(serialized).relayState(request.getParameter(Saml2ParameterNames.RELAY_STATE))
 				.binding(saml2MessageBinding).location(registration.getSingleLogoutServiceResponseLocation())
-				.parameters((params) -> params.put(Saml2ParameterNames.SIG_ALG,
+				.parameters(params -> params.put(Saml2ParameterNames.SIG_ALG,
 						request.getParameter(Saml2ParameterNames.SIG_ALG)))
-				.parameters((params) -> params.put(Saml2ParameterNames.SIGNATURE,
+				.parameters(params -> params.put(Saml2ParameterNames.SIGNATURE,
 						request.getParameter(Saml2ParameterNames.SIGNATURE)))
-				.parametersQuery((params) -> request.getQueryString()).build();
+				.parametersQuery(params -> request.getQueryString()).build();
 		Saml2LogoutResponseValidatorParameters parameters = new Saml2LogoutResponseValidatorParameters(logoutResponse,
 				logoutRequest, registration);
 		Saml2LogoutValidatorResult result = this.logoutResponseValidator.validate(parameters);

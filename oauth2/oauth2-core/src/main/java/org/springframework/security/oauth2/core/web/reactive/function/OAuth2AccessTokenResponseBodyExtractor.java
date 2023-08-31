@@ -53,7 +53,7 @@ class OAuth2AccessTokenResponseBodyExtractor
 
 	private static final String INVALID_TOKEN_RESPONSE_ERROR_CODE = "invalid_token_response";
 
-	private static final ParameterizedTypeReference<Map<String, Object>> STRING_OBJECT_MAP = new ParameterizedTypeReference<Map<String, Object>>() {
+	private static final ParameterizedTypeReference<Map<String, Object>> STRING_OBJECT_MAP = new ParameterizedTypeReference<>() {
 	};
 
 	OAuth2AccessTokenResponseBodyExtractor() {
@@ -64,7 +64,7 @@ class OAuth2AccessTokenResponseBodyExtractor
 		BodyExtractor<Mono<Map<String, Object>>, ReactiveHttpInputMessage> delegate = BodyExtractors
 				.toMono(STRING_OBJECT_MAP);
 		return delegate.extract(inputMessage, context)
-				.onErrorMap((ex) -> new OAuth2AuthorizationException(
+				.onErrorMap(ex -> new OAuth2AuthorizationException(
 						invalidTokenResponse("An error occurred parsing the Access Token response: " + ex.getMessage()),
 						ex))
 				.switchIfEmpty(Mono.error(() -> new OAuth2AuthorizationException(

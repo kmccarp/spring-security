@@ -66,7 +66,7 @@ public final class ClientRegistrations {
 		rest.setRequestFactory(requestFactory);
 	}
 
-	private static final ParameterizedTypeReference<Map<String, Object>> typeReference = new ParameterizedTypeReference<Map<String, Object>>() {
+	private static final ParameterizedTypeReference<Map<String, Object>> typeReference = new ParameterizedTypeReference<>() {
 	};
 
 	private ClientRegistrations() {

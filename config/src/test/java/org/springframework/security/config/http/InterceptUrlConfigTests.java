@@ -392,12 +392,12 @@ public class InterceptUrlConfigTests {
 				.andExpect(status().isOk());
 		this.mvc.perform(get("/path").with(adminCredentials()))
 				.andExpect(status().isForbidden());
-		this.mvc.perform(get("/error").with((request) -> {
+		this.mvc.perform(get("/error").with(request -> {
 			request.setAttribute(WebUtils.ERROR_REQUEST_URI_ATTRIBUTE, "/error");
 			request.setDispatcherType(DispatcherType.ERROR);
 			return request;
 		})).andExpect(status().isOk());
-		this.mvc.perform(get("/path").with((request) -> {
+		this.mvc.perform(get("/path").with(request -> {
 			request.setAttribute(WebUtils.ERROR_REQUEST_URI_ATTRIBUTE, "/path");
 			request.setDispatcherType(DispatcherType.ERROR);
 			return request;
@@ -414,12 +414,12 @@ public class InterceptUrlConfigTests {
 				.andExpect(status().isOk());
 		this.mvc.perform(get("/path").with(adminCredentials()))
 				.andExpect(status().isForbidden());
-		this.mvc.perform(get("/error").with((request) -> {
+		this.mvc.perform(get("/error").with(request -> {
 			request.setAttribute(WebUtils.ERROR_REQUEST_URI_ATTRIBUTE, "/error");
 			request.setDispatcherType(DispatcherType.ERROR);
 			return request;
 		})).andExpect(status().isOk());
-		this.mvc.perform(get("/path").with((request) -> {
+		this.mvc.perform(get("/path").with(request -> {
 			request.setAttribute(WebUtils.ERROR_REQUEST_URI_ATTRIBUTE, "/path");
 			request.setDispatcherType(DispatcherType.ERROR);
 			return request;
@@ -440,7 +440,7 @@ public class InterceptUrlConfigTests {
 		MockServletContext servletContext = spy(new MockServletContext());
 		final ServletRegistration registration = mock(ServletRegistration.class);
 		given(registration.getMappings()).willReturn(Collections.singleton(servletPath));
-		Answer<Map<String, ? extends ServletRegistration>> answer = (invocation) -> Collections.singletonMap("spring",
+		Answer<Map<String, ? extends ServletRegistration>> answer = invocation -> Collections.singletonMap("spring",
 				registration);
 		given(servletContext.getServletRegistrations()).willAnswer(answer);
 		return servletContext;

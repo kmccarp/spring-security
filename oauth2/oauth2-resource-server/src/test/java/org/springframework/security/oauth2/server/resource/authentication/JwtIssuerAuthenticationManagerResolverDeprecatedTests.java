@@ -139,7 +139,7 @@ public class JwtIssuerAuthenticationManagerResolverDeprecatedTests {
 			server.enqueue(new MockResponse().setResponseCode(200).setHeader("Content-Type", "application/json")
 					.setBody(JWK_SET));
 			TrustedIssuerJwtAuthenticationManagerResolver resolver = new TrustedIssuerJwtAuthenticationManagerResolver(
-					(iss) -> iss.equals(issuer));
+					iss -> iss.equals(issuer));
 			AuthenticationManager authenticationManager = resolver.resolve(issuer);
 			AuthenticationManager cachedAuthenticationManager = resolver.resolve(issuer);
 			assertThat(authenticationManager).isSameAs(cachedAuthenticationManager);
@@ -162,7 +162,7 @@ public class JwtIssuerAuthenticationManagerResolverDeprecatedTests {
 	public void resolveWhenUsingCustomIssuerAuthenticationManagerResolverThenUses() {
 		AuthenticationManager authenticationManager = mock(AuthenticationManager.class);
 		JwtIssuerAuthenticationManagerResolver authenticationManagerResolver = new JwtIssuerAuthenticationManagerResolver(
-				(issuer) -> authenticationManager);
+				issuer -> authenticationManager);
 		Authentication token = withBearerToken(this.jwt);
 		authenticationManagerResolver.resolve(null).authenticate(token);
 		verify(authenticationManager).authenticate(token);

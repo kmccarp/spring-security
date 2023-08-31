@@ -122,7 +122,7 @@ public class SecurityMockMvcRequestPostProcessorsOAuth2ClientTests {
 	@Test
 	public void oauth2ClientWhenClientRegistrationConsumerThenUses() throws Exception {
 		this.mvc.perform(get("/client-id")
-				.with(oauth2Client("registration-id").clientRegistration((c) -> c.clientId("client-id"))))
+				.with(oauth2Client("registration-id").clientRegistration(c -> c.clientId("client-id"))))
 				.andExpect(content().string("client-id"));
 	}
 
@@ -174,7 +174,7 @@ public class SecurityMockMvcRequestPostProcessorsOAuth2ClientTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests((authz) -> authz
+				.authorizeRequests(authz -> authz
 					.anyRequest().permitAll()
 				)
 				.oauth2Client();

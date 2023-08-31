@@ -83,7 +83,7 @@ public abstract class AbstractUserDetailsAuthenticationProvider
 
 	private UserCache userCache = new NullUserCache();
 
-	private boolean forcePrincipalAsString = false;
+	private boolean forcePrincipalAsString;
 
 	protected boolean hideUserNotFoundExceptions = true;
 
@@ -286,7 +286,7 @@ public abstract class AbstractUserDetailsAuthenticationProvider
 
 	@Override
 	public boolean supports(Class<?> authentication) {
-		return (UsernamePasswordAuthenticationToken.class.isAssignableFrom(authentication));
+		return UsernamePasswordAuthenticationToken.class.isAssignableFrom(authentication);
 	}
 
 	protected UserDetailsChecker getPreAuthenticationChecks() {

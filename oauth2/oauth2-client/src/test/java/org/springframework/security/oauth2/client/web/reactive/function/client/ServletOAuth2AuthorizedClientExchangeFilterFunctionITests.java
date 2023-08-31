@@ -238,7 +238,7 @@ public class ServletOAuth2AuthorizedClientExchangeFilterFunctionITests {
 				.attributes(ServletOAuth2AuthorizedClientExchangeFilterFunction.clientRegistrationId(clientRegistration1.getRegistrationId()))
 				.retrieve()
 				.bodyToMono(String.class)
-				.flatMap((response) -> this.webClient
+				.flatMap(response -> this.webClient
 					.get()
 					.uri(this.serverUrl)
 					.attributes(ServletOAuth2AuthorizedClientExchangeFilterFunction.clientRegistrationId(clientRegistration2.getRegistrationId()))

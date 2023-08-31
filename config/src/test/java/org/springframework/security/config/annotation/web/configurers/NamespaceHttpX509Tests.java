@@ -271,7 +271,7 @@ public class NamespaceHttpX509Tests {
 					.anyRequest().hasRole("USER")
 					.and()
 				.x509()
-					.userDetailsService((username) -> USER);
+					.userDetailsService(username -> USER);
 			// @formatter:on
 			return http.build();
 		}
@@ -298,7 +298,7 @@ public class NamespaceHttpX509Tests {
 					.anyRequest().hasRole("USER")
 					.and()
 				.x509()
-					.authenticationUserDetailsService((authentication) -> USER);
+					.authenticationUserDetailsService(authentication -> USER);
 			// @formatter:on
 			return http.build();
 		}

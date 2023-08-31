@@ -30,9 +30,9 @@ public class RelyingPartyRegistrationTests {
 	public void withRelyingPartyRegistrationWorks() {
 		RelyingPartyRegistration registration = TestRelyingPartyRegistrations.relyingPartyRegistration()
 				.nameIdFormat("format").authnRequestsSigned(true)
-				.assertingPartyDetails((a) -> a.singleSignOnServiceBinding(Saml2MessageBinding.POST))
-				.assertingPartyDetails((a) -> a.wantAuthnRequestsSigned(false))
-				.assertingPartyDetails((a) -> a.signingAlgorithms((algs) -> algs.add("alg")))
+				.assertingPartyDetails(a -> a.singleSignOnServiceBinding(Saml2MessageBinding.POST))
+				.assertingPartyDetails(a -> a.wantAuthnRequestsSigned(false))
+				.assertingPartyDetails(a -> a.signingAlgorithms(algs -> algs.add("alg")))
 				.assertionConsumerServiceBinding(Saml2MessageBinding.REDIRECT).build();
 		RelyingPartyRegistration copy = RelyingPartyRegistration.withRelyingPartyRegistration(registration).build();
 		compareRegistrations(registration, copy);
@@ -42,9 +42,9 @@ public class RelyingPartyRegistrationTests {
 	void mutateWhenInvokedThenCreatesCopy() {
 		RelyingPartyRegistration registration = TestRelyingPartyRegistrations.relyingPartyRegistration()
 				.nameIdFormat("format")
-				.assertingPartyDetails((a) -> a.singleSignOnServiceBinding(Saml2MessageBinding.POST))
-				.assertingPartyDetails((a) -> a.wantAuthnRequestsSigned(false))
-				.assertingPartyDetails((a) -> a.signingAlgorithms((algs) -> algs.add("alg")))
+				.assertingPartyDetails(a -> a.singleSignOnServiceBinding(Saml2MessageBinding.POST))
+				.assertingPartyDetails(a -> a.wantAuthnRequestsSigned(false))
+				.assertingPartyDetails(a -> a.signingAlgorithms(algs -> algs.add("alg")))
 				.assertionConsumerServiceBinding(Saml2MessageBinding.REDIRECT).build();
 		RelyingPartyRegistration copy = registration.mutate().build();
 		compareRegistrations(registration, copy);
@@ -89,9 +89,9 @@ public class RelyingPartyRegistrationTests {
 	public void buildWhenUsingDefaultsThenAssertionConsumerServiceBindingDefaultsToPost() {
 		RelyingPartyRegistration relyingPartyRegistration = RelyingPartyRegistration.withRegistrationId("id")
 				.entityId("entity-id").assertionConsumerServiceLocation("location")
-				.assertingPartyDetails((assertingParty) -> assertingParty.entityId("entity-id")
+				.assertingPartyDetails(assertingParty -> assertingParty.entityId("entity-id")
 						.singleSignOnServiceLocation("location").verificationX509Credentials(
-								(c) -> c.add(TestSaml2X509Credentials.relyingPartyVerifyingCredential())))
+								c -> c.add(TestSaml2X509Credentials.relyingPartyVerifyingCredential())))
 				.build();
 		assertThat(relyingPartyRegistration.getAssertionConsumerServiceBinding()).isEqualTo(Saml2MessageBinding.POST);
 	}
@@ -107,16 +107,16 @@ public class RelyingPartyRegistrationTests {
 
 		// Test with the alt credentials first
 		RelyingPartyRegistration relyingPartyRegistration = TestRelyingPartyRegistrations.noCredentials()
-				.assertingPartyDetails((assertingParty) -> assertingParty.verificationX509Credentials((c) -> {
+				.assertingPartyDetails(assertingParty -> assertingParty.verificationX509Credentials(c -> {
 					c.add(altApCredential);
 					c.add(verifyingCredential);
-				}).encryptionX509Credentials((c) -> {
+				}).encryptionX509Credentials(c -> {
 					c.add(altApCredential);
 					c.add(encryptingCredential);
-				})).signingX509Credentials((c) -> {
+				})).signingX509Credentials(c -> {
 					c.add(altRpCredential);
 					c.add(signingCredential);
-				}).decryptionX509Credentials((c) -> {
+				}).decryptionX509Credentials(c -> {
 					c.add(altRpCredential);
 					c.add(decryptionCredential);
 				}).build();
@@ -131,16 +131,16 @@ public class RelyingPartyRegistrationTests {
 
 		// Test with the alt credentials last
 		relyingPartyRegistration = TestRelyingPartyRegistrations.noCredentials()
-				.assertingPartyDetails((assertingParty) -> assertingParty.verificationX509Credentials((c) -> {
+				.assertingPartyDetails(assertingParty -> assertingParty.verificationX509Credentials(c -> {
 					c.add(verifyingCredential);
 					c.add(altApCredential);
-				}).encryptionX509Credentials((c) -> {
+				}).encryptionX509Credentials(c -> {
 					c.add(encryptingCredential);
 					c.add(altApCredential);
-				})).signingX509Credentials((c) -> {
+				})).signingX509Credentials(c -> {
 					c.add(signingCredential);
 					c.add(altRpCredential);
-				}).decryptionX509Credentials((c) -> {
+				}).decryptionX509Credentials(c -> {
 					c.add(decryptionCredential);
 					c.add(altRpCredential);
 				}).build();

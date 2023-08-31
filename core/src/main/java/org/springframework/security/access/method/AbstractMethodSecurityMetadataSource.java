@@ -64,7 +64,7 @@ public abstract class AbstractMethodSecurityMetadataSource implements MethodSecu
 
 	@Override
 	public final boolean supports(Class<?> clazz) {
-		return (MethodInvocation.class.isAssignableFrom(clazz));
+		return MethodInvocation.class.isAssignableFrom(clazz);
 	}
 
 }

@@ -129,7 +129,7 @@ public class RememberMeConfigurerTests {
 		// @formatter:off
 		MockHttpServletRequestBuilder request = get("/abc").cookie(rememberMeCookie);
 		SecurityMockMvcResultMatchers.AuthenticatedMatcher remembermeAuthentication = authenticated()
-				.withAuthentication((auth) -> assertThat(auth).isInstanceOf(RememberMeAuthenticationToken.class));
+				.withAuthentication(auth -> assertThat(auth).isInstanceOf(RememberMeAuthenticationToken.class));
 		// @formatter:on
 		this.mvc.perform(request).andExpect(remembermeAuthentication);
 	}
@@ -143,7 +143,7 @@ public class RememberMeConfigurerTests {
 		// @formatter:off
 		MockHttpServletRequestBuilder request = get("/abc").cookie(rememberMeCookie);
 		SecurityMockMvcResultMatchers.AuthenticatedMatcher remembermeAuthentication = authenticated()
-				.withAuthentication((auth) -> assertThat(auth).isInstanceOf(RememberMeAuthenticationToken.class));
+				.withAuthentication(auth -> assertThat(auth).isInstanceOf(RememberMeAuthenticationToken.class));
 		// @formatter:on
 		this.mvc.perform(request).andExpect(remembermeAuthentication);
 		verify(this.spring.getContext().getBean(SecurityContextHolderStrategy.class), atLeastOnce()).getContext();
@@ -171,7 +171,7 @@ public class RememberMeConfigurerTests {
 		// @formatter:off
 		MockHttpServletRequestBuilder request = get("/abc").cookie(rememberMeCookie);
 		SecurityMockMvcResultMatchers.AuthenticatedMatcher remembermeAuthentication = authenticated()
-				.withAuthentication((auth) -> assertThat(auth).isInstanceOf(RememberMeAuthenticationToken.class));
+				.withAuthentication(auth -> assertThat(auth).isInstanceOf(RememberMeAuthenticationToken.class));
 		// @formatter:on
 		this.mvc.perform(request).andExpect(remembermeAuthentication);
 	}
@@ -296,7 +296,7 @@ public class RememberMeConfigurerTests {
 		MockHttpServletRequestBuilder requestWithRememberme = get("/abc").cookie(rememberMeCookie);
 		// @formatter:off
 		SecurityMockMvcResultMatchers.AuthenticatedMatcher remembermeAuthentication = authenticated()
-				.withAuthentication((auth) -> assertThat(auth).isInstanceOf(RememberMeAuthenticationToken.class));
+				.withAuthentication(auth -> assertThat(auth).isInstanceOf(RememberMeAuthenticationToken.class));
 		// @formatter:on
 		this.mvc.perform(requestWithRememberme).andExpect(remembermeAuthentication);
 	}
@@ -313,7 +313,7 @@ public class RememberMeConfigurerTests {
 		// @formatter:off
 		MockHttpServletRequestBuilder request = get("/abc").cookie(rememberMeCookie);
 		SecurityMockMvcResultMatchers.AuthenticatedMatcher remembermeAuthentication = authenticated()
-				.withAuthentication((auth) -> assertThat(auth).isInstanceOf(RememberMeAuthenticationToken.class));
+				.withAuthentication(auth -> assertThat(auth).isInstanceOf(RememberMeAuthenticationToken.class));
 		// @formatter:on
 		this.mvc.perform(request).andExpect(remembermeAuthentication);
 		verify(repository).saveContext(any(), any(), any());
@@ -476,7 +476,7 @@ public class RememberMeConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests((authorizeRequests) ->
+				.authorizeRequests(authorizeRequests ->
 					authorizeRequests
 						.anyRequest().hasRole("USER")
 				)
@@ -527,12 +527,12 @@ public class RememberMeConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests((authorizeRequests) ->
+				.authorizeRequests(authorizeRequests ->
 					authorizeRequests
 						.anyRequest().hasRole("USER")
 				)
 				.formLogin(withDefaults())
-				.rememberMe((rememberMe) ->
+				.rememberMe(rememberMe ->
 					rememberMe
 						.rememberMeCookieDomain("spring.io")
 				);
@@ -612,8 +612,8 @@ public class RememberMeConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeHttpRequests((authorize) -> authorize.anyRequest().authenticated())
-				.securityContext((context) -> context.securityContextRepository(this.repository))
+				.authorizeHttpRequests(authorize -> authorize.anyRequest().authenticated())
+				.securityContext(context -> context.securityContextRepository(this.repository))
 				.formLogin(withDefaults())
 				.rememberMe(withDefaults());
 			return http.build();

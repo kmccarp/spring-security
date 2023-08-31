@@ -114,8 +114,8 @@ public final class DelegatingMethodSecurityMetadataSource extends AbstractMethod
 		@Override
 		public boolean equals(Object other) {
 			DefaultCacheKey otherKey = (DefaultCacheKey) other;
-			return (this.method.equals(otherKey.method)
-					&& ObjectUtils.nullSafeEquals(this.targetClass, otherKey.targetClass));
+			return this.method.equals(otherKey.method)
+					&& ObjectUtils.nullSafeEquals(this.targetClass, otherKey.targetClass);
 		}
 
 		@Override

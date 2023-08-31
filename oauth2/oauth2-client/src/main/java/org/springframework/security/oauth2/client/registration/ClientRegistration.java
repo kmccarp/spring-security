@@ -387,7 +387,7 @@ public final class ClientRegistration implements Serializable {
 			this.jwkSetUri = clientRegistration.providerDetails.jwkSetUri;
 			this.issuerUri = clientRegistration.providerDetails.issuerUri;
 			Map<String, Object> configurationMetadata = clientRegistration.providerDetails.configurationMetadata;
-			if (configurationMetadata != Collections.EMPTY_MAP) {
+			if (configurationMetadata != Collections.emptyMap()) {
 				this.configurationMetadata = new HashMap<>(configurationMetadata);
 			}
 			this.clientName = clientRegistration.clientName;
@@ -698,7 +698,7 @@ public final class ClientRegistration implements Serializable {
 		}
 
 		private static boolean validateScope(String scope) {
-			return scope == null || scope.chars().allMatch((c) -> withinTheRangeOf(c, 0x21, 0x21)
+			return scope == null || scope.chars().allMatch(c -> withinTheRangeOf(c, 0x21, 0x21)
 					|| withinTheRangeOf(c, 0x23, 0x5B) || withinTheRangeOf(c, 0x5D, 0x7E));
 		}
 

@@ -103,7 +103,7 @@ public class HttpSessionSecurityContextRepository implements SecurityContextRepo
 
 	private boolean allowSessionCreation = true;
 
-	private boolean disableUrlRewriting = false;
+	private boolean disableUrlRewriting;
 
 	private String springSecurityContextKey = SPRING_SECURITY_CONTEXT_KEY;
 

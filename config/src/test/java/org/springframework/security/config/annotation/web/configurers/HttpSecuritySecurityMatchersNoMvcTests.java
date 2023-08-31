@@ -93,9 +93,9 @@ public class HttpSecuritySecurityMatchersNoMvcTests {
 		this.request.setServletPath("/path/");
 		this.springSecurityFilterChain.doFilter(this.request, this.response, this.chain);
 		List<RequestMatcher> requestMatchers = this.springSecurityFilterChain.getFilterChains().stream()
-				.map((chain) -> ((DefaultSecurityFilterChain) chain).getRequestMatcher())
-				.map((matcher) -> ReflectionTestUtils.getField(matcher, "requestMatchers"))
-				.map((matchers) -> (List<RequestMatcher>) matchers).findFirst().get();
+				.map(chain -> ((DefaultSecurityFilterChain) chain).getRequestMatcher())
+				.map(matcher -> ReflectionTestUtils.getField(matcher, "requestMatchers"))
+				.map(matchers -> (List<RequestMatcher>) matchers).findFirst().get();
 		assertThat(this.response.getStatus()).isEqualTo(HttpServletResponse.SC_OK);
 		assertThat(requestMatchers).hasOnlyElementsOfType(AntPathRequestMatcher.class);
 	}

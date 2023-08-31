@@ -85,7 +85,7 @@ public class DefaultLoginPageConfigurerTests {
 		String csrfAttributeName = HttpSessionCsrfTokenRepository.class.getName().concat(".CSRF_TOKEN");
 		// @formatter:off
 		this.mvc.perform(get("/login").sessionAttr(csrfAttributeName, csrfToken))
-				.andExpect((result) -> {
+				.andExpect(result -> {
 					CsrfToken token = (CsrfToken) result.getRequest().getAttribute(CsrfToken.class.getName());
 					assertThat(result.getResponse().getContentAsString()).isEqualTo("<!DOCTYPE html>\n"
 						+ "<html lang=\"en\">\n"
@@ -134,7 +134,7 @@ public class DefaultLoginPageConfigurerTests {
 		// @formatter:off
 		this.mvc.perform(get("/login?error").session((MockHttpSession) mvcResult.getRequest().getSession())
 				.sessionAttr(csrfAttributeName, csrfToken))
-				.andExpect((result) -> {
+				.andExpect(result -> {
 					CsrfToken token = (CsrfToken) result.getRequest().getAttribute(CsrfToken.class.getName());
 					assertThat(result.getResponse().getContentAsString()).isEqualTo("<!DOCTYPE html>\n"
 						+ "<html lang=\"en\">\n"
@@ -186,7 +186,7 @@ public class DefaultLoginPageConfigurerTests {
 		String csrfAttributeName = HttpSessionCsrfTokenRepository.class.getName().concat(".CSRF_TOKEN");
 		// @formatter:off
 		this.mvc.perform(get("/login?logout").sessionAttr(csrfAttributeName, csrfToken))
-				.andExpect((result) -> {
+				.andExpect(result -> {
 					CsrfToken token = (CsrfToken) result.getRequest().getAttribute(CsrfToken.class.getName());
 					assertThat(result.getResponse().getContentAsString()).isEqualTo("<!DOCTYPE html>\n"
 						+ "<html lang=\"en\">\n"
@@ -239,7 +239,7 @@ public class DefaultLoginPageConfigurerTests {
 		String csrfAttributeName = HttpSessionCsrfTokenRepository.class.getName().concat(".CSRF_TOKEN");
 		// @formatter:off
 		this.mvc.perform(get("/login").sessionAttr(csrfAttributeName, csrfToken))
-				.andExpect((result) -> {
+				.andExpect(result -> {
 					CsrfToken token = (CsrfToken) result.getRequest().getAttribute(CsrfToken.class.getName());
 					assertThat(result.getResponse().getContentAsString()).isEqualTo("<!DOCTYPE html>\n"
 						+ "<html lang=\"en\">\n"
@@ -308,7 +308,7 @@ public class DefaultLoginPageConfigurerTests {
 		this.spring.register(DefaultLoginWithCustomAuthenticationEntryPointConfig.class).autowire();
 		FilterChainProxy filterChain = this.spring.getContext().getBean(FilterChainProxy.class);
 		assertThat(filterChain.getFilterChains().get(0).getFilters().stream()
-				.filter((filter) -> filter.getClass().isAssignableFrom(DefaultLoginPageGeneratingFilter.class)).count())
+				.filter(filter -> filter.getClass().isAssignableFrom(DefaultLoginPageGeneratingFilter.class)).count())
 						.isZero();
 	}
 
@@ -467,7 +467,7 @@ public class DefaultLoginPageConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests((authorize) -> authorize
+				.authorizeRequests(authorize -> authorize
 					.anyRequest().authenticated()
 				)
 				.formLogin(withDefaults());
@@ -485,12 +485,11 @@ public class DefaultLoginPageConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-					.authorizeRequests((authorize) -> authorize
+					.authorizeRequests(authorize -> authorize
 							.anyRequest().authenticated()
 					)
 					.formLogin(withDefaults())
-					.logout((logout) -> logout
-							.disable()
+					.logout(org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer::disable
 					);
 			return http.build();
 			// @formatter:on

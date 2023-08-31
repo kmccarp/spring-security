@@ -54,7 +54,7 @@ abstract class AbstractExpressionAttributeRegistry<T extends ExpressionAttribute
 	 */
 	final T getAttribute(Method method, Class<?> targetClass) {
 		MethodClassKey cacheKey = new MethodClassKey(method, targetClass);
-		return this.cachedAttributes.computeIfAbsent(cacheKey, (k) -> resolveAttribute(method, targetClass));
+		return this.cachedAttributes.computeIfAbsent(cacheKey, k -> resolveAttribute(method, targetClass));
 	}
 
 	/**

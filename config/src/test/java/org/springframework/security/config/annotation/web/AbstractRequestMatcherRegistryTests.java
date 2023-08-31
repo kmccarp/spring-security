@@ -49,7 +49,7 @@ import static org.mockito.Mockito.mock;
  */
 public class AbstractRequestMatcherRegistryTests {
 
-	private static final ObjectPostProcessor<Object> NO_OP_OBJECT_POST_PROCESSOR = new ObjectPostProcessor<Object>() {
+	private static final ObjectPostProcessor<Object> NO_OP_OBJECT_POST_PROCESSOR = new ObjectPostProcessor<>() {
 		@Override
 		public <O> O postProcess(O object) {
 			return object;

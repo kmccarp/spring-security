@@ -75,11 +75,11 @@ public class OidcClientInitiatedServerLogoutSuccessHandler implements ServerLogo
 		// @formatter:off
 		return Mono.just(authentication)
 				.filter(OAuth2AuthenticationToken.class::isInstance)
-				.filter((token) -> authentication.getPrincipal() instanceof OidcUser)
+				.filter(token -> authentication.getPrincipal() instanceof OidcUser)
 				.map(OAuth2AuthenticationToken.class::cast)
 				.map(OAuth2AuthenticationToken::getAuthorizedClientRegistrationId)
 				.flatMap(this.clientRegistrationRepository::findByRegistrationId)
-				.flatMap((clientRegistration) -> {
+				.flatMap(clientRegistration -> {
 					URI endSessionEndpoint = endSessionEndpoint(clientRegistration);
 					if (endSessionEndpoint == null) {
 						return Mono.empty();
@@ -91,7 +91,7 @@ public class OidcClientInitiatedServerLogoutSuccessHandler implements ServerLogo
 				.switchIfEmpty(
 						this.serverLogoutSuccessHandler.onLogoutSuccess(exchange, authentication).then(Mono.empty())
 				)
-				.flatMap((endpointUri) -> this.redirectStrategy.sendRedirect(exchange.getExchange(), URI.create(endpointUri)));
+				.flatMap(endpointUri -> this.redirectStrategy.sendRedirect(exchange.getExchange(), URI.create(endpointUri)));
 		// @formatter:on
 	}
 

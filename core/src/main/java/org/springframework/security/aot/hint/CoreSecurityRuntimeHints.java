@@ -66,22 +66,22 @@ class CoreSecurityRuntimeHints implements RuntimeHintsRegistrar {
 	private void registerMethodSecurityHints(RuntimeHints hints) {
 		hints.reflection().registerType(
 				TypeReference.of("org.springframework.security.access.expression.method.MethodSecurityExpressionRoot"),
-				(builder) -> builder.withMembers(MemberCategory.INVOKE_PUBLIC_METHODS));
+				builder -> builder.withMembers(MemberCategory.INVOKE_PUBLIC_METHODS));
 		hints.reflection().registerType(AbstractAuthenticationToken.class,
-				(builder) -> builder.withMembers(MemberCategory.INVOKE_PUBLIC_METHODS));
+				builder -> builder.withMembers(MemberCategory.INVOKE_PUBLIC_METHODS));
 	}
 
 	private void registerExpressionEvaluationHints(RuntimeHints hints) {
 		hints.reflection().registerTypes(
 				List.of(TypeReference.of(SecurityExpressionOperations.class),
 						TypeReference.of(SecurityExpressionRoot.class)),
-				(builder) -> builder.withMembers(MemberCategory.DECLARED_FIELDS,
+				builder -> builder.withMembers(MemberCategory.DECLARED_FIELDS,
 						MemberCategory.INVOKE_DECLARED_METHODS));
 	}
 
 	private void registerExceptionEventsHints(RuntimeHints hints) {
 		hints.reflection().registerTypes(getDefaultAuthenticationExceptionEventPublisherTypes(),
-				(builder) -> builder.withMembers(MemberCategory.INVOKE_DECLARED_CONSTRUCTORS));
+				builder -> builder.withMembers(MemberCategory.INVOKE_DECLARED_CONSTRUCTORS));
 	}
 
 	private List<TypeReference> getDefaultAuthenticationExceptionEventPublisherTypes() {
@@ -101,7 +101,7 @@ class CoreSecurityRuntimeHints implements RuntimeHintsRegistrar {
 
 	private void registerSecurityContextHints(RuntimeHints hints) {
 		hints.reflection().registerType(SecurityContextImpl.class,
-				(builder) -> builder.withMembers(MemberCategory.INVOKE_PUBLIC_METHODS));
+				builder -> builder.withMembers(MemberCategory.INVOKE_PUBLIC_METHODS));
 	}
 
 }

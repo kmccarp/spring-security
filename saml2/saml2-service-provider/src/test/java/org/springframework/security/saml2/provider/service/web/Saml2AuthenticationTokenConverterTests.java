@@ -97,9 +97,9 @@ public class Saml2AuthenticationTokenConverterTests {
 		request.setParameter(Saml2ParameterNames.SAML_RESPONSE, "invalid");
 		assertThatExceptionOfType(Saml2AuthenticationException.class).isThrownBy(() -> converter.convert(request))
 				.withCauseInstanceOf(IllegalArgumentException.class)
-				.satisfies((ex) -> assertThat(ex.getSaml2Error().getErrorCode())
+				.satisfies(ex -> assertThat(ex.getSaml2Error().getErrorCode())
 						.isEqualTo(Saml2ErrorCodes.INVALID_RESPONSE))
-				.satisfies((ex) -> assertThat(ex.getSaml2Error().getDescription())
+				.satisfies(ex -> assertThat(ex.getSaml2Error().getDescription())
 						.isEqualTo("Failed to decode SAMLResponse"));
 	}
 
@@ -152,10 +152,10 @@ public class Saml2AuthenticationTokenConverterTests {
 		request.setParameter(Saml2ParameterNames.SAML_RESPONSE, encoded);
 		assertThatExceptionOfType(Saml2AuthenticationException.class).isThrownBy(() -> converter.convert(request))
 				.withCauseInstanceOf(IOException.class)
-				.satisfies((ex) -> assertThat(ex.getSaml2Error().getErrorCode())
+				.satisfies(ex -> assertThat(ex.getSaml2Error().getErrorCode())
 						.isEqualTo(Saml2ErrorCodes.INVALID_RESPONSE))
 				.satisfies(
-						(ex) -> assertThat(ex.getSaml2Error().getDescription()).isEqualTo("Unable to inflate string"));
+						ex -> assertThat(ex.getSaml2Error().getDescription()).isEqualTo("Unable to inflate string"));
 	}
 
 	@Test

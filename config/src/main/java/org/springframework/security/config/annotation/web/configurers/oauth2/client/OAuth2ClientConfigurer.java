@@ -96,7 +96,7 @@ import org.springframework.util.Assert;
 public final class OAuth2ClientConfigurer<B extends HttpSecurityBuilder<B>>
 		extends AbstractHttpConfigurer<OAuth2ClientConfigurer<B>, B> {
 
-	private AuthorizationCodeGrantConfigurer authorizationCodeGrantConfigurer = new AuthorizationCodeGrantConfigurer();
+	private final AuthorizationCodeGrantConfigurer authorizationCodeGrantConfigurer = new AuthorizationCodeGrantConfigurer();
 
 	/**
 	 * Sets the repository of client registrations.

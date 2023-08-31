@@ -51,7 +51,7 @@ final class Jsr250MethodSecurityConfiguration {
 			ObjectProvider<SecurityContextHolderStrategy> strategyProvider,
 			ObjectProvider<ObservationRegistry> registryProvider) {
 		Jsr250AuthorizationManager jsr250 = new Jsr250AuthorizationManager();
-		defaultsProvider.ifAvailable((d) -> jsr250.setRolePrefix(d.getRolePrefix()));
+		defaultsProvider.ifAvailable(d -> jsr250.setRolePrefix(d.getRolePrefix()));
 		SecurityContextHolderStrategy strategy = strategyProvider
 				.getIfAvailable(SecurityContextHolder::getContextHolderStrategy);
 		AuthorizationManager<MethodInvocation> manager = new DeferringObservationAuthorizationManager<>(

@@ -653,7 +653,7 @@ public class OAuth2LoginConfigurerTests {
 	}
 
 	private static OAuth2AccessTokenResponseClient<OAuth2AuthorizationCodeGrantRequest> createOauth2AccessTokenResponseClient() {
-		return (request) -> {
+		return request -> {
 			Map<String, Object> additionalParameters = new HashMap<>();
 			if (request.getAuthorizationExchange().getAuthorizationRequest().getScopes().contains("openid")) {
 				additionalParameters.put(OidcParameterNames.ID_TOKEN, "token123");
@@ -665,17 +665,17 @@ public class OAuth2LoginConfigurerTests {
 
 	private static OAuth2UserService<OAuth2UserRequest, OAuth2User> createOauth2UserService() {
 		Map<String, Object> userAttributes = Collections.singletonMap("name", "spring");
-		return (request) -> new DefaultOAuth2User(Collections.singleton(new OAuth2UserAuthority(userAttributes)),
+		return request -> new DefaultOAuth2User(Collections.singleton(new OAuth2UserAuthority(userAttributes)),
 				userAttributes, "name");
 	}
 
 	private static OAuth2UserService<OidcUserRequest, OidcUser> createOidcUserService() {
 		OidcIdToken idToken = TestOidcIdTokens.idToken().build();
-		return (request) -> new DefaultOidcUser(Collections.singleton(new OidcUserAuthority(idToken)), idToken);
+		return request -> new DefaultOidcUser(Collections.singleton(new OidcUserAuthority(idToken)), idToken);
 	}
 
 	private static GrantedAuthoritiesMapper createGrantedAuthoritiesMapper() {
-		return (authorities) -> {
+		return authorities -> {
 			boolean isOidc = OidcUserAuthority.class.isInstance(authorities.iterator().next());
 			List<GrantedAuthority> mappedAuthorities = new ArrayList<>(authorities);
 			mappedAuthorities.add(new SimpleGrantedAuthority(isOidc ? "ROLE_OIDC_USER" : "ROLE_OAUTH2_USER"));
@@ -740,7 +740,7 @@ public class OAuth2LoginConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.oauth2Login((oauth2Login) ->
+				.oauth2Login(oauth2Login ->
 					oauth2Login
 						.clientRegistrationRepository(
 							new InMemoryClientRegistrationRepository(GOOGLE_CLIENT_REGISTRATION))
@@ -908,10 +908,10 @@ public class OAuth2LoginConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.oauth2Login((oauth2Login) ->
+				.oauth2Login(oauth2Login ->
 					oauth2Login
 						.clientRegistrationRepository(this.clientRegistrationRepository)
-						.authorizationEndpoint((authorizationEndpoint) ->
+						.authorizationEndpoint(authorizationEndpoint ->
 							authorizationEndpoint
 								.authorizationRequestResolver(this.resolver)
 						)
@@ -935,10 +935,10 @@ public class OAuth2LoginConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.oauth2Login((oauth2Login) ->
+				.oauth2Login(oauth2Login ->
 					oauth2Login
 						.clientRegistrationRepository(this.clientRegistrationRepository)
-						.authorizationEndpoint((authorizationEndpoint) ->
+						.authorizationEndpoint(authorizationEndpoint ->
 							authorizationEndpoint
 								.authorizationRedirectStrategy(this.redirectStrategy)
 						)
@@ -962,10 +962,10 @@ public class OAuth2LoginConfigurerTests {
 		SecurityFilterChain configureFilterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-					.oauth2Login((oauth2Login) ->
+					.oauth2Login(oauth2Login ->
 							oauth2Login
 									.clientRegistrationRepository(this.clientRegistrationRepository)
-									.authorizationEndpoint((authorizationEndpoint) ->
+									.authorizationEndpoint(authorizationEndpoint ->
 											authorizationEndpoint
 													.authorizationRedirectStrategy(this.redirectStrategy)
 									)
@@ -1038,7 +1038,7 @@ public class OAuth2LoginConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.oauth2Login((oauth2Login) ->
+				.oauth2Login(oauth2Login ->
 						oauth2Login
 							.clientRegistrationRepository(
 									new InMemoryClientRegistrationRepository(GOOGLE_CLIENT_REGISTRATION))
@@ -1158,21 +1158,21 @@ public class OAuth2LoginConfigurerTests {
 		SecurityFilterChain configureFilterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeHttpRequests((authorizeRequests) ->
+				.authorizeHttpRequests(authorizeRequests ->
 					authorizeRequests
 						.anyRequest().authenticated()
 				)
-				.securityContext((securityContext) ->
+				.securityContext(securityContext ->
 					securityContext
 						.securityContextRepository(securityContextRepository())
 				)
-				.oauth2Login((oauth2Login) ->
+				.oauth2Login(oauth2Login ->
 					oauth2Login
-						.tokenEndpoint((tokenEndpoint) ->
+						.tokenEndpoint(tokenEndpoint ->
 							tokenEndpoint
 								.accessTokenResponseClient(createOauth2AccessTokenResponseClient())
 						)
-						.userInfoEndpoint((userInfoEndpoint) ->
+						.userInfoEndpoint(userInfoEndpoint ->
 							userInfoEndpoint
 								.userService(createOauth2UserService())
 								.oidcUserService(createOidcUserService())
@@ -1199,7 +1199,7 @@ public class OAuth2LoginConfigurerTests {
 
 		@Bean
 		JwtDecoderFactory<ClientRegistration> jwtDecoderFactory() {
-			return (clientRegistration) -> getJwtDecoder();
+			return clientRegistration -> getJwtDecoder();
 		}
 
 		private static JwtDecoder getJwtDecoder() {
@@ -1208,7 +1208,7 @@ public class OAuth2LoginConfigurerTests {
 			claims.put(IdTokenClaimNames.ISS, "http://localhost/iss");
 			claims.put(IdTokenClaimNames.AUD, Arrays.asList("clientId", "a", "u", "d"));
 			claims.put(IdTokenClaimNames.AZP, "clientId");
-			Jwt jwt = TestJwts.jwt().claims((c) -> c.putAll(claims)).build();
+			Jwt jwt = TestJwts.jwt().claims(c -> c.putAll(claims)).build();
 			JwtDecoder jwtDecoder = mock(JwtDecoder.class);
 			given(jwtDecoder.decode(any())).willReturn(jwt);
 			return jwtDecoder;
@@ -1221,12 +1221,12 @@ public class OAuth2LoginConfigurerTests {
 
 		@Bean
 		JwtDecoderFactory<ClientRegistration> jwtDecoderFactory1() {
-			return (clientRegistration) -> JwtDecoderFactoryConfig.getJwtDecoder();
+			return clientRegistration -> JwtDecoderFactoryConfig.getJwtDecoder();
 		}
 
 		@Bean
 		JwtDecoderFactory<ClientRegistration> jwtDecoderFactory2() {
-			return (clientRegistration) -> JwtDecoderFactoryConfig.getJwtDecoder();
+			return clientRegistration -> JwtDecoderFactoryConfig.getJwtDecoder();
 		}
 
 	}

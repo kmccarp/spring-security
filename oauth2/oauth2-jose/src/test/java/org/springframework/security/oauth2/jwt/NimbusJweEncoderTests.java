@@ -218,7 +218,7 @@ public class NimbusJweEncoderTests {
 
 			private Builder(JweHeader headers) {
 				Assert.notNull(headers, "headers cannot be null");
-				Consumer<Map<String, Object>> headersConsumer = (h) -> h.putAll(headers.getHeaders());
+				Consumer<Map<String, Object>> headersConsumer = h -> h.putAll(headers.getHeaders());
 				headers(headersConsumer);
 			}
 
@@ -447,7 +447,7 @@ public class NimbusJweEncoderTests {
 			}
 
 			Map<String, Object> customHeaders = headers.getHeaders().entrySet().stream()
-					.filter((header) -> !JWEHeader.getRegisteredParameterNames().contains(header.getKey()))
+					.filter(header -> !JWEHeader.getRegisteredParameterNames().contains(header.getKey()))
 					.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
 			if (!CollectionUtils.isEmpty(customHeaders)) {
 				builder.customParams(customHeaders);

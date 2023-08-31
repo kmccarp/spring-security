@@ -44,8 +44,8 @@ class HttpPublicKeyPinningDslTests {
     @Autowired
     lateinit var mockMvc: MockMvc
 
-    private val HPKP_RO_HEADER_NAME = "Public-Key-Pins-Report-Only"
-    private val HPKP_HEADER_NAME = "Public-Key-Pins"
+    private val hpkpRoHeaderName = "Public-Key-Pins-Report-Only"
+    private val hpkpHeaderName = "Public-Key-Pins"
 
     @Test
     fun `headers when HPKP configured and no pin then no headers in response`() {
@@ -80,7 +80,7 @@ class HttpPublicKeyPinningDslTests {
         this.mockMvc.get("/") {
             secure = true
         }.andExpect {
-            header { string(HPKP_RO_HEADER_NAME, "max-age=5184000 ; pin-sha256=\"d6qzRu9zOECb90Uez27xWltNsj0e1Md7GkYYkVoZWmM=\"") }
+            header { string(hpkpRoHeaderName, "max-age=5184000 ; pin-sha256=\"d6qzRu9zOECb90Uez27xWltNsj0e1Md7GkYYkVoZWmM=\"") }
         }
     }
 
@@ -108,7 +108,7 @@ class HttpPublicKeyPinningDslTests {
         this.mockMvc.get("/") {
             secure = true
         }.andExpect {
-            header { string(HPKP_RO_HEADER_NAME, "max-age=604800 ; pin-sha256=\"d6qzRu9zOECb90Uez27xWltNsj0e1Md7GkYYkVoZWmM=\"") }
+            header { string(hpkpRoHeaderName, "max-age=604800 ; pin-sha256=\"d6qzRu9zOECb90Uez27xWltNsj0e1Md7GkYYkVoZWmM=\"") }
         }
     }
 
@@ -137,7 +137,7 @@ class HttpPublicKeyPinningDslTests {
         this.mockMvc.get("/") {
             secure = true
         }.andExpect {
-            header { string(HPKP_HEADER_NAME, "max-age=5184000 ; pin-sha256=\"d6qzRu9zOECb90Uez27xWltNsj0e1Md7GkYYkVoZWmM=\"") }
+            header { string(hpkpHeaderName, "max-age=5184000 ; pin-sha256=\"d6qzRu9zOECb90Uez27xWltNsj0e1Md7GkYYkVoZWmM=\"") }
         }
     }
 
@@ -167,7 +167,7 @@ class HttpPublicKeyPinningDslTests {
             secure = true
         }.andExpect {
             header {
-                string(HPKP_RO_HEADER_NAME,
+                string(hpkpRoHeaderName,
                         "max-age=5184000 ; pin-sha256=\"d6qzRu9zOECb90Uez27xWltNsj0e1Md7GkYYkVoZWmM=\" ; includeSubDomains")
             }
         }
@@ -199,7 +199,7 @@ class HttpPublicKeyPinningDslTests {
             secure = true
         }.andExpect {
             header {
-                string(HPKP_RO_HEADER_NAME,
+                string(hpkpRoHeaderName,
                         "max-age=5184000 ; pin-sha256=\"d6qzRu9zOECb90Uez27xWltNsj0e1Md7GkYYkVoZWmM=\" ; report-uri=\"https://example.com\"")
             }
         }
@@ -231,7 +231,7 @@ class HttpPublicKeyPinningDslTests {
             secure = true
         }.andExpect {
             header {
-                doesNotExist(HPKP_RO_HEADER_NAME)
+                doesNotExist(hpkpRoHeaderName)
             }
         }
     }

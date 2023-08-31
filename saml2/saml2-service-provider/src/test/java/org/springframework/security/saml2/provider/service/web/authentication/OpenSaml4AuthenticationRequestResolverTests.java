@@ -62,7 +62,7 @@ public class OpenSaml4AuthenticationRequestResolverTests {
 	@Test
 	void resolveWhenPostThenSaml2PostAuthenticationRequest() {
 		RelyingPartyRegistration registration = TestRelyingPartyRegistrations.full()
-				.assertingPartyDetails((party) -> party.singleSignOnServiceBinding(Saml2MessageBinding.POST)).build();
+				.assertingPartyDetails(party -> party.singleSignOnServiceBinding(Saml2MessageBinding.POST)).build();
 		RelyingPartyRegistrationResolver relyingParties = mock(RelyingPartyRegistrationResolver.class);
 		given(relyingParties.resolve(any(), any())).willReturn(registration);
 		OpenSaml4AuthenticationRequestResolver resolver = new OpenSaml4AuthenticationRequestResolver(relyingParties);

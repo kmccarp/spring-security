@@ -126,7 +126,7 @@ public final class RequestMatcherMetadataResponseResolver implements Saml2Metada
 		for (RelyingPartyRegistration registration : registrations) {
 			UriResolver uriResolver = RelyingPartyRegistrationPlaceholderResolvers.uriResolver(request, registration);
 			String entityId = uriResolver.resolve(registration.getEntityId());
-			results.computeIfAbsent(entityId, (e) -> {
+			results.computeIfAbsent(entityId, e -> {
 				String ssoLocation = uriResolver.resolve(registration.getAssertionConsumerServiceLocation());
 				String sloLocation = uriResolver.resolve(registration.getSingleLogoutServiceLocation());
 				String sloResponseLocation = uriResolver.resolve(registration.getSingleLogoutServiceResponseLocation());

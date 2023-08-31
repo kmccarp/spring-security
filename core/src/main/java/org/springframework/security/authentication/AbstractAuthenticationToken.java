@@ -43,7 +43,7 @@ public abstract class AbstractAuthenticationToken implements Authentication, Cre
 
 	private Object details;
 
-	private boolean authenticated = false;
+	private boolean authenticated;
 
 	/**
 	 * Creates a token with the supplied array of authorities.

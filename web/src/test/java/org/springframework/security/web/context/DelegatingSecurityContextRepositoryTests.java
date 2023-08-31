@@ -82,7 +82,7 @@ public class DelegatingSecurityContextRepositoryTests {
 
 		DelegatingSecurityContextRepository repository = new DelegatingSecurityContextRepository(delegates);
 		DeferredSecurityContext deferredSecurityContext = repository.loadDeferredContext(this.request);
-		SecurityContext expectedSecurityContext = (isGenerated) ? emptySecurityContext : actualSecurityContext;
+		SecurityContext expectedSecurityContext = isGenerated ? emptySecurityContext : actualSecurityContext;
 		assertThat(deferredSecurityContext.get()).isEqualTo(expectedSecurityContext);
 		assertThat(deferredSecurityContext.isGenerated()).isEqualTo(isGenerated);
 

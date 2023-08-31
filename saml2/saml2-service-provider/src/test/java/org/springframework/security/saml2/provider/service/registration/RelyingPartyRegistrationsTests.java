@@ -143,7 +143,7 @@ public class RelyingPartyRegistrationsTests {
 			server.enqueue(new MockResponse().setBody(this.entitiesDescriptor).setResponseCode(200));
 			List<RelyingPartyRegistration> registrations = RelyingPartyRegistrations
 					.collectionFromMetadataLocation(server.url("/").toString()).stream()
-					.map((r) -> r.entityId("rp").build()).collect(Collectors.toList());
+					.map(r -> r.entityId("rp").build()).collect(Collectors.toList());
 			assertThat(registrations).hasSize(2);
 			RelyingPartyRegistration first = registrations.get(0);
 			RelyingPartyRegistration.AssertingPartyDetails details = first.getAssertingPartyDetails();
@@ -190,7 +190,7 @@ public class RelyingPartyRegistrationsTests {
 		File file = new File("src/test/resources/test-entitiesdescriptor.xml");
 		RelyingPartyRegistration registration = RelyingPartyRegistrations
 				.collectionFromMetadataLocation("file:" + file.getAbsolutePath()).stream()
-				.map((r) -> r.entityId("rp").build()).findFirst().get();
+				.map(r -> r.entityId("rp").build()).findFirst().get();
 		RelyingPartyRegistration.AssertingPartyDetails details = registration.getAssertingPartyDetails();
 		assertThat(details.getEntityId()).isEqualTo("https://idp.example.com/idp/shibboleth");
 		assertThat(details.getSingleSignOnServiceLocation())
@@ -205,7 +205,7 @@ public class RelyingPartyRegistrationsTests {
 		File file = new File("src/test/resources/test-metadata.xml");
 		RelyingPartyRegistration registration = RelyingPartyRegistrations
 				.collectionFromMetadataLocation("file:" + file.getAbsolutePath()).stream()
-				.map((r) -> r.entityId("rp").build()).findFirst().get();
+				.map(r -> r.entityId("rp").build()).findFirst().get();
 		RelyingPartyRegistration.AssertingPartyDetails details = registration.getAssertingPartyDetails();
 		assertThat(details.getEntityId()).isEqualTo("https://idp.example.com/idp/shibboleth");
 		assertThat(details.getSingleSignOnServiceLocation())
@@ -225,7 +225,7 @@ public class RelyingPartyRegistrationsTests {
 	public void collectionFromMetadataInputStreamWhenResolvableThenPopulatesBuilder() throws Exception {
 		try (InputStream source = new ByteArrayInputStream(this.entitiesDescriptor.getBytes())) {
 			RelyingPartyRegistration registration = RelyingPartyRegistrations.collectionFromMetadata(source).stream()
-					.map((r) -> r.entityId("rp").build()).findFirst().get();
+					.map(r -> r.entityId("rp").build()).findFirst().get();
 			RelyingPartyRegistration.AssertingPartyDetails details = registration.getAssertingPartyDetails();
 			assertThat(details.getEntityId()).isEqualTo("https://idp.example.com/idp/shibboleth");
 			assertThat(details.getSingleSignOnServiceLocation())

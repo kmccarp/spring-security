@@ -63,7 +63,7 @@ public class AuthorizationPayloadInterceptorTests {
 		AuthorizationPayloadInterceptor interceptor = new AuthorizationPayloadInterceptor(
 				AuthenticatedReactiveAuthorizationManager.authenticated());
 		StepVerifier.create(interceptor.intercept(this.exchange, this.chain))
-				.then(() -> this.chainResult.assertWasNotSubscribed())
+				.then(this.chainResult::assertWasNotSubscribed)
 				.verifyError(AuthenticationCredentialsNotFoundException.class);
 	}
 
@@ -73,7 +73,7 @@ public class AuthorizationPayloadInterceptorTests {
 		given(this.authorizationManager.verify(any(), any())).willReturn(this.managerResult.mono());
 		AuthorizationPayloadInterceptor interceptor = new AuthorizationPayloadInterceptor(this.authorizationManager);
 		StepVerifier.create(interceptor.intercept(this.exchange, this.chain))
-				.then(() -> this.chainResult.assertWasSubscribed()).verifyComplete();
+				.then(this.chainResult::assertWasSubscribed).verifyComplete();
 	}
 
 	@Test
@@ -84,7 +84,7 @@ public class AuthorizationPayloadInterceptorTests {
 		Context userContext = ReactiveSecurityContextHolder
 				.withAuthentication(new TestingAuthenticationToken("user", "password"));
 		Mono<Void> intercept = interceptor.intercept(this.exchange, this.chain).contextWrite(userContext);
-		StepVerifier.create(intercept).then(() -> this.chainResult.assertWasNotSubscribed())
+		StepVerifier.create(intercept).then(this.chainResult::assertWasNotSubscribed)
 				.verifyError(AccessDeniedException.class);
 	}
 
@@ -96,7 +96,7 @@ public class AuthorizationPayloadInterceptorTests {
 		Context userContext = ReactiveSecurityContextHolder
 				.withAuthentication(new TestingAuthenticationToken("user", "password", "ROLE_USER"));
 		Mono<Void> intercept = interceptor.intercept(this.exchange, this.chain).contextWrite(userContext);
-		StepVerifier.create(intercept).then(() -> this.chainResult.assertWasSubscribed()).verifyComplete();
+		StepVerifier.create(intercept).then(this.chainResult::assertWasSubscribed).verifyComplete();
 	}
 
 }

@@ -74,7 +74,7 @@ public class WebClientReactiveAuthorizationCodeTokenResponseClientTests {
 
 	private ClientRegistration.Builder clientRegistration;
 
-	private WebClientReactiveAuthorizationCodeTokenResponseClient tokenResponseClient = new WebClientReactiveAuthorizationCodeTokenResponseClient();
+	private final WebClientReactiveAuthorizationCodeTokenResponseClient tokenResponseClient = new WebClientReactiveAuthorizationCodeTokenResponseClient();
 
 	private MockWebServer server;
 
@@ -144,7 +144,7 @@ public class WebClientReactiveAuthorizationCodeTokenResponseClientTests {
 		SecretKeySpec secretKey = new SecretKeySpec(
 				clientRegistration.getClientSecret().getBytes(StandardCharsets.UTF_8), "HmacSHA256");
 		JWK jwk = TestJwks.jwk(secretKey).build();
-		Function<ClientRegistration, JWK> jwkResolver = (registration) -> jwk;
+		Function<ClientRegistration, JWK> jwkResolver = registration -> jwk;
 		configureJwtClientAuthenticationConverter(jwkResolver);
 
 		this.tokenResponseClient.getTokenResponse(authorizationCodeGrantRequest(clientRegistration)).block();
@@ -174,7 +174,7 @@ public class WebClientReactiveAuthorizationCodeTokenResponseClientTests {
 
 		// Configure Jwt client authentication converter
 		JWK jwk = TestJwks.DEFAULT_RSA_JWK;
-		Function<ClientRegistration, JWK> jwkResolver = (registration) -> jwk;
+		Function<ClientRegistration, JWK> jwkResolver = registration -> jwk;
 		configureJwtClientAuthenticationConverter(jwkResolver);
 
 		this.tokenResponseClient.getTokenResponse(authorizationCodeGrantRequest(clientRegistration)).block();
@@ -198,7 +198,7 @@ public class WebClientReactiveAuthorizationCodeTokenResponseClientTests {
 				jsonResponse(accessTokenErrorResponse).setResponseCode(HttpStatus.INTERNAL_SERVER_ERROR.value()));
 		assertThatExceptionOfType(OAuth2AuthorizationException.class)
 				.isThrownBy(() -> this.tokenResponseClient.getTokenResponse(authorizationCodeGrantRequest()).block())
-				.satisfies((ex) -> assertThat(ex.getError().getErrorCode()).isEqualTo("unauthorized_client"))
+				.satisfies(ex -> assertThat(ex.getError().getErrorCode()).isEqualTo("unauthorized_client"))
 				.withMessageContaining("unauthorized_client");
 	}
 

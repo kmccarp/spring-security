@@ -318,7 +318,7 @@ public class ExpressionUrlAuthorizationConfigurerTests {
 	@Test
 	public void getWhenHasIpAddressConfiguredAndIpAddressMatchesThenRespondsWithOk() throws Exception {
 		this.spring.register(HasIpAddressConfig.class, BasicController.class).autowire();
-		this.mvc.perform(get("/").with((request) -> {
+		this.mvc.perform(get("/").with(request -> {
 			request.setRemoteAddr("192.168.1.0");
 			return request;
 		})).andExpect(status().isOk());
@@ -327,7 +327,7 @@ public class ExpressionUrlAuthorizationConfigurerTests {
 	@Test
 	public void getWhenHasIpAddressConfiguredAndIpAddressDoesNotMatchThenRespondsWithUnauthorized() throws Exception {
 		this.spring.register(HasIpAddressConfig.class, BasicController.class).autowire();
-		this.mvc.perform(get("/").with((request) -> {
+		this.mvc.perform(get("/").with(request -> {
 			request.setRemoteAddr("192.168.1.1");
 			return request;
 		})).andExpect(status().isUnauthorized());

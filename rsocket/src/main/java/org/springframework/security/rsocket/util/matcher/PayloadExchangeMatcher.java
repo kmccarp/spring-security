@@ -42,7 +42,7 @@ public interface PayloadExchangeMatcher {
 	/**
 	 * The result of matching
 	 */
-	class MatchResult {
+	final class MatchResult {
 
 		private final boolean match;
 

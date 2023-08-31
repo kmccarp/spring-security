@@ -104,7 +104,7 @@ public final class OpenSamlLogoutRequestValidator implements Saml2LogoutRequestV
 
 	private Consumer<Collection<Saml2Error>> verifySignature(Saml2LogoutRequest request, LogoutRequest logoutRequest,
 			RelyingPartyRegistration registration) {
-		return (errors) -> {
+		return errors -> {
 			VerifierPartial partial = OpenSamlVerificationUtils.verifySignature(logoutRequest, registration);
 			if (logoutRequest.isSigned()) {
 				errors.addAll(partial.post(logoutRequest.getSignature()));
@@ -117,7 +117,7 @@ public final class OpenSamlLogoutRequestValidator implements Saml2LogoutRequestV
 
 	private Consumer<Collection<Saml2Error>> validateRequest(LogoutRequest request,
 			RelyingPartyRegistration registration, Authentication authentication) {
-		return (errors) -> {
+		return errors -> {
 			validateIssuer(request, registration).accept(errors);
 			validateDestination(request, registration).accept(errors);
 			validateSubject(request, registration, authentication).accept(errors);
@@ -126,7 +126,7 @@ public final class OpenSamlLogoutRequestValidator implements Saml2LogoutRequestV
 
 	private Consumer<Collection<Saml2Error>> validateIssuer(LogoutRequest request,
 			RelyingPartyRegistration registration) {
-		return (errors) -> {
+		return errors -> {
 			if (request.getIssuer() == null) {
 				errors.add(new Saml2Error(Saml2ErrorCodes.INVALID_ISSUER, "Failed to find issuer in LogoutRequest"));
 				return;
@@ -141,7 +141,7 @@ public final class OpenSamlLogoutRequestValidator implements Saml2LogoutRequestV
 
 	private Consumer<Collection<Saml2Error>> validateDestination(LogoutRequest request,
 			RelyingPartyRegistration registration) {
-		return (errors) -> {
+		return errors -> {
 			if (request.getDestination() == null) {
 				errors.add(new Saml2Error(Saml2ErrorCodes.INVALID_DESTINATION,
 						"Failed to find destination in LogoutRequest"));
@@ -157,7 +157,7 @@ public final class OpenSamlLogoutRequestValidator implements Saml2LogoutRequestV
 
 	private Consumer<Collection<Saml2Error>> validateSubject(LogoutRequest request,
 			RelyingPartyRegistration registration, Authentication authentication) {
-		return (errors) -> {
+		return errors -> {
 			if (authentication == null) {
 				return;
 			}
@@ -195,7 +195,7 @@ public final class OpenSamlLogoutRequestValidator implements Saml2LogoutRequestV
 	private NameID decryptNameId(EncryptedID encryptedId, RelyingPartyRegistration registration) {
 		final SAMLObject decryptedId = LogoutRequestEncryptedIdUtils.decryptEncryptedId(encryptedId, registration);
 		if (decryptedId instanceof NameID) {
-			return ((NameID) decryptedId);
+			return (NameID) decryptedId;
 		}
 		return null;
 	}

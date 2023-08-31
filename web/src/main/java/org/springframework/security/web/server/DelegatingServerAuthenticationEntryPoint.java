@@ -62,13 +62,13 @@ public class DelegatingServerAuthenticationEntryPoint implements ServerAuthentic
 
 	@Override
 	public Mono<Void> commence(ServerWebExchange exchange, AuthenticationException ex) {
-		return Flux.fromIterable(this.entryPoints).filterWhen((entry) -> isMatch(exchange, entry)).next()
-				.map((entry) -> entry.getEntryPoint())
-				.doOnNext((entryPoint) -> logger.debug(LogMessage.format("Match found! Executing %s", entryPoint)))
+		return Flux.fromIterable(this.entryPoints).filterWhen(entry -> isMatch(exchange, entry)).next()
+				.map(org.springframework.security.web.server.DelegatingServerAuthenticationEntryPoint.DelegateEntry::getEntryPoint)
+				.doOnNext(entryPoint -> logger.debug(LogMessage.format("Match found! Executing %s", entryPoint)))
 				.switchIfEmpty(Mono.just(this.defaultEntryPoint)
-						.doOnNext((entryPoint) -> logger.debug(LogMessage
+						.doOnNext(entryPoint -> logger.debug(LogMessage
 								.format("No match found. Using default entry point %s", this.defaultEntryPoint))))
-				.flatMap((entryPoint) -> entryPoint.commence(exchange, ex));
+				.flatMap(entryPoint -> entryPoint.commence(exchange, ex));
 	}
 
 	private Mono<Boolean> isMatch(ServerWebExchange exchange, DelegateEntry entry) {

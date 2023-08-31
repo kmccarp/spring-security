@@ -64,7 +64,7 @@ final class OAuth2ClientConfigurerUtils {
 			authorizedClientRepository = getAuthorizedClientRepositoryBean(builder);
 			if (authorizedClientRepository == null) {
 				authorizedClientRepository = new AuthenticatedPrincipalOAuth2AuthorizedClientRepository(
-						getAuthorizedClientService((builder)));
+						getAuthorizedClientService(builder));
 			}
 			builder.setSharedObject(OAuth2AuthorizedClientRepository.class, authorizedClientRepository);
 		}
@@ -83,8 +83,8 @@ final class OAuth2ClientConfigurerUtils {
 							+ "' but found " + authorizedClientRepositoryMap.size() + ": "
 							+ StringUtils.collectionToCommaDelimitedString(authorizedClientRepositoryMap.keySet()));
 		}
-		return (!authorizedClientRepositoryMap.isEmpty() ? authorizedClientRepositoryMap.values().iterator().next()
-				: null);
+		return !authorizedClientRepositoryMap.isEmpty() ? authorizedClientRepositoryMap.values().iterator().next()
+				: null;
 	}
 
 	private static <B extends HttpSecurityBuilder<B>> OAuth2AuthorizedClientService getAuthorizedClientService(
@@ -109,7 +109,7 @@ final class OAuth2ClientConfigurerUtils {
 							+ "' but found " + authorizedClientServiceMap.size() + ": "
 							+ StringUtils.collectionToCommaDelimitedString(authorizedClientServiceMap.keySet()));
 		}
-		return (!authorizedClientServiceMap.isEmpty() ? authorizedClientServiceMap.values().iterator().next() : null);
+		return !authorizedClientServiceMap.isEmpty() ? authorizedClientServiceMap.values().iterator().next() : null;
 	}
 
 }

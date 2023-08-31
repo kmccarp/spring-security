@@ -46,7 +46,7 @@ public interface ServerCsrfTokenRequestHandler extends ServerCsrfTokenRequestRes
 	default Mono<String> resolveCsrfTokenValue(ServerWebExchange exchange, CsrfToken csrfToken) {
 		Assert.notNull(exchange, "exchange cannot be null");
 		Assert.notNull(csrfToken, "csrfToken cannot be null");
-		return exchange.getFormData().flatMap((data) -> Mono.justOrEmpty(data.getFirst(csrfToken.getParameterName())))
+		return exchange.getFormData().flatMap(data -> Mono.justOrEmpty(data.getFirst(csrfToken.getParameterName())))
 				.switchIfEmpty(
 						Mono.justOrEmpty(exchange.getRequest().getHeaders().getFirst(csrfToken.getHeaderName())));
 	}

@@ -75,7 +75,7 @@ public abstract class AbstractRememberMeServices
 
 	protected MessageSourceAccessor messages = SpringSecurityMessageSource.getAccessor();
 
-	private UserDetailsService userDetailsService;
+	private final UserDetailsService userDetailsService;
 
 	private UserDetailsChecker userDetailsChecker = new AccountStatusUserDetailsChecker();
 
@@ -89,11 +89,11 @@ public abstract class AbstractRememberMeServices
 
 	private boolean alwaysRemember;
 
-	private String key;
+	private final String key;
 
 	private int tokenValiditySeconds = TWO_WEEKS_S;
 
-	private Boolean useSecureCookie = null;
+	private Boolean useSecureCookie;
 
 	private GrantedAuthoritiesMapper authoritiesMapper = new NullAuthoritiesMapper();
 
@@ -305,8 +305,8 @@ public abstract class AbstractRememberMeServices
 		}
 		String paramValue = request.getParameter(parameter);
 		if (paramValue != null) {
-			if (paramValue.equalsIgnoreCase("true") || paramValue.equalsIgnoreCase("on")
-					|| paramValue.equalsIgnoreCase("yes") || paramValue.equals("1")) {
+			if ("true".equalsIgnoreCase(paramValue) || "on".equalsIgnoreCase(paramValue)
+					|| "yes".equalsIgnoreCase(paramValue) || "1".equals(paramValue)) {
 				return true;
 			}
 		}

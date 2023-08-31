@@ -72,19 +72,19 @@ class PayloadInterceptorRSocket extends RSocketProxy {
 	@Override
 	public Mono<Void> fireAndForget(Payload payload) {
 		return intercept(PayloadExchangeType.FIRE_AND_FORGET, payload)
-				.flatMap((context) -> this.source.fireAndForget(payload).contextWrite(context));
+				.flatMap(context -> this.source.fireAndForget(payload).contextWrite(context));
 	}
 
 	@Override
 	public Mono<Payload> requestResponse(Payload payload) {
 		return intercept(PayloadExchangeType.REQUEST_RESPONSE, payload)
-				.flatMap((context) -> this.source.requestResponse(payload).contextWrite(context));
+				.flatMap(context -> this.source.requestResponse(payload).contextWrite(context));
 	}
 
 	@Override
 	public Flux<Payload> requestStream(Payload payload) {
 		return intercept(PayloadExchangeType.REQUEST_STREAM, payload)
-				.flatMapMany((context) -> this.source.requestStream(payload).contextWrite(context));
+				.flatMapMany(context -> this.source.requestStream(payload).contextWrite(context));
 	}
 
 	@Override
@@ -92,7 +92,7 @@ class PayloadInterceptorRSocket extends RSocketProxy {
 		return Flux.from(payloads).switchOnFirst((signal, innerFlux) -> {
 			Payload firstPayload = signal.get();
 			return intercept(PayloadExchangeType.REQUEST_CHANNEL, firstPayload).flatMapMany(
-					(context) -> innerFlux.index().concatMap((tuple) -> justOrIntercept(tuple.getT1(), tuple.getT2()))
+					context -> innerFlux.index().concatMap(tuple -> justOrIntercept(tuple.getT1(), tuple.getT2()))
 							.transform(this.source::requestChannel).contextWrite(context));
 		});
 	}
@@ -104,7 +104,7 @@ class PayloadInterceptorRSocket extends RSocketProxy {
 	@Override
 	public Mono<Void> metadataPush(Payload payload) {
 		return intercept(PayloadExchangeType.METADATA_PUSH, payload)
-				.flatMap((c) -> this.source.metadataPush(payload).contextWrite(c));
+				.flatMap(c -> this.source.metadataPush(payload).contextWrite(c));
 	}
 
 	private Mono<Context> intercept(PayloadExchangeType type, Payload payload) {

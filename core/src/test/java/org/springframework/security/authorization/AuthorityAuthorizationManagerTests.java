@@ -46,10 +46,10 @@ public class AuthorityAuthorizationManagerTests {
 
 	@Test
 	public void hasRoleWhenContainRoleWithRolePrefixThenException() {
-		String ROLE_PREFIX = "ROLE_";
-		String ROLE_USER = ROLE_PREFIX + "USER";
-		assertThatIllegalArgumentException().isThrownBy(() -> AuthorityAuthorizationManager.hasRole(ROLE_USER))
-				.withMessage(ROLE_USER + " should not start with " + ROLE_PREFIX + " since " + ROLE_PREFIX
+		String rolePrefix = "ROLE_";
+		String roleUser = rolePrefix + "USER";
+		assertThatIllegalArgumentException().isThrownBy(() -> AuthorityAuthorizationManager.hasRole(roleUser))
+				.withMessage(roleUser + " should not start with " + rolePrefix + " since " + rolePrefix
 						+ " is automatically prepended when using hasRole. Consider using hasAuthority instead.");
 	}
 

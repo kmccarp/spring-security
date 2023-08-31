@@ -539,7 +539,7 @@ public class CsrfConfigurerTests {
 		// @formatter:on
 		MvcResult mvcResult = this.mvc.perform(loginRequest).andExpect(redirectedUrl("/")).andReturn();
 		List<Cookie> cookies = Arrays.asList(mvcResult.getResponse().getCookies());
-		cookies.removeIf((cookie) -> !cookie.getName().equalsIgnoreCase(existingCookie.getName()));
+		cookies.removeIf(cookie -> !cookie.getName().equalsIgnoreCase(existingCookie.getName()));
 		assertThat(cookies).hasSize(1);
 		assertThat(cookies.get(0).getValue()).isEmpty();
 	}
@@ -566,7 +566,7 @@ public class CsrfConfigurerTests {
 				.andReturn();
 		// @formatter:on
 		List<Cookie> cookies = Arrays.asList(mvcResult.getResponse().getCookies());
-		cookies.removeIf((cookie) -> !cookie.getName().equalsIgnoreCase(existingCookie.getName()));
+		cookies.removeIf(cookie -> !cookie.getName().equalsIgnoreCase(existingCookie.getName()));
 		assertThat(cookies).isEmpty();
 	}
 
@@ -591,7 +591,7 @@ public class CsrfConfigurerTests {
 				.andReturn();
 		// @formatter:on
 		List<Cookie> cookies = Arrays.asList(mvcResult.getResponse().getCookies());
-		cookies.removeIf((cookie) -> !cookie.getName().equalsIgnoreCase(expectedCookie.getName()));
+		cookies.removeIf(cookie -> !cookie.getName().equalsIgnoreCase(expectedCookie.getName()));
 		assertThat(cookies).isEmpty();
 	}
 
@@ -749,7 +749,7 @@ public class CsrfConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.csrf((csrf) -> csrf.requireCsrfProtectionMatcher(MATCHER));
+				.csrf(csrf -> csrf.requireCsrfProtectionMatcher(MATCHER));
 			return http.build();
 			// @formatter:on
 		}
@@ -792,7 +792,7 @@ public class CsrfConfigurerTests {
 			// @formatter:off
 			http
 				.formLogin(withDefaults())
-				.csrf((csrf) -> csrf.csrfTokenRepository(REPO));
+				.csrf(csrf -> csrf.csrfTokenRepository(REPO));
 			return http.build();
 			// @formatter:on
 		}
@@ -964,11 +964,11 @@ public class CsrfConfigurerTests {
 		SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeHttpRequests((authorize) -> authorize
+				.authorizeHttpRequests(authorize -> authorize
 					.anyRequest().authenticated()
 				)
 				.formLogin(Customizer.withDefaults())
-				.csrf((csrf) -> csrf
+				.csrf(csrf -> csrf
 					.csrfTokenRepository(REPO)
 					.csrfTokenRequestHandler(HANDLER)
 				);
@@ -1000,11 +1000,11 @@ public class CsrfConfigurerTests {
 		SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeHttpRequests((authorize) -> authorize
+				.authorizeHttpRequests(authorize -> authorize
 					.anyRequest().authenticated()
 				)
 				.httpBasic(Customizer.withDefaults())
-				.csrf((csrf) -> csrf
+				.csrf(csrf -> csrf
 					.csrfTokenRepository(REPO)
 					.csrfTokenRequestHandler(HANDLER)
 				);

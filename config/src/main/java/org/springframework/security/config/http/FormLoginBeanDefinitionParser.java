@@ -93,7 +93,7 @@ public class FormLoginBeanDefinitionParser {
 
 	private String loginPage;
 
-	private String loginMethod;
+	private final String loginMethod;
 
 	private String loginProcessingUrl;
 

@@ -64,7 +64,7 @@ class OAuth2ResourceServerDslTests {
     @Autowired
     lateinit var mockMvc: MockMvc
 
-    private val JWT: Jwt = Jwt.withTokenValue("token")
+    private val jwt: Jwt = Jwt.withTokenValue("token")
             .header("alg", "none")
             .claim(SUB, "user")
             .build()
@@ -112,7 +112,7 @@ class OAuth2ResourceServerDslTests {
         mockkObject(BearerTokenResolverConfig.RESOLVER)
         mockkObject(BearerTokenResolverConfig.DECODER)
         every { BearerTokenResolverConfig.RESOLVER.resolve(any()) } returns "anything"
-        every { BearerTokenResolverConfig.DECODER.decode(any()) } returns JWT
+        every { BearerTokenResolverConfig.DECODER.decode(any()) } returns jwt
 
         this.mockMvc.get("/")
 
@@ -163,7 +163,7 @@ class OAuth2ResourceServerDslTests {
         mockkObject(AccessDeniedHandlerConfig.DECODER)
         every {
             AccessDeniedHandlerConfig.DECODER.decode(any())
-        } returns JWT
+        } returns jwt
         every {
             AccessDeniedHandlerConfig.DENIED_HANDLER.handle(any(), any(), any())
         } returns Unit
@@ -208,7 +208,7 @@ class OAuth2ResourceServerDslTests {
         mockkObject(AuthenticationManagerResolverConfig.RESOLVER)
         every {
             AuthenticationManagerResolverConfig.RESOLVER.resolve(any())
-        } returns MockAuthenticationManager(JwtAuthenticationToken(JWT))
+        } returns MockAuthenticationManager(JwtAuthenticationToken(jwt))
 
         this.mockMvc.get("/") {
             header("Authorization", "Bearer token")

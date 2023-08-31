@@ -133,10 +133,10 @@ public class SwitchUserWebFilterTests {
 		assertThat(switchUserAuthentication.getName()).isEqualTo(targetUsername);
 		assertThat(switchUserAuthentication.getAuthorities()).anyMatch(SwitchUserGrantedAuthority.class::isInstance);
 		assertThat(switchUserAuthentication.getAuthorities())
-				.anyMatch((a) -> a.getAuthority().contains(SwitchUserWebFilter.ROLE_PREVIOUS_ADMINISTRATOR));
+				.anyMatch(a -> a.getAuthority().contains(SwitchUserWebFilter.ROLE_PREVIOUS_ADMINISTRATOR));
 		assertThat(switchUserAuthentication.getAuthorities().stream()
-				.filter((a) -> a instanceof SwitchUserGrantedAuthority)
-				.map((a) -> ((SwitchUserGrantedAuthority) a).getSource()).map(Principal::getName))
+				.filter(SwitchUserGrantedAuthority.class::isInstance)
+				.map(a -> ((SwitchUserGrantedAuthority) a).getSource()).map(Principal::getName))
 						.contains(originalAuthentication.getName());
 	}
 
@@ -167,8 +167,8 @@ public class SwitchUserWebFilterTests {
 		final Authentication secondSwitchUserAuthentication = authenticationCaptor.getValue();
 		assertThat(secondSwitchUserAuthentication.getName()).isEqualTo(targetUsername);
 		assertThat(secondSwitchUserAuthentication.getAuthorities().stream()
-				.filter((a) -> a instanceof SwitchUserGrantedAuthority)
-				.map((a) -> ((SwitchUserGrantedAuthority) a).getSource()).map(Principal::getName).findFirst()
+				.filter(SwitchUserGrantedAuthority.class::isInstance)
+				.map(a -> ((SwitchUserGrantedAuthority) a).getSource()).map(Principal::getName).findFirst()
 				.orElse(null)).isEqualTo(originalAuthentication.getName());
 	}
 

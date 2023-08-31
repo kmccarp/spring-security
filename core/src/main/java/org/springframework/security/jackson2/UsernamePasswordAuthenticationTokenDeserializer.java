@@ -50,10 +50,10 @@ import org.springframework.security.core.GrantedAuthority;
  */
 class UsernamePasswordAuthenticationTokenDeserializer extends JsonDeserializer<UsernamePasswordAuthenticationToken> {
 
-	private static final TypeReference<List<GrantedAuthority>> GRANTED_AUTHORITY_LIST = new TypeReference<List<GrantedAuthority>>() {
+	private static final TypeReference<List<GrantedAuthority>> GRANTED_AUTHORITY_LIST = new TypeReference<>() {
 	};
 
-	private static final TypeReference<Object> OBJECT = new TypeReference<Object>() {
+	private static final TypeReference<Object> OBJECT = new TypeReference<>() {
 	};
 
 	/**

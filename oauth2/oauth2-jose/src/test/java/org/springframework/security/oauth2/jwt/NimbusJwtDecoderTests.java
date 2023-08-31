@@ -220,7 +220,7 @@ public class NimbusJwtDecoderTests {
 		assertThatExceptionOfType(JwtValidationException.class)
 				.isThrownBy(() -> this.jwtDecoder.decode(SIGNED_JWT))
 				.withMessageContaining("mock-description")
-				.satisfies((ex) -> assertThat(ex)
+				.satisfies(ex -> assertThat(ex)
 						.hasFieldOrPropertyWithValue("errors", Arrays.asList(firstFailure, secondFailure))
 				);
 		// @formatter:on
@@ -450,7 +450,7 @@ public class NimbusJwtDecoderTests {
 		// @formatter:off
 		NimbusJwtDecoder decoder = NimbusJwtDecoder.withPublicKey(publicKey)
 				.signatureAlgorithm(SignatureAlgorithm.RS256)
-				.jwtProcessorCustomizer((p) -> p
+				.jwtProcessorCustomizer(p -> p
 						.setJWSTypeVerifier(new DefaultJOSEObjectTypeVerifier<>(new JOSEObjectType("JWS")))
 				)
 				.build();
@@ -567,7 +567,7 @@ public class NimbusJwtDecoderTests {
 		// @formatter:off
 		NimbusJwtDecoder decoder = NimbusJwtDecoder.withSecretKey(secretKey)
 				.macAlgorithm(MacAlgorithm.HS256)
-				.jwtProcessorCustomizer((p) -> p
+				.jwtProcessorCustomizer(p -> p
 						.setJWSTypeVerifier(new DefaultJOSEObjectTypeVerifier<>(new JOSEObjectType("JWS")))
 				)
 				.build();
@@ -811,7 +811,7 @@ public class NimbusJwtDecoderTests {
 		// @formatter:off
 		NimbusJwtDecoder jwtDecoder = NimbusJwtDecoder.withJwkSetUri(JWK_SET_URI)
 				.restOperations(restOperations)
-				.jwtProcessorCustomizer((p) -> p
+				.jwtProcessorCustomizer(p -> p
 						.setJWSTypeVerifier(new DefaultJOSEObjectTypeVerifier<>(new JOSEObjectType("JWS")))
 				)
 				.build();

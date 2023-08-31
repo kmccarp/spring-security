@@ -297,7 +297,7 @@ public class ServerHttpSecurity {
 
 	private LogoutSpec logout = new LogoutSpec();
 
-	private LoginPageSpec loginPage = new LoginPageSpec();
+	private final LoginPageSpec loginPage = new LoginPageSpec();
 
 	private ReactiveAuthenticationManager authenticationManager;
 
@@ -305,13 +305,13 @@ public class ServerHttpSecurity {
 
 	private ServerAuthenticationEntryPoint authenticationEntryPoint;
 
-	private List<DelegateEntry> defaultEntryPoints = new ArrayList<>();
+	private final List<DelegateEntry> defaultEntryPoints = new ArrayList<>();
 
 	private ServerAccessDeniedHandler accessDeniedHandler;
 
-	private List<ServerWebExchangeDelegatingServerAccessDeniedHandler.DelegateEntry> defaultAccessDeniedHandlers = new ArrayList<>();
+	private final List<ServerWebExchangeDelegatingServerAccessDeniedHandler.DelegateEntry> defaultAccessDeniedHandlers = new ArrayList<>();
 
-	private List<WebFilter> webFilters = new ArrayList<>();
+	private final List<WebFilter> webFilters = new ArrayList<>();
 
 	private ApplicationContext context;
 
@@ -1565,7 +1565,7 @@ public class ServerHttpSecurity {
 		}
 		AnnotationAwareOrderComparator.sort(this.webFilters);
 		List<WebFilter> sortedWebFilters = new ArrayList<>();
-		this.webFilters.forEach((f) -> {
+		this.webFilters.forEach(f -> {
 			if (f instanceof OrderedWebFilter) {
 				f = ((OrderedWebFilter) f).webFilter;
 			}
@@ -1897,7 +1897,7 @@ public class ServerHttpSecurity {
 		 * @return the {@link HttpsRedirectSpec} for additional configuration
 		 */
 		public HttpsRedirectSpec httpsRedirectWhen(Function<ServerWebExchange, Boolean> when) {
-			ServerWebExchangeMatcher matcher = (e) -> when.apply(e) ? ServerWebExchangeMatcher.MatchResult.match()
+			ServerWebExchangeMatcher matcher = e -> when.apply(e) ? ServerWebExchangeMatcher.MatchResult.match()
 					: ServerWebExchangeMatcher.MatchResult.notMatch();
 			return httpsRedirectWhen(matcher);
 		}
@@ -2154,9 +2154,9 @@ public class ServerHttpSecurity {
 	 */
 	public final class HttpBasicSpec {
 
-		private final ServerWebExchangeMatcher xhrMatcher = (exchange) -> Mono.just(exchange.getRequest().getHeaders())
-				.filter((h) -> h.getOrEmpty("X-Requested-With").contains("XMLHttpRequest"))
-				.flatMap((h) -> ServerWebExchangeMatcher.MatchResult.match())
+		private final ServerWebExchangeMatcher xhrMatcher = exchange -> Mono.just(exchange.getRequest().getHeaders())
+				.filter(h -> h.getOrEmpty("X-Requested-With").contains("XMLHttpRequest"))
+				.flatMap(h -> ServerWebExchangeMatcher.MatchResult.match())
 				.switchIfEmpty(ServerWebExchangeMatcher.MatchResult.notMatch());
 
 		private ReactiveAuthenticationManager authenticationManager;
@@ -3808,9 +3808,9 @@ public class ServerHttpSecurity {
 			ServerOAuth2AuthorizationCodeAuthenticationTokenConverter delegate = new ServerOAuth2AuthorizationCodeAuthenticationTokenConverter(
 					clientRegistrationRepository);
 			delegate.setAuthorizationRequestRepository(getAuthorizationRequestRepository());
-			ServerAuthenticationConverter authenticationConverter = (exchange) -> delegate.convert(exchange).onErrorMap(
+			ServerAuthenticationConverter authenticationConverter = exchange -> delegate.convert(exchange).onErrorMap(
 					OAuth2AuthorizationException.class,
-					(e) -> new OAuth2AuthenticationException(e.getError(), e.getError().toString()));
+					e -> new OAuth2AuthenticationException(e.getError(), e.getError().toString()));
 			this.authenticationConverter = authenticationConverter;
 			return authenticationConverter;
 		}
@@ -3938,7 +3938,7 @@ public class ServerHttpSecurity {
 					MediaType.APPLICATION_XHTML_XML, new MediaType("image", "*"), MediaType.TEXT_HTML,
 					MediaType.TEXT_PLAIN);
 			htmlMatcher.setIgnoredMediaTypes(Collections.singleton(MediaType.ALL));
-			ServerWebExchangeMatcher xhrMatcher = (exchange) -> {
+			ServerWebExchangeMatcher xhrMatcher = exchange -> {
 				if (exchange.getRequest().getHeaders().getOrEmpty("X-Requested-With").contains("XMLHttpRequest")) {
 					return ServerWebExchangeMatcher.MatchResult.match();
 				}
@@ -4014,7 +4014,7 @@ public class ServerHttpSecurity {
 				return Collections.emptyMap();
 			}
 			Map<String, String> result = new HashMap<>();
-			registrations.iterator().forEachRemaining((r) -> {
+			registrations.iterator().forEachRemaining(r -> {
 				if (AuthorizationGrantType.AUTHORIZATION_CODE.equals(r.getAuthorizationGrantType())) {
 					result.put("/oauth2/authorization/" + r.getRegistrationId(), r.getClientName());
 				}

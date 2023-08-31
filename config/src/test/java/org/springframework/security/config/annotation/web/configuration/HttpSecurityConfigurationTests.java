@@ -363,7 +363,7 @@ public class HttpSecurityConfigurationTests {
 	public void configureWhenCorsConfigurationSourceThenApplyCors() {
 		this.spring.register(CorsConfigurationSourceConfig.class, DefaultWithFilterChainConfig.class).autowire();
 		SecurityFilterChain filterChain = this.spring.getContext().getBean(SecurityFilterChain.class);
-		CorsFilter corsFilter = (CorsFilter) filterChain.getFilters().stream().filter((f) -> f instanceof CorsFilter)
+		CorsFilter corsFilter = (CorsFilter) filterChain.getFilters().stream().filter(CorsFilter.class::isInstance)
 				.findFirst().get();
 		Object configSource = ReflectionTestUtils.getField(corsFilter, "configSource");
 		assertThat(configSource).isInstanceOf(UrlBasedCorsConfigurationSource.class);
@@ -395,7 +395,7 @@ public class HttpSecurityConfigurationTests {
 
 		@GetMapping("/name")
 		Callable<String> name(Authentication authentication) {
-			return () -> authentication.getName();
+			return authentication::getName;
 		}
 
 	}
@@ -419,7 +419,7 @@ public class HttpSecurityConfigurationTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			return http
-					.authorizeRequests((authorize) -> authorize
+					.authorizeRequests(authorize -> authorize
 						.anyRequest().permitAll()
 					)
 					.build();
@@ -436,7 +436,7 @@ public class HttpSecurityConfigurationTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			return http
-					.authorizeRequests((authorize) -> authorize
+					.authorizeRequests(authorize -> authorize
 						.anyRequest().authenticated()
 					)
 					.formLogin(withDefaults())
@@ -471,10 +471,10 @@ public class HttpSecurityConfigurationTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			return http
-					.authorizeHttpRequests((requests) -> requests
+					.authorizeHttpRequests(requests -> requests
 							.anyRequest().authenticated()
 					)
-					.authorizeRequests((requests) -> requests
+					.authorizeRequests(requests -> requests
 							.anyRequest().authenticated()
 					)
 					.build();
@@ -491,10 +491,10 @@ public class HttpSecurityConfigurationTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			return http
-					.authorizeRequests((requests) -> requests
+					.authorizeRequests(requests -> requests
 							.anyRequest().authenticated()
 					)
-					.authorizeHttpRequests((requests) -> requests
+					.authorizeHttpRequests(requests -> requests
 							.anyRequest().authenticated()
 					)
 					.build();
@@ -581,7 +581,7 @@ public class HttpSecurityConfigurationTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-					.authorizeHttpRequests((requests) -> requests
+					.authorizeHttpRequests(requests -> requests
 							.anyRequest().authenticated()
 					);
 			// @formatter:on
@@ -710,7 +710,7 @@ public class HttpSecurityConfigurationTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-					.with(new WithCustomDsl(), (dsl) -> dsl.disable())
+					.with(new WithCustomDsl(), org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer::disable)
 					.httpBasic(Customizer.withDefaults());
 			// @formatter:on
 			return http.build();

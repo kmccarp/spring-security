@@ -107,7 +107,7 @@ public class ClientRegistrationsTests {
 
 	private MockWebServer server;
 
-	private ObjectMapper mapper = new ObjectMapper();
+	private final ObjectMapper mapper = new ObjectMapper();
 
 	private Map<String, Object> response;
 
@@ -117,7 +117,7 @@ public class ClientRegistrationsTests {
 	public void setup() throws Exception {
 		this.server = new MockWebServer();
 		this.server.start();
-		this.response = this.mapper.readValue(DEFAULT_RESPONSE, new TypeReference<Map<String, Object>>() {
+		this.response = this.mapper.readValue(DEFAULT_RESPONSE, new TypeReference<>() {
 		});
 	}
 

@@ -44,7 +44,7 @@ class KotlinEnableReactiveMethodSecurityNoAuthorizationManagerTests {
     private lateinit var delegate: KotlinReactiveMessageService
 
     @Autowired
-    var messageService: KotlinReactiveMessageService? = null
+    var messageService: KotlinReactiveMessageService?
 
     @After
     fun cleanup() {

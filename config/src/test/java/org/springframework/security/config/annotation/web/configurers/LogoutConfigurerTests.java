@@ -376,8 +376,8 @@ public class LogoutConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.logout((logout) -> logout.invalidateHttpSession(false))
-				.securityContext((context) -> context.requireExplicitSave(true));
+				.logout(logout -> logout.invalidateHttpSession(false))
+				.securityContext(context -> context.requireExplicitSave(true));
 			return http.build();
 			// @formatter:on
 		}
@@ -395,7 +395,7 @@ public class LogoutConfigurerTests {
 			// @formatter:off
 			http
 				.logout(Customizer.withDefaults())
-				.securityContext((context) -> context
+				.securityContext(context -> context
 					.requireExplicitSave(true)
 					.securityContextRepository(repository)
 				);
@@ -429,7 +429,7 @@ public class LogoutConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.logout((logout) ->
+				.logout(logout ->
 					logout.defaultLogoutSuccessHandlerFor(null, mock(RequestMatcher.class))
 				);
 			return http.build();
@@ -462,7 +462,7 @@ public class LogoutConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.logout((logout) ->
+				.logout(logout ->
 					logout.defaultLogoutSuccessHandlerFor(mock(LogoutSuccessHandler.class), null)
 				);
 			return http.build();
@@ -570,7 +570,7 @@ public class LogoutConfigurerTests {
 			http
 				.csrf()
 					.disable()
-				.logout((logout) -> logout.logoutUrl("/custom/logout"));
+				.logout(logout -> logout.logoutUrl("/custom/logout"));
 			return http.build();
 			// @formatter:on
 		}
@@ -601,7 +601,7 @@ public class LogoutConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.logout((logout) -> logout.addLogoutHandler(null));
+				.logout(logout -> logout.addLogoutHandler(null));
 			return http.build();
 			// @formatter:on
 		}

@@ -128,7 +128,7 @@ public class R2dbcReactiveOAuth2AuthorizedClientServiceTests {
 
 		this.authorizedClientService
 				.loadAuthorizedClient(this.clientRegistration.getRegistrationId(), principal.getName())
-				.as(StepVerifier::create).assertNext((authorizedClient) -> {
+				.as(StepVerifier::create).assertNext(authorizedClient -> {
 					assertThat(authorizedClient).isNotNull();
 					assertThat(authorizedClient.getClientRegistration()).isEqualTo(expected.getClientRegistration());
 					assertThat(authorizedClient.getPrincipalName()).isEqualTo(expected.getPrincipalName());
@@ -161,7 +161,7 @@ public class R2dbcReactiveOAuth2AuthorizedClientServiceTests {
 		this.authorizedClientService
 				.loadAuthorizedClient(this.clientRegistration.getRegistrationId(), principal.getName())
 				.as(StepVerifier::create)
-				.verifyErrorSatisfies((exception) -> assertThat(exception)
+				.verifyErrorSatisfies(exception -> assertThat(exception)
 						.isInstanceOf(DataRetrievalFailureException.class)
 						.hasMessage("The ClientRegistration with id '" + this.clientRegistration.getRegistrationId()
 								+ "' exists in the data source, however, it was not found in the ReactiveClientRegistrationRepository."));
@@ -195,7 +195,7 @@ public class R2dbcReactiveOAuth2AuthorizedClientServiceTests {
 
 		this.authorizedClientService
 				.loadAuthorizedClient(this.clientRegistration.getRegistrationId(), principal.getName())
-				.as(StepVerifier::create).assertNext((authorizedClient) -> {
+				.as(StepVerifier::create).assertNext(authorizedClient -> {
 					assertThat(authorizedClient).isNotNull();
 					assertThat(authorizedClient.getClientRegistration()).isEqualTo(expected.getClientRegistration());
 					assertThat(authorizedClient.getPrincipalName()).isEqualTo(expected.getPrincipalName());
@@ -224,7 +224,7 @@ public class R2dbcReactiveOAuth2AuthorizedClientServiceTests {
 
 		this.authorizedClientService
 				.loadAuthorizedClient(this.clientRegistration.getRegistrationId(), principal.getName())
-				.as(StepVerifier::create).assertNext((authorizedClient) -> {
+				.as(StepVerifier::create).assertNext(authorizedClient -> {
 					assertThat(authorizedClient).isNotNull();
 					assertThat(authorizedClient.getClientRegistration())
 							.isEqualTo(updatedExpectedPrincipal.getClientRegistration());
@@ -259,7 +259,7 @@ public class R2dbcReactiveOAuth2AuthorizedClientServiceTests {
 		// Then the saved client is updated
 		this.authorizedClientService
 				.loadAuthorizedClient(this.clientRegistration.getRegistrationId(), principal.getName())
-				.as(StepVerifier::create).assertNext((savedClient) -> {
+				.as(StepVerifier::create).assertNext(savedClient -> {
 					assertThat(savedClient).isNotNull();
 					assertThat(savedClient.getClientRegistration())
 							.isEqualTo(updatedAuthorizedClient.getClientRegistration());
@@ -306,7 +306,7 @@ public class R2dbcReactiveOAuth2AuthorizedClientServiceTests {
 
 		this.authorizedClientService
 				.loadAuthorizedClient(this.clientRegistration.getRegistrationId(), principal.getName())
-				.as(StepVerifier::create).assertNext((dbAuthorizedClient) -> assertThat(dbAuthorizedClient).isNotNull())
+				.as(StepVerifier::create).assertNext(dbAuthorizedClient -> assertThat(dbAuthorizedClient).isNotNull())
 				.verifyComplete();
 
 		this.authorizedClientService
@@ -336,9 +336,9 @@ public class R2dbcReactiveOAuth2AuthorizedClientServiceTests {
 		ConnectionFactory connectionFactory = H2ConnectionFactory.inMemory("oauth-test");
 
 		Mono.from(connectionFactory.create())
-				.flatMapMany((connection) -> Flux
+				.flatMapMany(connection -> Flux
 						.from(connection.createStatement("drop table oauth2_authorized_client").execute())
-						.flatMap(Result::getRowsUpdated).onErrorResume((e) -> Mono.empty())
+						.flatMap(Result::getRowsUpdated).onErrorResume(e -> Mono.empty())
 						.thenMany(connection.close()))
 				.as(StepVerifier::create).verifyComplete();
 		ConnectionFactoryInitializer createDb = createDb(OAUTH2_CLIENT_SCHEMA_SQL_RESOURCE);

@@ -90,7 +90,7 @@ public class ClaimTypeConverterTests {
 
 	private static Converter<Object, ?> getConverter(TypeDescriptor targetDescriptor) {
 		final TypeDescriptor sourceDescriptor = TypeDescriptor.valueOf(Object.class);
-		return (source) -> ClaimConversionService.getSharedInstance().convert(source, sourceDescriptor,
+		return source -> ClaimConversionService.getSharedInstance().convert(source, sourceDescriptor,
 				targetDescriptor);
 	}
 

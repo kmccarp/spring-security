@@ -292,7 +292,7 @@ public class OAuth2LoginTests {
 		given(manager.authenticate(any())).willReturn(Mono.just(result));
 		given(matcher.matches(any())).willReturn(ServerWebExchangeMatcher.MatchResult.match());
 		given(resolver.resolve(any())).willReturn(Mono.empty());
-		given(successHandler.onAuthenticationSuccess(any(), any())).willAnswer((Answer<Mono<Void>>) (invocation) -> {
+		given(successHandler.onAuthenticationSuccess(any(), any())).willAnswer((Answer<Mono<Void>>) invocation -> {
 			WebFilterExchange webFilterExchange = invocation.getArgument(0);
 			Authentication authentication = invocation.getArgument(1);
 			return new RedirectServerAuthenticationSuccessHandler(redirectLocation)
@@ -336,13 +336,13 @@ public class OAuth2LoginTests {
 				.willReturn(Mono.error(new OAuth2AuthenticationException(new OAuth2Error("error"), "message")));
 		given(matcher.matches(any())).willReturn(ServerWebExchangeMatcher.MatchResult.match());
 		given(resolver.resolve(any())).willReturn(Mono.empty());
-		given(successHandler.onAuthenticationSuccess(any(), any())).willAnswer((Answer<Mono<Void>>) (invocation) -> {
+		given(successHandler.onAuthenticationSuccess(any(), any())).willAnswer((Answer<Mono<Void>>) invocation -> {
 			WebFilterExchange webFilterExchange = invocation.getArgument(0);
 			Authentication authentication = invocation.getArgument(1);
 			return new RedirectServerAuthenticationSuccessHandler(redirectLocation)
 					.onAuthenticationSuccess(webFilterExchange, authentication);
 		});
-		given(failureHandler.onAuthenticationFailure(any(), any())).willAnswer((Answer<Mono<Void>>) (invocation) -> {
+		given(failureHandler.onAuthenticationFailure(any(), any())).willAnswer((Answer<Mono<Void>>) invocation -> {
 			WebFilterExchange webFilterExchange = invocation.getArgument(0);
 			AuthenticationException authenticationException = invocation.getArgument(1);
 			return new RedirectServerAuthenticationFailureHandler(failureRedirectLocation)
@@ -384,7 +384,7 @@ public class OAuth2LoginTests {
 		given(manager.authenticate(any())).willReturn(Mono.just(result));
 		given(matcher.matches(any())).willReturn(ServerWebExchangeMatcher.MatchResult.match());
 		given(resolver.resolve(any())).willReturn(Mono.empty());
-		given(successHandler.onAuthenticationSuccess(any(), any())).willAnswer((Answer<Mono<Void>>) (invocation) -> {
+		given(successHandler.onAuthenticationSuccess(any(), any())).willAnswer((Answer<Mono<Void>>) invocation -> {
 			WebFilterExchange webFilterExchange = invocation.getArgument(0);
 			Authentication authentication = invocation.getArgument(1);
 			return new RedirectServerAuthenticationSuccessHandler(redirectLocation)
@@ -524,7 +524,7 @@ public class OAuth2LoginTests {
 		given(tokenResponseClient.getTokenResponse(any())).willReturn(Mono.just(accessTokenResponse));
 		ReactiveJwtDecoderFactory<ClientRegistration> jwtDecoderFactory = config.jwtDecoderFactory;
 		OAuth2Error oauth2Error = new OAuth2Error("invalid_id_token", "Invalid ID Token", null);
-		given(jwtDecoderFactory.createDecoder(any())).willReturn((token) -> Mono
+		given(jwtDecoderFactory.createDecoder(any())).willReturn(token -> Mono
 				.error(new JwtValidationException("ID Token validation failed", Collections.singleton(oauth2Error))));
 		// @formatter:off
 		webTestClient.get()
@@ -753,11 +753,11 @@ public class OAuth2LoginTests {
 		SecurityWebFilterChain springSecurityFilter(ServerHttpSecurity http) {
 			// @formatter:off
 			http
-				.authorizeExchange((exchanges) ->
+				.authorizeExchange(exchanges ->
 					exchanges
 						.anyExchange().authenticated()
 				)
-				.oauth2Login((oauth2Login) ->
+				.oauth2Login(oauth2Login ->
 					oauth2Login
 						.authenticationConverter(this.authenticationConverter)
 						.authenticationManager(this.manager)
@@ -825,13 +825,13 @@ public class OAuth2LoginTests {
 			}
 
 			private ReactiveJwtDecoder getJwtDecoder() {
-				return (token) -> {
+				return token -> {
 					Map<String, Object> claims = new HashMap<>();
 					claims.put(IdTokenClaimNames.SUB, "subject");
 					claims.put(IdTokenClaimNames.ISS, "http://localhost/issuer");
 					claims.put(IdTokenClaimNames.AUD, Collections.singletonList("client"));
 					claims.put(IdTokenClaimNames.AZP, "client");
-					Jwt jwt = TestJwts.jwt().claims((c) -> c.putAll(claims)).build();
+					Jwt jwt = TestJwts.jwt().claims(c -> c.putAll(claims)).build();
 					return Mono.just(jwt);
 				};
 			}
@@ -884,7 +884,7 @@ public class OAuth2LoginTests {
 
 		@Override
 		public Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain) {
-			if (exchange.getRequest().getURI().getHost().equals("github.com")) {
+			if ("github.com".equals(exchange.getRequest().getURI().getHost())) {
 				return exchange.getResponse().setComplete();
 			}
 			return chain.filter(exchange);

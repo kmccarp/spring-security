@@ -395,7 +395,7 @@ public class MethodSecurityBeanDefinitionParserTests {
 	public void repeatedAnnotationsWhenPresentThenFails() {
 		this.spring.configLocations(xml("MethodSecurityService")).autowire();
 		assertThatExceptionOfType(AnnotationConfigurationException.class)
-				.isThrownBy(() -> this.methodSecurityService.repeatedAnnotations());
+				.isThrownBy(this.methodSecurityService::repeatedAnnotations);
 	}
 
 	// gh-3183
@@ -403,7 +403,7 @@ public class MethodSecurityBeanDefinitionParserTests {
 	public void repeatedJsr250AnnotationsWhenPresentThenFails() {
 		this.spring.configLocations(xml("Jsr250")).autowire();
 		assertThatExceptionOfType(AnnotationConfigurationException.class)
-				.isThrownBy(() -> this.businessService.repeatedAnnotations());
+				.isThrownBy(this.businessService::repeatedAnnotations);
 	}
 
 	// gh-3183
@@ -411,7 +411,7 @@ public class MethodSecurityBeanDefinitionParserTests {
 	public void repeatedSecuredAnnotationsWhenPresentThenFails() {
 		this.spring.configLocations(xml("Secured")).autowire();
 		assertThatExceptionOfType(AnnotationConfigurationException.class)
-				.isThrownBy(() -> this.businessService.repeatedAnnotations());
+				.isThrownBy(this.businessService::repeatedAnnotations);
 	}
 
 	@WithMockUser

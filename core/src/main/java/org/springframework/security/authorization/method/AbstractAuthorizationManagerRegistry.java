@@ -47,7 +47,7 @@ abstract class AbstractAuthorizationManagerRegistry {
 		Object target = methodInvocation.getThis();
 		Class<?> targetClass = (target != null) ? target.getClass() : null;
 		MethodClassKey cacheKey = new MethodClassKey(method, targetClass);
-		return this.cachedManagers.computeIfAbsent(cacheKey, (k) -> resolveManager(method, targetClass));
+		return this.cachedManagers.computeIfAbsent(cacheKey, k -> resolveManager(method, targetClass));
 	}
 
 	/**

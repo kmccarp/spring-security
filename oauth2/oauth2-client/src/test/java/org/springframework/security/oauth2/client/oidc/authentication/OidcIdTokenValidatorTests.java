@@ -46,9 +46,9 @@ public class OidcIdTokenValidatorTests {
 
 	private ClientRegistration.Builder registration = TestClientRegistrations.clientRegistration();
 
-	private Map<String, Object> headers = new HashMap<>();
+	private final Map<String, Object> headers = new HashMap<>();
 
-	private Map<String, Object> claims = new HashMap<>();
+	private final Map<String, Object> claims = new HashMap<>();
 
 	private Instant issuedAt = Instant.now();
 
@@ -103,7 +103,7 @@ public class OidcIdTokenValidatorTests {
 		assertThat(this.validateIdToken())
 				.hasSize(1)
 				.extracting(OAuth2Error::getDescription)
-				.allMatch((msg) -> msg.contains(IdTokenClaimNames.ISS));
+				.allMatch(msg -> msg.contains(IdTokenClaimNames.ISS));
 		// @formatter:on
 	}
 
@@ -118,7 +118,7 @@ public class OidcIdTokenValidatorTests {
 		assertThat(this.validateIdToken())
 				.hasSize(1)
 				.extracting(OAuth2Error::getDescription)
-				.allMatch((msg) -> msg.contains(IdTokenClaimNames.ISS));
+				.allMatch(msg -> msg.contains(IdTokenClaimNames.ISS));
 		// @formatter:on
 	}
 
@@ -139,7 +139,7 @@ public class OidcIdTokenValidatorTests {
 		assertThat(this.validateIdToken())
 				.hasSize(1)
 				.extracting(OAuth2Error::getDescription)
-				.allMatch((msg) -> msg.contains(IdTokenClaimNames.SUB));
+				.allMatch(msg -> msg.contains(IdTokenClaimNames.SUB));
 		// @formatter:on
 	}
 
@@ -150,7 +150,7 @@ public class OidcIdTokenValidatorTests {
 		assertThat(this.validateIdToken())
 				.hasSize(1)
 				.extracting(OAuth2Error::getDescription)
-				.allMatch((msg) -> msg.contains(IdTokenClaimNames.AUD));
+				.allMatch(msg -> msg.contains(IdTokenClaimNames.AUD));
 		// @formatter:on
 	}
 
@@ -161,7 +161,7 @@ public class OidcIdTokenValidatorTests {
 		assertThat(this.validateIdToken())
 				.hasSize(1)
 				.extracting(OAuth2Error::getDescription)
-				.allMatch((msg) -> msg.contains(IdTokenClaimNames.IAT));
+				.allMatch(msg -> msg.contains(IdTokenClaimNames.IAT));
 		// @formatter:on
 	}
 
@@ -169,7 +169,7 @@ public class OidcIdTokenValidatorTests {
 	public void validateWhenExpiresAtNullThenHasErrors() {
 		this.expiresAt = null;
 		assertThat(this.validateIdToken()).hasSize(1).extracting(OAuth2Error::getDescription)
-				.allMatch((msg) -> msg.contains(IdTokenClaimNames.EXP));
+				.allMatch(msg -> msg.contains(IdTokenClaimNames.EXP));
 	}
 
 	@Test
@@ -179,7 +179,7 @@ public class OidcIdTokenValidatorTests {
 		assertThat(this.validateIdToken())
 				.hasSize(1)
 				.extracting(OAuth2Error::getDescription)
-				.allMatch((msg) -> msg.contains(IdTokenClaimNames.AZP));
+				.allMatch(msg -> msg.contains(IdTokenClaimNames.AZP));
 		// @formatter:on
 	}
 
@@ -190,7 +190,7 @@ public class OidcIdTokenValidatorTests {
 		assertThat(this.validateIdToken())
 				.hasSize(1)
 				.extracting(OAuth2Error::getDescription)
-				.allMatch((msg) -> msg.contains(IdTokenClaimNames.AZP));
+				.allMatch(msg -> msg.contains(IdTokenClaimNames.AZP));
 		// @formatter:on
 	}
 
@@ -209,7 +209,7 @@ public class OidcIdTokenValidatorTests {
 		assertThat(this.validateIdToken())
 				.hasSize(1)
 				.extracting(OAuth2Error::getDescription)
-				.allMatch((msg) -> msg.contains(IdTokenClaimNames.AZP));
+				.allMatch(msg -> msg.contains(IdTokenClaimNames.AZP));
 		// @formatter:on
 	}
 
@@ -220,7 +220,7 @@ public class OidcIdTokenValidatorTests {
 		assertThat(this.validateIdToken())
 				.hasSize(1)
 				.extracting(OAuth2Error::getDescription)
-				.allMatch((msg) -> msg.contains(IdTokenClaimNames.AUD));
+				.allMatch(msg -> msg.contains(IdTokenClaimNames.AUD));
 		// @formatter:on
 	}
 
@@ -241,7 +241,7 @@ public class OidcIdTokenValidatorTests {
 		assertThat(this.validateIdToken())
 				.hasSize(1)
 				.extracting(OAuth2Error::getDescription)
-				.allMatch((msg) -> msg.contains(IdTokenClaimNames.EXP));
+				.allMatch(msg -> msg.contains(IdTokenClaimNames.EXP));
 		// @formatter:on
 	}
 
@@ -262,7 +262,7 @@ public class OidcIdTokenValidatorTests {
 		assertThat(this.validateIdToken())
 				.hasSize(1)
 				.extracting(OAuth2Error::getDescription)
-				.allMatch((msg) -> msg.contains(IdTokenClaimNames.IAT));
+				.allMatch(msg -> msg.contains(IdTokenClaimNames.IAT));
 		// @formatter:on
 	}
 
@@ -275,7 +275,7 @@ public class OidcIdTokenValidatorTests {
 		assertThat(this.validateIdToken())
 				.hasSize(1)
 				.extracting(OAuth2Error::getDescription)
-				.allMatch((msg) -> msg.contains(IdTokenClaimNames.EXP));
+				.allMatch(msg -> msg.contains(IdTokenClaimNames.EXP));
 		// @formatter:on
 	}
 
@@ -289,10 +289,10 @@ public class OidcIdTokenValidatorTests {
 		assertThat(this.validateIdToken())
 				.hasSize(1)
 				.extracting(OAuth2Error::getDescription)
-				.allMatch((msg) -> msg.contains(IdTokenClaimNames.SUB))
-				.allMatch((msg) -> msg.contains(IdTokenClaimNames.AUD))
-				.allMatch((msg) -> msg.contains(IdTokenClaimNames.IAT))
-				.allMatch((msg) -> msg.contains(IdTokenClaimNames.EXP));
+				.allMatch(msg -> msg.contains(IdTokenClaimNames.SUB))
+				.allMatch(msg -> msg.contains(IdTokenClaimNames.AUD))
+				.allMatch(msg -> msg.contains(IdTokenClaimNames.IAT))
+				.allMatch(msg -> msg.contains(IdTokenClaimNames.EXP));
 		// @formatter:on
 	}
 
@@ -304,7 +304,7 @@ public class OidcIdTokenValidatorTests {
 		assertThat(this.validateIdToken())
 				.hasSize(1)
 				.extracting(OAuth2Error::getDescription)
-				.allMatch((msg) -> msg.equals("The ID Token contains invalid claims: {sub=null, aud=null}"));
+				.allMatch("The ID Token contains invalid claims: {sub=null, aud=null}"::equals);
 		// @formatter:on
 	}
 
@@ -313,8 +313,8 @@ public class OidcIdTokenValidatorTests {
 		Jwt idToken = Jwt.withTokenValue("token")
 				.issuedAt(this.issuedAt)
 				.expiresAt(this.expiresAt)
-				.headers((h) -> h.putAll(this.headers))
-				.claims((c) -> c.putAll(this.claims))
+				.headers(h -> h.putAll(this.headers))
+				.claims(c -> c.putAll(this.claims))
 				.build();
 		// @formatter:on
 		OidcIdTokenValidator validator = new OidcIdTokenValidator(this.registration.build());

@@ -542,7 +542,7 @@ public class NamespaceHttpTests {
 
 		@Bean
 		WebSecurityCustomizer webSecurityCustomizer() {
-			return (web) -> web.ignoring().requestMatchers(new AntPathRequestMatcher("/resources/**"),
+			return web -> web.ignoring().requestMatchers(new AntPathRequestMatcher("/resources/**"),
 					new AntPathRequestMatcher("/public/**"));
 		}
 
@@ -652,7 +652,7 @@ public class NamespaceHttpTests {
 		@Bean
 		@DependsOn("filterChain")
 		WebSecurityCustomizer webSecurityCustomizer() {
-			return (web) -> web.postBuildAction(() -> {
+			return web -> web.postBuildAction(() -> {
 				FilterSecurityInterceptor securityInterceptor = this.httpSecurity
 						.getSharedObject(FilterSecurityInterceptor.class);
 				UseExpressionsConfig.this.filterInvocationSecurityMetadataSourceType = securityInterceptor
@@ -687,7 +687,7 @@ public class NamespaceHttpTests {
 		@Bean
 		@DependsOn("filterChain")
 		WebSecurityCustomizer webSecurityCustomizer() {
-			return (web) -> web.postBuildAction(() -> {
+			return web -> web.postBuildAction(() -> {
 				FilterSecurityInterceptor securityInterceptor = this.httpSecurity
 						.getSharedObject(FilterSecurityInterceptor.class);
 				DisableUseExpressionsConfig.this.filterInvocationSecurityMetadataSourceType = securityInterceptor

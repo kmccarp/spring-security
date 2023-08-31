@@ -75,7 +75,7 @@ public class OpenSamlLogoutRequestResolverTests {
 	@Test
 	public void resolvePostWhenAuthenticatedThenIncludesName() {
 		RelyingPartyRegistration registration = TestRelyingPartyRegistrations.full()
-				.assertingPartyDetails((party) -> party.singleLogoutServiceBinding(Saml2MessageBinding.POST)).build();
+				.assertingPartyDetails(party -> party.singleLogoutServiceBinding(Saml2MessageBinding.POST)).build();
 		Saml2Authentication authentication = authentication(registration);
 		HttpServletRequest request = new MockHttpServletRequest();
 		given(this.relyingPartyRegistrationResolver.resolve(any(), any())).willReturn(registration);

@@ -47,7 +47,7 @@ public class PasswordManagementSpecTests {
 	@Test
 	public void whenChangePasswordPageSetThenSpecifiedChangePasswordPageUsed() {
 		this.http.passwordManagement(
-				(passwordManagement) -> passwordManagement.changePasswordPage("/custom-change-password-page"));
+				passwordManagement -> passwordManagement.changePasswordPage("/custom-change-password-page"));
 
 		WebTestClient client = buildClient();
 		client.get().uri("/.well-known/change-password").exchange().expectStatus().isFound().expectHeader()
