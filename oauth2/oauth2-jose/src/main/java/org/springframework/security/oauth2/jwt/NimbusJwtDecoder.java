@@ -157,8 +157,8 @@ public final class NimbusJwtDecoder implements JwtDecoder {
 			Map<String, Object> claims = this.claimSetConverter.convert(jwtClaimsSet.getClaims());
 			// @formatter:off
 			return Jwt.withTokenValue(token)
-					.headers((h) -> h.putAll(headers))
-					.claims((c) -> c.putAll(claims))
+					.headers(h -> h.putAll(headers))
+					.claims(c -> c.putAll(claims))
 					.build();
 			// @formatter:on
 		}
@@ -218,7 +218,7 @@ public final class NimbusJwtDecoder implements JwtDecoder {
 	 * @see JwtDecoders
 	 */
 	public static JwkSetUriJwtDecoderBuilder withIssuerLocation(String issuer) {
-		return new JwkSetUriJwtDecoderBuilder((rest) -> {
+		return new JwkSetUriJwtDecoderBuilder(rest -> {
 			Map<String, Object> configuration = JwtDecoderProviderConfigurationUtils
 				.getConfigurationForIssuerLocation(issuer, rest);
 			JwtDecoderProviderConfigurationUtils.validateIssuer(configuration, issuer);
@@ -263,7 +263,7 @@ public final class NimbusJwtDecoder implements JwtDecoder {
 
 		private Function<RestOperations, String> jwkSetUri;
 
-		private Function<JWKSource<SecurityContext>, Set<JWSAlgorithm>> defaultAlgorithms = (source) -> Set
+		private Function<JWKSource<SecurityContext>, Set<JWSAlgorithm>> defaultAlgorithms = source -> Set
 			.of(JWSAlgorithm.RS256);
 
 		private Set<SignatureAlgorithm> signatureAlgorithms = new HashSet<>();
@@ -276,8 +276,8 @@ public final class NimbusJwtDecoder implements JwtDecoder {
 
 		private JwkSetUriJwtDecoderBuilder(String jwkSetUri) {
 			Assert.hasText(jwkSetUri, "jwkSetUri cannot be empty");
-			this.jwkSetUri = (rest) -> jwkSetUri;
-			this.jwtProcessorCustomizer = (processor) -> {
+			this.jwkSetUri = rest -> jwkSetUri;
+			this.jwtProcessorCustomizer = processor -> {
 			};
 		}
 
@@ -287,7 +287,7 @@ public final class NimbusJwtDecoder implements JwtDecoder {
 			Assert.notNull(defaultAlgorithms, "defaultAlgorithms function cannot be null");
 			this.jwkSetUri = jwkSetUri;
 			this.defaultAlgorithms = defaultAlgorithms;
-			this.jwtProcessorCustomizer = (processor) -> {
+			this.jwtProcessorCustomizer = processor -> {
 			};
 		}
 
@@ -446,7 +446,7 @@ public final class NimbusJwtDecoder implements JwtDecoder {
 
 			@Override
 			public JWKSet get() {
-				return (!requiresRefresh()) ? this.jwkSet : null;
+				return !requiresRefresh() ? this.jwkSet : null;
 
 			}
 
@@ -508,7 +508,7 @@ public final class NimbusJwtDecoder implements JwtDecoder {
 			Assert.notNull(key, "key cannot be null");
 			this.jwsAlgorithm = JWSAlgorithm.RS256;
 			this.key = key;
-			this.jwtProcessorCustomizer = (processor) -> {
+			this.jwtProcessorCustomizer = processor -> {
 			};
 		}
 
@@ -583,7 +583,7 @@ public final class NimbusJwtDecoder implements JwtDecoder {
 		private SecretKeyJwtDecoderBuilder(SecretKey secretKey) {
 			Assert.notNull(secretKey, "secretKey cannot be null");
 			this.secretKey = secretKey;
-			this.jwtProcessorCustomizer = (processor) -> {
+			this.jwtProcessorCustomizer = processor -> {
 			};
 		}
 

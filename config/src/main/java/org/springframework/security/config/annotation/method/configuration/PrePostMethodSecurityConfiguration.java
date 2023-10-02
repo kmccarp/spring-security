@@ -123,7 +123,7 @@ final class PrePostMethodSecurityConfiguration {
 	private static MethodSecurityExpressionHandler defaultExpressionHandler(
 			ObjectProvider<GrantedAuthorityDefaults> defaultsProvider, ApplicationContext context) {
 		DefaultMethodSecurityExpressionHandler handler = new DefaultMethodSecurityExpressionHandler();
-		defaultsProvider.ifAvailable((d) -> handler.setDefaultRolePrefix(d.getRolePrefix()));
+		defaultsProvider.ifAvailable(d -> handler.setDefaultRolePrefix(d.getRolePrefix()));
 		handler.setApplicationContext(context);
 		return handler;
 	}

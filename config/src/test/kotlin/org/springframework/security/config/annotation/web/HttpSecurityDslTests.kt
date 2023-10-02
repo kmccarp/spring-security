@@ -573,7 +573,7 @@ class HttpSecurityDslTests {
     }
 
     class CustomSecurityConfigurer<H : HttpSecurityBuilder<H>> : AbstractHttpConfigurer<CustomSecurityConfigurer<H>, H>() {
-        var filter: Filter? = null
+        var filter: Filter?
         override fun init(builder: H) {
             filter = filter ?: UsernamePasswordAuthenticationFilter()
         }

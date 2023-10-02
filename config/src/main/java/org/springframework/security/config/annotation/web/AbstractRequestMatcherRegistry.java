@@ -65,7 +65,7 @@ public abstract class AbstractRequestMatcherRegistry<C> {
 
 	private ApplicationContext context;
 
-	private boolean anyRequestConfigured = false;
+	private boolean anyRequestConfigured;
 
 	static {
 		mvcPresent = ClassUtils.isPresent(HANDLER_MAPPING_INTROSPECTOR,
@@ -342,7 +342,7 @@ public abstract class AbstractRequestMatcherRegistry<C> {
 		}
 
 		static RequestMatcher[] antMatchersAsArray(HttpMethod httpMethod, String... antPatterns) {
-			String method = (httpMethod != null) ? httpMethod.toString() : null;
+			String method = httpMethod != null ? httpMethod.toString() : null;
 			RequestMatcher[] matchers = new RequestMatcher[antPatterns.length];
 			for (int index = 0; index < antPatterns.length; index++) {
 				matchers[index] = new AntPathRequestMatcher(antPatterns[index], method);
@@ -359,7 +359,7 @@ public abstract class AbstractRequestMatcherRegistry<C> {
 		 * @return a {@link List} of {@link RegexRequestMatcher} instances
 		 */
 		static List<RequestMatcher> regexMatchers(HttpMethod httpMethod, String... regexPatterns) {
-			String method = (httpMethod != null) ? httpMethod.toString() : null;
+			String method = httpMethod != null ? httpMethod.toString() : null;
 			List<RequestMatcher> matchers = new ArrayList<>();
 			for (String pattern : regexPatterns) {
 				matchers.add(new RegexRequestMatcher(pattern, method));

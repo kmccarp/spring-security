@@ -546,7 +546,7 @@ public class AuthorizeHttpRequestsConfigurerTests {
 	}
 
 	private static RequestPostProcessor remoteAddress(String remoteAddress) {
-		return (request) -> {
+		return request -> {
 			request.setRemoteAddr(remoteAddress);
 			return request;
 		};
@@ -607,7 +607,7 @@ public class AuthorizeHttpRequestsConfigurerTests {
 
 		@Bean
 		SecurityFilterChain myFilterChain(HttpSecurity http) throws Exception {
-			return http.authorizeHttpRequests((c) -> c.anyRequest().hasRole("USER")).build();
+			return http.authorizeHttpRequests(c -> c.anyRequest().hasRole("USER")).build();
 		}
 
 	}
@@ -623,7 +623,7 @@ public class AuthorizeHttpRequestsConfigurerTests {
 
 		@Bean
 		SecurityFilterChain myFilterChain(HttpSecurity http) throws Exception {
-			return http.authorizeHttpRequests((c) -> c.anyRequest().hasAnyRole("USER", "ADMIN")).build();
+			return http.authorizeHttpRequests(c -> c.anyRequest().hasAnyRole("USER", "ADMIN")).build();
 		}
 
 	}
@@ -699,7 +699,7 @@ public class AuthorizeHttpRequestsConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			return http
-					.authorizeHttpRequests((requests) -> requests
+					.authorizeHttpRequests(requests -> requests
 						.anyRequest().authenticated()
 						.requestMatchers("/path").hasRole("USER")
 					)
@@ -719,7 +719,7 @@ public class AuthorizeHttpRequestsConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			return http
-					.authorizeHttpRequests((requests) -> requests
+					.authorizeHttpRequests(requests -> requests
 						.anyRequest().access(authorizationManager)
 					)
 					.build();
@@ -757,7 +757,7 @@ public class AuthorizeHttpRequestsConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			return http
-					.authorizeHttpRequests((requests) -> requests
+					.authorizeHttpRequests(requests -> requests
 						.anyRequest().authenticated()
 					)
 					.build();
@@ -790,7 +790,7 @@ public class AuthorizeHttpRequestsConfigurerTests {
 			return http
 					.httpBasic()
 						.and()
-					.authorizeHttpRequests((requests) -> requests
+					.authorizeHttpRequests(requests -> requests
 						.anyRequest().hasAnyAuthority("ROLE_USER")
 					)
 					.build();
@@ -809,7 +809,7 @@ public class AuthorizeHttpRequestsConfigurerTests {
 			return http
 					.httpBasic()
 						.and()
-					.authorizeHttpRequests((requests) -> requests
+					.authorizeHttpRequests(requests -> requests
 						.anyRequest().hasAuthority("ROLE_USER")
 					)
 					.build();
@@ -828,7 +828,7 @@ public class AuthorizeHttpRequestsConfigurerTests {
 			return http
 					.httpBasic()
 						.and()
-					.authorizeHttpRequests((requests) -> requests
+					.authorizeHttpRequests(requests -> requests
 						.anyRequest().hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
 					)
 					.build();
@@ -845,7 +845,7 @@ public class AuthorizeHttpRequestsConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			return http
-					.authorizeHttpRequests((requests) -> requests
+					.authorizeHttpRequests(requests -> requests
 						.anyRequest().hasRole("USER")
 					)
 					.build();
@@ -862,7 +862,7 @@ public class AuthorizeHttpRequestsConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			return http
-					.authorizeHttpRequests((requests) -> requests
+					.authorizeHttpRequests(requests -> requests
 						.anyRequest().hasRole("USER")
 					)
 					.build();
@@ -886,7 +886,7 @@ public class AuthorizeHttpRequestsConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			return http
-					.authorizeHttpRequests((requests) -> requests
+					.authorizeHttpRequests(requests -> requests
 						.anyRequest().hasAnyRole("USER", "ADMIN")
 					)
 					.build();
@@ -905,7 +905,7 @@ public class AuthorizeHttpRequestsConfigurerTests {
 			return http
 					.httpBasic()
 						.and()
-					.authorizeHttpRequests((requests) -> requests
+					.authorizeHttpRequests(requests -> requests
 						.anyRequest().denyAll()
 					)
 					.build();
@@ -922,7 +922,7 @@ public class AuthorizeHttpRequestsConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			return http
-					.authorizeHttpRequests((requests) -> requests
+					.authorizeHttpRequests(requests -> requests
 						.anyRequest().permitAll()
 					)
 					.build();
@@ -941,7 +941,7 @@ public class AuthorizeHttpRequestsConfigurerTests {
 			return http
 					.httpBasic()
 						.and()
-					.authorizeHttpRequests((requests) -> requests
+					.authorizeHttpRequests(requests -> requests
 						.anyRequest().authenticated()
 					)
 					.authorizeHttpRequests(withDefaults())
@@ -962,7 +962,7 @@ public class AuthorizeHttpRequestsConfigurerTests {
 				.servletPath("/spring");
 			// @formatter:off
 			return http
-					.authorizeHttpRequests((requests) -> requests
+					.authorizeHttpRequests(requests -> requests
 						.requestMatchers(mvcMatcherBuilder.pattern("/")).hasRole("ADMIN")
 					)
 					.build();
@@ -981,7 +981,7 @@ public class AuthorizeHttpRequestsConfigurerTests {
 			return http
 					.httpBasic()
 						.and()
-					.authorizeHttpRequests((requests) -> requests
+					.authorizeHttpRequests(requests -> requests
 						.anyRequest().authenticated()
 					)
 					.build();
@@ -998,7 +998,7 @@ public class AuthorizeHttpRequestsConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			return http
-					.authorizeHttpRequests((requests) -> requests
+					.authorizeHttpRequests(requests -> requests
 						.anyRequest().access(new WebExpressionAuthorizationManager("hasRole('USER')"))
 					)
 					.build();
@@ -1015,7 +1015,7 @@ public class AuthorizeHttpRequestsConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			return http
-					.authorizeHttpRequests((requests) -> requests
+					.authorizeHttpRequests(requests -> requests
 						.anyRequest().access(new WebExpressionAuthorizationManager("hasRole('USER') or hasRole('ADMIN')"))
 					)
 					.build();
@@ -1032,7 +1032,7 @@ public class AuthorizeHttpRequestsConfigurerTests {
 		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			// @formatter:off
 			return http
-					.authorizeHttpRequests((requests) -> requests
+					.authorizeHttpRequests(requests -> requests
 						.anyRequest().access(new WebExpressionAuthorizationManager("hasIpAddress('127.0.0.1')"))
 					)
 					.build();
@@ -1051,7 +1051,7 @@ public class AuthorizeHttpRequestsConfigurerTests {
 			// @formatter:off
 			http
 				.httpBasic(withDefaults())
-				.authorizeHttpRequests((requests) -> requests
+				.authorizeHttpRequests(requests -> requests
 					.requestMatchers("/user/{username}").access(new WebExpressionAuthorizationManager("#username == 'user'"))
 				);
 			// @formatter:on
@@ -1080,7 +1080,7 @@ public class AuthorizeHttpRequestsConfigurerTests {
 			http
 				.httpBasic(withDefaults())
 				.rememberMe(withDefaults())
-				.authorizeHttpRequests((requests) -> requests
+				.authorizeHttpRequests(requests -> requests
 					.anyRequest().fullyAuthenticated()
 				);
 			// @formatter:on
@@ -1104,7 +1104,7 @@ public class AuthorizeHttpRequestsConfigurerTests {
 			http
 				.httpBasic(withDefaults())
 				.rememberMe(withDefaults())
-				.authorizeHttpRequests((requests) -> requests
+				.authorizeHttpRequests(requests -> requests
 					.anyRequest().rememberMe()
 				);
 			// @formatter:on
@@ -1127,7 +1127,7 @@ public class AuthorizeHttpRequestsConfigurerTests {
 			// @formatter:off
 			http
 				.httpBasic(withDefaults())
-				.authorizeHttpRequests((requests) -> requests
+				.authorizeHttpRequests(requests -> requests
 					.anyRequest().anonymous()
 				);
 			// @formatter:on

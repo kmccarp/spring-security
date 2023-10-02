@@ -64,7 +64,7 @@ operator fun ServerHttpSecurity.invoke(httpConfiguration: ServerHttpSecurityDsl.
 @ServerSecurityMarker
 class ServerHttpSecurityDsl(private val http: ServerHttpSecurity, private val init: ServerHttpSecurityDsl.() -> Unit) {
 
-    var authenticationManager: ReactiveAuthenticationManager? = null
+    var authenticationManager: ReactiveAuthenticationManager?
 
     /**
      * Allows configuring the [ServerHttpSecurity] to only be invoked when matching the

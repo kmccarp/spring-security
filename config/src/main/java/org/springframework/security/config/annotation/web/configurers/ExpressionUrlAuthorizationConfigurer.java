@@ -97,7 +97,7 @@ public final class ExpressionUrlAuthorizationConfigurer<H extends HttpSecurityBu
 
 	private final String rolePrefix;
 
-	private final ExpressionInterceptUrlRegistry REGISTRY;
+	private static final ExpressionInterceptUrlRegistry REGISTRY;
 
 	private SecurityExpressionHandler<FilterInvocation> expressionHandler;
 

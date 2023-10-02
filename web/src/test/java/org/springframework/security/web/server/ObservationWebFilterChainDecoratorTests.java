@@ -90,16 +90,16 @@ public class ObservationWebFilterChainDecoratorTests {
 		WebFilterChain chain = mock(WebFilterChain.class);
 		given(chain.filter(any())).willReturn(Mono.empty());
 		WebFilterChain decorated = decorator.decorate(chain,
-				List.of((e, c) -> c.filter(e).then(Mono.deferContextual((context) -> {
+				List.of((e, c) -> c.filter(e).then(Mono.deferContextual(context -> {
 					Observation parentObservation = context.getOrDefault(ObservationThreadLocalAccessor.KEY, null);
 					Observation observation = Observation.createNotStarted("custom", registry)
 						.parentObservation(parentObservation)
 						.contextualName("custom")
 						.start();
 					return Mono.just("3")
-						.doOnSuccess((v) -> observation.stop())
+						.doOnSuccess(v -> observation.stop())
 						.doOnCancel(observation::stop)
-						.doOnError((t) -> {
+						.doOnError(t -> {
 							observation.error(t);
 							observation.stop();
 						})
@@ -108,7 +108,7 @@ public class ObservationWebFilterChainDecoratorTests {
 		Observation http = Observation.start("http", registry).contextualName("http");
 		try {
 			decorated.filter(MockServerWebExchange.from(MockServerHttpRequest.get("/").build()))
-				.contextWrite((context) -> context.put(ObservationThreadLocalAccessor.KEY, http))
+				.contextWrite(context -> context.put(ObservationThreadLocalAccessor.KEY, http))
 				.block();
 		}
 		finally {

@@ -84,13 +84,13 @@ public final class ChannelSecurityConfigurer<H extends HttpSecurityBuilder<H>>
 
 	private ChannelProcessingFilter channelFilter = new ChannelProcessingFilter();
 
-	private LinkedHashMap<RequestMatcher, Collection<ConfigAttribute>> requestMap = new LinkedHashMap<>();
+    private final LinkedHashMap<RequestMatcher, Collection<ConfigAttribute>> requestMap = new LinkedHashMap<>();
 
 	private List<ChannelProcessor> channelProcessors;
 
 	private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 
-	private final ChannelRequestMatcherRegistry REGISTRY;
+	private static final ChannelRequestMatcherRegistry REGISTRY;
 
 	/**
 	 * Creates a new instance

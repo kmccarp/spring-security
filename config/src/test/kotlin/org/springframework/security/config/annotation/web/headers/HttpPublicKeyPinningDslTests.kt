@@ -44,8 +44,8 @@ class HttpPublicKeyPinningDslTests {
     @Autowired
     lateinit var mockMvc: MockMvc
 
-    private val HPKP_RO_HEADER_NAME = "Public-Key-Pins-Report-Only"
-    private val HPKP_HEADER_NAME = "Public-Key-Pins"
+    private static val HPKP_RO_HEADER_NAME = "Public-Key-Pins-Report-Only"
+    private static val HPKP_HEADER_NAME = "Public-Key-Pins"
 
     @Test
     fun `headers when HPKP configured and no pin then no headers in response`() {

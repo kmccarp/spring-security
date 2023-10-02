@@ -106,15 +106,15 @@ public final class AuthorizationManagerAfterReactiveMethodInterceptor
 									+ "(for example, a Mono or Flux) in order to support Reactor Context",
 							type, method));
 		Mono<Authentication> authentication = ReactiveAuthenticationUtils.getAuthentication();
-		Function<Object, Mono<?>> postAuthorize = (result) -> postAuthorize(authentication, mi, result);
+		Function<Object, Mono<?>> postAuthorize = result -> postAuthorize(authentication, mi, result);
 		ReactiveAdapter adapter = ReactiveAdapterRegistry.getSharedInstance().getAdapter(type);
 		Publisher<?> publisher = ReactiveMethodInvocationUtils.proceed(mi);
 		if (isMultiValue(type, adapter)) {
 			Flux<?> flux = Flux.from(publisher).flatMap(postAuthorize);
-			return (adapter != null) ? adapter.fromPublisher(flux) : flux;
+			return adapter != null ? adapter.fromPublisher(flux) : flux;
 		}
 		Mono<?> mono = Mono.from(publisher).flatMap(postAuthorize);
-		return (adapter != null) ? adapter.fromPublisher(mono) : mono;
+		return adapter != null ? adapter.fromPublisher(mono) : mono;
 	}
 
 	private boolean isMultiValue(Class<?> returnType, ReactiveAdapter adapter) {

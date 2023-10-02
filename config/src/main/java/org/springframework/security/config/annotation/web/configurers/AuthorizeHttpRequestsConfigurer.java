@@ -77,7 +77,7 @@ public final class AuthorizeHttpRequestsConfigurer<H extends HttpSecurityBuilder
 		else {
 			this.publisher = new SpringAuthorizationEventPublisher(context);
 		}
-		this.roleHierarchy = SingletonSupplier.of(() -> (context.getBeanNamesForType(RoleHierarchy.class).length > 0)
+		this.roleHierarchy = SingletonSupplier.of(() -> context.getBeanNamesForType(RoleHierarchy.class).length > 0
 				? context.getBean(RoleHierarchy.class) : new NullRoleHierarchy());
 		String[] grantedAuthorityDefaultsBeanNames = context.getBeanNamesForType(GrantedAuthorityDefaults.class);
 		if (grantedAuthorityDefaultsBeanNames.length > 0) {
@@ -160,7 +160,7 @@ public final class AuthorizeHttpRequestsConfigurer<H extends HttpSecurityBuilder
 
 		private void addFirst(RequestMatcher matcher, AuthorizationManager<RequestAuthorizationContext> manager) {
 			this.unmappedMatchers = null;
-			this.managerBuilder.mappings((m) -> m.add(0, new RequestMatcherEntry<>(matcher, manager)));
+			this.managerBuilder.mappings(m -> m.add(0, new RequestMatcherEntry<>(matcher, manager)));
 			this.mappingCount++;
 		}
 
