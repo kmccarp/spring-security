@@ -380,7 +380,7 @@ public class PrePostMethodSecurityConfigurationTests {
 	public void repeatedAnnotationsWhenPresentThenFails() {
 		this.spring.register(MethodSecurityServiceConfig.class).autowire();
 		assertThatExceptionOfType(AnnotationConfigurationException.class)
-			.isThrownBy(() -> this.methodSecurityService.repeatedAnnotations());
+			.isThrownBy(this.methodSecurityService::repeatedAnnotations);
 	}
 
 	// gh-3183
@@ -388,7 +388,7 @@ public class PrePostMethodSecurityConfigurationTests {
 	public void repeatedJsr250AnnotationsWhenPresentThenFails() {
 		this.spring.register(Jsr250Config.class).autowire();
 		assertThatExceptionOfType(AnnotationConfigurationException.class)
-			.isThrownBy(() -> this.businessService.repeatedAnnotations());
+			.isThrownBy(this.businessService::repeatedAnnotations);
 	}
 
 	// gh-3183
@@ -396,7 +396,7 @@ public class PrePostMethodSecurityConfigurationTests {
 	public void repeatedSecuredAnnotationsWhenPresentThenFails() {
 		this.spring.register(SecuredConfig.class).autowire();
 		assertThatExceptionOfType(AnnotationConfigurationException.class)
-			.isThrownBy(() -> this.businessService.repeatedAnnotations());
+			.isThrownBy(this.businessService::repeatedAnnotations);
 	}
 
 	@WithMockUser
@@ -404,7 +404,7 @@ public class PrePostMethodSecurityConfigurationTests {
 	public void preAuthorizeWhenAuthorizationEventPublisherThenUses() {
 		this.spring.register(MethodSecurityServiceConfig.class, AuthorizationEventPublisherConfig.class).autowire();
 		assertThatExceptionOfType(AccessDeniedException.class)
-			.isThrownBy(() -> this.methodSecurityService.preAuthorize());
+			.isThrownBy(this.methodSecurityService::preAuthorize);
 		AuthorizationEventPublisher publisher = this.spring.getContext().getBean(AuthorizationEventPublisher.class);
 		verify(publisher).publishAuthorizationEvent(any(Supplier.class), any(MethodInvocation.class),
 				any(AuthorizationDecision.class));
@@ -448,7 +448,7 @@ public class PrePostMethodSecurityConfigurationTests {
 	}
 
 	private static Consumer<ConfigurableWebApplicationContext> disallowBeanOverriding() {
-		return (context) -> ((AnnotationConfigWebApplicationContext) context).setAllowBeanDefinitionOverriding(false);
+		return context -> ((AnnotationConfigWebApplicationContext) context).setAllowBeanDefinitionOverriding(false);
 	}
 
 	@Configuration
@@ -586,7 +586,7 @@ public class PrePostMethodSecurityConfigurationTests {
 		Advisor customAfterAdvice(SecurityContextHolderStrategy strategy) {
 			JdkRegexpMethodPointcut pointcut = new JdkRegexpMethodPointcut();
 			pointcut.setPattern(".*MethodSecurityServiceImpl.*securedUser");
-			MethodInterceptor interceptor = (mi) -> {
+			MethodInterceptor interceptor = mi -> {
 				Authentication auth = strategy.getContext().getAuthentication();
 				if ("bob".equals(auth.getName())) {
 					return "granted";

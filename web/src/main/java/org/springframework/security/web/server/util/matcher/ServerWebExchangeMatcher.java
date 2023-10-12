@@ -38,10 +38,10 @@ public interface ServerWebExchangeMatcher {
 	 */
 	Mono<MatchResult> matches(ServerWebExchange exchange);
 
-	/**
-	 * The result of matching
-	 */
-	class MatchResult {
+    /**
+     * The result of matching
+     */
+    final class MatchResult {
 
 		private final boolean match;
 

@@ -36,9 +36,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 public class MapBasedMethodSecurityMetadataSourceTests {
 
-	private final List<ConfigAttribute> ROLE_A = SecurityConfig.createList("ROLE_A");
+	private static final List<ConfigAttribute> ROLE_A = SecurityConfig.createList("ROLE_A");
 
-	private final List<ConfigAttribute> ROLE_B = SecurityConfig.createList("ROLE_B");
+	private static final List<ConfigAttribute> ROLE_B = SecurityConfig.createList("ROLE_B");
 
 	private MapBasedMethodSecurityMetadataSource mds;
 

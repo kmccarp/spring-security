@@ -68,7 +68,7 @@ public class AbstractConfiguredSecurityBuilderTests {
 	@Test
 	public void buildWhenBuildTwiceThenThrowIllegalStateException() throws Exception {
 		this.builder.build();
-		assertThatIllegalStateException().isThrownBy(() -> this.builder.build());
+		assertThatIllegalStateException().isThrownBy(this.builder::build);
 	}
 
 	@Test

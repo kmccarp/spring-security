@@ -211,7 +211,7 @@ class HttpConfigurationBuilder {
 
 	private BeanDefinition invalidSession;
 
-	private boolean addAllAuth;
+    private final boolean addAllAuth;
 
 	HttpConfigurationBuilder(Element element, boolean addAllAuth, ParserContext pc, BeanReference portMapper,
 			BeanReference portResolver, BeanReference authenticationManager, BeanMetadataElement observationRegistry) {
@@ -311,7 +311,7 @@ class HttpConfigurationBuilder {
 	}
 
 	BeanReference getSecurityContextRepositoryForAuthenticationFilters() {
-		return (isExplicitSave()) ? this.contextRepoRef : null;
+		return isExplicitSave() ? this.contextRepoRef : null;
 	}
 
 	private void createSecurityPersistence() {
@@ -543,8 +543,8 @@ class HttpConfigurationBuilder {
 			sessionMgmtFilter.addPropertyReference("invalidSessionStrategy", invalidSessionStrategyRef);
 		}
 		sessionMgmtFilter.addConstructorArgReference(sessionAuthStratRef);
-		boolean registerSessionMgmtFilter = (sessionMgmtElt != null
-				&& "false".equals(sessionMgmtElt.getAttribute(ATT_AUTHENTICATION_STRATEGY_EXPLICIT_INVOCATION)));
+		boolean registerSessionMgmtFilter = sessionMgmtElt != null
+				&& "false".equals(sessionMgmtElt.getAttribute(ATT_AUTHENTICATION_STRATEGY_EXPLICIT_INVOCATION));
 		if (registerSessionMgmtFilter || StringUtils.hasText(errorUrl) || StringUtils.hasText(invalidSessionUrl)
 				|| StringUtils.hasText(invalidSessionStrategyRef)) {
 			this.sfpf = (RootBeanDefinition) sessionMgmtFilter.getBeanDefinition();

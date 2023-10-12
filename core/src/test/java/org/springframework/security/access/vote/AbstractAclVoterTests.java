@@ -33,18 +33,18 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 public class AbstractAclVoterTests {
 
-	private AbstractAclVoter voter = new AbstractAclVoter() {
-		@Override
-		public boolean supports(ConfigAttribute attribute) {
-			return false;
-		}
+    private final AbstractAclVoter voter = new AbstractAclVoter() {
+        @Override
+        public boolean supports(ConfigAttribute attribute) {
+            return false;
+        }
 
-		@Override
-		public int vote(Authentication authentication, MethodInvocation object,
-				Collection<ConfigAttribute> attributes) {
-			return 0;
-		}
-	};
+        @Override
+        public int vote(Authentication authentication, MethodInvocation object,
+                                           Collection<ConfigAttribute> attributes) {
+            return 0;
+        }
+    };
 
 	@Test
 	public void supportsMethodInvocations() {

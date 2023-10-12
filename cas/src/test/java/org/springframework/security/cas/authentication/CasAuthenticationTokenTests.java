@@ -40,7 +40,7 @@ import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException
  */
 public class CasAuthenticationTokenTests {
 
-	private final List<GrantedAuthority> ROLES = AuthorityUtils.createAuthorityList("ROLE_ONE", "ROLE_TWO");
+	private static final List<GrantedAuthority> ROLES = AuthorityUtils.createAuthorityList("ROLE_ONE", "ROLE_TWO");
 
 	private UserDetails makeUserDetails() {
 		return makeUserDetails("user");

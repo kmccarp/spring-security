@@ -48,7 +48,7 @@ final class StaticFinalReflectionUtils {
 			int fieldModifiersMask = field.getModifiers();
 			boolean isFinalModifierPresent = (fieldModifiersMask & Modifier.FINAL) == Modifier.FINAL;
 			if (isFinalModifierPresent) {
-				AccessController.doPrivileged(new PrivilegedAction<Object>() {
+				AccessController.doPrivileged(new PrivilegedAction<>() {
 					@Override
 					public Object run() {
 						try {

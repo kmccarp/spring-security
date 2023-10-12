@@ -74,7 +74,7 @@ public class BearerTokenAuthenticationFilter extends OncePerRequestFilter {
 	private AuthenticationEntryPoint authenticationEntryPoint = new BearerTokenAuthenticationEntryPoint();
 
 	private AuthenticationFailureHandler authenticationFailureHandler = new AuthenticationEntryPointFailureHandler(
-			(request, response, exception) -> this.authenticationEntryPoint.commence(request, response, exception));
+			this.authenticationEntryPoint::commence);
 
 	private BearerTokenResolver bearerTokenResolver = new DefaultBearerTokenResolver();
 
@@ -98,7 +98,7 @@ public class BearerTokenAuthenticationFilter extends OncePerRequestFilter {
 	 */
 	public BearerTokenAuthenticationFilter(AuthenticationManager authenticationManager) {
 		Assert.notNull(authenticationManager, "authenticationManager cannot be null");
-		this.authenticationManagerResolver = (request) -> authenticationManager;
+		this.authenticationManagerResolver = request -> authenticationManager;
 	}
 
 	/**

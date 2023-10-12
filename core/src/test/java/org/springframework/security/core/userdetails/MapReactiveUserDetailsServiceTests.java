@@ -33,8 +33,8 @@ public class MapReactiveUserDetailsServiceTests {
 			.password("password")
 			.roles("USER")
 			.build();
-	// @formatter:on
-	private MapReactiveUserDetailsService users = new MapReactiveUserDetailsService(Arrays.asList(USER_DETAILS));
+    // @formatter:on
+    private final MapReactiveUserDetailsService users = new MapReactiveUserDetailsService(Arrays.asList(USER_DETAILS));
 
 	@Test
 	public void constructorNullUsers() {

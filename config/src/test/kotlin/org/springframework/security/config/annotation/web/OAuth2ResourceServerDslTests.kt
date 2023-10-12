@@ -64,7 +64,7 @@ class OAuth2ResourceServerDslTests {
     @Autowired
     lateinit var mockMvc: MockMvc
 
-    private val JWT: Jwt = Jwt.withTokenValue("token")
+    private static val JWT: Jwt = Jwt.withTokenValue("token")
             .header("alg", "none")
             .claim(SUB, "user")
             .build()

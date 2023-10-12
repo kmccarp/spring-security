@@ -81,7 +81,7 @@ class Md4 {
 		}
 		long bitCount = this.byteCount * 8;
 		for (int i = 0; i < 64; i += 8) {
-			this.buffer[this.bufferOffset++] = (byte) (bitCount >>> (i));
+			this.buffer[this.bufferOffset++] = (byte) (bitCount >>> i);
 		}
 		update(this.buffer, 0);
 		digest(buffer, offset);
@@ -113,56 +113,56 @@ class Md4 {
 		int C = this.state[2];
 		int D = this.state[3];
 
-		A = FF(A, B, C, D, this.tmp[0], 3);
-		D = FF(D, A, B, C, this.tmp[1], 7);
-		C = FF(C, D, A, B, this.tmp[2], 11);
-		B = FF(B, C, D, A, this.tmp[3], 19);
-		A = FF(A, B, C, D, this.tmp[4], 3);
-		D = FF(D, A, B, C, this.tmp[5], 7);
-		C = FF(C, D, A, B, this.tmp[6], 11);
-		B = FF(B, C, D, A, this.tmp[7], 19);
-		A = FF(A, B, C, D, this.tmp[8], 3);
-		D = FF(D, A, B, C, this.tmp[9], 7);
-		C = FF(C, D, A, B, this.tmp[10], 11);
-		B = FF(B, C, D, A, this.tmp[11], 19);
-		A = FF(A, B, C, D, this.tmp[12], 3);
-		D = FF(D, A, B, C, this.tmp[13], 7);
-		C = FF(C, D, A, B, this.tmp[14], 11);
-		B = FF(B, C, D, A, this.tmp[15], 19);
+		A = fF(A, B, C, D, this.tmp[0], 3);
+		D = fF(D, A, B, C, this.tmp[1], 7);
+		C = fF(C, D, A, B, this.tmp[2], 11);
+		B = fF(B, C, D, A, this.tmp[3], 19);
+		A = fF(A, B, C, D, this.tmp[4], 3);
+		D = fF(D, A, B, C, this.tmp[5], 7);
+		C = fF(C, D, A, B, this.tmp[6], 11);
+		B = fF(B, C, D, A, this.tmp[7], 19);
+		A = fF(A, B, C, D, this.tmp[8], 3);
+		D = fF(D, A, B, C, this.tmp[9], 7);
+		C = fF(C, D, A, B, this.tmp[10], 11);
+		B = fF(B, C, D, A, this.tmp[11], 19);
+		A = fF(A, B, C, D, this.tmp[12], 3);
+		D = fF(D, A, B, C, this.tmp[13], 7);
+		C = fF(C, D, A, B, this.tmp[14], 11);
+		B = fF(B, C, D, A, this.tmp[15], 19);
 
-		A = GG(A, B, C, D, this.tmp[0], 3);
-		D = GG(D, A, B, C, this.tmp[4], 5);
-		C = GG(C, D, A, B, this.tmp[8], 9);
-		B = GG(B, C, D, A, this.tmp[12], 13);
-		A = GG(A, B, C, D, this.tmp[1], 3);
-		D = GG(D, A, B, C, this.tmp[5], 5);
-		C = GG(C, D, A, B, this.tmp[9], 9);
-		B = GG(B, C, D, A, this.tmp[13], 13);
-		A = GG(A, B, C, D, this.tmp[2], 3);
-		D = GG(D, A, B, C, this.tmp[6], 5);
-		C = GG(C, D, A, B, this.tmp[10], 9);
-		B = GG(B, C, D, A, this.tmp[14], 13);
-		A = GG(A, B, C, D, this.tmp[3], 3);
-		D = GG(D, A, B, C, this.tmp[7], 5);
-		C = GG(C, D, A, B, this.tmp[11], 9);
-		B = GG(B, C, D, A, this.tmp[15], 13);
+		A = gG(A, B, C, D, this.tmp[0], 3);
+		D = gG(D, A, B, C, this.tmp[4], 5);
+		C = gG(C, D, A, B, this.tmp[8], 9);
+		B = gG(B, C, D, A, this.tmp[12], 13);
+		A = gG(A, B, C, D, this.tmp[1], 3);
+		D = gG(D, A, B, C, this.tmp[5], 5);
+		C = gG(C, D, A, B, this.tmp[9], 9);
+		B = gG(B, C, D, A, this.tmp[13], 13);
+		A = gG(A, B, C, D, this.tmp[2], 3);
+		D = gG(D, A, B, C, this.tmp[6], 5);
+		C = gG(C, D, A, B, this.tmp[10], 9);
+		B = gG(B, C, D, A, this.tmp[14], 13);
+		A = gG(A, B, C, D, this.tmp[3], 3);
+		D = gG(D, A, B, C, this.tmp[7], 5);
+		C = gG(C, D, A, B, this.tmp[11], 9);
+		B = gG(B, C, D, A, this.tmp[15], 13);
 
-		A = HH(A, B, C, D, this.tmp[0], 3);
-		D = HH(D, A, B, C, this.tmp[8], 9);
-		C = HH(C, D, A, B, this.tmp[4], 11);
-		B = HH(B, C, D, A, this.tmp[12], 15);
-		A = HH(A, B, C, D, this.tmp[2], 3);
-		D = HH(D, A, B, C, this.tmp[10], 9);
-		C = HH(C, D, A, B, this.tmp[6], 11);
-		B = HH(B, C, D, A, this.tmp[14], 15);
-		A = HH(A, B, C, D, this.tmp[1], 3);
-		D = HH(D, A, B, C, this.tmp[9], 9);
-		C = HH(C, D, A, B, this.tmp[5], 11);
-		B = HH(B, C, D, A, this.tmp[13], 15);
-		A = HH(A, B, C, D, this.tmp[3], 3);
-		D = HH(D, A, B, C, this.tmp[11], 9);
-		C = HH(C, D, A, B, this.tmp[7], 11);
-		B = HH(B, C, D, A, this.tmp[15], 15);
+		A = hH(A, B, C, D, this.tmp[0], 3);
+		D = hH(D, A, B, C, this.tmp[8], 9);
+		C = hH(C, D, A, B, this.tmp[4], 11);
+		B = hH(B, C, D, A, this.tmp[12], 15);
+		A = hH(A, B, C, D, this.tmp[2], 3);
+		D = hH(D, A, B, C, this.tmp[10], 9);
+		C = hH(C, D, A, B, this.tmp[6], 11);
+		B = hH(B, C, D, A, this.tmp[14], 15);
+		A = hH(A, B, C, D, this.tmp[1], 3);
+		D = hH(D, A, B, C, this.tmp[9], 9);
+		C = hH(C, D, A, B, this.tmp[5], 11);
+		B = hH(B, C, D, A, this.tmp[13], 15);
+		A = hH(A, B, C, D, this.tmp[3], 3);
+		D = hH(D, A, B, C, this.tmp[11], 9);
+		C = hH(C, D, A, B, this.tmp[7], 11);
+		B = hH(B, C, D, A, this.tmp[15], 15);
 
 		this.state[0] += A;
 		this.state[1] += B;
@@ -170,17 +170,17 @@ class Md4 {
 		this.state[3] += D;
 	}
 
-	private int FF(int a, int b, int c, int d, int x, int s) {
+	private int fF(int a, int b, int c, int d, int x, int s) {
 		int t = a + ((b & c) | (~b & d)) + x;
 		return t << s | t >>> (32 - s);
 	}
 
-	private int GG(int a, int b, int c, int d, int x, int s) {
+	private int gG(int a, int b, int c, int d, int x, int s) {
 		int t = a + ((b & (c | d)) | (c & d)) + x + 0x5A827999;
 		return t << s | t >>> (32 - s);
 	}
 
-	private int HH(int a, int b, int c, int d, int x, int s) {
+	private int hH(int a, int b, int c, int d, int x, int s) {
 		int t = a + (b ^ c ^ d) + x + 0x6ED9EBA1;
 		return t << s | t >>> (32 - s);
 	}

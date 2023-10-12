@@ -83,21 +83,21 @@ public class RoleHierarchyImpl implements RoleHierarchy {
 	 * Raw hierarchy configuration where each line represents single or multiple level
 	 * role chain.
 	 */
-	private String roleHierarchyStringRepresentation = null;
+	private String roleHierarchyStringRepresentation;
 
 	/**
 	 * {@code rolesReachableInOneStepMap} is a Map that under the key of a specific role
 	 * name contains a set of all roles reachable from this role in 1 step (i.e. parsed
 	 * {@link #roleHierarchyStringRepresentation} grouped by the higher role)
 	 */
-	private Map<String, Set<GrantedAuthority>> rolesReachableInOneStepMap = null;
+	private Map<String, Set<GrantedAuthority>> rolesReachableInOneStepMap;
 
 	/**
 	 * {@code rolesReachableInOneOrMoreStepsMap} is a Map that under the key of a specific
 	 * role name contains a set of all roles reachable from this role in 1 or more steps
 	 * (i.e. fully resolved hierarchy from {@link #rolesReachableInOneStepMap})
 	 */
-	private Map<String, Set<GrantedAuthority>> rolesReachableInOneOrMoreStepsMap = null;
+	private Map<String, Set<GrantedAuthority>> rolesReachableInOneOrMoreStepsMap;
 
 	/**
 	 * Set the role hierarchy and pre-calculate for every role the set of all reachable
